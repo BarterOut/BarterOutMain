@@ -1,0 +1,45 @@
+.app {
+  width: 360px;
+  padding: 15% 0 0;
+  margin: auto;
+  height: 100%;
+}
+.welcome {
+  text-align: center;
+}
+
+.welcome h1 {
+  font-size: 60px;
+  font-family: 'Patua one';
+}
+
+.link {
+  text-transform: uppercase;
+  padding: 0 10px;
+  color: #710B95;
+  font-weight: 900;
+}
+
+.link:hover, .link:active, .link:focus {
+  color: #710B95;
+  text-decoration: none;
+}
+
+html, body, #root {
+  height: 100%;
+  color: #404137;
+}
+
+body {
+  height: 100%;
+  background: #76b852; /* fallback for old browsers */
+  background: -webkit-linear-gradient(right, #76b852, #8DC26F);
+  background: -moz-linear-gradient(right, #76b852, #8DC26F);
+  background: -o-linear-gradient(right, #76b852, #8DC26F);
+  background: linear-gradient(to left, #76b852, #8DC26F);
+  font-family: "Roboto", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;     
+  padding: 0;
+  margin: 0; 
+}

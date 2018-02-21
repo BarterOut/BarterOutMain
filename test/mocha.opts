@@ -1,0 +1,2 @@
+--require babel-core/register
+--timeout 4000
