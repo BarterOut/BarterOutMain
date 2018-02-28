@@ -14,37 +14,56 @@ body {
     margin-top: 0;
 }
 
+.steps {
+    font-weight: bold;
+}
+
 .headerBar {
     position: fixed;
     background-color: rgba(0,0,0, 0.80);
     width: 100%;
     z-index: 1;
     margin-top: 0%;
-    padding-left: 2.5%;
+    padding-left: 5%;
     padding-right: 1%;
-    padding-top: 1.5%;
-    padding-bottom: 1.5%;
+    padding-top: 1%;
+    padding-bottom: 1%;
     font-size: 20pt;
     font-weight: bold;
     color: white;
 }
 
 .mainText{
+    font-family: "orkneybold";
+    letter-spacing: 2.5px;
     position: relative;
     height: 100vh;
-    width: 50%;
-    text-shadow: 1.5px 1.5px 6px #000000;
-    margin: 0 auto;
+    width: 100%;
+    text-shadow: 0px 2px 8px rgba(0,0,0, 0.75);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .landingpage h1 {
+     color: white;
+     font-size: 40pt;
+     text-align: center;
+     font-style: italic;
+     font-weight: bold;
+     margin-top: 0;
+ }
+
+.landingpage h2 {
     color: white;
-    font-size: 40pt;
+    font-family: "orkneybold";
+    width: 100%;
+    padding-top: 1.25%;
+    padding-bottom: 1.25%;
+    font-size: 25pt;
     text-align: center;
     font-style: italic;
-    font-weight: bold;
-    margin-top: 0;
-    padding-top: 40%;
+    background-color: rgba(129,104,208, 0.80)
 }
 
 .madeSimple {
@@ -53,13 +72,16 @@ body {
     width: 100%;
     text-align: center;
     color: white;
-    text-shadow: 1.5px 1.5px 6px #000000;
-    font-size: 16pt;
+    text-shadow: 0px 2px 8px rgba(0,0,0, 0.50);
+    font-size: 14pt;
     background-color: #FFB814;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .madeSimpleText {
-    padding-top: 10vh;
+    font-family: "orkneyregular";
     padding-left: 15%;
     padding-right: 15%;
 }
@@ -70,32 +92,96 @@ body {
     width: 100%;
     text-align: center;
     color: white;
-    text-shadow: 1.5px 1.5px 6px #000000;
-    font-size: 16pt;
+    text-shadow: 0px 2px 8px rgba(0,0,0, 0.50);
+    font-size: 14pt;
     background-color: dimgray;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    background-image: url("../images/stairs.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 .howItWorksText {
-    padding-top: 25vh;
+    font-family: "orkneyregular";
+    alignment: left;
+    padding-top: 2.5%;
+    width: 40%;
+    height: 100%;
+    background-color: rgba(0,0,0, 0.45);
+}
+
+.howItWorksBodyText {
     padding-left: 15%;
     padding-right: 15%;
+}
+
+#whatWereAboutHeader {
+    font-style: normal;
 }
 
 .whatWereAbout {
     position: relative;
-    height: 225vh;
+    height: 190vh;
     width: 100%;
     text-align: center;
     color: white;
-    text-shadow: 1.5px 1.5px 6px #000000;
-    font-size: 16pt;
+    text-shadow: 0px 2px 8px rgba(0,0,0, 0.50);
+    font-size: 14pt;
     background-color: #25221F;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .whatWereAboutText {
-    padding-top: 25vh;
+    font-family: "orkneyregular";
     padding-left: 15%;
     padding-right: 15%;
+}
+
+.blurbBlock {
+    width: 100%;
+    height: 25%;
+}
+
+.slideInPhotoRight {
+    display: inline-block;
+    float: right;
+    width: 50%;
+}
+.slideInPhotoLeft {
+    display: inline-block;
+    float: left;
+    width: 50%;
+}
+
+.smartPeopleBlock {
+    padding-top: 5%;
+    display: inline-block;
+    float: left;
+    width: 55%;
+    height:100%;
+    padding-bottom: 7.5%;
+}
+
+.helpingOthersBlock {
+    display: inline-block;
+    float: right;
+    width: 55%;
+    height: 100%;
+    padding-bottom: 7.5%;
+}
+
+.fastCheapEasyBlock {
+    display: inline-block;
+    float: left;
+    width: 55%;
+    height: 100%;
+    padding-bottom: 12.5%;
 }
 
 .teamPage {
@@ -104,13 +190,16 @@ body {
     width: 100%;
     text-align: center;
     color: white;
-    text-shadow: 1.5px 1.5px 6px #000000;
-    font-size: 16pt;
+    text-shadow: 0px 2px 8px rgba(0,0,0, 0.50);
+    font-size: 14pt;
     background-color: #FFB814;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .teamPageText {
-    padding-top: 50vh;
+    font-family: "orkneyregular";
     padding-left: 15%;
     padding-right: 15%;
 }
@@ -121,16 +210,51 @@ body {
     width: 100%;
     text-align: center;
     color: white;
-    text-shadow: 1.5px 1.5px 6px #000000;
-    font-size: 16pt;
-    background-color: #8168F8;
+    text-shadow: 0px 4px 8px rgba(0,0,0, 0.50);
+    font-size: 14pt;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    background-image: url("../images/newYork.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 .registrationPageText {
-    padding-top: 25vh;
+    font-family: "orkneyregular";
+    float: left;
+    padding-top: 15%;
+    width: 70%;
+    height: 100%;
+}
+
+.registrationForm {
+    display: inline-block;
+    position: relative;
+    float: right;
+    height: 400px;
+    width: 300px;
+    margin-left: 2.5%;
+    margin-right: 2.5%;
+    margin-top: 5%;
+    margin-bottom: 5%;
+    background-color: rgba(0,0,0, 0.60);
+}
+
+.registrationPageOverlay {
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0,0,0, 0.125);
+}
+
+.registrationPageBodyText {
     padding-left: 15%;
     padding-right: 15%;
 }
+
 
 .landingPageBottom {
     position: relative;
@@ -138,20 +262,40 @@ body {
     width: 100%;
     text-align: center;
     color: white;
-    text-shadow: 1.5px 1.5px 6px #000000;
-    font-size: 16pt;
+    text-shadow: 0px 2px 8px rgba(0,0,0, 0.50);
+    font-size: 14pt;
     font-style: italic;
     font-weight: bold;
     background-color: #25221F;
 }
 
-.firstButton {
+.barterOutButton {
+    font-family: "orkneybold";
     display: block;
     margin: 0 auto;
     background-color: #FF851F;
-    font-weight: bold;
     color: white;
     border-radius: 25vh;
-    width: 25%;
-    height: 6%;
+    border:0 none;
+    width: 175px;
+    height: 50px;
+    font-size: 10pt;
+    -webkit-transition: background-color 0.25s ease-out;
+    -moz-transition: background-color 0.25s ease-out;
+    -o-transition: background-color 0.25s ease-out;
+    transition: background-color 0.25s ease-out;
+}
+
+.barterOutButton:hover {
+    background-color: black;
+}
+
+#registerButton {
+    position: absolute;
+    display: block;
+    left: 0;
+    right: 0;
+    margin: auto;
+    bottom: 0;
+    margin-bottom: 10%;
 }

@@ -1,0 +1,13 @@
+@font-face {
+    font-family: 'orkneyregular';
+    src: url('orkney-regular-webfont.eot');
+    src: url('orkney-regular-webfont.eot?#iefix') format('embedded-opentype'),
+         url('orkney-regular-webfont.woff2') format('woff2'),
+         url('orkney-regular-webfont.woff') format('woff'),
+         url('orkney-regular-webfont.ttf') format('truetype'),
+         url('orkney-regular-webfont.svg#orkneyregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
