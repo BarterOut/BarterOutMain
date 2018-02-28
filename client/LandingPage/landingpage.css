@@ -1,0 +1,157 @@
+body {
+    background-image: url("../images/gradientFirstPage.png");
+    height: 100%;
+    width: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.app {
+    height: 100%;
+    width: 100%;
+    padding-top: 0;
+    margin-top: 0;
+}
+
+.headerBar {
+    position: fixed;
+    background-color: rgba(0,0,0, 0.80);
+    width: 100%;
+    z-index: 1;
+    margin-top: 0%;
+    padding-left: 2.5%;
+    padding-right: 1%;
+    padding-top: 1.5%;
+    padding-bottom: 1.5%;
+    font-size: 20pt;
+    font-weight: bold;
+    color: white;
+}
+
+.mainText{
+    position: relative;
+    height: 100vh;
+    width: 50%;
+    text-shadow: 1.5px 1.5px 6px #000000;
+    margin: 0 auto;
+}
+
+.landingpage h1 {
+    color: white;
+    font-size: 40pt;
+    text-align: center;
+    font-style: italic;
+    font-weight: bold;
+    margin-top: 0;
+    padding-top: 40%;
+}
+
+.madeSimple {
+    position: relative;
+    height: 50vh;
+    width: 100%;
+    text-align: center;
+    color: white;
+    text-shadow: 1.5px 1.5px 6px #000000;
+    font-size: 16pt;
+    background-color: #FFB814;
+}
+
+.madeSimpleText {
+    padding-top: 10vh;
+    padding-left: 15%;
+    padding-right: 15%;
+}
+
+.howItWorks {
+    position: relative;
+    height: 100vh;
+    width: 100%;
+    text-align: center;
+    color: white;
+    text-shadow: 1.5px 1.5px 6px #000000;
+    font-size: 16pt;
+    background-color: dimgray;
+}
+
+.howItWorksText {
+    padding-top: 25vh;
+    padding-left: 15%;
+    padding-right: 15%;
+}
+
+.whatWereAbout {
+    position: relative;
+    height: 225vh;
+    width: 100%;
+    text-align: center;
+    color: white;
+    text-shadow: 1.5px 1.5px 6px #000000;
+    font-size: 16pt;
+    background-color: #25221F;
+}
+
+.whatWereAboutText {
+    padding-top: 25vh;
+    padding-left: 15%;
+    padding-right: 15%;
+}
+
+.teamPage {
+    position: relative;
+    height: 175vh;
+    width: 100%;
+    text-align: center;
+    color: white;
+    text-shadow: 1.5px 1.5px 6px #000000;
+    font-size: 16pt;
+    background-color: #FFB814;
+}
+
+.teamPageText {
+    padding-top: 50vh;
+    padding-left: 15%;
+    padding-right: 15%;
+}
+
+.registrationPage {
+    position: relative;
+    height: 75vh;
+    width: 100%;
+    text-align: center;
+    color: white;
+    text-shadow: 1.5px 1.5px 6px #000000;
+    font-size: 16pt;
+    background-color: #8168F8;
+}
+
+.registrationPageText {
+    padding-top: 25vh;
+    padding-left: 15%;
+    padding-right: 15%;
+}
+
+.landingPageBottom {
+    position: relative;
+    height: 50vh;
+    width: 100%;
+    text-align: center;
+    color: white;
+    text-shadow: 1.5px 1.5px 6px #000000;
+    font-size: 16pt;
+    font-style: italic;
+    font-weight: bold;
+    background-color: #25221F;
+}
+
+.firstButton {
+    display: block;
+    margin: 0 auto;
+    background-color: #FF851F;
+    font-weight: bold;
+    color: white;
+    border-radius: 25vh;
+    width: 25%;
+    height: 6%;
+}
