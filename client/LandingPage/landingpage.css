@@ -150,16 +150,18 @@ body {
 
 .slideInPhotoRight {
     display: inline-block;
+    position: relative;
     float: right;
-    width: 50%;
+    width: 45%;
 }
 .slideInPhotoLeft {
     display: inline-block;
     float: left;
-    width: 50%;
+    width: 45%;
 }
 
 .smartPeopleBlock {
+    position: relative;
     padding-top: 5%;
     display: inline-block;
     float: left;
@@ -170,6 +172,7 @@ body {
 
 .helpingOthersBlock {
     display: inline-block;
+    padding-top: 2.5%;
     float: right;
     width: 55%;
     height: 100%;
@@ -178,6 +181,7 @@ body {
 
 .fastCheapEasyBlock {
     display: inline-block;
+    padding-top: 2.5%;
     float: left;
     width: 55%;
     height: 100%;
@@ -244,6 +248,21 @@ body {
     background-color: rgba(0,0,0, 0.60);
 }
 
+.formTitle {
+    font-family: "orkneybold";
+    text-align: left;
+    font-size: 14pt;
+    padding-top: 5%;
+    padding-left: 7.5%;
+}
+
+.formSubTitle{
+    font-family: "orkneylight";
+    text-align: left;
+    font-size: 10pt;
+    padding-left: 7.5%;
+}
+
 .registrationPageOverlay {
     height: 100%;
     width: 100%;
@@ -290,6 +309,42 @@ body {
     background-color: black;
 }
 
+form{
+    margin-top: 5%;
+}
+input[type=text] {
+    font-family: orkneylight;
+    font-size: 10pt;
+    margin-bottom: 5%;
+    width: 85%;
+    border: 0 none;
+    padding: 2.5% 5%;
+    color: black;
+}
+
+textarea[type=text] {
+    font-family: orkneylight;
+    font-size: 10pt;
+    margin-bottom: 5%;
+    width: 85%;
+    border: 0 none;
+    padding: 2.5% 5%;
+    color: black;
+}
+
+.firstName {
+    margin-bottom: 2.5%;
+}
+
+.lastName {
+    margin-bottom: 2.5%;
+}
+
+.about {
+    margin-bottom: 2.5%;
+    height: 40%;
+}
+
 #registerButton {
     position: absolute;
     display: block;
@@ -297,5 +352,9 @@ body {
     right: 0;
     margin: auto;
     bottom: 0;
-    margin-bottom: 10%;
+    margin-bottom: 5%;
+}
+
+img {
+    width: 450px;
 }

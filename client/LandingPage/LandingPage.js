@@ -10,6 +10,9 @@ import lightFont from './sylesheetOrkneyLight.css';
 import mediumFont from './sylesheetOrkneyMedium.css';
 import boldfont from './sylesheetOrkneyBold.css';
 import animations from './animate.css';
+import picOne from '../images/overtheShoulder.jpg'
+import picTwo from '../images/groupMeeting.jpg'
+import picThree from '../images/outdoors.jpg'
 
 const LandingPage = () => {
     return (
@@ -79,9 +82,9 @@ const LandingPage = () => {
                     <div>
                         <h2 class="animated fadeIn" id="whatWereAboutHeader">WHAT WE'RE ABOUT</h2>
                         <br/>
-                        <div className="blurbBlock  animated fadeInLeft">
-                            <div className="smartPeopleBlock">
-                                <h2 className=" animated fadeInLeft">SMART SHOPPING FOR SMART PEOPLE</h2>
+                        <div className="blurbBlock">
+                            <div className="smartPeopleBlock animated fadeInLeft">
+                                <h2 className="animated fadeInLeft">SMART SHOPPING FOR SMART PEOPLE</h2>
                                 <div className="whatWereAboutText">
                                     <p>
                                         Leave it to our smart search system to meet your needs and do the work for you. Why? So you can have
@@ -89,13 +92,14 @@ const LandingPage = () => {
                                     </p>
                                 </div>
                             </div>
-                            <div className="slideInPhotoRight">
+                            <div className="slideInPhotoRight animated fadeInRight">
+                                <img src={picOne}></img>
                             </div>
                         </div>
 
                         <br/>
-                        <div className="blurbBlock  animated fadeInRight">
-                            <div className="helpingOthersBlock">
+                        <div className="blurbBlock">
+                            <div className="helpingOthersBlock animated fadeInRight">
                                 <h2 className=" animated fadeInRight">WHILE HELPING OTHERS</h2>
                                 <div className="whatWereAboutText">
                                     <p>
@@ -105,13 +109,14 @@ const LandingPage = () => {
                                     </p>
                                 </div>
                             </div>
-                            <div className="slideInPhotoLeft">
+                            <div className="slideInPhotoLeft animated fadeInLeft">
+                                <img src={picTwo}></img>
                             </div>
                         </div>
 
                         <br/>
-                        <div className="blurbBlock animated fadeInLeft">
-                            <div className="fastCheapEasyBlock">
+                        <div className="blurbBlock">
+                            <div className="fastCheapEasyBlock animated fadeInLeft">
                                 <h2 className=" animated fadeInLeft">EASY, FAST & CHEAP</h2>
                                 <div className="whatWereAboutText">
                                     <p>
@@ -121,7 +126,8 @@ const LandingPage = () => {
                                     </p>
                                 </div>
                             </div>
-                            <div className="slideInPhotoRight">
+                            <div className="slideInPhotoRight animated fadeInRight">
+                                <img src={picThree}></img>
                             </div>
                         </div>
                     </div>
@@ -163,7 +169,29 @@ const LandingPage = () => {
                             </div>
                         </div>
                         <div className="registrationForm animated fadeIn">
-                            Form For filling out
+                            <div className="formTitle">
+                                Sign Up Today
+                            </div>
+                            <div className="formSubTitle">
+                                Be one of the first to use BarterOut
+                            </div>
+                            <form>
+                                <div className="formSubTitle">
+                                    First Name
+                                </div>
+                                <input type="text" name="firstName" className="firstName">
+                                </input>
+                                <div className="formSubTitle">
+                                    Last Name
+                                </div>
+                                <input type="text" name="lastName" className="lastName">
+                                </input>
+                                <div className="formSubTitle">
+                                    Tell us a little about you!
+                                </div>
+                                <textarea type="text" name="about" rows="3" className="about">
+                                </textarea>
+                            </form>
                             <button className="barterOutButton animated fadeIn" id="registerButton">Pre-Register</button>
                         </div>
                     </div>
