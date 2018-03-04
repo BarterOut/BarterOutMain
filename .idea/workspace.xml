@@ -44,7 +44,7 @@
       <file leaf-file-name="routes.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/client/routes.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="330">
+            <state relative-caret-position="64">
               <caret line="22" column="10" lean-forward="false" selection-start-line="22" selection-start-column="10" selection-end-line="22" selection-end-column="10" />
               <folding>
                 <element signature="e#0#26#0" expanded="true" />
@@ -53,21 +53,23 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="LandingPage.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="LandingPage.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/client/LandingPage/LandingPage.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="190">
-              <caret line="19" column="0" lean-forward="true" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
-              <folding />
+            <state relative-caret-position="160">
+              <caret line="36" column="52" lean-forward="false" selection-start-line="36" selection-start-column="52" selection-end-line="36" selection-end-column="52" />
+              <folding>
+                <element signature="e#0#26#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="landingpage.css" pinned="false" current-in-tab="true">
+      <file leaf-file-name="landingpage.css" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/client/LandingPage/landingpage.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="149">
-              <caret line="247" column="54" lean-forward="false" selection-start-line="247" selection-start-column="54" selection-end-line="247" selection-end-column="54" />
+            <state relative-caret-position="-169">
+              <caret line="47" column="12" lean-forward="false" selection-start-line="47" selection-start-column="12" selection-end-line="47" selection-end-column="12" />
               <folding />
             </state>
           </provider>
@@ -137,8 +139,8 @@
         <option value="$PROJECT_DIR$/client/Welcome/Welcome.js" />
         <option value="$PROJECT_DIR$/client/routes.js" />
         <option value="$PROJECT_DIR$/client/LandingPage/sylesheet.css" />
-        <option value="$PROJECT_DIR$/client/LandingPage/LandingPage.js" />
         <option value="$PROJECT_DIR$/client/LandingPage/landingpage.css" />
+        <option value="$PROJECT_DIR$/client/LandingPage/LandingPage.js" />
       </list>
     </option>
   </component>
@@ -273,12 +275,12 @@
       <workItem from="1519874173215" duration="2908000" />
       <workItem from="1519931338795" duration="379000" />
       <workItem from="1483234438672" duration="271000" />
-      <workItem from="1519977609927" duration="11829000" />
+      <workItem from="1519977609927" duration="18505000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="57852000" />
+    <option name="totallyTimeSpent" value="64528000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -432,7 +434,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="690">
           <caret line="66" column="32" lean-forward="true" selection-start-line="66" selection-start-column="32" selection-end-line="66" selection-end-column="32" />
-          <folding />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -508,7 +512,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="150">
           <caret line="30" column="20" lean-forward="false" selection-start-line="30" selection-start-column="20" selection-end-line="30" selection-end-column="20" />
-          <folding />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -584,7 +590,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2685">
           <caret line="179" column="44" lean-forward="false" selection-start-line="179" selection-start-column="44" selection-end-line="179" selection-end-column="44" />
-          <folding />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -660,14 +668,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/core/App.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="13" column="14" lean-forward="false" selection-start-line="13" selection-start-column="14" selection-end-line="13" selection-end-column="14" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/client/Mern/Mern.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="75">
@@ -702,9 +702,17 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/client/core/App.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="13" column="14" lean-forward="false" selection-start-line="13" selection-start-column="14" selection-end-line="13" selection-end-column="14" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/client/routes.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
+        <state relative-caret-position="64">
           <caret line="22" column="10" lean-forward="false" selection-start-line="22" selection-start-column="10" selection-end-line="22" selection-end-column="10" />
           <folding>
             <element signature="e#0#26#0" expanded="true" />
@@ -712,19 +720,21 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/LandingPage/LandingPage.js">
+    <entry file="file://$PROJECT_DIR$/client/LandingPage/landingpage.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="190">
-          <caret line="19" column="0" lean-forward="true" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
+        <state relative-caret-position="-169">
+          <caret line="47" column="12" lean-forward="false" selection-start-line="47" selection-start-column="12" selection-end-line="47" selection-end-column="12" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/LandingPage/landingpage.css">
+    <entry file="file://$PROJECT_DIR$/client/LandingPage/LandingPage.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="149">
-          <caret line="247" column="54" lean-forward="false" selection-start-line="247" selection-start-column="54" selection-end-line="247" selection-end-column="54" />
-          <folding />
+        <state relative-caret-position="160">
+          <caret line="36" column="52" lean-forward="false" selection-start-line="36" selection-start-column="52" selection-end-line="36" selection-end-column="52" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

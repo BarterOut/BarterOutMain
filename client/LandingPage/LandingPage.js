@@ -10,6 +10,9 @@ import lightFont from './sylesheetOrkneyLight.css';
 import mediumFont from './sylesheetOrkneyMedium.css';
 import boldfont from './sylesheetOrkneyBold.css';
 import animations from './animate.css';
+
+import logoPic from '../images/barterOutOrangeWhiteLogo.png'
+
 import picOne from '../images/overtheShoulderCompressed.jpg'
 import picTwo from '../images/groupMeetingCompressed.jpg'
 import picThree from '../images/outdoorsCompressed.jpg'
@@ -28,9 +31,14 @@ const LandingPage = () => {
             <div className="landingpage">
                 <nav className="headerBar animated slideInDown">
                     <div className="logo">
-                        BarterOut
+                        <a href="#" id="buttonLink"><img id="logoPic" src={logoPic}></img></a>
                     </div>
-                    
+                    <div className="pageLinks">
+                        <a className="madeSimpleLink" id="landingPageLink" href="#madeSimple">Our Product</a>
+                        <a className="ourMissionLink" id="landingPageLink" href="#whatWereAbout">Our Mission</a>
+                        <a className="ourTeamLink" id="landingPageLink" href="#teamPage">Our Team</a>
+                        <a className="preRegisterLink" id="landingPageLink" href="#registrationPage">Pre-Register</a>
+                    </div>
                 </nav>
                 <div className="mainText animated fadeIn" id="mainText">
                     <h1>EVERY BOOK
@@ -38,9 +46,9 @@ const LandingPage = () => {
                         YOU WILL EVER NEED,
                         <br/>
                         HASSLE-FREE</h1>
-                    <button className="barterOutButton">JOIN NOW FREE</button>
+                    <a href="#registrationPage" id="buttonLink"><button className="barterOutButton">JOIN NOW FREE</button></a>
                 </div>
-                <div className="madeSimple">
+                <div className="madeSimple" id="madeSimple">
                     <div className="madeSimpleInfo animated" id="madeSimpleInfo">
                         <h2 className="madeSimpleHeader animated">
                             BUYING AND SELLING MADE SIMPLE
@@ -91,7 +99,7 @@ const LandingPage = () => {
                         </div>
                     </div>
                 </div>
-                <div className="whatWereAbout">
+                <div className="whatWereAbout" id="whatWereAbout">
                     <div className="whatWereAboutInfo" id="whatWereAboutInfo">
                         <h2 class="whatWereAboutHeader animated" id="whatWereAboutHeader">WHAT WE'RE ALL ABOUT</h2>
                         <br/>
@@ -145,10 +153,10 @@ const LandingPage = () => {
                         </div>
                     </div>
                     <div className="blurbBlock">
-                        <button className="barterOutButton animated" id="joinTodayButton">JOIN TODAY</button>
+                        <a href="#registrationPage" id="buttonLink"><button className="barterOutButton animated" id="joinTodayButton" href="#registrationPage">JOIN TODAY</button></a>
                     </div>
                 </div>
-                <div className="teamPage">
+                <div className="teamPage" id="teamPage">
                     <div>
                         <h2 class="animated" id="meetOurTeamHeader">MEET OUR TEAM</h2>
                         <div className="teamPageText" id="teamPageText">
@@ -221,7 +229,7 @@ const LandingPage = () => {
                         </div>
                     </div>
                 </div>
-                <div className="registrationPage">
+                <div className="registrationPage" id="registrationPage">
                     <div className="registrationPageOverlay">
                         <div className="registrationPageInfo" id="registrationPageInfo">
                             <div className="registrationPageText animated">
@@ -263,12 +271,21 @@ const LandingPage = () => {
                                         <a href="#"> Privacy Policy </a>
                                     </div>
                                 </form>
-                                <button className="barterOutButton animated" id="registerButton">Pre-Register</button>
+                                <a href="#registrationPage" id="buttonLink"><button className="barterOutButton animated" id="registerButton">Pre-Register</button></a>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div className="landingPageBottom">
+                    <div id="bottomLinks">
+                        <a href="#" id="bottomPageLink">Careers</a>
+                        <br/>
+                        <a href="#" id="bottomPageLink">Contact</a>
+                        <br/>
+                        <a href="#" id="bottomPageLink">Terms of Service</a>
+                        <br/>
+                        <a href="#" id="bottomPageLink">Privacy Policy</a>
+                    </div>
                 </div>
             </div>
         </div>
