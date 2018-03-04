@@ -1,5 +1,5 @@
 body {
-    background-image: url("../images/gradientFirstPage.png");
+    background-image: url("../images/gradientFirstPageCompressed.jpg");
     height: 100%;
     width: 100%;
     background-position: center;
@@ -25,12 +25,37 @@ body {
     z-index: 1;
     margin-top: 0%;
     padding-left: 5%;
-    padding-right: 1%;
+    padding-right: 5%;
     padding-top: 1%;
     padding-bottom: 1%;
+    color: white;
+}
+
+.logo {
+    float: left;
     font-size: 20pt;
     font-weight: bold;
+}
+
+.pageLinks {
+    float: right;
+    font-size: 14pt;
+    font-weight: bold;
+}
+
+#missionLink {
     color: white;
+    padding: 0% 1%;
+}
+
+#productLink {
+    color: white;
+    padding: 0% 1%;
+}
+
+#joinLink {
+    color: white;
+    padding: 0% 1%;
 }
 
 .mainText{
@@ -99,7 +124,7 @@ body {
     flex-direction: column;
     justify-content: center;
 
-    background-image: url("../images/stairs.jpg");
+    background-image: url("../images/stairsCompressed.jpg");
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -145,7 +170,6 @@ body {
 
 .blurbBlock {
     width: 100%;
-    height: 25%;
 }
 
 .slideInPhotoRight {
@@ -167,7 +191,7 @@ body {
     float: left;
     width: 55%;
     height:100%;
-    padding-bottom: 7.5%;
+    padding-bottom: 10%;
 }
 
 .helpingOthersBlock {
@@ -176,7 +200,7 @@ body {
     float: right;
     width: 55%;
     height: 100%;
-    padding-bottom: 7.5%;
+    padding-bottom: 10%;
 }
 
 .fastCheapEasyBlock {
@@ -185,12 +209,12 @@ body {
     float: left;
     width: 55%;
     height: 100%;
-    padding-bottom: 12.5%;
+    padding-bottom: 10%;
 }
 
 .teamPage {
     position: relative;
-    height: 175vh;
+    height: 165vh;
     width: 100%;
     text-align: center;
     color: white;
@@ -221,7 +245,7 @@ body {
     flex-direction: column;
     justify-content: center;
 
-    background-image: url("../images/newYork.jpg");
+    background-image: url("../images/newYorkCompressed.jpg");
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -239,7 +263,7 @@ body {
     display: inline-block;
     position: relative;
     float: right;
-    height: 400px;
+    height: 425px;
     width: 300px;
     margin-left: 2.5%;
     margin-right: 2.5%;
@@ -277,7 +301,7 @@ body {
 
 .landingPageBottom {
     position: relative;
-    height: 50vh;
+    height: 25vh;
     width: 100%;
     text-align: center;
     color: white;
@@ -303,26 +327,21 @@ body {
     -moz-transition: background-color 0.25s ease-out;
     -o-transition: background-color 0.25s ease-out;
     transition: background-color 0.25s ease-out;
+    -webkit-transition: color 0.25s ease-out;
+    -moz-transition: color 0.25s ease-out;
+    -o-transition: color 0.25s ease-out;
+    transition: color 0.25s ease-out;
 }
 
 .barterOutButton:hover {
-    background-color: black;
+    background-color: #ff8d2d;
+    color: black;
 }
 
 form{
     margin-top: 5%;
 }
 input[type=text] {
-    font-family: orkneylight;
-    font-size: 10pt;
-    margin-bottom: 5%;
-    width: 85%;
-    border: 0 none;
-    padding: 2.5% 5%;
-    color: black;
-}
-
-textarea[type=text] {
     font-family: orkneylight;
     font-size: 10pt;
     margin-bottom: 5%;
@@ -340,9 +359,13 @@ textarea[type=text] {
     margin-bottom: 2.5%;
 }
 
-.about {
+.email {
     margin-bottom: 2.5%;
-    height: 40%;
+}
+
+#agreement {
+    padding-left: 7.5%;
+    padding-right: 7.5%;
 }
 
 #registerButton {
@@ -352,9 +375,45 @@ textarea[type=text] {
     right: 0;
     margin: auto;
     bottom: 0;
-    margin-bottom: 5%;
+    margin-bottom: 10%;
+}
+
+#applyButtonOne {
+    margin-top: 2.5%;
+}
+
+#applyButtonTwo {
+    margin-top: 2.5%;
 }
 
 img {
-    width: 450px;
+    width: 490px;
+}
+
+.staffPhotos {
+     margin: auto;
+}
+
+.adviserPhotos {
+    margin: auto;
+}
+
+table td {
+    padding: 1% 2.5%;
+}
+
+#team {
+    border-radius: 100%;
+    margin: 2.5% 2.5%;
+    width: 200px;
+}
+
+#profile {
+    font-size: 10pt;
+    font-style: italic;
+}
+
+#applyLink {
+    font-family: "orkneyregular";
+    text-shadow: 0px 0px 0px;
 }
