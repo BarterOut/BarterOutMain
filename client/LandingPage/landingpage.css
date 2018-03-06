@@ -453,7 +453,17 @@ table td {
     text-shadow: 0px 0px 0px;
 }
 
-#bottomLinks {
+#bottomLinksCol1 {
+    font-family: "orkneylight";
+    font-style: normal;
+    float: left;
+    padding-left: 5%;
+    padding-top: 1%;
+    font-size: 12pt;
+    text-align: left;
+}
+
+#bottomLinksCol2 {
     font-family: "orkneylight";
     font-style: normal;
     float: left;
@@ -474,4 +484,23 @@ table td {
 
 #buttonLink:hover {
     text-decoration: none;
+}
+
+#profileName {
+    font-style: normal;
+    font-weight: bold;
+}
+
+#bottomLinkHeader {
+    font-family: "orkneybold";
+    font-size: 14pt;
+}
+
+#copyright {
+    font-family: "orkneyregular";
+    text-align: center;
+    justify-content: center;
+    color: white;
+    background-color: #25221F;
+    padding-bottom: 2.5%;
 }

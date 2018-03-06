@@ -169,27 +169,27 @@ const LandingPage = () => {
                                         <div id="profile">
                                             <img id="team" src={teamOne}></img>
                                             <br/>
-                                            Vlad Cuzacu - Co-founder
-                                            <br/>
-                                            & CEO
+                                            <div id="profileName">Vlad Cuzacu</div>
+                                            Co-founder & CEO
                                         </div>
                                     </td>
                                     <td>
                                         <div id="profile">
                                             <img id="team" src={teamTwo}></img>
                                             <br/>
-                                            Pavel Stan - Co-founder
+                                            <div id="profileName">Pavel Stan</div>
+                                            Co-founder & Director
                                             <br/>
-                                            & Director of External Relations
+                                            of External Relations
                                         </div>
                                     </td>
                                     <td>
                                         <div id="profile">
                                             <img id="team" src={teamThree}></img>
                                             <br/>
-                                            Melissa Kagaju - Co-founder
-                                            <br/>
-                                            & Director of External Relations
+                                            <div id="profileName">Melissa Kagaju</div>
+                                            Mobile Software Developer
+
                                         </div>
                                     </td>
                                 </table>
@@ -215,7 +215,8 @@ const LandingPage = () => {
                                     <div id="profile">
                                         <img id="team" src={adviserOne}></img>
                                         <br/>
-                                        Elizabeth Meyer - Strategy Advisor
+                                        <div id="profileName">Elizabeth Meyer</div>
+                                        Strategy Advisor
                                         <br/>
                                     </div>
                                 </td>
@@ -233,7 +234,7 @@ const LandingPage = () => {
                     <div className="registrationPageOverlay">
                         <div className="registrationPageInfo" id="registrationPageInfo">
                             <div className="registrationPageText animated">
-                                <h2 className="registrationPageHeader animated">IT'S GOING TO BE BIG, SO JOIN NOW</h2>
+                                <h2 className="registrationPageHeader animated">IT'S GOING TO BE BIG, JOIN NOW</h2>
                                 <div className="registrationPageBodyText">
                                     <p>
                                         Our algorithm is currently under construction and should be live in late May 2018. Take one
@@ -277,15 +278,22 @@ const LandingPage = () => {
                     </div>
                 </div>
                 <div className="landingPageBottom">
-                    <div id="bottomLinks">
+                    <div id="bottomLinksCol1">
+                        <div id="bottomLinkHeader">Company</div>
                         <a href="#" id="bottomPageLink">Careers</a>
                         <br/>
                         <a href="#" id="bottomPageLink">Contact</a>
                         <br/>
+                    </div>
+                    <div id="bottomLinksCol2">
+                        <div id="bottomLinkHeader">Legal</div>
                         <a href="#" id="bottomPageLink">Terms of Service</a>
                         <br/>
                         <a href="#" id="bottomPageLink">Privacy Policy</a>
                     </div>
+                </div>
+                <div id="copyright">
+                    Copyright © 2018 All Rights Reserved.
                 </div>
             </div>
         </div>
@@ -318,7 +326,7 @@ $(document).ready(function() {
             $('.madeSimpleHeader').addClass('fadeIn');
             $('.madeSimpleText').addClass('fadeInUp');
         },
-        offset: '50%'
+        offset: '70%'
     })
 
     var howItWorksAnimations = new Waypoint({
