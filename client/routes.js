@@ -32,7 +32,7 @@ const PrivateRoute = ({component: Component, rest}) => {
 
 export default (
   <Switch>
-    <Route exact path="/" component={Welcome} />
+    <Route exact path="/" component={LandingPage} />
     <Route path="/mern" component={Mern} />
     <Route path="/landingPage" component={LandingPage} />
   </Switch>
