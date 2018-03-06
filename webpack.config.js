@@ -19,7 +19,7 @@ module.exports = {
   output: {
     path: resolve(__dirname, 'client'),
     filename: '[name].js',
-    publicPath: 'http://localhost:3100/',
+    publicPath: 'http://localhost:8080/',
   },
 
   resolve: {
