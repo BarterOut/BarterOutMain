@@ -11,7 +11,7 @@ import mediumFont from './sylesheetOrkneyMedium.css';
 import boldfont from './sylesheetOrkneyBold.css';
 import animations from './animate.css';
 
-import logoPic from '../images/barterOutOrangeWhiteLogo.png'
+import logoPic from '../images/barterOutOrangeWhiteLogoHeader.png'
 
 import picOne from '../images/overtheShoulderCompressed.jpg'
 import picTwo from '../images/groupMeetingCompressed.jpg'
