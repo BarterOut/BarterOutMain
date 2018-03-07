@@ -34,9 +34,9 @@ const LandingPage = () => {
                         <a href="#" id="buttonLink"><img id="logoPic" src={logoPic}></img></a>
                     </div>
                     <div className="pageLinks">
-                        <a className="madeSimpleLink" id="landingPageLink" href="#madeSimple">Our Product</a>
-                        <a className="ourMissionLink" id="landingPageLink" href="#whatWereAbout">Our Mission</a>
-                        <a className="ourTeamLink" id="landingPageLink" href="#teamPage">Our Team</a>
+                        <a className="productLink" id="landingPageLink" href="#madeSimple">Our Product</a>
+                        <a className="missionLink" id="landingPageLink" href="#whatWereAbout">Our Mission</a>
+                        <a className="teamLink" id="landingPageLink" href="#teamPage">Our Team</a>
                         <a className="preRegisterLink" id="landingPageLink" href="#registrationPage">Pre-Register</a>
                     </div>
                 </nav>

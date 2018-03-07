@@ -29,15 +29,17 @@ body {
     padding-top: 1%;
     padding-bottom: 1%;
     color: white;
-    display: flex;
-    align-items: center;
+    display: block;
+    vertical-align: middle;
 }
 
 .logo {
+    display: block;
+    vertical-align: middle;
+    height: 100%;
     float: left;
     font-size: 20pt;
     font-weight: bold;
-    padding-right: 40%;
 }
 
 #logoPic {
@@ -46,14 +48,21 @@ body {
 }
 
 .pageLinks {
+    padding-right: 5%;
+    display: block;
+    padding-top: 0.5%;
+    vertical-align: middle;
+    height: 100%;
+    float: right;
     font-size: 14pt;
     font-weight: bold;
-    width: 42%;
+    white-space: nowrap;
 }
 
-#landingPageLink{
+#landingPageLink {
+    text-align: center;
     color: white;
-    padding: 0% 2%;
+    padding: 0% 2.5%;
     text-decoration: none;
     -webkit-transition: color 0.25s ease-out;
     -moz-transition: color 0.25s ease-out;
@@ -63,23 +72,25 @@ body {
 
 #landingPageLink:hover {
     color: #FFB814;
-    padding: 0% 2%;
 }
 
 #landingPageLink:active {
     color: #FFB814;
-    padding: 0% 2%;
-}
-
-#missionLink {
-    color: white;
 }
 
 #productLink {
     color: white;
 }
 
-#joinLink {
+#missionLink {
+    color: white;
+}
+
+#teamLink {
+    color: white;
+}
+
+#preRegisterLink {
     color: white;
 }
 
