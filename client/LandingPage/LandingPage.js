@@ -67,7 +67,7 @@ const LandingPage = () => {
                 </div>
                 <div className="howItWorks">
                     <div className="howItWorksText animated" id="howItWorksInfo">
-                        <h2 class="howItWorksHeader animated">HOW IT WORKS</h2>
+                        <h2 className="howItWorksHeader animated">HOW IT WORKS</h2>
                         <div className="howItWorksBodyText">
                             <br/>
                             <div className="steps">
@@ -101,7 +101,7 @@ const LandingPage = () => {
                 </div>
                 <div className="whatWereAbout" id="whatWereAbout">
                     <div className="whatWereAboutInfo" id="whatWereAboutInfo">
-                        <h2 class="whatWereAboutHeader animated" id="whatWereAboutHeader">WHAT WE'RE ALL ABOUT</h2>
+                        <h2 className="whatWereAboutHeader animated" id="whatWereAboutHeader">WHAT WE'RE ALL ABOUT</h2>
                         <br/>
                         <div className="blurbBlock" id="smartPeopleBlock">
                             <div className="smartPeopleBlock animated">
@@ -158,7 +158,7 @@ const LandingPage = () => {
                 </div>
                 <div className="teamPage" id="teamPage">
                     <div>
-                        <h2 class="animated" id="meetOurTeamHeader">MEET OUR TEAM</h2>
+                        <h2 className="animated" id="meetOurTeamHeader">MEET OUR TEAM</h2>
                         <div className="teamPageText" id="teamPageText">
                             <div className="teamTextTop animated">
                                 <br/>
@@ -204,7 +204,7 @@ const LandingPage = () => {
 
                         <br/>
                     <div>
-                        <h2 class="animated" id="meetOurAdvisersHeader">AND OUR ADVISERS</h2>
+                        <h2 className="animated" id="meetOurAdvisersHeader">AND OUR ADVISERS</h2>
                         <div className="adviserPageText" id="adviserPageText">
                             <div className="adviserTextTop animated">
                                 <br/>
