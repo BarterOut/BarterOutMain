@@ -238,7 +238,7 @@ const LandingPage = () => {
                                 <div className="registrationPageBodyText">
                                     <p>
                                         Our algorithm is currently under construction and should be live in late May 2018. Take one
-                                        task out of you to-do list and create a pre-account for FREE today!
+                                        task out of your to-do list and create a pre-account for FREE today!
                                     </p>
                                 </div>
                             </div>
