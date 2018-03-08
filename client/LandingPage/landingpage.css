@@ -221,6 +221,8 @@ body {
 
 .blurbBlock {
     width: 100%;
+    position: relative;
+    overflow: hidden;
 }
 
 .slideInPhotoRight {

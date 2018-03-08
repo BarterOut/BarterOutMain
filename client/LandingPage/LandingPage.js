@@ -367,7 +367,7 @@ $(document).ready(function() {
             $('.helpingOthersBlockHeader').addClass('fadeInRight');
             $('#helpingOthersBlockPhoto').addClass('fadeInLeft');
         },
-        offset: '15%'
+        offset: '50%'
     })
 
     var fastCheapEasyBlockAnimations = new Waypoint({
@@ -378,7 +378,7 @@ $(document).ready(function() {
             $('.fastCheapEaskBlockHeader').addClass('fadeInLeft');
             $('#fastCheapEasyBlockPhoto').addClass('fadeInRight');
         },
-        offset: '1%'
+        offset: '50%'
     })
 
     var joinTodayButtonAnimations = new Waypoint({
