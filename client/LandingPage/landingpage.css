@@ -311,17 +311,17 @@ body {
 
 .registrationPageText {
     font-family: "orkneyregular";
-    float: left;
+    display: inline-block;
     position: relative;
-    padding-top: 15%;
+    vertical-align:middle;
     width: 70%;
     height: 100%;
 }
 
 .registrationForm {
     position: relative;
-    float: right;
-
+    display: inline-block;
+    vertical-align:middle;
     width: 25vw;
     margin-left: 2.5%;
     margin-right: 2.5%;
