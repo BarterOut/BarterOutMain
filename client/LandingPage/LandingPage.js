@@ -93,7 +93,7 @@ const LandingPage = () => {
                                 STEP 3
                             </div>
                             <p>
-                                We match buyers and sellers at the best price handle the textbook delivery for you. All the payments
+                                We match buyers and sellers at the best price, and handle the textbook delivery for you. All payments
                                 are made securely online.
                             </p>
                         </div>
