@@ -127,7 +127,7 @@ body {
 
 .madeSimple {
     position: relative;
-    height: 50vh;
+    height: 100%;
     width: 100%;
     text-align: center;
     color: white;
@@ -137,6 +137,8 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    padding-top: 5%;
+    padding-bottom: 5%;
 }
 
 .madeSimpleText {
@@ -147,7 +149,7 @@ body {
 
 .howItWorks {
     position: relative;
-    height: 100vh;
+    height: 100%;
     width: 100%;
     text-align: center;
     color: white;
@@ -171,6 +173,7 @@ body {
     width: 40%;
     height: 100%;
     background-color: rgba(0,0,0, 0.45);
+    padding-bottom: 5%;
 }
 
 .howItWorksBodyText {
@@ -184,7 +187,7 @@ body {
 
 .whatWereAbout {
     position: relative;
-    height: 200vh;
+    height: 100%;
     width: 100%;
     text-align: center;
     color: white;
@@ -194,6 +197,8 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    padding-top: 5%;
+    padding-bottom: 5%;
 }
 
 .smartPeopleBlockHeader {
@@ -226,6 +231,7 @@ body {
 }
 .slideInPhotoLeft {
     display: inline-block;
+    position: relative;
     float: left;
     width: 45%;
 }
@@ -241,6 +247,7 @@ body {
 }
 
 .helpingOthersBlock {
+    position: relative;
     display: inline-block;
     padding-top: 2.5%;
     float: right;
@@ -250,6 +257,7 @@ body {
 }
 
 .fastCheapEasyBlock {
+    position: relative;
     display: inline-block;
     padding-top: 2.5%;
     float: left;
@@ -260,7 +268,7 @@ body {
 
 .teamPage {
     position: relative;
-    height: 175vh;
+    height: 100%;
     width: 100%;
     text-align: center;
     color: white;
@@ -270,6 +278,8 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    padding-top: 5%;
+    padding-bottom: 5%;
 }
 
 .teamPageText {
@@ -280,7 +290,7 @@ body {
 
 .registrationPage {
     position: relative;
-    height: 75vh;
+    height: 100%;
     width: 100%;
     text-align: center;
     color: white;
@@ -300,17 +310,17 @@ body {
 .registrationPageText {
     font-family: "orkneyregular";
     float: left;
+    position: relative;
     padding-top: 15%;
     width: 70%;
     height: 100%;
 }
 
 .registrationForm {
-    display: inline-block;
     position: relative;
     float: right;
     height: 425px;
-    width: 300px;
+    width: 25vw;
     margin-left: 2.5%;
     margin-right: 2.5%;
     margin-top: 5%;
@@ -347,7 +357,7 @@ body {
 
 .landingPageBottom {
     position: relative;
-    height: 25vh;
+    height: 20vh;
     width: 100%;
     text-align: center;
     color: white;
@@ -422,6 +432,7 @@ input[type=text] {
     margin: auto;
     bottom: 0;
     margin-bottom: 10%;
+    width: 50%;
 }
 
 #applyButtonOne {
@@ -430,10 +441,6 @@ input[type=text] {
 
 #applyButtonTwo {
     margin-top: 2.5%;
-}
-
-img {
-    width: 490px;
 }
 
 .staffPhotos {
@@ -451,7 +458,8 @@ table td {
 #team {
     border-radius: 100%;
     margin: 2.5% 2.5%;
-    width: 200px;
+    max-width: 200px;
+    width: 17.5vw;
 }
 
 #profile {
@@ -514,4 +522,9 @@ table td {
     color: white;
     background-color: #25221F;
     padding-bottom: 2.5%;
+}
+
+img{
+    max-width: 490px;
+    width: 45vw;
 }
