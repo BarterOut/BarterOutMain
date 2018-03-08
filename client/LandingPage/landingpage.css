@@ -321,7 +321,7 @@ body {
 .registrationForm {
     position: relative;
     float: right;
-    height: 425px;
+
     width: 25vw;
     margin-left: 2.5%;
     margin-right: 2.5%;
@@ -427,12 +427,13 @@ input[type=text] {
 }
 
 #registerButton {
-    position: absolute;
+    position: relative;
     display: block;
     left: 0;
     right: 0;
     margin: auto;
     bottom: 0;
+    margin-top: 5%;
     margin-bottom: 10%;
     width: 50%;
 }

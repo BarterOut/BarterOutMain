@@ -169,7 +169,7 @@ const LandingPage = () => {
                                         <div id="profile">
                                             <img id="team" src={teamOne}></img>
                                             <br/>
-                                            <div id="profileName">Vlad Cuzacu</div>
+                                            <div id="profileName">Vlad Cazacu</div>
                                             Co-founder & CEO
                                         </div>
                                     </td>
@@ -271,8 +271,9 @@ const LandingPage = () => {
                                         and
                                         <a href="#"> Privacy Policy </a>
                                     </div>
+                                    <input type="submit" value="Pre-Register" className="barterOutButton animated" id="registerButton">
+                                    </input>
                                 </form>
-                                <a href="#registrationPage" id="buttonLink"><button className="barterOutButton animated" id="registerButton">Pre-Register</button></a>
                             </div>
                         </div>
                     </div>
