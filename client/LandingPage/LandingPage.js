@@ -305,7 +305,7 @@ const LandingPage = () => {
                                     <br/>
                                     Interested in working with us?
                                     <br/>
-                                    <a id="buttonLink" href=""><button className="barterOutButton animated" id="applyButtonOne">Apply Now</button></a>
+                                    <a id="buttonLink" href="/Careers"><button className="barterOutButton animated" id="applyButtonOne">Apply Now</button></a>
                                 </div>
                             </div>
                         <br/>
@@ -377,9 +377,9 @@ const LandingPage = () => {
                                     </input>
                                     <div className="formSubTitle" id="agreement">
                                         By clicking "Pre-Register", you agree to the
-                                        <a href="#"> Terms of Service </a>
+                                        <a href="/TermsOfService"> Terms of Service </a>
                                         and
-                                        <a href="#"> Privacy Policy </a>
+                                        <a href="/PrivacyPolicy"> Privacy Policy </a>
                                     </div>
                                     <input type="submit" value="Pre-Register" className="barterOutButton animated" id="registerButton">
                                     </input>
@@ -391,16 +391,16 @@ const LandingPage = () => {
                 <div className="landingPageBottom">
                     <div id="bottomLinksCol1">
                         <div id="bottomLinkHeader">Company</div>
-                        <a href="#" id="bottomPageLink">Careers</a>
+                        <a href="/Careers" id="bottomPageLink">Careers</a>
                         <br/>
-                        <a href="#" id="bottomPageLink">Contact</a>
+                        <a href="/Contact" id="bottomPageLink">Contact</a>
                         <br/>
                     </div>
                     <div id="bottomLinksCol2">
                         <div id="bottomLinkHeader">Legal</div>
-                        <a href="#" id="bottomPageLink">Terms of Service</a>
+                        <a href="/TermsOfService" id="bottomPageLink">Terms of Service</a>
                         <br/>
-                        <a href="#" id="bottomPageLink">Privacy Policy</a>
+                        <a href="/PrivacyPolicy" id="bottomPageLink">Privacy Policy</a>
                     </div>
                 </div>
                 <div id="socialMedia">

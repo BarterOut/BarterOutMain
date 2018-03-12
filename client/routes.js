@@ -7,6 +7,10 @@ import {
 import Welcome from './Welcome/Welcome';
 import Mern from './Mern/Mern';
 import LandingPage from './LandingPage/LandingPage';
+import TermsOfService from './TermsOfService/TermsOfService';
+import PrivacyPolicy from './PrivacyPolicy/PrivacyPolicy';
+import Contact from './Contact/Contact'
+import Careers from './Careers/Careers';
 
 import store from './store'
 
@@ -33,7 +37,10 @@ const PrivateRoute = ({component: Component, rest}) => {
 export default (
   <Switch>
     <Route exact path="/" component={LandingPage} />
-    <Route path="/mern" component={Mern} />
-    <Route path="/landingPage" component={LandingPage} />
+    <Route path="/TermsOfService" component={TermsOfService} />
+    <Route path="/PrivacyPolicy" component={PrivacyPolicy} />
+    <Route path="/Contact" component={Contact} />
+    <Route path="/Careers" component={Careers} />
+
   </Switch>
 );
