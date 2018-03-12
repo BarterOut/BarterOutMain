@@ -14,6 +14,7 @@ const Careers = () => {
             <div className="careersPage">
                 <div className="container">
                     <div className="pageText animated fadeIn">
+                        <h1>Careers</h1>
                         We currently do not have any positions open, but be sure to check again in the future, as BarterOut is
                         growing every day!
                         <br/>

@@ -15,6 +15,7 @@ const PrivacyPolicy = () => {
                 <div className="wrapper">
                     <div className="container">
                         <div className="pageText animated fadeIn">
+                            <h1>Privacy Policy</h1>
                             <p>This privacy policy has been compiled to better serve those who are concerned with how their<br />&apos;Personally Identifiable Information&apos; (PII) is being used online. PII, as described in US privacy law and<br />information security, is information that can be used on its own or with other information to identify,<br />contact, or locate a single person, or to identify an individual in context. Please read our privacy policy<br />carefully to get a clear understanding of how we collect, use, protect or otherwise handle your<br />Personally Identifiable Information in accordance with our website.</p>
                             <p>What personal information do we collect from the people that visit our blog, website or app?</p>
                             <p>When ordering or registering on our site, as appropriate, you may be asked to enter your name, email<br />address, mailing address, phone number, credit card information or other details to help you with your<br />experience.</p>

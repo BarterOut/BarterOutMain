@@ -6,6 +6,7 @@ import { connect } from 'react-redux'
 
 import styles from './contact.css';
 import regularFont from './sylesheetOrkneyRegular.css';
+import boldfont from './sylesheetOrkneyBold.css';
 import animations from './animate.css';
 
 const Contact = () => {
@@ -14,6 +15,7 @@ const Contact = () => {
             <div className="contactPage">
                 <div className="container">
                     <div className="pageText animated fadeIn">
+                        <h1>Contact</h1>
                         Shoot us a message if you have any questions about us!
                         We can be reached via the following forms of communication:
                         <br/>
