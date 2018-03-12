@@ -396,6 +396,10 @@ body {
     color: black;
 }
 
+.barterOutButton:focus {
+    outline: 0;
+}
+
 form{
     margin-top: 5%;
 }
@@ -438,6 +442,10 @@ input[type=text] {
     width: 50%;
 }
 
+#registerButton:focus {
+    outline: 0;
+}
+
 #applyButtonOne {
     margin-top: 2.5%;
 }
@@ -454,20 +462,49 @@ input[type=text] {
     margin: auto;
 }
 
-table td {
-    padding: 1% 2.5%;
-}
-
-#team {
+#staff {
+    -webkit-transform: rotate(0);
+    -moz-transform: rotate(0);
+    transform: rotate(0);
     border-radius: 100%;
     margin: 2.5% 2.5%;
     max-width: 200px;
     width: 17.5vw;
+    -webkit-transition: opacity 0.5s ease-out;
+    -moz-transition: opacity 0.5s ease-out;
+    -o-transition: opacity 0.5s ease-out;
+    transition: opacity 0.5s ease-out;
+}
+
+#team {
+    -webkit-transform: rotate(0);
+    -moz-transform: rotate(0);
+    transform: rotate(0);
+    border-radius: 100%;
+    margin: 2.5% 2.5%;
+    max-width: 200px;
+    width: 17.5vw;
+    -webkit-transition: opacity 0.5s ease-out;
+    -moz-transition: opacity 0.5s ease-out;
+    -o-transition: opacity 0.5s ease-out;
+    transition: opacity 0.5s ease-out;
+}
+
+
+#team:hover {
+    -webkit-transform: rotate(0);
+    -moz-transform: rotate(0);
+    transform: rotate(0);
+    opacity: 0.50;
 }
 
 #profile {
     font-size: 10pt;
     font-style: italic;
+    padding-top: 5%;
+    padding-bottom: 5%;
+    padding-left: 7.5%;
+    padding-right: 7.5%;
 }
 
 #applyLink {
@@ -530,4 +567,27 @@ table td {
 img{
     max-width: 490px;
     width: 45vw;
+}
+
+#socialMedia {
+    text-align: center;
+    justify-content: center;
+    background-color: #25221F;
+}
+
+#logoImage {
+    margin: 2.5% 0.5%;
+    max-width: 50px;
+    -webkit-transition: opacity 0.25s ease-out;
+    -moz-transition: opacity 0.25s ease-out;
+    -o-transition: opacity 0.25s ease-out;
+    transition: opacity 0.25s ease-out;
+}
+
+#logoImage:hover {
+    opacity: 0.50;
+}
+
+#buttonLink {
+    text-decoration: none;
 }

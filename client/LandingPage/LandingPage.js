@@ -18,10 +18,24 @@ import picTwo from '../images/groupMeetingCompressed.jpg'
 import picThree from '../images/outdoorsCompressed.jpg'
 
 import teamOne from '../images/vladCazacu.jpg'
-import teamTwo from '../images/pavelStan.jpg'
-import teamThree from '../images/melissaKagaju.jpg'
+import teamTwo from '../images/luisNova.jpg'
+import teamThree from '../images/pavelStan.jpg'
+import teamFour from '../images/melissaKagaju.jpg'
+import teamFive from '../images/duncanGrubbs.jpg'
+import teamSix from '../images/zixuChen.jpg'
+import teamSeven from '../images/jovanGianniLee.png'
+import teamEight from '../images/genessisGalindo.jpg'
+import teamNine from '../images/barterOutProfilePhotoWebPage.png'
+import teamTen from '../images/zacquelineBaldwin.jpg'
+import teamEleven from '../images/nikolaiDraganov.jpg'
+import teamTwelve from '../images/barterOutProfilePhotoWebPage.png'
+import teamThirteen from '../images/barterOutProfilePhotoWebPage.png'
 
 import adviserOne from '../images/meyerElizabeth.jpg'
+
+import linkedInLogo from '../images/linkedIn.png'
+import facebookLogo from '../images/facebook.png'
+
 import waypointJS from './noframework.waypoints.min.js'
 import jQuery from './jquery-3.3.1.min.js'
 
@@ -147,7 +161,7 @@ const LandingPage = () => {
                                     </p>
                                 </div>
                             </div>
-                            <div className="slideInPhotoRight animated"  id="fastCheapEasyBlockPhoto">
+                            <div className="slideInPhotoRight animated" id="fastCheapEasyBlockPhoto">
                                 <img src={picThree}></img>
                             </div>
                         </div>
@@ -159,49 +173,137 @@ const LandingPage = () => {
                 <div className="teamPage" id="teamPage">
                     <div>
                         <h2 className="animated" id="meetOurTeamHeader">MEET OUR TEAM</h2>
-                        <div className="teamPageText" id="teamPageText">
                             <div className="teamTextTop animated">
                                 <br/>
                                 A company created by students with the help of other students, all to benefit... well... students
                             </div>
-                                <table className="staffPhotos animated">
-                                    <td>
-                                        <div id="profile">
-                                            <img id="team" src={teamOne}></img>
-                                            <br/>
-                                            <div id="profileName">Vlad Cazacu</div>
-                                            Co-founder & CEO
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div id="profile">
-                                            <img id="team" src={teamTwo}></img>
-                                            <br/>
-                                            <div id="profileName">Pavel Stan</div>
-                                            Co-founder & Director
-                                            <br/>
-                                            of External Relations
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div id="profile">
-                                            <img id="team" src={teamThree}></img>
-                                            <br/>
-                                            <div id="profileName">Melissa Kagaju</div>
-                                            Mobile Software Developer
-
-                                        </div>
-                                    </td>
-                                </table>
-                                <div className="teamTextBottom animated">
+                            <table className="staffPhotos">
+                                <tbody>
+                                    <tr className="animated" id="rowOne">
+                                        <td>
+                                            <div id="profile">
+                                                <a href="https://www.linkedin.com/in/vladcazacu/"><img id="team" src={teamOne}></img></a>
+                                                <br/>
+                                                <div id="profileName">Vlad Cazacu</div>
+                                                Co-founder & CEO
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div id="profile">
+                                                <a href="https://www.linkedin.com/in/luisgerardonova/"><img id="team" src={teamTwo}></img></a>
+                                                <br/>
+                                                <div id="profileName">Luis Nova</div>
+                                                Co-founder & CTO
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div id="profile">
+                                                <a href="https://www.linkedin.com/in/pavel-stan-232911140/"><img id="team" src={teamThree}></img></a>
+                                                <br/>
+                                                <div id="profileName">Pavel Stan</div>
+                                                Co-founder & Director
+                                                <br/>
+                                                of External Relations
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr className="animated" id="rowTwo">
+                                        <td>
+                                            <div id="profile">
+                                                <a href="https://www.linkedin.com/in/melissa-k-7080ba103/"><img id="team" src={teamFour}></img></a>
+                                                <br/>
+                                                <div id="profileName">Melissa Kagaju</div>
+                                                Mobile Software Developer
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div id="profile">
+                                                <a href="https://www.linkedin.com/in/duncan-grubbs-01979a14a/"><img id="team" src={teamFive}></img></a>
+                                                <br/>
+                                                <div id="profileName">Duncan Grubbs</div>
+                                                Software Developer
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div id="profile">
+                                                <a href="https://www.linkedin.com/in/zixu-chen/"><img id="team" src={teamSix}></img></a>
+                                                <br/>
+                                                <div id="profileName">Zixu (Shawn) Chen</div>
+                                                Software Developer
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr className="animated" id="rowThree">
+                                        <td>
+                                            <div id="profile">
+                                                <a href="https://www.linkedin.com/in/jovangianni/"><img id="team" src={teamSeven}></img></a>
+                                                <br/>
+                                                <div id="profileName">Jovan-Gianni Lee</div>
+                                                Software Developer
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div id="profile">
+                                                <a href="https://www.linkedin.com/in/genessis-galindo/"><img id="team" src={teamEight}></img></a>
+                                                <br/>
+                                                <div id="profileName">Genessis Galindo</div>
+                                                Marketing Analyst
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div id="profile">
+                                                <a href="https://www.linkedin.com/in/sam-hirschhorn-03029a7a/"><img id="team" src={teamNine}></img></a>
+                                                <br/>
+                                                <div id="profileName">Sam Hirschhorn</div>
+                                                Video Marketer
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr className="animated" id="rowFour">
+                                        <td>
+                                            <div id="profile">
+                                                <img id="staff" src={teamTen}></img>
+                                                <br/>
+                                                <div id="profileName">Zacqueline Baldwin (ZQ)</div>
+                                                Marketing Intern
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div id="profile">
+                                                <img id="staff" src={teamEleven}></img>
+                                                <br/>
+                                                <div id="profileName">Nikolai Draganov</div>
+                                                Software Development Intern
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div id="profile">
+                                                <img id="staff" src={teamTwelve}></img>
+                                                <br/>
+                                                <div id="profileName">Daniel Munoz</div>
+                                                Software Development Intern
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr className="animated" id="rowFive">
+                                        <td>
+                                            <div id="profile">
+                                                <img id="staff" src={teamThirteen}></img>
+                                                <br/>
+                                                <div id="profileName">Tristan De Lange</div>
+                                                Software Development Intern
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                                <div className="teamTextBottom animated" id="teamTextBottom">
                                     <br/>
                                     Interested in working with us?
                                     <br/>
-                                    <button className="barterOutButton animated" id="applyButtonOne">Apply Now</button>
+                                    <a id="buttonLink" href=""><button className="barterOutButton animated" id="applyButtonOne">Apply Now</button></a>
                                 </div>
                             </div>
-                        </div>
-
                         <br/>
                     <div>
                         <h2 className="animated" id="meetOurAdvisersHeader">AND OUR ADVISERS</h2>
@@ -211,21 +313,25 @@ const LandingPage = () => {
                                 Because any team needs some guidance from time to time
                             </div>
                             <table className="adviserPhotos animated">
-                                <td>
-                                    <div id="profile">
-                                        <img id="team" src={adviserOne}></img>
-                                        <br/>
-                                        <div id="profileName">Elizabeth Meyer</div>
-                                        Strategy Advisor
-                                        <br/>
-                                    </div>
-                                </td>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <div id="profile">
+                                                <a href="https://www.linkedin.com/in/elizabeth-meyer-3483411b/"><img id="team" src={adviserOne}></img></a>
+                                                <br/>
+                                                <div id="profileName">Elizabeth Meyer</div>
+                                                Strategy Advisor
+                                                <br/>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
                             </table>
                             <div className="adviserTextBottom animated">
                                 <br/>
                                 Interested in helping us grow?
                                 <br/>
-                                <button className="barterOutButton animated" id="applyButtonTwo">Apply Now</button>
+                                <a id="buttonLink" href="https://goo.gl/forms/tAXa5huk9hAcaNSH2"><button className="barterOutButton animated" id="applyButtonTwo">Apply Now</button></a>
                             </div>
                         </div>
                     </div>
@@ -293,6 +399,10 @@ const LandingPage = () => {
                         <a href="#" id="bottomPageLink">Privacy Policy</a>
                     </div>
                 </div>
+                <div id="socialMedia">
+                    <a href="https://www.linkedin.com/company/18490388/"><img id="logoImage" src={linkedInLogo}></img></a>
+                    <a href="https://www.facebook.com/BarterOut/"><img id="logoImage" src={facebookLogo}></img></a>
+                </div>
                 <div id="copyright">
                     Copyright © 2018 All Rights Reserved.
                 </div>
@@ -314,7 +424,13 @@ $(document).ready(function() {
     $('#joinTodayButton').css('opacity', 0);
     $('#joinTodayButton').css('opacity', 0);
     $('#meetOurTeamHeader').css('opacity', 0);
-    $('#teamPageText').css('opacity', 0);
+    $('.teamTextTop').css('opacity', 0);
+    $('#rowOne').css('opacity', 0);
+    $('#rowTwo').css('opacity', 0);
+    $('#rowThree').css('opacity', 0);
+    $('#rowFour').css('opacity', 0);
+    $('#rowFive').css('opacity', 0);
+    $('.teamTextBottom').css('opacity', 0);
     $('#meetOurAdvisersHeader').css('opacity', 0);
     $('#adviserPageText').css('opacity', 0);
     $('#registrationPageInfo').css('opacity', 0);
@@ -327,7 +443,7 @@ $(document).ready(function() {
             $('.madeSimpleHeader').addClass('fadeIn');
             $('.madeSimpleText').addClass('fadeInUp');
         },
-        offset: '70%'
+        offset: '75%'
     })
 
     var howItWorksAnimations = new Waypoint({
@@ -346,7 +462,7 @@ $(document).ready(function() {
             $('#whatWereAboutHeader').css('opacity', 100);
             $('#whatWereAboutHeader').addClass('fadeIn')
         },
-        offset: '50%'
+        offset: '70%'
     })
 
     var smartPeopleBlockAnimations = new Waypoint({
@@ -357,7 +473,7 @@ $(document).ready(function() {
             $('.smartPeopleBlockHeader').addClass('fadeInLeft');
             $('#smartPeopleBlockPhoto').addClass('fadeInRight');
         },
-        offset: '50%'
+        offset: '60%'
     })
 
     var helpingOthersBlockAnimations = new Waypoint({
@@ -368,7 +484,7 @@ $(document).ready(function() {
             $('.helpingOthersBlockHeader').addClass('fadeInRight');
             $('#helpingOthersBlockPhoto').addClass('fadeInLeft');
         },
-        offset: '50%'
+        offset: '60%'
     })
 
     var fastCheapEasyBlockAnimations = new Waypoint({
@@ -379,7 +495,7 @@ $(document).ready(function() {
             $('.fastCheapEaskBlockHeader').addClass('fadeInLeft');
             $('#fastCheapEasyBlockPhoto').addClass('fadeInRight');
         },
-        offset: '50%'
+        offset: '60%'
     })
 
     var joinTodayButtonAnimations = new Waypoint({
@@ -396,29 +512,53 @@ $(document).ready(function() {
         handler: function() {
             $('#meetOurTeamHeader').css('opacity', 100);
             $('#meetOurTeamHeader').addClass('fadeIn');
-        },
-        offset: '50%'
-    })
-
-    var meetOurTeam = new Waypoint({
-        element: document.getElementById('meetOurTeamHeader'),
-        handler: function() {
-            $('#meetOurTeamHeader').css('opacity', 100);
-            $('#meetOurTeamHeader').addClass('fadeIn');
-        },
-        offset: '50%'
-    })
-
-    var teamInfo = new Waypoint({
-        element: document.getElementById('teamPageText'),
-        handler: function() {
-            $('#teamPageText').css('opacity', 100);
+            $('.teamTextTop').css('opacity', 100);
             $('.teamTextTop').addClass('fadeInDown');
-            $('.staffPhotos').addClass('fadeIn');
-            $('.teamTextBottom').addClass('fadeInUp');
-            $('.applyButtonOne').addClass('fadeIn');
+            $('#rowOne').css('opacity', 100);
+            $('#rowOne').addClass('fadeIn');
         },
-        offset: '50%'
+        offset: '60%'
+    })
+
+    var teamRowTwoAnimation = new Waypoint({
+        element: document.getElementById('rowTwo'),
+        handler: function() {
+            $('#rowTwo').css('opacity', 100);
+            $('#rowTwo').addClass('fadeIn');
+        },
+        offset: '60%'
+    })
+    var teamRowThreeAnimation = new Waypoint({
+        element: document.getElementById('rowThree'),
+        handler: function() {
+            $('#rowThree').css('opacity', 100);
+            $('#rowThree').addClass('fadeIn');
+        },
+        offset: '60%'
+    })
+    var teamRowFourAnimation = new Waypoint({
+        element: document.getElementById('rowFour'),
+        handler: function() {
+            $('#rowFour').css('opacity', 100);
+            $('#rowFour').addClass('fadeIn');
+        },
+        offset: '60%'
+    })
+    var teamRowFiveAnimation = new Waypoint({
+        element: document.getElementById('rowFive'),
+        handler: function() {
+            $('#rowFive').css('opacity', 100);
+            $('#rowFive').addClass('fadeIn');
+        },
+        offset: '60%'
+    })
+    var teamTextBottomAnimation = new Waypoint({
+        element: document.getElementById('teamTextBottom'),
+        handler: function () {
+        $('.teamTextBottom').css('opacity', 100);
+        $('.teamTextBottom').addClass('fadeInUp');
+        },
+        offset: '80%'
     })
 
     var meetOurAdvisers = new Waypoint({
@@ -426,21 +566,15 @@ $(document).ready(function() {
         handler: function() {
             $('#meetOurAdvisersHeader').css('opacity', 100);
             $('#meetOurAdvisersHeader').addClass('fadeIn');
-        },
-        offset: '50%'
-    })
-
-    var adviserInfo = new Waypoint({
-        element: document.getElementById('adviserPageText'),
-        handler: function() {
             $('#adviserPageText').css('opacity', 100);
             $('.adviserTextTop').addClass('fadeInDown');
             $('.adviserPhotos').addClass('fadeIn');
             $('.adviserTextBottom').addClass('fadeInUp');
             $('.applyButtonTwo').addClass('fadeIn');
         },
-        offset: '50%'
+        offset: '60%'
     })
+
 
     var registrationPageAnimations = new Waypoint({
         element: document.getElementById('registrationPageInfo'),
@@ -451,7 +585,7 @@ $(document).ready(function() {
             $('.registrationForm').addClass('fadeIn');
             $('#registerButton').addClass('fadeIn');
         },
-        offset: '50%'
+        offset: '60%'
     })
 
 });
