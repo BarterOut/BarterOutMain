@@ -2,9 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e556323a-40ad-41b3-a095-f7abad5f2138" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/images/pavelStan.jpg" afterPath="$PROJECT_DIR$/client/images/pavelStan.jpg" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/LandingPage/LandingPage.js" afterPath="$PROJECT_DIR$/client/LandingPage/LandingPage.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/LandingPage/landingpage.css" afterPath="$PROJECT_DIR$/client/LandingPage/landingpage.css" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -61,11 +59,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="LandingPage.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="LandingPage.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/client/LandingPage/LandingPage.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="375">
-              <caret line="402" column="122" lean-forward="false" selection-start-line="402" selection-start-column="122" selection-end-line="402" selection-end-column="122" />
+            <state relative-caret-position="500">
+              <caret line="299" column="45" lean-forward="false" selection-start-line="299" selection-start-column="45" selection-end-line="299" selection-end-column="45" />
               <folding>
                 <element signature="e#0#26#0" expanded="true" />
               </folding>
@@ -73,10 +71,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="landingpage.css" pinned="false" current-in-tab="true">
+      <file leaf-file-name="landingpage.css" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/client/LandingPage/landingpage.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="413">
+            <state relative-caret-position="6589">
               <caret line="578" column="20" lean-forward="false" selection-start-line="578" selection-start-column="20" selection-end-line="578" selection-end-column="20" />
               <folding />
             </state>
@@ -155,8 +153,8 @@
         <option value="$PROJECT_DIR$/server/config.js" />
         <option value="$PROJECT_DIR$/package.json" />
         <option value="$PROJECT_DIR$/webpack.config.js" />
-        <option value="$PROJECT_DIR$/client/LandingPage/LandingPage.js" />
         <option value="$PROJECT_DIR$/client/LandingPage/landingpage.css" />
+        <option value="$PROJECT_DIR$/client/LandingPage/LandingPage.js" />
       </list>
     </option>
   </component>
@@ -318,12 +316,12 @@
       <workItem from="1519977609927" duration="20097000" />
       <workItem from="1520235062776" duration="3435000" />
       <workItem from="1520400680925" duration="5237000" />
-      <workItem from="1520466066218" duration="33348000" />
+      <workItem from="1520466066218" duration="33936000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="116005000" />
+    <option name="totallyTimeSpent" value="116593000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -732,21 +730,21 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/LandingPage/LandingPage.js">
+    <entry file="file://$PROJECT_DIR$/client/LandingPage/landingpage.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="375">
-          <caret line="402" column="122" lean-forward="false" selection-start-line="402" selection-start-column="122" selection-end-line="402" selection-end-column="122" />
-          <folding>
-            <element signature="e#0#26#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="6589">
+          <caret line="578" column="20" lean-forward="false" selection-start-line="578" selection-start-column="20" selection-end-line="578" selection-end-column="20" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/LandingPage/landingpage.css">
+    <entry file="file://$PROJECT_DIR$/client/LandingPage/LandingPage.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="413">
-          <caret line="578" column="20" lean-forward="false" selection-start-line="578" selection-start-column="20" selection-end-line="578" selection-end-column="20" />
-          <folding />
+        <state relative-caret-position="500">
+          <caret line="299" column="45" lean-forward="false" selection-start-line="299" selection-start-column="45" selection-end-line="299" selection-end-column="45" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

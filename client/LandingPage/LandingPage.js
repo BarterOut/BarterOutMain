@@ -193,7 +193,7 @@ const LandingPage = () => {
                                                 <a href="https://www.linkedin.com/in/luisgerardonova/"><img id="team" src={teamTwo}></img></a>
                                                 <br/>
                                                 <div id="profileName">Luis Nova</div>
-                                                Co-founder & CTO
+                                                CTO
                                             </div>
                                         </td>
                                         <td>
@@ -287,12 +287,16 @@ const LandingPage = () => {
                                     </tr>
                                     <tr className="animated" id="rowFive">
                                         <td>
+                                        </td>
+                                        <td>
                                             <div id="profile">
                                                 <img id="staff" src={teamThirteen}></img>
                                                 <br/>
                                                 <div id="profileName">Tristan De Lange</div>
                                                 Software Development Intern
                                             </div>
+                                        </td>
+                                        <td>
                                         </td>
                                     </tr>
                                 </tbody>
