@@ -2,23 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e556323a-40ad-41b3-a095-f7abad5f2138" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/client/Careers/orkney-bold-webfont.woff" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/client/Contact/orkney-bold-webfont.woff" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/client/PrivacyPolicy/orkney-bold-webfont.woff" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/client/TermsOfService/orkney-bold-webfont.woff" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/client/Careers/sylesheetOrkneyBold.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/client/Contact/sylesheetOrkneyBold.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/client/PrivacyPolicy/sylesheetOrkneyBold.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/client/TermsOfService/sylesheetOrkneyBold.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/Careers/careers.css" afterPath="$PROJECT_DIR$/client/Careers/careers.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/Careers/careers.js" afterPath="$PROJECT_DIR$/client/Careers/careers.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/Contact/contact.css" afterPath="$PROJECT_DIR$/client/Contact/contact.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/Contact/contact.js" afterPath="$PROJECT_DIR$/client/Contact/contact.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/PrivacyPolicy/privacyPolicy.css" afterPath="$PROJECT_DIR$/client/PrivacyPolicy/privacyPolicy.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/PrivacyPolicy/privacyPolicy.js" afterPath="$PROJECT_DIR$/client/PrivacyPolicy/privacyPolicy.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/TermsOfService/termsOfService.css" afterPath="$PROJECT_DIR$/client/TermsOfService/termsOfService.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/TermsOfService/termsOfService.js" afterPath="$PROJECT_DIR$/client/TermsOfService/termsOfService.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/routes.js" afterPath="$PROJECT_DIR$/client/routes.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -81,7 +65,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="termsOfService.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="termsOfService.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/client/TermsOfService/termsOfService.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="255">
@@ -89,6 +73,16 @@
               <folding>
                 <element signature="e#0#26#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="routes.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/client/routes.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="57">
+              <caret line="8" column="50" lean-forward="false" selection-start-line="8" selection-start-column="50" selection-end-line="8" selection-end-column="50" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -131,7 +125,6 @@
         <option value="$PROJECT_DIR$/webpack.config.js" />
         <option value="$PROJECT_DIR$/client/core/index.html" />
         <option value="$PROJECT_DIR$/client/LandingPage/landingpage.css" />
-        <option value="$PROJECT_DIR$/client/routes.js" />
         <option value="$PROJECT_DIR$/client/LandingPage/LandingPage.js" />
         <option value="$PROJECT_DIR$/client/Contact/contact.js" />
         <option value="$PROJECT_DIR$/client/Contact/contact.css" />
@@ -141,6 +134,7 @@
         <option value="$PROJECT_DIR$/client/Careers/careers.js" />
         <option value="$PROJECT_DIR$/client/PrivacyPolicy/privacyPolicy.js" />
         <option value="$PROJECT_DIR$/client/TermsOfService/termsOfService.js" />
+        <option value="$PROJECT_DIR$/client/routes.js" />
       </list>
     </option>
   </component>
@@ -200,6 +194,12 @@
               <item name="BarterOut" type="462c0819:PsiDirectoryNode" />
               <item name="client" type="462c0819:PsiDirectoryNode" />
               <item name="Contact" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="BarterOut" type="b2602c69:ProjectViewProjectNode" />
+              <item name="BarterOut" type="462c0819:PsiDirectoryNode" />
+              <item name="client" type="462c0819:PsiDirectoryNode" />
+              <item name="LandingPage" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="BarterOut" type="b2602c69:ProjectViewProjectNode" />
@@ -329,12 +329,12 @@
       <workItem from="1519977609927" duration="20097000" />
       <workItem from="1520235062776" duration="3435000" />
       <workItem from="1520400680925" duration="5237000" />
-      <workItem from="1520466066218" duration="39958000" />
+      <workItem from="1520466066218" duration="40150000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="122615000" />
+    <option name="totallyTimeSpent" value="122807000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -660,14 +660,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/routes.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-186">
-          <caret line="11" column="39" lean-forward="false" selection-start-line="11" selection-start-column="39" selection-end-line="11" selection-end-column="39" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/client/TermsOfService/animate.css">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-564">
@@ -793,6 +785,14 @@
           <folding>
             <element signature="e#0#26#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/routes.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="57">
+          <caret line="8" column="50" lean-forward="false" selection-start-line="8" selection-start-column="50" selection-end-line="8" selection-end-column="50" />
+          <folding />
         </state>
       </provider>
     </entry>
