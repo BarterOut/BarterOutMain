@@ -11,6 +11,7 @@ import TermsOfService from './TermsOfService/termsOfService';
 import PrivacyPolicy from './PrivacyPolicy/privacyPolicy';
 import Contact from './Contact/contact'
 import Careers from './Careers/careers';
+import PreRegister from './PreRegister/preRegister';
 
 import store from './store'
 
@@ -41,6 +42,6 @@ export default (
     <Route path="/PrivacyPolicy" component={PrivacyPolicy} />
     <Route path="/Contact" component={Contact} />
     <Route path="/Careers" component={Careers} />
-
+    <Route path="/preRegister" component={PreRegister} />
   </Switch>
 );

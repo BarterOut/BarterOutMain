@@ -359,21 +359,21 @@ const LandingPage = () => {
                                 <div className="formSubTitle">
                                     Be one of the first to use BarterOut
                                 </div>
-                                <form>
+                                <form method="POST" action="/preRegister">
                                     <div className="formSubTitle">
                                         First Name
                                     </div>
-                                    <input type="text" name="firstName" className="firstName">
+                                    <input type="text" name="firstName" className="firstName" required>
                                     </input>
                                     <div className="formSubTitle">
                                         Last Name
                                     </div>
-                                    <input type="text" name="lastName" className="lastName">
+                                    <input type="text" name="lastName" className="lastName" required>
                                     </input>
                                     <div className="formSubTitle">
                                         Email Address
                                     </div>
-                                    <input type="text" name="email" className="email">
+                                    <input type="email" name="emailAddress" className="email" required>
                                     </input>
                                     <div className="formSubTitle" id="agreement">
                                         By clicking "Pre-Register", you agree to the

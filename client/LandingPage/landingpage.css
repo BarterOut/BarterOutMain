@@ -413,6 +413,16 @@ input[type=text] {
     color: black;
 }
 
+input[type=email] {
+    font-family: orkneylight;
+    font-size: 10pt;
+    margin-bottom: 5%;
+    width: 85%;
+    border: 0 none;
+    padding: 2.5% 5%;
+    color: black;
+}
+
 .firstName {
     margin-bottom: 2.5%;
 }

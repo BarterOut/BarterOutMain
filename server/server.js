@@ -3,6 +3,7 @@ import serverConfig from './config';
 import path from 'path';
 import mongoose from 'mongoose';
 import kittens from './kittens/kitten';
+import User from './models/user'
 
 // Webpack Requirements
 import webpack from 'webpack';
@@ -10,8 +11,13 @@ import config from '../webpack.config';
 import webpackDevMiddleware from 'webpack-dev-middleware';
 import webpackHotMiddleware from 'webpack-hot-middleware';
 
+var bodyParser = require('body-parser');
+
 // Initialize the Express App
 const app = new Express();
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 // Run Webpack dev server in development mode
 if (process.env.NODE_ENV === 'development') {
@@ -42,5 +48,18 @@ app.listen(serverConfig.port, (error) => {
 app.get('*', (req, res) => {
 	res.sendFile(path.join(__dirname, '../client/core/index.html'));
 })
+
+app.post("/preRegister", (req, res) => {
+    var newUser = new User(req.body);
+    newUser.save()
+        .then(item => {
+            res.redirect("/preRegister");
+        })
+        .catch(err => {
+            res.status(400).send("unable to save to database");
+        });
+});
+
+
 
 export default app;
