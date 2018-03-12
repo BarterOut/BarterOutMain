@@ -182,7 +182,7 @@ const LandingPage = () => {
                                     <tr className="animated" id="rowOne">
                                         <td>
                                             <div id="profile">
-                                                <a href="https://www.linkedin.com/in/vladcazacu/"><img id="team" src={teamOne}></img></a>
+                                                <a href="https://www.linkedin.com/in/vladcazacu/" target="_blank"><img id="team" src={teamOne}></img></a>
                                                 <br/>
                                                 <div id="profileName">Vlad Cazacu</div>
                                                 Co-founder & CEO
@@ -190,7 +190,7 @@ const LandingPage = () => {
                                         </td>
                                         <td>
                                             <div id="profile">
-                                                <a href="https://www.linkedin.com/in/luisgerardonova/"><img id="team" src={teamTwo}></img></a>
+                                                <a href="https://www.linkedin.com/in/luisgerardonova/" target="_blank"><img id="team" src={teamTwo}></img></a>
                                                 <br/>
                                                 <div id="profileName">Luis Nova</div>
                                                 CTO
@@ -198,7 +198,7 @@ const LandingPage = () => {
                                         </td>
                                         <td>
                                             <div id="profile">
-                                                <a href="https://www.linkedin.com/in/pavel-stan-232911140/"><img id="team" src={teamThree}></img></a>
+                                                <a href="https://www.linkedin.com/in/pavel-stan-232911140/" target="_blank"><img id="team" src={teamThree}></img></a>
                                                 <br/>
                                                 <div id="profileName">Pavel Stan</div>
                                                 Co-founder & Director
@@ -210,7 +210,7 @@ const LandingPage = () => {
                                     <tr className="animated" id="rowTwo">
                                         <td>
                                             <div id="profile">
-                                                <a href="https://www.linkedin.com/in/melissa-k-7080ba103/"><img id="team" src={teamFour}></img></a>
+                                                <a href="https://www.linkedin.com/in/melissa-k-7080ba103/" target="_blank"><img id="team" src={teamFour}></img></a>
                                                 <br/>
                                                 <div id="profileName">Melissa Kagaju</div>
                                                 Mobile Software Developer
@@ -218,7 +218,7 @@ const LandingPage = () => {
                                         </td>
                                         <td>
                                             <div id="profile">
-                                                <a href="https://www.linkedin.com/in/duncan-grubbs-01979a14a/"><img id="team" src={teamFive}></img></a>
+                                                <a href="https://www.linkedin.com/in/duncan-grubbs-01979a14a/" target="_blank"><img id="team" src={teamFive}></img></a>
                                                 <br/>
                                                 <div id="profileName">Duncan Grubbs</div>
                                                 Software Developer
@@ -226,7 +226,7 @@ const LandingPage = () => {
                                         </td>
                                         <td>
                                             <div id="profile">
-                                                <a href="https://www.linkedin.com/in/zixu-chen/"><img id="team" src={teamSix}></img></a>
+                                                <a href="https://www.linkedin.com/in/zixu-chen/" target="_blank"><img id="team" src={teamSix}></img></a>
                                                 <br/>
                                                 <div id="profileName">Zixu (Shawn) Chen</div>
                                                 Software Developer
@@ -236,7 +236,7 @@ const LandingPage = () => {
                                     <tr className="animated" id="rowThree">
                                         <td>
                                             <div id="profile">
-                                                <a href="https://www.linkedin.com/in/jovangianni/"><img id="team" src={teamSeven}></img></a>
+                                                <a href="https://www.linkedin.com/in/jovangianni/" target="_blank"><img id="team" src={teamSeven}></img></a>
                                                 <br/>
                                                 <div id="profileName">Jovan-Gianni Lee</div>
                                                 Software Developer
@@ -244,7 +244,7 @@ const LandingPage = () => {
                                         </td>
                                         <td>
                                             <div id="profile">
-                                                <a href="https://www.linkedin.com/in/genessis-galindo/"><img id="team" src={teamEight}></img></a>
+                                                <a href="https://www.linkedin.com/in/genessis-galindo/" target="_blank"><img id="team" src={teamEight}></img></a>
                                                 <br/>
                                                 <div id="profileName">Genessis Galindo</div>
                                                 Marketing Analyst
@@ -252,7 +252,7 @@ const LandingPage = () => {
                                         </td>
                                         <td>
                                             <div id="profile">
-                                                <a href="https://www.linkedin.com/in/sam-hirschhorn-03029a7a/"><img id="team" src={teamNine}></img></a>
+                                                <a href="https://www.linkedin.com/in/sam-hirschhorn-03029a7a/" target="_blank"><img id="team" src={teamNine}></img></a>
                                                 <br/>
                                                 <div id="profileName">Sam Hirschhorn</div>
                                                 Video Marketer
@@ -321,7 +321,7 @@ const LandingPage = () => {
                                     <tr>
                                         <td>
                                             <div id="profile">
-                                                <a href="https://www.linkedin.com/in/elizabeth-meyer-3483411b/"><img id="team" src={adviserOne}></img></a>
+                                                <a href="https://www.linkedin.com/in/elizabeth-meyer-3483411b/" target="_blank"><img id="team" src={adviserOne}></img></a>
                                                 <br/>
                                                 <div id="profileName">Elizabeth Meyer</div>
                                                 Strategy Advisor
@@ -335,7 +335,7 @@ const LandingPage = () => {
                                 <br/>
                                 Interested in helping us grow?
                                 <br/>
-                                <a id="buttonLink" href="https://goo.gl/forms/tAXa5huk9hAcaNSH2"><button className="barterOutButton animated" id="applyButtonTwo">Apply Now</button></a>
+                                <a id="buttonLink" href="https://goo.gl/forms/tAXa5huk9hAcaNSH2" target="_blank"><button className="barterOutButton animated" id="applyButtonTwo">Apply Now</button></a>
                             </div>
                         </div>
                     </div>
@@ -404,8 +404,8 @@ const LandingPage = () => {
                     </div>
                 </div>
                 <div id="socialMedia">
-                    <a href="https://www.linkedin.com/company/18490388/"><img id="logoImage" src={linkedInLogo}></img></a>
-                    <a href="https://www.facebook.com/BarterOut/"><img id="logoImage" src={facebookLogo}></img></a>
+                    <a href="https://www.linkedin.com/company/18490388/" target="_blank"><img id="logoImage" src={linkedInLogo}></img></a>
+                    <a href="https://www.facebook.com/BarterOut/" target="_blank"><img id="logoImage" src={facebookLogo}></img></a>
                 </div>
                 <div id="copyright">
                     Copyright © 2018 All Rights Reserved.
