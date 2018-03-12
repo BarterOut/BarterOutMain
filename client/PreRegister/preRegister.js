@@ -16,8 +16,8 @@ const PreRegister = () => {
                     <div className="pageText animated fadeIn">
                         <h1>You've Been Pre-Registered!</h1>
                         Thank you for pre-registering with BarterOut! When the full BarterOut web app is live, we'll
-                        email you a link for you to get set up your full account. Look in your inbox for us
-                        around Summer 2018!
+                        email you a link for you to set up your full account. Be sure to check your inbox for us around
+                        Summer 2018!
                         <br/>
                         <br/>
                         <a id="backLink" href="/">Click Here to Go Back to BarterOut</a>
