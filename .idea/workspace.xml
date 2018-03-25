@@ -2,8 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e556323a-40ad-41b3-a095-f7abad5f2138" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/LandingPage/LandingPage.js" afterPath="$PROJECT_DIR$/client/LandingPage/LandingPage.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/core/index.html" afterPath="$PROJECT_DIR$/client/core/index.html" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -99,7 +97,7 @@
       <file leaf-file-name="LandingPage.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/client/LandingPage/LandingPage.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="6275">
+            <state relative-caret-position="5655">
               <caret line="377" column="92" lean-forward="false" selection-start-line="377" selection-start-column="92" selection-end-line="377" selection-end-column="92" />
               <folding>
                 <element signature="e#0#26#0" expanded="true" />
@@ -111,8 +109,8 @@
       <file leaf-file-name="index.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/client/core/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="105">
-              <caret line="7" column="56" lean-forward="false" selection-start-line="7" selection-start-column="56" selection-end-line="7" selection-end-column="56" />
+            <state relative-caret-position="255">
+              <caret line="17" column="60" lean-forward="false" selection-start-line="17" selection-start-column="60" selection-end-line="17" selection-end-column="60" />
               <folding />
             </state>
           </provider>
@@ -370,12 +368,12 @@
       <workItem from="1520400680925" duration="5237000" />
       <workItem from="1520466066218" duration="40150000" />
       <workItem from="1521429173344" duration="7000" />
-      <workItem from="1521999247382" duration="1321000" />
+      <workItem from="1521999247382" duration="2205000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="130126000" />
+    <option name="totallyTimeSpent" value="131010000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -721,14 +719,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/server/models/user.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="11" column="49" lean-forward="false" selection-start-line="11" selection-start-column="15" selection-end-line="11" selection-end-column="49" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/client/routes.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="660">
@@ -754,6 +744,24 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/LandingPage/LandingPage.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="5655">
+          <caret line="377" column="92" lean-forward="false" selection-start-line="377" selection-start-column="92" selection-end-line="377" selection-end-column="92" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/models/user.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="11" column="49" lean-forward="false" selection-start-line="11" selection-start-column="15" selection-end-line="11" selection-end-column="49" />
           <folding />
         </state>
       </provider>
@@ -792,20 +800,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/LandingPage/LandingPage.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="6275">
-          <caret line="377" column="92" lean-forward="false" selection-start-line="377" selection-start-column="92" selection-end-line="377" selection-end-column="92" />
-          <folding>
-            <element signature="e#0#26#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/client/core/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="7" column="56" lean-forward="false" selection-start-line="7" selection-start-column="56" selection-end-line="7" selection-end-column="56" />
+        <state relative-caret-position="255">
+          <caret line="17" column="60" lean-forward="false" selection-start-line="17" selection-start-column="60" selection-end-line="17" selection-end-column="60" />
           <folding />
         </state>
       </provider>
