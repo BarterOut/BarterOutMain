@@ -373,7 +373,10 @@ const LandingPage = () => {
                                     <div className="formSubTitle">
                                         Email Address
                                     </div>
-                                    <input type="email" name="emailAddress" className="email" required>
+                                    <input type="email" name="emailAddress" className="email"
+                                           required
+                                           pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.+-]+\.edu$"
+                                           title="You can only pre-register with a school (.edu) email.">
                                     </input>
                                     <div className="formSubTitle" id="agreement">
                                         By clicking "Pre-Register", you agree to the
