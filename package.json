@@ -1,7 +1,7 @@
 {
-  "name": "mernstack",
-  "version": "1.0.0",
-  "description": "VirginWifi MERN stack boilerplate",
+  "name": "BarterOut",
+  "version": "0.0.1",
+  "description": "Smart shopping for smart students",
   "main": "index.js",
   "directories": {
     "test": "test"
