@@ -3,7 +3,8 @@ import serverConfig from './config';
 import path from 'path';
 import mongoose from 'mongoose';
 import kittens from './kittens/kitten';
-import User from './models/user'
+import User from './models/user';
+import Textbook from './models/textbook';
 
 // Webpack Requirements
 import webpack from 'webpack';
