@@ -61,6 +61,12 @@ app.post("/preRegister", (req, res) => {
         });
 });
 
+app.post("/postBook", (req, res) => {
+    var newBook = new Textbook(req.body);
+    newBook.save().then(item => {res.redirect("/postBook");})
+        .catch(err => {res.status(400).send("unable to save to database");});
+});
+
 
 
 export default app;
