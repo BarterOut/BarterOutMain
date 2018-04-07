@@ -12,6 +12,7 @@ import PrivacyPolicy from './PrivacyPolicy/privacyPolicy';
 import Contact from './Contact/contact'
 import Careers from './Careers/careers';
 import PreRegister from './PreRegister/preRegister';
+import SubmitTextbook from './SubmitTextbook/SubmitTextbook';
 
 import store from './store'
 
@@ -43,5 +44,6 @@ export default (
     <Route path="/Contact" component={Contact} />
     <Route path="/Careers" component={Careers} />
     <Route path="/preRegister" component={PreRegister} />
+    <Route path="/submitTextbook" component={SubmitTextbook} />
   </Switch>
 );

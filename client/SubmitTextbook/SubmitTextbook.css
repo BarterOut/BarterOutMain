@@ -1,0 +1,12 @@
+.wrapper {
+  background: white;
+  height: 100vh;
+  width: 100vw;
+}
+
+input {
+  width: 300px;
+  max-height: 64px;
+  background: grey;
+  color: white;
+}
