@@ -13,6 +13,7 @@ const textbookSchema = new Schema({
     comments: { type: 'String', required: false },
 });
 
-
+//textbookSchema.index({name: 'text', edition: 'text', subject: 'text', courseNumber: 'text', price: 'text', ISBN: 'text', condition: 'text', owner: 'text', comments: 'text'});
+textbookSchema.index({'$**': 'text'});
 
 export default mongoose.model('Textbook', textbookSchema);

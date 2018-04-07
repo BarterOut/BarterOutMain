@@ -71,6 +71,19 @@ app.post("/postBook", (req, res) => {
         });
 });
 
+app.get("/searchBook", (req, res) => {
+    var searchKey = req.body;
+    // db.stores.createIndex( { name: "text", course: "text" } );
+    // db.stores.find( { $text: { $search: searchKey } } );
+    var Book = mongoose.model("Book", Textbook);
+    Book.find({ name: "text", course: "text" }).exec(function (err) {
+        if (err) return handleError(err);
+        // Prints "Space Ghost is a talk show host".
+        console.log("Search");
+        res.json({'name': 'bookname'});
+    })
 
+    return
+})
 
 export default app;
