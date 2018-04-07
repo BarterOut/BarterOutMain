@@ -62,9 +62,13 @@ app.post("/preRegister", (req, res) => {
 });
 
 app.post("/postBook", (req, res) => {
+    console.log(req);
     var newBook = new Textbook(req.body);
-    newBook.save().then(item => {res.redirect("/postBook");})
-        .catch(err => {res.status(400).send("unable to save to database");});
+    newBook.save().then(item => {res.redirect("/submitBook");})
+        .catch(err => {
+          console.log(err);
+          res.status(400).send(err);
+        });
 });
 
 

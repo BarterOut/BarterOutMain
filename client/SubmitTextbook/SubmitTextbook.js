@@ -17,7 +17,9 @@ const SubmitTextbook = () => {
         <input placeholder="Price" type="number" name="price" required />
         <input placeholder="ISBN" type="number" name="ISBN" />
         <input placeholder="Condition" type="text" name="condition" required />
+        <input placeholder="Owner" type="text" name="owner" required />
         <input placeholder="Comments" type="text" name="comments" />
+        <button type="submit">Submit</button>
       </form>
     </div>
   )
