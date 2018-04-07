@@ -75,15 +75,14 @@ app.get("/searchBook", (req, res) => {
     var searchKey = req.body;
     // db.stores.createIndex( { name: "text", course: "text" } );
     // db.stores.find( { $text: { $search: searchKey } } );
-    var Book = mongoose.model("Book", Textbook);
-    Book.find({ name: "text", course: "text" }).exec(function (err) {
-        if (err) return handleError(err);
-        // Prints "Space Ghost is a talk show host".
-        console.log("Search");
-        res.json({'name': 'bookname'});
-    })
-
-    return
+    // var Book = mongoose.model("Book", Textbook);
+    // Book.find({ name: "text", course: "text" }).exec(function (err) {
+    //     if (err) return handleError(err);
+    //     // Prints "Space Ghost is a talk show host".
+    //     console.log("Search");
+        
+    // })
+    res.send('GET request to the homepage')
 })
 
 export default app;

@@ -40,16 +40,10 @@ console.log(searchElement);
 //   console.log(evt);
 // });
 
-fetch("/searchBook")
-  .then(res => res.json())
-  .then(
-    (result) => {
-      console.log(result);
-    },
-    // Note: it's important to handle errors here
-    // instead of a catch() block so that we don't swallow
-    // exceptions from actual bugs in components.
-    (error) => {
-      console.log(error);
-    }
-  )
+fetch('/searchBook')
+  .then(function(response) {
+    return response.text();
+  })
+  .then(data => {
+    console.log(data);
+  })
