@@ -403,7 +403,7 @@ body {
 form{
     margin-top: 5%;
 }
-input[type=text] {
+.textInput {
     font-family: orkneylight;
     font-size: 10pt;
     margin-bottom: 5%;
@@ -413,7 +413,7 @@ input[type=text] {
     color: black;
 }
 
-input[type=email] {
+.emailInput {
     font-family: orkneylight;
     font-size: 10pt;
     margin-bottom: 5%;

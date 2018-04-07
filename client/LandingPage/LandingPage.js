@@ -363,17 +363,17 @@ const LandingPage = () => {
                                     <div className="formSubTitle">
                                         First Name
                                     </div>
-                                    <input type="text" name="firstName" className="firstName" required>
+                                    <input type="text" name="firstName" className="firstName textInput" required>
                                     </input>
                                     <div className="formSubTitle">
                                         Last Name
                                     </div>
-                                    <input type="text" name="lastName" className="lastName" required>
+                                    <input type="text" name="lastName" className="lastName textInput" required>
                                     </input>
                                     <div className="formSubTitle">
                                         Email Address
                                     </div>
-                                    <input type="email" name="emailAddress" className="email"
+                                    <input type="email" name="emailAddress" className="email emailInput"
                                            required
                                            pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.+-]+\.edu$"
                                            title="You can only pre-register with a school (.edu) email.">
