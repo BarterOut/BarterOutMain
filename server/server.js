@@ -47,6 +47,9 @@ app.listen(serverConfig.port, (error) => {
 });
 
 app.get('*', (req, res) => {
+  if (req.url == '/searchBook') {
+    testSearch(req, res);
+  }
 	res.sendFile(path.join(__dirname, '../client/core/index.html'));
 })
 
@@ -82,7 +85,11 @@ app.get("/searchBook", (req, res) => {
     //     console.log("Search");
         
     // })
-    res.send('GET request to the homepage')
+    res.send('GET request to the homepage');
 })
+
+function testSearch(req, res) {
+  res.send('GET request to the homepage');
+}
 
 export default app;
