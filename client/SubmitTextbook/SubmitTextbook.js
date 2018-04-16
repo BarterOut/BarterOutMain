@@ -14,7 +14,7 @@ const SubmitTextbook = () => {
     </div>
     <div className="wrapper">
       <h2>Add a new Textbook:</h2>
-      <form className="inputs" method="POST" action="/postBook">
+      <form className="inputs" method="POST" action="/api/postBook">
         <input className="inputForTextbook" placeholder="Name" type="text" name="name" required />
         <input className="inputForTextbook" placeholder="Edition" type="text" name="edition" required />
         <input className="inputForTextbook" placeholder="Subject" type="text" name="subject" required />
@@ -40,9 +40,9 @@ console.log(searchElement);
 //   console.log(evt);
 // });
 
-fetch('/searchBook')
+fetch('/api/searchBook')
   .then(function(response) {
-    return response.text();
+    return response.json();
   })
   .then(data => {
     console.log(data);

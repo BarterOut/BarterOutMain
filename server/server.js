@@ -46,14 +46,14 @@ app.listen(serverConfig.port, (error) => {
   }
 });
 
-app.get('*', (req, res) => {
-  if (req.url == '/searchBook') {
-    testSearch(req, res);
-  }
-	res.sendFile(path.join(__dirname, '../client/core/index.html'));
-})
+/*
+NOTE: Keep all api routes (which should be basically everything)
+in the form /api/routeName. This way, we can have a clear distinction between
+client side routes (e.g. going to different pages on the website) and server side
+routes (e.g. doing a search query in the database).
+*/
 
-app.post("/preRegister", (req, res) => {
+app.post('/preRegister', (req, res) => {
     var newUser = new User(req.body);
     newUser.save()
         .then(item => {
@@ -64,7 +64,7 @@ app.post("/preRegister", (req, res) => {
         });
 });
 
-app.post("/postBook", (req, res) => {
+app.post('/api/postBook', (req, res) => {
     console.log(req);
     var newBook = new Textbook(req.body);
     newBook.save().then(item => {res.redirect("/submitBook");})
@@ -74,22 +74,25 @@ app.post("/postBook", (req, res) => {
         });
 });
 
-app.get("/searchBook", (req, res) => {
-    var searchKey = req.body;
-    // db.stores.createIndex( { name: "text", course: "text" } );
-    // db.stores.find( { $text: { $search: searchKey } } );
-    // var Book = mongoose.model("Book", Textbook);
-    // Book.find({ name: "text", course: "text" }).exec(function (err) {
-    //     if (err) return handleError(err);
-    //     // Prints "Space Ghost is a talk show host".
-    //     console.log("Search");
-        
-    // })
-    res.send('GET request to the homepage');
+app.get('/api/searchBook', (req, res) => {
+  // var searchKey = req.body;
+  // // db.stores.createIndex( { name: "text", course: "text" } );
+  // // db.stores.find( { $text: { $search: searchKey } } );
+  // var Book = mongoose.model("Book", Textbook);
+  // Book.find({ name: "text", course: "text" }).exec(function (err) {
+  //     if (err) return handleError(err);
+  //     // Prints "Space Ghost is a talk show host".
+  //     console.log("Search");
+  //     res.json({'name': 'bookname'});
+  // })
+  res.json({'name': 'bookname'});
 })
 
-function testSearch(req, res) {
-  res.send('GET request to the homepage');
-}
+// Catch all function, if route is not in form /api/ then
+// this function return the index page and allows the client to 
+// handle the routing.
+app.get('*', (req, res) => {
+	res.sendFile(path.join(__dirname, '../client/core/index.html'));
+})
 
 export default app;
