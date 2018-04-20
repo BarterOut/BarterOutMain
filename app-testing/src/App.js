@@ -12,19 +12,41 @@ class App extends Component {
       posts: []
     }
   }
-
-  componentDidMount() {
-    // fetch('/api/getBooks')
-    //   .then(function(response) {
-    //     return response.json();
-    //   })
-    //   .then(function(data) {
-    //     this.setState({posts: data});
-    //     console.log(data);
-    //   });
+  //
+  // componentDidMount() {
+  //   fetch('/api/displayAllBooks')
+  //     .then(function(response) {
+  //       return response.json();
+  //     })
+  //     .then(function(data) {
+  //       //this.setState({posts: data});
+  //       console.log(data);
+  //     });
+  // }
+  //
+ componentDidMount() {
+    this.callApi('/api/displayAllBooks')
+      .then(res => {
+        console.log(res);
+        this.setState({posts: res});
+      })
+      .catch(err => console.log(err));
   }
 
+  callApi = async (url) => {
+    const response = await fetch(url);
+    const body = await response.json();
+
+    if (response.status !== 200) throw Error(body.message);
+
+    return body;
+  };
+
   render()  {
+      let posts= [];
+      if (this.state){
+          posts = this.state.posts;
+      }
     return (
       <div className="big-wrapper-custom">
         <div className="search-bar">
@@ -46,15 +68,29 @@ class App extends Component {
           </form>
         </div>
         <div className="post-list">
-          {/* {posts.map(post => (
-              <BookPost
-                key={post._id}
-                title={post.title}
-                location={post.location}
-                date={post.time}
-                sponsor={post.sponsor}>
-              </BookPost>
-            ))} */}
+          {posts.map(post => (
+                  <BookPost
+                      key={post._id}
+                  name={post.name}
+                  subject={post.subject}
+                      edition={post.edition}
+                      courseNumber={post.courseNumber}
+                      price={post.price}
+                      ISBN={post.ISBN}
+                      condition={post.condition}
+                      owner={post.owner}
+                      comments={post.comments}
+
+                  >
+
+                  </BookPost>
+
+              )
+
+
+
+
+            )}
         </div>
       </div>
     )

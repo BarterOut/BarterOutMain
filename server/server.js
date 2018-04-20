@@ -87,6 +87,21 @@ app.get('/api/searchBook', (req, res) => {
   // })
   res.json({'name': 'bookname'});
 })
+app.get('/api/displayAllBooks', (req,res)=>{
+    console.log(req);
+
+    Textbook.find({},function (err,book) {
+        var bookMap = [];
+        book.forEach(function (book) {
+            bookMap.push(book);
+
+        });
+//_ID
+        res.json(bookMap);
+    });
+    //res.redirect("/Books");
+});
+
 
 // Catch all function, if route is not in form /api/ then
 // this function return the index page and allows the client to 
