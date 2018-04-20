@@ -10,18 +10,11 @@ class BookPost extends Component {
         <span>{this.props.subject}</span>
         <span>{this.props.edition}</span>
         <span>{this.props.courseNumber}</span>
-          <span>{this.props.price}</span>
-          <span>{this.props.ISBN}</span>
-          <span>{this.props.condition}</span>
-          <span>{this.props.owner}</span>
-          <span>{this.props.comments}</span>
-
-
-
-
-
-
-
+        <span>{this.props.price}</span>
+        <span>{this.props.ISBN}</span>
+        <span>{this.props.condition}</span>
+        <span>{this.props.owner}</span>
+        <span>{this.props.comments}</span>
       </div>
     )
   }

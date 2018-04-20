@@ -1,8 +1,10 @@
 .post {
   display: flex;
   flex-direction: column;
-  background: blue;
-  font-size: 1em;
-  max-width: 200px;
+  background: white;
+  font-size: 1.2em;
+  max-width: 350px;
+  box-shadow: 0 4px 6px rgba(50,50,93,.11), 0 1px 3px rgba(0,0,0,.08);
   margin: 16px;
+  padding: 8px;
 }

@@ -12,18 +12,7 @@ class App extends Component {
       posts: []
     }
   }
-  //
-  // componentDidMount() {
-  //   fetch('/api/displayAllBooks')
-  //     .then(function(response) {
-  //       return response.json();
-  //     })
-  //     .then(function(data) {
-  //       //this.setState({posts: data});
-  //       console.log(data);
-  //     });
-  // }
-  //
+
  componentDidMount() {
     this.callApi('/api/displayAllBooks')
       .then(res => {
@@ -69,28 +58,19 @@ class App extends Component {
         </div>
         <div className="post-list">
           {posts.map(post => (
-                  <BookPost
-                      key={post._id}
-                  name={post.name}
-                  subject={post.subject}
-                      edition={post.edition}
-                      courseNumber={post.courseNumber}
-                      price={post.price}
-                      ISBN={post.ISBN}
-                      condition={post.condition}
-                      owner={post.owner}
-                      comments={post.comments}
-
-                  >
-
-                  </BookPost>
-
-              )
-
-
-
-
-            )}
+            <BookPost
+              key={post._id}
+              name={post.name}
+              subject={post.subject}
+              edition={post.edition}
+              courseNumber={post.courseNumber}
+              price={post.price}
+              ISBN={post.ISBN}
+              condition={post.condition}
+              owner={post.owner}
+              comments={post.comments}>
+            </BookPost>
+            ))}
         </div>
       </div>
     )
