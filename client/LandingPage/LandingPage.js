@@ -359,7 +359,7 @@ const LandingPage = () => {
                                 <div className="formSubTitle">
                                     Be one of the first to use BarterOut
                                 </div>
-                                <form method="POST" action="/preRegister">
+                                <form className="preRegisterForm" method="POST" action="/preRegister">
                                     <div className="formSubTitle">
                                         First Name
                                     </div>

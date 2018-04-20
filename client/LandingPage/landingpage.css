@@ -1,17 +1,14 @@
-body {
+.app {
+    height: 100%;
+    width: 100%;
+    padding-top: 0;
+    margin-top: 0;
     background-image: url("../images/gradientFirstPageCompressed.jpg");
     height: 100%;
     width: 100%;
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
-}
-
-.app {
-    height: 100%;
-    width: 100%;
-    padding-top: 0;
-    margin-top: 0;
 }
 
 .steps {
@@ -400,7 +397,7 @@ body {
     outline: 0;
 }
 
-form{
+.preRegisterForm {
     margin-top: 5%;
 }
 .textInput {
