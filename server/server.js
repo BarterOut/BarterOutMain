@@ -65,7 +65,6 @@ app.post('/preRegister', (req, res) => {
 });
 
 app.post('/api/postBook', (req, res) => {
-    console.log(req);
     var newBook = new Textbook(req.body);
     newBook.save().then(item => {res.redirect("/submitBook");})
         .catch(err => {
@@ -87,6 +86,7 @@ app.get('/api/searchBook', (req, res) => {
   // })
   res.json({'name': 'bookname'});
 })
+
 app.get('/api/displayAllBooks', (req,res)=>{
     console.log(req);
 
@@ -94,14 +94,10 @@ app.get('/api/displayAllBooks', (req,res)=>{
         var bookMap = [];
         book.forEach(function (book) {
             bookMap.push(book);
-
         });
-//_ID
         res.json(bookMap);
     });
-    //res.redirect("/Books");
 });
-
 
 // Catch all function, if route is not in form /api/ then
 // this function return the index page and allows the client to 
