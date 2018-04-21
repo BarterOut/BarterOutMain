@@ -9,15 +9,23 @@ class App extends Component {
     super();
     this.state = {
       isHidden: true,
-      posts: []
+      posts: [],
+      searchResults: []
     }
   }
 
- componentDidMount() {
+  componentDidMount() {
     this.callApi('/api/displayAllBooks')
       .then(res => {
         console.log(res);
-        this.setState({posts: res});
+        this.setState({ posts: res });
+      })
+      .catch(err => console.log(err));
+
+    this.callApi('/api/searchBook/Name')
+      .then(res => {
+        console.log(res);
+        this.setState({ searchResults: res });
       })
       .catch(err => console.log(err));
   }
@@ -31,15 +39,15 @@ class App extends Component {
     return body;
   };
 
-  render()  {
-      let posts= [];
-      if (this.state){
-          posts = this.state.posts;
-      }
+  render() {
+    let posts = [];
+    if (this.state) {
+      posts = this.state.posts;
+    }
     return (
       <div className="big-wrapper-custom">
         <div className="search-bar">
-        <input className="searchInput" placeholder="Search for Textbook" type="text" name="name" />
+          <input className="searchInput" placeholder="Search for Textbook" type="text" name="name" />
         </div>
         <div className="wrapper-custom">
           <h2>Add a new Textbook:</h2>
@@ -70,7 +78,7 @@ class App extends Component {
               owner={post.owner}
               comments={post.comments}>
             </BookPost>
-            ))}
+          ))}
         </div>
       </div>
     )
