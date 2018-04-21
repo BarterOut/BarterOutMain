@@ -10,7 +10,8 @@ class App extends Component {
     this.state = {
       isHidden: true,
       posts: [],
-      searchResults: []
+      searchResults: [],
+      searchQuery: ''
     }
   }
 
@@ -19,13 +20,6 @@ class App extends Component {
       .then(res => {
         console.log(res);
         this.setState({ posts: res });
-      })
-      .catch(err => console.log(err));
-
-    this.callApi('/api/searchBook/Name')
-      .then(res => {
-        console.log(res);
-        this.setState({ searchResults: res });
       })
       .catch(err => console.log(err));
   }
@@ -39,6 +33,20 @@ class App extends Component {
     return body;
   };
 
+  updateInputValue(evt) {
+    this.setState({searchQuery: evt.target.value});
+  }
+
+  search() {
+    this.callApi(`/api/searchBook/${this.state.searchQuery}`)
+      .then(res => {
+        console.log('Search: ');
+        console.log(res);
+        this.setState({ posts: res });
+      })
+      .catch(err => console.log(err));
+  }
+
   render() {
     let posts = [];
     if (this.state) {
@@ -46,9 +54,6 @@ class App extends Component {
     }
     return (
       <div className="big-wrapper-custom">
-        <div className="search-bar">
-          <input className="searchInput" placeholder="Search for Textbook" type="text" name="name" />
-        </div>
         <div className="wrapper-custom">
           <h2>Add a new Textbook:</h2>
           <form className="inputs" method="POST" action="/api/postBook">
@@ -64,6 +69,11 @@ class App extends Component {
             <button className="button" type="submit">Submit</button>
           </form>
         </div>
+
+        <input className="inputForTextbook" onChange={this.updateInputValue.bind(this)}placeholder="Search Books (basic)" type="text" name="name" />
+        <button onClick={this.search.bind(this)}>Search</button>
+
+        <h2>Books</h2>
         <div className="post-list">
           {posts.map(post => (
             <BookPost
