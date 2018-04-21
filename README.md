@@ -40,3 +40,31 @@ Do it! (but follow GitFlow and add some tests)
  10. [React](https://reactjs.org) - User interface library
 
  . . . Many more that I will add eventually. 
+
+##How to Test
+
+### Server Testing
+- Open the Home Direcory in a Terminal
+- One Mac or Linux this would look like : `cd /pathToDirectory`
+- Once there, make two terminal windows both in that directory
+- In one window, type: `cd app-testing`
+- In both windows, run `npm install` so that all outstanding packages will be installed.
+- Now, in both windows run `npm start`
+- This will start both the REST API  as well as a small dev server for testing react.
+- Now navigate to `localhost:3000` in your browser if you aren't already there.
+- You can mess around with this webpage, adding textbooks as you please
+as well as searching for existing textbooks by name.
+
+### Client Testing
+#### If you are using WebStorm
+- Open the project in WebStorm
+- If you need to install any outstanding npm packages
+then click install packages in the bottom right corner
+- Otherwise, click the green arrow button to start the server.
+- Then navigate to `localhost:8080` in your browser!
+
+#### If you are not using WebStorm
+- Open a terminal window in the root directory of the project.
+- Run `npm install`
+- Run `npm start`
+- Navigate to `localhost:8080` in your browser.
