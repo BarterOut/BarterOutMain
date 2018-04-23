@@ -53,8 +53,7 @@ client side routes (e.g. going to different pages on the website) and server sid
 routes (e.g. doing a search query in the database).
 */
 
-// TODO: add /api/ to route
-app.post('/preRegister', (req, res) => {
+app.post('/api/preRegister', (req, res) => {
     var newUser = new User(req.body);
     newUser.save()
         .then(item => {
@@ -65,7 +64,6 @@ app.post('/preRegister', (req, res) => {
         });
 });
 
-// TODO: add date property to all posted books
 app.post('/api/postBook', (req, res) => {
     req.body.date = Date.now();
     var newBook = new Textbook(req.body);
