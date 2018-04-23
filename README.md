@@ -41,7 +41,7 @@ Do it! (but follow GitFlow and add some tests)
 
  . . . Many more that I will add eventually. 
 
-##How to Test
+## How to Test
 
 ### Server Testing
 - Open the Home Direcory in a Terminal
