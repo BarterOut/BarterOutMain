@@ -67,6 +67,7 @@ app.post('/preRegister', (req, res) => {
 
 // TODO: add date property to all posted books
 app.post('/api/postBook', (req, res) => {
+    req.body.date = Date.now();
     var newBook = new Textbook(req.body);
     newBook.save()
       .then(item => {
@@ -90,8 +91,6 @@ app.get('/api/searchBook/:query', (req, res) => {
 })
 
 app.get('/api/displayAllBooks', (req,res)=>{
-    console.log(req);
-
     Textbook.find({},function (err,book) {
         var bookMap = [];
         book.forEach(function (book) {
