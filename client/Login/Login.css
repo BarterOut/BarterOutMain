@@ -1,0 +1,9 @@
+.inputs {
+  display: flex;
+  flex-direction: column;
+  width: 30%;
+}
+
+.inputForLogin {
+  margin: 8px;
+}

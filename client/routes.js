@@ -12,7 +12,9 @@ import PrivacyPolicy from './PrivacyPolicy/privacyPolicy';
 import Contact from './Contact/contact'
 import Careers from './Careers/careers';
 import PreRegister from './PreRegister/preRegister';
-import SubmitTextbook from './SubmitTextbook/SubmitTextbook';
+import Home from './Home/Home';
+import SignUp from './SignUp/SignUp';
+import Login from './Login/Login';
 
 import store from './store'
 
@@ -25,7 +27,6 @@ store.subscribe(() => {
 })
 
 const PrivateRoute = ({component: Component, rest}) => {
-
   return (
     <Route
       {...rest}
@@ -44,6 +45,8 @@ export default (
     <Route path="/Contact" component={Contact} />
     <Route path="/Careers" component={Careers} />
     <Route path="/preRegister" component={PreRegister} />
-    <Route path="/submitTextbook" component={SubmitTextbook} />
+    <Route path="/home" component={Home} />
+    <Route path="/login" component={Login} />
+    <Route path="/signup" component={SignUp} />
   </Switch>
 );
