@@ -53,6 +53,10 @@ client side routes (e.g. going to different pages on the website) and server sid
 routes (e.g. doing a search query in the database).
 */
 
+app.post('/api/auth/login', (req, res) => {
+  res.json(true);
+});
+
 app.post('/api/preRegister', (req, res) => {
     var newUser = new User(req.body);
     newUser.save()

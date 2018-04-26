@@ -2,6 +2,7 @@ import React from 'react';
 import {
   Route,
   Switch,
+  Redirect
 } from 'react-router-dom';
 
 import Welcome from './Welcome/Welcome';
@@ -26,16 +27,18 @@ store.subscribe(() => {
   state = store.getState();
 })
 
-const PrivateRoute = ({component: Component, rest}) => {
+const HomePage = ({component: Component, rest}) => {
   return (
     <Route
       {...rest}
-      render={(props) => state.user.isAuthenticated === true
-        ? <Component {...props} />
-        : <Redirect to={{pathname: '/login', state: {from: props.location}}} />}
+      render={(props) => 
+        sessionStorage.getItem('user') === 'true'
+          ? <Component {...props} />
+          : <Redirect to={{pathname: '/login'}}
+        />}
     />
-  )
-}
+  );
+};
 
 export default (
   <Switch>
@@ -45,7 +48,7 @@ export default (
     <Route path="/Contact" component={Contact} />
     <Route path="/Careers" component={Careers} />
     <Route path="/preRegister" component={PreRegister} />
-    <Route path="/home" component={Home} />
+    <HomePage path="/home" component={Home} />
     <Route path="/login" component={Login} />
     <Route path="/signup" component={SignUp} />
   </Switch>
