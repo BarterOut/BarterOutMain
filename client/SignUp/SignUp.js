@@ -14,7 +14,8 @@ class SignUp extends Component {
             email : '',
             password : '',
             passwordConfirm : '',
-            redirect : false
+            redirect : false,
+            message: ''
         };
     }
 
@@ -22,7 +23,7 @@ class SignUp extends Component {
         this.setState({[evt.target.name]: evt.target.value});
     }
     signUp(){
-
+        // const{ email, passowrd} = this.state;
         let payload = {
             email: this.state.email,
             password: this.state.password,
@@ -50,15 +51,21 @@ class SignUp extends Component {
                     method: 'POST',
                     body: JSON.stringify({email: this.state.email, password: this.state.password, passwordConfirm: this.state.passwordConfirm})
                 })
-                .then(res => {
-                    return res.json();
-                })
-                .then(data => {
-                    //Set the return token session stuff
-                    token = data;
+                .then(res => res.json()).then(data=>{
+
+                    // datas = res.json();
+                    localStorage.setItem('jwtToken', data.token)
+                    // return res.json()
+        })
+                .catch((error) => {
+                    if(error.response.status === 401) {
+                        this.setState({ message: 'Login failed. Username or password not match' });
+                    }
                 });
 
-        }}
+
+        }
+    }
 
 
   render() {

@@ -20,8 +20,10 @@ const session = require('express-session')
 
 // Initialize the Express App
 const app = new Express();
-const passport = require('./passport');
+// const passport = require('./config/passport');
 // const user = require('./userLoad')
+var passport = require('passport');
+require('../config/passport')(passport);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 //Sessions
@@ -34,11 +36,11 @@ app.use(    session({
 
 }));
 // Passport
-
-app.use(passport.initialize())
-
-app.use(passport.session()) // calls serializeUser and deserializeUser
-
+//
+// app.use(passport.initialize())
+//
+// app.use(passport.session()) // calls serializeUser and deserializeUser
+//
 
 //
 // app.use( (req, res, next) => {//Debugging method
@@ -136,17 +138,25 @@ app.post('/api/preRegister', (req, res) => {
         });
 });
 
-app.post('/api/postBook', (req, res) => {
-    req.body.payload.date = Date.now();
-    var newBook = new Textbook(req.body.payload);
-    newBook.save()
-      .then(item => {
-        res.redirect("/submitBook");
-      })
-      .catch(err => {
-        console.log(err);
-        res.status(400).send(err);
-      });
+app.post('/api/postBook',passport.authenticate('jwt', { session: false}), function(req, res){
+    var token = getToken(req.headers);
+    if(token){
+        req.body.payload.date = Date.now();
+        var newBook = new Textbook(req.body.payload);
+        newBook.save()
+            .then(item => {
+                res.redirect("/submitBook");
+            })
+            .catch(err => {
+                console.log(err);
+                res.status(400).send(err);
+            });
+
+
+    }
+    else {
+        return res.status(403).send({success:false, msg: 'Unauthorized'})
+    }{}
 });
 
 app.get('/api/searchBook/:query', (req, res) => {
@@ -169,6 +179,19 @@ app.get('/api/displayAllBooks', (req,res)=>{
         res.json(bookMap);
     });
 });
+
+getToken = function (headers) {
+    if (headers && headers.authorization) {
+        var parted = headers.authorization.split(' ');
+        if (parted.length === 2) {
+            return parted[1];
+        } else {
+            return null;
+        }
+    } else {
+        return null;
+    }
+};
 
 // Catch all function, if route is not in form /api/ then
 // this function return the index page and allows the client to 
