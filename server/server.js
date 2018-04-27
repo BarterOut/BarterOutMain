@@ -5,7 +5,7 @@ import mongoose from 'mongoose';
 import kittens from './kittens/kitten';
 import User from './models/user';
 import Textbook from './models/textbook';
-import NewUser from './models/newUsers'
+import NewUser from './models/newUser'
 
 
 
@@ -85,8 +85,9 @@ routes (e.g. doing a search query in the database).
 
 
 app.post('/api/auth/login', (req, res) => {
+    console.log(req.body)
 
-  res.json(true);
+    res.json(true);
 });
 
 
