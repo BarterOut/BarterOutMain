@@ -5,6 +5,9 @@ import mongoose from 'mongoose';
 import kittens from './kittens/kitten';
 import User from './models/user';
 import Textbook from './models/textbook';
+import NewUser from './models/newUsers'
+
+
 
 // Webpack Requirements
 import webpack from 'webpack';
@@ -13,12 +16,38 @@ import webpackDevMiddleware from 'webpack-dev-middleware';
 import webpackHotMiddleware from 'webpack-hot-middleware';
 
 var bodyParser = require('body-parser');
+const session = require('express-session')
 
 // Initialize the Express App
 const app = new Express();
-
+const passport = require('./passport');
+// const user = require('./userLoad')
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+//Sessions
+app.use(    session({
+    secret: 'ourOwnSaltingString', //pick a random string to make the hash that is generated secure
+    //Following lines are to avoid some deprecation warnings
+    resave: false, //required
+    saveUninitialized: false, //required
+    cookie: { secure: false }
+
+}));
+// Passport
+
+app.use(passport.initialize())
+
+app.use(passport.session()) // calls serializeUser and deserializeUser
+
+
+//
+// app.use( (req, res, next) => {//Debugging method
+//
+//     console.log('req.session', req.session);
+//
+//     return next();
+//
+// });
 
 // Run Webpack dev server in development mode
 if (process.env.NODE_ENV === 'development') {
@@ -53,9 +82,47 @@ client side routes (e.g. going to different pages on the website) and server sid
 routes (e.g. doing a search query in the database).
 */
 
+
+
 app.post('/api/auth/login', (req, res) => {
+
   res.json(true);
 });
+
+
+
+app.post('/api/auth/signUp', (req, res) => {
+    console.log(req.body);
+    console.log('req.session', req.session);
+
+    req.session.email = req.body.email;
+    req.session.save(function(err) {
+        // session saved
+    });
+    res.end();
+
+
+
+
+
+    //This will change but this is the idea
+    // var newUser = new NewUser(req.body);
+    // newUser.save()
+    //     .then(item =>{
+    //         res.redirect("/login")
+    //     })
+    //     .catch(err=>{
+    //         res.status(400).send("unable to save to database");
+    //     })
+    res.json(true);//this will be the response from passport?
+});
+
+
+
+
+
+
+
 
 app.post('/api/preRegister', (req, res) => {
     var newUser = new User(req.body);

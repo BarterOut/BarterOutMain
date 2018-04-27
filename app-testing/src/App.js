@@ -66,6 +66,7 @@ class App extends Component {
             <input className="inputForTextbook" placeholder="Condition" type="text" name="condition" required />
             <input className="inputForTextbook" placeholder="Email" type="email" pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.+-]+\.edu$" name="owner" required />
             <input className="inputForTextbook" placeholder="Comments" type="text" name="comments" />
+
             <button className="button" type="submit">Submit</button>
           </form>
         </div>
