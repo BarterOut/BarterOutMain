@@ -4,7 +4,10 @@ import {
 } from 'react-router-dom';
 import { connect } from 'react-redux'
 import styles from './Home.css';
+
 import BookPost from './BookPost/BookPost';
+import BuyBook from './BuyBook/BuyBook';
+import SellBook from './SellBook/SellBook';
 
 class Home extends Component {
   constructor() {
@@ -49,7 +52,9 @@ class Home extends Component {
         <button onClick={this.logout.bind(this)}>Logout</button>
         <h2>Profile</h2>
         <h4>Sell Book</h4>
+        <SellBook></SellBook>
         <h4>Buy Book</h4>
+        <BuyBook></BuyBook>
         <h2>Your Matches</h2>
         <h2>Recent Posts</h2>
         <div>
@@ -57,7 +62,7 @@ class Home extends Component {
             <BookPost
               key={post._id}
               name={post.name}
-              subject={post.subject}
+              subject={post.course}
               edition={post.edition}
               courseNumber={post.courseNumber}
               price={post.price}

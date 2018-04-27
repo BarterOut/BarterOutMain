@@ -69,8 +69,8 @@ app.post('/api/preRegister', (req, res) => {
 });
 
 app.post('/api/postBook', (req, res) => {
-    req.body.date = Date.now();
-    var newBook = new Textbook(req.body);
+    req.body.payload.date = Date.now();
+    var newBook = new Textbook(req.body.payload);
     newBook.save()
       .then(item => {
         res.redirect("/submitBook");

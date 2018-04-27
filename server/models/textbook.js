@@ -4,9 +4,9 @@ const Schema = mongoose.Schema;
 const textbookSchema = new Schema({
     name: { type: 'String', required: true },
     edition: { type: 'Number', required: true },
-    subject: { type: 'String', required: true },
-    courseNumber: { type: 'Number', required: true },
+    course: { type: 'String', required: true },
     price: { type: 'Number', required: true },
+    status: { type: 'Number', required: true},
     ISBN: { type: 'Number', required: false },
     condition: { type: 'String', required: true },
     owner: { type: 'String', required: true },
