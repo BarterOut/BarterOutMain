@@ -11,7 +11,7 @@ class Login extends Component {
     super(props);
 
     this.state = {
-      email : '',
+        emailAddress : '',
       password : '',
         loggedIn: false,
         redirectTo: '/',
@@ -24,9 +24,14 @@ class Login extends Component {
   }
 
   login() {
+      console.log("we are logging in")
+
+      console.log(this.state.emailAddress)
+      console.log(this.state.password)
+
       axios
           .post('/user/login', {
-              emailAddress: this.state.email,
+              emailAddress: this.state.emailAddress,
               password: this.state.password
           })
           .then(response => {
@@ -67,7 +72,7 @@ class Login extends Component {
           onChange={this.onChange.bind(this)}
           placeholder="Email" type="email"
           pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.+-]+\.edu$"
-          name="email" 
+          name="emailAddress"
           required />
           <input 
             className="inputForLogin"
@@ -77,7 +82,6 @@ class Login extends Component {
             name="password"
             required />
           <button className="button" onClick={this.login.bind(this)}>Login</button>
-          <h4>Don't have an account? <Link to="/signup">Sign Up</Link></h4>
 
       </div>
     )

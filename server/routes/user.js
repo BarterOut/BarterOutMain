@@ -3,6 +3,7 @@ const router = express.Router()
 const NewUser = require('../models/newUser')
 import User from '../models/newUser';
 const passport = require('../passport')
+
 // var UserDetails = mongoose.model('userInfo', UserDetail);
 router.post('/', (req, res) => {
     console.log('user signup');
@@ -44,6 +45,7 @@ router.post(
         next()
     },
     passport.authenticate('local'),
+    // passport.authenticate('local',{ failureRedirect: '/login' }),
     (req, res) => {
         console.log('logged in', req.user);
         var userInfo = {
