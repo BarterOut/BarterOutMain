@@ -6,6 +6,8 @@ mongoose.promise = Promise
 const newUserSchema = new Schema({
     emailAddress: { type: 'String', required: true },
     password: { type: 'String', required: true },
+    venmoUsername: { type: 'String', required: true },
+    CMC: { type: 'String', required: true }
 },{
     collection: 'userInfo'
 })

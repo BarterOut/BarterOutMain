@@ -26,20 +26,12 @@ class BuyBook extends Component {
     let ID = user._id;
     let payload = {
       name: this.state.name,
-      edition: this.state.edition,
       course: this.state.course,
-      price: this.state.price,
       status: 0,
-      ISBN: this.state.ISBN,
-      condition: this.state.condition,
-      comments: this.state.comments,
       owner: ID
     };
-    
-    let data = new FormData();
-    let token;
-    data.append( 'json', JSON.stringify( payload ) );
-    fetch('/api/postBook',
+
+    fetch('/api/buyBook',
     {
       headers: {
         'Accept': 'application/json',
@@ -47,6 +39,12 @@ class BuyBook extends Component {
       },
       method: 'POST',
       body: JSON.stringify({ payload })
+    })
+    .then(response => {
+      let data = response.json();
+    })
+    .then(data => {
+      console.log(data);
     })
   }
 
@@ -64,45 +62,11 @@ class BuyBook extends Component {
             required />
           <input
             className="inputForTextbook"
-            placeholder="Edition"
-            type="number"
-            name="edition"
-            onChange={this.onChange.bind(this)}
-            required />
-          <input
-            className="inputForTextbook"
             placeholder="Course e.g. MTH 101"
             type="text" pattern="^[A-Z]{3} \d{3}$"
             name="course"
             onChange={this.onChange.bind(this)}
             required />
-          <input
-            className="inputForTextbook"
-            placeholder="Price"
-            type="number"
-            name="price"
-            onChange={this.onChange.bind(this)}
-            required />
-          <input
-            className="inputForTextbook"
-            placeholder="ISBN"
-            type="number"
-            pattern="^(?=(?:\D*\d){10}(?:(?:\D*\d){3})?$)[\d-]+$"
-            onChange={this.onChange.bind(this)}
-            name="ISBN" />
-          <input
-            className="inputForTextbook"
-            placeholder="Condition"
-            type="text"
-            name="condition"
-            onChange={this.onChange.bind(this)}
-            required />
-          <input
-            className="inputForTextbook"
-            placeholder="Comments"
-            type="text"
-            onChange={this.onChange.bind(this)}
-            name="comments" />
           <button className="button" onClick={this.postToDatabase.bind(this)}>Submit</button>
         </form>
       </div>

@@ -5,6 +5,7 @@ import mongoose from 'mongoose';
 import kittens from './kittens/kitten';
 import User from './models/user';
 import Textbook from './models/textbook';
+import TextbookBuy from './models/textbookBuy';
 const dbConnection = require('./database')
 const PORT =  serverConfig.port;
 const passport = require('./passport');
@@ -85,12 +86,25 @@ app.post('/api/preRegister', (req, res) => {
         });
 });
 
-app.post('/api/postBook', function(req, res){
+app.post('/api/sellBook', function(req, res){
     req.body.payload.date = Date.now();
     var newBook = new Textbook(req.body.payload);
     newBook.save()
         .then(item => {
             res.redirect("/home");
+        })
+        .catch(err => {
+            console.log(err);
+            res.status(400).send(err);
+        });
+});
+
+app.post('/api/buyBook', function(req, res){
+    req.body.payload.date = Date.now();
+    var newBook = new TextbookBuy(req.body.payload);
+    newBook.save()
+        .then(item => {
+          res.json(true);
         })
         .catch(err => {
             console.log(err);
@@ -110,27 +124,10 @@ app.get('/api/searchBook/:query', (req, res) => {
 })
 
 app.get('/api/displayAllBooks', (req,res)=>{
-    Textbook.find({},function (err,book) {
-        var bookMap = [];
-        book.forEach(function (book) {
-            bookMap.push(book);
-        });
-        res.json(bookMap);
+    Textbook.find({}, function (err, books) {
+        res.json(books);
     });
 });
-
-// getToken = function (headers) {
-//     if (headers && headers.authorization) {
-//         var parted = headers.authorization.split(' ');
-//         if (parted.length === 2) {
-//             return parted[1];
-//         } else {
-//             return null;
-//         }
-//     } else {
-//         return null;
-//     }
-// };
 
 // Catch all function, if route is not in form /api/ then
 // this function return the index page and allows the client to 

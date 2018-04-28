@@ -27,7 +27,7 @@ class SellBook extends Component {
       edition: this.state.edition,
       course: this.state.course,
       price: this.state.price,
-      status: 1,
+      status: 0,
       ISBN: this.state.ISBN,
       condition: this.state.condition,
       comments: this.state.comments,
@@ -37,7 +37,7 @@ class SellBook extends Component {
     let data = new FormData();
     let token;
     data.append( 'json', JSON.stringify( payload ) );
-    fetch('/api/postBook',
+    fetch('/api/sellBook',
     {
       headers: {
         'Accept': 'application/json',

@@ -43,6 +43,26 @@ class Home extends Component {
     window.location.reload();
   }
 
+  updateInputValue(evt) {
+    this.search(evt.target.value);
+  }
+
+  search(query) {
+    if (query == '') {
+      this.callApi(`/api/displayAllBooks`)
+      .then(res => {
+        this.setState({ posts: res });
+      })
+      .catch(err => console.log(err));
+      return;
+    }
+    this.callApi(`/api/searchBook/${query}`)
+      .then(res => {
+        this.setState({ posts: res });
+      })
+      .catch(err => console.log(err));
+  }
+
   render() {
     let posts = [];
     let user = {};
@@ -55,14 +75,18 @@ class Home extends Component {
         <h1>Barter Out</h1>
         <button onClick={this.logout.bind(this)}>Logout</button>
         <h2>Profile</h2>
-        <span>{user._id}</span>
-        <span>{user.emailAddress}</span>
-        <h4>Sell Book</h4>
+        <h4>ID: {user._id}</h4>
+        <h4>EMAIL: {user.emailAddress}</h4>
+        <h4>VENMO: {user.venmoUsername}</h4>
+        <h4>CMC: {user.CMC}</h4>
+        {/* <h4>Sell Book</h4> */}
         <SellBook></SellBook>
-        <h4>Buy Book</h4>
+        {/* <h4>Buy Book</h4> */}
         <BuyBook></BuyBook>
         <h2>Your Matches</h2>
         <h2>Recent Posts</h2>
+        <input autocomplete="off" className="inputForTextbook" onChange={this.updateInputValue.bind(this)}placeholder="Search Books (basic)" type="text" name="name" />
+        <button onClick={this.search.bind(this)}>Search</button>
         <div>
         {posts.map(post => (
             <BookPost
