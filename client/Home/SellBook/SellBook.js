@@ -11,7 +11,7 @@ class SellBook extends Component {
       ISBN: String,
       condition: String,
       comments: String,
-    }
+    };
   }
 
   onChange(evt) {
@@ -45,7 +45,7 @@ class SellBook extends Component {
       },
       method: 'POST',
       body: JSON.stringify({ payload })
-    })
+    });
   }
 
   render() {
@@ -104,7 +104,7 @@ class SellBook extends Component {
           <button className="button" onClick={this.postToDatabase.bind(this)}>Submit</button>
         </form>
       </div>
-    )
+    );
   }
 }
 

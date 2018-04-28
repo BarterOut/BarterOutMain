@@ -13,7 +13,7 @@ class BuyBook extends Component {
       ISBN: String,
       condition: String,
       comments: String,
-    }
+    };
   }
 
   onChange(evt) {
@@ -45,7 +45,7 @@ class BuyBook extends Component {
     })
     .then(data => {
       console.log(data);
-    })
+    });
   }
 
   render() {
@@ -70,7 +70,7 @@ class BuyBook extends Component {
           <button className="button" onClick={this.postToDatabase.bind(this)}>Submit</button>
         </form>
       </div>
-    )
+    );
   }
 }
 

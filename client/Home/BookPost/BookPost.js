@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import './BookPost.css'
+import './BookPost.css';
 
 class BookPost extends Component {
   render()  {
@@ -15,7 +15,7 @@ class BookPost extends Component {
         <span>Contact: <a href="#">{this.props.owner}</a></span>
         <span>Comments: {this.props.comments}</span>
       </ul>
-    )
+    );
   }
 }
 

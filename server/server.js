@@ -1,15 +1,26 @@
 import Express from 'express';
+
+// MISC
 import serverConfig from './config';
 import path from 'path';
 import mongoose from 'mongoose';
 import kittens from './kittens/kitten';
+
+// MODELS
 import User from './models/user';
 import Textbook from './models/textbook';
 import TextbookBuy from './models/textbookBuy';
-const dbConnection = require('./database')
-const PORT =  serverConfig.port;
+
+// CONNECTION TO MLAB DB
+const dbConnection = require('./database');
+
+//PASSPORT
 const passport = require('./passport');
+
+// USER ROUTE
 const user = require('./routes/user');
+
+const PORT =  serverConfig.port;
 
 // Webpack Requirements
 import webpack from 'webpack';
@@ -18,13 +29,11 @@ import webpackDevMiddleware from 'webpack-dev-middleware';
 import webpackHotMiddleware from 'webpack-hot-middleware';
 
 var bodyParser = require('body-parser');
-const session = require('express-session')
+const session = require('express-session');
 
 // Initialize the Express App
 const app = new Express();
-// const passport = require('./config/passport');
-// const user = require('./userLoad')
-// require('../config/passport')(passport);
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 //Sessions
@@ -74,7 +83,6 @@ in the form /api/routeName. This way, we can have a clear distinction between
 client side routes (e.g. going to different pages on the website) and server side
 routes (e.g. doing a search query in the database).
 */
-
 app.post('/api/preRegister', (req, res) => {
     var newUser = new User(req.body);
     newUser.save()
@@ -120,8 +128,8 @@ app.get('/api/searchBook/:query', (req, res) => {
         bookMap.push(books);
     });
     res.json(bookMap);
-  })
-})
+  });
+});
 
 app.get('/api/displayAllBooks', (req,res)=>{
     Textbook.find({}, function (err, books) {
@@ -134,6 +142,6 @@ app.get('/api/displayAllBooks', (req,res)=>{
 // handle the routing.
 app.get('*', (req, res) => {
 	res.sendFile(path.join(__dirname, '../client/core/index.html'));
-})
+});
 
 export default app;
