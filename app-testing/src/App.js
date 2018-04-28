@@ -34,14 +34,20 @@ class App extends Component {
   };
 
   updateInputValue(evt) {
-    this.setState({searchQuery: evt.target.value});
+    this.search(evt.target.value);
   }
 
-  search() {
-    this.callApi(`/api/searchBook/${this.state.searchQuery}`)
+  search(query) {
+    if (query == '') {
+      this.callApi(`/api/displayAllBooks`)
       .then(res => {
-        console.log('Search: ');
-        console.log(res);
+        this.setState({ posts: res });
+      })
+      .catch(err => console.log(err));
+      return;
+    }
+    this.callApi(`/api/searchBook/${query}`)
+      .then(res => {
         this.setState({ posts: res });
       })
       .catch(err => console.log(err));
