@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
 import axios from 'axios'
-import { Redirect } from 'react-router-dom'
+import { Redirect, Link } from 'react-router-dom'
 
 class SignUp extends Component {
-
     constructor(props){
         super(props);
-
         this.state = {
             emailAddress : '',
             password : '',
@@ -17,48 +15,37 @@ class SignUp extends Component {
     }
 
     onChange(evt) {
-        console.log(evt.target.name)
-        console.log(evt.target.value)
-
         this.setState({[evt.target.name]: evt.target.value});
     }
+
     signUp(){
-        // const{ email, passowrd} = this.state;
         let payload = {
             emailAddress: this.state.emailAddress,
             password: this.state.password,
             passwordConfirm: this.state.passwordConfirm
         };
         if (!(this.state.passwordConfirm == this.state.password)){
-
-
             window.alert("Please make your passwords the same");
             return;
         }
         else {
-            axios
-                .post('/user/', {
+            axios.post('/api/auth/signup', {
                     emailAddress: this.state.emailAddress,
                     password: this.state.password
                 })
                 .then(response => {
                     console.log(response)
                     if (!response.data.errmsg) {
-                        console.log('youre good')
-                        this.setState({
-                            redirectTo: '/login'
-                        })
+                        console.log('You have been signed up');
+                        this.setState({redirect: true})
                     } else {
                         console.log('duplicate')
                     }
                 }).catch(error=> {
                     console.log('Sign up server error: ')
-                console.log(error);
-            })
+                    console.log(error);
+                })
         }
-
-
-        //
         //     let data = new FormData();
         //     let token;
         //     data.append( 'json', JSON.stringify( payload ) );
@@ -72,7 +59,7 @@ class SignUp extends Component {
         //             body: JSON.stringify({email: this.state.email, password: this.state.password, passwordConfirm: this.state.passwordConfirm})
         //         })
         //         .then(res => res.json()).then(data=>{
-        //
+        
         //             // datas = res.json();
         //             localStorage.setItem('jwtToken', data.token)
         //             // return res.json()
@@ -82,21 +69,20 @@ class SignUp extends Component {
         //                 this.setState({ message: 'Login failed. Username or password not match' });
         //             }
         //         });
-
-
         }
 
-
-
   render() {
+    if (this.state.redirect) {
+        return(<Redirect to={'/login'} />);
+    }
     return (
       <div>
         <h1>Sign up for BarterOut</h1>
         <input className="inputsForSignUp" placeholder="Email" type="email" pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.+-]+\.edu$" onChange={this.onChange.bind(this)} name="emailAddress" required />
-          <input className="inputsForSignUp" placeholder="Password" type="password" name="password" onChange={this.onChange.bind(this)} required />
-          <input className="inputsForSignUp" placeholder="Confirm Password" type="password" name="passwordConfirm" onChange={this.onChange.bind(this)} required />
-          <button className="button" type="submit" onClick={this.signUp.bind(this)}>SignUp</button>
-
+        <input className="inputsForSignUp" placeholder="Password" type="password" name="password" onChange={this.onChange.bind(this)} required />
+        <input className="inputsForSignUp" placeholder="Confirm Password" type="password" name="passwordConfirm" onChange={this.onChange.bind(this)} required />
+        <button className="button" type="submit" onClick={this.signUp.bind(this)}>SignUp</button>
+        Back to <Link to="/login">Login</Link>
       </div>
     )
   }

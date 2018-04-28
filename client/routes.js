@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 import {
   Route,
   Switch,
@@ -32,7 +33,7 @@ const HomePage = ({component: Component, rest}) => {
     <Route
       {...rest}
       render={(props) => 
-        sessionStorage.getItem('user') === 'true'
+          sessionStorage.getItem('user')._id != ''
           ? <Component {...props} />
           : <Redirect to={{pathname: '/login'}}
         />}

@@ -9,8 +9,6 @@ const uri = 'mongodb://BarterOut:LuisInnovation1@ds211029.mlab.com:11029/bartero
 mongoose.connect(uri,{useMongoClient: true}).then(
     () => {
         /** ready to use. The `mongoose.connect()` promise resolves to undefined. */
-        console.log('Connected to Mongo');
-
     },
     err => {
         /** handle initial connection error */

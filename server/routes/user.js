@@ -1,16 +1,15 @@
 const express = require('express')
 const router = express.Router()
-const NewUser = require('../models/newUser')
 import User from '../models/newUser';
 const passport = require('../passport')
 
-// var UserDetails = mongoose.model('userInfo', UserDetail);
-router.post('/', (req, res) => {
+// THIS FUNCTION WORKS
+router.post('/signup', (req, res) => {
     console.log('user signup');
 
-    const { emailAddress, password } = req.body
+    const { emailAddress, password } = req.body;
 
-    // ADD VALIDATION
+    // TODO: ADD VALIDATION
     User.findOne({ emailAddress: emailAddress }, (err, user) => {
         if (err) {
             console.log('User.js post error: ', err)
@@ -22,8 +21,6 @@ router.post('/', (req, res) => {
         else {
             console.log(emailAddress);
             console.log(password);
-
-
             const newUser = new User({
 
                 emailAddress: emailAddress,
@@ -37,23 +34,30 @@ router.post('/', (req, res) => {
     })
 })
 
-router.post(
-    '/login',
-    function (req, res, next) {
-        console.log('routes/user.js, login, req.body: ');
-        console.log(req.body)
-        next()
-    },
-    passport.authenticate('local'),
-    // passport.authenticate('local',{ failureRedirect: '/login' }),
-    (req, res) => {
-        console.log('logged in', req.user);
-        var userInfo = {
-            emailAddress: req.user.emailAddress
-        };
-        res.send(userInfo);
-    }
-)
+// THIS ONE IS Partially working
+router.post('/login', (req, res) => {
+    console.log('working1');
+    const { emailAddress, password } = req.body;
+
+    User.findOne({ emailAddress: emailAddress }, (err, user) => {
+        if (err) {
+            console.log(err);
+            return;
+        }
+        if (!user) {
+            res.json(false);
+            // return done(null, false, { message: 'Incorrect username' })
+            return;
+        }
+        if (!user.checkPassword(password)) {
+            res.json(false);
+            // return done(null, false, { message: 'Incorrect password' })
+            return;
+        }
+        let userToReturn = {};
+        res.json(user);
+    })
+})
 
 router.get('/', (req, res, next) => {
     console.log('===== user!!======')
@@ -65,13 +69,4 @@ router.get('/', (req, res, next) => {
     }
 })
 
-router.post('/logout', (req, res) => {
-    if (req.user) {
-        req.logout()
-        res.send({ msg: 'logging out' })
-    } else {
-        res.send({ msg: 'no user to log out' })
-    }
-})
-
-module.exports = router
+module.exports = router;
