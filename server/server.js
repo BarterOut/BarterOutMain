@@ -5,9 +5,11 @@ import mongoose from 'mongoose';
 import kittens from './kittens/kitten';
 import User from './models/user';
 import Textbook from './models/textbook';
-import NewUser from './models/newUser'
-
-
+import NewUser from './models/newUser';
+const dbConnection = require('./database')
+// const MongoStore = require('connect-mongo')(session)
+const PORT =  serverConfig.port;
+const passport = require('./passport');
 
 // Webpack Requirements
 import webpack from 'webpack';
@@ -20,13 +22,14 @@ const session = require('express-session')
 
 // Initialize the Express App
 const app = new Express();
+const user = require('./routes/user')
 // const passport = require('./config/passport');
 // const user = require('./userLoad')
-var passport = require('passport');
-require('../config/passport')(passport);
+// require('../config/passport')(passport);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 //Sessions
+// const session = require('express-session')
 app.use(    session({
     secret: 'ourOwnSaltingString', //pick a random string to make the hash that is generated secure
     //Following lines are to avoid some deprecation warnings
@@ -35,21 +38,26 @@ app.use(    session({
     cookie: { secure: false }
 
 }));
-// Passport
-//
-// app.use(passport.initialize())
-//
-// app.use(passport.session()) // calls serializeUser and deserializeUser
-//
 
-//
-// app.use( (req, res, next) => {//Debugging method
+// app.use( (req, res, next) => {
 //
 //     console.log('req.session', req.session);
 //
 //     return next();
 //
 // });
+
+// Passport
+
+app.use(passport.initialize())
+
+app.use(passport.session()) // calls serializeUser and deserializeUser
+
+// Routes
+app.use('/user', user)
+
+
+
 
 // Run Webpack dev server in development mode
 if (process.env.NODE_ENV === 'development') {
@@ -71,7 +79,7 @@ mongoose.connect(serverConfig.mongoURL, { useMongoClient: true }, (error) => {
 });
 
 // start app
-app.listen(serverConfig.port, (error) => {
+app.listen(PORT, (error) => {
   if (!error) {
     console.log(`MERN is running on port: ${serverConfig.port}! Build something amazing!`); // eslint-disable-line
   }
@@ -180,18 +188,18 @@ app.get('/api/displayAllBooks', (req,res)=>{
     });
 });
 
-getToken = function (headers) {
-    if (headers && headers.authorization) {
-        var parted = headers.authorization.split(' ');
-        if (parted.length === 2) {
-            return parted[1];
-        } else {
-            return null;
-        }
-    } else {
-        return null;
-    }
-};
+// getToken = function (headers) {
+//     if (headers && headers.authorization) {
+//         var parted = headers.authorization.split(' ');
+//         if (parted.length === 2) {
+//             return parted[1];
+//         } else {
+//             return null;
+//         }
+//     } else {
+//         return null;
+//     }
+// };
 
 // Catch all function, if route is not in form /api/ then
 // this function return the index page and allows the client to 

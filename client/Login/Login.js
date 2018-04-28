@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import {
-  Link,
-  Redirect
-} from 'react-router-dom';
+import { Redirect } from 'react-router-dom'
+import axios from 'axios'
+
 import { connect } from 'react-redux'
 
 import styles from './Login.css';
@@ -14,6 +13,8 @@ class Login extends Component {
     this.state = {
       email : '',
       password : '',
+        loggedIn: false,
+        redirectTo: '/',
       redirect : false
     };
   }
@@ -23,31 +24,34 @@ class Login extends Component {
   }
 
   login() {
-    let payload = {
-        email: this.state.email,
-        password: this.state.password
-    };
-    
-    let data = new FormData();
-    let token;
-    data.append( 'json', JSON.stringify( payload ) );
-    fetch('/api/auth/login',
-    {
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
-      method: 'POST',
-      body: JSON.stringify({email: this.state.email, password: this.state.password})
-    })
-    .then(res => {
-      return res.json(); 
-    })
-    .then(data => {
-      token = data;
-      sessionStorage.setItem('user', token);
-      this.setState({'redirect' : token});
-    });
+      axios
+          .post('/user/login', {
+              emailAddress: this.state.email,
+              password: this.state.password
+          })
+          .then(response => {
+              console.log('login response: ')
+              console.log(response)
+              if (response.status === 200) {
+                  // update App.js state
+                  this.props.updateUser({
+                      loggedIn: true,
+                      emailAddress: response.data.emailAddress
+                  })
+                  // update the state to redirect to home
+                  this.setState({
+                      redirectTo: '/'
+                  })
+              }
+          }).catch(error => {
+          console.log('login error: ')
+          console.log(error);
+
+      })
+
+
+
+
   }
 
   render() {
@@ -73,7 +77,8 @@ class Login extends Component {
             name="password"
             required />
           <button className="button" onClick={this.login.bind(this)}>Login</button>
-        <h4>Don't have an account? <Link to="/signup">Sign Up</Link></h4>
+          <h4>Don't have an account? <Link to="/signup">Sign Up</Link></h4>
+
       </div>
     )
   }
