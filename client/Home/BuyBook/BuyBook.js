@@ -22,6 +22,8 @@ class BuyBook extends Component {
 
   postToDatabase() {
     console.log('posting buy');
+    let user = JSON.parse(sessionStorage.getItem('user'));
+    let ID = user._id;
     let payload = {
       name: this.state.name,
       edition: this.state.edition,
@@ -31,7 +33,7 @@ class BuyBook extends Component {
       ISBN: this.state.ISBN,
       condition: this.state.condition,
       comments: this.state.comments,
-      owner: '23852yefbeugb48t7g8534gt294t397'
+      owner: ID
     };
     
     let data = new FormData();
