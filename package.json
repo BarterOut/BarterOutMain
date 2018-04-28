@@ -8,7 +8,8 @@
   },
   "scripts": {
     "test": "NODE_ENV=test MONGO_URL=mongodb://localhost:27017/mernstacktest nyc mocha --exit",
-    "start": "BABEL_DISABLE_CACHE=1 nodemon index.js"
+    "start": "BABEL_DISABLE_CACHE=1 nodemon index.js",
+    "dev": "concurrently \"npm start\" "
   },
   "author": "David Thingsaker",
   "license": "ISC",
@@ -17,18 +18,23 @@
     "url": ""
   },
   "dependencies": {
+    "axios": "^0.18.0",
     "babel-core": "^6.26.0",
     "babel-polyfill": "^6.26.0",
+    "bcrypt-nodejs": "0.0.3",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.2",
     "bootstrap": "^3.3.7",
     "cuid": "^1.3.8",
-    "express": "^4.16.2",
+    "express": "^4.16.3",
     "express-session": "^1.15.6",
     "jquery": "^3.2.1",
+    "jsonwebtoken": "^8.2.1",
     "mongoose": "^4.12.6",
+    "morgan": "^1.9.0",
     "nodemon": "^1.17.1",
     "passport": "^0.4.0",
+    "passport-jwt": "^4.0.0",
     "passport-local": "^1.0.0",
     "popper": "^1.0.0",
     "react": "^16.0.0",
@@ -55,6 +61,7 @@
     "babel-register": "^6.26.0",
     "chai": "^4.1.2",
     "chai-http": "^3.0.0",
+    "concurrently": "^3.5.1",
     "css-loader": "^0.28.7",
     "eslint": "^4.10.0",
     "file-loader": "^1.1.5",

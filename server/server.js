@@ -5,9 +5,11 @@ import mongoose from 'mongoose';
 import kittens from './kittens/kitten';
 import User from './models/user';
 import Textbook from './models/textbook';
-import NewUser from './models/newUser'
-
-
+import NewUser from './models/newUser';
+const dbConnection = require('./database')
+// const MongoStore = require('connect-mongo')(session)
+const PORT =  serverConfig.port;
+const passport = require('./passport');
 
 // Webpack Requirements
 import webpack from 'webpack';
@@ -20,11 +22,14 @@ const session = require('express-session')
 
 // Initialize the Express App
 const app = new Express();
-const passport = require('./passport');
+const user = require('./routes/user')
+// const passport = require('./config/passport');
 // const user = require('./userLoad')
+// require('../config/passport')(passport);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 //Sessions
+// const session = require('express-session')
 app.use(    session({
     secret: 'ourOwnSaltingString', //pick a random string to make the hash that is generated secure
     //Following lines are to avoid some deprecation warnings
@@ -33,21 +38,26 @@ app.use(    session({
     cookie: { secure: false }
 
 }));
-// Passport
 
-app.use(passport.initialize())
-
-app.use(passport.session()) // calls serializeUser and deserializeUser
-
-
-//
-// app.use( (req, res, next) => {//Debugging method
+// app.use( (req, res, next) => {
 //
 //     console.log('req.session', req.session);
 //
 //     return next();
 //
 // });
+
+// Passport
+
+app.use(passport.initialize())
+
+app.use(passport.session()) // calls serializeUser and deserializeUser
+
+// Routes
+app.use('/user', user)
+
+
+
 
 // Run Webpack dev server in development mode
 if (process.env.NODE_ENV === 'development') {
@@ -69,7 +79,7 @@ mongoose.connect(serverConfig.mongoURL, { useMongoClient: true }, (error) => {
 });
 
 // start app
-app.listen(serverConfig.port, (error) => {
+app.listen(PORT, (error) => {
   if (!error) {
     console.log(`MERN is running on port: ${serverConfig.port}! Build something amazing!`); // eslint-disable-line
   }
@@ -136,17 +146,25 @@ app.post('/api/preRegister', (req, res) => {
         });
 });
 
-app.post('/api/postBook', (req, res) => {
-    req.body.payload.date = Date.now();
-    var newBook = new Textbook(req.body.payload);
-    newBook.save()
-      .then(item => {
-        res.redirect("/submitBook");
-      })
-      .catch(err => {
-        console.log(err);
-        res.status(400).send(err);
-      });
+app.post('/api/postBook',passport.authenticate('jwt', { session: false}), function(req, res){
+    var token = getToken(req.headers);
+    if(token){
+        req.body.payload.date = Date.now();
+        var newBook = new Textbook(req.body.payload);
+        newBook.save()
+            .then(item => {
+                res.redirect("/submitBook");
+            })
+            .catch(err => {
+                console.log(err);
+                res.status(400).send(err);
+            });
+
+
+    }
+    else {
+        return res.status(403).send({success:false, msg: 'Unauthorized'})
+    }{}
 });
 
 app.get('/api/searchBook/:query', (req, res) => {
@@ -169,6 +187,19 @@ app.get('/api/displayAllBooks', (req,res)=>{
         res.json(bookMap);
     });
 });
+
+// getToken = function (headers) {
+//     if (headers && headers.authorization) {
+//         var parted = headers.authorization.split(' ');
+//         if (parted.length === 2) {
+//             return parted[1];
+//         } else {
+//             return null;
+//         }
+//     } else {
+//         return null;
+//     }
+// };
 
 // Catch all function, if route is not in form /api/ then
 // this function return the index page and allows the client to 
