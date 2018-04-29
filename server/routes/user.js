@@ -33,7 +33,6 @@ router.post('/signup', (req, res) => {
 
 // THIS ONE IS Partially working
 router.post('/login', (req, res) => {
-    console.log('working1');
     const { emailAddress, password } = req.body;
 
     User.findOne({ emailAddress: emailAddress }, (err, user) => {
@@ -46,6 +45,7 @@ router.post('/login', (req, res) => {
             // return done(null, false, { message: 'Incorrect username' })
             return;
         }
+        console.log(user);
         if (!user.checkPassword(password)) {
             res.json(false);
             // return done(null, false, { message: 'Incorrect password' })

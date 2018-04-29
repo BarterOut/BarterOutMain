@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
-import {
-  Link,
-} from 'react-router-dom';
-import { connect } from 'react-redux'
-import styles from './Home.css';
+
+import './Home.css';
 
 import BookPost from './BookPost/BookPost';
 import BuyBook from './BuyBook/BuyBook';
@@ -13,32 +10,26 @@ class Home extends Component {
   constructor() {
     super();
     this.state = {
-      isHidden: true,
       posts: [],
-      user: {}
-    }
+      user: JSON.parse(sessionStorage.getItem('user')),
+    };
   }
 
- componentDidMount() {
-    this.setState({'user': JSON.parse(sessionStorage.getItem('user'))});
+  componentDidMount() {
     this.callApi('/api/displayAllBooks')
-      .then(res => {
-        console.log(res);
-        this.setState({posts: res});
+      .then((res) => {
+        this.setState({ posts: res });
       })
-      .catch(err => console.log(err));
+      .catch(err => new Error(err));
   }
 
-  async callApi (url) {
+  async callApi(url) {
     const response = await fetch(url);
     const body = await response.json();
-
-    if (response.status !== 200) throw Error(body.message);
-
     return body;
-  };
+  }
 
-  logout () {
+  logout() {
     sessionStorage.clear();
     window.location.reload();
   }
@@ -48,16 +39,16 @@ class Home extends Component {
   }
 
   search(query) {
-    if (query == '') {
-      this.callApi(`/api/displayAllBooks`)
-      .then(res => {
-        this.setState({ posts: res });
-      })
-      .catch(err => console.log(err));
+    if (query === '') {
+      this.callApi('/api/displayAllBooks')
+        .then((res) => {
+          this.setState({ posts: res });
+        })
+        .catch(err => console.warn(err));
       return;
     }
     this.callApi(`/api/searchBook/${query}`)
-      .then(res => {
+      .then((res) => {
         this.setState({ posts: res });
       })
       .catch(err => console.log(err));
@@ -79,16 +70,14 @@ class Home extends Component {
         <h4>EMAIL: {user.emailAddress}</h4>
         <h4>VENMO: {user.venmoUsername}</h4>
         <h4>CMC: {user.CMC}</h4>
-        {/* <h4>Sell Book</h4> */}
-        <SellBook></SellBook>
-        {/* <h4>Buy Book</h4> */}
-        <BuyBook></BuyBook>
+        <SellBook />
+        <BuyBook />
         <h2>Your Matches</h2>
         <h2>Recent Posts</h2>
-        <input autocomplete="off" className="inputForTextbook" onChange={this.updateInputValue.bind(this)}placeholder="Search Books (basic)" type="text" name="name" />
+        <input autoComplete="off" className="inputForTextbook" onChange={this.updateInputValue.bind(this)}placeholder="Search Books (basic)" type="text" name="name" />
         <button onClick={this.search.bind(this)}>Search</button>
         <div>
-        {posts.map(post => (
+          {posts.map(post => (
             <BookPost
               key={post._id}
               name={post.name}
@@ -99,12 +88,12 @@ class Home extends Component {
               ISBN={post.ISBN}
               condition={post.condition}
               owner={post.owner}
-              comments={post.comments}>
-            </BookPost>
+              comments={post.comments}
+            />
           ))}
         </div>
       </div>
-    )
+    );
   }
 }
 

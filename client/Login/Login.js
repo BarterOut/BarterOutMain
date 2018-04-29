@@ -17,7 +17,7 @@ class Login extends Component {
   }
 
   onChange(evt) {
-    this.setState({[evt.target.name]: evt.target.value});
+    this.setState({ [evt.target.name]: evt.target.value });
   }
 
   login() {
@@ -35,8 +35,7 @@ class Login extends Component {
                   this.setState({redirect: true})
               }
           }).catch(error => {
-            console.log('login error: ')
-            console.log(error);
+            console.log(`Error Loggin in: ${error}`);
           })
   }
 

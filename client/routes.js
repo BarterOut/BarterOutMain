@@ -20,20 +20,12 @@ import Login from './Login/Login';
 
 import store from './store';
 
-var state = {
-  user: store.getState().user.isAuthenticated || false
-};
-
-store.subscribe(() => {
-  state = store.getState();
-});
-
-const HomePage = ({component: Component, rest}) => {
+const HomePage = ({ component: Component, rest }) => {
   return (
     <Route
       {...rest}
       render={(props) => 
-          sessionStorage.getItem('user')._id != ''
+          sessionStorage.getItem('user') != null
           ? <Component {...props} />
           : <Redirect to={{pathname: '/login'}}
         />}

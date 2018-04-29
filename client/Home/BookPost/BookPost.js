@@ -1,23 +1,20 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 import './BookPost.css';
 
-class BookPost extends Component {
-  render()  {
-    return (
-      <ul className="post">
-        <span>{this.props.name}</span>
-        <span>{this.props.subject} {this.props.courseNumber}</span>
-        <span>{this.props.edition} Edition</span>
-        <span>${this.props.price}</span>
-        <span>{this.props.ISBN}</span>
-        <span>{this.props.condition}</span>
-        <span>Contact: <a href="#">{this.props.owner}</a></span>
-        <span>Comments: {this.props.comments}</span>
-      </ul>
-    );
-  }
-}
-
+const BookPost = (props) => {
+  return (
+    <ul className="post">
+      <span>{props.name}</span>
+      <span>{props.subject} {props.courseNumber}</span>
+      <span>{props.edition} Edition</span>
+      <span>${props.price}</span>
+      <span>{props.ISBN}</span>
+      <span>{props.condition}</span>
+      <span>Comments: {props.comments}</span>
+      <button>Buy</button>
+    </ul>
+  );
+};
 
 export default BookPost;

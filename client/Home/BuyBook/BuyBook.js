@@ -7,45 +7,40 @@ class BuyBook extends Component {
     super();
     this.state = {
       name: String,
-      edition: Number,
       course: String,
-      price: Number,
-      ISBN: String,
-      condition: String,
-      comments: String,
     };
   }
 
   onChange(evt) {
-    this.setState({[evt.target.name]: evt.target.value});
+    this.setState({ [evt.target.name]: evt.target.value });
   }
 
   postToDatabase() {
     console.log('posting buy');
-    let user = JSON.parse(sessionStorage.getItem('user'));
-    let ID = user._id;
-    let payload = {
+    const user = JSON.parse(sessionStorage.getItem('user'));
+    const ID = user._id;
+    const payload = {
       name: this.state.name,
       course: this.state.course,
       status: 0,
-      owner: ID
+      owner: ID,
     };
 
-    fetch('/api/buyBook',
-    {
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
+    fetch(
+      '/api/buyBook',
+      {
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        method: 'POST',
+        body: JSON.stringify({ payload }),
       },
-      method: 'POST',
-      body: JSON.stringify({ payload })
-    })
-    .then(response => {
-      let data = response.json();
-    })
-    .then(data => {
-      console.log(data);
-    });
+    )
+      .then((response) => { response.json(); })
+      .then((data) => {
+        console.log(data);
+      });
   }
 
   render() {
