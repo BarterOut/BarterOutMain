@@ -12,7 +12,7 @@ const BookPost = (props) => {
       <span>{props.ISBN}</span>
       <span>{props.condition}</span>
       <span>Comments: {props.comments}</span>
-      <button>Buy</button>
+      <button className="button">Buy</button>
     </ul>
   );
 };
