@@ -117,8 +117,8 @@ class Home extends Component {
                 ))}
               </div>
             </div>
-            {/* <SellBook />
-            <BuyBook /> */}
+            <SellBook />
+            <BuyBook />
           </div>
         </div>
       </div>

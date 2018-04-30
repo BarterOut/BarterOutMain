@@ -4,36 +4,33 @@ const express = require('express');
 
 const router = express.Router();
 
+// THIS FUNCTION WORKS
 router.post('/signup', (req, res) => {
-  console.log('Signing Up');
+  const { emailAddress, password, CMC, venmoUsername } = req.body;
 
-  User.findOne({ emailAddress: req.body.emailAddress }, (err, user) => {
-    if (err) {
-      console.warn('User.js post error: ', err);
-    } else if (user) {
-      res.json({
-        error: `Sorry, already a user with the username: ${req.body.emailAddress}`,
-      });
-    } else {
-      console.log('ELSE');
-      const newUser = new User();
-      newUser.emailAddress = req.body.emailAddress;
-      newUser.venmoUsername = req.body.venmoUsername;
-      newUser.CMC = req.body.CMC;
-      newUser.password = newUser.hashPassword(req.body.password);
-      console.log(req.body.password);
-      console.log(typeof newUser.password);
-      newUser.save()
-        .then(() => {
-          res.redirect('/login');
-        })
-        .catch((error) => {
-          console.log(`Error ${error}`);
-          res.status(400).send(`Unable to save to database ${error}`);
-        });
-    }
-  });
-});
+  // TODO: ADD VALIDATION
+  User.findOne({ emailAddress: emailAddress }, (err, user) => {
+      if (err) {
+          console.log('User.js post error: ', err)
+      } else if (user) {
+          res.json({
+              error: `Sorry, already a user with the username: ${emailAddress}`
+          })
+      }
+      else {
+          const newUser = new User({
+              emailAddress: emailAddress,
+              password: password,
+              CMC: CMC,
+              venmoUsername: venmoUsername
+          })
+          newUser.save((err, savedUser) => {
+              if (err) return res.json(err)
+              res.json(savedUser)
+          })
+      }
+  })
+})
 
 router.post('/login', (req, res) => {
   const { emailAddress, password } = req.body;
