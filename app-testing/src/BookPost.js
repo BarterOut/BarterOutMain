@@ -1,9 +1,22 @@
 import React, { Component } from 'react';
 
-import './BookPost.css'
+import './BookPost.css';
 
 class BookPost extends Component {
-  render()  {
+  constructor() {
+    super();
+    console.log('something construct');
+    this.state = {
+      id: this.props.key,
+    };
+  }
+
+  componentDidMount() {
+    console.log('something');
+    console.log(this.state.id);
+  }
+
+  render() {
     return (
       <ul className="post">
         <span>{this.props.name}</span>
@@ -15,7 +28,7 @@ class BookPost extends Component {
         <span>Contact: <a href="#">{this.props.owner}</a></span>
         <span>Comments: {this.props.comments}</span>
       </ul>
-    )
+    );
   }
 }
 

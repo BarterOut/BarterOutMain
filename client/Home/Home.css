@@ -1,6 +1,7 @@
 .app-wrapper {
   box-sizing: border-box;
   margin: 0;
+  overflow-y: hidden;
 }
 
 .bar {
@@ -15,8 +16,9 @@
   padding: 0 16px;
 }
 
-.title {
-  font-size: 1.4em;
+.logo {
+  height: 40px;
+  width: auto;
 }
 
 .header {
@@ -45,6 +47,11 @@
 .content-wrapper {
   display: flex;
   flex-direction: row;
+  margin: 32px auto;
+  height: 80vh;
+  overflow: hidden;
+  justify-content: center;
+  max-width: 1200px;
 }
 
 .profile-section {
@@ -55,13 +62,16 @@
   background: #6d5fd4;
   color: white;
   padding: 8px;
-  box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+  height: 500px;
+  max-height: 500px;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
   align-items: center;
+  justify-content: center;
 }
 
 .profile-pic {
-  width: 100px;
-  height: 100px;
+  width: 120px;
+  height: 120px;
   background: white;
   border-radius: 50%;
 }
@@ -69,6 +79,7 @@
 .books-lists {
   display: flex;
   flex-direction: column;
+  flex-grow: 50;
 }
 
 .posts-section {
@@ -76,17 +87,30 @@
   flex-direction: column;
   padding: 16px;
   background: #6d5fd4;
-  flex-grow: 10;
   margin: 16px;
   color: white;
-  box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+}
+
+.posts {
+  overflow-y: scroll;
+  max-height: 650px;
+  padding: 8px;
 }
 
 .searchInput {
-  border-radius: 20px;
+  border-radius: 10px;
   border: none;
   padding: 8px;
-  max-width: 300px;
+  height: 40px;
+  min-width: 300px;
   color:#000;
   background: white;
+  z-index: 5;
+}
+
+.posts-header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }

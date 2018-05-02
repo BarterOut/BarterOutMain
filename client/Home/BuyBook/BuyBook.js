@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import styles from './BuyBook.css';
+import './BuyBook.css';
 
 class BuyBook extends Component {
   constructor() {
@@ -46,24 +46,35 @@ class BuyBook extends Component {
   render() {
     return (
       <div className="wrapper-custom">
-        <h2>Book to Buy:</h2>
-        <form>
-          <input
-            className="inputForTextbook"
-            placeholder="Name"
-            type="text"
-            name="name"
-            onChange={this.onChange.bind(this)}
-            required />
-          <input
-            className="inputForTextbook"
-            placeholder="Course e.g. MTH 101"
-            type="text" pattern="^[A-Z]{3} \d{3}$"
-            name="course"
-            onChange={this.onChange.bind(this)}
-            required />
-          <button className="button" onClick={this.postToDatabase.bind(this)}>Submit</button>
-        </form>
+        <div className="modalContent">
+          <h2>What's your book?</h2>
+          <form className="input-wrapper">
+            <input
+              autoComplete="off"
+              className="inputForLogin"
+              placeholder="Name"
+              type="text"
+              name="name"
+              onChange={this.onChange.bind(this)}
+              required
+            />
+            <input
+              autoComplete="off"
+              className="inputForLogin"
+              placeholder="Course e.g. MTH 101"
+              type="text"
+              pattern="^[A-Z]{3} \d{3}$"
+              name="course"
+              onChange={this.onChange.bind(this)}
+              required
+            />
+            <button
+              className="button"
+              onClick={this.postToDatabase.bind(this)}
+            >Submit
+            </button>
+          </form>
+        </div>
       </div>
     );
   }

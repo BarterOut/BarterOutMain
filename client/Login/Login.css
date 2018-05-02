@@ -9,7 +9,8 @@
   border: none;
   border-radius: 10px;
   width: 80%;
-  padding: 4px;
+  padding: 8px;
+  color: black;
 }
 
 .button {
@@ -17,6 +18,7 @@
   display: inline-block;
   height: 40px;
   line-height: 40px;
+  max-width: 140px;
   padding: 0 14px;
   -webkit-box-shadow: 0 4px 6px rgba(50,50,93,.11), 0 1px 3px rgba(0,0,0,.08);
   box-shadow: 0 4px 6px rgba(50,50,93,.11), 0 1px 3px rgba(0,0,0,.08);
@@ -28,7 +30,7 @@
   text-transform: uppercase;
   letter-spacing: .025em;
   color: #FFF;
-  background: #4547e2;
+  background: #41397c;
   text-decoration: none;
   margin: 4px;
 }
@@ -43,6 +45,7 @@ button:focus {
 .login-wrapper {
   display: flex;
   width: 40vw;
+  max-width: 450px;
   border-radius: 5px;
   padding: 16px;
   flex-direction: column;
@@ -50,5 +53,12 @@ button:focus {
   margin: 32px auto;
   background: #FFF;
   /* color: #4547e2; */
-  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+  /* box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23); */
+}
+
+@media only screen and (max-width: 860px) {
+  .login-wrapper {
+    width: 95vw;
+    margin: auto;
+  }
 }
