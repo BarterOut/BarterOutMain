@@ -314,7 +314,7 @@ app.post('/api/clickBuy', (req, res) => {
       realUser.find({ _id: bookFound.owner }, (error, sellerUser) => {
         seller = sellerUser[0];
         sendEmail(emailForUs(buyer, seller, bookFound));
-        sendEmail(venmoRequestEmail(buyer.emailAddress, buyer.firstName, bookFound.title));
+        sendEmail(venmoRequestEmail(buyer.emailAddress, buyer.firstName, bookFound.name));
       });
     });
   });
