@@ -125,10 +125,10 @@ app.post('/api/buyBook', (req, res) => {
         ]
         },
             (err, matchedBooks)=>{
-                realUser.find({_id:ObjectId(req.body.payload.owner)},(err, foundUser)=>{//push matched books (ids) into the list of books contained in the user
+                realUser.find({_id:req.body.payload.owner},(err, foundUser)=>{//push matched books (ids) into the list of books contained in the user
               matchedBooks.forEach((book)=>
               {
-                foundUser.matchedBooks.push(book)
+                foundUser.matchedBooks.push(book._id)
               })
               /*
               *  Story.findById(topic.storyId, function(err, res) {
