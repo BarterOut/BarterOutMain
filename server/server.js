@@ -100,7 +100,7 @@ app.post('/api/sellBook', (req, res) => {
     const newBook = new Textbook(req.body.payload);
     newBook.save()
         .then(() => {
-          
+
             // TextbookBuy.find({
             //   $or : [ { name: {$regex: req.body.payload.name, $options: 'i'} }, { course : {$regex: req.body.payload.course, $options: 'i'} } ]
             // },(err, matchedBooks)=>{
@@ -165,17 +165,31 @@ app.post('/api/clickBuy', (req, res) => {
 
 app.post('/api/showMatches', (req, res) => {
     console.log(req.body.id);
-    realUser.find({ _id: req.body.id }, (err, user) => {
+    realUser.find({ _id: req.body.id }, (err, userMatch) => {
         // var bookIDs = [];
+        console.log(userMatch[0]);
         var bookObjects = [];
-        var bookIDs = user.matchedBooks;
-        bookIDs.forEach(ID){
-            Textbook.find({_id:ID},(err, book)=>{
-                bookObjects.push(book);
-            })
-        }
+        var bookIDs = userMatch[0].matchedBooks;
+        var allNames = '';
+        // bookIDs.forEach((ID) => {
+        //     allNames = allNames+ " " + ID;
+        // })
+        // console.log("Stuff: " + allNames);
+        // Textbook.find({_})
 
-        res.json(bookObjects);
+        // bookIDs.forEach((ID) => {
+            Textbook.find({_id:{$in: bookIDs}},(err, book)=>{
+                console.log('found book');
+                bookObjects = book;
+                // bookObjects.push(book);
+                console.log(bookObjects);
+                res.json(bookObjects);
+
+            });
+            // console.log(ID);
+        // })
+
+        // console.log(bookObjects);
     });
 });
 

@@ -31,7 +31,7 @@ class Home extends Component {
       id: JSON.parse(sessionStorage.getItem('user'))._id,
     })
       .then((response) => {
-        console.log(response.data.matches);
+        console.log(response.data);
       })
       .catch((error) => {
         console.error(`Sign up server error: ${error}`);
