@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 
 import './BookPost.css';
 
@@ -15,9 +16,15 @@ class BookPost extends Component {
   }
 
   buyBook() {
-    fetch('/api/buyBook')
-      .then((data) => {
-        console.log(data);
+    axios.post('/api/clickBuy', {
+      bookID: this.state.id,
+      userID: sessionStorage.getItem('user')._id,
+    })
+      .then((response) => {
+        console.log(`Resp: ${response}`);
+      })
+      .catch((error) => {
+        console.error(`Sign up server error: ${error}`);
       });
     console.log(`Buying book ${this.state.id}`);
   }

@@ -63,6 +63,7 @@
   color: white;
   padding: 8px;
   height: 500px;
+  min-width: 240px;
   max-height: 500px;
   box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
   align-items: center;
@@ -106,7 +107,7 @@
   min-width: 300px;
   color:#000;
   background: white;
-  z-index: 5;
+  /* z-index: 5; */
 }
 
 .posts-header {

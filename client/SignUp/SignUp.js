@@ -57,49 +57,54 @@ class SignUp extends Component {
     return (
       <div className="login-wrapper">
         <h1>Sign up for BarterOut</h1>
-      
+        <span className="inputLabel">First Name</span>
         <input
           className="inputsForSignUp"
-          placeholder="First Name"
+          placeholder=""
           type="text"
           onChange={this.onChange.bind(this)}
           name="firstName"
           required
         />
+        <span className="inputLabel">Last Name</span>
         <input
           className="inputsForSignUp"
-          placeholder="Last Name"
+          placeholder=""
           type="text"
           onChange={this.onChange.bind(this)}
           name="lastName"
           required
         />
+        <span className="inputLabel">Email</span>
         <input
           className="inputsForSignUp"
-          placeholder="Email"
+          placeholder=""
           type="email"
           pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.+-]+\.edu$"
           onChange={this.onChange.bind(this)}
           name="emailAddress"
           required
         />
+        <span className="inputLabel">Venmo Username</span>
         <input
           className="inputsForSignUp"
-          placeholder="Venmo Username"
+          placeholder=""
           type="text"
           onChange={this.onChange.bind(this)}
           name="venmoUsername"
           required
         />
+        <span className="inputLabel">CMC Box</span>
         <input
           className="inputsForSignUp"
-          placeholder="CMC Box"
+          placeholder=""
           type="text"
           onChange={this.onChange.bind(this)}
           name="CMC"
           required
         />
         <div className="line">
+          {/* <span className="inputLabel">Password</span> */}
           <input
             className="inputsForSignUp"
             placeholder="Password"
@@ -108,6 +113,7 @@ class SignUp extends Component {
             onChange={this.onChange.bind(this)}
             required
           />
+          {/* <span className="inputLabel">Confirm Password</span> */}
           <input
             className="inputsForSignUp"
             placeholder="Confirm Password"
