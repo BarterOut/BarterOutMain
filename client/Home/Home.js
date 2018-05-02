@@ -90,7 +90,7 @@ class Home extends Component {
           <div className="profile-section">
             <div className="profile-pic" />
             <h2>Profile</h2>
-            <h4>Duncan Grubbs</h4>
+            <h4>{user.firstName} {user.lastName}</h4>
             <h4>{user.emailAddress}</h4>
             <h4>@{user.venmoUsername}</h4>
             <h4>{user.CMC}</h4>
