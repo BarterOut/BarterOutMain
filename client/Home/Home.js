@@ -4,6 +4,7 @@ import axios from 'axios';
 
 import './Home.css';
 import logoPic from '../images/barterOutOrangeWhiteLogoHeader.png';
+import profile from '../images/barterOutProfilePhotoWebPage.png';
 
 import BookPost from './BookPost/BookPost';
 import BuyBook from './BuyBook/BuyBook';
@@ -103,7 +104,7 @@ class Home extends Component {
         </div>
         <div className="content-wrapper">
           <div className="profile-section">
-            <div className="profile-pic" />
+            <img src={profile} alt="profile" className="profile-pic" />
             <h2>Profile</h2>
             <h4>{user.firstName} {user.lastName}</h4>
             <h4>{user.emailAddress}</h4>

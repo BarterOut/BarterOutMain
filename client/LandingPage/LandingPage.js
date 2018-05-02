@@ -61,7 +61,7 @@ const LandingPage = () => {
                         YOU WILL EVER NEED,
                         <br/>
                         HASSLE-FREE</h1>
-                    <a href="#registrationPage" id="buttonLink"><button className="barterOutButton">JOIN NOW FREE</button></a>
+                    <a href="/signup" id="buttonLink"><button className="barterOutButton">JOIN NOW FREE</button></a>
                 </div>
                 <div className="madeSimple" id="madeSimple">
                     <div className="madeSimpleInfo animated" id="madeSimpleInfo">
@@ -168,7 +168,7 @@ const LandingPage = () => {
                         </div>
                     </div>
                     <div className="blurbBlock">
-                        <a href="#registrationPage" id="buttonLink"><button className="barterOutButton animated" id="joinTodayButton" href="#registrationPage">JOIN TODAY</button></a>
+                        <a href="/signup" id="buttonLink"><button className="barterOutButton animated" id="joinTodayButton" href="/signup">JOIN TODAY</button></a>
                     </div>
                 </div>
                 <div className="teamPage" id="teamPage">
@@ -341,7 +341,7 @@ const LandingPage = () => {
                         </div>
                     </div>
                 </div>
-                <div className="registrationPage" id="registrationPage">
+                {/* <div className="registrationPage" id="registrationPage">
                     <div className="registrationPageOverlay">
                         <div className="registrationPageInfo" id="registrationPageInfo">
                             <div className="registrationPageText animated">
@@ -391,7 +391,7 @@ const LandingPage = () => {
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> */}
                 <div className="landingPageBottom">
                     <div id="bottomLinksCol1">
                         <div id="bottomLinkHeader">Company</div>

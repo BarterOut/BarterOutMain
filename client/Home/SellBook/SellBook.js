@@ -18,6 +18,10 @@ class SellBook extends Component {
     this.setState({ [evt.target.name]: evt.target.value });
   }
 
+  close() {
+    window.location.reload();
+  }
+
   postToDatabase() {
     console.log('Posting Book To Sell');
     const user = JSON.parse(sessionStorage.getItem('user'));
@@ -122,11 +126,18 @@ class SellBook extends Component {
               onChange={this.onChange.bind(this)}
               name="comments"
             />
-            <button
-              className="button"
-              onClick={this.postToDatabase.bind(this)}
-            >Sell Book
-            </button>
+            <div>
+              <button
+                className="button"
+                onClick={this.close.bind(this)}
+              >Cancel
+              </button>
+              <button
+                className="button"
+                onClick={this.postToDatabase.bind(this)}
+              >Sell Book
+              </button>
+            </div>
           </form>
         </div>
       </div>

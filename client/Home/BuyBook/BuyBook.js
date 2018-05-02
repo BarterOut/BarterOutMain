@@ -15,6 +15,10 @@ class BuyBook extends Component {
     this.setState({ [evt.target.name]: evt.target.value });
   }
 
+  close() {
+    window.location.reload();
+  }
+
   postToDatabase() {
     console.log('posting buy');
     const user = JSON.parse(sessionStorage.getItem('user'));
@@ -68,11 +72,18 @@ class BuyBook extends Component {
               onChange={this.onChange.bind(this)}
               required
             />
-            <button
-              className="button"
-              onClick={this.postToDatabase.bind(this)}
-            >Submit
-            </button>
+            <div>
+              <button
+                className="button"
+                onClick={this.close.bind(this)}
+              >Cancel
+              </button>
+              <button
+                className="button"
+                onClick={this.postToDatabase.bind(this)}
+              >Submit
+              </button>
+            </div>
           </form>
         </div>
       </div>
