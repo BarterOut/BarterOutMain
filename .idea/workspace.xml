@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e556323a-40ad-41b3-a095-f7abad5f2138" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/server/mailer.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/mailer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/server.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/server.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -23,13 +23,17 @@
       <file leaf-file-name="server.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/server/server.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="567">
-              <caret line="190" column="1" lean-forward="true" selection-start-line="190" selection-start-column="1" selection-end-line="190" selection-end-column="1" />
-              <folding>
-                <element signature="e#40#64#0" expanded="true" />
-                <element signature="e#123#153#0" expanded="true" />
-                <element signature="e#401#434#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="436">
+              <caret line="251" column="14" lean-forward="true" selection-start-line="251" selection-start-column="14" selection-end-line="251" selection-end-column="14" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="SellBook.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/client/Home/SellBook/SellBook.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-759">
+              <caret line="45" selection-start-line="45" selection-end-line="46" />
             </state>
           </provider>
         </entry>
@@ -37,8 +41,8 @@
       <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/client/core/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="270">
-              <caret line="18" column="26" lean-forward="true" selection-start-line="18" selection-start-column="26" selection-end-line="18" selection-end-column="26" />
+            <state relative-caret-position="105">
+              <caret line="18" column="26" selection-start-line="18" selection-start-column="26" selection-end-line="18" selection-end-column="26" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
                 <element signature="e#30#56#0" expanded="true" />
@@ -71,7 +75,7 @@
       <file leaf-file-name="Home.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/client/Home/Home.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="300">
+            <state relative-caret-position="285">
               <caret line="29" column="36" selection-start-line="29" selection-start-column="36" selection-end-line="29" selection-end-column="36" />
               <folding>
                 <element signature="e#0#41#0" expanded="true" />
@@ -150,6 +154,7 @@
       <find>show</find>
       <find>found</find>
       <find>nodem</find>
+      <find>found a</find>
     </findStrings>
     <replaceStrings>
       <replace>&amp;apos;</replace>
@@ -238,12 +243,31 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
             <path>
               <item name="BarterOut" type="b2602c69:ProjectViewProjectNode" />
               <item name="BarterOut" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="BarterOut" type="b2602c69:ProjectViewProjectNode" />
+              <item name="BarterOut" type="462c0819:PsiDirectoryNode" />
+              <item name="client" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="BarterOut" type="b2602c69:ProjectViewProjectNode" />
+              <item name="BarterOut" type="462c0819:PsiDirectoryNode" />
+              <item name="client" type="462c0819:PsiDirectoryNode" />
+              <item name="Home" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="BarterOut" type="b2602c69:ProjectViewProjectNode" />
+              <item name="BarterOut" type="462c0819:PsiDirectoryNode" />
+              <item name="client" type="462c0819:PsiDirectoryNode" />
+              <item name="Home" type="462c0819:PsiDirectoryNode" />
+              <item name="SellBook" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="BarterOut" type="b2602c69:ProjectViewProjectNode" />
@@ -272,7 +296,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -394,11 +417,12 @@
       <workItem from="1525218513456" duration="14110000" />
       <workItem from="1525234093593" duration="17238000" />
       <workItem from="1525286642290" duration="4769000" />
+      <workItem from="1525299709787" duration="1714000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="210534000" />
+    <option name="totallyTimeSpent" value="212285000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -413,13 +437,13 @@
     <frame x="0" y="27" width="1920" height="1053" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.5772532" visible="true" weight="0.171875" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.5761803" visible="true" weight="0.171875" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.3286385" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" weight="0.32939914" />
       <window_info anchor="bottom" id="Version Control" order="9" weight="0.3286385" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.21566524" />
-      <window_info id="npm" order="2" sideWeight="0.42274678" side_tool="true" visible="true" weight="0.171875" />
+      <window_info id="npm" order="2" sideWeight="0.42381975" side_tool="true" visible="true" weight="0.171875" />
       <window_info id="Structure" order="1" sideWeight="0.4825986" side_tool="true" weight="0.2494043" />
       <window_info anchor="bottom" id="Terminal" order="8" weight="0.328125" />
       <window_info id="Favorites" order="3" sideWeight="0.5174014" side_tool="true" weight="0.2494043" />
@@ -462,11 +486,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="412">
           <caret line="222" selection-start-line="222" selection-end-line="222" />
-          <folding>
-            <element signature="e#40#64#0" expanded="true" />
-            <element signature="e#123#153#0" expanded="true" />
-            <element signature="e#401#434#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -609,13 +628,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/Home/SellBook/SellBook.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="555">
-          <caret line="37" column="15" selection-start-line="37" selection-start-column="12" selection-end-line="37" selection-end-column="15" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app-testing/src/App.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="285">
@@ -723,7 +735,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/client/Home/Home.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
+        <state relative-caret-position="285">
           <caret line="29" column="36" selection-start-line="29" selection-start-column="36" selection-end-line="29" selection-end-column="36" />
           <folding>
             <element signature="e#0#41#0" expanded="true" />
@@ -750,8 +762,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/client/core/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="18" column="26" lean-forward="true" selection-start-line="18" selection-start-column="26" selection-end-line="18" selection-end-column="26" />
+        <state relative-caret-position="105">
+          <caret line="18" column="26" selection-start-line="18" selection-start-column="26" selection-end-line="18" selection-end-column="26" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
             <element signature="e#30#56#0" expanded="true" />
@@ -787,15 +799,17 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/client/Home/SellBook/SellBook.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-759">
+          <caret line="45" selection-start-line="45" selection-end-line="46" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/server/server.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="567">
-          <caret line="190" column="1" lean-forward="true" selection-start-line="190" selection-start-column="1" selection-end-line="190" selection-end-column="1" />
-          <folding>
-            <element signature="e#40#64#0" expanded="true" />
-            <element signature="e#123#153#0" expanded="true" />
-            <element signature="e#401#434#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="436">
+          <caret line="251" column="14" lean-forward="true" selection-start-line="251" selection-start-column="14" selection-end-line="251" selection-end-column="14" />
         </state>
       </provider>
     </entry>
