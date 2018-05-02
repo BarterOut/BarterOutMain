@@ -113,7 +113,9 @@ app.post('/api/sellBook', (req, res) => {
 //WTB
 
 app.post('/api/buyBook', (req, res) => {
-  req.body.payload.date = Date.now();
+    console.log("book request")
+
+    req.body.payload.date = Date.now();
   const newBook = new TextbookBuy(req.body.payload);
   newBook.save()
     .then(() => {
@@ -127,7 +129,16 @@ app.post('/api/buyBook', (req, res) => {
         },
             (err, matchedBooks)=>{
                 console.log("book was found")
-                realUser.update({_id:req.body.payload.owner}, {$addToSet:{matchedBooks: matchedBooks}}) //push matched books (ids) into the list of books contained in the user
+                console.log(matchedBooks)
+                console.log(matchedBooks._id)
+                console.log("IDS WERE UNDEFINED")
+                var addBooks = [];
+                matchedBooks.forEach((book)=>{
+                    addBooks.push(book._id)
+                })
+                console.log(addBooks)
+
+                realUser.update({_id:req.body.payload.owner}, {$addToSet:{matchedBooks: addBooks}}) //push matched books (ids) into the list of books contained in the user
               //       console.log("book user was found")
               // matchedBooks.forEach((book)=>
               // {
@@ -157,7 +168,6 @@ app.post('/api/buyBook', (req, res) => {
 
 app.post('/api/clickBuy', (req, res) => {
   console.log(req.body.bookID);
-  console.log(req.body.userID);
   res.json(true);
 });
 
