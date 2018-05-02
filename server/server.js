@@ -242,7 +242,14 @@ app.post('/api/sellBook', (req, res) => {
         //update match with an and statment such that it doesn't match with users that status other than 0
 
       TextbookBuy.find({
-        $or: [{ name: { $regex: req.body.payload.name, $options: 'i' } }, { course: { $regex: req.body.payload.course, $options: 'i' } }],
+
+
+            $and: [
+                {$or: [{ name: { $regex: req.body.payload.name, $options: 'i' } }, { course: { $regex: req.body.payload.course, $options: 'i' } }]},
+                { status: 0 },
+            ]
+
+
       }, (err, matchedBooks) => {
         matchedBooks.forEach((bookMatched) => {
           realUser.update({ _id: bookMatched.owner }, { $addToSet: { matchedBooks: theBookID } });
@@ -323,13 +330,17 @@ app.post('/api/clickBuy', (req, res) => {
 
 app.post('/api/showMatches', (req, res) => {
   // console.log(req.body.id);
-  realUser.find({ _id: req.body.id }, (err, userMatch) => {
+  realUser.find({
+        $and: [
+            { _id: req.body.id },
+            { status: 0 },
+        ]}, (err, userMatch) => {
     let bookObjects = [];
     const bookIDs = userMatch[0].matchedBooks;
     // console.log(bookIDs)
 
 
-    Textbook.find({ _id: { $in: bookIDs } }, (error, book) => {
+    Textbook.find({ _id: { $in: bookIDs } }, (e      { _id: req.body.id }rror, book) => {
       // console.log("found a book");
       bookObjects = book;
       // console.log(bookObjects)
@@ -342,7 +353,11 @@ app.post('/api/showMatches', (req, res) => {
 
 app.get('/api/searchBook/:query', (req, res) => {
   const searchKey = req.params.query;
-  Textbook.find({ name: { $regex: searchKey, $options: 'i' } }, (err, books) => {
+  Textbook.find({
+      $and: [
+          { status: 0 },
+          { $or: [{name: { $regex: searchKey, $options: 'i' }}, { course: { $regex: searchKey, $options: 'i' } }] },
+      ],}, (err, books) => {
     const bookMap = [];
     books.forEach((book) => {
       bookMap.push(book);
@@ -352,7 +367,7 @@ app.get('/api/searchBook/:query', (req, res) => {
 });
 
 app.get('/api/displayAllBooks', (req, res) => {
-  Textbook.find({}, (err, books) => {
+  Textbook.find({status: 0}, (err, books) => {
     res.json(books);
   });
 });
