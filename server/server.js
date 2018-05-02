@@ -117,19 +117,24 @@ app.post('/api/buyBook', (req, res) => {
   const newBook = new TextbookBuy(req.body.payload);
   newBook.save()
     .then(() => {
+        console.log("book was saved")
 
         Textbook.find({//looks for a book that matches based on the name matching and the
             $and : [
             { status: 0},
-            { name: {$regex: req.body.payload.name, $options: 'i'} }
+            {$or : [ { name: {$regex: req.body.payload.name, $options: 'i'} }, { course : {$regex: req.body.payload.course, $options: 'i'} } ]}
         ]
         },
             (err, matchedBooks)=>{
-                realUser.find({_id:req.body.payload.owner},(err, foundUser)=>{//push matched books (ids) into the list of books contained in the user
-              matchedBooks.forEach((book)=>
-              {
-                foundUser.matchedBooks.push(book._id)
-              })
+                console.log("book was found")
+                realUser.update({_id:req.body.payload.owner}, {$addToSet:{matchedBooks: matchedBooks}}) //push matched books (ids) into the list of books contained in the user
+              //       console.log("book user was found")
+              // matchedBooks.forEach((book)=>
+              // {
+
+                // console.log(book._id)
+                // foundUser.matchedBooks.push(book._id)
+              });
               /*
               *  Story.findById(topic.storyId, function(err, res) {
       logger.info("res", res);
@@ -140,14 +145,19 @@ app.post('/api/buyBook', (req, res) => {
 
             //_id: ObjectId("572f16439c0d3ffe0bc084a4")
             //push matched books (ids) into the list of books contained in the user
-          });
-            })
 
-      res.json(true);//Not needed
+
+
+      // res.json(true);//Not needed
     })
     .catch((err) => {
       res.status(400).send(err);
     });
+});
+
+app.post('/api/clickBuy', (req, res)=>
+{
+  res.json(true);
 });
 
 app.get('apo/showMatches',(req,res) => {
