@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 import './Home.css';
+import logoPic from '../images/barterOutOrangeWhiteLogoHeader.png';
 
 import BookPost from './BookPost/BookPost';
 import BuyBook from './BuyBook/BuyBook';
@@ -12,6 +13,8 @@ class Home extends Component {
     this.state = {
       posts: [],
       user: JSON.parse(sessionStorage.getItem('user')),
+      sellHidden: true,
+      buyHidden: true,
     };
   }
 
@@ -36,6 +39,14 @@ class Home extends Component {
 
   updateInputValue(evt) {
     this.search(evt.target.value);
+  }
+
+  toggleBuyVisibility() {
+    this.setState({ buyHidden: !this.state.buyHidden });
+  }
+
+  toggleSellVisibility() {
+    this.setState({ sellHidden: !this.state.sellHidden });
   }
 
   search(query) {
@@ -65,22 +76,34 @@ class Home extends Component {
       <div className="app-wrapper">
         <div className="bar">
           <div className="right">
-            <span className="title">Barter Out</span>
+            <img className="logo" src={logoPic} alt="logo" />
           </div>
           <div className="left">
-            <button className="button" onClick={this.logout.bind(this)}>Logout</button>
+            <button
+              className="button"
+              onClick={this.logout.bind(this)}
+            >Logout
+            </button>
           </div>
         </div>
         <div className="content-wrapper">
           <div className="profile-section">
             <div className="profile-pic" />
             <h2>Profile</h2>
-            <h4>ID: {user._id}</h4>
-            <h4>EMAIL: {user.emailAddress}</h4>
-            <h4>VENMO: {user.venmoUsername}</h4>
-            <h4>CMC: {user.CMC}</h4>
-            <button className="button">Buy Book</button>
-            <button className="button">Sell Book</button>
+            <h4>Duncan Grubbs</h4>
+            <h4>{user.emailAddress}</h4>
+            <h4>@{user.venmoUsername}</h4>
+            <h4>{user.CMC}</h4>
+            <button
+              className="button"
+              onClick={this.toggleBuyVisibility.bind(this)}
+            >Match Book
+            </button>
+            <button
+              className="button"
+              onClick={this.toggleSellVisibility.bind(this)}
+            >Sell Book
+            </button>
           </div>
 
           <div className="books-lists">
@@ -91,19 +114,27 @@ class Home extends Component {
             </div>
 
             <div className="posts-section">
-              <input
-                autoComplete="off"
-                className="searchInput"
-                onChange={this.updateInputValue.bind(this)}
-                placeholder="Search Books"
-                type="text"
-                name="name"
-              />
-              <span className="header">New Arrivals</span>
+              <div className="posts-header">
+                <div className="leftPB">
+                  <span className="header">New Arrivals</span>
+                </div>
+                <div className="rightBP">
+                  <input
+                    autoComplete="off"
+                    className="searchInput"
+                    onChange={this.updateInputValue.bind(this)}
+                    placeholder="Search Books"
+                    type="text"
+                    name="name"
+                  />
+                  {/* <button className="button">Search</button> */}
+                </div>
+              </div>
               <div className="posts">
                 {posts.map(post => (
                   <BookPost
                     key={post._id}
+                    id={post._id}
                     name={post.name}
                     subject={post.course}
                     edition={post.edition}
@@ -117,8 +148,10 @@ class Home extends Component {
                 ))}
               </div>
             </div>
-            <SellBook />
-            <BuyBook />
+
+            {!this.state.buyHidden && <BuyBook />}
+            {!this.state.sellHidden && <SellBook />}
+
           </div>
         </div>
       </div>

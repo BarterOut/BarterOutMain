@@ -15,14 +15,14 @@ class SellBook extends Component {
   }
 
   onChange(evt) {
-    this.setState({[evt.target.name]: evt.target.value});
+    this.setState({ [evt.target.name]: evt.target.value });
   }
 
   postToDatabase() {
-    console.log('posting sell');
-    let user = JSON.parse(sessionStorage.getItem('user'));
-    let ID = user._id;
-    let payload = {
+    console.log('Posting Book To Sell');
+    const user = JSON.parse(sessionStorage.getItem('user'));
+    const ID = user._id;
+    const payload = {
       name: this.state.name,
       edition: this.state.edition,
       course: this.state.course,
@@ -31,78 +31,104 @@ class SellBook extends Component {
       ISBN: this.state.ISBN,
       condition: this.state.condition,
       comments: this.state.comments,
-      owner: ID
+      owner: ID,
     };
-    
-    let data = new FormData();
-    let token;
-    data.append( 'json', JSON.stringify( payload ) );
-    fetch('/api/sellBook',
-    {
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
+
+    const data = new FormData();
+
+    data.append('json', JSON.stringify(payload));
+    fetch(
+      '/api/sellBook',
+      {
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+        },
+        method: 'POST',
+        body: JSON.stringify({ payload }),
       },
-      method: 'POST',
-      body: JSON.stringify({ payload })
-    });
+    )
+      .then(() => {
+        window.location.reload();
+      });
   }
 
   render() {
     return (
       <div className="wrapper-custom">
-        <h2>Book to Sell:</h2>
-        <form>
-          <input
-            className="inputForTextbook"
-            placeholder="Name"
-            type="text"
-            name="name"
-            onChange={this.onChange.bind(this)}
-            required />
-          <input
-            className="inputForTextbook"
-            placeholder="Edition"
-            type="number"
-            name="edition"
-            onChange={this.onChange.bind(this)}
-            required />
-          <input
-            className="inputForTextbook"
-            placeholder="Course e.g. MTH 101"
-            type="text" pattern="^[A-Z]{3} \d{3}$"
-            name="course"
-            onChange={this.onChange.bind(this)}
-            required />
-          <input
-            className="inputForTextbook"
-            placeholder="Price"
-            type="number"
-            name="price"
-            onChange={this.onChange.bind(this)}
-            required />
-          <input
-            className="inputForTextbook"
-            placeholder="ISBN"
-            type="number"
-            pattern="^(?=(?:\D*\d){10}(?:(?:\D*\d){3})?$)[\d-]+$"
-            onChange={this.onChange.bind(this)}
-            name="ISBN" />
-          <input
-            className="inputForTextbook"
-            placeholder="Condition"
-            type="text"
-            name="condition"
-            onChange={this.onChange.bind(this)}
-            required />
-          <input
-            className="inputForTextbook"
-            placeholder="Comments"
-            type="text"
-            onChange={this.onChange.bind(this)}
-            name="comments" />
-          <button className="button" onClick={this.postToDatabase.bind(this)}>Submit</button>
-        </form>
+        <div className="modalContent">
+          <h2>What's your book?</h2>
+          <form className="input-wrapper">
+            <input
+              autoComplete="off"
+              className="inputForLogin"
+              placeholder="Name"
+              type="text"
+              name="name"
+              onChange={this.onChange.bind(this)}
+              required
+            />
+            <input
+              autoComplete="off"
+              className="inputForLogin"
+              placeholder="Edition"
+              type="number"
+              name="edition"
+              onChange={this.onChange.bind(this)}
+              required
+            />
+            <input
+              autoComplete="off"
+              className="inputForLogin"
+              placeholder="Course e.g. MTH 101"
+              type="text"
+              pattern="^[A-Z]{3} \d{3}$"
+              name="course"
+              onChange={this.onChange.bind(this)}
+              required
+            />
+            <input
+              autoComplete="off"
+              className="inputForLogin"
+              placeholder="Price"
+              type="number"
+              name="price"
+              onChange={this.onChange.bind(this)}
+              required
+            />
+            <input
+              autoComplete="off"
+              className="inputForLogin"
+              placeholder="ISBN"
+              type="number"
+              pattern="^(?=(?:\D*\d){10}(?:(?:\D*\d){3})?$)[\d-]+$"
+              onChange={this.onChange.bind(this)}
+              name="ISBN"
+            />
+            <input
+              autoComplete="off"
+              className="inputForLogin"
+              placeholder="Condition"
+              type="text"
+              name="condition"
+              onChange={this.onChange.bind(this)}
+              required
+            />
+            <input
+              autoComplete="off"
+              className="inputForLogin"
+              placeholder="Comments"
+              type="text"
+              onChange={this.onChange.bind(this)}
+              name="comments"
+            />
+            <button
+              className="button"
+              onClick={this.postToDatabase.bind(this)}
+            >Sell Book
+            </button>
+          </form>
+        </div>
       </div>
     );
   }
