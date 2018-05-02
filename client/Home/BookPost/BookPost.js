@@ -16,9 +16,10 @@ class BookPost extends Component {
   }
 
   buyBook() {
+    // console.log(sessionStorage.getItem('user')._id);
     axios.post('/api/clickBuy', {
       bookID: this.state.id,
-      userID: sessionStorage.getItem('user')._id,
+      userID: JSON.parse(sessionStorage.getItem('user'))._id,
     })
       .then((response) => {
         console.log(`Resp: ${response}`);

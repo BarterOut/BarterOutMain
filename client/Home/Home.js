@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 
+import axios from 'axios';
+
 import './Home.css';
 import logoPic from '../images/barterOutOrangeWhiteLogoHeader.png';
 
@@ -24,6 +26,16 @@ class Home extends Component {
         this.setState({ posts: res });
       })
       .catch(err => new Error(err));
+
+    axios.post('/api/showMatches', {
+      id: JSON.parse(sessionStorage.getItem('user'))._id,
+    })
+      .then((response) => {
+        console.log(response.data.matches);
+      })
+      .catch((error) => {
+        console.error(`Sign up server error: ${error}`);
+      });
   }
 
   async callApi(url) {

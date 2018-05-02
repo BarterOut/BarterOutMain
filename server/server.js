@@ -155,13 +155,18 @@ app.post('/api/buyBook', (req, res) => {
     });
 });
 
-app.post('/api/clickBuy', (req, res)=>
-{
+app.post('/api/clickBuy', (req, res) => {
+  console.log(req.body.bookID);
+  console.log(req.body.userID);
   res.json(true);
 });
 
-app.get('apo/showMatches',(req,res) => {
-
+app.post('/api/showMatches', (req, res) => {
+  console.log(req.body.id);
+  realUser.find({ _id: req.body.id }, (err, users) => {
+    console.log(users[0].matchedBooks);
+    res.json({ matches: users[0].matchedBooks });
+  });
 });
 
 
