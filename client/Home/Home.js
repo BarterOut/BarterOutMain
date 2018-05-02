@@ -123,13 +123,23 @@ class Home extends Component {
 
           <div className="books-lists">
             <div className="posts-section">
-              <div className="matches">
                 <span className="header">Your Matches</span>
                 <div className="posts">
-                  {matches.map(match => (
-                    <div>{match}</div>
-                  ))}
-                </div>
+                {matches.map(post => (
+                  <BookPost
+                    key={post._id + 1}
+                    id={post._id}
+                    name={post.name}
+                    subject={post.course}
+                    edition={post.edition}
+                    courseNumber={post.courseNumber}
+                    price={post.price}
+                    ISBN={post.ISBN}
+                    condition={post.condition}
+                    owner={post.owner}
+                    comments={post.comments}
+                  />
+                ))}
               </div>
             </div>
 
