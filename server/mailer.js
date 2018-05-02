@@ -27,11 +27,11 @@ var xoauth2 = require('xoauth2');
 //     secure: true,
 //     auth: {
 //         xoauth2: xoauth2.createXOAuth2Generator({
-//             user: '{username}',
-//             clientId: '{Client ID}',
-//             clientSecret: '{Client Secret}',
-//             refreshToken: '{refresh-token}',
-//             accessToken: '{cached access token}'
+//             user: 'office@barterout.com',
+//             clientId: '878736426892-d0vbth6ho78opo916rr1bimlmuufq25e.apps.googleusercontent.com',
+//             clientSecret: '5OTf_iLhmt0tjJCKIdnuC5XM',
+//             refreshToken: '1/9XdHU4k2vwYioRyAP8kaGYfZXKfp_JxqUwUMYVJWlZs',
+//             //accessToken: '{cached access token}'
 //         })
 //     }
 // });

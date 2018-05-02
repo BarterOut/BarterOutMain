@@ -23,6 +23,8 @@ import TextbookBuy from './models/textbookBuy';
 const passport = require('./passport');
 
 const nodemailer = require('nodemailer');
+var xoauth2 = require('xoauth2');
+
 
 // USER ROUTE
 const user = require('./routes/user');
@@ -78,13 +80,44 @@ app.listen(PORT, (error) => {
   }
 });
 
-const transporter = nodemailer.createTransport({
-  service: 'gmail',
-  auth: {
-    user: 'office@barterout.com',
-    pass: 'password',
-  },
-});
+// const transporter = nodemailer.createTransport({
+//   service: 'gmail',
+//   auth: {
+//     user: 'office@barterout.com',
+//     pass: 'password',
+//   },
+// });
+
+const transporter = nodemailer.createTransport({//secure authentication
+    // host: 'smtp.gmail.com',
+    // port: 465,//Need to change this
+    // secure: true,
+    // service: 'gmail',
+    host: 'smtp.gmail.com',
+    auth: {
+        type: 'OAuth2',
+        clientId: '878736426892-d0vbth6ho78opo916rr1bimlmuufq25e.apps.googleusercontent.com',
+        clientSecret: '5OTf_iLhmt0tjJCKIdnuC5XM',
+
+    }
+    // auth: {
+    //     xoauth2: xoauth2.createXOAuth2Generator({
+    //         "user": "johndoe@***.com",
+    //         "clientId": "*******************************",
+    //         "clientSecret": "*******************************",
+    //         "refreshToken": "*******************************"
+    //     }),
+    // auth: {
+    //
+    //         "user": 'office@barterout.com',
+    //         "clientId": '878736426892-d0vbth6ho78opo916rr1bimlmuufq25e.apps.googleusercontent.com',
+    //         "clientSecret": '5OTf_iLhmt0tjJCKIdnuC5XM',
+    //         refreshToken: '1/9XdHU4k2vwYioRyAP8kaGYfZXKfp_JxqUwUMYVJWlZs',
+    //         accessToken: 'ya29.GluwBeUQiUspdFo1yPRfzFMWADsKsyQhB-jgX3ivPBi5zcIldvyPYZtRME6xqZf7UNzkXzZLu1fh0NpeO11h6mwS2qdsL_JREzpKw_3ebOWLNgxTyFg5NmSdStnR'
+    //     }
+    }
+);
+
 
 // Email sent when user gets matched with a seller
 function matchFoundEmail(emailTo, text, firstName, bookTitle) {
@@ -148,10 +181,17 @@ Email: ${buyerUser.emailAddress}
 Venmo: ${buyerUser.venmoUsername}
 CMC Box Number: ${buyerUser.CMC}
 `,
+      auth: {
+          user: 'office@barterout.com',
+          refreshToken: '1/9XdHU4k2vwYioRyAP8kaGYfZXKfp_JxqUwUMYVJWlZs',
+          accessToken: 'ya29.GluwBeUQiUspdFo1yPRfzFMWADsKsyQhB-jgX3ivPBi5zcIldvyPYZtRME6xqZf7UNzkXzZLu1fh0NpeO11h6mwS2qdsL_JREzpKw_3ebOWLNgxTyFg5NmSdStnR'
+          // expires: 1484314697598
+      }
   };
 }
 
 function sendEmail(mailOptions) {
+    console.log("send the email!")
   transporter.sendMail(mailOptions, (err, info) => {
     if (err) {
       console.log(err);
@@ -257,7 +297,7 @@ app.post('/api/clickBuy', (req, res) => {
       realUser.find({ _id: bookFound.owner }, (error, sellerUser) => {
         seller = sellerUser[0];
         sendEmail(emailForUs(buyer, seller, bookFound));
-        sendEmail(venmoRequestEmail(buyer.emailAddress, buyer.firstName, bookFound.title));
+        // sendEmail(venmoRequestEmail(buyer.emailAddress, buyer.firstName, bookFound.title));
       });
     });
   });
