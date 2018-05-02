@@ -15,6 +15,10 @@ class BookPost extends Component {
   }
 
   buyBook() {
+    fetch('/api/buyBook')
+      .then((data) => {
+        console.log(data);
+      });
     console.log(`Buying book ${this.state.id}`);
   }
 
