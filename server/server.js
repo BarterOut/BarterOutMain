@@ -22,6 +22,8 @@ import TextbookBuy from './models/textbookBuy';
 // PASSPORT
 const passport = require('./passport');
 
+const nodemailer = require('nodemailer');
+
 // USER ROUTE
 const user = require('./routes/user');
 
@@ -75,6 +77,32 @@ app.listen(PORT, (error) => {
     console.log(`MERN is running on port: ${serverConfig.port}! Build something amazing!`); // eslint-disable-line
   }
 });
+
+const transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: 'mainoffice@barterout.com',
+    pass: 'yourpassword',
+  },
+});
+
+const mailOptions = {
+  from: 'office@barterout.com', // sender address
+  to: 'duncan.grubbs@gmail.com', // list of receivers
+  subject: 'Subject of your email', // Subject line
+  html: '<p>Your html here</p>', // plain text body
+};
+
+
+function sendEmail() {
+  transporter.sendMail(mailOptions, (err, info) => {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log(info);
+    }
+  });
+}
 
 /*
 NOTE: Keep all api routes (which should be basically everything)
@@ -156,13 +184,19 @@ app.post('/api/buyBook', (req, res) => {
 });
 
 app.post('/api/clickBuy', (req, res) => {
-  // realUser.find({_id: req.user_id},(err, foundUser)=>{
+  realUser.find({ _id: req.body.userID }, (err, foundUser) => {
+    console.log(foundUser);
+  });
 
-  // })
+  // Update the textbook status to sold
+  Textbook.update({ _id: req.body.bookID }, { $set: { status: 1 } }, (error) => {
+    console.log(error);
+  });
+
+  Textbook.find({ _id: req.body.bookID }, (err, foundBook) => {
+    console.log(foundBook);
+  });
   // send email to user
-
-
-  console.log(req.body.bookID);
 
   res.json(true);
 });
