@@ -14,6 +14,7 @@ class Home extends Component {
     super();
     this.state = {
       posts: [],
+      matches: [],
       user: JSON.parse(sessionStorage.getItem('user')),
       sellHidden: true,
       buyHidden: true,
@@ -31,7 +32,7 @@ class Home extends Component {
       id: JSON.parse(sessionStorage.getItem('user'))._id,
     })
       .then((response) => {
-        console.log(response.data);
+        this.setState({ matches: response.data });
       })
       .catch((error) => {
         console.error(`Sign up server error: ${error}`);
@@ -79,9 +80,11 @@ class Home extends Component {
 
   render() {
     let posts = [];
+    let matches = [];
     let user = {};
     if (this.state) {
       posts = this.state.posts;
+      matches = this.state.matches;
       user = this.state.user;
     }
     return (
@@ -109,7 +112,7 @@ class Home extends Component {
             <button
               className="button"
               onClick={this.toggleBuyVisibility.bind(this)}
-            >Match Book
+            >Find Book
             </button>
             <button
               className="button"
@@ -122,6 +125,11 @@ class Home extends Component {
             <div className="posts-section">
               <div className="matches">
                 <span className="header">Your Matches</span>
+                <div className="posts">
+                  {matches.map(match => (
+                    <div>{match}</div>
+                  ))}
+                </div>
               </div>
             </div>
 

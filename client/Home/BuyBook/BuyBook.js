@@ -47,12 +47,12 @@ class BuyBook extends Component {
     return (
       <div className="wrapper-custom">
         <div className="modalContent">
-          <h2>What's your book?</h2>
+          <h2>What are you looking for?</h2>
           <form className="input-wrapper">
             <input
               autoComplete="off"
               className="inputForLogin"
-              placeholder="Name"
+              placeholder="Title of the Book"
               type="text"
               name="name"
               onChange={this.onChange.bind(this)}

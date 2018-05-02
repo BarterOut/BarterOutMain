@@ -2,8 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e556323a-40ad-41b3-a095-f7abad5f2138" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/client/Home/BuyBook/BuyBook.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/Home/BuyBook/BuyBook.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/Home/Home.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/Home/Home.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/server.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/server.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/SignUp/SignUp.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/SignUp/SignUp.css" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -29,7 +30,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="server.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="server.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/server/server.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="351">
@@ -43,11 +44,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Home.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Home.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/client/Home/Home.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="405">
-              <caret line="33" column="33" selection-start-line="33" selection-start-column="33" selection-end-line="33" selection-end-column="33" />
+            <state relative-caret-position="315">
+              <caret line="33" column="27" selection-start-line="33" selection-start-column="27" selection-end-line="33" selection-end-column="27" />
               <folding>
                 <element signature="e#0#41#0" expanded="true" />
               </folding>
@@ -185,8 +186,8 @@
         <option value="$PROJECT_DIR$/server/models/textbook.js" />
         <option value="$PROJECT_DIR$/server/routes/user.js" />
         <option value="$PROJECT_DIR$/server/models/newUser.js" />
-        <option value="$PROJECT_DIR$/client/Home/Home.js" />
         <option value="$PROJECT_DIR$/server/server.js" />
+        <option value="$PROJECT_DIR$/client/Home/Home.js" />
       </list>
     </option>
   </component>
@@ -385,12 +386,12 @@
       <workItem from="1524901536991" duration="7730000" />
       <workItem from="1524928492978" duration="3714000" />
       <workItem from="1525218513456" duration="14110000" />
-      <workItem from="1525234093593" duration="6803000" />
+      <workItem from="1525234093593" duration="6957000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="192166000" />
+    <option name="totallyTimeSpent" value="192320000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -753,16 +754,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/Home/Home.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="405">
-          <caret line="33" column="33" selection-start-line="33" selection-start-column="33" selection-end-line="33" selection-end-column="33" />
-          <folding>
-            <element signature="e#0#41#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/server/server.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="351">
@@ -771,6 +762,16 @@
             <element signature="e#40#64#0" expanded="true" />
             <element signature="e#123#153#0" expanded="true" />
             <element signature="e#401#434#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/Home/Home.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="315">
+          <caret line="33" column="27" selection-start-line="33" selection-start-column="27" selection-end-line="33" selection-end-column="27" />
+          <folding>
+            <element signature="e#0#41#0" expanded="true" />
           </folding>
         </state>
       </provider>
