@@ -15,6 +15,7 @@ import kittens from './kittens/kitten';
 
 // MODELS
 import User from './models/user';
+import realUser from './models/newUser'
 import Textbook from './models/textbook';
 import TextbookBuy from './models/textbookBuy';
 
@@ -31,6 +32,8 @@ const session = require('express-session');
 
 // Initialize the Express App
 const app = new Express();
+
+
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -91,12 +94,15 @@ app.post('/api/preRegister', (req, res) => {
       res.status(400).send(`Unable to save to database ${err}`);
     });
 });
-
+//WTS
 app.post('/api/sellBook', (req, res) => {
   req.body.payload.date = Date.now();
   const newBook = new Textbook(req.body.payload);
   newBook.save()
     .then(() => {
+      TextbookBuy.find({})
+
+
       res.redirect('/home');
     })
     .catch((err) => {
@@ -104,18 +110,50 @@ app.post('/api/sellBook', (req, res) => {
       res.status(400).send(err);
     });
 });
+//WTB
 
 app.post('/api/buyBook', (req, res) => {
   req.body.payload.date = Date.now();
   const newBook = new TextbookBuy(req.body.payload);
   newBook.save()
     .then(() => {
-      res.json(true);
+
+        Textbook.find({//looks for a book that matches based on the name matching and the
+            $and : [
+            { status: 0},
+            { name: {$regex: req.body.payload.name, $options: 'i'} }
+        ]
+        },
+            (err, matchedBooks)=>{
+                realUser.find({_id:ObjectId(req.body.payload.owner)},(err, foundUser)=>{//push matched books (ids) into the list of books contained in the user
+              matchedBooks.forEach((book)=>
+              {
+                foundUser.matchedBooks.push(book)
+              })
+              /*
+              *  Story.findById(topic.storyId, function(err, res) {
+      logger.info("res", res);
+      assert.isNotNull(res);
+    });
+              *
+              * */
+
+            //_id: ObjectId("572f16439c0d3ffe0bc084a4")
+            //push matched books (ids) into the list of books contained in the user
+          });
+            })
+
+      res.json(true);//Not needed
     })
     .catch((err) => {
       res.status(400).send(err);
     });
 });
+
+app.get('apo/showMatches',(req,res) => {
+
+});
+
 
 app.get('/api/searchBook/:query', (req, res) => {
   const searchKey = req.params.query;
@@ -127,6 +165,8 @@ app.get('/api/searchBook/:query', (req, res) => {
     res.json(bookMap);
   });
 });
+
+
 
 app.get('/api/displayAllBooks', (req, res) => {
   Textbook.find({}, (err, books) => {

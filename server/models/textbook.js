@@ -7,7 +7,7 @@ const textbookSchema = new Schema({
   edition: { type: 'Number', required: true },
   course: { type: 'String', required: true },
   price: { type: 'Number', required: true },
-  status: { type: 'Number', required: true },
+  status: { type: 'Number', required: true },//status of 0 is not bought probs wants to make this boolean
   ISBN: { type: 'Number', required: false },
   condition: { type: 'String', required: true },
   owner: { type: 'String', required: true },
@@ -16,6 +16,8 @@ const textbookSchema = new Schema({
 });
 
 
-textbookSchema.index({ '$**': 'text' });
+// textbookSchema.index({ '$**': 'text' });
+textbookSchema.index({ name: 'text', course: 'text', status: 'text', edition: 'text', owner: 'text'}) // can add weights here later!
+
 
 export default mongoose.model('Textbook', textbookSchema);
