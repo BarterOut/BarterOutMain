@@ -46,6 +46,7 @@
     "jsonwebtoken": "^8.2.1",
     "mongoose": "^4.12.6",
     "morgan": "^1.9.0",
+    "nodemailer": "^4.6.4",
     "nodemon": "^1.17.1",
     "passport": "^0.4.0",
     "passport-jwt": "^4.0.0",
@@ -62,7 +63,8 @@
     "webpack": "^3.8.1",
     "webpack-dev-middleware": "^1.12.0",
     "webpack-dev-server": "^2.9.3",
-    "webpack-hot-middleware": "^2.20.0"
+    "webpack-hot-middleware": "^2.20.0",
+    "xoauth2": "^1.2.0"
   },
   "devDependencies": {
     "chai": "^4.1.2",

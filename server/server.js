@@ -96,20 +96,25 @@ app.post('/api/preRegister', (req, res) => {
 });
 //WTS
 app.post('/api/sellBook', (req, res) => {
+    console.log("want to sell book")
     req.body.payload.date = Date.now();
     const newBook = new Textbook(req.body.payload);
     newBook.save()
         .then(() => {
+            console.log("apparently posted book");
 
-            // TextbookBuy.find({
-            //   $or : [ { name: {$regex: req.body.payload.name, $options: 'i'} }, { course : {$regex: req.body.payload.course, $options: 'i'} } ]
-            // },(err, matchedBooks)=>{
-            //     var bookList = [];
-            //     matchedBooks.forEach(books)=>{
-            //         bookList.push(books)
-            //     }
-            //
-            // });
+            const theBookID = newBook._id;
+
+            TextbookBuy.find({
+              $or : [{ name: { $regex: req.body.payload.name, $options: 'i'} }, { course: {$regex: req.body.payload.course, $options: 'i'} } ]
+            },(err, matchedBooks)=>{
+
+                matchedBooks.forEach((bookMatched) =>{
+
+                    realUser.update({_id: bookMatched.owner}, { $addToSet: { matchedBooks: theBookID } });
+                })
+
+            });
 
 
             res.redirect('/home');
@@ -122,13 +127,13 @@ app.post('/api/sellBook', (req, res) => {
 //WTB
 
 app.post('/api/buyBook', (req, res) => {
-    console.log("book request")
+    // console.log("book request")
 
     req.body.payload.date = Date.now();
     const newBook = new TextbookBuy(req.body.payload);
     newBook.save()
         .then(() => {
-            console.log("book was saved")
+            // console.log("book was saved")
 
             Textbook.find({//looks for a book that matches based on the name matching and the
                     $and : [
@@ -146,9 +151,9 @@ app.post('/api/buyBook', (req, res) => {
                     })
 
                     realUser.update({_id: req.body.payload.owner}, { $addToSet: { matchedBooks: {$each: addBooks} }}, (error) => {
-                        console.log(error);
+                        // console.log(error);
                     })
-                    console.log(addBooks);
+                    // console.log(addBooks);
 
                     //push matched books (ids) into the list of books contained in
                 });
@@ -158,8 +163,15 @@ app.post('/api/buyBook', (req, res) => {
         });
 });
 
-app.post('/api/clickBuy', (req, res) => {
+app.post('/api/clickBuy', (req, res) =>
+    realUser.find({_id: req.user_id},(err, foundUser)=>{
+
+    })
+    //send email to user
+
+
     console.log(req.body.bookID);
+
     res.json(true);
 });
 
@@ -179,10 +191,10 @@ app.post('/api/showMatches', (req, res) => {
 
         // bookIDs.forEach((ID) => {
             Textbook.find({_id:{$in: bookIDs}},(err, book)=>{
-                console.log('found book');
+                // console.log('found book');
                 bookObjects = book;
                 // bookObjects.push(book);
-                console.log(bookObjects);
+                // console.log(bookObjects);
                 res.json(bookObjects);
 
             });
