@@ -86,98 +86,72 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-function changeOptions(emailTo, subject, text){
-
-    let mailOptions = {
-        from: '"Barter Out" <barterout@barterout.com',
-        to: emailTo,
-        subject: subject,
-        text: text
-
-    }
+// Email sent when user gets matched with a seller
+function matchFoundEmail(emailTo, text, firstName, bookTitle) {
+  return {
+    from: '"Barter Out" <office@barterout.com',
+    to: emailTo,
+    subject: '[BarterOut] Match Found',
+    text: `Dear ${firstName},
+\n
+We are excited to let you know that we found a match for your request to buy ${bookTitle}. Check it on our website and complete the purchase if you are satisfied with the price and condition of the book.
+\n
+Once you click buy, we will make a request on Venmo, but not pay the seller until we verify the condition of the book. If it doesn’t match your preference, we are sending your money back.
+\n
+Thank you,
+\n
+The BarterOut team
+`,
+  };
 }
 
+// Email sent to seller when buyer buys their book
+function venmoRequestEmail(emailTo, firstName, bookTitle) {
+  return {
+    from: '"Barter Out" <office@barterout.com',
+    to: emailTo,
+    subject: 'Match Found',
+    text: `Dear ${firstName},
 
-var mailOptions = {
-  from: 'office@barterout.com', // sender address
-  to: 'duncan.grubbs@gmail.com', // list of receivers
-  subject: 'Subject of your email', // Subject line
-  html: '<p>Your html here</p>', // plain text body
-};
+We are excited to let you know that we found a buyer for your copy of ${bookTitle}. Please drop the book at one of our members anytime in the following schedule:
 
-function matchFoundEmail(emailTo, text, firstName, bookTitle){
+Mo-Sat: 11 AM - 4 PM @ outside Starbucks in Wilson Commons.
 
-     mailOptions = {
-        from: '"Barter Out" <barterout@barterout.com',
-        to: emailTo,
-        subject: 'Match Found',
-        text: ' \n' +
-        'Dear' + firstName + ',\n' +
-        '\n' +
-        'We are excited to let you know that we found a match for your request to buy' + bookTitle + '. Check it on our website and complete the purchase if you are satisfied with the price and condition of the book.\n' +
-        '\n' +
-        'Once you click buy, we will make a request on Venmo, but not pay the seller until we verify the condition of the book. If it doesn’t match your preference, we are sending your money back.\n' +
-        '\n' +
-        'Thank you,\n' +
-        'The BarterOut team\n'
+We will check the condition of the book and if it matches the one advertised, we will send you the money via Venmo.
 
-    }
-};
+Thank you,
 
+The BarterOut team`,
+  };
+}
 
-function venmoRequestEmail(emailTo,  firstName, bookTitle){
+// Email to ourselves when there is a transaction
+function emailForUs(buyerUser, sellerUser, bookFound) {
+  return {
+    from: '"Barter Out" <office@barterout.com',
+    to: 'office@barterout.com',
+    subject: '[WEBAPP] New Transaction',
+    text: `Match found!
+\n
+Date: ${new Date()}
+\n
+Book: ${bookFound.name}
+Condition: ${bookFound.condition}
+Price: ${bookFound.price}
+\n
+Seller: ${sellerUser.firstName} ${sellerUser.lastName}
+Email: ${sellerUser.emailAddress}
+Venmo: ${sellerUser.venmoUsername}
+\n
+Buyer: ${buyerUser.firstName} ${buyerUser.lastName}
+Email: ${buyerUser.emailAddress}
+Venmo: ${buyerUser.venmoUsername}
+CMC Box Number: ${buyerUser.CMC}
+`,
+  };
+}
 
-    mailOptions = {
-        from: '"Barter Out" <barterout@barterout.com',
-        to: emailTo,
-        subject: 'Match Found',
-        text: ' \n' +
-        'Dear' + firstName + ',\n' +
-        '\n' +
-        'We are excited to let you know that we found a buyer for your copy of' + bookTitle + '. Please drop the book at one of our members anytime in the following schedule:\n' +
-        '\n' +
-        'Mo-Sat: 11 AM - 4 PM @ outside Starbucks in Wilson Commons.\n' +
-        '\n' +
-        'We will check the condition of the book and if it matches the one advertised, we will send you the money via Venmo.\n' +
-        '\n' +
-        'Thank you,\n' +
-        'The BarterOut team\n'
-
-    }
-};
-
-function emailForUs( buyerUser, sellerUser, bookFound){
-
-    mailOptions = {
-        from: '"Barter Out" <barterout@barterout.com',
-        to: 'barterout@barterout.com',
-        subject: 'Transaction info for us',
-        text: ' \n' +
-        'Match found!\n' +
-        '\n' +
-        'Date: ' + new Date()  +'\n' +
-        '\n' +
-        'Book:' + bookFound.name +'\n' +
-        'Condition:' + bookFound.condition +'\n' +
-        'Price:' + bookFound.price + '\n' +
-        '\n' +
-        'Seller:' + sellerUser.firstName + ' ' + sellerUser.lastName + ' \n' +
-        'Email:' + sellerUser.emailAddress +'\n' +
-        'Venmo:' + sellerUser.venmoUsername +'\n' +
-        '\n' +
-        'Buyer:' + buyerUser.firstName + ' ' + buyerUser.lastName + ' \n' +
-        'Email: '+ buyerUser.emailAddress +'\n' +
-        'Venmo: ' + buyerUser.venmoUsername +'\n' +
-        'CMC Box Number: ' + buyerUser.CMC + '  \n'
-
-    }
-};
-
-
-
-
-
-function sendEmail() {
+function sendEmail(mailOptions) {
   transporter.sendMail(mailOptions, (err, info) => {
     if (err) {
       console.log(err);
@@ -220,7 +194,6 @@ app.post('/api/sellBook', (req, res) => {
       }, (err, matchedBooks) => {
         matchedBooks.forEach((bookMatched) => {
           realUser.update({ _id: bookMatched.owner }, { $addToSet: { matchedBooks: theBookID } });
-          
         });
       });
       res.redirect('/home');
@@ -268,55 +241,26 @@ app.post('/api/buyBook', (req, res) => {
 });
 
 app.post('/api/clickBuy', (req, res) => {
-    var buyer;
-    var bookFound;
-    var seller;
+  let buyer;
+  let bookFound;
+  let seller;
 
   realUser.find({ _id: req.body.userID }, (err, foundUser) => {
-
     buyer = foundUser[0];
-      console.log(buyer);
-      Textbook.update({ _id: req.body.bookID }, { $set: { status: 1 } }, (error) => {
-          console.log("error: " + error);
+    Textbook.update({ _id: req.body.bookID }, { $set: { status: 1 } }, (error) => {
+      console.log(`Error: ${error}`);
+    });
+
+    Textbook.find({ _id: req.body.bookID }, (errors, foundBook) => {
+      bookFound = foundBook[0];
+      console.log(bookFound);
+      realUser.find({ _id: bookFound.owner }, (error, sellerUser) => {
+        seller = sellerUser[0];
+        sendEmail(emailForUs(buyer, seller, bookFound));
+        sendEmail(venmoRequestEmail(buyer.emailAddress, buyer.firstName, bookFound.title));
       });
-
-      Textbook.find({ _id: req.body.bookID }, (errors, foundBook) => {
-          bookFound = foundBook[0];
-          console.log(bookFound);
-          realUser.find({ _id: bookFound.owner }, (error, sellerUser) => {
-              seller = sellerUser[0];
-              console.log(seller);
-              emailForUs(buyer, seller, bookFound);
-              sendEmail();
-              venmoRequestEmail(buyer.emailAddress, buyer.firstName, bookFound.title);
-              sendEmail();
-
-          });
-      });
-
+    });
   });
-
-  // // Update the textbook status to sold
-  // Textbook.update({ _id: req.body.bookID }, { $set: { status: 1 } }, (error) => {
-  //   console.log(error);
-  // });
-  //
-  // Textbook.find({ _id: req.body.bookID }, (err, foundBook) => {
-  //     bookFound = foundBook;
-  //   console.log(foundBook);
-  //     realUser.find({ _id: bookFound.owner }, (error, sellerUser) => {
-  //         seller = sellerUser;
-  //         console.log(sellerUser);
-  //     });
-  // });
-  //
-  //
-  //
-
-  // send email to user
-
-  sendEmail();
-
   res.json(true);
 });
 
