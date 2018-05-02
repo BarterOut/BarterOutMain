@@ -123,8 +123,8 @@ class Home extends Component {
 
           <div className="books-lists">
             <div className="posts-section">
-                <span className="header">Your Matches</span>
-                <div className="posts">
+              <span className="header">Your Matches</span>
+              <div className="posts">
                 {matches.map(post => (
                   <BookPost
                     key={post._id + 1}
