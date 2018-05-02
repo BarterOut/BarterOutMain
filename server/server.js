@@ -81,8 +81,8 @@ app.listen(PORT, (error) => {
 const transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
-    user: 'mainoffice@barterout.com',
-    pass: 'yourpassword',
+    user: 'office@barterout.com',
+    pass: 'password',
   },
 });
 
@@ -197,6 +197,7 @@ app.post('/api/clickBuy', (req, res) => {
     console.log(foundBook);
   });
   // send email to user
+  sendEmail();
 
   res.json(true);
 });
