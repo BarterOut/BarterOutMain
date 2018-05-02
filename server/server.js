@@ -100,7 +100,16 @@ app.post('/api/sellBook', (req, res) => {
   const newBook = new Textbook(req.body.payload);
   newBook.save()
     .then(() => {
-      TextbookBuy.find({})
+
+      // TextbookBuy.find({
+      //   $or : [ { name: {$regex: req.body.payload.name, $options: 'i'} }, { course : {$regex: req.body.payload.course, $options: 'i'} } ]
+      // },(err, matchedBooks)=>{
+      //     var bookList = [];
+      //     matchedBooks.forEach(books)=>{
+      //         bookList.push(books)
+      //     }
+      //
+      // });
 
 
       res.redirect('/home');
@@ -137,6 +146,10 @@ app.post('/api/buyBook', (req, res) => {
                     addBooks.push(book._id)
                 })
                 console.log(addBooks)
+                realUser.find({_id:req.body.payload.owner}, (err, user)=>{
+                    console.log("found the user")
+                    console.log(user._id)
+                })
 
                 realUser.update({_id:req.body.payload.owner}, {$addToSet:{matchedBooks: addBooks}}) //push matched books (ids) into the list of books contained in the user
               //       console.log("book user was found")
@@ -173,9 +186,17 @@ app.post('/api/clickBuy', (req, res) => {
 
 app.post('/api/showMatches', (req, res) => {
   console.log(req.body.id);
-  realUser.find({ _id: req.body.id }, (err, users) => {
-    console.log(users[0].matchedBooks);
-    res.json({ matches: users[0].matchedBooks });
+  realUser.find({ _id: req.body.id }, (err, user) => {
+      // var bookIDs = [];
+      var bookObjects = [];
+      var bookIDs = user.matchedBooks;
+      bookIDs.forEach(ID){
+          Textbook.find({_id:ID},(err, book)=>{
+              bookObjects.push(book);
+          })
+      }
+
+    res.json(bookObjects);
   });
 });
 
