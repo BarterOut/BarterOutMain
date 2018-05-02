@@ -129,37 +129,20 @@ app.post('/api/buyBook', (req, res) => {
         },
             (err, matchedBooks)=>{
                 console.log("book was found")
-                console.log(matchedBooks)
-                console.log(matchedBooks._id)
+                // console.log(matchedBooks)
                 console.log("IDS WERE UNDEFINED")
                 var addBooks = [];
                 matchedBooks.forEach((book)=>{
-                    addBooks.push(book._id)
+                  addBooks.push(book._id);
                 })
-                console.log(addBooks)
 
-                realUser.update({_id:req.body.payload.owner}, {$addToSet:{matchedBooks: addBooks}}) //push matched books (ids) into the list of books contained in the user
-              //       console.log("book user was found")
-              // matchedBooks.forEach((book)=>
-              // {
+                realUser.update({_id: req.body.payload.owner}, { $addToSet: { matchedBooks: {$each: addBooks} }}, (error) => {
+                  console.log(error);
+                })
+                console.log(addBooks);
 
-                // console.log(book._id)
-                // foundUser.matchedBooks.push(book._id)
-              });
-              /*
-              *  Story.findById(topic.storyId, function(err, res) {
-      logger.info("res", res);
-      assert.isNotNull(res);
-    });
-              *
-              * */
-
-            //_id: ObjectId("572f16439c0d3ffe0bc084a4")
-            //push matched books (ids) into the list of books contained in the user
-
-
-
-      // res.json(true);//Not needed
+                 //push matched books (ids) into the list of books contained in
+        });
     })
     .catch((err) => {
       res.status(400).send(err);
