@@ -321,7 +321,7 @@ app.post('/api/clickBuy', (req, res) => {
         seller = sellerUser[0];
         sendEmail(emailForUs(buyer, seller, bookFound));
         sendEmail(venmoRequestEmail(seller.emailAddress, seller.firstName, bookFound.name));
-        sendEmail(venmoRequestEmail(seller.emailAddress, seller.firstName, bookFound.name));
+        // sendEmail(venmoRequestEmail(seller.emailAddress, seller.firstName, bookFound.name));
 
       });
     });
