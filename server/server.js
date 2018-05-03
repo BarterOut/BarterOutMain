@@ -22,6 +22,8 @@ import TextbookBuy from './models/textbookBuy';
 // PASSPORT
 const passport = require('./passport');
 
+const sslRedirect = require('heroku-ssl-redirect');
+
 const nodemailer = require('nodemailer');
 const xoauth2 = require('xoauth2');
 
@@ -37,6 +39,7 @@ const session = require('express-session');
 // Initialize the Express App
 const app = new Express();
 
+app.use(sslRedirect());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
