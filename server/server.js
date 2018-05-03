@@ -148,9 +148,9 @@ function emailToSeller(emailTo, firstName, bookTitle) {
     from: '"Barter Out" <office@barterout.com',
     to: emailTo,
     subject: 'Match Found',
-    text: `Dear ${firstName},
+    html: `Dear ${firstName},
 
-We are excited to let you know that we found a buyer for your copy of ${bookTitle}. Please drop the book at one of our members anytime in the following schedule:
+We are excited to let you know that we found a buyer for your copy of ${bookTitle}. Please drop off the book to one of our members anytime in the following schedule:
 
 Mo-Sat: 11 AM - 4 PM @ outside Starbucks in Wilson Commons.
 
@@ -175,7 +175,7 @@ function venmoRequestEmail(emailTo, firstName, bookTitle) {
     from: '"Barter Out" <office@barterout.com',
     to: emailTo,
     subject: 'Match Found',
-    text: `Dear ${firstName},
+    html: `Dear ${firstName},
 
 You purchased ${bookTitle} successfully! We will Venmo request you in the next 24 hours and the book will be delivered to you within a week.
 
