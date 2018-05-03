@@ -110,7 +110,7 @@ class Home extends Component {
             <h4>{user.firstName} {user.lastName}</h4>
             <h4>{user.emailAddress}</h4>
             <h4>@{user.venmoUsername}</h4>
-            <h4>{user.CMC}</h4>
+            <h4>CMC Box: {user.CMC}</h4>
             <button
               className="button"
               onClick={this.toggleBuyVisibility.bind(this)}

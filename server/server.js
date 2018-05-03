@@ -177,7 +177,7 @@ function venmoRequestEmail(emailTo, firstName, bookTitle) {
     subject: 'Match Found',
     html: `Dear ${firstName},
 
-You purchased ${bookTitle} successfully! We will Venmo request you in the next 24 hours and the book will be delivered to you within a week.
+You purchased ${bookTitle} successfully! We will Venmo request you in the next 24 hours and the book will be delivered to you within 3 business days.
 
 If you have any feedback, you can fillout this <a href="https://goo.gl/forms/KMhLK9N7ZFtHTyjF2">form</a>.
 
