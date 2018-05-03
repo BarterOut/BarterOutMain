@@ -332,16 +332,16 @@ app.post('/api/showMatches', (req, res) => {
   realUser.find({
         $and: [
             { _id: req.body.id },
-            { status: 0 },
-        ]}, (err, userMatch) => {
+            // { status: 0 },
+        ] }, (err, userMatch) => {
     let bookObjects = [];
     const bookIDs = userMatch[0].matchedBooks;
     // console.log(bookIDs)
 
 
-    Textbook.find({ _id: { $in: bookIDs } }, (e      { _id: req.body.id }rror, book) => {
+    Textbook.find({ _id: { $in: bookIDs } }, (error, books) => {
       // console.log("found a book");
-      bookObjects = book;
+      bookObjects = books;
       // console.log(bookObjects)
 
       res.json(bookObjects);

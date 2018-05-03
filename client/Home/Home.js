@@ -33,6 +33,7 @@ class Home extends Component {
       id: JSON.parse(sessionStorage.getItem('user'))._id,
     })
       .then((response) => {
+        console.log(response.data);
         this.setState({ matches: response.data });
       })
       .catch((error) => {

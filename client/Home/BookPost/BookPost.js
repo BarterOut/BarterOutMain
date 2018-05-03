@@ -28,6 +28,7 @@ class BookPost extends Component {
         console.error(`Sign up server error: ${error}`);
       });
     console.log(`Buying book ${this.state.id}`);
+    window.location.reload();
   }
 
   render() {
