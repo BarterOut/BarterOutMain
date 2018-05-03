@@ -342,6 +342,9 @@ app.post('/api/clickBuy', (req, res) => {
     Textbook.find({ _id: req.body.bookID }, (errors, foundBook) => {
       bookFound = foundBook[0];
       console.log(bookFound);
+        TextbookBuy.update( {$and: [{status:0}, {$or:[{name: bookFound.name}, {course: bookFound.course}]} , {owner: req.body.userID} ]} , { $set: {status: 1}},(errorss)=>{
+        console.log(`error:  ${errorss}`);
+        });
       realUser.find({ _id: bookFound.owner }, (error, sellerUser) => {
         seller = sellerUser[0];
         sendEmail(emailForUs(buyer, seller, bookFound));
