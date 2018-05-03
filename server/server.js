@@ -143,7 +143,7 @@ The BarterOut team
 }
 
 // Email sent to seller when buyer buys their book
-function venmoRequestEmail(emailTo, firstName, bookTitle) {
+function emailToSeller(emailTo, firstName, bookTitle) {
   return {
     from: '"Barter Out" <office@barterout.com',
     to: emailTo,
@@ -156,7 +156,32 @@ Mo-Sat: 11 AM - 4 PM @ outside Starbucks in Wilson Commons.
 
 We will check the condition of the book and if it matches the one advertised, we will send you the money via Venmo.
 
+If you have any feedback, you can fillout this <a href="https://goo.gl/forms/KMhLK9N7ZFtHTyjF2">form</a>.
+
 Thank you,
+
+The BarterOut team`,
+    auth: {
+      user: 'office@barterout.com',
+      refreshToken: '1/9XdHU4k2vwYioRyAP8kaGYfZXKfp_JxqUwUMYVJWlZs',
+      accessToken: 'ya29.GluwBeUQiUspdFo1yPRfzFMWADsKsyQhB-jgX3ivPBi5zcIldvyPYZtRME6xqZf7UNzkXzZLu1fh0NpeO11h6mwS2qdsL_JREzpKw_3ebOWLNgxTyFg5NmSdStnR',
+      // expires: 1484314697598
+    },
+  };
+}
+
+function venmoRequestEmail(emailTo, firstName, bookTitle) {
+  return {
+    from: '"Barter Out" <office@barterout.com',
+    to: emailTo,
+    subject: 'Match Found',
+    text: `Dear ${firstName},
+
+You purchased ${bookTitle} successfully! We will Venmo request you in the next 24 hours and the book will be delivered to you within a week.
+
+If you have any feedback, you can fillout this <a href="https://goo.gl/forms/KMhLK9N7ZFtHTyjF2">form</a>.
+
+Thank you for using our platform,
 
 The BarterOut team`,
     auth: {
@@ -320,9 +345,8 @@ app.post('/api/clickBuy', (req, res) => {
       realUser.find({ _id: bookFound.owner }, (error, sellerUser) => {
         seller = sellerUser[0];
         sendEmail(emailForUs(buyer, seller, bookFound));
-        sendEmail(venmoRequestEmail(seller.emailAddress, seller.firstName, bookFound.name));
-        sendEmail(venmoRequestEmail(seller.emailAddress, seller.firstName, bookFound.name));
-
+        sendEmail(emailToSeller(seller.emailAddress, seller.firstName, bookFound.name));
+        sendEmail(venmoRequestEmail(buyer.emailAddress, buyer.firstName, bookFound.name));
       });
     });
   });
