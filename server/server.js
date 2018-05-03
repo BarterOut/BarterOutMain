@@ -329,11 +329,7 @@ app.post('/api/clickBuy', (req, res) => {
 
 app.post('/api/showMatches', (req, res) => {
   // console.log(req.body.id);
-  realUser.find({
-        $and: [
-            { _id: req.body.id },
-            // { status: 0 },
-        ] }, (err, userMatch) => {
+  realUser.find({ _id: req.body.id }, (err, userMatch) => {
     let bookObjects = [];
     const bookIDs = userMatch[0].matchedBooks;
     // console.log(bookIDs)
