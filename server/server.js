@@ -82,7 +82,7 @@ const transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
     user: 'office@barterout.com',
-    pass: 'password',
+    pass: 'StapocaInnovation',
   },
 });
 

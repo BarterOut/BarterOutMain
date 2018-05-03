@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { Component } from 'react';
 import {
-    Link,
+  Link,
+  Redirect,
 } from 'react-router-dom';
-import { connect } from 'react-redux'
+import { connect } from 'react-redux';
 
 import styles from './landingpage.css';
 import regularFont from './sylesheetOrkneyRegular.css';
@@ -11,35 +12,47 @@ import mediumFont from './sylesheetOrkneyMedium.css';
 import boldfont from './sylesheetOrkneyBold.css';
 import animations from './animate.css';
 
-import logoPic from '../images/barterOutOrangeWhiteLogoHeader.png'
+import logoPic from '../images/barterOutOrangeWhiteLogoHeader.png';
 
-import picOne from '../images/overtheShoulderCompressed.jpg'
-import picTwo from '../images/groupMeetingCompressed.jpg'
-import picThree from '../images/outdoorsCompressed.jpg'
+import picOne from '../images/overtheShoulderCompressed.jpg';
+import picTwo from '../images/groupMeetingCompressed.jpg';
+import picThree from '../images/outdoorsCompressed.jpg';
 
-import teamOne from '../images/vladCazacu.jpg'
-import teamTwo from '../images/luisNova.jpg'
-import teamThree from '../images/pavelStan.jpg'
-import teamFour from '../images/melissaKagaju.jpg'
-import teamFive from '../images/duncanGrubbs.jpg'
-import teamSix from '../images/zixuChen.jpg'
-import teamSeven from '../images/jovanGianniLee.png'
-import teamEight from '../images/genessisGalindo.jpg'
-import teamNine from '../images/barterOutProfilePhotoWebPage.png'
-import teamTen from '../images/zacquelineBaldwin.jpg'
-import teamEleven from '../images/nikolaiDraganov.jpg'
-import teamTwelve from '../images/barterOutProfilePhotoWebPage.png'
-import teamThirteen from '../images/barterOutProfilePhotoWebPage.png'
+import teamOne from '../images/vladCazacu.jpg';
+import teamTwo from '../images/luisNova.jpg';
+import teamThree from '../images/pavelStan.jpg';
+import teamFour from '../images/melissaKagaju.jpg';
+import teamFive from '../images/duncanGrubbs.jpg';
+import teamSix from '../images/zixuChen.jpg';
+import teamSeven from '../images/jovanGianniLee.png';
+import teamEight from '../images/genessisGalindo.jpg';
+import teamNine from '../images/barterOutProfilePhotoWebPage.png';
+import teamTen from '../images/zacquelineBaldwin.jpg';
+import teamEleven from '../images/nikolaiDraganov.jpg';
+import teamTwelve from '../images/barterOutProfilePhotoWebPage.png';
+import teamThirteen from '../images/barterOutProfilePhotoWebPage.png';
 
-import adviserOne from '../images/meyerElizabeth.jpg'
+import adviserOne from '../images/meyerElizabeth.jpg';
 
-import linkedInLogo from '../images/linkedIn.png'
-import facebookLogo from '../images/facebook.png'
+import linkedInLogo from '../images/linkedIn.png';
+import facebookLogo from '../images/facebook.png';
 
-import waypointJS from './noframework.waypoints.min.js'
-import jQuery from './jquery-3.3.1.min.js'
+import waypointJS from './noframework.waypoints.min.js';
+import jQuery from './jquery-3.3.1.min.js';
 
-const LandingPage = () => {
+class LandingPage extends Component {
+  constructor() {
+    super();
+    this.state = {
+      redirect: false,
+    };
+  }
+
+    render() {
+    if (sessionStorage.getItem('user') || this.state.redirect) {
+      return (<Redirect to="/home" />);
+    }
+
     return (
         <div className="app">
             <div className="landingpage">
@@ -52,7 +65,7 @@ const LandingPage = () => {
                         <a className="missionLink" id="landingPageLink" href="#whatWereAbout">Our Mission</a>
                         <a className="teamLink" id="landingPageLink" href="#teamPage">Our Team</a>
                         {/* <a className="preRegisterLink" id="landingPageLink" href="#registrationPage">Pre-Register</a> */}
-                        <Link to="/login">Login</Link>
+                        <Link id="landingPageLink" className="preRegisterLink" to="/login" href="login">Login</Link>
                     </div>
                 </nav>
                 <div className="mainText animated fadeIn" id="mainText">
@@ -417,6 +430,7 @@ const LandingPage = () => {
             </div>
         </div>
     )
+}
 }
 
 
