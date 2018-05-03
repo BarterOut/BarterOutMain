@@ -335,7 +335,7 @@ app.post('/api/showMatches', (req, res) => {
     // console.log(bookIDs)
 
 
-    Textbook.find({ _id: { $in: bookIDs } }, (error, books) => {
+    Textbook.find({$and:[{ _id: { $in: bookIDs }}, {status: 0} ]}, (error, books) => {
       // console.log("found a book");
       bookObjects = books;
       // console.log(bookObjects)

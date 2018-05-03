@@ -30,7 +30,7 @@ router.post('/signup', (req, res) => {
           })
           newUser.save((err, savedUser) => {
               if (err) return res.json(err)
-              res.json(savedUser)
+              // res.json(savedUser)
           })
       }
   })
@@ -52,7 +52,15 @@ router.post('/login', (req, res) => {
       res.status(401).send({ error: 'Incorrect Password' });
       return;
     }
-    res.json(user);
+    var returnUser = {
+        emailAddress: user.emailAddress,
+        venmoUsername: user.venmoUsername,
+        CMC: user.CMC,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        matchedBooks: user.matchedBooks
+    }
+    res.json(returnUser);
   });
 });
 
