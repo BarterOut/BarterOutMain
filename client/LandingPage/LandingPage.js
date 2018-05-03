@@ -18,19 +18,18 @@ import picOne from '../images/overtheShoulderCompressed.jpg';
 import picTwo from '../images/groupMeetingCompressed.jpg';
 import picThree from '../images/outdoorsCompressed.jpg';
 
-import teamOne from '../images/vladCazacu.jpg';
-import teamTwo from '../images/luisNova.jpg';
-import teamThree from '../images/pavelStan.jpg';
-import teamFour from '../images/melissaKagaju.jpg';
-import teamFive from '../images/duncanGrubbs.jpg';
-import teamSix from '../images/zixuChen.jpg';
-import teamSeven from '../images/jovanGianniLee.png';
-import teamEight from '../images/genessisGalindo.jpg';
-import teamNine from '../images/barterOutProfilePhotoWebPage.png';
-import teamTen from '../images/zacquelineBaldwin.jpg';
-import teamEleven from '../images/nikolaiDraganov.jpg';
-import teamTwelve from '../images/barterOutProfilePhotoWebPage.png';
-import teamThirteen from '../images/barterOutProfilePhotoWebPage.png';
+import vlad from '../images/vladCazacu.jpg'
+import luis from '../images/luisNova.jpg'
+import annie from '../images/annieHamburgen.png'
+import pavel from '../images/pavelStan.jpg'
+import melissa from '../images/melissaKagaju.jpg'
+import duncan from '../images/duncanGrubbs.jpg'
+import shawn from '../images/zixuChen.jpg'
+import jovan from '../images/jovanGianniLee.png'
+import genessis from '../images/genessisGalindo.jpg'
+import logo from '../images/barterOutProfilePhotoWebPage.png'
+import zacqueline from '../images/zacquelineBaldwin.jpg'
+import nikolai from '../images/nikolaiDraganov.jpg'
 
 import adviserOne from '../images/meyerElizabeth.jpg';
 
@@ -196,7 +195,7 @@ class LandingPage extends Component {
                                     <tr className="animated" id="rowOne">
                                         <td>
                                             <div id="profile">
-                                                <a href="https://www.linkedin.com/in/vladcazacu/" target="_blank"><img id="team" src={teamOne}></img></a>
+                                                <a href="https://www.linkedin.com/in/vladcazacu/" target="_blank"><img id="team" src={vlad}></img></a>
                                                 <br/>
                                                 <div id="profileName">Vlad Cazacu</div>
                                                 Co-founder & CEO
@@ -204,15 +203,7 @@ class LandingPage extends Component {
                                         </td>
                                         <td>
                                             <div id="profile">
-                                                <a href="https://www.linkedin.com/in/luisgerardonova/" target="_blank"><img id="team" src={teamTwo}></img></a>
-                                                <br/>
-                                                <div id="profileName">Luis Nova</div>
-                                                CTO
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div id="profile">
-                                                <a href="https://www.linkedin.com/in/pavel-stan-232911140/" target="_blank"><img id="team" src={teamThree}></img></a>
+                                                <a href="https://www.linkedin.com/in/pavel-stan-232911140/" target="_blank"><img id="team" src={pavel}></img></a>
                                                 <br/>
                                                 <div id="profileName">Pavel Stan</div>
                                                 Co-founder & Director
@@ -220,19 +211,27 @@ class LandingPage extends Component {
                                                 of External Relations
                                             </div>
                                         </td>
-                                    </tr>
-                                    <tr className="animated" id="rowTwo">
                                         <td>
                                             <div id="profile">
-                                                <a href="https://www.linkedin.com/in/melissa-k-7080ba103/" target="_blank"><img id="team" src={teamFour}></img></a>
+                                                <a href="https://www.linkedin.com/in/annmarie-hamburgen-9ab65a12b/" target="_blank"><img id="team" src={annie}></img></a>
                                                 <br/>
-                                                <div id="profileName">Melissa Kagaju</div>
-                                                Mobile Software Developer
+                                                <div id="profileName">Annie Hamburgen</div>
+                                                CMO
                                             </div>
                                         </td>
                                         <td>
                                             <div id="profile">
-                                                <a href="https://www.linkedin.com/in/duncan-grubbs-01979a14a/" target="_blank"><img id="team" src={teamFive}></img></a>
+                                                <a href="https://www.linkedin.com/in/luisgerardonova/" target="_blank"><img id="team" src={luis}></img></a>
+                                                <br/>
+                                                <div id="profileName">Luis Nova</div>
+                                                CTO
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr className="animated" id="rowTwo">
+                                        <td>
+                                            <div id="profile">
+                                                <a href="https://www.linkedin.com/in/duncan-grubbs-01979a14a/" target="_blank"><img id="team" src={duncan}></img></a>
                                                 <br/>
                                                 <div id="profileName">Duncan Grubbs</div>
                                                 Software Developer
@@ -240,43 +239,69 @@ class LandingPage extends Component {
                                         </td>
                                         <td>
                                             <div id="profile">
-                                                <a href="https://www.linkedin.com/in/zixu-chen/" target="_blank"><img id="team" src={teamSix}></img></a>
+                                                <a href="https://www.linkedin.com/in/zixu-chen/" target="_blank"><img id="team" src={shawn}></img></a>
                                                 <br/>
                                                 <div id="profileName">Zixu (Shawn) Chen</div>
                                                 Software Developer
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div id="profile">
+                                                <a href="https://www.linkedin.com/in/melissa-k-7080ba103/" target="_blank"><img id="team" src={melissa}></img></a>
+                                                <br/>
+                                                <div id="profileName">Melissa Kagaju</div>
+                                                Software Developer
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div id="profile">
+                                                <a href="https://www.linkedin.com/in/genessis-galindo/" target="_blank"><img id="team" src={genessis}></img></a>
+                                                <br/>
+                                                <div id="profileName">Genessis Galindo</div>
+                                                Marketing Analyst
                                             </div>
                                         </td>
                                     </tr>
                                     <tr className="animated" id="rowThree">
                                         <td>
                                             <div id="profile">
-                                                <a href="https://www.linkedin.com/in/jovangianni/" target="_blank"><img id="team" src={teamSeven}></img></a>
-                                                <br/>
-                                                <div id="profileName">Jovan-Gianni Lee</div>
-                                                Software Developer
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div id="profile">
-                                                <a href="https://www.linkedin.com/in/genessis-galindo/" target="_blank"><img id="team" src={teamEight}></img></a>
-                                                <br/>
-                                                <div id="profileName">Genessis Galindo</div>
-                                                Marketing Analyst
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div id="profile">
-                                                <a href="https://www.linkedin.com/in/sam-hirschhorn-03029a7a/" target="_blank"><img id="team" src={teamNine}></img></a>
+                                                <a href="https://www.linkedin.com/in/sam-hirschhorn-03029a7a/" target="_blank"><img id="team" src={logo}></img></a>
                                                 <br/>
                                                 <div id="profileName">Sam Hirschhorn</div>
                                                 Video Marketer
                                             </div>
                                         </td>
+                                        <td>
+                                            <div id="profile">
+                                                <img id="staff" src={logo}></img>
+                                                <br/>
+                                                <div id="profileName">Tristan De Lange</div>
+                                                Software Developer
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div id="profile">
+                                                <img id="staff" src={logo}></img>
+                                                <br/>
+                                                <div id="profileName">Daniel Munoz</div>
+                                                Software Developer
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div id="profile">
+                                                <a href="https://www.linkedin.com/in/nikolai-draganov-314986161/" target="_blank"><img id="team" src={nikolai}></img></a>
+                                                <br/>
+                                                <div id="profileName">Nikolai Draganov</div>
+                                                Software Developer
+                                            </div>
+                                        </td>
                                     </tr>
                                     <tr className="animated" id="rowFour">
                                         <td>
+                                        </td>
+                                        <td>
                                             <div id="profile">
-                                                <img id="staff" src={teamTen}></img>
+                                                <img id="staff" src={zacqueline}></img>
                                                 <br/>
                                                 <div id="profileName">Zacqueline Baldwin (ZQ)</div>
                                                 Marketing Intern
@@ -284,30 +309,10 @@ class LandingPage extends Component {
                                         </td>
                                         <td>
                                             <div id="profile">
-                                                <img id="staff" src={teamEleven}></img>
+                                                <a href="https://www.linkedin.com/in/jovangianni/" target="_blank"><img id="team" src={jovan}></img></a>
                                                 <br/>
-                                                <div id="profileName">Nikolai Draganov</div>
-                                                Software Development Intern
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div id="profile">
-                                                <img id="staff" src={teamTwelve}></img>
-                                                <br/>
-                                                <div id="profileName">Daniel Munoz</div>
-                                                Software Development Intern
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr className="animated" id="rowFive">
-                                        <td>
-                                        </td>
-                                        <td>
-                                            <div id="profile">
-                                                <img id="staff" src={teamThirteen}></img>
-                                                <br/>
-                                                <div id="profileName">Tristan De Lange</div>
-                                                Software Development Intern
+                                                <div id="profileName">Jovan-Gianni Lee</div>
+                                                Software Developer
                                             </div>
                                         </td>
                                         <td>
@@ -456,8 +461,6 @@ $(document).ready(function() {
     $('#meetOurAdvisersHeader').css('opacity', 0);
     $('#adviserPageText').css('opacity', 0);
     $('#registrationPageInfo').css('opacity', 0);
-
-
     var madeSimpleAnimations = new Waypoint({
         element:  document.getElementById('madeSimpleInfo'),
         handler: function() {
@@ -467,7 +470,6 @@ $(document).ready(function() {
         },
         offset: '75%'
     })
-
     var howItWorksAnimations = new Waypoint({
         element:  document.getElementById('howItWorksInfo'),
         handler: function() {
@@ -477,7 +479,6 @@ $(document).ready(function() {
         },
         offset: '50%'
     })
-
     var whatWereAboutHeaderAnimations = new Waypoint({
         element: document.getElementById('whatWereAboutHeader'),
         handler: function () {
@@ -486,7 +487,6 @@ $(document).ready(function() {
         },
         offset: '70%'
     })
-
     var smartPeopleBlockAnimations = new Waypoint({
         element:  document.getElementById('smartPeopleBlock'),
         handler: function() {
@@ -497,7 +497,6 @@ $(document).ready(function() {
         },
         offset: '60%'
     })
-
     var helpingOthersBlockAnimations = new Waypoint({
         element:  document.getElementById('helpingOthersBlock'),
         handler: function() {
@@ -508,7 +507,6 @@ $(document).ready(function() {
         },
         offset: '60%'
     })
-
     var fastCheapEasyBlockAnimations = new Waypoint({
         element:  document.getElementById('fastCheapEasyBlock'),
         handler: function() {
@@ -519,7 +517,6 @@ $(document).ready(function() {
         },
         offset: '60%'
     })
-
     var joinTodayButtonAnimations = new Waypoint({
         element: document.getElementById('joinTodayButton'),
         handler: function() {
@@ -528,7 +525,6 @@ $(document).ready(function() {
         },
         offset: '85%'
     })
-
     var meetOurTeamHeaderAnimations = new Waypoint({
         element: document.getElementById('meetOurTeamHeader'),
         handler: function() {
@@ -541,7 +537,6 @@ $(document).ready(function() {
         },
         offset: '60%'
     })
-
     var teamRowTwoAnimation = new Waypoint({
         element: document.getElementById('rowTwo'),
         handler: function() {
@@ -566,14 +561,6 @@ $(document).ready(function() {
         },
         offset: '60%'
     })
-    var teamRowFiveAnimation = new Waypoint({
-        element: document.getElementById('rowFive'),
-        handler: function() {
-            $('#rowFive').css('opacity', 100);
-            $('#rowFive').addClass('fadeIn');
-        },
-        offset: '60%'
-    })
     var teamTextBottomAnimation = new Waypoint({
         element: document.getElementById('teamTextBottom'),
         handler: function () {
@@ -582,7 +569,6 @@ $(document).ready(function() {
         },
         offset: '80%'
     })
-
     var meetOurAdvisers = new Waypoint({
         element: document.getElementById('meetOurAdvisersHeader'),
         handler: function() {
@@ -596,8 +582,6 @@ $(document).ready(function() {
         },
         offset: '60%'
     })
-
-
     var registrationPageAnimations = new Waypoint({
         element: document.getElementById('registrationPageInfo'),
         handler: function() {
