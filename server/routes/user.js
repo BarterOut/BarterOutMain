@@ -53,6 +53,7 @@ router.post('/login', (req, res) => {
       return;
     }
     var returnUser = {
+        _id: user._id,
         emailAddress: user.emailAddress,
         venmoUsername: user.venmoUsername,
         CMC: user.CMC,
