@@ -23,6 +23,8 @@ import TextbookBuy from './models/textbookBuy';
 const passport = require('./passport');
 
 const nodemailer = require('nodemailer');
+const xoauth2 = require('xoauth2');
+
 
 // USER ROUTE
 const user = require('./routes/user');
@@ -78,16 +80,45 @@ app.listen(PORT, (error) => {
   }
 });
 
-const transporter = nodemailer.createTransport({
-  service: 'gmail',
+// const transporter = nodemailer.createTransport({
+//   service: 'gmail',
+//   auth: {
+//     user: 'office@barterout.com',
+//     pass: 'password',
+//   },
+// });
+
+const transporter = nodemailer.createTransport({// secure authentication
+  // host: 'smtp.gmail.com',
+  // port: 465,//Need to change this
+  // secure: true,
+  // service: 'gmail',
+  host: 'smtp.gmail.com',
   auth: {
-    user: 'office@barterout.com',
-    pass: 'StapocaInnovation',
+    type: 'OAuth2',
+    clientId: '878736426892-d0vbth6ho78opo916rr1bimlmuufq25e.apps.googleusercontent.com',
+    clientSecret: '5OTf_iLhmt0tjJCKIdnuC5XM',
   },
+  // auth: {
+  //     xoauth2: xoauth2.createXOAuth2Generator({
+  //         "user": "johndoe@***.com",
+  //         "clientId": "*******************************",
+  //         "clientSecret": "*******************************",
+  //         "refreshToken": "*******************************"
+  //     }),
+  // auth: {
+  //
+  //         "user": 'office@barterout.com',
+  //         "clientId": '878736426892-d0vbth6ho78opo916rr1bimlmuufq25e.apps.googleusercontent.com',
+  //         "clientSecret": '5OTf_iLhmt0tjJCKIdnuC5XM',
+  //         refreshToken: '1/9XdHU4k2vwYioRyAP8kaGYfZXKfp_JxqUwUMYVJWlZs',
+  //         accessToken: 'ya29.GluwBeUQiUspdFo1yPRfzFMWADsKsyQhB-jgX3ivPBi5zcIldvyPYZtRME6xqZf7UNzkXzZLu1fh0NpeO11h6mwS2qdsL_JREzpKw_3ebOWLNgxTyFg5NmSdStnR'
+  //     }
 });
 
+
 // Email sent when user gets matched with a seller
-function matchFoundEmail(emailTo, text, firstName, bookTitle) {
+function matchFoundEmail(emailTo, firstName, bookTitle) {
   return {
     from: '"Barter Out" <office@barterout.com',
     to: emailTo,
@@ -102,6 +133,12 @@ Thank you,
 \n
 The BarterOut team
 `,
+    auth: {
+      user: 'office@barterout.com',
+      refreshToken: '1/9XdHU4k2vwYioRyAP8kaGYfZXKfp_JxqUwUMYVJWlZs',
+      accessToken: 'ya29.GluwBeUQiUspdFo1yPRfzFMWADsKsyQhB-jgX3ivPBi5zcIldvyPYZtRME6xqZf7UNzkXzZLu1fh0NpeO11h6mwS2qdsL_JREzpKw_3ebOWLNgxTyFg5NmSdStnR',
+      // expires: 1484314697598
+    },
   };
 }
 
@@ -122,6 +159,12 @@ We will check the condition of the book and if it matches the one advertised, we
 Thank you,
 
 The BarterOut team`,
+    auth: {
+      user: 'office@barterout.com',
+      refreshToken: '1/9XdHU4k2vwYioRyAP8kaGYfZXKfp_JxqUwUMYVJWlZs',
+      accessToken: 'ya29.GluwBeUQiUspdFo1yPRfzFMWADsKsyQhB-jgX3ivPBi5zcIldvyPYZtRME6xqZf7UNzkXzZLu1fh0NpeO11h6mwS2qdsL_JREzpKw_3ebOWLNgxTyFg5NmSdStnR',
+      // expires: 1484314697598
+    },
   };
 }
 
@@ -148,10 +191,17 @@ Email: ${buyerUser.emailAddress}
 Venmo: ${buyerUser.venmoUsername}
 CMC Box Number: ${buyerUser.CMC}
 `,
+    auth: {
+      user: 'office@barterout.com',
+      refreshToken: '1/9XdHU4k2vwYioRyAP8kaGYfZXKfp_JxqUwUMYVJWlZs',
+      accessToken: 'ya29.GluwBeUQiUspdFo1yPRfzFMWADsKsyQhB-jgX3ivPBi5zcIldvyPYZtRME6xqZf7UNzkXzZLu1fh0NpeO11h6mwS2qdsL_JREzpKw_3ebOWLNgxTyFg5NmSdStnR',
+      // expires: 1484314697598
+    },
   };
 }
 
 function sendEmail(mailOptions) {
+  console.log('send the email!');
   transporter.sendMail(mailOptions, (err, info) => {
     if (err) {
       console.log(err);
@@ -188,12 +238,24 @@ app.post('/api/sellBook', (req, res) => {
       console.log('Saved Book to DB');
 
       const theBookID = newBook._id;
+        //update match with an and statment such that it doesn't match with users that status other than 0
 
       TextbookBuy.find({
-        $or: [{ name: { $regex: req.body.payload.name, $options: 'i' } }, { course: { $regex: req.body.payload.course, $options: 'i' } }]
+
+
+            $and: [
+                {$or: [{ name: { $regex: req.body.payload.name, $options: 'i' } }, { course: { $regex: req.body.payload.course, $options: 'i' } }]},
+                { status: 0 },
+            ]
+
+
       }, (err, matchedBooks) => {
         matchedBooks.forEach((bookMatched) => {
           realUser.update({ _id: bookMatched.owner }, { $addToSet: { matchedBooks: theBookID } });
+            realUser.find({ _id: bookMatched.owner }, (error, userToEmail)=>{
+                sendEmail(matchFoundEmail(userToEmail[0].emailAddress, userToEmail[0].firstName, bookMatched.name));
+
+            })
         });
       });
       res.redirect('/home');
@@ -218,7 +280,7 @@ app.post('/api/buyBook', (req, res) => {
         { // looks for a book that matches based on the name matching and the
           $and: [
             { status: 0 },
-            { $or: [{ name: { $regex: req.body.payload.name, $options: 'i' } }, { course: { $regex: req.body.payload.course, $options: 'i' } }] }
+            { $or: [{ name: { $regex: req.body.payload.name, $options: 'i' } }, { course: { $regex: req.body.payload.course, $options: 'i' } }] },
           ],
         },
         (err, matchedBooks) => {
@@ -228,7 +290,9 @@ app.post('/api/buyBook', (req, res) => {
           matchedBooks.forEach((book) => {
             addBooks.push(book._id);
           });
-
+          realUser.find({ _id: req.body.payload.owner }, (error, userToEmail) => {
+            sendEmail(matchFoundEmail(userToEmail[0].emailAddress, userToEmail[0].firstName, req.body.payload.name));
+          });
           realUser.update({ _id: req.body.payload.owner }, { $addToSet: { matchedBooks: { $each: addBooks } } }, (error) => {
             console.log(error);
           });
@@ -250,14 +314,13 @@ app.post('/api/clickBuy', (req, res) => {
     Textbook.update({ _id: req.body.bookID }, { $set: { status: 1 } }, (error) => {
       console.log(`Error: ${error}`);
     });
-
     Textbook.find({ _id: req.body.bookID }, (errors, foundBook) => {
       bookFound = foundBook[0];
       console.log(bookFound);
       realUser.find({ _id: bookFound.owner }, (error, sellerUser) => {
         seller = sellerUser[0];
         sendEmail(emailForUs(buyer, seller, bookFound));
-        sendEmail(venmoRequestEmail(buyer.emailAddress, buyer.firstName, bookFound.title));
+        sendEmail(venmoRequestEmail(buyer.emailAddress, buyer.firstName, bookFound.name));
       });
     });
   });
@@ -265,13 +328,21 @@ app.post('/api/clickBuy', (req, res) => {
 });
 
 app.post('/api/showMatches', (req, res) => {
-  console.log(req.body.id);
-  realUser.find({ _id: req.body.id }, (err, userMatch) => {
+  // console.log(req.body.id);
+  realUser.find({
+        $and: [
+            { _id: req.body.id },
+            { status: 0 },
+        ]}, (err, userMatch) => {
     let bookObjects = [];
     const bookIDs = userMatch[0].matchedBooks;
+    // console.log(bookIDs)
 
-    Textbook.find({ _id: { $in: bookIDs } }, (error, book) => {
+
+    Textbook.find({ _id: { $in: bookIDs } }, (e      { _id: req.body.id }rror, book) => {
+      // console.log("found a book");
       bookObjects = book;
+      // console.log(bookObjects)
 
       res.json(bookObjects);
     });
@@ -281,7 +352,11 @@ app.post('/api/showMatches', (req, res) => {
 
 app.get('/api/searchBook/:query', (req, res) => {
   const searchKey = req.params.query;
-  Textbook.find({ name: { $regex: searchKey, $options: 'i' } }, (err, books) => {
+  Textbook.find({
+      $and: [
+          { status: 0 },
+          { $or: [{name: { $regex: searchKey, $options: 'i' }}, { course: { $regex: searchKey, $options: 'i' } }] },
+      ],}, (err, books) => {
     const bookMap = [];
     books.forEach((book) => {
       bookMap.push(book);
@@ -291,7 +366,7 @@ app.get('/api/searchBook/:query', (req, res) => {
 });
 
 app.get('/api/displayAllBooks', (req, res) => {
-  Textbook.find({}, (err, books) => {
+  Textbook.find({status: 0}, (err, books) => {
     res.json(books);
   });
 });
