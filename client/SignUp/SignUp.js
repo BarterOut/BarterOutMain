@@ -57,7 +57,7 @@ class SignUp extends Component {
     return (
       <div className="login-wrapper">
         <h1>Sign up for BarterOut</h1>
-        <span className="inputLabel">First Name</span>
+        <span className="inputLabel">First Name *</span>
         <input
           className="inputsForSignUp"
           placeholder=""
@@ -66,7 +66,7 @@ class SignUp extends Component {
           name="firstName"
           required
         />
-        <span className="inputLabel">Last Name</span>
+        <span className="inputLabel">Last Name *</span>
         <input
           className="inputsForSignUp"
           placeholder=""
@@ -75,7 +75,7 @@ class SignUp extends Component {
           name="lastName"
           required
         />
-        <span className="inputLabel">Email</span>
+        <span className="inputLabel">Email *</span>
         <input
           className="inputsForSignUp"
           placeholder=""
@@ -85,7 +85,7 @@ class SignUp extends Component {
           name="emailAddress"
           required
         />
-        <span className="inputLabel">Venmo Username</span>
+        <span className="inputLabel">Venmo Username *</span>
         <input
           className="inputsForSignUp"
           placeholder=""
@@ -94,7 +94,7 @@ class SignUp extends Component {
           name="venmoUsername"
           required
         />
-        <span className="inputLabel">CMC Box</span>
+        <span className="inputLabel">CMC Box *</span>
         <input
           className="inputsForSignUp"
           placeholder=""
