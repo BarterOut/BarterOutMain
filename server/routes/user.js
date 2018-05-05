@@ -6,7 +6,7 @@ const router = express.Router();
 
 // THIS FUNCTION WORKS
 router.post('/signup', (req, res) => {
-  const { emailAddress, password, CMC, venmoUsername, firstName, lastName  } = req.body;
+  const { emailAddress, password, CMC, venmoUsername, firstName, lastName, univeristy  } = req.body;
 
   // TODO: ADD VALIDATION
   User.findOne({ emailAddress: emailAddress }, (err, user) => {
@@ -18,6 +18,7 @@ router.post('/signup', (req, res) => {
           })
       }
       else {
+          console.log("making a user: " + univeristy)
           const newUser = new User({
               emailAddress: emailAddress,
               password: password,
@@ -25,7 +26,8 @@ router.post('/signup', (req, res) => {
               venmoUsername: venmoUsername,
               firstName: firstName,
               lastName: lastName,
-              matchedBooks: []
+              matchedBooks: [],
+              univeristy: univeristy
 
           })
           newUser.save((err, savedUser) => {
