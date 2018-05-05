@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 
 class SellBook extends Component {
   constructor() {
@@ -18,7 +19,7 @@ class SellBook extends Component {
     this.setState({ [evt.target.name]: evt.target.value });
   }
 
-  close() {
+  cancel() {
     window.location.reload();
   }
 
@@ -127,11 +128,7 @@ class SellBook extends Component {
               name="comments"
             />
             <div>
-              <button
-                className="button"
-                onClick={this.close.bind(this)}
-              >Cancel
-              </button>
+              <a className="cancel" href="/home" onClick={this.cancel.bind(this)}>Cancel</a>
               <button
                 className="button"
                 onClick={this.postToDatabase.bind(this)}

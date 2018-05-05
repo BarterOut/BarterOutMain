@@ -22,40 +22,43 @@ class SignUp extends Component {
 
   onChange(evt) {
     this.setState({ [evt.target.name]: evt.target.value });
-    console.log(this.state);
   }
 
   selectChange(evt) {
     const index = evt.target.selectedIndex;
     this.setState({ university: evt.target[index].value });
   }
+
   signUp() {
     if (!(this.state.passwordConfirm === this.state.password)) {
       window.alert('Please make your passwords the same!');
-    } else {
-      axios.post('/api/auth/signup', {
-        emailAddress: this.state.emailAddress,
-        password: this.state.password,
-        venmoUsername: this.state.venmoUsername,
-        firstName: this.state.firstName,
-        univeristy: this.state.university,
-        lastName: this.state.lastName,
-        CMC: this.state.CMC,
-      })
-        .then((response) => {
-          console.log(`Resp: ${response}`);
-          if (!response.data.errmsg) {
-            console.log('You have been signed up!');
-            this.setState({ redirect: true });
-            window.location.href = '/login';
-          } else {
-            console.warn('Duplicate');
-          }
-        })
-        .catch((error) => {
-          console.error(`Sign up server error: ${error}`);
-        });
+      return;
     }
+
+    const checkerEmail = this.state.emailAddress.split('@')[1];
+
+    if (checkerEmail !== 'u.rochester.edu' && checkerEmail !== 'rochester.edu') {
+      window.alert('Please user a school email account!');
+      return;
+    }
+
+    axios.post('/api/auth/signup', {
+      emailAddress: this.state.emailAddress,
+      password: this.state.password,
+      venmoUsername: this.state.venmoUsername,
+      firstName: this.state.firstName,
+      univeristy: this.state.university,
+      lastName: this.state.lastName,
+      CMC: this.state.CMC,
+    })
+      .then(() => {
+        console.log('You have been signed up!');
+        this.setState({ redirect: true });
+        // window.location.reload();
+      })
+      .catch((error) => {
+        console.error(`Sign up server error: ${error}`);
+      });
   }
 
   render() {
