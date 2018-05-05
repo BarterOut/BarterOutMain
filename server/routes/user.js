@@ -4,6 +4,76 @@ const express = require('express');
 
 const router = express.Router();
 
+const nodemailer = require('nodemailer');
+const xoauth2 = require('xoauth2');
+
+function sendEmail(mailOptions) {
+    console.log('send the email!');
+    transporter.sendMail(mailOptions, (err, info) => {
+        if (err) {
+            console.log(err);
+        } else {
+            console.log(info);
+        }
+    });
+}
+
+const transporter = nodemailer.createTransport({// secure authentication
+    // host: 'smtp.gmail.com',
+    // port: 465,//Need to change this
+    // secure: true,
+    // service: 'gmail',
+    host: 'smtp.gmail.com',
+    auth: {
+        type: 'OAuth2',
+        clientId: '878736426892-d0vbth6ho78opo916rr1bimlmuufq25e.apps.googleusercontent.com',
+        clientSecret: '5OTf_iLhmt0tjJCKIdnuC5XM',
+    },
+    // auth: {
+    //     xoauth2: xoauth2.createXOAuth2Generator({
+    //         "user": "johndoe@***.com",
+    //         "clientId": "*******************************",
+    //         "clientSecret": "*******************************",
+    //         "refreshToken": "*******************************"
+    //     }),
+    // auth: {
+    //
+    //         "user": 'office@barterout.com',
+    //         "clientId": '878736426892-d0vbth6ho78opo916rr1bimlmuufq25e.apps.googleusercontent.com',
+    //         "clientSecret": '5OTf_iLhmt0tjJCKIdnuC5XM',
+    //         refreshToken: '1/9XdHU4k2vwYioRyAP8kaGYfZXKfp_JxqUwUMYVJWlZs',
+    //         accessToken: 'ya29.GluwBeUQiUspdFo1yPRfzFMWADsKsyQhB-jgX3ivPBi5zcIldvyPYZtRME6xqZf7UNzkXzZLu1fh0NpeO11h6mwS2qdsL_JREzpKw_3ebOWLNgxTyFg5NmSdStnR'
+    //     }
+});
+
+
+function signedUpEmail(emailTo, firstName) {
+    return {
+        from: '"Barter Out" <office@barterout.com',
+        to: emailTo,
+        subject: 'Thank you for signing up',
+        html: 'Dear ' +firstName+',  <br></br> ' +
+        '\n' +
+        'Thank you for signing up on our platform. Start using our service today on our <a href="https://www.barterout.com/" target="_blank">website</a> by putting a textbook up for sale or buying one from another student.    <br></br> ' +
+        '\n' +
+        'If you know anyone looking to buy or sell used textbooks, feel free to invite them to join our platform in this beta version.    <br> </br> \n' +
+        '<br></br> ' +
+        'If you have any questions, feel free to send us an email at office@barterout.com!\n' +
+        '<br></br> <br></br>   ' +
+        'Thank you,<br></br> ' +
+        'The BarterOut team<br></br> <br></br> '+
+        '\n' +
+        'Like us on <a href="https://www.facebook.com/BarterOut/" target="_blank">Facebook</a> <br> </br> Follow us on <a href="https://www.instagram.com/barteroutofficial/" target="_blank">Instagram</a>',
+
+        auth: {
+            user: 'office@barterout.com',
+            refreshToken: '1/9XdHU4k2vwYioRyAP8kaGYfZXKfp_JxqUwUMYVJWlZs',
+            accessToken: 'ya29.GluwBeUQiUspdFo1yPRfzFMWADsKsyQhB-jgX3ivPBi5zcIldvyPYZtRME6xqZf7UNzkXzZLu1fh0NpeO11h6mwS2qdsL_JREzpKw_3ebOWLNgxTyFg5NmSdStnR',
+            // expires: 1484314697598
+        },
+    };
+}
+
 // THIS FUNCTION WORKS
 router.post('/signup', (req, res) => {
   const { emailAddress, password, CMC, venmoUsername, firstName, lastName, univeristy  } = req.body;
@@ -31,7 +101,12 @@ router.post('/signup', (req, res) => {
 
           })
           newUser.save((err, savedUser) => {
+
               if (err) return res.json(err)
+              else {
+                  sendEmail(signedUpEmail(savedUser.emailAddress, savedUser.firstName));
+                  res.json("Sign up done!")
+              }
               // res.json(savedUser)
           })
       }

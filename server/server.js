@@ -125,17 +125,18 @@ function matchFoundEmail(emailTo, firstName, bookTitle) {
   return {
     from: '"Barter Out" <office@barterout.com',
     to: emailTo,
-    subject: '[BarterOut] Match Found',
-    text: `Dear ${firstName},
-\n
-We are excited to let you know that we found a match for your request to buy ${bookTitle}. Check it on our website and complete the purchase if you are satisfied with the price and condition of the book.
-\n
-Once you click buy, we will make a request on Venmo, but not pay the seller until we verify the condition of the book. If it doesn’t match your preference, we are sending your money back.
-\n
-Thank you,
-\n
-The BarterOut team
-`,
+    subject: 'Match found for you',
+    html:'Dear ' +  firstName + ',\n' +
+    '<br> </br>' +
+    'We are excited to let you know that we found a <b>match</b> for your request to buy </b> ' + bookTitle + ' </b>. Check it on our website and complete the purchase if you are satisfied with the price and condition of the book. <br> </br> ' +
+    'Once you click buy, we will make a request on Venmo, but not pay the seller until we verify the condition of the book. If it doesn’t match your preference, we are sending your money back. <br> </br> \n ' +
+    '<br></br> ' +
+    'If you have any questions, feel free to send us an email at office@barterout.com!\n' +
+    '<br></br> <br></br>   ' +
+    'Thank you,<br></br> ' +
+    'The BarterOut team<br></br> <br></br> '+
+    '\n' +
+    'Like us on <a href="https://www.facebook.com/BarterOut/" target="_blank">Facebook</a> <br> </br> Follow us on <a href="https://www.instagram.com/barteroutofficial/" target="_blank">Instagram</a>',
     auth: {
       user: 'office@barterout.com',
       refreshToken: '1/9XdHU4k2vwYioRyAP8kaGYfZXKfp_JxqUwUMYVJWlZs',
@@ -150,21 +151,25 @@ function emailToSeller(emailTo, firstName, bookTitle) {
   return {
     from: '"Barter Out" <office@barterout.com',
     to: emailTo,
-    subject: 'Match Found',
-    html: `Dear ${firstName},
-
-We are excited to let you know that we found a buyer for your copy of ${bookTitle}. Please drop off the book to one of our members anytime in the following schedule:
-
-Mo-Sat: 11 AM - 4 PM @ outside Starbucks in Wilson Commons.
-
-We will check the condition of the book and if it matches the one advertised, we will send you the money via Venmo.
-
-If you have any feedback, you can fillout this <a href="https://goo.gl/forms/KMhLK9N7ZFtHTyjF2">form</a>.
-
-Thank you,
-
-The BarterOut team`,
-    auth: {
+    subject: 'We found a buyer for your book',
+    html: 'Dear '+ firstName +',\n' +
+    '\n' +  '<br> </br>' +
+    'We are excited to let you know that we found a <b>buyer</b> for your copy of </b> ' + bookTitle + ' </b>. <b>Please drop the book</b> at one of our members anytime in the following schedule:\n' +
+    '\n' + '<br> </br>'+
+    '<b>Monday - Friday</b>: 11 AM - 4 PM @ the Q&I area in Rush Rhees Library.\n' +
+    '<br> </br>' +
+    '<b>Saturday</b>: 11 AM - 2 PM @ the Q&I area in Rush Rhees Library.\n' +
+    '<br> </br>' +
+    '\n' + '<br> </br>' +
+    'We will check the condition of the book and if it matches the one advertised, we will send you the money via Venmo.\n <br> </br>' +
+    '<br></br> ' +
+    'If you have any questions, feel free to send us an email at office@barterout.com!\n' +
+    '<br></br> <br></br>   ' +
+    'Thank you,<br></br> ' +
+    'The BarterOut team<br></br> <br></br> '+
+    '\n' +
+    'Like us on <a href="https://www.facebook.com/BarterOut/" target="_blank">Facebook</a> <br> </br> Follow us on <a href="https://www.instagram.com/barteroutofficial/" target="_blank">Instagram</a>',
+      auth: {
       user: 'office@barterout.com',
       refreshToken: '1/9XdHU4k2vwYioRyAP8kaGYfZXKfp_JxqUwUMYVJWlZs',
       accessToken: 'ya29.GluwBeUQiUspdFo1yPRfzFMWADsKsyQhB-jgX3ivPBi5zcIldvyPYZtRME6xqZf7UNzkXzZLu1fh0NpeO11h6mwS2qdsL_JREzpKw_3ebOWLNgxTyFg5NmSdStnR',
@@ -173,20 +178,26 @@ The BarterOut team`,
   };
 }
 
+
+
+
 function venmoRequestEmail(emailTo, firstName, bookTitle) {
   return {
     from: '"Barter Out" <office@barterout.com',
     to: emailTo,
-    subject: 'Match Found',
-    html: `Dear ${firstName},
+    subject: 'Purchase initiated',
+    html: 'Dear ' + firstName + ',     <br></br> ' +
+    '\n' +
+    'You purchased ' + bookTitle + ' successfully! We will Venmo request you in the next 24 hours and the book will be delivered to you within 3 business days. <br> </br> ' +
+    'We want to make sure we are building a service that is useful to you. If you have 3-4 minutes to spare, please consider filling in our <a href="https://goo.gl/forms/KMhLK9N7ZFtHTyjF2">short survey</a>   <br></br> \n' +
 
-You purchased ${bookTitle} successfully! We will Venmo request you in the next 24 hours and the book will be delivered to you within 3 business days.
-
-If you have any feedback, you can fillout this <a href="https://goo.gl/forms/KMhLK9N7ZFtHTyjF2">form</a>.
-
-Thank you for using our platform,
-
-The BarterOut team`,
+    '<br></br> ' +
+    'If you have any questions, feel free to send us an email at office@barterout.com!\n' +
+    '<br></br> <br></br>   ' +
+    'Thank you,<br></br> ' +
+    'The BarterOut team<br></br> <br></br> '+
+    '\n' +
+    'Like us on <a href="https://www.facebook.com/BarterOut/" target="_blank">Facebook</a> <br> </br> Follow us on <a href="https://www.instagram.com/barteroutofficial/" target="_blank">Instagram</a>',
     auth: {
       user: 'office@barterout.com',
       refreshToken: '1/9XdHU4k2vwYioRyAP8kaGYfZXKfp_JxqUwUMYVJWlZs',
@@ -227,6 +238,8 @@ CMC Box Number: ${buyerUser.CMC}
     },
   };
 }
+
+
 
 function sendEmail(mailOptions) {
   console.log('send the email!');
@@ -283,6 +296,8 @@ app.post('/api/sellBook', (req, res) => {
             realUser.find({ _id: bookMatched.owner }, (error, userToEmail)=>{
                 sendEmail(matchFoundEmail(userToEmail[0].emailAddress, userToEmail[0].firstName, bookMatched.name));
 
+
+
             })
         });
       });
@@ -321,6 +336,7 @@ app.post('/api/buyBook', (req, res) => {
           if (addBooks.length !== 0) {
             realUser.find({ _id: req.body.payload.owner }, (error, userToEmail) => {
               sendEmail(matchFoundEmail(userToEmail[0].emailAddress, userToEmail[0].firstName, req.body.payload.name));
+
             });
           }
           realUser.update({ _id: req.body.payload.owner }, { $addToSet: { matchedBooks: { $each: addBooks } } }, (error) => {
