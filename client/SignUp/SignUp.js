@@ -13,6 +13,7 @@ class SignUp extends Component {
       emailAddress: '',
       password: '',
       passwordConfirm: '',
+      university: 'University of Rochester',
       CMC: '',
       venmoUsername: '',
       redirect: false,
@@ -21,8 +22,13 @@ class SignUp extends Component {
 
   onChange(evt) {
     this.setState({ [evt.target.name]: evt.target.value });
+    console.log(this.state);
   }
 
+  selectChange(evt) {
+    const index = evt.target.selectedIndex;
+    this.setState({ university: evt.target[index].value });
+  }
   signUp() {
     if (!(this.state.passwordConfirm === this.state.password)) {
       window.alert('Please make your passwords the same!');
@@ -32,6 +38,7 @@ class SignUp extends Component {
         password: this.state.password,
         venmoUsername: this.state.venmoUsername,
         firstName: this.state.firstName,
+        univeristy: this.state.university,
         lastName: this.state.lastName,
         CMC: this.state.CMC,
       })
@@ -86,6 +93,10 @@ class SignUp extends Component {
           name="emailAddress"
           required
         />
+        <span className="inputLabel">University *</span>
+        <select onChange={this.selectChange.bind(this)}>
+          <option value="University of Rochester">University of Rochester</option>
+        </select>
         <span className="inputLabel">Venmo Username *</span>
         <input
           className="inputsForSignUp"
