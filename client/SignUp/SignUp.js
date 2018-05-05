@@ -40,6 +40,7 @@ class SignUp extends Component {
           if (!response.data.errmsg) {
             console.log('You have been signed up!');
             this.setState({ redirect: true });
+            window.location.href = '/login';
           } else {
             console.warn('Duplicate');
           }

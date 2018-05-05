@@ -318,9 +318,11 @@ app.post('/api/buyBook', (req, res) => {
           matchedBooks.forEach((book) => {
             addBooks.push(book._id);
           });
-          realUser.find({ _id: req.body.payload.owner }, (error, userToEmail) => {
-            sendEmail(matchFoundEmail(userToEmail[0].emailAddress, userToEmail[0].firstName, req.body.payload.name));
-          });
+          if (addBooks.length !== 0) {
+            realUser.find({ _id: req.body.payload.owner }, (error, userToEmail) => {
+              sendEmail(matchFoundEmail(userToEmail[0].emailAddress, userToEmail[0].firstName, req.body.payload.name));
+            });
+          }
           realUser.update({ _id: req.body.payload.owner }, { $addToSet: { matchedBooks: { $each: addBooks } } }, (error) => {
             console.log(error);
           });
