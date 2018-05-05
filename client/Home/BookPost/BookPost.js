@@ -45,6 +45,7 @@ class BookPost extends Component {
           <span className="bookName">{this.props.name}</span>
           <span className="bookEdition">{this.props.edition} Edition; Condition: {this.props.condition}</span>
           <span className="bookSubject">{this.props.subject}</span>
+          <span className="bookSubject"><i>{this.props.comments}</i></span>
         </div>
 
         <div className="rightBP">

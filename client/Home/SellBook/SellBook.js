@@ -28,9 +28,16 @@ class SellBook extends Component {
   }
 
   postToDatabase() {
-    console.log('Posting Book To Sell');
     const user = JSON.parse(sessionStorage.getItem('user'));
     const ID = user._id;
+
+    const regex = new RegExp('^[A-Z]{3} \d{3}$');
+
+    if (this.state.course.match(regex) == null) {
+      window.alert('Please enter match the format for course: e.g. MTH 101');
+      return;
+    }
+
     const payload = {
       name: this.state.name,
       edition: this.state.edition,
@@ -138,6 +145,7 @@ class SellBook extends Component {
             <div>
               <a className="cancel" href="/home" onClick={this.cancel.bind(this)}>Cancel</a>
               <button
+                type="submit"
                 className="button"
                 onClick={this.postToDatabase.bind(this)}
               >Sell Book
