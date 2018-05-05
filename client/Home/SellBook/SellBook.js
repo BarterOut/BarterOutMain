@@ -10,13 +10,18 @@ class SellBook extends Component {
       course: String,
       price: Number,
       ISBN: String,
-      condition: String,
+      condition: 'Poor',
       comments: String,
     };
   }
 
   onChange(evt) {
     this.setState({ [evt.target.name]: evt.target.value });
+  }
+
+  selectChange(evt) {
+    const index = evt.target.selectedIndex;
+    this.setState({ condition: evt.target[index].value });
   }
 
   cancel() {
@@ -64,43 +69,48 @@ class SellBook extends Component {
         <div className="modalContent">
           <h2>What's your book?</h2>
           <form className="input-wrapper">
+            <span className="inputLabelHome">Title of Book *</span>
             <input
               autoComplete="off"
               className="inputForLogin"
-              placeholder="Name"
+              placeholder="e.g. Intro to Probability"
               type="text"
               name="name"
               onChange={this.onChange.bind(this)}
               required
             />
+            <span className="inputLabelHome">Edition *</span>
             <input
               autoComplete="off"
               className="inputForLogin"
-              placeholder="Edition"
+              placeholder="e.g. 11"
               type="number"
               name="edition"
               onChange={this.onChange.bind(this)}
               required
             />
+            <span className="inputLabelHome">Course *</span>
             <input
               autoComplete="off"
               className="inputForLogin"
-              placeholder="Course e.g. MTH 101"
+              placeholder="e.g. MTH 101"
               type="text"
               pattern="^[A-Z]{3} \d{3}$"
               name="course"
               onChange={this.onChange.bind(this)}
               required
             />
+            <span className="inputLabelHome">Price *</span>
             <input
               autoComplete="off"
               className="inputForLogin"
-              placeholder="Price"
+              placeholder="$"
               type="number"
               name="price"
               onChange={this.onChange.bind(this)}
               required
             />
+            <span className="inputLabelHome">ISBN</span>
             <input
               autoComplete="off"
               className="inputForLogin"
@@ -110,15 +120,14 @@ class SellBook extends Component {
               onChange={this.onChange.bind(this)}
               name="ISBN"
             />
-            <input
-              autoComplete="off"
-              className="inputForLogin"
-              placeholder="Condition"
-              type="text"
-              name="condition"
-              onChange={this.onChange.bind(this)}
-              required
-            />
+            <span className="inputLabelHome">Condition *</span>
+            <select onChange={this.selectChange.bind(this)} className="condition">
+              <option value="Poor">Poor</option>
+              <option value="Fair">Fair</option>
+              <option value="Good">Good</option>
+              <option value="Just as new">Just as new</option>
+            </select>
+            <span className="inputLabelHome">Comments</span>
             <input
               autoComplete="off"
               className="inputForLogin"

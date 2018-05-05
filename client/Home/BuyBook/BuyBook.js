@@ -54,19 +54,21 @@ class BuyBook extends Component {
         <div className="modalContent">
           <h2>What are you looking for?</h2>
           <form className="input-wrapper">
+            <span className="inputLabelHome">Title of Book *</span>
             <input
               autoComplete="off"
               className="inputForLogin"
-              placeholder="Title of the Book"
+              placeholder="e.g. Intro to Probability"
               type="text"
               name="name"
               onChange={this.onChange.bind(this)}
               required
             />
+            <span className="inputLabelHome">Course *</span>
             <input
               autoComplete="off"
               className="inputForLogin"
-              placeholder="Course e.g. MTH 101"
+              placeholder="e.g. MTH 101"
               type="text"
               pattern="^[A-Z]{3} \d{3}$"
               name="course"

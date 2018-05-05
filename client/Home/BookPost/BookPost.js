@@ -32,6 +32,12 @@ class BookPost extends Component {
     window.location.reload();
   }
 
+  confirmBuy(evt) {
+    evt.target.style.display = 'none';
+    const butt = document.getElementById(this.props.name);
+    butt.style.display = 'inline-block';
+  }
+
   render() {
     return (
       <div className="post">
@@ -45,8 +51,14 @@ class BookPost extends Component {
           <span className="bookPrice">${this.props.price}</span>
           <button
             className="button"
-            onClick={this.buyBook.bind(this)}
+            onClick={this.confirmBuy.bind(this)}
           >Buy
+          </button>
+          <button
+            className="confirmButton"
+            id={this.props.name}
+            onClick={this.buyBook.bind(this)}
+          >Confirm Buy
           </button>
         </div>
       </div>

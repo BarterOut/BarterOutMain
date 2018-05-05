@@ -43,3 +43,14 @@
 .cancel:hover {
   color: red;
 }
+
+.inputLabelHome {
+  display: flex;
+  width: 80%;
+  text-align: left;
+}
+
+.condition {
+  width: 80%;
+  color: black;
+}
