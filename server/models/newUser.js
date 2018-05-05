@@ -10,7 +10,8 @@ const newUserSchema = new Schema({
     CMC: { type: 'String', required: true },
     firstName: {type:'String', required: true},
     lastName: {type:'String', required: true},
-    matchedBooks: [{type:String}]//array of matched books so you can look at those books might have to add quotes for it
+    matchedBooks: [{type:String}],//array of matched books so you can look at those books might have to add quotes for it
+    university: {type: 'String', required: true},
 },{
     collection: 'userInfo'
 })
