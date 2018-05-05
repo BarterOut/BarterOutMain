@@ -16,3 +16,7 @@
 .inputLabel {
   margin: 0 12px;
 }
+
+select {
+  margin: 8px;
+}
