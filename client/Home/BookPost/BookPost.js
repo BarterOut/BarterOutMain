@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import propTypes from 'prop-types';
 import axios from 'axios';
 
 import './BookPost.css';
@@ -66,5 +67,15 @@ class BookPost extends Component {
     );
   }
 }
+
+BookPost.propTypes = {
+  comments: propTypes.string.isRequired,
+  condition: propTypes.string.isRequired,
+  edition: propTypes.number.isRequired,
+  id: propTypes.number.isRequired,
+  name: propTypes.string.isRequired,
+  price: propTypes.number.isRequired,
+  subject: propTypes.string.isRequired,
+};
 
 export default BookPost;

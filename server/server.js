@@ -1,3 +1,12 @@
+/**
+ * @file Entry point of Express.js server.
+ * @author Duncan Grubbs <duncan.grubbs@gmail.com>
+ * @author Daniel Munoz
+ * @author Shawn Chan
+ * @author Luis Nova
+ * @version 0.0.1
+ */
+
 import Express from 'express';
 
 // MISC
@@ -411,8 +420,14 @@ app.get('/api/searchBook/:query', (req, res) => {
   });
 });
 
+/**
+ * Gets all books being sold from database.
+ * @param {object} req Request body from client.
+ * @param {array} res Body of HTTP response.
+ * @returns {object} Array of books from database.
+ */
 app.get('/api/displayAllBooks', (req, res) => {
-  Textbook.find({status: 0}, (err, books) => {
+  Textbook.find({ status: 0 }, (err, books) => {
     res.json(books);
   });
 });

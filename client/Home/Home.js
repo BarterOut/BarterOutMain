@@ -134,11 +134,9 @@ class Home extends Component {
                     name={post.name}
                     subject={post.course}
                     edition={post.edition}
-                    courseNumber={post.courseNumber}
                     price={post.price}
                     ISBN={post.ISBN}
                     condition={post.condition}
-                    owner={post.owner}
                     comments={post.comments}
                   />
                 ))}
@@ -170,11 +168,8 @@ class Home extends Component {
                     name={post.name}
                     subject={post.course}
                     edition={post.edition}
-                    courseNumber={post.courseNumber}
                     price={post.price}
-                    ISBN={post.ISBN}
                     condition={post.condition}
-                    owner={post.owner}
                     comments={post.comments}
                   />
                 ))}
