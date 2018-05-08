@@ -302,11 +302,12 @@ app.post('/api/sellBook', (req, res) => {
       }, (err, matchedBooks) => {
         matchedBooks.forEach((bookMatched) => {
           realUser.update({ _id: bookMatched.owner }, { $addToSet: { matchedBooks: theBookID } });
-            realUser.find({ _id: bookMatched.owner }, (error, userToEmail)=>{
-                sendEmail(matchFoundEmail(userToEmail[0].emailAddress, userToEmail[0].firstName, bookMatched.name));
-
-
-
+            realUser.find({ _id: bookMatched.owner }, (error, userToEmail) => {
+              if (userToEmail[0] == null) {
+                res.redirect('/home');
+                return;
+              }
+              sendEmail(matchFoundEmail(userToEmail[0].emailAddress, userToEmail[0].firstName, bookMatched.name));
             })
         });
       });
