@@ -37,13 +37,6 @@ class SellBook extends Component {
     const user = JSON.parse(sessionStorage.getItem('user'));
     const ID = user._id;
 
-    // const regex = new RegExp('^[A-Z]{3} \d{3}$');
-
-    // if (this.state.course.match(regex) == null) {
-    //   window.alert('Please enter match the format for course: e.g. MTH 101');
-    //   return;
-    // }
-
     const payload = {
       name: this.state.name,
       edition: this.state.edition,

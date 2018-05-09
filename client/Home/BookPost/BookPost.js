@@ -41,7 +41,9 @@ class BookPost extends Component {
   confirmBuy(evt) {
     evt.target.style.display = 'none';
     const butt = document.getElementById(this.props.name);
-    butt.style.display = 'inline-block';
+    // butt.style.display = 'inline-block';
+    butt.style.visibility = 'visible';
+    butt.style.opacity = '1';
   }
 
   render() {

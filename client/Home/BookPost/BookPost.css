@@ -3,7 +3,6 @@
   flex-direction: row;
   background: white;
   font-size: 1.2em;
-  /* box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23); */
   border: 2px grey solid;
   font-size: 1.6em;
   border-radius: 20px;
@@ -51,10 +50,12 @@ span {
 }
 
 .confirmButton {
-  display: none;
+  display: inline-block;
+  visibility: hidden;
   white-space: nowrap;
   height: 40px;
   line-height: 40px;
+  opacity: 0;
   max-width: 140px;
   padding: 0 14px;
   -webkit-box-shadow: 0 4px 6px rgba(50,50,93,.11), 0 1px 3px rgba(0,0,0,.08);
@@ -70,4 +71,10 @@ span {
   background: #4CAF50;
   text-decoration: none;
   margin: 4px;
+  transition: opacity .3s ease-out;
+}
+
+.visible {
+  visibility: visible;
+  opacity: 1;
 }
