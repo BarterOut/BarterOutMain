@@ -1,3 +1,9 @@
+/**
+ * @file React component for signing users up.
+ * @author Duncan Grubbs <duncan.grubbs@gmail.com>
+ * @version 0.0.1
+ */
+
 import React, { Component } from 'react';
 import axios from 'axios';
 import { Redirect, Link } from 'react-router-dom';

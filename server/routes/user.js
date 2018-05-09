@@ -5,45 +5,25 @@ const express = require('express');
 const router = express.Router();
 
 const nodemailer = require('nodemailer');
-const xoauth2 = require('xoauth2');
 
 function sendEmail(mailOptions) {
-    console.log('send the email!');
-    transporter.sendMail(mailOptions, (err, info) => {
-        if (err) {
-            console.log(err);
-        } else {
-            console.log(info);
-        }
-    });
+  console.info('Send the email!');
+  transporter.sendMail(mailOptions, (err, info) => {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log(info);
+    }
+  });
 }
 
-const transporter = nodemailer.createTransport({// secure authentication
-    // host: 'smtp.gmail.com',
-    // port: 465,//Need to change this
-    // secure: true,
-    // service: 'gmail',
-    host: 'smtp.gmail.com',
-    auth: {
-        type: 'OAuth2',
-        clientId: '878736426892-d0vbth6ho78opo916rr1bimlmuufq25e.apps.googleusercontent.com',
-        clientSecret: '5OTf_iLhmt0tjJCKIdnuC5XM',
-    },
-    // auth: {
-    //     xoauth2: xoauth2.createXOAuth2Generator({
-    //         "user": "johndoe@***.com",
-    //         "clientId": "*******************************",
-    //         "clientSecret": "*******************************",
-    //         "refreshToken": "*******************************"
-    //     }),
-    // auth: {
-    //
-    //         "user": 'office@barterout.com',
-    //         "clientId": '878736426892-d0vbth6ho78opo916rr1bimlmuufq25e.apps.googleusercontent.com',
-    //         "clientSecret": '5OTf_iLhmt0tjJCKIdnuC5XM',
-    //         refreshToken: '1/9XdHU4k2vwYioRyAP8kaGYfZXKfp_JxqUwUMYVJWlZs',
-    //         accessToken: 'ya29.GluwBeUQiUspdFo1yPRfzFMWADsKsyQhB-jgX3ivPBi5zcIldvyPYZtRME6xqZf7UNzkXzZLu1fh0NpeO11h6mwS2qdsL_JREzpKw_3ebOWLNgxTyFg5NmSdStnR'
-    //     }
+const transporter = nodemailer.createTransport({ // secure authentication
+  host: 'smtp.gmail.com',
+  auth: {
+    type: 'OAuth2',
+    clientId: '878736426892-d0vbth6ho78opo916rr1bimlmuufq25e.apps.googleusercontent.com',
+    clientSecret: '5OTf_iLhmt0tjJCKIdnuC5XM',
+  },
 });
 
 
@@ -76,40 +56,46 @@ function signedUpEmail(emailTo, firstName) {
 
 // THIS FUNCTION WORKS
 router.post('/signup', (req, res) => {
-  const { emailAddress, password, CMC, venmoUsername, firstName, lastName, univeristy  } = req.body;
+  const {
+    emailAddress,
+    password,
+    CMC,
+    venmoUsername,
+    firstName,
+    lastName,
+    univeristy,
+  } = req.body;
 
   // TODO: ADD VALIDATION
   User.findOne({ emailAddress: emailAddress }, (err, user) => {
-      if (err) {
-          console.log('User.js post error: ', err)
-      } else if (user) {
-          res.json({
-              error: `Sorry, already a user with the username: ${emailAddress}`
-          })
-      }
-      else {
-          console.log("making a user: " + univeristy)
-          const newUser = new User({
-              emailAddress: emailAddress,
-              password: password,
-              CMC: CMC,
-              venmoUsername: venmoUsername,
-              firstName: firstName,
-              lastName: lastName,
-              matchedBooks: [],
-              univeristy: univeristy
-
-          })
-          newUser.save((err, savedUser) => {
-
-              if (err) return res.json(err)
-              else {
-                  sendEmail(signedUpEmail(savedUser.emailAddress, savedUser.firstName));
-                  res.json("Sign up done!")
-              }
-              // res.json(savedUser)
-          })
-      }
+    if (err) {
+        console.log(`User.js post error: ${err}`);
+    } else if (user) {
+        res.json({
+            error: `Sorry, already a user with the username: ${emailAddress}`
+        })
+    }
+    else {
+      console.log("making a user: " + univeristy)
+      const newUser = new User({
+        emailAddress: emailAddress,
+        password: password,
+        CMC: CMC,
+        venmoUsername: venmoUsername,
+        firstName: firstName,
+        lastName: lastName,
+        matchedBooks: [],
+        univeristy: univeristy,
+      });
+      newUser.save((err, savedUser) => {
+          if (err) return res.json(err)
+          else {
+              sendEmail(signedUpEmail(savedUser.emailAddress, savedUser.firstName));
+              res.json("Sign up done!")
+          }
+          // res.json(savedUser)
+      })
+    }
   })
 })
 
@@ -129,15 +115,15 @@ router.post('/login', (req, res) => {
       res.status(401).send({ error: 'Incorrect Password' });
       return;
     }
-    var returnUser = {
-        _id: user._id,
-        emailAddress: user.emailAddress,
-        venmoUsername: user.venmoUsername,
-        CMC: user.CMC,
-        firstName: user.firstName,
-        lastName: user.lastName,
-        matchedBooks: user.matchedBooks
-    }
+    const returnUser = {
+      _id: user._id,
+      emailAddress: user.emailAddress,
+      venmoUsername: user.venmoUsername,
+      CMC: user.CMC,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      matchedBooks: user.matchedBooks,
+    };
     res.json(returnUser);
   });
 });

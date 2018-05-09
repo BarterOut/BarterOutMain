@@ -1,3 +1,9 @@
+/**
+ * @file React component for posting a book you are looking to sell.
+ * @author Duncan Grubbs <duncan.grubbs@gmail.com>
+ * @version 0.0.1
+ */
+
 import React, { Component } from 'react';
 
 class SellBook extends Component {

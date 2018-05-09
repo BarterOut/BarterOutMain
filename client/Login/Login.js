@@ -1,8 +1,14 @@
+/**
+ * @file React component for loging users in.
+ * @author Duncan Grubbs <duncan.grubbs@gmail.com>
+ * @version 0.0.1
+ */
+
 import React, { Component } from 'react';
 import { Redirect, Link } from 'react-router-dom';
 import axios from 'axios';
 
-import styles from './Login.css';
+import './Login.css';
 
 class Login extends Component {
   constructor(props) {
@@ -61,6 +67,7 @@ class Login extends Component {
         />
         <button className="button" onClick={this.login.bind(this)}>Login</button>
         Don&apos;t have an account? <Link href="/signup" to="/signup">Sign Up</Link>
+        <div>Back to <Link href="/" to="/">Home</Link></div>
       </div>
     );
   }

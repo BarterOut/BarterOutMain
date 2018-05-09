@@ -1,3 +1,9 @@
+/**
+ * @file Main React component for the app itself.
+ * @author Duncan Grubbs <duncan.grubbs@gmail.com>
+ * @version 0.0.1
+ */
+
 import React, { Component } from 'react';
 
 import axios from 'axios';
@@ -157,7 +163,6 @@ class Home extends Component {
                     type="text"
                     name="name"
                   />
-                  {/* <button className="button">Search</button> */}
                 </div>
               </div>
               <div className="posts">

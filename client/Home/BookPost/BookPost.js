@@ -1,3 +1,9 @@
+/**
+ * @file React component for a book posting on the app.
+ * @author Duncan Grubbs <duncan.grubbs@gmail.com>
+ * @version 0.0.1
+ */
+
 import React, { Component } from 'react';
 import propTypes from 'prop-types';
 import axios from 'axios';
@@ -17,7 +23,6 @@ class BookPost extends Component {
   }
 
   buyBook() {
-    // console.log(sessionStorage.getItem('user')._id);
     axios.post('/api/clickBuy', {
       bookID: this.state.id,
       userID: JSON.parse(sessionStorage.getItem('user'))._id,
@@ -68,6 +73,7 @@ class BookPost extends Component {
   }
 }
 
+// Props validation
 BookPost.propTypes = {
   comments: propTypes.string.isRequired,
   condition: propTypes.string.isRequired,

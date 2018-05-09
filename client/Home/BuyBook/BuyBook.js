@@ -1,3 +1,9 @@
+/**
+ * @file React component for posting a book you are searching for.
+ * @author Duncan Grubbs <duncan.grubbs@gmail.com>
+ * @version 0.0.1
+ */
+
 import React, { Component } from 'react';
 
 import './BuyBook.css';

@@ -7,10 +7,14 @@
  * @version 0.0.1
  */
 
-import Express from 'express';
+// TODO: Fix request URL names.
+// TODO: Make sure all methods send a response.
+// TODO: Comment all code.
 
-// MISC
+import Express from 'express';
 import path from 'path';
+
+// Mongoose for database models and access.
 import mongoose from 'mongoose';
 
 // Webpack Requirements
@@ -19,6 +23,7 @@ import webpackDevMiddleware from 'webpack-dev-middleware';
 import webpackHotMiddleware from 'webpack-hot-middleware';
 import config from '../webpack.config';
 
+// Configs and kittens for testing database.
 import serverConfig from './config';
 import kittens from './kittens/kitten';
 
@@ -31,11 +36,10 @@ import TextbookBuy from './models/textbookBuy';
 // PASSPORT
 const passport = require('./passport');
 
+// TODO: Fix auto-https redirect.
 const sslRedirect = require('heroku-ssl-redirect');
 
 const nodemailer = require('nodemailer');
-const xoauth2 = require('xoauth2');
-
 
 // USER ROUTE
 const user = require('./routes/user');
@@ -92,40 +96,13 @@ app.listen(PORT, (error) => {
   }
 });
 
-// const transporter = nodemailer.createTransport({
-//   service: 'gmail',
-//   auth: {
-//     user: 'office@barterout.com',
-//     pass: 'password',
-//   },
-// });
-
-const transporter = nodemailer.createTransport({// secure authentication
-  // host: 'smtp.gmail.com',
-  // port: 465,//Need to change this
-  // secure: true,
-  // service: 'gmail',
+const transporter = nodemailer.createTransport({ // secure authentication
   host: 'smtp.gmail.com',
   auth: {
     type: 'OAuth2',
     clientId: '878736426892-d0vbth6ho78opo916rr1bimlmuufq25e.apps.googleusercontent.com',
     clientSecret: '5OTf_iLhmt0tjJCKIdnuC5XM',
   },
-  // auth: {
-  //     xoauth2: xoauth2.createXOAuth2Generator({
-  //         "user": "johndoe@***.com",
-  //         "clientId": "*******************************",
-  //         "clientSecret": "*******************************",
-  //         "refreshToken": "*******************************"
-  //     }),
-  // auth: {
-  //
-  //         "user": 'office@barterout.com',
-  //         "clientId": '878736426892-d0vbth6ho78opo916rr1bimlmuufq25e.apps.googleusercontent.com',
-  //         "clientSecret": '5OTf_iLhmt0tjJCKIdnuC5XM',
-  //         refreshToken: '1/9XdHU4k2vwYioRyAP8kaGYfZXKfp_JxqUwUMYVJWlZs',
-  //         accessToken: 'ya29.GluwBeUQiUspdFo1yPRfzFMWADsKsyQhB-jgX3ivPBi5zcIldvyPYZtRME6xqZf7UNzkXzZLu1fh0NpeO11h6mwS2qdsL_JREzpKw_3ebOWLNgxTyFg5NmSdStnR'
-  //     }
 });
 
 
@@ -187,9 +164,6 @@ function emailToSeller(emailTo, firstName, bookTitle) {
   };
 }
 
-
-
-
 function venmoRequestEmail(emailTo, firstName, bookTitle) {
   return {
     from: '"Barter Out" <office@barterout.com',
@@ -248,8 +222,6 @@ CMC Box Number: ${buyerUser.CMC}
   };
 }
 
-
-
 function sendEmail(mailOptions) {
   console.log('send the email!');
   transporter.sendMail(mailOptions, (err, info) => {
@@ -267,6 +239,13 @@ in the form /api/routeName. This way, we can have a clear distinction between
 client side routes (e.g. going to different pages on the website) and server side
 routes (e.g. doing a search query in the database).
 */
+
+/**
+ * @deprecated
+ * @param {object} req Request body from client.
+ * @param {array} res Body of HTTP response.
+ * @returns {object} Error if any, otherwise command to redirect.
+ */
 app.post('/api/preRegister', (req, res) => {
   const newUser = new User(req.body);
   newUser.save()
@@ -278,7 +257,12 @@ app.post('/api/preRegister', (req, res) => {
     });
 });
 
-// Want to Sell
+/**
+ * Called when a user posts a book they want to sell.
+ * @param {object} req Request body from client.
+ * @param {array} res Body of HTTP response.
+ * @returns {object} Error if any, otherwise command to redirect.
+ */
 app.post('/api/sellBook', (req, res) => {
   console.log('User Selling Book');
   req.body.payload.date = Date.now();
@@ -288,27 +272,22 @@ app.post('/api/sellBook', (req, res) => {
       console.log('Saved Book to DB');
 
       const theBookID = newBook._id;
-        //update match with an and statment such that it doesn't match with users that status other than 0
-
+      // update match with an and statment such that it doesn't match with users that status other than 0
       TextbookBuy.find({
-
-
-            $and: [
-                {$or: [{ name: { $regex: req.body.payload.name, $options: 'i' } }, { course: { $regex: req.body.payload.course, $options: 'i' } }]},
-                { status: 0 },
-            ]
-
-
+        $and: [
+          { $or: [{ name: { $regex: req.body.payload.name, $options: 'i' } }, { course: { $regex: req.body.payload.course, $options: 'i' } }] },
+          { status: 0 },
+        ],
       }, (err, matchedBooks) => {
         matchedBooks.forEach((bookMatched) => {
           realUser.update({ _id: bookMatched.owner }, { $addToSet: { matchedBooks: theBookID } });
-            realUser.find({ _id: bookMatched.owner }, (error, userToEmail) => {
-              if (userToEmail[0] == null) {
-                res.redirect('/home');
-                return;
-              }
-              sendEmail(matchFoundEmail(userToEmail[0].emailAddress, userToEmail[0].firstName, bookMatched.name));
-            })
+          realUser.find({ _id: bookMatched.owner }, (error, userToEmail) => {
+            if (userToEmail[0] == null) {
+              res.redirect('/home');
+              return;
+            }
+            sendEmail(matchFoundEmail(userToEmail[0].emailAddress, userToEmail[0].firstName, bookMatched.name));
+          });
         });
       });
       res.redirect('/home');
@@ -319,15 +298,20 @@ app.post('/api/sellBook', (req, res) => {
     });
 });
 
-// Want to Buy
+/**
+ * Called when a user posts a book they want to buy.
+ * @param {object} req Request body from client.
+ * @param {array} res Body of HTTP response.
+ * @returns {object} Array of book objects.
+ */
 app.post('/api/buyBook', (req, res) => {
-  console.log('User posting book to Buy');
+  console.info('User posting book to Buy');
 
   req.body.payload.date = Date.now();
   const newBook = new TextbookBuy(req.body.payload);
   newBook.save()
     .then(() => {
-      console.log('Book was saved to DB');
+      console.info('Book was saved to DB');
 
       Textbook.find(
         { // looks for a book that matches based on the name matching and the
@@ -345,12 +329,13 @@ app.post('/api/buyBook', (req, res) => {
           });
           if (addBooks.length !== 0) {
             realUser.find({ _id: req.body.payload.owner }, (error, userToEmail) => {
-              sendEmail(matchFoundEmail(userToEmail[0].emailAddress, userToEmail[0].firstName, req.body.payload.name));
-
+              const email = userToEmail[0].emailAddress;
+              const firstName = userToEmail[0].firstName;
+              sendEmail(matchFoundEmail(email, firstName, req.body.payload.name));
             });
           }
           realUser.update({ _id: req.body.payload.owner }, { $addToSet: { matchedBooks: { $each: addBooks } } }, (error) => {
-            console.log(error);
+            console.warn(`Error: ${error}`);
           });
         },
       );
@@ -360,6 +345,12 @@ app.post('/api/buyBook', (req, res) => {
     });
 });
 
+/**
+ * Finds all books in given users matched books array.
+ * @param {object} req Request body from client.
+ * @param {array} res Body of HTTP response.
+ * @returns {object} Array of book objects.
+ */
 app.post('/api/clickBuy', (req, res) => {
   let buyer;
   let bookFound;
@@ -372,10 +363,12 @@ app.post('/api/clickBuy', (req, res) => {
     });
     Textbook.find({ _id: req.body.bookID }, (errors, foundBook) => {
       bookFound = foundBook[0];
-      console.log(bookFound);
-        TextbookBuy.update( {$and: [{status:0}, {$or:[{name: bookFound.name}, {course: bookFound.course}]} , {owner: req.body.userID} ]} , { $set: {status: 1}},(errorss)=>{
-        console.log(`error:  ${errorss}`);
-        });
+      TextbookBuy.update({
+        $and: [{ status: 0 }, { $or: [{ name: bookFound.name }, { course: bookFound.course }] },
+          { owner: req.body.userID }],
+      }, { $set: { status: 1 } }, (error) => {
+        console.log(`Error in finding book being bought:  ${error}`);
+      });
       realUser.find({ _id: bookFound.owner }, (error, sellerUser) => {
         seller = sellerUser[0];
         sendEmail(emailForUs(buyer, seller, bookFound));
@@ -387,32 +380,37 @@ app.post('/api/clickBuy', (req, res) => {
   res.json(true);
 });
 
+/**
+ * Finds all books in given users matched books array.
+ * @param {object} req Request body from client.
+ * @param {array} res Body of HTTP response.
+ * @returns {object} Array of book objects.
+ */
 app.post('/api/showMatches', (req, res) => {
-  // console.log(req.body.id);
   realUser.find({ _id: req.body.id }, (err, userMatch) => {
     let bookObjects = [];
     const bookIDs = userMatch[0].matchedBooks;
-    // console.log(bookIDs)
-
-
-    Textbook.find({$and:[{ _id: { $in: bookIDs }}, {status: 0} ]}, (error, books) => {
-      // console.log("found a book");
+    Textbook.find({ $and: [{ _id: { $in: bookIDs } }, { status: 0 }] }, (error, books) => {
       bookObjects = books;
-      // console.log(bookObjects)
-
       res.json(bookObjects);
     });
   });
 });
 
-
+/**
+ * Finds all books in database with a matching name or course.
+ * @param {object} req Request body from client.
+ * @param {array} res Body of HTTP response.
+ * @returns {object} Array of books from database.
+ */
 app.get('/api/searchBook/:query', (req, res) => {
   const searchKey = req.params.query;
   Textbook.find({
-      $and: [
-          { status: 0 },
-          { $or: [{name: { $regex: searchKey, $options: 'i' }}, { course: { $regex: searchKey, $options: 'i' } }] },
-      ],}, (err, books) => {
+    $and: [
+      { status: 0 },
+      { $or: [{ name: { $regex: searchKey, $options: 'i' } }, { course: { $regex: searchKey, $options: 'i' } }] },
+    ],
+  }, (err, books) => {
     const bookMap = [];
     books.forEach((book) => {
       bookMap.push(book);
