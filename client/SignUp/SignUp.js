@@ -26,8 +26,18 @@ class SignUp extends Component {
     };
   }
 
+  componentDidMount() {
+    document.addEventListener('keydown', this._handleKeyDown.bind(this));
+  }
+
   onChange(evt) {
     this.setState({ [evt.target.name]: evt.target.value });
+  }
+
+  _handleKeyDown(e) {
+    if (e.keyCode === 13) {
+      this.signUp();
+    }
   }
 
   selectChange(evt) {

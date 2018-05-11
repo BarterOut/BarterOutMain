@@ -20,11 +20,25 @@ class Login extends Component {
     };
   }
 
+  componentDidMount() {
+    document.addEventListener('keydown', this._handleKeyDown.bind(this));
+  }
+
   onChange(evt) {
     this.setState({ [evt.target.name]: evt.target.value });
   }
 
+  _handleKeyDown(e) {
+    if (e.keyCode === 13) {
+      this.login();
+    }
+  }
+
   login() {
+    if (this.state.emailAddress === '' ||
+      this.state.password === '') {
+      return;
+    }
     axios.post('/api/auth/login', {
       emailAddress: this.state.emailAddress,
       password: this.state.password,
