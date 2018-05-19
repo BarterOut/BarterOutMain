@@ -420,6 +420,7 @@ app.get('/api/searchBook/:query', (req, res) => {
 });
 
 /**
+ * @deprecated Due to inefficiency
  * Gets all books being sold from database.
  * @param {object} req Request body from client.
  * @param {array} res Body of HTTP response.
