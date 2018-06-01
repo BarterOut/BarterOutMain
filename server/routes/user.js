@@ -28,11 +28,11 @@ const transporter = nodemailer.createTransport({ // secure authentication
 
 
 function signedUpEmail(emailTo, firstName) {
-    return {
-        from: '"Barter Out" <office@barterout.com',
-        to: emailTo,
-        subject: 'Thank you for signing up',
-        html: 'Dear ' +firstName+',  <br></br> ' +
+  return {
+    from: '"Barter Out" <office@barterout.com',
+    to: emailTo,
+    subject: 'Thank you for signing up',
+    html: 'Dear ' +firstName+',  <br></br> ' +
         '\n' +
         'Thank you for signing up on our platform. Start using our service today on our <a href="https://www.barterout.com/" target="_blank">website</a> by putting a textbook up for sale or buying one from another student.    <br></br> ' +
         '\n' +
@@ -45,13 +45,13 @@ function signedUpEmail(emailTo, firstName) {
         '\n' +
         'Like us on <a href="https://www.facebook.com/BarterOut/" target="_blank">Facebook</a> <br> </br> Follow us on <a href="https://www.instagram.com/barteroutofficial/" target="_blank">Instagram</a>',
 
-        auth: {
-            user: 'office@barterout.com',
-            refreshToken: '1/9XdHU4k2vwYioRyAP8kaGYfZXKfp_JxqUwUMYVJWlZs',
-            accessToken: 'ya29.GluwBeUQiUspdFo1yPRfzFMWADsKsyQhB-jgX3ivPBi5zcIldvyPYZtRME6xqZf7UNzkXzZLu1fh0NpeO11h6mwS2qdsL_JREzpKw_3ebOWLNgxTyFg5NmSdStnR',
-            // expires: 1484314697598
-        },
-    };
+    auth: {
+      user: 'office@barterout.com',
+      refreshToken: '1/9XdHU4k2vwYioRyAP8kaGYfZXKfp_JxqUwUMYVJWlZs',
+      accessToken: 'ya29.GluwBeUQiUspdFo1yPRfzFMWADsKsyQhB-jgX3ivPBi5zcIldvyPYZtRME6xqZf7UNzkXzZLu1fh0NpeO11h6mwS2qdsL_JREzpKw_3ebOWLNgxTyFg5NmSdStnR',
+      // expires: 1484314697598
+    },
+  };
 }
 
 // THIS FUNCTION WORKS
@@ -69,11 +69,11 @@ router.post('/signup', (req, res) => {
   // TODO: ADD VALIDATION
   User.findOne({ emailAddress: emailAddress }, (err, user) => {
     if (err) {
-        console.log(`User.js post error: ${err}`);
+      console.log(`User.js post error: ${err}`);
     } else if (user) {
-        res.json({
-            error: `Sorry, already a user with the username: ${emailAddress}`
-        })
+      res.json({
+        error: `Sorry, already a user with the username: ${emailAddress}`
+      });
     }
     else {
       console.log("making a user: " + univeristy)
@@ -87,16 +87,16 @@ router.post('/signup', (req, res) => {
         matchedBooks: [],
         univeristy: univeristy,
       });
-      newUser.save((err, savedUser) => {
-          if (err) return res.json(err)
-          else {
-              sendEmail(signedUpEmail(savedUser.emailAddress, savedUser.firstName));
-              res.json("Sign up done!")
-          }
-          // res.json(savedUser)
-      })
+      newUser.save((errs, savedUser) => {
+        if (err) return res.json(err)
+        else {
+          sendEmail(signedUpEmail(savedUser.emailAddress, savedUser.firstName));
+          res.json("Sign up done!")
+        }
+        // res.json(savedUser)
+      });
     }
-  })
+  });
 })
 
 router.post('/login', (req, res) => {
