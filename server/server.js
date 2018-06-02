@@ -27,6 +27,8 @@ import config from '../webpack.config';
 import serverConfig from './config';
 import kittens from './kittens/kitten';
 
+
+
 // MODELS
 import User from './models/user';
 import realUser from './models/newUser';
@@ -41,8 +43,11 @@ const sslRedirect = require('heroku-ssl-redirect');
 
 const nodemailer = require('nodemailer');
 
+
+
 // USER ROUTE
 const user = require('./routes/user');
+const booksRoute = require('./routes/books');
 
 const PORT = serverConfig.port;
 
@@ -69,6 +74,7 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session()); // calls serializeUser and deserializeUser
 app.use('/api/auth', user);
+app.use('api/books', booksRoute);
 
 // Run Webpack dev server in development mode
 if (process.env.NODE_ENV === 'development') {

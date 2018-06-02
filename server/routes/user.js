@@ -127,7 +127,7 @@ router.post('/login', (req, res) => {
     res.json(returnUser);
   });
 });
-
+//Just in case this is needed
 router.get('/', (req, res) => {
   if (req.user) {
     res.json({ user: req.user });
