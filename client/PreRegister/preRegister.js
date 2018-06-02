@@ -1,12 +1,8 @@
 import React from 'react';
-import {
-    Link,
-} from 'react-router-dom';
-import { connect } from 'react-redux'
 
 import styles from './preRegister.css';
 import regularFont from './sylesheetOrkneyRegular.css';
-import animations from './animate.css';
+import animations from '../res/animate.css';
 
 const PreRegister = () => {
     return (

@@ -3,11 +3,9 @@ import axios from 'axios';
 import {
   Route,
   Switch,
-  Redirect
+  Redirect,
 } from 'react-router-dom';
 
-import Welcome from './Welcome/Welcome';
-import Mern from './Mern/Mern';
 import LandingPage from './LandingPage/LandingPage';
 import TermsOfService from './TermsOfService/termsOfService';
 import PrivacyPolicy from './PrivacyPolicy/privacyPolicy';

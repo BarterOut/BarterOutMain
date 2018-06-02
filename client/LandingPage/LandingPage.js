@@ -6,11 +6,11 @@ import {
 import { connect } from 'react-redux';
 
 import styles from './landingpage.css';
-import regularFont from './sylesheetOrkneyRegular.css';
-import lightFont from './sylesheetOrkneyLight.css';
-import mediumFont from './sylesheetOrkneyMedium.css';
-import boldfont from './sylesheetOrkneyBold.css';
-import animations from './animate.css';
+import regularFont from '../res/sylesheetOrkneyRegular.css';
+import lightFont from '../res/sylesheetOrkneyLight.css';
+import mediumFont from '../res/sylesheetOrkneyMedium.css';
+import boldfont from '../res/sylesheetOrkneyBold.css';
+import animations from '../res/animate.css';
 
 import logoPic from '../images/barterOutOrangeWhiteLogoHeader.png';
 
@@ -18,18 +18,18 @@ import picOne from '../images/overtheShoulderCompressed.jpg';
 import picTwo from '../images/groupMeetingCompressed.jpg';
 import picThree from '../images/outdoorsCompressed.jpg';
 
-import vlad from '../images/vladCazacu.jpg'
-import luis from '../images/luisNova.jpg'
-import annie from '../images/annieHamburgen.png'
-import pavel from '../images/pavelStan.jpg'
-import melissa from '../images/melissaKagaju.jpg'
-import duncan from '../images/duncanGrubbs.jpg'
-import shawn from '../images/zixuChen.jpg'
-import jovan from '../images/jovanGianniLee.png'
-import genessis from '../images/genessisGalindo.jpg'
-import logo from '../images/barterOutProfilePhotoWebPage.png'
-import zacqueline from '../images/zacquelineBaldwin.jpg'
-import nikolai from '../images/nikolaiDraganov.jpg'
+import vlad from '../images/vladCazacu.jpg';
+import luis from '../images/luisNova.jpg';
+import annie from '../images/annieHamburgen.png';
+import pavel from '../images/pavelStan.jpg';
+import melissa from '../images/melissaKagaju.jpg';
+import duncan from '../images/duncanGrubbs.jpg';
+import shawn from '../images/zixuChen.jpg';
+import jovan from '../images/jovanGianniLee.png';
+import genessis from '../images/genessisGalindo.jpg';
+import logo from '../images/barterOutProfilePhotoWebPage.png';
+import zacqueline from '../images/zacquelineBaldwin.jpg';
+import nikolai from '../images/nikolaiDraganov.jpg';
 
 import adviserOne from '../images/meyerElizabeth.jpg';
 
@@ -37,7 +37,7 @@ import linkedInLogo from '../images/linkedIn.png';
 import facebookLogo from '../images/facebook.png';
 
 import waypointJS from './noframework.waypoints.min.js';
-import jQuery from './jquery-3.3.1.min.js';
+import jQuery from '../res/jquery-3.3.1.min.js';
 
 class LandingPage extends Component {
   constructor() {
