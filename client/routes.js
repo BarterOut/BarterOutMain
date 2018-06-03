@@ -1,39 +1,35 @@
 import React from 'react';
+import axios from 'axios';
 import {
   Route,
   Switch,
+  Redirect,
 } from 'react-router-dom';
 
-import Welcome from './Welcome/Welcome';
-import Mern from './Mern/Mern';
 import LandingPage from './LandingPage/LandingPage';
 import TermsOfService from './TermsOfService/termsOfService';
 import PrivacyPolicy from './PrivacyPolicy/privacyPolicy';
-import Contact from './Contact/contact'
+import Contact from './Contact/contact';
 import Careers from './Careers/careers';
 import PreRegister from './PreRegister/preRegister';
+import Home from './Home/Home';
+import SignUp from './SignUp/SignUp';
+import Login from './Login/Login';
 
-import store from './store'
+import store from './store';
 
-var state = {
-  user: store.getState().user.isAuthenticated || false
-}
-
-store.subscribe(() => {
-  state = store.getState();
-})
-
-const PrivateRoute = ({component: Component, rest}) => {
-
+const HomePage = ({ component: Component, rest }) => {
   return (
     <Route
       {...rest}
-      render={(props) => state.user.isAuthenticated === true
-        ? <Component {...props} />
-        : <Redirect to={{pathname: '/login', state: {from: props.location}}} />}
+      render={(props) => 
+          sessionStorage.getItem('user') != null
+          ? <Component {...props} />
+          : <Redirect to={{pathname: '/login'}}
+        />}
     />
-  )
-}
+  );
+};
 
 export default (
   <Switch>
@@ -43,5 +39,8 @@ export default (
     <Route path="/Contact" component={Contact} />
     <Route path="/Careers" component={Careers} />
     <Route path="/preRegister" component={PreRegister} />
+    <HomePage path="/home" component={Home} />
+    <Route path="/login" component={Login} />
+    <Route path="/signup" component={SignUp} />
   </Switch>
 );

@@ -1,44 +1,57 @@
-import React from 'react';
+import React, { Component } from 'react';
 import {
-    Link,
+  Link,
+  Redirect,
 } from 'react-router-dom';
-import { connect } from 'react-redux'
+import { connect } from 'react-redux';
 
 import styles from './landingpage.css';
-import regularFont from './sylesheetOrkneyRegular.css';
-import lightFont from './sylesheetOrkneyLight.css';
-import mediumFont from './sylesheetOrkneyMedium.css';
-import boldfont from './sylesheetOrkneyBold.css';
-import animations from './animate.css';
+import regularFont from '../res/sylesheetOrkneyRegular.css';
+import lightFont from '../res/sylesheetOrkneyLight.css';
+import mediumFont from '../res/sylesheetOrkneyMedium.css';
+import boldfont from '../res/sylesheetOrkneyBold.css';
+import animations from '../res/animate.css';
 
-import logoPic from '../images/barterOutOrangeWhiteLogoHeader.png'
+import logoPic from '../images/barterOutOrangeWhiteLogoHeader.png';
 
-import picOne from '../images/overtheShoulderCompressed.jpg'
-import picTwo from '../images/groupMeetingCompressed.jpg'
-import picThree from '../images/outdoorsCompressed.jpg'
+import picOne from '../images/overtheShoulderCompressed.jpg';
+import picTwo from '../images/groupMeetingCompressed.jpg';
+import picThree from '../images/outdoorsCompressed.jpg';
 
-import vlad from '../images/vladCazacu.jpg'
-import luis from '../images/luisNova.jpg'
-import annie from '../images/annieHamburgen.png'
-import pavel from '../images/pavelStan.jpg'
-import melissa from '../images/melissaKagaju.jpg'
-import duncan from '../images/duncanGrubbs.jpg'
-import shawn from '../images/zixuChen.jpg'
-import jovan from '../images/jovanGianniLee.png'
-import genessis from '../images/genessisGalindo.jpg'
-import logo from '../images/barterOutProfilePhotoWebPage.png'
-import zacqueline from '../images/zacquelineBaldwin.jpg'
-import nikolai from '../images/nikolaiDraganov.jpg'
+import vlad from '../images/vladCazacu.jpg';
+import luis from '../images/luisNova.jpg';
+import annie from '../images/annieHamburgen.png';
+import pavel from '../images/pavelStan.jpg';
+import melissa from '../images/melissaKagaju.jpg';
+import duncan from '../images/duncanGrubbs.jpg';
+import shawn from '../images/zixuChen.jpg';
+import jovan from '../images/jovanGianniLee.png';
+import genessis from '../images/genessisGalindo.jpg';
+import logo from '../images/barterOutProfilePhotoWebPage.png';
+import zacqueline from '../images/zacquelineBaldwin.jpg';
+import nikolai from '../images/nikolaiDraganov.jpg';
 
-import adviserOne from '../images/meyerElizabeth.jpg'
+import adviserOne from '../images/meyerElizabeth.jpg';
 
-import linkedInLogo from '../images/linkedIn.png'
-import facebookLogo from '../images/facebook.png'
+import linkedInLogo from '../images/linkedIn.png';
+import facebookLogo from '../images/facebook.png';
 
-import waypointJS from './noframework.waypoints.min.js'
-import jQuery from './jquery-3.3.1.min.js'
+import waypointJS from './noframework.waypoints.min.js';
+import jQuery from '../res/jquery-3.3.1.min.js';
 
-const LandingPage = () => {
+class LandingPage extends Component {
+  constructor() {
+    super();
+    this.state = {
+      redirect: false,
+    };
+  }
+
+    render() {
+    if (sessionStorage.getItem('user') || this.state.redirect) {
+      return (<Redirect to="/home" />);
+    }
+
     return (
         <div className="app">
             <div className="landingpage">
@@ -50,7 +63,8 @@ const LandingPage = () => {
                         <a className="productLink" id="landingPageLink" href="#madeSimple">Our Product</a>
                         <a className="missionLink" id="landingPageLink" href="#whatWereAbout">Our Mission</a>
                         <a className="teamLink" id="landingPageLink" href="#teamPage">Our Team</a>
-                        <a className="preRegisterLink" id="landingPageLink" href="#registrationPage">Pre-Register</a>
+                        {/* <a className="preRegisterLink" id="landingPageLink" href="#registrationPage">Pre-Register</a> */}
+                        <Link id="landingPageLink" className="preRegisterLink" to="/login" href="login">Login</Link>
                     </div>
                 </nav>
                 <div className="mainText animated fadeIn" id="mainText">
@@ -59,7 +73,7 @@ const LandingPage = () => {
                         YOU WILL EVER NEED,
                         <br/>
                         HASSLE-FREE</h1>
-                    <a href="#registrationPage" id="buttonLink"><button className="barterOutButton">JOIN NOW FREE</button></a>
+                    <a href="/signup" id="buttonLink"><button className="barterOutButton">JOIN NOW FREE</button></a>
                 </div>
                 <div className="madeSimple" id="madeSimple">
                     <div className="madeSimpleInfo animated" id="madeSimpleInfo">
@@ -166,7 +180,7 @@ const LandingPage = () => {
                         </div>
                     </div>
                     <div className="blurbBlock">
-                        <a href="#registrationPage" id="buttonLink"><button className="barterOutButton animated" id="joinTodayButton" href="#registrationPage">JOIN TODAY</button></a>
+                        <a href="/signup" id="buttonLink"><button className="barterOutButton animated" id="joinTodayButton" href="/signup">JOIN TODAY</button></a>
                     </div>
                 </div>
                 <div className="teamPage" id="teamPage">
@@ -345,7 +359,7 @@ const LandingPage = () => {
                         </div>
                     </div>
                 </div>
-                <div className="registrationPage" id="registrationPage">
+                {/* <div className="registrationPage" id="registrationPage">
                     <div className="registrationPageOverlay">
                         <div className="registrationPageInfo" id="registrationPageInfo">
                             <div className="registrationPageText animated">
@@ -364,21 +378,21 @@ const LandingPage = () => {
                                 <div className="formSubTitle">
                                     Be one of the first to use BarterOut
                                 </div>
-                                <form method="POST" action="/preRegister">
+                                <form className="preRegisterForm" method="POST" action="/api/preRegister">
                                     <div className="formSubTitle">
                                         First Name
                                     </div>
-                                    <input type="text" name="firstName" className="firstName" required>
+                                    <input type="text" name="firstName" className="firstName textInput" required>
                                     </input>
                                     <div className="formSubTitle">
                                         Last Name
                                     </div>
-                                    <input type="text" name="lastName" className="lastName" required>
+                                    <input type="text" name="lastName" className="lastName textInput" required>
                                     </input>
                                     <div className="formSubTitle">
                                         Email Address
                                     </div>
-                                    <input type="email" name="emailAddress" className="email"
+                                    <input type="email" name="emailAddress" className="email emailInput"
                                            required
                                            pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.+-]+\.edu$"
                                            title="You can only pre-register with a school (.edu) email.">
@@ -395,7 +409,7 @@ const LandingPage = () => {
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> */}
                 <div className="landingPageBottom">
                     <div id="bottomLinksCol1">
                         <div id="bottomLinkHeader">Company</div>
@@ -422,6 +436,7 @@ const LandingPage = () => {
         </div>
     )
 }
+}
 
 
 export default LandingPage;
@@ -446,8 +461,6 @@ $(document).ready(function() {
     $('#meetOurAdvisersHeader').css('opacity', 0);
     $('#adviserPageText').css('opacity', 0);
     $('#registrationPageInfo').css('opacity', 0);
-
-
     var madeSimpleAnimations = new Waypoint({
         element:  document.getElementById('madeSimpleInfo'),
         handler: function() {
@@ -457,7 +470,6 @@ $(document).ready(function() {
         },
         offset: '75%'
     })
-
     var howItWorksAnimations = new Waypoint({
         element:  document.getElementById('howItWorksInfo'),
         handler: function() {
@@ -467,7 +479,6 @@ $(document).ready(function() {
         },
         offset: '50%'
     })
-
     var whatWereAboutHeaderAnimations = new Waypoint({
         element: document.getElementById('whatWereAboutHeader'),
         handler: function () {
@@ -476,7 +487,6 @@ $(document).ready(function() {
         },
         offset: '70%'
     })
-
     var smartPeopleBlockAnimations = new Waypoint({
         element:  document.getElementById('smartPeopleBlock'),
         handler: function() {
@@ -487,7 +497,6 @@ $(document).ready(function() {
         },
         offset: '60%'
     })
-
     var helpingOthersBlockAnimations = new Waypoint({
         element:  document.getElementById('helpingOthersBlock'),
         handler: function() {
@@ -498,7 +507,6 @@ $(document).ready(function() {
         },
         offset: '60%'
     })
-
     var fastCheapEasyBlockAnimations = new Waypoint({
         element:  document.getElementById('fastCheapEasyBlock'),
         handler: function() {
@@ -509,7 +517,6 @@ $(document).ready(function() {
         },
         offset: '60%'
     })
-
     var joinTodayButtonAnimations = new Waypoint({
         element: document.getElementById('joinTodayButton'),
         handler: function() {
@@ -518,7 +525,6 @@ $(document).ready(function() {
         },
         offset: '85%'
     })
-
     var meetOurTeamHeaderAnimations = new Waypoint({
         element: document.getElementById('meetOurTeamHeader'),
         handler: function() {
@@ -531,7 +537,6 @@ $(document).ready(function() {
         },
         offset: '60%'
     })
-
     var teamRowTwoAnimation = new Waypoint({
         element: document.getElementById('rowTwo'),
         handler: function() {
@@ -564,7 +569,6 @@ $(document).ready(function() {
         },
         offset: '80%'
     })
-
     var meetOurAdvisers = new Waypoint({
         element: document.getElementById('meetOurAdvisersHeader'),
         handler: function() {
@@ -578,8 +582,6 @@ $(document).ready(function() {
         },
         offset: '60%'
     })
-
-
     var registrationPageAnimations = new Waypoint({
         element: document.getElementById('registrationPageInfo'),
         handler: function() {

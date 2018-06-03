@@ -1,23 +1,68 @@
+/**
+ * @file Entry point of Express.js server.
+ * @author Duncan Grubbs <duncan.grubbs@gmail.com>
+ * @author Daniel Munoz
+ * @author Shawn Chan
+ * @author Luis Nova
+ * @version 0.0.1
+ */
+
+// TODO: Make sure all methods send a response.
+// TODO: Comment all code.
+
 import Express from 'express';
-import serverConfig from './config';
 import path from 'path';
+
+// Mongoose for database models and access.
 import mongoose from 'mongoose';
-import kittens from './kittens/kitten';
-import User from './models/user'
 
 // Webpack Requirements
 import webpack from 'webpack';
-import config from '../webpack.config';
 import webpackDevMiddleware from 'webpack-dev-middleware';
 import webpackHotMiddleware from 'webpack-hot-middleware';
+import config from '../webpack.config';
 
-var bodyParser = require('body-parser');
+// Configs and kittens for testing database.
+import serverConfig from './config';
+import kittens from './kittens/kitten';
+
+// PASSPORT
+const passport = require('./passport');
+
+// TODO: Fix auto-https redirect.
+const sslRedirect = require('heroku-ssl-redirect');
+
+
+// USER ROUTE
+const user = require('./routes/user');
+const booksRoute = require('./routes/books');
+
+const PORT = serverConfig.port;
+
+const bodyParser = require('body-parser');
+const session = require('express-session');
 
 // Initialize the Express App
 const app = new Express();
 
+app.use(sslRedirect());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
+// Sessions
+// const session = require('express-session')
+app.use(session({
+  secret: 'ourOwnSaltingString', // pick a random string to make the hash that is generated secure
+  // Following lines are to avoid some deprecation warnings
+  resave: false, // required
+  saveUninitialized: false, // required
+  cookie: { secure: false },
+}));
+
+app.use(passport.initialize());
+app.use(passport.session()); // calls serializeUser and deserializeUser
+app.use('/api/auth', user);
+app.use('/api/books', booksRoute);
 
 // Run Webpack dev server in development mode
 if (process.env.NODE_ENV === 'development') {
@@ -38,28 +83,18 @@ mongoose.connect(serverConfig.mongoURL, { useMongoClient: true }, (error) => {
   kittens();
 });
 
-// start app
-app.listen(serverConfig.port, (error) => {
+// Start App
+app.listen(PORT, (error) => {
   if (!error) {
     console.log(`MERN is running on port: ${serverConfig.port}! Build something amazing!`); // eslint-disable-line
   }
 });
 
+// Catch all function, if route is not in form /api/ then
+// this function return the index page and allows the client to
+// handle the routing.
 app.get('*', (req, res) => {
-	res.sendFile(path.join(__dirname, '../client/core/index.html'));
-})
-
-app.post("/preRegister", (req, res) => {
-    var newUser = new User(req.body);
-    newUser.save()
-        .then(item => {
-            res.redirect("/preRegister");
-        })
-        .catch(err => {
-            res.status(400).send("unable to save to database");
-        });
+  res.sendFile(path.join(__dirname, '../client/core/index.html'));
 });
-
-
 
 export default app;

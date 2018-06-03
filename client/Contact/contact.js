@@ -1,13 +1,9 @@
 import React from 'react';
-import {
-    Link,
-} from 'react-router-dom';
-import { connect } from 'react-redux'
 
 import styles from './contact.css';
-import regularFont from './sylesheetOrkneyRegular.css';
-import boldfont from './sylesheetOrkneyBold.css';
-import animations from './animate.css';
+import regularFont from '../res/sylesheetOrkneyRegular.css';
+import boldfont from '../res/sylesheetOrkneyBold.css';
+import animations from '../res/animate.css';
 
 const Contact = () => {
     return (

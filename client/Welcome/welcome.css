@@ -30,7 +30,7 @@ html, body, #root {
   color: #404137;
 }
 
-body {
+.app {
   height: 100%;
   background: #76b852; /* fallback for old browsers */
   background: -webkit-linear-gradient(right, #76b852, #8DC26F);
@@ -39,7 +39,7 @@ body {
   background: linear-gradient(to left, #76b852, #8DC26F);
   font-family: "Roboto", sans-serif;
   -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;     
+  -moz-osx-font-smoothing: grayscale;
   padding: 0;
   margin: 0; 
 }
