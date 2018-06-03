@@ -72,11 +72,10 @@ router.post('/signup', (req, res) => {
       console.log(`User.js post error: ${err}`);
     } else if (user) {
       res.json({
-        error: `Sorry, already a user with the username: ${emailAddress}`
+        error: `Sorry, already a user with the username: ${emailAddress}`,
       });
-    }
-    else {
-      console.log("making a user: " + univeristy)
+    } else {
+      console.log(`Making a new user from ${univeristy}`);
       const newUser = new User({
         emailAddress: emailAddress,
         password: password,
@@ -88,16 +87,17 @@ router.post('/signup', (req, res) => {
         univeristy: univeristy,
       });
       newUser.save((errs, savedUser) => {
-        if (err) return res.json(err)
-        else {
+        if (err) {
+          return res.json(err);
+        } else {
           sendEmail(signedUpEmail(savedUser.emailAddress, savedUser.firstName));
           res.json("Sign up done!")
         }
-        // res.json(savedUser)
+        return 0;
       });
     }
   });
-})
+});
 
 router.post('/login', (req, res) => {
   const { emailAddress, password } = req.body;
@@ -127,7 +127,8 @@ router.post('/login', (req, res) => {
     res.json(returnUser);
   });
 });
-//Just in case this is needed
+
+// Just in case this is needed
 router.get('/', (req, res) => {
   if (req.user) {
     res.json({ user: req.user });

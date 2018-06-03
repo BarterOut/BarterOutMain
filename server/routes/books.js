@@ -1,6 +1,5 @@
 import Textbook from '../models/textbook';
 import TextbookBuy from '../models/textbookBuy';
-import app from "../server";
 import realUser from '../models/newUser';
 
 const express = require('express');
@@ -23,12 +22,12 @@ const transporter = nodemailer.createTransport({ // secure authentication
 
 
 function sendEmail(mailOptions) {
-  console.log('send the email!');
+  console.log('Sending the email!');
   transporter.sendMail(mailOptions, (err, info) => {
     if (err) {
-      console.log(err);
+      console.warn(err);
     } else {
-      console.log(info);
+      console.info(info);
     }
   });
 }
@@ -42,7 +41,8 @@ router.post('/sellBook', (req, res) => {
       console.log('Saved Book to DBemails');
 
       const theBookID = newBook._id;
-      // update match with an and statment such that it doesn't match with users that status other than 0
+      // update match with an and statment such that
+      // it doesn't match with users that status other than 0
       TextbookBuy.find({
         $and: [
           { $or: [{ name: { $regex: req.body.payload.name, $options: 'i' } }, { course: { $regex: req.body.payload.course, $options: 'i' } }] },
@@ -66,7 +66,7 @@ router.post('/sellBook', (req, res) => {
       console.log(err);
       res.status(400).send(err);
     });
-})
+});
 
 /**
  * Called when a user posts a book they want to buy.
@@ -113,7 +113,7 @@ router.post('/buyBook', (req, res) => {
     .catch((err) => {
       res.status(400).send(err);
     });
-})
+});
 
 /**
  * Finds all books in given users matched books array.
@@ -148,7 +148,7 @@ router.post('/clickBuy', (req, res) => {
     });
   });
   res.json(true);
-})
+});
 
 /**
  * Finds all books in given users matched books array.
@@ -165,7 +165,7 @@ router.post('/showMatches', (req, res) => {
       res.json(bookObjects);
     });
   });
-})
+});
 
 /**
  * Finds all books in database with a matching name or course.
@@ -187,7 +187,7 @@ router.get('/searchBook/:query', (req, res) => {
     });
     res.json(bookMap);
   });
-})
+});
 
 /**
  * @deprecated Due to inefficiency
@@ -200,7 +200,7 @@ router.get('/displayAllBooks', (req, res) => {
   Textbook.find({ status: 0 }, (err, books) => {
     res.json(books);
   });
-})
+});
 
 router.get('/', (req, res) => {
   if (req.user) {

@@ -29,13 +29,13 @@ class Home extends Component {
   }
 
   componentDidMount() {
-    this.callApi('/api/displayAllBooks')
+    this.callApi('/api/books/displayAllBooks')
       .then((res) => {
         this.setState({ posts: res });
       })
       .catch(err => new Error(err));
 
-    axios.post('/api/showMatches', {
+    axios.post('/api/books/showMatches', {
       id: JSON.parse(sessionStorage.getItem('user'))._id,
     })
       .then((response) => {
@@ -72,14 +72,14 @@ class Home extends Component {
 
   search(query) {
     if (query === '') {
-      this.callApi('/api/displayAllBooks')
+      this.callApi('/api/books/displayAllBooks')
         .then((res) => {
           this.setState({ posts: res });
         })
         .catch(err => console.warn(err));
       return;
     }
-    this.callApi(`/api/searchBook/${query}`)
+    this.callApi(`/api/books/searchBook/${query}`)
       .then((res) => {
         this.setState({ posts: res });
       })

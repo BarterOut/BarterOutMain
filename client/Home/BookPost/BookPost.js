@@ -23,7 +23,7 @@ class BookPost extends Component {
   }
 
   buyBook() {
-    axios.post('/api/clickBuy', {
+    axios.post('/api/books/clickBuy', {
       bookID: this.state.id,
       userID: JSON.parse(sessionStorage.getItem('user'))._id,
     })
