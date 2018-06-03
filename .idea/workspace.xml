@@ -186,7 +186,6 @@
         <option value="$PROJECT_DIR$/client/routes.js" />
         <option value="$PROJECT_DIR$/server/config.js" />
         <option value="$PROJECT_DIR$/client/PreRegister/preRegister.js" />
-        <option value="$PROJECT_DIR$/client/LandingPage/LandingPage.js" />
         <option value="$PROJECT_DIR$/client/core/index.html" />
         <option value="$PROJECT_DIR$/client/LandingPage/landingpage.css" />
         <option value="$PROJECT_DIR$/app-testing/package.json" />
@@ -468,7 +467,7 @@
           <option name="timeStamp" value="1" />
         </line-breakpoint>
       </breakpoints>
-      <option name="time" value="2" />
+      <option name="time" value="3" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
