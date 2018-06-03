@@ -74,7 +74,7 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session()); // calls serializeUser and deserializeUser
 app.use('/api/auth', user);
-app.use('api/books', booksRoute);
+app.use('/api/books', booksRoute);
 
 // Run Webpack dev server in development mode
 if (process.env.NODE_ENV === 'development') {
