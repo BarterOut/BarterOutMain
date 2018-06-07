@@ -9,6 +9,7 @@ import axios from 'axios';
 import { Redirect, Link } from 'react-router-dom';
 
 import './SignUp.css';
+import '../baseStyles.css';
 
 class SignUp extends Component {
   constructor(props) {
@@ -90,7 +91,7 @@ class SignUp extends Component {
         <h1>Sign up for BarterOut</h1>
         <span className="inputLabel">First Name *</span>
         <input
-          className="generalInput"
+          className="input"
           placeholder=""
           type="text"
           onChange={this.onChange.bind(this)}
@@ -99,7 +100,7 @@ class SignUp extends Component {
         />
         <span className="inputLabel">Last Name *</span>
         <input
-          className="generalInput"
+          className="input"
           placeholder=""
           type="text"
           onChange={this.onChange.bind(this)}
@@ -108,7 +109,7 @@ class SignUp extends Component {
         />
         <span className="inputLabel">Email *</span>
         <input
-          className="generalInput"
+          className="input"
           placeholder=""
           type="email"
           pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.+-]+\.edu$"
@@ -122,7 +123,7 @@ class SignUp extends Component {
         </select>
         <span className="inputLabel">Venmo Username *</span>
         <input
-          className="generalInput"
+          className="input"
           placeholder=""
           type="text"
           onChange={this.onChange.bind(this)}
@@ -131,7 +132,7 @@ class SignUp extends Component {
         />
         <span className="inputLabel">CMC Box *</span>
         <input
-          className="generalInput"
+          className="input"
           placeholder=""
           type="text"
           onChange={this.onChange.bind(this)}
@@ -141,7 +142,7 @@ class SignUp extends Component {
         <div className="line">
           {/* <span className="inputLabel">Password</span> */}
           <input
-            className="generalInput"
+            className="input"
             placeholder="Password"
             type="password"
             name="password"
@@ -150,7 +151,7 @@ class SignUp extends Component {
           />
           {/* <span className="inputLabel">Confirm Password</span> */}
           <input
-            className="generalInput"
+            className="input"
             placeholder="Confirm Password"
             type="password"
             name="passwordConfirm"

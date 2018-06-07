@@ -62,9 +62,9 @@ class Login extends Component {
     }
     return (
       <div className="login-wrapper">
-        <h1>Login to BarterOut</h1>
+        <h1 id="login-header">Login to BarterOut</h1>
         <input
-          className="generalInput"
+          className="input"
           onChange={this.onChange.bind(this)}
           placeholder="Email"
           type="email"
@@ -73,7 +73,7 @@ class Login extends Component {
           required
         />
         <input
-          className="generalInput"
+          className="input"
           onChange={this.onChange.bind(this)}
           placeholder="Password"
           type="password"
@@ -81,8 +81,8 @@ class Login extends Component {
           required
         />
         <button className="button" onClick={this.login.bind(this)}>Login</button>
-        Don&apos;t have an account? <Link href="/signup" to="/signup">Sign Up</Link>
-        <div>Back to <Link href="/" to="/">Home</Link></div>
+        <div>Don&apos;t have an account? <Link href="/signup" to="/signup">Sign Up</Link></div>
+        <div>Back to <Link href="/" to="/">Home</Link>.</div>
       </div>
     );
   }

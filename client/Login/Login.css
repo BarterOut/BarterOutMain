@@ -4,6 +4,10 @@
   width: 30%;
 }
 
+#login-header {
+  margin: 8px 0;
+}
+
 .login-wrapper {
   display: flex;
   width: 40vw;
