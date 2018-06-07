@@ -1,0 +1,9 @@
+{
+  "name": "Barter Out",
+  "lang": "en-US",
+  "short_name": "Barter Out",
+  "start_url": "/?homescreen=1",
+  "display": "standalone",
+  "theme_color": "#41397c",
+  "background_color": "#FFF"
+}

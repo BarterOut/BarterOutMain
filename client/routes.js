@@ -34,10 +34,10 @@ const HomePage = ({ component: Component, rest }) => {
 export default (
   <Switch>
     <Route exact path="/" component={LandingPage} />
-    <Route path="/TermsOfService" component={TermsOfService} />
-    <Route path="/PrivacyPolicy" component={PrivacyPolicy} />
-    <Route path="/Contact" component={Contact} />
-    <Route path="/Careers" component={Careers} />
+    <Route path="/termsOfService" component={TermsOfService} />
+    <Route path="/privacyPolicy" component={PrivacyPolicy} />
+    <Route path="/contact" component={Contact} />
+    <Route path="/careers" component={Careers} />
     <Route path="/preRegister" component={PreRegister} />
     <HomePage path="/home" component={Home} />
     <Route path="/login" component={Login} />
