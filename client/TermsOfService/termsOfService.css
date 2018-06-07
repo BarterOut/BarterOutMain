@@ -1,26 +1,44 @@
 .pageText h1 {
-    font-family: "orkneybold";
+  font-family: "orkneybold";
 }
 
-.wrapper {
-    background-color: #FFB814;
-    padding-bottom: 10%;
+h1, h2 {
+  margin: 0;
+  padding: 0;
+}
+
+.wrapper-text {
+  background-color: #FFF;
+  text-indent: 2em;
+  font-weight: normal;
+  color: #262626;
+  padding-bottom: 10%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
 
 .termsOfServicePage {
-    font-family: "orkneyregular";
-    color: white;
-    font-size: 16pt;
-    background-color: #FFB814;
-    height: 100%;
+  font-family: "orkneyregular";
+  color: black;
+  font-size: 1.6em;
+  height: 100%;
 }
 
-.pageText {
-    margin: 5% 5%;
-    padding: 2.5% 2.5%;
-    background-color: rgba(0,0,0,0.15);
+.pageText-text {
+  width: 80vw;
+  background: white;
+  /* background-color: rgba(0,0,0,0.15); */
+}
+
+.para-terms {
+  padding: 8px 0;
+  line-height: 1.6em;
+  text-indent: 2em;
+  font-weight: normal;
+  color: #262626;
 }
 
 #backLink {
-    font-style: italic;
+  font-style: italic;
 }

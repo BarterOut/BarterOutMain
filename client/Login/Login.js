@@ -9,6 +9,7 @@ import { Redirect, Link } from 'react-router-dom';
 import axios from 'axios';
 
 import './Login.css';
+import '../baseStyles.css';
 
 class Login extends Component {
   constructor(props) {
@@ -63,7 +64,7 @@ class Login extends Component {
       <div className="login-wrapper">
         <h1>Login to BarterOut</h1>
         <input
-          className="inputForLogin"
+          className="generalInput"
           onChange={this.onChange.bind(this)}
           placeholder="Email"
           type="email"
@@ -72,7 +73,7 @@ class Login extends Component {
           required
         />
         <input
-          className="inputForLogin"
+          className="generalInput"
           onChange={this.onChange.bind(this)}
           placeholder="Password"
           type="password"
