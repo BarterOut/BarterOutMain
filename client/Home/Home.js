@@ -22,7 +22,7 @@ class Home extends Component {
     this.state = {
       posts: [],
       matches: [],
-      user: JSON.parse(sessionStorage.getItem('user')),
+      user: Object,
       sellHidden: true,
       buyHidden: true,
     };
@@ -35,16 +35,23 @@ class Home extends Component {
       })
       .catch(err => new Error(err));
 
-    axios.post('/api/books/showMatches', {
-      id: JSON.parse(sessionStorage.getItem('user'))._id,
-    })
-      .then((response) => {
-        console.log(response.data);
-        this.setState({ matches: response.data });
+    this.callApi(`/api/auth/userData/${sessionStorage.getItem('token')}`)
+      .then((res) => {
+        console.log(res);
+        this.setState({ user: res });
       })
-      .catch((error) => {
-        console.error(`Sign up server error: ${error}`);
-      });
+      .catch(err => new Error(err));
+
+    // axios.post('/api/books/showMatches', {
+    //   id: JSON.parse(sessionStorage.getItem('user'))._id,
+    // })
+    //   .then((response) => {
+    //     console.log(response.data);
+    //     this.setState({ matches: response.data });
+    //   })
+    //   .catch((error) => {
+    //     console.error(`Sign up server error: ${error}`);
+    //   });
   }
 
   async callApi(url) {
@@ -92,8 +99,8 @@ class Home extends Component {
     let user = {};
     if (this.state) {
       posts = this.state.posts;
-      matches = this.state.matches;
-      user = this.state.user;
+      // matches = this.state.matches;
+      // user = this.state.user;
     }
     return (
       <div className="app-wrapper">

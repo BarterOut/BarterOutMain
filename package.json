@@ -45,6 +45,7 @@
     "heroku-ssl-redirect": "0.0.4",
     "jquery": "^3.2.1",
     "jsonwebtoken": "^8.2.2",
+    "jwt-decode": "^2.2.0",
     "mongoose": "^4.12.6",
     "morgan": "^1.9.0",
     "nodemailer": "^4.6.4",

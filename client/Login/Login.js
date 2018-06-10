@@ -7,6 +7,7 @@
 import React, { Component } from 'react';
 import { Redirect, Link } from 'react-router-dom';
 import axios from 'axios';
+import AuthService from '../services/AuthService';
 
 import './Login.css';
 import '../baseStyles.css';
@@ -47,9 +48,7 @@ class Login extends Component {
       .then((response) => {
         if (response.status === 200) {
           const user = response.data;
-          user.token = 'bearer ' + user.token;
-          sessionStorage.setItem('token',  JSON.stringify(user.token));
-          sessionStorage.setItem('user',  JSON.stringify(user.returnUser));
+          sessionStorage.setItem('token', JSON.stringify(user.token));
           // update the state to redirect to home
           this.setState({ redirect: true });
         }
