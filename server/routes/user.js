@@ -103,11 +103,11 @@ router.post('/signup', (req, res) => {
 
 router.get('/userData/:token', (req, res) => {
   const token = req.params.token;
-  jwt.verify(token, 'secretkey', (err, authData) => {
+  jwt.verify(token, 'secretKey', (err, authData) => {
     if (err) {
       res.sendStatus(403);
     } else {
-      User.findOne({ _id: authData._id }, (error, user) => {
+      User.findOne({ _id: authData.userToken._id }, (error, user) => {
         if (!user) {
           res.status(401).send({error: 'You need to create an account' });
         } else {
@@ -120,6 +120,7 @@ router.get('/userData/:token', (req, res) => {
             lastName: user.lastName,
             matchedBooks: user.matchedBooks,
           };
+          console.log(returnUser);
           res.json({
             message: 'verified',
             returnUser,
