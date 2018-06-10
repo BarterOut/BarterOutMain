@@ -47,7 +47,9 @@ class Login extends Component {
       .then((response) => {
         if (response.status === 200) {
           const user = response.data;
-          sessionStorage.setItem('user', JSON.stringify(user));
+          user.token = 'bearer ' + user.token;
+          sessionStorage.setItem('token',  JSON.stringify(user.token));
+          sessionStorage.setItem('user',  JSON.stringify(user.returnUser));
           // update the state to redirect to home
           this.setState({ redirect: true });
         }

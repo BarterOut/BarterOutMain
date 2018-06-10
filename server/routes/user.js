@@ -6,6 +6,8 @@ const router = express.Router();
 
 const nodemailer = require('nodemailer');
 
+const jwt = require('jsonwebtoken');
+
 function sendEmail(mailOptions) {
   console.info('Send the email!');
   transporter.sendMail(mailOptions, (err, info) => {
@@ -124,7 +126,18 @@ router.post('/login', (req, res) => {
       lastName: user.lastName,
       matchedBooks: user.matchedBooks,
     };
-    res.json(returnUser);
+    const userToken = {
+      // Can add more stuff into this so that it has more info, for now it only has the id
+      _id: user._id,
+    }
+    // Creates the token
+    jwt.sign({ userToken}, 'secretKey', { expiresIn: "30 days"}, (error, token) => {
+      res.json({
+        returnUser,
+        token,
+      });
+    });
+    // res.json(returnUser);
   });
 });
 

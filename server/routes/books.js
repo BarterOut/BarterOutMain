@@ -10,6 +10,11 @@ const nodemailer = require('nodemailer');
 
 const emails = require('../emails/emailFunctions');
 
+const jwt = require('jsonwebtoken');
+
+const format = require('../token');
+
+
 
 const transporter = nodemailer.createTransport({ // secure authentication
   host: 'smtp.gmail.com',
@@ -75,6 +80,17 @@ router.post('/sellBook', (req, res) => {
  * @returns {object} Array of book objects.
  */
 router.post('/buyBook', (req, res) => {
+  //Method to verify, this is commented out because everything depends on having some infomration in the session storage
+  // jwt.verify(req.token, 'secretkey', (err, authData) => {
+  //   if (err) {
+  //     res.sendStatus(403);
+  //   } else {
+  //     res.json({
+  //       message: 'verified...',
+  //       authData,
+  //     });
+  //   }
+  // });
   console.info('User posting book to Buy');
 
   req.body.payload.date = Date.now();
