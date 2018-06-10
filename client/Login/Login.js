@@ -58,7 +58,7 @@ class Login extends Component {
   }
 
   render() {
-    if (sessionStorage.getItem('user') || this.state.redirect) {
+    if (this.state.redirect) {
       return (<Redirect to="/home" />);
     }
     return (

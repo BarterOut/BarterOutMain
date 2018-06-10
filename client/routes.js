@@ -1,5 +1,4 @@
 import React from 'react';
-import axios from 'axios';
 import {
   Route,
   Switch,
@@ -16,17 +15,15 @@ import Home from './Home/Home';
 import SignUp from './SignUp/SignUp';
 import Login from './Login/Login';
 
-import store from './store';
-
 const HomePage = ({ component: Component, rest }) => {
   return (
     <Route
       {...rest}
       render={(props) => 
-          sessionStorage.getItem('user') != null
-          ? <Component {...props} />
-          : <Redirect to={{pathname: '/login'}}
-        />}
+        sessionStorage.getItem('token') != null
+        ? <Component {...props} />
+        : <Redirect to={{pathname: '/login'}}
+      />}
     />
   );
 };
