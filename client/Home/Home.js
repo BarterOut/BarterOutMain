@@ -35,7 +35,7 @@ class Home extends Component {
       })
       .catch(err => new Error(err));
 
-    this.callApi(`/api/auth/userData/${sessionStorage.getItem('token')}`)
+    this.callApi(`/api/auth/userData/${JSON.stringify(sessionStorage.getItem('token'))}`)
       .then((res) => {
         console.log(res);
         this.setState({ user: res });
