@@ -101,6 +101,35 @@ router.post('/signup', (req, res) => {
   });
 });
 
+router.get('/userData/:token', (req, res) => {
+  const token = req.params.token;
+  jwt.verify(token, 'secretkey', (err, authData) => {
+    if (err) {
+      res.sendStatus(403);
+    } else {
+      User.findOne({ _id: authData._id }, (error, user) => {
+        if (!user) {
+          res.status(401).send({error: 'You need to create an account' });
+        } else {
+          const returnUser = {
+            _id: user._id,
+            emailAddress: user.emailAddress,
+            venmoUsername: user.venmoUsername,
+            CMC: user.CMC,
+            firstName: user.firstName,
+            lastName: user.lastName,
+            matchedBooks: user.matchedBooks,
+          };
+          res.json({
+            message: 'verified',
+            returnUser,
+          });
+        }
+      });
+    }
+  });
+})
+
 router.post('/login', (req, res) => {
   const { emailAddress, password } = req.body;
   User.findOne({ emailAddress: emailAddress }, (err, user) => {
@@ -133,7 +162,7 @@ router.post('/login', (req, res) => {
     // Creates the token
     jwt.sign({ userToken}, 'secretKey', { expiresIn: "30 days"}, (error, token) => {
       res.json({
-        returnUser,
+        // returnUser,
         token,
       });
     });
