@@ -35,8 +35,18 @@ class Home extends Component {
       })
       .catch(err => new Error(err));
 
-    this.callApi(`/api/auth/userData/${JSON.stringify(sessionStorage.getItem('token'))}`)
+    // fetch(`/api/auth/userData/${JSON.stringify(sessionStorage.getItem('token'))}`)
+    //   .then(res => res.json())
+    //   .then((data) => {
+    //     console.log(data);
+    //   });
+
+    let token = sessionStorage.getItem('token');
+    token = token.replace(/"/g, '');
+    console.log(token);
+    this.callApi(`/api/auth/userData/${token}`)
       .then((res) => {
+        console.log('something');
         console.log(res);
         this.setState({ user: res });
       })
