@@ -27,7 +27,7 @@ newUserSchema.methods = {
   },
 }
 
-// Define hooks for pre-saving
+// Define hooks for pre-saving disabled in order to avoid double hashing of passwords
 // newUserSchema.pre('save', function (next) {
 //   if (!this.password) {
 //     console.log('models/user.js =======NO PASSWORD PROVIDED=======');
