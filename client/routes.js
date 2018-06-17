@@ -1,10 +1,11 @@
 import React from 'react';
-import axios from 'axios';
 import {
   Route,
   Switch,
   Redirect,
 } from 'react-router-dom';
+
+import AuthService from './services/AuthService';
 
 import LandingPage from './LandingPage/LandingPage';
 import TermsOfService from './TermsOfService/termsOfService';
@@ -16,17 +17,18 @@ import Home from './Home/Home';
 import SignUp from './SignUp/SignUp';
 import Login from './Login/Login';
 
-import store from './store';
+
 
 const HomePage = ({ component: Component, rest }) => {
+  const auth = new AuthService();
   return (
     <Route
       {...rest}
       render={(props) => 
-          sessionStorage.getItem('user') != null
-          ? <Component {...props} />
-          : <Redirect to={{pathname: '/login'}}
-        />}
+        auth.loggedIn()
+        ? <Component {...props} />
+        : <Redirect to={{pathname: '/login'}}
+      />}
     />
   );
 };
@@ -34,13 +36,13 @@ const HomePage = ({ component: Component, rest }) => {
 export default (
   <Switch>
     <Route exact path="/" component={LandingPage} />
-    <Route path="/termsOfService" component={TermsOfService} />
-    <Route path="/privacyPolicy" component={PrivacyPolicy} />
-    <Route path="/contact" component={Contact} />
-    <Route path="/careers" component={Careers} />
-    <Route path="/preRegister" component={PreRegister} />
-    <HomePage path="/home" component={Home} />
-    <Route path="/login" component={Login} />
-    <Route path="/signup" component={SignUp} />
+    <Route exact path="/termsOfService" component={TermsOfService} />
+    <Route exact path="/privacyPolicy" component={PrivacyPolicy} />
+    <Route exact path="/contact" component={Contact} />
+    <Route exact path="/careers" component={Careers} />
+    <Route exact path="/preRegister" component={PreRegister} />
+    <HomePage exact path="/home" component={Home} />
+    <Route exact path="/login" component={Login} />
+    <Route exact path="/signup" component={SignUp} />
   </Switch>
 );
