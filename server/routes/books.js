@@ -12,10 +12,6 @@ const emails = require('../emails/emailFunctions');
 
 const jwt = require('jsonwebtoken');
 
-const format = require('../token');
-
-
-
 const transporter = nodemailer.createTransport({ // secure authentication
   host: 'smtp.gmail.com',
   auth: {
@@ -164,7 +160,6 @@ router.post('/buyBook', (req, res) => {
       });
     }
   });
-
 });
 
 /**
@@ -180,7 +175,7 @@ router.post('/clickBuy', (req, res) => {
     } else {
       User.findOne({ _id: authData.userInfo._id }, (error, user) => {
         if (!user) {
-          res.status(401).send({error: 'You need to create an account' });
+          res.status(401).send({ error: 'You need to create an account' });
         } else {
           const returnUser = {
             _id: user._id,
@@ -231,26 +226,16 @@ router.post('/clickBuy', (req, res) => {
  * @param {array} res Body of HTTP response.
  * @returns {object} Array of book objects.
  */
-router.post('/showMatches', (req, res) => {
-  jwt.verify(req.token, 'secretKey', (err, authData) => {
+router.get('/showMatches/:token', (req, res) => {
+  jwt.verify(req.params.token, 'secretKey', (err, authData) => {
     if (err) {
       res.sendStatus(403);
     } else {
       realUser.findOne({ _id: authData.userInfo._id }, (error, user) => {
         if (!user) {
-          res.status(401).send({error: 'You need to create an account' });
+          res.status(401).send({ error: 'You need to create an account' });
         } else {
-          const returnUser = {
-            _id: user._id,
-            emailAddress: user.emailAddress,
-            venmoUsername: user.venmoUsername,
-            CMC: user.CMC,
-            firstName: user.firstName,
-            lastName: user.lastName,
-            matchedBooks: user.matchedBooks,
-          };
-          console.log(returnUser);
-          realUser.find({ _id: req.body.id }, (err, userMatch) => {
+          realUser.find({ _id: authData.userInfo._id }, (err, userMatch) => {
             let bookObjects = [];
             const bookIDs = userMatch[0].matchedBooks;
             Textbook.find({ $and: [{ _id: { $in: bookIDs } }, { status: 0 }] }, (error, books) => {
@@ -293,14 +278,14 @@ router.get('/searchBook/:query', (req, res) => {
  * @param {array} res Body of HTTP response.
  * @returns {object} Array of books from database.
  */
-router.get('/displayAllBooks', (req, res) => {
-  jwt.verify(req.token, 'secretKey', (err, authData) => {
+router.get('/displayAllBooks/:token', (req, res) => {
+  jwt.verify(req.params.token, 'secretKey', (err, authData) => {
     if (err) {
       res.sendStatus(403);
     } else {
       realUser.findOne({ _id: authData.userInfo._id }, (error, user) => {
         if (!user) {
-          res.status(401).send({error: 'You need to create an account' });
+          res.status(401).send({ error: 'You need to create an account' });
         } else {
           const returnUser = {
             _id: user._id,

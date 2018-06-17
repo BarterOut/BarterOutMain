@@ -129,7 +129,7 @@ router.get('/userData/:token', (req, res) => {
       });
     }
   });
-})
+});
 
 router.post('/login', (req, res) => {
   const { emailAddress, password } = req.body;
@@ -147,27 +147,18 @@ router.post('/login', (req, res) => {
       res.status(401).send({ error: 'Incorrect Password' });
       return;
     }
-    const returnUser = {
-      _id: user._id,
-      emailAddress: user.emailAddress,
-      venmoUsername: user.venmoUsername,
-      CMC: user.CMC,
-      firstName: user.firstName,
-      lastName: user.lastName,
-      matchedBooks: user.matchedBooks,
-    };
+
     const userInfo = {
       // Can add more stuff into this so that it has more info, for now it only has the id
       _id: user._id,
-    }
-    // Creates the token
-    jwt.sign({ userToken}, 'secretKey', { expiresIn: "30 days"}, (error, token) => {
+    };
+
+    // Creates the token and sends the JSON back
+    jwt.sign({ userInfo }, 'secretKey', { expiresIn: '30 days' }, (error, token) => {
       res.json({
-        // returnUser,
         token,
       });
     });
-    // res.json(returnUser);
   });
 });
 

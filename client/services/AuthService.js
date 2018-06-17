@@ -11,12 +11,9 @@ export default class AuthService {
 
   login(username, password) {
     // Get a token from api server using the fetch api
-    return this.fetch(`${this.domain}/login`, {
+    return this.fetch('/api/auth/login', {
       method: 'POST',
-      body: JSON.stringify({
-        username,
-        password,
-      }),
+      body: { emailAddress: username, password: password },
     }).then((res) => {
       this.setToken(res.token); // Setting the token in localStorage
       return Promise.resolve(res);
@@ -25,8 +22,11 @@ export default class AuthService {
 
   loggedIn() {
     // Checks if there is a saved token and it's still valid
-    const token = this.getToken(); // GEtting token from localstorage
-    return !!token && !this.isTokenExpired(token); // handwaiving here
+    const token = this.getToken(); // Getting token from localstorage
+    if (token == null) {
+      return false;
+    }
+    return !this.isTokenExpired(token); // handwaiving here
   }
 
   isTokenExpired(token) {
@@ -38,23 +38,28 @@ export default class AuthService {
         return false;
       }
     } catch (err) {
-      return false;
+      return true;
     }
   }
 
   setToken(idToken) {
     // Saves user token to localStorage
-    localStorage.setItem('id_token', idToken);
+    sessionStorage.setItem('token', idToken);
   }
 
   getToken() {
     // Retrieves the user token from localStorage
-    return localStorage.getItem('id_token');
+    let token = sessionStorage.getItem('token');
+    if (token != null) {
+      token = token.replace(/"/g, '');
+      return token;
+    }
+    return null;
   }
 
   logout() {
     // Clear user token and profile data from localStorage
-    localStorage.removeItem('id_token');
+    sessionStorage.removeItem('token');
   }
 
   getProfile() {

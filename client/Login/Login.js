@@ -4,6 +4,8 @@
  * @version 0.0.1
  */
 
+// TODO: Use auth service login function instead of axios
+
 import React, { Component } from 'react';
 import { Redirect, Link } from 'react-router-dom';
 import axios from 'axios';
@@ -20,14 +22,24 @@ class Login extends Component {
       password: '',
       redirect: false,
     };
+    this.Auth = new AuthService();
   }
 
   componentDidMount() {
+    this.setRedirect();
     document.addEventListener('keydown', this._handleKeyDown.bind(this));
   }
 
   onChange(evt) {
     this.setState({ [evt.target.name]: evt.target.value });
+  }
+
+  setRedirect() {
+    if (!this.Auth.isTokenExpired(this.Auth.getToken)) {
+      this.setState({ redirect: true });
+    } else {
+      this.setState({ redirect: false });
+    }
   }
 
   _handleKeyDown(e) {
@@ -41,6 +53,7 @@ class Login extends Component {
       this.state.password === '') {
       return;
     }
+
     axios.post('/api/auth/login', {
       emailAddress: this.state.emailAddress,
       password: this.state.password,

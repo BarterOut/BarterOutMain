@@ -11,6 +11,8 @@ import {
   Redirect,
 } from 'react-router-dom';
 
+import AuthService from '../services/AuthService';
+
 import './landingpage.css';
 import '../res/sylesheetOrkneyRegular.css';
 import '../res/sylesheetOrkneyLight.css';
@@ -51,10 +53,23 @@ class LandingPage extends Component {
     this.state = {
       redirect: false,
     };
+    this.Auth = new AuthService();
+  }
+
+  componentDidMount() {
+    this.setRedirect();
+  }
+
+  setRedirect() {
+    if (!this.Auth.isTokenExpired(this.Auth.getToken())) {
+      this.setState({ redirect: true });
+    } else {
+      this.setState({ redirect: false });
+    }
   }
 
   render() {
-    if (sessionStorage.getItem('user') || this.state.redirect) {
+    if (this.state.redirect) {
       return (<Redirect to="/home" />);
     }
 

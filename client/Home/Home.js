@@ -6,7 +6,7 @@
 
 import React, { Component } from 'react';
 
-import axios from 'axios';
+import AuthService from '../services/AuthService';
 
 import './Home.css';
 import logoPic from '../images/barterOutOrangeWhiteLogoHeader.png';
@@ -25,43 +25,34 @@ class Home extends Component {
       user: Object,
       sellHidden: true,
       buyHidden: true,
+      token: String,
     };
   }
 
   componentDidMount() {
-    this.callApi('/api/books/displayAllBooks')
+    const auth = new AuthService();
+    const token = auth.getToken();
+    this.setState({ token: token });
+
+    this.callApi(`/api/books/displayAllBooks/${token}`)
       .then((res) => {
         this.setState({ posts: res });
       })
       .catch(err => new Error(err));
 
-    // fetch(`/api/auth/userData/${JSON.stringify(sessionStorage.getItem('token'))}`)
-    //   .then(res => res.json())
-    //   .then((data) => {
-    //     console.log(data);
-    //   });
-
-    let token = sessionStorage.getItem('token');
-    token = token.replace(/"/g, '');
-    console.log(token);
     this.callApi(`/api/auth/userData/${token}`)
       .then((res) => {
-        console.log('something');
-        console.log(res);
-        this.setState({ user: res });
+        this.setState({ user: res.returnUser });
       })
       .catch(err => new Error(err));
 
-    // axios.post('/api/books/showMatches', {
-    //   id: JSON.parse(sessionStorage.getItem('user'))._id,
-    // })
-    //   .then((response) => {
-    //     console.log(response.data);
-    //     this.setState({ matches: response.data });
-    //   })
-    //   .catch((error) => {
-    //     console.error(`Sign up server error: ${error}`);
-    //   });
+    this.callApi(`/api/books/showMatches/${token}`)
+      .then((response) => {
+        this.setState({ matches: response });
+      })
+      .catch((error) => {
+        console.error(`Sign up server error: ${error}`);
+      });
   }
 
   async callApi(url) {
@@ -89,7 +80,7 @@ class Home extends Component {
 
   search(query) {
     if (query === '') {
-      this.callApi('/api/books/displayAllBooks')
+      this.callApi(`/api/books/displayAllBooks/${this.state.token}`)
         .then((res) => {
           this.setState({ posts: res });
         })
@@ -109,8 +100,8 @@ class Home extends Component {
     let user = {};
     if (this.state) {
       posts = this.state.posts;
-      // matches = this.state.matches;
-      // user = this.state.user;
+      matches = this.state.matches;
+      user = this.state.user;
     }
     return (
       <div className="app-wrapper">

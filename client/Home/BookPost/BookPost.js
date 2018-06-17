@@ -4,6 +4,8 @@
  * @version 0.0.1
  */
 
+// TODO: fix confirm button
+
 import React, { Component } from 'react';
 import propTypes from 'prop-types';
 import axios from 'axios';
@@ -40,6 +42,7 @@ class BookPost extends Component {
 
   confirmBuy(evt) {
     const targetElement = evt;
+    console.log(targetElement);
     targetElement.style.display = 'none';
     const button = document.getElementById(this.props.name);
     button.style.visibility = 'visible';
