@@ -1,5 +1,5 @@
 /**
- * @file React component for a book posting on the app.
+ * @file React component for a textbook posting on the webapp.
  * @author Duncan Grubbs <duncan.grubbs@gmail.com>
  * @version 0.0.1
  */
@@ -40,13 +40,12 @@ class BookPost extends Component {
     window.location.reload();
   }
 
-  confirmBuy(evt) {
-    const targetElement = evt;
-    console.log(targetElement);
-    targetElement.style.display = 'none';
-    const button = document.getElementById(this.props.name);
-    button.style.visibility = 'visible';
-    button.style.opacity = '1';
+  confirmBuy() {
+    // e.style.display = 'none';
+    // const button = document.getElementsByClassName(this.props.name);
+    // console.log(button);
+    // button.style.visibility = 'visible';
+    // button.style.opacity = '1';
   }
 
   render() {
@@ -67,7 +66,7 @@ class BookPost extends Component {
           >Buy
           </button>
           <button
-            className="confirmButton"
+            className="confirmButton button"
             id={this.props.name}
             onClick={this.buyBook.bind(this)}
           >Confirm Buy

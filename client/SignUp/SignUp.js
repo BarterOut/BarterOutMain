@@ -140,7 +140,6 @@ class SignUp extends Component {
           required
         />
         <div className="line">
-          {/* <span className="inputLabel">Password</span> */}
           <input
             className="input"
             placeholder="Password"
@@ -149,7 +148,6 @@ class SignUp extends Component {
             onChange={this.onChange.bind(this)}
             required
           />
-          {/* <span className="inputLabel">Confirm Password</span> */}
           <input
             className="input"
             placeholder="Confirm Password"
@@ -160,15 +158,14 @@ class SignUp extends Component {
           />
         </div>
         <div className="terms">
-            By signing up you are agreeing to our<br />
-            <input id="terms" type="checkbox" onClick={this.checkBox.bind(this)} /><a href="/termsOfService" target="_blank" rel="noopener" rel="noopener" rel="noopener" rel="noopener" rel="noopener" rel="noopener"> Terms of Service </a>
-            and our <input id="privacy" type="checkbox" onClick={this.checkBox.bind(this)} /><a href="/privacyPolicy" target="_blank" rel="noopener" rel="noopener" rel="noopener" rel="noopener" rel="noopener" rel="noopener"> Privacy Policy</a>.
-          </div>
+            By clicking "Sign Up" below, you are agreeing to our <a href="/termsOfService" target="_blank" rel="noopener"> Terms of Service </a>
+            and <a href="/privacyPolicy" target="_blank" rel="noopener"> Privacy Policy</a>.
+        </div>
         <button
           className="button"
           type="submit"
           onClick={this.signUp.bind(this)}
-        >SignUp
+        >Sign Up
         </button>
 
         <span>Back to <Link href="/login" to="/login">Login</Link></span>
