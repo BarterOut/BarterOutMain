@@ -7,21 +7,21 @@
 import React from 'react';
 
 import './careers.css';
+import logoPic from '../images/barterOutOrangeWhiteLogoHeader.png';
 
 const Careers = () => {
   return (
-    <div className="app">
-      <div className="careersPage">
-        <div className="container">
-          <div className="pageText animated fadeIn">
-            <h1>Careers</h1>
-            <p>
-              Are you a talented IOS, Android, or React.js developer? Are you passionate about
-              marketing or business strategy? If you think you fit the bill,
-              fill out <a href="#"> this</a> form and we will get back to you soon!
-            </p>
-            <a id="backLink" href="/">Click Here to Go Back to BarterOut</a>
-          </div>
+    <div className="infowrapper">
+      <div className="bar">
+        <div className="right">
+          <a href="/"><img className="logo" src={logoPic} alt="logo" /></a>
+        </div>
+      </div>
+      <div className="content">
+        <h1>Careers</h1>
+        <div className="header-line" />
+        <div className="text-content">
+          <p>We are not currently looking for new hires.</p>
         </div>
       </div>
     </div>

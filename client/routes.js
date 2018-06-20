@@ -12,11 +12,9 @@ import TermsOfService from './TermsOfService/termsOfService';
 import PrivacyPolicy from './PrivacyPolicy/privacyPolicy';
 import Contact from './Contact/contact';
 import Careers from './Careers/careers';
-import PreRegister from './PreRegister/preRegister';
 import Home from './Home/Home';
 import SignUp from './SignUp/SignUp';
 import Login from './Login/Login';
-
 
 
 const HomePage = ({ component: Component, rest }) => {
@@ -40,7 +38,6 @@ export default (
     <Route exact path="/privacyPolicy" component={PrivacyPolicy} />
     <Route exact path="/contact" component={Contact} />
     <Route exact path="/careers" component={Careers} />
-    <Route exact path="/preRegister" component={PreRegister} />
     <HomePage exact path="/home" component={Home} />
     <Route exact path="/login" component={Login} />
     <Route exact path="/signup" component={SignUp} />
