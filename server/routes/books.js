@@ -51,7 +51,6 @@ router.post('/sellBook', (req, res) => {
             lastName: user.lastName,
             matchedBooks: user.matchedBooks,
           };
-          console.log(returnUser);
           console.log('User Selling Book');
           req.body.payload.date = Date.now();
           const newBook = new Textbook(req.body.payload);
@@ -99,7 +98,8 @@ router.post('/sellBook', (req, res) => {
  * @returns {object} Array of book objects.
  */
 router.post('/buyBook', (req, res) => {
-  //Method to verify, this is commented out because everything depends on having some infomration in the session storage
+  // Method to verify, this is commented out because everything depends on
+  // having some infomration in the session storage
   jwt.verify(req.token, 'secretkey', (errr, authData) => {
     if (errr) {
       res.sendStatus(403);
@@ -117,7 +117,6 @@ router.post('/buyBook', (req, res) => {
             lastName: user.lastName,
             matchedBooks: user.matchedBooks,
           };
-          console.log(returnUser);
           console.info('User posting book to Buy');
 
           req.body.payload.date = Date.now();
@@ -177,17 +176,6 @@ router.post('/clickBuy', (req, res) => {
         if (!user) {
           res.status(401).send({ error: 'You need to create an account' });
         } else {
-          const returnUser = {
-            _id: user._id,
-            emailAddress: user.emailAddress,
-            venmoUsername: user.venmoUsername,
-            CMC: user.CMC,
-            firstName: user.firstName,
-            lastName: user.lastName,
-            matchedBooks: user.matchedBooks,
-          };
-          console.log(returnUser);
-
           let buyer;
           let bookFound;
           let seller;
@@ -287,16 +275,6 @@ router.get('/displayAllBooks/:token', (req, res) => {
         if (!user) {
           res.status(401).send({ error: 'You need to create an account' });
         } else {
-          const returnUser = {
-            _id: user._id,
-            emailAddress: user.emailAddress,
-            venmoUsername: user.venmoUsername,
-            CMC: user.CMC,
-            firstName: user.firstName,
-            lastName: user.lastName,
-            matchedBooks: user.matchedBooks,
-          };
-          console.log(returnUser);
           Textbook.find({ status: 0 }, (err, books) => {
             res.json(books);
           });
