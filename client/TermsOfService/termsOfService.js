@@ -20,7 +20,7 @@ const TermsOfService = () => {
         </div>
       </div>
       <div className="content">
-        <h1>Terms of Service</h1>
+        <h1 className="text-header">Terms of Service</h1>
         <div className="header-line" />
         <div className="text-content">
           <h4>OVERVIEW</h4>

@@ -18,7 +18,7 @@ const Careers = () => {
         </div>
       </div>
       <div className="content">
-        <h1>Careers</h1>
+        <h1 className="text-header">Careers</h1>
         <div className="header-line" />
         <div className="text-content">
           <p>We are not currently looking for new hires.</p>

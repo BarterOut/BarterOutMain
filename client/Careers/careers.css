@@ -4,3 +4,8 @@
   margin: 32px auto;
   flex-direction: column;
 }
+
+.text-header {
+  color: #4E2B84;
+  font-family: 'Orkney';
+}
