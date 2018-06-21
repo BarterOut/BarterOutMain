@@ -78,7 +78,7 @@ const PrivacyPolicy = () => {
           <p>7</p>
           <p>https://www.barterout.com 500 Joseph C Wilson Blvd Rochester, New York 14627 United States office@barterout.com</p>
           <p>Last Edited on 2018-02-24</p>
-          <a id="backLink" href="/">Download Privacy Policy</a>
+          <a href="../res/Privacy Policy.pdf" download id="backLink">Download Privacy Policy</a>
         </div>
       </div>
     </div>

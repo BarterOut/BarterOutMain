@@ -63,7 +63,8 @@ const TermsOfService = () => {
           <p className="para-terms">SECTION 18 - CHANGES TO TERMS OF SERVICE You can review the most current version of the Terms of Service at any time at this page. We reserve the right, at our sole discretion, to update, change or replace any part of these Terms of Service by posting updates and changes to our website. It is your responsibility to check our website periodically for changes. Your continued use of or access to our website or the Service following the posting of any changes to these Terms of Service constitutes acceptance of those changes.</p>
 
           <p className="para-terms">SECTION 19 - CONTACT INFORMATION Questions about the Terms of Service should be sent to us at office@barterout.com.</p>
-          <a id="backLink" href="/">Download Terms of Service</a>
+
+          <a href="../res/Terms of Service.pdf" download id="backLink">Download Terms of Service</a>
         </div>
       </div>
     </div>
