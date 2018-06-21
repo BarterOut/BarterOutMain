@@ -15,6 +15,7 @@ import PreRegister from './PreRegister/preRegister';
 import Home from './Home/Home';
 import SignUp from './SignUp/SignUp';
 import Login from './Login/Login';
+import Dashboard from './Dashboard/Dashboard';
 
 import store from './store';
 
@@ -42,5 +43,6 @@ export default (
     <HomePage path="/home" component={Home} />
     <Route path="/login" component={Login} />
     <Route path="/signup" component={SignUp} />
+    <Route path="/dashboard" component={Dashboard} />
   </Switch>
 );
