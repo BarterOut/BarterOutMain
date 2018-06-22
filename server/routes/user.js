@@ -36,12 +36,11 @@ nev.configure({
       clientSecret: '5OTf_iLhmt0tjJCKIdnuC5XM',
     },
   },
-  verifyMailOptions: { // This won't actually be used but it is necesary
+  verifyMailOptions: { // This won't actually be used but it is necessary for the package to work. the
     from: '"Barter Out" <office@barterout.com',
     subject: 'Please confirm account',
     html: '<p>Please verify your account by clicking <a href="${URL}">this link</a>. If you are unable to do so, copy and ' +
     'paste the following link into your browser:</p><p>${URL}</p>',
-    text: 'Please verify your account by clicking the following link, or by copying and pasting it into your browser: ${URL}',
     auth: {
       user: 'office@barterout.com',
       refreshToken: '1/9XdHU4k2vwYioRyAP8kaGYfZXKfp_JxqUwUMYVJWlZs',
@@ -57,7 +56,6 @@ nev.configure({
     console.log(error);
     return;
   }
-  console.log('configured: ' + (typeof options === 'object'));
 });
 // Creating the temp user
 nev.generateTempUserModel(User, function(err, tempUserModel) {
@@ -66,7 +64,6 @@ nev.generateTempUserModel(User, function(err, tempUserModel) {
     return;
   }
 
-  console.log('generated temp user model: ' + (typeof tempUserModel === 'function'));
 });
 
 
@@ -100,7 +97,7 @@ function verifyEmail(emailTo, firstName, URL) {
     from: '"Barter Out" <office@barterout.com',
     to: emailTo,
     subject: 'Thank you for signing up',
-    html: 'Dear ' +firstName+',  <br></br> ' +
+    html: 'Dear ' + firstName + ',  <br></br> ' +
     '\n' +
     'Thank you for signing up on our platform. Start using our service today on our <a href="https://www.barterout.com/" target="_blank">website</a> by putting a textbook up for sale or buying one from another student.    <br></br> ' +
     'Please verify your account by clicking <a href=http://localhost:8080/api/auth/email-verification/' +URL+ '>this link</a>. If you are unable to do so, copy and paste the following link into your browser:' + URL + '<br> </br>' +
@@ -112,7 +109,6 @@ function verifyEmail(emailTo, firstName, URL) {
     'The BarterOut team<br></br> <br></br> '+
     '\n' +
     'Like us on <a href="https://www.facebook.com/BarterOut/" target="_blank">Facebook</a> <br> </br> Follow us on <a href="https://www.instagram.com/barteroutofficial/" target="_blank">Instagram</a>',
-    text: 'Please verify your account by clicking the following link, or by copying and pasting it into your browser: ${URL}',
     auth: {
       user: 'office@barterout.com',
       refreshToken: '1/9XdHU4k2vwYioRyAP8kaGYfZXKfp_JxqUwUMYVJWlZs',
@@ -188,7 +184,7 @@ router.post('/signup', (req, res) => {
   } = req.body;
 
   // TODO: ADD VALIDATION
-  User.findOne({ emailAddress: emailAddress }, (err, user) => {
+  User.findOne({ emailAddress }, (err, user) => {
     if (err) {
       console.log(`User.js post error: ${err}`);
     } else if (user) {
@@ -198,14 +194,14 @@ router.post('/signup', (req, res) => {
     } else {
       console.log(`Making a new user from ${univeristy}`);
       const newUser = new User({
-        emailAddress: emailAddress,
-        password: password,
-        CMC: CMC,
-        venmoUsername: venmoUsername,
-        firstName: firstName,
-        lastName: lastName,
+        emailAddress,
+        password,
+        CMC,
+        venmoUsername,
+        firstName,
+        lastName,
         matchedBooks: [],
-        univeristy: univeristy,
+        univeristy,
       });
 
       // More stuff for the email verification
@@ -238,7 +234,7 @@ router.post('/signup', (req, res) => {
 
 router.post('/login', (req, res) => {
   const { emailAddress, password } = req.body;
-  User.findOne({ emailAddress: emailAddress }, (err, user) => {
+  User.findOne({ emailAddress }, (err, user) => {
     if (err) {
       console.warn(err);
       res.json({ error: err });
