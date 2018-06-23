@@ -15,6 +15,7 @@ import Careers from './Careers/careers';
 import Home from './Home/Home';
 import SignUp from './SignUp/SignUp';
 import Login from './Login/Login';
+import Dashboard from './Dashboard/Dashboard';
 
 
 const HomePage = ({ component: Component, rest }) => {
@@ -41,5 +42,6 @@ export default (
     <HomePage exact path="/home" component={Home} />
     <Route exact path="/login" component={Login} />
     <Route exact path="/signup" component={SignUp} />
+    <Route exact path="/dashboard" component={Dashboard} />
   </Switch>
 );
