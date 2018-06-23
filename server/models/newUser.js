@@ -27,19 +27,19 @@ newUserSchema.methods = {
   },
 }
 
-// Define hooks for pre-saving
-newUserSchema.pre('save', function (next) {
-  if (!this.password) {
-    console.log('models/user.js =======NO PASSWORD PROVIDED=======');
-
-
-    next();
-  } else {
-    console.log('models/user.js hashPassword in pre save');
-
-    this.password = this.hashPassword(this.password)
-    console.log(this.password)
-    next();
-  }
-})
+// Define hooks for pre-saving disabled in order to avoid double hashing of passwords
+// newUserSchema.pre('save', function (next) {
+//   if (!this.password) {
+//     console.log('models/user.js =======NO PASSWORD PROVIDED=======');
+//
+//
+//     next();
+//   } else {
+//     console.log('models/user.js hashPassword in pre save');
+//
+//     this.password = this.hashPassword(this.password)
+//     console.log(this.password)
+//     next();
+//   }
+// })
 export default mongoose.model('NewUser', newUserSchema);
