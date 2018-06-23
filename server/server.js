@@ -36,6 +36,7 @@ const sslRedirect = require('heroku-ssl-redirect');
 // USER ROUTE
 const user = require('./routes/user');
 const booksRoute = require('./routes/books');
+const dashboard = require('./routes/dashboard');
 
 const PORT = serverConfig.port;
 
@@ -63,6 +64,7 @@ app.use(passport.initialize());
 app.use(passport.session()); // calls serializeUser and deserializeUser
 app.use('/api/auth', user);
 app.use('/api/books', booksRoute);
+app.use('/api/dashboard', dashboard);
 
 // Run Webpack dev server in development mode
 if (process.env.NODE_ENV === 'development') {

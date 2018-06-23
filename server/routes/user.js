@@ -119,6 +119,7 @@ function verifyEmail(emailTo, firstName, URL) {
 }
 
 // End of email verification changes
+const jwt = require('jsonwebtoken');
 
 function sendEmail(mailOptions) {
   console.info('Send the email!');
@@ -232,6 +233,36 @@ router.post('/signup', (req, res) => {
   });
 });
 
+router.get('/userData/:token', (req, res) => {
+  const token = req.params.token;
+  jwt.verify(token, 'secretKey', (err, authData) => {
+    if (err) {
+      res.sendStatus(403);
+    } else {
+      User.findOne({ _id: authData.userInfo._id }, (error, user) => {
+        if (!user) {
+          res.status(401).send({error: 'You need to create an account' });
+        } else {
+          const returnUser = {
+            _id: user._id,
+            emailAddress: user.emailAddress,
+            venmoUsername: user.venmoUsername,
+            CMC: user.CMC,
+            firstName: user.firstName,
+            lastName: user.lastName,
+            matchedBooks: user.matchedBooks,
+          };
+          console.log(returnUser);
+          res.json({
+            message: 'verified',
+            returnUser,
+          });
+        }
+      });
+    }
+  });
+});
+
 router.post('/login', (req, res) => {
   const { emailAddress, password } = req.body;
   User.findOne({ emailAddress }, (err, user) => {
@@ -248,16 +279,18 @@ router.post('/login', (req, res) => {
       res.status(401).send({ error: 'Incorrect Password' });
       return;
     }
-    const returnUser = {
+
+    const userInfo = {
+      // Can add more stuff into this so that it has more info, for now it only has the id
       _id: user._id,
-      emailAddress: user.emailAddress,
-      venmoUsername: user.venmoUsername,
-      CMC: user.CMC,
-      firstName: user.firstName,
-      lastName: user.lastName,
-      matchedBooks: user.matchedBooks,
     };
-    res.json(returnUser);
+
+    // Creates the token and sends the JSON back
+    jwt.sign({ userInfo }, 'secretKey', { expiresIn: '30 days' }, (error, token) => {
+      res.json({
+        token,
+      });
+    });
   });
 });
 

@@ -1,10 +1,11 @@
 import React from 'react';
-import axios from 'axios';
 import {
   Route,
   Switch,
   Redirect,
 } from 'react-router-dom';
+
+import AuthService from './services/AuthService';
 
 import LandingPage from './LandingPage/LandingPage';
 import TermsOfService from './TermsOfService/termsOfService';
@@ -15,18 +16,20 @@ import PreRegister from './PreRegister/preRegister';
 import Home from './Home/Home';
 import SignUp from './SignUp/SignUp';
 import Login from './Login/Login';
+import Dashboard from './Dashboard/Dashboard';
 
-import store from './store';
+
 
 const HomePage = ({ component: Component, rest }) => {
+  const auth = new AuthService();
   return (
     <Route
       {...rest}
       render={(props) => 
-          sessionStorage.getItem('user') != null
-          ? <Component {...props} />
-          : <Redirect to={{pathname: '/login'}}
-        />}
+        auth.loggedIn()
+        ? <Component {...props} />
+        : <Redirect to={{pathname: '/login'}}
+      />}
     />
   );
 };
@@ -42,5 +45,6 @@ export default (
     <HomePage path="/home" component={Home} />
     <Route path="/login" component={Login} />
     <Route path="/signup" component={SignUp} />
+    <Route path="/dashboard" component={Dashboard} />
   </Switch>
 );
