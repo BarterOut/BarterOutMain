@@ -1,6 +1,8 @@
 import mongoose from 'mongoose';
 
 import User from '../models/newUser';
+import TextbookBuy from "../models/textbookBuy";
+import Textbook from "../models/textbook";
 
 const express = require('express');
 
@@ -293,6 +295,71 @@ router.post('/login', (req, res) => {
     });
   });
 });
+
+//Needs testing
+// Will update name, venmo, address
+router.post('/updateInfo', (req, res) => {
+  //Method to verify, this is commented out because everything depends on having some infomration in the session storage
+  jwt.verify(req.token, 'secretkey', (errr, authData) => {
+    if (errr) {
+      res.sendStatus(403);
+    } else {
+      User.update(
+        { _id: authData.userInfo._id },
+        {
+          $set:
+            {
+              firstName: req.body.firstName,
+              lastName: req.body.lastName,
+              venmoUsername: req.body.venmoUsername,
+              CMC: req.body.CMC,
+            },
+        },
+      );
+    }
+  });
+});
+
+//Needs testing
+// Will update the password
+router.post('/updateInfo', (req, res) => {
+  //Method to verify, this is commented out because everything depends on having some infomration in the session storage
+  jwt.verify(req.token, 'secretkey', (errr, authData) => {
+    if (errr) {
+      res.sendStatus(403);
+    } else {
+      User.findOne({_id: authData.userInfo._id}, (err, user) => {
+        if (err) {
+          console.warn(err);
+          res.json({error: err});
+          return;
+        }
+        if (!user) {
+          console.log('error in the finding of the user')
+          res.status(401).send({error: 'You need to create an account.'});
+          return;
+        }
+        if (!user.checkPassword(req.body.password)) {
+          res.status(401).send({error: 'Incorrect Password'});
+          return;
+        }
+        //if it passes all the check before there is a user and the password is correct so it can be updated for the new one
+        User.update(
+          { _id: authData.userInfo._id },
+          {
+            $set:
+              {
+                password: user.hashPassword(req.body.password),
+
+              },
+          },
+        );
+
+      })
+
+    }
+});
+
 
 // Just in case this is needed
 router.get('/', (req, res) => {
