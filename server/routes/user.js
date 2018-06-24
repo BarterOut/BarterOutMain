@@ -351,7 +351,7 @@ router.post('/updateInfo', (req, res) => {
           {
             $set:
               {
-                password: user.hashPassword(req.body.password),
+                password: user.hashPassword(req.body.newPassword),
 
               },
           },
