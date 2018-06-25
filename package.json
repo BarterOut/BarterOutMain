@@ -11,7 +11,7 @@
     "start": "BABEL_DISABLE_CACHE=1 nodemon index.js",
     "dev": "concurrently \"npm start\" "
   },
-  "author": "David Thingsaker",
+  "author": "Various Authors",
   "license": "ISC",
   "repository": {
     "type": "git",
