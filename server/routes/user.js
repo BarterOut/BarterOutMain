@@ -252,7 +252,6 @@ router.get('/userData/:token', (req, res) => {
             lastName: user.lastName,
             matchedBooks: user.matchedBooks,
           };
-          console.log(returnUser);
           res.json({
             message: 'verified',
             returnUser,

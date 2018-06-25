@@ -12,12 +12,10 @@ import TermsOfService from './TermsOfService/termsOfService';
 import PrivacyPolicy from './PrivacyPolicy/privacyPolicy';
 import Contact from './Contact/contact';
 import Careers from './Careers/careers';
-import PreRegister from './PreRegister/preRegister';
 import Home from './Home/Home';
 import SignUp from './SignUp/SignUp';
 import Login from './Login/Login';
 import Dashboard from './Dashboard/Dashboard';
-
 
 
 const HomePage = ({ component: Component, rest }) => {
@@ -37,14 +35,13 @@ const HomePage = ({ component: Component, rest }) => {
 export default (
   <Switch>
     <Route exact path="/" component={LandingPage} />
-    <Route path="/termsOfService" component={TermsOfService} />
-    <Route path="/privacyPolicy" component={PrivacyPolicy} />
-    <Route path="/contact" component={Contact} />
-    <Route path="/careers" component={Careers} />
-    <Route path="/preRegister" component={PreRegister} />
-    <HomePage path="/home" component={Home} />
-    <Route path="/login" component={Login} />
-    <Route path="/signup" component={SignUp} />
-    <Route path="/dashboard" component={Dashboard} />
+    <Route exact path="/termsOfService" component={TermsOfService} />
+    <Route exact path="/privacyPolicy" component={PrivacyPolicy} />
+    <Route exact path="/contact" component={Contact} />
+    <Route exact path="/careers" component={Careers} />
+    <HomePage exact path="/home" component={Home} />
+    <Route exact path="/login" component={Login} />
+    <Route exact path="/signup" component={SignUp} />
+    <Route exact path="/dashboard" component={Dashboard} />
   </Switch>
 );
