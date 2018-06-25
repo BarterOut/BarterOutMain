@@ -1,6 +1,6 @@
 {
   "name": "barter-out",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Smart shopping for smart students",
   "main": "index.js",
   "directories": {

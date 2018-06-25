@@ -1,7 +1,7 @@
 /**
  * @file React component for loging users in.
  * @author Duncan Grubbs <duncan.grubbs@gmail.com>
- * @version 0.0.1
+ * @version 0.0.2
  */
 
 // TODO: Use auth service login function instead of axios

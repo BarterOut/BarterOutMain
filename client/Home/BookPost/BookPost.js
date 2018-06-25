@@ -1,7 +1,7 @@
 /**
  * @file React component for a textbook posting on the webapp.
  * @author Duncan Grubbs <duncan.grubbs@gmail.com>
- * @version 0.0.1
+ * @version 0.0.2
  */
 
 // TODO: fix confirm button

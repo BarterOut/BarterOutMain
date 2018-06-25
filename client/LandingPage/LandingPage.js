@@ -2,7 +2,7 @@
  * @file React component for loging users in.
  * @author Duncan Grubbs <duncan.grubbs@gmail.com>
  * @author Luis Nova
- * @version 0.0.1
+ * @version 0.0.2
  */
 
 import React, { Component } from 'react';

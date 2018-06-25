@@ -4,7 +4,7 @@
  * @author Daniel Munoz
  * @author Shawn Chan
  * @author Luis Nova
- * @version 0.0.1
+ * @version 0.0.2
  */
 
 // TODO: Make sure all methods send a response.
