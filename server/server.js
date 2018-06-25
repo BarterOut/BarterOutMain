@@ -4,7 +4,7 @@
  * @author Daniel Munoz
  * @author Shawn Chan
  * @author Luis Nova
- * @version 0.0.1
+ * @version 0.0.2
  */
 
 // TODO: Make sure all methods send a response.
@@ -36,6 +36,7 @@ const sslRedirect = require('heroku-ssl-redirect');
 // USER ROUTE
 const user = require('./routes/user');
 const booksRoute = require('./routes/books');
+const dashboard = require('./routes/dashboard');
 
 const PORT = serverConfig.port;
 
@@ -59,10 +60,24 @@ app.use(session({
   cookie: { secure: false },
 }));
 
+const ENV = 'development';
+
+function forceSsl(req, res, next) {
+  if (req.headers['x-forwarded-proto'] !== 'https') {
+    return res.redirect(['https://', req.get('Host'), req.url].join(''));
+  }
+  return next();
+}
+
+if (ENV === 'production') {
+  app.use(forceSsl);
+}
+
 app.use(passport.initialize());
 app.use(passport.session()); // calls serializeUser and deserializeUser
 app.use('/api/auth', user);
 app.use('/api/books', booksRoute);
+app.use('/api/dashboard', dashboard);
 
 // Run Webpack dev server in development mode
 if (process.env.NODE_ENV === 'development') {

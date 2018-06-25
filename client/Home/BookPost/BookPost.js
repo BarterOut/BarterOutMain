@@ -1,8 +1,10 @@
 /**
- * @file React component for a book posting on the app.
+ * @file React component for a textbook posting on the webapp.
  * @author Duncan Grubbs <duncan.grubbs@gmail.com>
- * @version 0.0.1
+ * @version 0.0.2
  */
+
+// TODO: fix confirm button
 
 import React, { Component } from 'react';
 import propTypes from 'prop-types';
@@ -38,12 +40,12 @@ class BookPost extends Component {
     window.location.reload();
   }
 
-  confirmBuy(evt) {
-    evt.target.style.display = 'none';
-    const butt = document.getElementById(this.props.name);
-    // butt.style.display = 'inline-block';
-    butt.style.visibility = 'visible';
-    butt.style.opacity = '1';
+  confirmBuy() {
+    // e.style.display = 'none';
+    // const button = document.getElementsByClassName(this.props.name);
+    // console.log(button);
+    // button.style.visibility = 'visible';
+    // button.style.opacity = '1';
   }
 
   render() {
@@ -64,7 +66,7 @@ class BookPost extends Component {
           >Buy
           </button>
           <button
-            className="confirmButton"
+            className="confirmButton button"
             id={this.props.name}
             onClick={this.buyBook.bind(this)}
           >Confirm Buy
@@ -80,7 +82,7 @@ BookPost.propTypes = {
   comments: propTypes.string.isRequired,
   condition: propTypes.string.isRequired,
   edition: propTypes.number.isRequired,
-  id: propTypes.number.isRequired,
+  id: propTypes.string.isRequired,
   name: propTypes.string.isRequired,
   price: propTypes.number.isRequired,
   subject: propTypes.string.isRequired,

@@ -1,12 +1,12 @@
 /**
  * @file Main React component for the app itself.
  * @author Duncan Grubbs <duncan.grubbs@gmail.com>
- * @version 0.0.1
+ * @version 0.0.2
  */
 
 import React, { Component } from 'react';
 
-import axios from 'axios';
+import AuthService from '../services/AuthService';
 
 import './Home.css';
 import logoPic from '../images/barterOutOrangeWhiteLogoHeader.png';
@@ -22,25 +22,33 @@ class Home extends Component {
     this.state = {
       posts: [],
       matches: [],
-      user: JSON.parse(sessionStorage.getItem('user')),
+      user: Object,
       sellHidden: true,
       buyHidden: true,
+      token: String,
     };
   }
 
   componentDidMount() {
-    this.callApi('/api/books/displayAllBooks')
+    const auth = new AuthService();
+    const token = auth.getToken();
+    this.setState({ token: token });
+
+    this.callApi(`/api/books/displayAllBooks/${token}`)
       .then((res) => {
         this.setState({ posts: res });
       })
       .catch(err => new Error(err));
 
-    axios.post('/api/books/showMatches', {
-      id: JSON.parse(sessionStorage.getItem('user'))._id,
-    })
+    this.callApi(`/api/auth/userData/${token}`)
+      .then((res) => {
+        this.setState({ user: res.returnUser });
+      })
+      .catch(err => new Error(err));
+
+    this.callApi(`/api/books/showMatches/${token}`)
       .then((response) => {
-        console.log(response.data);
-        this.setState({ matches: response.data });
+        this.setState({ matches: response });
       })
       .catch((error) => {
         console.error(`Sign up server error: ${error}`);
@@ -72,7 +80,7 @@ class Home extends Component {
 
   search(query) {
     if (query === '') {
-      this.callApi('/api/books/displayAllBooks')
+      this.callApi(`/api/books/displayAllBooks/${this.state.token}`)
         .then((res) => {
           this.setState({ posts: res });
         })

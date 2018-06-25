@@ -1,16 +1,24 @@
+/**
+ * @file React component for loging users in.
+ * @author Duncan Grubbs <duncan.grubbs@gmail.com>
+ * @author Luis Nova
+ * @version 0.0.2
+ */
+
 import React, { Component } from 'react';
 import {
   Link,
   Redirect,
 } from 'react-router-dom';
-import { connect } from 'react-redux';
 
-import styles from './landingpage.css';
-import regularFont from '../res/sylesheetOrkneyRegular.css';
-import lightFont from '../res/sylesheetOrkneyLight.css';
-import mediumFont from '../res/sylesheetOrkneyMedium.css';
-import boldfont from '../res/sylesheetOrkneyBold.css';
-import animations from '../res/animate.css';
+import AuthService from '../services/AuthService';
+
+import './landingpage.css';
+import '../res/sylesheetOrkneyRegular.css';
+import '../res/sylesheetOrkneyLight.css';
+import '../res/sylesheetOrkneyMedium.css';
+import '../res/sylesheetOrkneyBold.css';
+import '../res/animate.css';
 
 import logoPic from '../images/barterOutOrangeWhiteLogoHeader.png';
 
@@ -19,7 +27,7 @@ import picTwo from '../images/groupMeetingCompressed.jpg';
 import picThree from '../images/outdoorsCompressed.jpg';
 
 import vlad from '../images/vladCazacu.jpg';
-import luis from '../images/luisNova.jpg';
+// import luis from '../images/luisNova.jpg';
 import annie from '../images/annieHamburgen.png';
 import pavel from '../images/pavelStan.jpg';
 import melissa from '../images/melissaKagaju.jpg';
@@ -36,8 +44,8 @@ import adviserOne from '../images/meyerElizabeth.jpg';
 import linkedInLogo from '../images/linkedIn.png';
 import facebookLogo from '../images/facebook.png';
 
-import waypointJS from './noframework.waypoints.min.js';
-import jQuery from '../res/jquery-3.3.1.min.js';
+import './noframework.waypoints.min.js';
+import '../res/jquery-3.3.1.min.js';
 
 class LandingPage extends Component {
   constructor() {
@@ -45,399 +53,359 @@ class LandingPage extends Component {
     this.state = {
       redirect: false,
     };
+    this.Auth = new AuthService();
   }
 
-    render() {
-    if (sessionStorage.getItem('user') || this.state.redirect) {
+  componentDidMount() {
+    this.setRedirect();
+  }
+
+  setRedirect() {
+    if (!this.Auth.isTokenExpired(this.Auth.getToken())) {
+      this.setState({ redirect: true });
+    } else {
+      this.setState({ redirect: false });
+    }
+  }
+
+  render() {
+    if (this.state.redirect) {
       return (<Redirect to="/home" />);
     }
 
     return (
-        <div className="app">
-            <div className="landingpage">
-                <nav className="headerBar animated slideInDown">
-                    <div className="logo">
-                        <a href="#" id="buttonLink"><img id="logoPic" src={logoPic}></img></a>
-                    </div>
-                    <div className="pageLinks">
-                        <a className="productLink" id="landingPageLink" href="#madeSimple">Our Product</a>
-                        <a className="missionLink" id="landingPageLink" href="#whatWereAbout">Our Mission</a>
-                        <a className="teamLink" id="landingPageLink" href="#teamPage">Our Team</a>
-                        {/* <a className="preRegisterLink" id="landingPageLink" href="#registrationPage">Pre-Register</a> */}
-                        <Link id="landingPageLink" className="preRegisterLink" to="/login" href="login">Login</Link>
-                    </div>
-                </nav>
-                <div className="mainText animated fadeIn" id="mainText">
-                    <h1>EVERY BOOK
-                        <br/>
-                        YOU WILL EVER NEED,
-                        <br/>
-                        HASSLE-FREE</h1>
-                    <a href="/signup" id="buttonLink"><button className="barterOutButton">JOIN NOW FREE</button></a>
+      <div className="app">
+        <div className="landingpage">
+          <nav className="headerBar animated slideInDown">
+            <div className="logo">
+              <a href="#" id="buttonLink"><img id="logoPic" alt="logo" src={logoPic} /></a>
+            </div>
+            <div className="pageLinks">
+              <a className="productLink" id="landingPageLink" href="#madeSimple">Our Product</a>
+              <a className="missionLink" id="landingPageLink" href="#whatWereAbout">Our Mission</a>
+              <a className="teamLink" id="landingPageLink" href="#teamPage">Our Team</a>
+              <Link id="landingPageLink" className="preRegisterLink" to="/login" href="login">
+                Login
+              </Link>
+            </div>
+          </nav>
+          <div className="mainText animated fadeIn" id="mainText">
+            <h1>
+              EVERY BOOK
+              <br />
+              YOU WILL EVER NEED,
+              <br />
+              HASSLE-FREE
+            </h1>
+            <a href="/signup" id="buttonLink"><button className="barterOutButton">JOIN NOW FREE</button></a>
+          </div>
+            <div className="madeSimple" id="madeSimple">
+              <div className="madeSimpleInfo animated" id="madeSimpleInfo">
+                <h2 className="madeSimpleHeader animated">
+                BUYING AND SELLING MADE SIMPLE
+                </h2>
+                <div className="madeSimpleText animated">
+                  <p className="landing-para">
+                    At BarterOut, we know textbooks can get very expensive and finding second-hand ones can be a hassle.
+                    That&apos;s why we make it easier for you to get your books and get to class, all with just a couple
+                    clicks on our platform. Enter some simple information and let our automated matching algorithm do
+                    the magic!
+                  </p>
+                  <br />
+                  Buy and sell with us in minutes!
                 </div>
-                <div className="madeSimple" id="madeSimple">
-                    <div className="madeSimpleInfo animated" id="madeSimpleInfo">
-                        <h2 className="madeSimpleHeader animated">
-                            BUYING AND SELLING MADE SIMPLE
-                        </h2>
-                        <div className="madeSimpleText animated">
-                            <p>
-                                At BarterOut, we know textbooks can get very expensive and finding second-hand ones can be a hassle.
-                                That's why we make it easier for you to get your books and get to class, all with just a couple
-                                clicks on our platform. Enter some simple information and let our automated matching algorithm do
-                                the magic!
-                            </p>
-                            <br/>
-                            Buy and sell with us in minutes!
-                        </div>
-                    </div>
+              </div>
+            </div>
+            <div className="howItWorks">
+            <div className="howItWorksText animated" id="howItWorksInfo">
+                <h2 className="howItWorksHeader animated">HOW IT WORKS</h2>
+                <div className="howItWorksBodyText">
+                <br/>
+                <div className="steps">
+                    STEP 1
                 </div>
-                <div className="howItWorks">
-                    <div className="howItWorksText animated" id="howItWorksInfo">
-                        <h2 className="howItWorksHeader animated">HOW IT WORKS</h2>
-                        <div className="howItWorksBodyText">
-                            <br/>
-                            <div className="steps">
-                                STEP 1
-                            </div>
-                            <p>
-                                Tell us a little about you. Where do you go to school? What classes are you taking and what classes
-                                do you want to take next semester?
-                            </p>
-
-                            <br/>
-                            <div className="steps">
-                                STEP 2
-                            </div>
-                            <p>
-                                We tell you which books you need for your courses, and you tell us which ones you already have
-                                and which ones you want to buy. Those books you still have from last semester? Let us know
-                                if you want to to sell them.
-                            </p>
-
-                            <br/>
-                            <div className="steps">
-                                STEP 3
-                            </div>
-                            <p>
-                                We match buyers and sellers at the best price, and handle the textbook delivery for you. All payments
-                                are made securely online.
-                            </p>
-                        </div>
-                    </div>
+                <p className="landing-para">
+                  Tell us a little about you. Where do you go to school? What classes are you taking and what classes
+                  do you want to take next semester?
+                </p>
+                <br/>
+                <div className="steps">
+                  STEP 2
                 </div>
-                <div className="whatWereAbout" id="whatWereAbout">
-                    <div className="whatWereAboutInfo" id="whatWereAboutInfo">
-                        <h2 className="whatWereAboutHeader animated" id="whatWereAboutHeader">WHAT WE'RE ALL ABOUT</h2>
-                        <br/>
-                        <div className="blurbBlock" id="smartPeopleBlock">
-                            <div className="smartPeopleBlock animated">
-                                <h2 className="smartPeopleBlockHeader animated">SMART SHOPPING FOR SMART PEOPLE</h2>
-                                <div className="whatWereAboutText" >
-                                    <p>
-                                        Leave it to our smart search system to meet your needs and do the work for you. Why? So you can have
-                                        more time to spend living that beautiful college life!
-                                    </p>
-                                </div>
-                            </div>
-                            <div className="slideInPhotoRight animated" id="smartPeopleBlockPhoto">
-                                <img src={picOne}></img>
-                            </div>
-                        </div>
-
-                        <br/>
-                        <div className="blurbBlock" id="helpingOthersBlock">
-                            <div className="helpingOthersBlock animated">
-                                <h2 className="helpingOthersBlockHeader animated">WHILE HELPING OTHERS</h2>
-                                <div className="whatWereAboutText">
-                                    <p>
-                                        Every book sold or bought on BarterOut turns into an opportunity for an underprivileged student. We
-                                        give back 30% of our profits as free credit on the platform for financially disadvantaged students so
-                                        they can get textbooks for FREE.
-                                    </p>
-                                </div>
-                            </div>
-                            <div className="slideInPhotoLeft animated" id="helpingOthersBlockPhoto">
-                                <img src={picTwo}></img>
-                            </div>
-                        </div>
-
-                        <br/>
-                        <div className="blurbBlock" id="fastCheapEasyBlock">
-                            <div className="fastCheapEasyBlock animated">
-                                <h2 className="fastCheapEasyBlockHeader animated">EASY, FAST & CHEAP</h2>
-                                <div className="whatWereAboutText">
-                                    <p>
-                                        Because we care about you, we have built an easy-to-use system capable of providing you with the
-                                        textbooks you need as fast as possible. In order to make this dream a reality we take a small share
-                                        of every transaction to keep our servers running.
-                                    </p>
-                                </div>
-                            </div>
-                            <div className="slideInPhotoRight animated" id="fastCheapEasyBlockPhoto">
-                                <img src={picThree}></img>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="blurbBlock">
-                        <a href="/signup" id="buttonLink"><button className="barterOutButton animated" id="joinTodayButton" href="/signup">JOIN TODAY</button></a>
-                    </div>
+                <p className="landing-para">
+                  We tell you which books you need for your courses, and you tell us which ones you already have
+                  and which ones you want to buy. Those books you still have from last semester? Let us know
+                  if you want to to sell them.
+                </p>
+                <br/>
+                <div className="steps">
+                    STEP 3
                 </div>
-                <div className="teamPage" id="teamPage">
-                    <div>
-                        <h2 className="animated" id="meetOurTeamHeader">MEET OUR TEAM</h2>
-                            <div className="teamTextTop animated">
-                                <br/>
-                                A company created by students with the help of other students, all to benefit... well... students
-                            </div>
-                            <table className="staffPhotos">
-                                <tbody>
-                                    <tr className="animated" id="rowOne">
-                                        <td>
-                                            <div id="profile">
-                                                <a href="https://www.linkedin.com/in/vladcazacu/" target="_blank"><img id="team" src={vlad}></img></a>
-                                                <br/>
-                                                <div id="profileName">Vlad Cazacu</div>
-                                                Co-founder & CEO
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div id="profile">
-                                                <a href="https://www.linkedin.com/in/pavel-stan-232911140/" target="_blank"><img id="team" src={pavel}></img></a>
-                                                <br/>
-                                                <div id="profileName">Pavel Stan</div>
-                                                Co-founder & Director
-                                                <br/>
-                                                of External Relations
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div id="profile">
-                                                <a href="https://www.linkedin.com/in/annmarie-hamburgen-9ab65a12b/" target="_blank"><img id="team" src={annie}></img></a>
-                                                <br/>
-                                                <div id="profileName">Annie Hamburgen</div>
-                                                CMO
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div id="profile">
-                                                <a href="https://www.linkedin.com/in/luisgerardonova/" target="_blank"><img id="team" src={luis}></img></a>
-                                                <br/>
-                                                <div id="profileName">Luis Nova</div>
-                                                CTO
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr className="animated" id="rowTwo">
-                                        <td>
-                                            <div id="profile">
-                                                <a href="https://www.linkedin.com/in/duncan-grubbs-01979a14a/" target="_blank"><img id="team" src={duncan}></img></a>
-                                                <br/>
-                                                <div id="profileName">Duncan Grubbs</div>
-                                                Software Developer
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div id="profile">
-                                                <a href="https://www.linkedin.com/in/zixu-chen/" target="_blank"><img id="team" src={shawn}></img></a>
-                                                <br/>
-                                                <div id="profileName">Zixu (Shawn) Chen</div>
-                                                Software Developer
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div id="profile">
-                                                <a href="https://www.linkedin.com/in/melissa-k-7080ba103/" target="_blank"><img id="team" src={melissa}></img></a>
-                                                <br/>
-                                                <div id="profileName">Melissa Kagaju</div>
-                                                Software Developer
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div id="profile">
-                                                <a href="https://www.linkedin.com/in/genessis-galindo/" target="_blank"><img id="team" src={genessis}></img></a>
-                                                <br/>
-                                                <div id="profileName">Genessis Galindo</div>
-                                                Marketing Analyst
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr className="animated" id="rowThree">
-                                        <td>
-                                            <div id="profile">
-                                                <a href="https://www.linkedin.com/in/sam-hirschhorn-03029a7a/" target="_blank"><img id="team" src={logo}></img></a>
-                                                <br/>
-                                                <div id="profileName">Sam Hirschhorn</div>
-                                                Video Marketer
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div id="profile">
-                                                <img id="staff" src={logo}></img>
-                                                <br/>
-                                                <div id="profileName">Tristan De Lange</div>
-                                                Software Developer
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div id="profile">
-                                                <img id="staff" src={logo}></img>
-                                                <br/>
-                                                <div id="profileName">Daniel Munoz</div>
-                                                Software Developer
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div id="profile">
-                                                <a href="https://www.linkedin.com/in/nikolai-draganov-314986161/" target="_blank"><img id="team" src={nikolai}></img></a>
-                                                <br/>
-                                                <div id="profileName">Nikolai Draganov</div>
-                                                Software Developer
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr className="animated" id="rowFour">
-                                        <td>
-                                        </td>
-                                        <td>
-                                            <div id="profile">
-                                                <img id="staff" src={zacqueline}></img>
-                                                <br/>
-                                                <div id="profileName">Zacqueline Baldwin (ZQ)</div>
-                                                Marketing Intern
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div id="profile">
-                                                <a href="https://www.linkedin.com/in/jovangianni/" target="_blank"><img id="team" src={jovan}></img></a>
-                                                <br/>
-                                                <div id="profileName">Jovan-Gianni Lee</div>
-                                                Software Developer
-                                            </div>
-                                        </td>
-                                        <td>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                                <div className="teamTextBottom animated" id="teamTextBottom">
-                                    <br/>
-                                    Interested in working with us?
-                                    <br/>
-                                    <a id="buttonLink" href="/Careers"><button className="barterOutButton animated" id="applyButtonOne">Apply Now</button></a>
-                                </div>
-                            </div>
-                        <br/>
-                    <div>
-                        <h2 className="animated" id="meetOurAdvisersHeader">AND OUR ADVISERS</h2>
-                        <div className="adviserPageText" id="adviserPageText">
-                            <div className="adviserTextTop animated">
-                                <br/>
-                                Because any team needs some guidance from time to time
-                            </div>
-                            <table className="adviserPhotos animated">
-                                <tbody>
-                                    <tr>
-                                        <td>
-                                            <div id="profile">
-                                                <a href="https://www.linkedin.com/in/elizabeth-meyer-3483411b/" target="_blank"><img id="team" src={adviserOne}></img></a>
-                                                <br/>
-                                                <div id="profileName">Elizabeth Meyer</div>
-                                                Strategy Advisor
-                                                <br/>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            <div className="adviserTextBottom animated">
-                                <br/>
-                                Interested in helping us grow?
-                                <br/>
-                                <a id="buttonLink" href="https://goo.gl/forms/tAXa5huk9hAcaNSH2" target="_blank"><button className="barterOutButton animated" id="applyButtonTwo">Apply Now</button></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                {/* <div className="registrationPage" id="registrationPage">
-                    <div className="registrationPageOverlay">
-                        <div className="registrationPageInfo" id="registrationPageInfo">
-                            <div className="registrationPageText animated">
-                                <h2 className="registrationPageHeader animated">IT'S GOING TO BE BIG, JOIN NOW</h2>
-                                <div className="registrationPageBodyText">
-                                    <p>
-                                        Our algorithm is currently under construction and should be live in late May 2018. Take one
-                                        task out of your to-do list and create a pre-account for FREE today!
-                                    </p>
-                                </div>
-                            </div>
-                            <div className="registrationForm animated">
-                                <div className="formTitle">
-                                    Sign Up Today
-                                </div>
-                                <div className="formSubTitle">
-                                    Be one of the first to use BarterOut
-                                </div>
-                                <form className="preRegisterForm" method="POST" action="/api/preRegister">
-                                    <div className="formSubTitle">
-                                        First Name
-                                    </div>
-                                    <input type="text" name="firstName" className="firstName textInput" required>
-                                    </input>
-                                    <div className="formSubTitle">
-                                        Last Name
-                                    </div>
-                                    <input type="text" name="lastName" className="lastName textInput" required>
-                                    </input>
-                                    <div className="formSubTitle">
-                                        Email Address
-                                    </div>
-                                    <input type="email" name="emailAddress" className="email emailInput"
-                                           required
-                                           pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.+-]+\.edu$"
-                                           title="You can only pre-register with a school (.edu) email.">
-                                    </input>
-                                    <div className="formSubTitle" id="agreement">
-                                        By clicking "Pre-Register", you agree to the
-                                        <a href="/TermsOfService"> Terms of Service </a>
-                                        and
-                                        <a href="/PrivacyPolicy"> Privacy Policy </a>
-                                    </div>
-                                    <input type="submit" value="Pre-Register" className="barterOutButton animated" id="registerButton">
-                                    </input>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div> */}
-                <div className="landingPageBottom">
-                    <div id="bottomLinksCol1">
-                        <div id="bottomLinkHeader">Company</div>
-                        <a href="/Careers" id="bottomPageLink">Careers</a>
-                        <br/>
-                        <a href="/Contact" id="bottomPageLink">Contact</a>
-                        <br/>
-                    </div>
-                    <div id="bottomLinksCol2">
-                        <div id="bottomLinkHeader">Legal</div>
-                        <a href="/TermsOfService" id="bottomPageLink">Terms of Service</a>
-                        <br/>
-                        <a href="/PrivacyPolicy" id="bottomPageLink">Privacy Policy</a>
-                    </div>
-                </div>
-                <div id="socialMedia">
-                    <a href="https://www.linkedin.com/company/18490388/" target="_blank"><img id="logoImage" src={linkedInLogo}></img></a>
-                    <a href="https://www.facebook.com/BarterOut/" target="_blank"><img id="logoImage" src={facebookLogo}></img></a>
-                </div>
-                <div id="copyright">
-                    Copyright © 2018 All Rights Reserved.
+                <p className="landing-para">
+                  We match buyers and sellers at the best price, and handle the textbook delivery for you. All payments
+                  are made securely online.
+                </p>
                 </div>
             </div>
+            </div>
+            <div className="whatWereAbout" id="whatWereAbout">
+            <div className="whatWereAboutInfo" id="whatWereAboutInfo">
+                <h2 className="whatWereAboutHeader animated" id="whatWereAboutHeader">WHAT WE&apos;RE ALL ABOUT</h2>
+                <br/>
+                <div className="blurbBlock" id="smartPeopleBlock">
+                <div className="smartPeopleBlock animated">
+                    <h2 className="smartPeopleBlockHeader animated">SMART SHOPPING FOR SMART PEOPLE</h2>
+                    <div className="whatWereAboutText" >
+                    <p className="landing-para">
+                      Leave it to our smart search system to meet your needs and do the work for you. Why? So you can have
+                      more time to spend living that beautiful college life!
+                    </p>
+                    </div>
+                </div>
+                <div className="slideInPhotoRight animated" id="smartPeopleBlockPhoto">
+                    <img src={picOne} alt="Smart People Photo" />
+                </div>
+                </div>
+                <br/>
+                <div className="blurbBlock" id="helpingOthersBlock">
+                  <div className="helpingOthersBlock animated">
+                    <h2 className="helpingOthersBlockHeader animated">WHILE HELPING OTHERS</h2>
+                    <div className="whatWereAboutText">
+                      <p className="landing-para">
+                        Every book sold or bought on BarterOut turns into an opportunity for an underprivileged student. We
+                        give back 30% of our profits as free credit on the platform for financially disadvantaged students so
+                        they can get textbooks for FREE.
+                      </p>
+                    </div>
+                  </div>
+                  <div className="slideInPhotoLeft animated" id="helpingOthersBlockPhoto">
+                    <img src={picTwo} alt="Helping Others" />
+                  </div>
+                </div>
+                <br />
+                <div className="blurbBlock" id="fastCheapEasyBlock">
+                  <div className="fastCheapEasyBlock animated">
+                    <h2 className="fastCheapEasyBlockHeader animated">EASY, FAST & CHEAP</h2>
+                    <div className="whatWereAboutText">
+                      <p className="landing-para">
+                        Because we care about you, we have built an easy-to-use system capable of providing you with the
+                        textbooks you need as fast as possible. In order to make this dream a reality we take a small share
+                        of every transaction to keep our servers running.
+                      </p>
+                    </div>
+                  </div>
+                  <div className="slideInPhotoRight animated" id="fastCheapEasyBlockPhoto">
+                    <img src={picThree} alt="Cheap and Easy" />
+                  </div>
+                </div>
+            </div>
+            <div className="blurbBlock">
+              <a href="/signup" id="buttonLink">
+                <button className="barterOutButton animated" id="joinTodayButton" href="/signup">JOIN TODAY</button>
+              </a>
+            </div>
+            </div>
+            <div className="teamPage" id="teamPage">
+            <div>
+              <h2 className="animated" id="meetOurTeamHeader">MEET OUR TEAM</h2>
+              <div className="teamTextTop animated">
+              <br/>
+              A company created by students with the help of other students, all to benefit... well... students
+              </div>
+              <table className="staffPhotos">
+                <tbody>
+                  <tr className="animated" id="rowOne">
+                    <td>
+                      <div id="profile">
+                        <a href="https://www.linkedin.com/in/vladcazacu/" target="_blank" rel="noopener noreferrer">
+                          <img id="team" alt="team" src={vlad} />
+                        </a>
+                        <br />
+                        <div id="profileName">Vlad Cazacu</div>
+                        Co-founder & CEO
+                      </div>
+                    </td>
+                    <td>
+                      <div id="profile">
+                        <a href="https://www.linkedin.com/in/pavel-stan-232911140/" rel="noopener noreferrer" target="_blank" >
+                          <img id="team" alt="team" src={pavel} />
+                        </a>
+                        <br />
+                        <div id="profileName">Pavel Stan</div>
+                        Co-founder & Director
+                        <br />
+                        of External Relations
+                      </div>
+                    </td>
+                    <td>
+                      <div id="profile">
+                        <a href="https://www.linkedin.com/in/annmarie-hamburgen-9ab65a12b/" target="_blank" rel="noopener noreferrer">
+                          <img id="team" alt="team" src={annie} />
+                        </a>
+                        <br />
+                        <div id="profileName">Annie Hamburgen</div>
+                        CMO
+                      </div>
+                    </td>
+                    <td>
+                      <div id="profile">
+                        <a href="https://www.linkedin.com/in/duncan-grubbs-01979a14a/" target="_blank" rel="noopener noreferrer">
+                          <img id="team" alt="team" src={duncan} />
+                        </a>
+                        <br />
+                        <div id="profileName">Duncan Grubbs</div>
+                        Interim CTO
+                      </div>
+                    </td>
+                  </tr>
+                  <tr className="animated" id="rowTwo">
+                  <td>
+                      <div id="profile">
+                      <a href="https://www.linkedin.com/in/zixu-chen/" target="_blank" rel="noopener noreferrer"><img id="team" alt="team" src={shawn}></img></a>
+                      <br/>
+                      <div id="profileName">Zixu (Shawn) Chen</div>
+                      Software Developer
+                      </div>
+                  </td>
+                  <td>
+                      <div id="profile">
+                      <img id="staff" alt="team" src={logo}></img>
+                      <br/>
+                      <div id="profileName">Daniel Munoz</div>
+                      Software Developer
+                      </div>
+                  </td>
+                  <td>
+                      <div id="profile">
+                      <a href="https://www.linkedin.com/in/melissa-k-7080ba103/" target="_blank" rel="noopener noreferrer"><img id="team" alt="team" src={melissa}></img></a>
+                      <br/>
+                      <div id="profileName">Melissa Kagaju</div>
+                      Software Developer
+                      </div>
+                  </td>
+                  <td>
+                      <div id="profile">
+                      <a href="https://www.linkedin.com/in/genessis-galindo/" target="_blank" rel="noopener noreferrer"><img id="team" alt="team" src={genessis}></img></a>
+                      <br/>
+                      <div id="profileName">Genessis Galindo</div>
+                      Marketing Analyst
+                      </div>
+                  </td>
+                  </tr>
+                  <tr className="animated" id="rowThree">
+                  <td>
+                      <div id="profile">
+                      <a href="https://www.linkedin.com/in/sam-hirschhorn-03029a7a/" target="_blank" rel="noopener noreferrer"><img id="team" alt="team" src={logo}></img></a>
+                      <br/>
+                      <div id="profileName">Sam Hirschhorn</div>
+                      Video Marketer
+                      </div>
+                  </td>
+                  <td>
+                      <div id="profile">
+                      <img id="staff" alt="team" src={logo}></img>
+                      <br/>
+                      <div id="profileName">Tristan De Lange</div>
+                      Software Developer
+                      </div>
+                  </td>
+                  <td>
+                      <div id="profile">
+                      <a href="https://www.linkedin.com/in/nikolai-draganov-314986161/" target="_blank" rel="noopener noreferrer"><img id="team" alt="team" src={nikolai}></img></a>
+                      <br />
+                      <div id="profileName">Nikolai Draganov</div>
+                      Marketing Intern
+                      </div>
+                  </td>
+                  <td>
+                      <div id="profile">
+                      <img id="staff" alt="team" src={zacqueline} />
+                      <br/>
+                      <div id="profileName">Zacqueline Baldwin (ZQ)</div>
+                      Marketing Intern
+                      </div>
+                  </td>
+                  </tr>
+                  <tr className="animated" id="rowFour">
+                  <td>
+                      <div id="profile">
+                      <a href="https://www.linkedin.com/in/jovangianni/" target="_blank" rel="noopener noreferrer"><img id="team" alt="team" src={jovan}></img></a>
+                      <br/>
+                      <div id="profileName">Jovan-Gianni Lee</div>
+                      Software Developer
+                      </div>
+                  </td>
+                  <td>
+                  </td>
+                  </tr>
+              </tbody>
+              </table>
+              <div className="teamTextBottom animated" id="teamTextBottom">
+              <br />
+              Interested in working with us?
+              <br/>
+              <a id="buttonLink" href="/Careers"><button className="barterOutButton animated" id="applyButtonOne">Apply Now</button></a>
+              </div>
+          </div>
+          <br/>
+          <div>
+              <h2 className="animated" id="meetOurAdvisersHeader">AND OUR ADVISERS</h2>
+              <div className="adviserPageText" id="adviserPageText">
+              <div className="adviserTextTop animated">
+                  <br/>
+                  Because any team needs some guidance from time to time
+              </div>
+              <table className="adviserPhotos animated">
+                  <tbody>
+                  <tr>
+                      <td>
+                      <div id="profile">
+                          <a href="https://www.linkedin.com/in/elizabeth-meyer-3483411b/" target="_blank" rel="noopener noreferrer"><img id="team" alt="team" src={adviserOne}></img></a>
+                          <br/>
+                          <div id="profileName">Elizabeth Meyer</div>
+                          Strategy Advisor
+                          <br/>
+                      </div>
+                      </td>
+                  </tr>
+                  </tbody>
+              </table>
+              <div className="adviserTextBottom animated">
+                  <br/>
+                  Interested in helping us grow?
+                  <br/>
+                  <a id="buttonLink" href="https://goo.gl/forms/tAXa5huk9hAcaNSH2" target="_blank" rel="noopener noreferrer"><button className="barterOutButton animated" id="applyButtonTwo">Apply Now</button></a>
+              </div>
+              </div>
+          </div>
+          </div>
+          <div className="landingPageBottom">
+          <div id="bottomLinksCol1">
+              <div id="bottomLinkHeader">Company</div>
+              <a href="/careers" id="bottomPageLink">Careers</a>
+              <br/>
+              <a href="/contact" id="bottomPageLink">Contact</a>
+              <br/>
+          </div>
+          <div id="bottomLinksCol2">
+              <div id="bottomLinkHeader">Legal</div>
+              <a href="/termsOfService" id="bottomPageLink">Terms of Service</a>
+              <br/>
+              <a href="/privacyPolicy" id="bottomPageLink">Privacy Policy</a>
+          </div>
+          </div>
+          <div id="socialMedia">
+          <a href="https://www.linkedin.com/company/18490388/" target="_blank" rel="noopener noreferrer"><img id="logoImage" alt="logo" src={linkedInLogo}></img></a>
+          <a href="https://www.facebook.com/BarterOut/" target="_blank" rel="noopener noreferrer"><img id="logoImage" alt="logo" src={facebookLogo}></img></a>
+          </div>
+          <div id="copyright">
+          Copyright © 2018 All Rights Reserved.
+          </div>
         </div>
+      </div>
     )
+  }
 }
-}
-
 
 export default LandingPage;
 

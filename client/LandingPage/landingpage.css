@@ -574,6 +574,10 @@ img{
     width: 45vw;
 }
 
+.landing-para {
+  padding: 8px 0;
+}
+
 #socialMedia {
     text-align: center;
     justify-content: center;
@@ -596,5 +600,3 @@ img{
 #buttonLink {
     text-decoration: none;
 }
-
-/* Checking if ProfilePage branch works */

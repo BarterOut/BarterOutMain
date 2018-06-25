@@ -1,11 +1,10 @@
-.inputsForSignUp {
-  margin: 0 8px 16px 0;
-  border: none;
-  /* border-radius: 3px; */
-  width: 80%;
+.generalInput {
+  margin: 4px 0;
+  width: 100%;
   padding: 8px;
-  /* box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24); */
-  border: solid 1px black;
+  border-radius: 3px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+  border: solid 1px #41397c;
 }
 
 .line {
@@ -14,9 +13,14 @@
 }
 
 .inputLabel {
-  margin: 0 12px;
+  margin: 4px 0;
 }
 
 select {
-  margin: 8px;
+  margin: 8px 0;
+}
+
+.terms {
+  margin: 0 8px 16px 0;
+  border: none;
 }

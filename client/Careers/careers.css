@@ -1,21 +1,11 @@
-.pageText h1 {
-    font-family: "orkneybold";
+.content {
+  display: flex;
+  width: 55vw;
+  margin: 32px auto;
+  flex-direction: column;
 }
 
-.careersPage {
-    font-family: "orkneyregular";
-    color: white;
-    font-size: 16pt;
-    background-color: #FFB814;
-    height: 100%;
-}
-
-.pageText {
-    margin: 5% 5%;
-    padding: 2.5% 2.5%;
-    background-color: rgba(0,0,0,0.15);
-}
-
-#backLink {
-    font-style: italic;
+.text-header {
+  color: #4E2B84;
+  font-family: 'Orkney';
 }

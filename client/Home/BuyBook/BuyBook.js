@@ -1,7 +1,7 @@
 /**
  * @file React component for posting a book you are searching for.
  * @author Duncan Grubbs <duncan.grubbs@gmail.com>
- * @version 0.0.1
+ * @version 0.0.2
  */
 
 import React, { Component } from 'react';
@@ -62,7 +62,7 @@ class BuyBook extends Component {
             <span className="inputLabelHome">Title of Book *</span>
             <input
               autoComplete="off"
-              className="inputForLogin"
+              className="generalInput"
               placeholder="e.g. Intro to Probability"
               type="text"
               name="name"
@@ -72,7 +72,7 @@ class BuyBook extends Component {
             <span className="inputLabelHome">Course *</span>
             <input
               autoComplete="off"
-              className="inputForLogin"
+              className="generalInput"
               placeholder="e.g. MTH 101"
               type="text"
               pattern="^[A-Z]{3} \d{3}$"

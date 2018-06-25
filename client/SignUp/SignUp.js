@@ -1,7 +1,7 @@
 /**
  * @file React component for signing users up.
  * @author Duncan Grubbs <duncan.grubbs@gmail.com>
- * @version 0.0.1
+ * @version 0.0.2
  */
 
 import React, { Component } from 'react';
@@ -9,6 +9,7 @@ import axios from 'axios';
 import { Redirect, Link } from 'react-router-dom';
 
 import './SignUp.css';
+import '../baseStyles.css';
 
 class SignUp extends Component {
   constructor(props) {
@@ -38,6 +39,10 @@ class SignUp extends Component {
     if (e.keyCode === 13) {
       this.signUp();
     }
+  }
+
+  checkBox(evt) {
+    console.log(evt.target);
   }
 
   selectChange(evt) {
@@ -86,7 +91,7 @@ class SignUp extends Component {
         <h1>Sign up for BarterOut</h1>
         <span className="inputLabel">First Name *</span>
         <input
-          className="inputsForSignUp"
+          className="input"
           placeholder=""
           type="text"
           onChange={this.onChange.bind(this)}
@@ -95,7 +100,7 @@ class SignUp extends Component {
         />
         <span className="inputLabel">Last Name *</span>
         <input
-          className="inputsForSignUp"
+          className="input"
           placeholder=""
           type="text"
           onChange={this.onChange.bind(this)}
@@ -104,7 +109,7 @@ class SignUp extends Component {
         />
         <span className="inputLabel">Email *</span>
         <input
-          className="inputsForSignUp"
+          className="input"
           placeholder=""
           type="email"
           pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.+-]+\.edu$"
@@ -118,7 +123,7 @@ class SignUp extends Component {
         </select>
         <span className="inputLabel">Venmo Username *</span>
         <input
-          className="inputsForSignUp"
+          className="input"
           placeholder=""
           type="text"
           onChange={this.onChange.bind(this)}
@@ -127,7 +132,7 @@ class SignUp extends Component {
         />
         <span className="inputLabel">CMC Box *</span>
         <input
-          className="inputsForSignUp"
+          className="input"
           placeholder=""
           type="text"
           onChange={this.onChange.bind(this)}
@@ -135,18 +140,16 @@ class SignUp extends Component {
           required
         />
         <div className="line">
-          {/* <span className="inputLabel">Password</span> */}
           <input
-            className="inputsForSignUp"
+            className="input"
             placeholder="Password"
             type="password"
             name="password"
             onChange={this.onChange.bind(this)}
             required
           />
-          {/* <span className="inputLabel">Confirm Password</span> */}
           <input
-            className="inputsForSignUp"
+            className="input"
             placeholder="Confirm Password"
             type="password"
             name="passwordConfirm"
@@ -154,11 +157,15 @@ class SignUp extends Component {
             required
           />
         </div>
+        <div className="terms">
+            By clicking "Sign Up" below, you are agreeing to our <a href="/termsOfService" target="_blank" rel="noopener"> Terms of Service </a>
+            and <a href="/privacyPolicy" target="_blank" rel="noopener"> Privacy Policy</a>.
+        </div>
         <button
           className="button"
           type="submit"
           onClick={this.signUp.bind(this)}
-        >SignUp
+        >Sign Up
         </button>
 
         <span>Back to <Link href="/login" to="/login">Login</Link></span>

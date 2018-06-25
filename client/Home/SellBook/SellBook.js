@@ -1,7 +1,7 @@
 /**
  * @file React component for posting a book you are looking to sell.
  * @author Duncan Grubbs <duncan.grubbs@gmail.com>
- * @version 0.0.1
+ * @version 0.0.2
  */
 
 import React, { Component } from 'react';
@@ -77,7 +77,7 @@ class SellBook extends Component {
             <span className="inputLabelHome">Title of Book *</span>
             <input
               autoComplete="off"
-              className="inputForLogin"
+              className="generalInput"
               placeholder="e.g. Intro to Probability"
               type="text"
               name="name"
@@ -87,7 +87,7 @@ class SellBook extends Component {
             <span className="inputLabelHome">Edition *</span>
             <input
               autoComplete="off"
-              className="inputForLogin"
+              className="generalInput"
               placeholder="e.g. 11"
               type="number"
               name="edition"
@@ -97,7 +97,7 @@ class SellBook extends Component {
             <span className="inputLabelHome">Course *</span>
             <input
               autoComplete="off"
-              className="inputForLogin"
+              className="generalInput"
               placeholder="e.g. MTH 101"
               type="text"
               pattern="^[A-Z]{3} \d{3}$"
@@ -108,7 +108,7 @@ class SellBook extends Component {
             <span className="inputLabelHome">Price *</span>
             <input
               autoComplete="off"
-              className="inputForLogin"
+              className="generalInput"
               placeholder="$"
               type="number"
               name="price"
@@ -118,7 +118,7 @@ class SellBook extends Component {
             <span className="inputLabelHome">ISBN</span>
             <input
               autoComplete="off"
-              className="inputForLogin"
+              className="generalInput"
               placeholder="ISBN"
               type="number"
               pattern="^(?=(?:\D*\d){10}(?:(?:\D*\d){3})?$)[\d-]+$"
@@ -135,7 +135,7 @@ class SellBook extends Component {
             <span className="inputLabelHome">Comments</span>
             <input
               autoComplete="off"
-              className="inputForLogin"
+              className="generalInput"
               placeholder="Comments"
               type="text"
               onChange={this.onChange.bind(this)}
