@@ -7,6 +7,7 @@
 import React, { Component } from 'react';
 
 import AuthService from '../services/AuthService';
+import FetchService from '../services/FetchService';
 
 import './Home.css';
 import logoPic from '../images/barterOutOrangeWhiteLogoHeader.png';
@@ -30,6 +31,12 @@ class Home extends Component {
   }
 
   componentDidMount() {
+    FetchService.GET('/api/dummyGet', {})
+      .then(response => response.json())
+      .then((data) => {
+        console.log(data);
+      });
+
     const auth = new AuthService();
     const token = auth.getToken();
     this.setState({ token: token });

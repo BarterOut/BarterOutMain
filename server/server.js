@@ -73,6 +73,14 @@ if (ENV === 'production') {
   app.use(forceSsl);
 }
 
+app.get('/api/dummyGet', (req, res) => {
+  res.send({ dummy: 'Data' });
+});
+
+app.post('/api/dummyPost', (req, res) => {
+  res.send({ dummy: 'Data' });
+});
+
 app.use(passport.initialize());
 app.use(passport.session()); // calls serializeUser and deserializeUser
 app.use('/api/auth', user);

@@ -1,3 +1,10 @@
+/**
+ * @file User routes for Express.js server.
+ * @author Daniel Munoz
+ * @author Duncan Grubbs <duncan.grubbs@gmail.com>
+ * @version 0.0.2
+ */
+
 import mongoose from 'mongoose';
 
 import User from '../models/newUser';
@@ -17,10 +24,11 @@ const nev = require('email-verification')(mongoose);
 // Makes the email configuration settings
 
 // Hashing function
-var myHasher = function(password, tempUserData, insertTempUser, callback) {
-  var hash = bcrypt.hashSync(password, 10, null);
+function myHasher(password, tempUserData, insertTempUser, callback) {
+  const hash = bcrypt.hashSync(password, 10, null);
   return insertTempUser(hash, tempUserData, callback);
-};
+}
+
 // Configurations for the temp user stuff
 nev.configure({
   verificationURL: 'https://www.barterout.com/api/auth/email-verification/${URL}',
@@ -57,19 +65,19 @@ nev.configure({
     return;
   }
 });
+
 // Creating the temp user
-nev.generateTempUserModel(User, function(err, tempUserModel) {
+nev.generateTempUserModel(User, (err) => {
   if (err) {
     console.log(err);
     return;
   }
-
 });
 
 
 // Needs functionality for this. Unsure if it will be used.
-router.post('/resendEmailVerification', ( req, res ) => {
-  var email = req.emailAddress;
+router.post('/resendEmailVerification', (req, res) => {
+  const email = req.emailAddress;
   console.log(email);
 });
 
@@ -142,8 +150,6 @@ const transporter = nodemailer.createTransport({ // secure authentication
 });
 
 
-
-
 function signedUpEmail(emailTo, firstName) {
   return {
     from: '"Barter Out" <office@barterout.com',
@@ -212,7 +218,7 @@ router.post('/signup', (req, res) => {
           console.log(`User.js post error: ${err}`);
         }
         // user already exists in persistent collection...
-        if (existingPersistentUser){
+        if (existingPersistentUser) {
           res.json({
             error: `Sorry, already a user with the username: ${emailAddress}`,
           });}
