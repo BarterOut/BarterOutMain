@@ -1,3 +1,10 @@
+/**
+ * @file Booksß routes for Express.js server.
+ * @author Daniel Munoz
+ * @author Duncan Grubbs <duncan.grubbs@gmail.com>
+ * @version 0.0.2
+ */
+
 import Textbook from '../models/textbook';
 import TextbookBuy from '../models/textbookBuy';
 import realUser from '../models/newUser';
@@ -40,17 +47,8 @@ router.post('/sellBook', (req, res) => {
     } else {
       realUser.findOne({ _id: authData.userInfo._id }, (error, user) => {
         if (!user) {
-          res.status(401).send( {error: 'You need to create an account' });
+          res.status(401).send({ error: 'You need to create an account' });
         } else {
-          const returnUser = {
-            _id: user._id,
-            emailAddress: user.emailAddress,
-            venmoUsername: user.venmoUsername,
-            CMC: user.CMC,
-            firstName: user.firstName,
-            lastName: user.lastName,
-            matchedBooks: user.matchedBooks,
-          };
           console.log('User Selling Book');
           req.body.payload.date = Date.now();
           const newBook = new Textbook(req.body.payload);
@@ -106,17 +104,8 @@ router.post('/buyBook', (req, res) => {
     } else {
       realUser.findOne({ _id: authData.userInfo._id }, (er, user) => {
         if (!user) {
-          res.status(401).send({error: 'You need to create an account' });
+          res.status(401).send({ error: 'You need to create an account' });
         } else {
-          const returnUser = {
-            _id: user._id,
-            emailAddress: user.emailAddress,
-            venmoUsername: user.venmoUsername,
-            CMC: user.CMC,
-            firstName: user.firstName,
-            lastName: user.lastName,
-            matchedBooks: user.matchedBooks,
-          };
           console.info('User posting book to Buy');
 
           req.body.payload.date = Date.now();
