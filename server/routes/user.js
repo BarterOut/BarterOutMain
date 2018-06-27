@@ -247,7 +247,7 @@ router.get('/userData/:token', (req, res) => {
     } else {
       User.findOne({ _id: authData.userInfo._id }, (error, user) => {
         if (!user) {
-          res.status(401).send({error: 'You need to create an account' });
+          res.status(401).send({ error: 'You need to create an account' });
         } else {
           const returnUser = {
             _id: user._id,
@@ -260,7 +260,7 @@ router.get('/userData/:token', (req, res) => {
           };
           res.json({
             message: 'verified',
-            returnUser,
+            user: returnUser,
           });
         }
       });

@@ -31,41 +31,31 @@ class Home extends Component {
   }
 
   componentDidMount() {
-    FetchService.GET('/api/dummyGet', {})
-      .then(response => response.json())
-      .then((data) => {
-        console.log(data);
-      });
-
     const auth = new AuthService();
     const token = auth.getToken();
-    this.setState({ token: token });
+    this.setToken(token);
 
-    this.callApi(`/api/books/displayAllBooks/${token}`)
-      .then((res) => {
-        this.setState({ posts: res });
-      })
-      .catch(err => new Error(err));
+    FetchService.GET(`/api/books/displayAllBooks/${token}`, {})
+      .then(response => response.json())
+      .then((data) => {
+        this.setState({ posts: data });
+      });
 
-    this.callApi(`/api/auth/userData/${token}`)
-      .then((res) => {
-        this.setState({ user: res.returnUser });
-      })
-      .catch(err => new Error(err));
+    FetchService.GET(`/api/auth/userData/${token}`, {})
+      .then(response => response.json())
+      .then((data) => {
+        this.setState({ user: data.user });
+      });
 
-    this.callApi(`/api/books/showMatches/${token}`)
-      .then((response) => {
-        this.setState({ matches: response });
-      })
-      .catch((error) => {
-        console.error(`Sign up server error: ${error}`);
+    FetchService.GET(`/api/books/showMatches/${token}`, {})
+      .then(response => response.json())
+      .then((data) => {
+        this.setState({ matches: data });
       });
   }
 
-  async callApi(url) {
-    const response = await fetch(url);
-    const body = await response.json();
-    return body;
+  setToken(token) {
+    this.setState({ token });
   }
 
   logout() {
@@ -87,16 +77,18 @@ class Home extends Component {
 
   search(query) {
     if (query === '') {
-      this.callApi(`/api/books/displayAllBooks/${this.state.token}`)
-        .then((res) => {
-          this.setState({ posts: res });
+      FetchService.GET(`/api/books/displayAllBooks/${this.state.token}`)
+        .then(response => response.json())
+        .then((data) => {
+          this.setState({ posts: data });
         })
         .catch(err => console.warn(err));
       return;
     }
-    this.callApi(`/api/books/searchBook/${query}`)
-      .then((res) => {
-        this.setState({ posts: res });
+    FetchService.GET(`/api/books/searchBook/${query}`)
+      .then(response => response.json())
+      .then((data) => {
+        this.setState({ posts: data });
       })
       .catch(err => console.warn(err));
   }
