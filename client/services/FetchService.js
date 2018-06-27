@@ -6,7 +6,7 @@
 
 export default class FetchService {
   /**
-   * Sends GET request to API and validates response, resturning the data in a promise
+   * Sends GET request to API and validates response, returning the data in a promise.
    * @param {String} url URL for the API request.
    * @param {Object} data Any data you want to pass to the server.
    */
@@ -23,7 +23,7 @@ export default class FetchService {
   }
 
   /**
-   * Sends POST request to API and validates response, resturning the data in a promise.
+   * Sends POST request to API and validates response, returning the data in a promise.
    * @param {String} url URL for the API request.
    * @param {Object} data Any data you want to pass to the server.
    */
