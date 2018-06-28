@@ -4,11 +4,8 @@
  * @version 0.0.2
  */
 
-// TODO: Use auth service login function instead of axios
-
 import React, { Component } from 'react';
 import { Redirect, Link } from 'react-router-dom';
-import axios from 'axios';
 import AuthService from '../services/AuthService';
 
 import './Login.css';
@@ -50,8 +47,7 @@ class Login extends Component {
   }
 
   login() {
-    if (this.state.emailAddress === '' ||
-      this.state.password === '') {
+    if (!this._validateInputs()) {
       return;
     }
 
@@ -63,6 +59,7 @@ class Login extends Component {
           const user = response.data;
           sessionStorage.setItem('token', JSON.stringify(user.token));
           // Update the state to redirect to home
+          this.setState({ badCreditials: false });
           this.setState({ redirect: true });
         }
       }).catch((error) => {
@@ -70,11 +67,15 @@ class Login extends Component {
           this.setState({ badCreditials: true });
         }
       });
+  }
 
-    // axios.post('/api/auth/login', {
-    //   emailAddress: this.state.emailAddress,
-    //   password: this.state.password,
-    // })
+  _validateInputs() {
+    if (this.state.emailAddress === '' ||
+      this.state.password === '') {
+      this.setState({ badCreditials: true });
+      return false;
+    }
+    return true;
   }
 
   render() {

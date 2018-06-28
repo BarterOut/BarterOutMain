@@ -24,6 +24,8 @@ class SignUp extends Component {
       CMC: '',
       venmoUsername: '',
       redirect: false,
+      allFilledOut: true,
+      passwordsMatch: true,
     };
   }
 
@@ -41,25 +43,16 @@ class SignUp extends Component {
     }
   }
 
-  checkBox(evt) {
-    console.log(evt.target);
-  }
-
   selectChange(evt) {
     const index = evt.target.selectedIndex;
     this.setState({ university: evt.target[index].value });
   }
 
   signUp() {
-    if (!(this.state.passwordConfirm === this.state.password)) {
-      window.alert('Please make your passwords the same!');
-      return;
-    }
+    this.setState({ passwordsMatch: true });
+    this.setState({ allFilledOut: true });
 
-    const checkerEmail = this.state.emailAddress.split('@')[1];
-
-    if (checkerEmail !== 'u.rochester.edu' && checkerEmail !== 'rochester.edu') {
-      window.alert('Please user a school email account!');
+    if (!this._validateInputs()) {
       return;
     }
 
@@ -75,11 +68,25 @@ class SignUp extends Component {
       .then(() => {
         console.log('You have been signed up!');
         this.setState({ redirect: true });
-        // window.location.reload();
       })
       .catch((error) => {
         console.error(`Sign up server error: ${error}`);
       });
+  }
+
+  _validateInputs() {
+    if (!(this.state.passwordConfirm === this.state.password)) {
+      this.setState({ passwordsMatch: false });
+      return false;
+    }
+
+    const checkerEmail = this.state.emailAddress.split('@')[1];
+
+    if (checkerEmail !== 'u.rochester.edu' && checkerEmail !== 'rochester.edu') {
+      this.setState({ allFilledOut: false });
+      return false;
+    }
+    return true;
   }
 
   render() {
@@ -89,6 +96,7 @@ class SignUp extends Component {
     return (
       <div className="login-wrapper">
         <h1>Sign up for BarterOut</h1>
+        {!this.state.allFilledOut && 'Please fill out all of the required fields correctly!'}
         <span className="inputLabel">First Name *</span>
         <input
           className="input"
@@ -139,6 +147,7 @@ class SignUp extends Component {
           name="CMC"
           required
         />
+        {!this.state.passwordsMatch && 'Please make your passwords the same!'}
         <div className="line">
           <input
             className="input"
