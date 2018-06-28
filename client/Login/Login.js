@@ -21,6 +21,7 @@ class Login extends Component {
       emailAddress: '',
       password: '',
       redirect: false,
+      badCreditials: false,
     };
     this.Auth = new AuthService();
   }
@@ -54,20 +55,26 @@ class Login extends Component {
       return;
     }
 
-    axios.post('/api/auth/login', {
-      emailAddress: this.state.emailAddress,
-      password: this.state.password,
-    })
+    const Auth = new AuthService();
+
+    Auth.login(this.state.emailAddress, this.state.password)
       .then((response) => {
         if (response.status === 200) {
           const user = response.data;
           sessionStorage.setItem('token', JSON.stringify(user.token));
-          // update the state to redirect to home
+          // Update the state to redirect to home
           this.setState({ redirect: true });
         }
       }).catch((error) => {
-        console.warn(`Error Loggin in: ${error}`);
+        if (error.status === 401) {
+          this.setState({ badCreditials: true });
+        }
       });
+
+    // axios.post('/api/auth/login', {
+    //   emailAddress: this.state.emailAddress,
+    //   password: this.state.password,
+    // })
   }
 
   render() {
@@ -77,6 +84,7 @@ class Login extends Component {
     return (
       <div className="login-wrapper">
         <h1 id="login-header">Login to BarterOut</h1>
+        {this.state.badCreditials && <span>Incorrect Username or Password</span>}
         <input
           className="input"
           onChange={this.onChange.bind(this)}
