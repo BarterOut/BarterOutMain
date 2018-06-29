@@ -65,9 +65,11 @@ class SignUp extends Component {
       lastName: this.state.lastName,
       CMC: this.state.CMC,
     })
-      .then(() => {
-        console.log('You have been signed up!');
-        this.setState({ redirect: true });
+      .then((response) => {
+        if (response.status >= 200 && response.status < 400) {
+          console.log('Check your email to verify your account!');
+          this.setState({ redirect: true });
+        }
       })
       .catch((error) => {
         console.error(`Sign up server error: ${error}`);
@@ -80,6 +82,7 @@ class SignUp extends Component {
       return false;
     }
 
+    // This is only temporary since we only allow U of R students currently.
     const checkerEmail = this.state.emailAddress.split('@')[1];
 
     if (checkerEmail !== 'u.rochester.edu' && checkerEmail !== 'rochester.edu') {
