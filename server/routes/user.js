@@ -269,6 +269,7 @@ router.get('/userData/:token', (req, res) => {
 });
 
 router.post('/login', (req, res) => {
+  console.log(req);
   const { emailAddress, password } = req.body;
   User.findOne({ emailAddress }, (err, user) => {
     if (err) {
@@ -284,6 +285,7 @@ router.post('/login', (req, res) => {
       res.status(401).send({ error: 'Incorrect Password' });
       return;
     }
+    console.log('goood user')
 
     const userInfo = {
       // Can add more stuff into this so that it has more info, for now it only has the id
