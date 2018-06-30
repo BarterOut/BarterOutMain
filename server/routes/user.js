@@ -324,7 +324,7 @@ router.post('/updateInfo', (req, res) => {
 //Needs testing
 // Will update the password
 // Requires the token to be sent as well as the plain text password to be sent, will be hashed inside of the function.
-router.post('/updateInfo', (req, res) => {
+router.post('/updatePassword', (req, res) => {
   //Method to verify, this is commented out because everything depends on having some infomration in the session storage
   jwt.verify(req.token, 'secretkey', (errr, authData) => {
     if (errr) {
