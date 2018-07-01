@@ -178,7 +178,6 @@ function signedUpEmail(emailTo, firstName) {
 }
 
 
-// THIS FUNCTION WORKS
 router.post('/signup', (req, res) => {
   const {
     emailAddress,
@@ -258,7 +257,7 @@ router.get('/userData/:token', (req, res) => {
             lastName: user.lastName,
             matchedBooks: user.matchedBooks,
           };
-          res.json({
+          res.status(200).json({
             message: 'verified',
             user: returnUser,
           });
@@ -269,23 +268,26 @@ router.get('/userData/:token', (req, res) => {
 });
 
 router.post('/login', (req, res) => {
-  console.log(req);
+  console.log(req.body);
   const { emailAddress, password } = req.body;
+  console.log(req.body);
   User.findOne({ emailAddress }, (err, user) => {
     if (err) {
       console.warn(err);
-      res.json({ error: err });
+      res.status(400).json({ error: err });
       return;
     }
     if (!user) {
+      console.log('No user');
       res.status(401).send({ error: 'You need to create an account' });
       return;
     }
     if (!user.checkPassword(password)) {
+      console.log('wrong pass');
       res.status(401).send({ error: 'Incorrect Password' });
       return;
     }
-    console.log('goood user')
+    console.log('goood user');
 
     const userInfo = {
       // Can add more stuff into this so that it has more info, for now it only has the id
@@ -294,9 +296,7 @@ router.post('/login', (req, res) => {
 
     // Creates the token and sends the JSON back
     jwt.sign({ userInfo }, 'secretKey', { expiresIn: '30 days' }, (error, token) => {
-      res.json({
-        token,
-      });
+      res.status(200).json({ token });
     });
   });
 });

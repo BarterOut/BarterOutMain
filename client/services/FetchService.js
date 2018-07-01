@@ -15,7 +15,7 @@ export default class FetchService {
       method: 'GET',
       body: data,
     }).then((res) => {
-      if (FetchService._checkStatus(res)) {
+      if (!FetchService._checkStatus(res)) {
         return Promise.reject(new Error(`Bad Status Code ${res.status}`));
       }
       return Promise.resolve(res);
@@ -32,7 +32,7 @@ export default class FetchService {
       method: 'POST',
       body: data,
     }).then((res) => {
-      if (res.status !== 200) {
+      if (!FetchService._checkStatus(res)) {
         return Promise.reject(new Error(`Bad Status Code ${res.status}`));
       }
       return Promise.resolve(res);
@@ -42,7 +42,7 @@ export default class FetchService {
   static _checkStatus(response) {
     // Raises an error in case response status is not a success
     if (response.status >= 200 && response.status < 300) { // Success status lies between 200 to 300
-      return response;
+      return true;
     } else {
       const error = new Error(response.statusText);
       error.response = response;
