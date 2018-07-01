@@ -4,15 +4,17 @@ const bcrypt = require('bcryptjs');
 mongoose.promise = Promise
 
 const newUserSchema = new Schema({
-  emailAddress: { type: 'String', required: true },
+  emailAddress: { type: 'String', unique: true, required: true },
   password: { type: 'String', required: true },
   venmoUsername: { type: 'String', required: true },
   CMC: { type: 'String', required: true },
-  firstName: {type:'String', required: true},
-  lastName: {type:'String', required: true},
-  matchedBooks: [{type:String}],
+  firstName: { type:'String', required: true },
+  lastName: { type:'String', required: true} ,
+  matchedBooks: [{ type:String}],
   // array of matched books so you can look at those books might have to add quotes for it
-  univeristy: {type: 'String', required: true},
+  univeristy: {type: 'String', required: true },
+  resetPasswordToken: { type: 'String' },
+  resetPasswordExpires: { type: Date },
 },{
   collection: 'userInfo',
 })

@@ -14,6 +14,7 @@ const nodemailer = require('nodemailer');
 
 const bcrypt = require('bcryptjs');
 
+const crypto = require("crypto");
 
 const nev = require('email-verification')(mongoose);
 // Makes the email configuration settings
@@ -174,6 +175,32 @@ function signedUpEmail(emailTo, firstName) {
 }
 
 
+function passwordResetEmail(emailTo, firstName, URL) {
+  return {
+    from: '"Barter Out" <office@barterout.com',
+    to: emailTo,
+    subject: 'Thank you for signing up',
+    html: 'Dear ' + firstName + ',  <br></br> ' +
+    '\n' +
+    'This email has been sent to reset your password.  <br></br> ' +
+    'Please click <a href=http://localhost:8080/api/auth/passwordReset/' +URL+ '>this link</a> in order to continue. If you are unable to do so, copy and paste the following link into your browser:' + URL + '<br> </br>' +
+    'If you know anyone looking to buy or sell used textbooks, feel free to invite them to join our platform in this beta version.    <br> </br> \n' +
+    '<br></br> ' +
+    'If you have any questions, feel free to send us an email at office@barterout.com!\n' +
+    '<br></br> <br></br>   ' +
+    'Thank you,<br></br> ' +
+    'The BarterOut team<br></br> <br></br> '+
+    '\n' +
+    'Like us on <a href="https://www.facebook.com/BarterOut/" target="_blank">Facebook</a> <br> </br> Follow us on <a href="https://www.instagram.com/barteroutofficial/" target="_blank">Instagram</a>',
+    auth: {
+      user: 'office@barterout.com',
+      refreshToken: '1/9XdHU4k2vwYioRyAP8kaGYfZXKfp_JxqUwUMYVJWlZs',
+      accessToken: 'ya29.GluwBeUQiUspdFo1yPRfzFMWADsKsyQhB-jgX3ivPBi5zcIldvyPYZtRME6xqZf7UNzkXzZLu1fh0NpeO11h6mwS2qdsL_JREzpKw_3ebOWLNgxTyFg5NmSdStnR',
+      // expires: 1484314697598
+    },
+  };
+}
+
 // THIS FUNCTION WORKS
 router.post('/signup', (req, res) => {
   const {
@@ -299,7 +326,7 @@ router.post('/login', (req, res) => {
 //Needs testing
 // Will update name, venmo, address
 //Requires the token to be sent as we ll as the body to cointain the info that will be updated
-router.post('/updateInfo', (req, res) => {
+router.post('/updateProfile', (req, res) => {
   //Method to verify, this is commented out because everything depends on having some infomration in the session storage
   jwt.verify(req.token, 'secretkey', (errr, authData) => {
     if (errr) {
@@ -347,7 +374,7 @@ router.post('/updatePassword', (req, res) => {
         }
         //if it passes all the check before there is a user and the password is correct so it can be updated for the new one
         User.update(
-          { _id: authData.userInfo._id },
+          {_id: authData.userInfo._id},
           {
             $set:
               {
@@ -356,12 +383,70 @@ router.post('/updatePassword', (req, res) => {
               },
           },
         );
-
-      })
-
+      });
     }
+  });
 });
 
+
+router.post('/passwordResetRequest', (req, res) => {
+  const email = req.body.emailAddress;
+  var token;
+  User.findOne({ emailAddress: email }, (err, user) => {
+    if (user != null) {
+      crypto.randomBytes(20, function (error, buf) {
+        token = buf.toString('hex');
+      });
+      user.resetPasswordToken = token;
+      user.resetPasswordExpires = Date.now() + 86400000;
+      user.save(function (er) {
+        if (er) {
+          console.log(er);
+        }
+      });
+      sendEmail(passwordResetEmail(user.emailAddress, user.firstName, user.resetPasswordToken));
+
+    } else {
+      console.log('no such user found with email: ' + email);
+      res.status(406).send({ error: 'no user found' });
+    }
+  });
+
+});
+
+router.get('/passwordReset/:token', (req, res) => {
+  User.findOne({ resetPasswordToken: req.params.token}, (err, user) =>{
+    if (!user) {
+      console.log('invalid token: ' + req.params.token);
+      res.status(406).send({ error: 'token expired or is invalid' });
+
+    }
+    else {
+      // res.set({ resetToken: req.params.token });
+      res.redirect('/resetPassword/:token');
+    }
+  });
+});
+
+router.post('/passwordReset', (req, res) => {
+  User.findOne({ resetPasswordToken: req.params.token, resetPasswordExpires: { $gt: Date.now() } }, (err, user) => {
+    if (!user) {
+      console.log('invalid token: ' + req.params.token);
+      res.status(406).send({ error: 'token expired or is invalid' });
+
+    }
+    else {
+      user.password = User.hashPassword(req.password);
+      user.resetPasswordExpires = undefined;
+      user.resetPasswordToken = undefined;
+      user.save(function (error) {
+        console.log(error);
+      });
+      //can send an email here
+      res.redirect('/home');
+    }
+  });
+});
 
 // Just in case this is needed
 router.get('/', (req, res) => {

@@ -173,7 +173,7 @@ router.post('/clickBuy', (req, res) => {
     if (err) {
       res.sendStatus(403);
     } else {
-      User.findOne({ _id: authData.userInfo._id }, (error, user) => {
+      realUser.findOne({ _id: authData.userInfo._id }, (error, user) => {
         if (!user) {
           res.status(401).send({ error: 'You need to create an account' });
         } else {
