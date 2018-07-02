@@ -23,7 +23,7 @@ class SignUp extends Component {
       university: 'University of Rochester',
       CMC: '',
       venmoUsername: '',
-      redirect: false,
+      success: false,
       allFilledOut: true,
       passwordsMatch: true,
     };
@@ -67,8 +67,7 @@ class SignUp extends Component {
     })
       .then((response) => {
         if (response.status >= 200 && response.status < 400) {
-          console.log('Check your email to verify your account!');
-          this.setState({ redirect: true });
+          this.setState({ success: true });
         }
       })
       .catch((error) => {
@@ -93,12 +92,10 @@ class SignUp extends Component {
   }
 
   render() {
-    if (this.state.redirect) {
-      return (<Redirect to="/login" />);
-    }
     return (
       <div className="login-wrapper">
         <h1>Sign up for BarterOut</h1>
+        <h3>{this.state.success && 'You have been signed up, please check your email to verify your account!'}</h3>
         {!this.state.allFilledOut && 'Please fill out all of the required fields correctly!'}
         <span className="inputLabel">First Name *</span>
         <input
@@ -141,11 +138,11 @@ class SignUp extends Component {
           name="venmoUsername"
           required
         />
-        <span className="inputLabel">CMC Box *</span>
+        <span className="inputLabel">CMC Box Number *</span>
         <input
           className="input"
           placeholder=""
-          type="text"
+          type="number"
           onChange={this.onChange.bind(this)}
           name="CMC"
           required

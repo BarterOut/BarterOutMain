@@ -53,17 +53,10 @@ class Login extends Component {
 
     const Auth = new AuthService();
 
-    console.log(this.state);
-
     Auth.login(this.state.emailAddress, this.state.password)
-      .then((response) => {
-        console.log(response);
+      .then(() => {
+        this.setState({ badCreditials: false });
         this.setState({ redirect: true });
-        if (response.status === 200) {
-          // Update the state to redirect to home
-          this.setState({ badCreditials: false });
-          this.setState({ redirect: true });
-        }
       }).catch((error) => {
         if (error.status === 401) {
           this.setState({ badCreditials: true });

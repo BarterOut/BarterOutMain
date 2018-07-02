@@ -82,8 +82,8 @@ router.post('/resendEmailVerification', (req, res) => {
 });
 
 router.get('/email-verification/:URL', (req, res) => {
-  var url = req.params.URL;
-  nev.confirmTempUser(url, function(err, user) {
+  const url = req.params.URL;
+  nev.confirmTempUser(url, (err, user) => {
     if (err) {
       console.log(err);
     }
@@ -92,12 +92,11 @@ router.get('/email-verification/:URL', (req, res) => {
       // optional
       sendEmail(signedUpEmail(user.emailAddress, user.firstName));// Verified the user
       res.redirect('/home');
-    } else{
+    } else {
       console.log('user data probably expired, send some sort of msg');
       res.redirect('api/auth/signup');
     }
   });
-
 });
 
 function verifyEmail(emailTo, firstName, URL) {
@@ -105,18 +104,15 @@ function verifyEmail(emailTo, firstName, URL) {
     from: '"Barter Out" <office@barterout.com',
     to: emailTo,
     subject: 'Thank you for signing up',
-    html: 'Dear ' + firstName + ',  <br></br> ' +
-    '\n' +
-    'Thank you for signing up on our platform. Start using our service today on our <a href="https://www.barterout.com/" target="_blank">website</a> by putting a textbook up for sale or buying one from another student.    <br></br> ' +
-    'Please verify your account by clicking <a href=http://localhost:8080/api/auth/email-verification/' +URL+ '>this link</a>. If you are unable to do so, copy and paste the following link into your browser:' + URL + '<br> </br>' +
-    'If you know anyone looking to buy or sell used textbooks, feel free to invite them to join our platform in this beta version.    <br> </br> \n' +
-    '<br></br> ' +
-    'If you have any questions, feel free to send us an email at office@barterout.com!\n' +
-    '<br></br> <br></br>   ' +
-    'Thank you,<br></br> ' +
-    'The BarterOut team<br></br> <br></br> '+
-    '\n' +
-    'Like us on <a href="https://www.facebook.com/BarterOut/" target="_blank">Facebook</a> <br> </br> Follow us on <a href="https://www.instagram.com/barteroutofficial/" target="_blank">Instagram</a>',
+    html: `Dear ${firstName},<br />
+    Thank you for signing up on our platform.
+    Please verify your account by clicking <a href=http://localhost:8080/api/auth/email-verification/${URL}>this link</a>. <br /> 
+    Start using our service today on our <a href="https://www.barterout.com/" target="_blank">website</a> by putting a textbook up for sale or buying one from another student.<br />
+    If you have any questions, feel free to send us an email at office@barterout.com!
+    <br /><br />
+    Thank you,<br />
+    The BarterOut Team<br /><br />
+    Like us on <a href="https://www.facebook.com/BarterOut/" target="_blank">Facebook</a> <br> </br> Follow us on <a href="https://www.instagram.com/barteroutofficial/" target="_blank">Instagram</a>`,
     auth: {
       user: 'office@barterout.com',
       refreshToken: '1/9XdHU4k2vwYioRyAP8kaGYfZXKfp_JxqUwUMYVJWlZs',
@@ -211,27 +207,26 @@ router.post('/signup', (req, res) => {
       });
 
       // More stuff for the email verification
-      nev.createTempUser(newUser, function(err, existingPersistentUser, newTempUser) {
+      nev.createTempUser(newUser, (error, existingPersistentUser, newTempUser) => {
         // some sort of error
         if (err) {
-          console.log(`User.js post error: ${err}`);
+          console.log(`User.js post error: ${error}`);
         }
         // user already exists in persistent collection...
         if (existingPersistentUser) {
-          res.json({
+          res.status(409).json({
             error: `Sorry, already a user with the username: ${emailAddress}`,
-          });}
+          });
+        }
         // a new user
         if (newTempUser) {
-          var URL = newTempUser[nev.options.URLFieldName];
-          console.log(emailAddress);
+          const URL = newTempUser[nev.options.URLFieldName];
           sendEmail(verifyEmail(emailAddress, firstName, URL));
+          res.sendStatus(201);
         } else {
-          res.json({
-            msg: 'You have already signed up. Please check your email to verify your account.'
+          res.status(409).json({
+            msg: 'You have already signed up. Please check your email to verify your account.',
           });
-          // flash message of failure...
-          console.log('failure; user.js');
         }
       });
     }
@@ -268,9 +263,7 @@ router.get('/userData/:token', (req, res) => {
 });
 
 router.post('/login', (req, res) => {
-  console.log(req.body);
   const { emailAddress, password } = req.body;
-  console.log(req.body);
   User.findOne({ emailAddress }, (err, user) => {
     if (err) {
       console.warn(err);
@@ -283,7 +276,6 @@ router.post('/login', (req, res) => {
       return;
     }
     if (!user.checkPassword(password)) {
-      console.log('wrong pass');
       res.status(401).send({ error: 'Incorrect Password' });
       return;
     }

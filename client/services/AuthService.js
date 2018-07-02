@@ -11,15 +11,12 @@ export default class AuthService {
 
   login(emailAddress, password) {
     // Get a token from api server using the fetch api
-    return fetch('/api/auth/login', {
+    return this.fetch('/api/auth/login', {
       method: 'POST',
-      body: { email: emailAddress, pass: password },
-    }).then((res) => {
-      if (this._checkStatus(res)) {
-        this.setToken(res.token); // Setting the token in localStorage
-        return Promise.resolve(res);
-      }
-      return Promise.reject(new Error(`Bad status code ${res.status}`));
+      body: JSON.stringify({ emailAddress, password }),
+    }).then((data) => {
+      this.setToken(data.token); // Setting the token in localStorage
+      return Promise.resolve(data);
     });
   }
 
@@ -83,19 +80,18 @@ export default class AuthService {
     if (this.loggedIn()) {
       headers['Authorization'] = `Bearer ${this.getToken()}`;
     }
-
     return fetch(url, {
       headers,
       ...options,
     })
-      .then(this._checkStatus)
+      .then(res => this._checkStatus(res))
       .then(response => response.json());
   }
 
   _checkStatus(response) {
     // raises an error in case response status is not a success
     if (response.status >= 200 && response.status < 300) { // Success status lies between 200 to 300
-      return true;
+      return response;
     } else {
       const error = new Error();
       error.status = response.status;
