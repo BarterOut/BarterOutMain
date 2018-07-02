@@ -279,7 +279,7 @@ router.post('/login', (req, res) => {
       res.status(401).send({ error: 'Incorrect Password' });
       return;
     }
-    console.log('goood user');
+    console.log('Good User.');
 
     const userInfo = {
       // Can add more stuff into this so that it has more info, for now it only has the id

@@ -6,7 +6,7 @@
 
 import React, { Component } from 'react';
 import axios from 'axios';
-import { Redirect, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import './SignUp.css';
 import '../baseStyles.css';
@@ -81,6 +81,11 @@ class SignUp extends Component {
       return false;
     }
 
+    if (!this.state.emailAddress.includes('@')) {
+      this.setState({ allFilledOut: false });
+      return false;
+    }
+
     // This is only temporary since we only allow U of R students currently.
     const checkerEmail = this.state.emailAddress.split('@')[1];
 
@@ -95,8 +100,8 @@ class SignUp extends Component {
     return (
       <div className="login-wrapper">
         <h1>Sign up for BarterOut</h1>
-        <h3>{this.state.success && 'You have been signed up, please check your email to verify your account!'}</h3>
-        {!this.state.allFilledOut && 'Please fill out all of the required fields correctly!'}
+        <h3>{this.state.success && 'Thanks for signing up, before logging in, please check your email to verify your account!'}</h3>
+        <h4 className="signup-error">{!this.state.allFilledOut && 'Please fill out all of the required fields correctly!'}</h4>
         <span className="inputLabel">First Name *</span>
         <input
           className="input"
@@ -147,7 +152,7 @@ class SignUp extends Component {
           name="CMC"
           required
         />
-        {!this.state.passwordsMatch && 'Please make your passwords the same!'}
+        <h4 className="signup-error">{!this.state.passwordsMatch && 'Please make your passwords the same!'}</h4>
         <div className="line">
           <input
             className="input"
