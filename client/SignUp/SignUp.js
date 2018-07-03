@@ -78,6 +78,15 @@ class SignUp extends Component {
   _validateInputs() {
     if (!(this.state.passwordConfirm === this.state.password)) {
       this.setState({ passwordsMatch: false });
+      const $password = document.getElementsByName('password')[0];
+      const $passwordConfirm = document.getElementsByName('passwordConfirm')[0];
+
+      $password.className = '';
+      $password.className = 'badInput';
+
+      $passwordConfirm.className = '';
+      $passwordConfirm.className = 'badInput';
+
       return false;
     }
 
@@ -90,18 +99,33 @@ class SignUp extends Component {
     const checkerEmail = this.state.emailAddress.split('@')[1];
 
     if (checkerEmail !== 'u.rochester.edu' && checkerEmail !== 'rochester.edu') {
+      const $emailAddress = document.getElementsByName('emailAddress')[0];
+
+      $emailAddress.className = '';
+      $emailAddress.className = 'badInput';
       this.setState({ allFilledOut: false });
       return false;
     }
-    return true;
+
+    let allGood = true;
+    const inputsArray = document.getElementsByClassName('input');
+    for (let i = 0; i < inputsArray.length; i++) {
+      if (inputsArray[i].value === '') {
+        this.setState({ allFilledOut: false });
+        allGood = false;
+        inputsArray[i].className = 'badInput';
+      }
+    }
+
+    return allGood;
   }
 
   render() {
     return (
       <div className="login-wrapper">
         <h1>Sign up for BarterOut</h1>
-        <h3>{this.state.success && 'Thanks for signing up, before logging in, please check your email to verify your account!'}</h3>
-        <h4 className="signup-error">{!this.state.allFilledOut && 'Please fill out all of the required fields correctly!'}</h4>
+        {this.state.success && <h3>Thanks for signing up, before logging in, please check your email to verify your account!</h3>}
+        {!this.state.allFilledOut && <h4 className="signup-error">Please ensure all the required fields are filled out.</h4>}
         <span className="inputLabel">First Name *</span>
         <input
           className="input"
@@ -152,7 +176,7 @@ class SignUp extends Component {
           name="CMC"
           required
         />
-        <h4 className="signup-error">{!this.state.passwordsMatch && 'Please make your passwords the same!'}</h4>
+        {!this.state.passwordsMatch && <h4 className="signup-error">Please make sure your passwords are the same!</h4>}
         <div className="line">
           <input
             className="input"
