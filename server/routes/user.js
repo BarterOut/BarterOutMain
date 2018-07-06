@@ -3,6 +3,9 @@ import mongoose from 'mongoose';
 import User from '../models/newUser';
 import TextbookBuy from "../models/textbookBuy";
 import Textbook from "../models/textbook";
+import TempUser from '../models/tempUser'
+
+TempUser.getIndexes({ 'createdAt': 1 }, { expireAfterSeconds: 86400 })
 
 const express = require('express');
 
@@ -17,6 +20,8 @@ const bcrypt = require('bcryptjs');
 const crypto = require("crypto");
 
 const nev = require('email-verification')(mongoose);
+
+const rand = require('rand-token');
 // Makes the email configuration settings
 
 // Hashing function
@@ -78,21 +83,50 @@ router.post('/resendEmailVerification', ( req, res ) => {
 
 router.get('/email-verification/:URL', (req, res) => {
   var url = req.params.URL;
-  nev.confirmTempUser(url, function(err, user) {
-    if (err) {
-      console.log(err);
+  TempUser.findOne({ emailToken: url }, (error, tempUser ) => {
+    if (error) {
+      console.log(error);
     }
-    // user was found!
-    if (user) {
-      // optional
-      sendEmail(signedUpEmail(user.emailAddress, user.firstName));// Verified the user
-      res.redirect('/home');
-    } else{
-      console.log('user data probably expired, send some sort of msg');
-      res.redirect('api/auth/signup');
+    if (tempUser) {
+      const newUser = new User({
+        emailAddress: tempUser.emailAddress,
+        password: tempUser.password,
+        CMC: tempUser.CMC,
+        venmoUsername: tempUser.venmoUsername,
+        firstName: tempUser.firstName,
+        lastName: tempUser.lastName,
+        matchedBooks: [],
+        univeristy: tempUser.univeristy,
+        resetPasswordToken: '',
+        resetPasswordExpires: '',
+      });
+      newUser.save()
+        .then(() => {
+          console.log('a new user has been verified');
+          sendEmail(signedUpEmail(newUser.emailAddress, newUser.firstName));// Verified the user
+          TempUser.remove({ emailToken: url });// removes temp user
+          res.redirect('/home');
+        });
+    } else {
+      console.log('user data probabbly expired, send some sort of msg');
+      res.redirect('/signup');
     }
   });
 
+  // nev.confirmTempUser(url, function(err, user) {
+  //   if (err) {
+  //     console.log(err);
+  //   }
+  //   // user was found!
+  //   if (user) {
+  //     // optional
+  //     sendEmail(signedUpEmail(user.emailAddress, user.firstName));// Verified the user
+  //     res.redirect('/home');
+  //   } else{
+  //     console.log('user data probably expired, send some sort of msg');
+  //     res.redirect('api/auth/signup');
+  //   }
+  // });
 });
 
 function verifyEmail(emailTo, firstName, URL) {
@@ -222,42 +256,63 @@ router.post('/signup', (req, res) => {
         error: `Sorry, already a user with the username: ${emailAddress}`,
       });
     } else {
-      console.log(`Making a new user from ${univeristy}`);
-      const newUser = new User({
-        emailAddress,
-        password,
-        CMC,
-        venmoUsername,
-        firstName,
-        lastName,
-        matchedBooks: [],
-        univeristy,
-      });
-
-      // More stuff for the email verification
-      nev.createTempUser(newUser, function(err, existingPersistentUser, newTempUser) {
-        // some sort of error
+      TempUser.findOne({ emailAddress }, (er, existingUser) => {
         if (err) {
-          console.log(`User.js post error: ${err}`);
+          console.log(`tempUser.js post error: ${er}`);
+
         }
-        // user already exists in persistent collection...
-        if (existingPersistentUser){
-          res.json({
-            error: `Sorry, already a user with the username: ${emailAddress}`,
-          });}
-        // a new user
-        if (newTempUser) {
-          var URL = newTempUser[nev.options.URLFieldName];
-          console.log(emailAddress);
-          sendEmail(verifyEmail(emailAddress, firstName, URL));
-        } else {
+        else if (existingUser){
           res.json({
             msg: 'You have already signed up. Please check your email to verify your account.'
           });
-          // flash message of failure...
-          console.log('failure; user.js');
+        } else {
+          console.log(`Making a temp user from ${univeristy}`);
+          var emailToken = rand.generate(48);
+          const newUser = new TempUser({
+            emailAddress,
+            password,
+            CMC,
+            venmoUsername,
+            firstName,
+            lastName,
+            matchedBooks: [],
+            univeristy,
+            emailToken,
+            createdAt: Date.now(),
+          });
+          newUser.save()
+            .then(() => {
+              console.info('temp user was saved to DB');
+              var URL = newUser.emailToken;
+              console.log(emailAddress);
+              sendEmail(verifyEmail(emailAddress, firstName, URL));
+            });
         }
       });
+      // // More stuff for the email verification
+      // nev.createTempUser(newUser, function(err, existingPersistentUser, newTempUser) {
+      //   // some sort of error
+      //   if (err) {
+      //     console.log(`User.js post error: ${err}`);
+      //   }
+      //   // user already exists in persistent collection...
+      //   if (existingPersistentUser){
+      //     res.json({
+      //       error: `Sorry, already a user with the username: ${emailAddress}`,
+      //     });}
+      //   // a new user
+      //   if (newTempUser) {
+      //     var URL = newTempUser[nev.options.URLFieldName];
+      //     console.log(emailAddress);
+      //     sendEmail(verifyEmail(emailAddress, firstName, URL));
+      //   } else {
+      //     res.json({
+      //       msg: 'You have already signed up. Please check your email to verify your account.'
+      //     });
+      //     // flash message of failure...
+      //     console.log('failure; user.js');
+      //   }
+      // });
     }
   });
 });
