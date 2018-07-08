@@ -3,9 +3,10 @@ import mongoose from 'mongoose';
 import User from '../models/newUser';
 import TextbookBuy from "../models/textbookBuy";
 import Textbook from "../models/textbook";
-import TempUser from '../models/tempUser'
+import TempUser from '../models/tempUser';
 
-TempUser.getIndexes({ 'createdAt': 1 }, { expireAfterSeconds: 86400 })
+
+// TempUser.getIndexes({ 'createdAt': 1 }, { expireAfterSeconds: 86400 })
 
 const express = require('express');
 
@@ -17,7 +18,7 @@ const nodemailer = require('nodemailer');
 
 const bcrypt = require('bcryptjs');
 
-const crypto = require("crypto");
+// const crypto = require("crypto");
 
 const nev = require('email-verification')(mongoose);
 
@@ -383,12 +384,14 @@ router.post('/login', (req, res) => {
 //Requires the token to be sent as we ll as the body to cointain the info that will be updated
 router.post('/updateProfile', (req, res) => {
   //Method to verify, this is commented out because everything depends on having some infomration in the session storage
-  jwt.verify(req.token, 'secretkey', (errr, authData) => {
+  jwt.verify(req.body.token, 'secretKey', (errr, authData) => {
     if (errr) {
       res.sendStatus(403);
     } else {
-      User.update(
-        { _id: authData.userInfo._id },
+      // console.log(req.body);
+      console.log(authData.userInfo._id);
+      var stuff = User.update(
+        { _id: mongoose.Types.ObjectId(authData.userInfo._id) },
         {
           $set:
             {
@@ -398,7 +401,14 @@ router.post('/updateProfile', (req, res) => {
               CMC: req.body.CMC,
             },
         },
+        (error) => {
+          console.log(`Error: ${error}`);
+        },
       );
+      // console.log(stuff);
+      // User.findOne({_id: authData.userInfo._id}, (err, us) => {
+      //   console.log(us);
+      // });
     }
   });
 });
@@ -407,35 +417,39 @@ router.post('/updateProfile', (req, res) => {
 // Will update the password
 // Requires the token to be sent as well as the plain text password to be sent, will be hashed inside of the function.
 router.post('/updatePassword', (req, res) => {
-  //Method to verify, this is commented out because everything depends on having some infomration in the session storage
-  jwt.verify(req.token, 'secretkey', (errr, authData) => {
+  // Method to verify, this is commented out because everything depends on having some infomration in the session storage
+  jwt.verify(req.body.token, 'secretKey', (errr, authData) => {
     if (errr) {
       res.sendStatus(403);
     } else {
-      User.findOne({_id: authData.userInfo._id}, (err, user) => {
+      User.findOne({ _id: authData.userInfo._id }, (err, user) => {
         if (err) {
           console.warn(err);
-          res.json({error: err});
+          res.json({ error: err });
           return;
         }
         if (!user) {
           console.log('error in the finding of the user')
-          res.status(401).send({error: 'You need to create an account.'});
+          res.status(401).send({ error: 'You need to create an account.' });
           return;
         }
         if (!user.checkPassword(req.body.password)) {
-          res.status(401).send({error: 'Incorrect Password'});
+          res.status(401).send({ error: 'Incorrect Password' });
           return;
         }
-        //if it passes all the check before there is a user and the password is correct so it can be updated for the new one
+        console.log(req.body);
+        // if it passes all the check before there is a user and the password is correct so it can be updated for the new one
         User.update(
-          {_id: authData.userInfo._id},
+          { _id: authData.userInfo._id },
           {
             $set:
               {
                 password: user.hashPassword(req.body.newPassword),
 
               },
+          },
+          (error) => {
+            console.log(`Error: ${error}`);
           },
         );
       });
