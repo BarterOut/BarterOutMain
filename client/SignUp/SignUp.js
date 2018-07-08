@@ -81,10 +81,8 @@ class SignUp extends Component {
       const $password = document.getElementsByName('password')[0];
       const $passwordConfirm = document.getElementsByName('passwordConfirm')[0];
 
-      $password.className = '';
       $password.className = 'badInput';
 
-      $passwordConfirm.className = '';
       $passwordConfirm.className = 'badInput';
 
       return false;
@@ -101,7 +99,6 @@ class SignUp extends Component {
     if (checkerEmail !== 'u.rochester.edu' && checkerEmail !== 'rochester.edu') {
       const $emailAddress = document.getElementsByName('emailAddress')[0];
 
-      $emailAddress.className = '';
       $emailAddress.className = 'badInput';
       this.setState({ allFilledOut: false });
       return false;
@@ -114,6 +111,8 @@ class SignUp extends Component {
         this.setState({ allFilledOut: false });
         allGood = false;
         inputsArray[i].className = 'badInput';
+      } else {
+        inputsArray[i].className = 'input';
       }
     }
 
