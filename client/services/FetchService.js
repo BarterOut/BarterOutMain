@@ -6,7 +6,7 @@
 
 export default class FetchService {
   /**
-   * Sends GET request to API and validates response, resturning the data in a promise
+   * Sends GET request to API and validates response, returning the data in a promise.
    * @param {String} url URL for the API request.
    * @param {Object} data Any data you want to pass to the server.
    */
@@ -15,7 +15,7 @@ export default class FetchService {
       method: 'GET',
       body: data,
     }).then((res) => {
-      if (res.status !== 200) {
+      if (!FetchService._checkStatus(res)) {
         return Promise.reject(new Error(`Bad Status Code ${res.status}`));
       }
       return Promise.resolve(res);
@@ -23,7 +23,7 @@ export default class FetchService {
   }
 
   /**
-   * Sends POST request to API and validates response, resturning the data in a promise.
+   * Sends POST request to API and validates response, returning the data in a promise.
    * @param {String} url URL for the API request.
    * @param {Object} data Any data you want to pass to the server.
    */
@@ -32,10 +32,21 @@ export default class FetchService {
       method: 'POST',
       body: data,
     }).then((res) => {
-      if (res.status !== 200) {
+      if (!FetchService._checkStatus(res)) {
         return Promise.reject(new Error(`Bad Status Code ${res.status}`));
       }
       return Promise.resolve(res);
     });
+  }
+
+  static _checkStatus(response) {
+    // Raises an error in case response status is not a success
+    if (response.status >= 200 && response.status < 300) { // Success status lies between 200 to 300
+      return true;
+    } else {
+      const error = new Error(response.statusText);
+      error.response = response;
+      throw error;
+    }
   }
 }

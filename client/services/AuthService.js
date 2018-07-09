@@ -9,14 +9,14 @@ export default class AuthService {
     this.getProfile = this.getProfile.bind(this);
   }
 
-  login(username, password) {
+  login(emailAddress, password) {
     // Get a token from api server using the fetch api
     return this.fetch('/api/auth/login', {
       method: 'POST',
-      body: { emailAddress: username, password: password },
-    }).then((res) => {
-      this.setToken(res.token); // Setting the token in localStorage
-      return Promise.resolve(res);
+      body: JSON.stringify({ emailAddress, password }),
+    }).then((data) => {
+      this.setToken(data.token); // Setting the token in localStorage
+      return Promise.resolve(data);
     });
   }
 
@@ -78,14 +78,13 @@ export default class AuthService {
     // Setting Authorization header
     // Authorization: Bearer xxxxxxx.xxxxxxxx.xxxxxx
     if (this.loggedIn()) {
-      headers['Authorization'] = 'Bearer ' + this.getToken();
+      headers['Authorization'] = `Bearer ${this.getToken()}`;
     }
-
     return fetch(url, {
       headers,
       ...options,
     })
-      .then(this._checkStatus)
+      .then(res => this._checkStatus(res))
       .then(response => response.json());
   }
 
@@ -94,8 +93,8 @@ export default class AuthService {
     if (response.status >= 200 && response.status < 300) { // Success status lies between 200 to 300
       return response;
     } else {
-      const error = new Error(response.statusText);
-      error.response = response;
+      const error = new Error();
+      error.status = response.status;
       throw error;
     }
   }
