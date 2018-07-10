@@ -10,6 +10,7 @@ import AuthService from '../services/AuthService';
 import FetchService from '../services/FetchService';
 
 import './Home.css';
+import TopBar from '../components/TopBar/TopBar';
 import logoPic from '../images/barterOutOrangeWhiteLogoHeader.png';
 import profile from '../images/barterOutProfilePhotoWebPage.png';
 
@@ -17,7 +18,6 @@ import BookPost from '../components/BookPost/BookPost';
 import BuyBook from '../components/BuyBook/BuyBook';
 import SellBook from '../components/SellBook/SellBook';
 import SideNav from '../components/SideNav/SideNav';
-import TopBar from '../components/TopBar/TopBar';
 
 class Home extends Component {
   constructor() {
@@ -119,6 +119,7 @@ class Home extends Component {
           </div>
         </div> */}
         <SideNav selected="home" />
+        <TopBar />
         {/* <div className="content-wrapper">
           <TopBar />
           <div className="profile-section">

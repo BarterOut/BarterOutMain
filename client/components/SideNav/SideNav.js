@@ -25,14 +25,17 @@ class SideNav extends Component {
       <div id="wrapper">
         <img id="logo" src={logo} alt="logo" />
         <div id="profile-wrapper">
-          <img src={profile} alt="profile" className="profile-pic" />
+          <img src={profile} alt="profile" id="profile-pic" />
           <div id="name">Duncan Grubbs</div>
         </div>
         <div id="link-wrapper">
-          <Link className="nav-link" name="home" to="/home" href="/home">Home</Link>
+          <Link className="nav-link" name="home" to="/home" href="/home">
+            Home
+          </Link>
           <Link className="nav-link" name="buy" to="/buy" href="/buy">Buy</Link>
           <Link className="nav-link" name="sell" to="/sell" href="/sell">Sell</Link>
           <Link className="nav-link" name="track" to="/track" href="/track">Track</Link>
+          <Link className="nav-link" name="settings" to="/settings" href="/settings">Settings</Link>
           <Link className="nav-link" name="help" to="/help" href="/help">Help</Link>
         </div>
       </div>

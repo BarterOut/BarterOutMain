@@ -18,6 +18,8 @@ import Login from './Login/Login';
 import Dashboard from './Dashboard/Dashboard';
 import Buy from './routes/Buy/Buy';
 import Sell from './routes/Sell/Sell';
+import Track from './routes/Track/Track';
+import Settings from './routes/Settings/Settings';
 import Help from './routes/Help/Help';
 
 
@@ -47,6 +49,8 @@ export default (
     <Route exact path="/signup" component={SignUp} />
     <Route exact path="/buy" component={Buy} />
     <Route exact path="/sell" component={Sell} />
+    <Route exact path="/track" component={Track} />
+    <Route exact path="/settings" component={Settings} />
     <Route exact path="/help" component={Help} />
     <Route exact path="/dashboard" component={Dashboard} />
   </Switch>

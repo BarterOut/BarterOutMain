@@ -13,6 +13,13 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin: 32px 0;
+}
+
+#profile-pic {
+  width: 60%;
+  height: auto;
+  border-radius: 50%;
 }
 
 #name {

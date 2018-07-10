@@ -5,13 +5,49 @@
  */
 
 import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom';
+import AuthService from '../../services/AuthService';
+
 import '../../baseStyles.css';
 
+import './TopBar.css';
+
 class TopBar extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      redirect: false,
+    };
+  }
+
+  componentWillMount() {
+    const Auth = new AuthService();
+    if (Auth.getToken() === null) {
+      this.setState({ redirect: true });
+    }
+  }
+
+  _logout() {
+    console.log('loggin out');
+    const Auth = new AuthService();
+    Auth.logout();
+  }
+
   render() {
+    if (this.state.redirect) {
+      return <Redirect to="/" />;
+    }
     return (
-      <div id="wrapper">
-        something
+      <div id="bar-wrapper">
+        <div className="left-bar part">
+          <div id="cart">Cart</div>
+        </div>
+        <div className="middle-bar part">
+          University of Rochester
+        </div>
+        <div className="right-bar part">
+          <button className="button" onClick={this._logout.bind(this)}>Logout</button>
+        </div>
       </div>
     );
   }
