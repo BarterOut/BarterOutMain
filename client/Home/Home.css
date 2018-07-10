@@ -47,10 +47,10 @@
 .content-wrapper {
   display: flex;
   flex-direction: row;
-  margin: 32px auto;
+  /* margin: 32px auto; */
   height: 80vh;
   overflow: hidden;
-  justify-content: center;
+  /* justify-content: center; */
   max-width: 1200px;
 }
 

@@ -13,9 +13,11 @@ import './Home.css';
 import logoPic from '../images/barterOutOrangeWhiteLogoHeader.png';
 import profile from '../images/barterOutProfilePhotoWebPage.png';
 
-import BookPost from './BookPost/BookPost';
-import BuyBook from './BuyBook/BuyBook';
-import SellBook from './SellBook/SellBook';
+import BookPost from '../components/BookPost/BookPost';
+import BuyBook from '../components/BuyBook/BuyBook';
+import SellBook from '../components/SellBook/SellBook';
+import SideNav from '../components/SideNav/SideNav';
+import TopBar from '../components/TopBar/TopBar';
 
 class Home extends Component {
   constructor() {
@@ -104,7 +106,7 @@ class Home extends Component {
     }
     return (
       <div className="app-wrapper">
-        <div className="bar">
+        {/* <div className="bar">
           <div className="right">
             <img className="logo" src={logoPic} alt="logo" />
           </div>
@@ -115,8 +117,10 @@ class Home extends Component {
             >Logout
             </button>
           </div>
-        </div>
-        <div className="content-wrapper">
+        </div> */}
+        <SideNav selected="home" />
+        {/* <div className="content-wrapper">
+          <TopBar />
           <div className="profile-section">
             <img src={profile} alt="profile" className="profile-pic" />
             <h2>Profile</h2>
@@ -192,7 +196,7 @@ class Home extends Component {
             {!this.state.sellHidden && <SellBook />}
 
           </div>
-        </div>
+        </div> */}
       </div>
     );
   }

@@ -1,0 +1,49 @@
+#wrapper {
+  display: flex;
+  flex-direction: column;
+  background: #4E2B84;
+  width: 300px;
+  height: 100vh;
+  margin: 0;
+  padding: 8px;
+  color: white;
+}
+
+#profile-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#name {
+  font-size: 1.6em;
+  margin: 8px;
+}
+
+#link-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+#logo {
+  width: 80%;
+  height: auto;
+}
+
+.nav-link {
+  color: white;
+  padding-left: 6px;
+  margin: 8px;
+  font-size: 2em;
+  transition: all ease .1s;
+}
+
+.nav-link:hover {
+  border-left: 3px solid #FF8D00;
+  color: white;
+  text-decoration: none;
+}
+
+.selected {
+  border-left: 3px solid white;
+}
