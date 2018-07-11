@@ -26,7 +26,9 @@ class SideNav extends Component {
         <img id="logo" src={logo} alt="logo" />
         <div id="profile-wrapper">
           <img src={profile} alt="profile" id="profile-pic" />
-          <div id="name">Duncan Grubbs</div>
+          <div id="name">
+            Duncan Grubbs
+          </div>
         </div>
         <div id="link-wrapper">
           <Link className="nav-link" name="home" to="/home" href="/home">

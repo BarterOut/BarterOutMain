@@ -89,17 +89,6 @@
   padding: 8px;
 }
 
-.searchInput {
-  border-radius: 10px;
-  border: none;
-  padding: 8px;
-  height: 40px;
-  min-width: 300px;
-  color:#000;
-  background: white;
-  /* z-index: 5; */
-}
-
 .posts-header {
   display: flex;
   flex-direction: row;

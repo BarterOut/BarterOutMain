@@ -7,6 +7,25 @@
   border: solid 1px #41397c;
 }
 
+.searchInput {
+  width: 70%;
+  height: 64px;
+  background: #E1DEEC;
+  border: none;
+  border-radius: 15px;
+  padding: 0 16px;
+  -webkit-box-shadow: 0 4px 6px rgba(50,50,93,.11), 0 1px 3px rgba(0,0,0,.08);
+  box-shadow: 0 4px 6px rgba(50,50,93,.11), 0 1px 3px rgba(0,0,0,.08);
+  font-size: 1.4em;
+  margin: 16px;
+}
+
+.page-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .button {
   white-space: nowrap;
   display: inline-block;

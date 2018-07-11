@@ -52,18 +52,20 @@ class BookPost extends Component {
     return (
       <div className="post">
         <div className="leftBP">
-          <span className="bookName">{this.props.name}</span>
-          <span className="bookEdition">{this.props.edition} Edition; Condition: {this.props.condition}</span>
           <span className="bookSubject">{this.props.subject}</span>
-          <span className="bookSubject"><i>{this.props.comments}</i></span>
+          <span className="bookName">{this.props.name}</span>
+          <span className="bookEdition">{this.props.edition} Edition</span>
         </div>
 
+        <div className="leftBP">
+          <span>{this.props.condition} for ${this.props.price}</span>
+          <span className="bookSubject"><i>{this.props.comments}</i></span>
+        </div>
         <div className="rightBP">
-          <span className="bookPrice">${this.props.price}</span>
           <button
             className="button"
             onClick={this.confirmBuy.bind(this)}
-          >Buy
+          >Add to Cart
           </button>
           <button
             className="confirmButton button"

@@ -5,6 +5,7 @@
  */
 
 import React, { Component } from 'react';
+import propTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
 import AuthService from '../../services/AuthService';
 
@@ -18,6 +19,7 @@ class TopBar extends Component {
     this.state = {
       redirect: false,
     };
+    console.log(this.props);
   }
 
   componentWillMount() {
@@ -43,7 +45,7 @@ class TopBar extends Component {
           <div id="cart">Cart</div>
         </div>
         <div className="middle-bar part">
-          University of Rochester
+          School: U of R
         </div>
         <div className="right-bar part">
           <button className="button" onClick={this._logout.bind(this)}>Logout</button>

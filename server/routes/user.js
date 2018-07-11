@@ -248,6 +248,7 @@ router.get('/userData/:token', (req, res) => {
             emailAddress: user.emailAddress,
             venmoUsername: user.venmoUsername,
             CMC: user.CMC,
+            univeristy: user.univeristy,
             firstName: user.firstName,
             lastName: user.lastName,
             matchedBooks: user.matchedBooks,
