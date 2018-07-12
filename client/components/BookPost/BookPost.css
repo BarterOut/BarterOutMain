@@ -14,7 +14,8 @@
   color: black;
   background: white;
   margin: 16px;
-  padding: 4px 16px;
+  padding: 8px 16px;
+  border: 1px solid darkgrey;
 }
 
 .leftBP {
@@ -35,6 +36,7 @@ span {
   flex-grow: 3;
   height: 100%;
   flex-direction: column;
+  justify-content: center;
   align-items: flex-end;
 }
 

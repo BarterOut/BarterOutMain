@@ -54,7 +54,7 @@ class BookPost extends Component {
         <div className="leftBP">
           <span className="bookSubject">{this.props.subject}</span>
           <span className="bookName">{this.props.name}</span>
-          <span className="bookEdition">{this.props.edition} Edition</span>
+          <span className="bookEdition">{this.props.edition}th Edition</span>
         </div>
 
         <div className="leftBP">
@@ -67,12 +67,12 @@ class BookPost extends Component {
             onClick={this.confirmBuy.bind(this)}
           >Add to Cart
           </button>
-          <button
+          {/* <button
             className="confirmButton button"
             id={this.props.name}
             onClick={this.buyBook.bind(this)}
           >Confirm Buy
-          </button>
+          </button> */}
         </div>
       </div>
     );
