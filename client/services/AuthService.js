@@ -6,7 +6,6 @@ export default class AuthService {
     this.domain = domain || 'http://localhost:8080'; // API server domain
     this.fetch = this.fetch.bind(this); // React binding stuff
     this.login = this.login.bind(this);
-    this.getProfile = this.getProfile.bind(this);
   }
 
   login(emailAddress, password) {

@@ -28,15 +28,29 @@ export default class FetchService {
    * @param {Object} data Any data you want to pass to the server.
    */
   static POST(url, data) {
-    return fetch(url, {
+    // performs api calls sending the required authentication headers
+    const headers = {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+    };
+
+    const options = {
       method: 'POST',
-      body: data,
-    }).then((res) => {
-      if (!FetchService._checkStatus(res)) {
-        return Promise.reject(new Error(`Bad Status Code ${res.status}`));
-      }
-      return Promise.resolve(res);
-    });
+      body: JSON.stringify({ data }),
+    };
+
+    console.log(data);
+
+    return fetch(url, {
+      headers,
+      ...options,
+    })
+      .then((res) => {
+        if (!FetchService._checkStatus(res)) {
+          return Promise.reject(new Error(`Bad Status Code ${res.status}`));
+        }
+        return Promise.resolve(res);
+      });
   }
 
   static _checkStatus(response) {

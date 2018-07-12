@@ -5,6 +5,11 @@
  */
 
 import React, { Component } from 'react';
+import FetchService from '../../services/FetchService';
+import AuthService from '../../services/AuthService';
+
+import '../../baseStyles.css';
+
 
 class SellBook extends Component {
   constructor() {
@@ -18,6 +23,10 @@ class SellBook extends Component {
       condition: 'Poor',
       comments: String,
     };
+  }
+
+  formSubmit(e) {
+    e.preventDefault();
   }
 
   onChange(evt) {
@@ -34,37 +43,24 @@ class SellBook extends Component {
   }
 
   postToDatabase() {
-    const user = JSON.parse(sessionStorage.getItem('user'));
-    const ID = user._id;
-
+    const AUTH = new AuthService();
+    const profile = AUTH.getProfile();
     const payload = {
       name: this.state.name,
       edition: this.state.edition,
       course: this.state.course,
       price: this.state.price,
       status: 0,
+      date: Date.now(),
       ISBN: this.state.ISBN,
       condition: this.state.condition,
       comments: this.state.comments,
-      owner: ID,
+      owner: profile.userInfo._id,
     };
 
-    const data = new FormData();
-
-    data.append('json', JSON.stringify(payload));
-    fetch(
-      '/api/sellBook',
-      {
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
-        },
-        method: 'POST',
-        body: JSON.stringify({ payload }),
-      },
-    )
-      .then(() => {
-        window.location.reload();
+    FetchService.POST(`/api/books/sellBook/${AUTH.getToken()}`, payload)
+      .then((response) => {
+        console.log(response);
       });
   }
 
@@ -73,11 +69,11 @@ class SellBook extends Component {
       <div className="wrapper-custom">
         <div className="modalContent">
           <h2>What's your book?</h2>
-          <form className="input-wrapper">
+          <form className="input-wrapper" onSubmit={this.formSubmit.bind(this)}>
             <span className="inputLabelHome">Title of Book *</span>
             <input
               autoComplete="off"
-              className="generalInput"
+              className="input"
               placeholder="e.g. Intro to Probability"
               type="text"
               name="name"
@@ -87,7 +83,7 @@ class SellBook extends Component {
             <span className="inputLabelHome">Edition *</span>
             <input
               autoComplete="off"
-              className="generalInput"
+              className="input"
               placeholder="e.g. 11"
               type="number"
               name="edition"
@@ -97,7 +93,7 @@ class SellBook extends Component {
             <span className="inputLabelHome">Course *</span>
             <input
               autoComplete="off"
-              className="generalInput"
+              className="input"
               placeholder="e.g. MTH 101"
               type="text"
               pattern="^[A-Z]{3} \d{3}$"
@@ -108,7 +104,7 @@ class SellBook extends Component {
             <span className="inputLabelHome">Price *</span>
             <input
               autoComplete="off"
-              className="generalInput"
+              className="input"
               placeholder="$"
               type="number"
               name="price"
@@ -118,7 +114,7 @@ class SellBook extends Component {
             <span className="inputLabelHome">ISBN</span>
             <input
               autoComplete="off"
-              className="generalInput"
+              className="input"
               placeholder="ISBN"
               type="number"
               pattern="^(?=(?:\D*\d){10}(?:(?:\D*\d){3})?$)[\d-]+$"
@@ -135,7 +131,7 @@ class SellBook extends Component {
             <span className="inputLabelHome">Comments</span>
             <input
               autoComplete="off"
-              className="generalInput"
+              className="input"
               placeholder="Comments"
               type="text"
               onChange={this.onChange.bind(this)}

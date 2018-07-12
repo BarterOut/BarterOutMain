@@ -47,8 +47,8 @@ function sendEmail(mailOptions) {
  * @param {Object} res Body of HTTP response.
  * @returns {String} Status Code
  */
-router.post('/sellBook', (req, res) => {
-  jwt.verify(req.token, 'secretKey', (error, authData) => {
+router.post('/sellBook/:token', (req, res) => {
+  jwt.verify(req.params.token, 'secretKey', (error, authData) => {
     if (error) {
       res.sendStatus(403);
     } else {
@@ -59,11 +59,10 @@ router.post('/sellBook', (req, res) => {
           res.status(401).send(err);
         } else {
           console.log('User Selling Book');
-          req.body.payload.date = Date.now();
-          const newBook = new Textbook(req.body.payload);
+          const newBook = new Textbook(req.body.data);
           newBook.save()
             .then(() => {
-              console.log('Saved Book to DBemails');
+              console.log('Saved Book to DB');
               const theBookID = newBook._id;
               // update match with an and statment such that
               // it doesn't match with users that status other than 0
@@ -98,8 +97,7 @@ router.post('/sellBook', (req, res) => {
               res.redirect('/home');
             })
             .catch((e) => {
-              console.error(e);
-              res.status(401).send(e);
+              res.status(400).send(e);
             });
         }
       });

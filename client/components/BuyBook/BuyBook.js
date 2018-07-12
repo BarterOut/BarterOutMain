@@ -7,6 +7,7 @@
 import React, { Component } from 'react';
 
 import './BuyBook.css';
+import '../../baseStyles.css';
 
 class BuyBook extends Component {
   constructor() {
@@ -62,7 +63,7 @@ class BuyBook extends Component {
             <span className="inputLabelHome">Title of Book *</span>
             <input
               autoComplete="off"
-              className="generalInput"
+              className="input"
               placeholder="e.g. Intro to Probability"
               type="text"
               name="name"
@@ -72,7 +73,7 @@ class BuyBook extends Component {
             <span className="inputLabelHome">Course *</span>
             <input
               autoComplete="off"
-              className="generalInput"
+              className="input"
               placeholder="e.g. MTH 101"
               type="text"
               pattern="^[A-Z]{3} \d{3}$"

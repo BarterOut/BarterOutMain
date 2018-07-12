@@ -9,3 +9,8 @@
   color: #4E2B84;
   font-family: 'Orkney';
 }
+
+.position-header {
+  margin: 32px 0 8px 0;
+  font-size: 1.3em;
+}
