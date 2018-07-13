@@ -21,6 +21,7 @@ class Buy extends Component {
     super();
     this.state = {
       posts: [],
+      matches: [],
       token: String,
     };
   }
@@ -34,6 +35,12 @@ class Buy extends Component {
       .then(response => response.json())
       .then((data) => {
         this.setState({ posts: data });
+      });
+
+    FetchService.GET(`/api/books/showMatches/${token}`, {})
+      .then(response => response.json())
+      .then((data) => {
+        this.setState({ matches: data });
       });
   }
 
@@ -61,8 +68,12 @@ class Buy extends Component {
 
   render() {
     let posts = [];
+    let matches = [];
     if (this.state.posts) {
       posts = this.state.posts;
+    }
+    if (this.state.matches) {
+      matches = this.state.matches;
     }
     return (
       <div className="app-wrapper">
@@ -79,19 +90,36 @@ class Buy extends Component {
               type="text"
               name="name"
             />
-            <h2>New Arrivals</h2>
-            {posts.map(post => (
-              <BookPost
-                key={post._id}
-                id={post._id}
-                name={post.name}
-                subject={post.course}
-                edition={post.edition}
-                price={post.price}
-                condition={post.condition}
-                comments={post.comments}
-              />
-            ))}
+            <div className="page-section-wrapper">
+              <div className="title--page-section-wrapper"><h2 className="title-text--page-section-header">Your Matches</h2></div>
+              {matches.map(post => (
+                <BookPost
+                  key={post._id}
+                  id={post._id}
+                  name={post.name}
+                  subject={post.course}
+                  edition={post.edition}
+                  price={post.price}
+                  condition={post.condition}
+                  comments={post.comments}
+                />
+              ))}
+            </div>
+            <div className="page-section-wrapper">
+              <div className="title--page-section-wrapper"><h2 className="title-text--page-section-header">New Arrivals</h2></div>
+              {posts.map(post => (
+                <BookPost
+                  key={post._id}
+                  id={post._id}
+                  name={post.name}
+                  subject={post.course}
+                  edition={post.edition}
+                  price={post.price}
+                  condition={post.condition}
+                  comments={post.comments}
+                />
+              ))}
+            </div>
           </div>
         </div>
       </div>

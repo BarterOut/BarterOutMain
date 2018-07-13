@@ -13,6 +13,7 @@ import './SideNav.css';
 
 import profile from '../../images/barterOutProfilePhotoWebPage.png';
 import logo from '../../images/barterOutOrangeWhiteLogo.png';
+import home from '../../res/icons/baseline_home_white_18dp.png';
 
 class SideNav extends Component {
   componentDidMount() {
@@ -31,7 +32,9 @@ class SideNav extends Component {
           </div>
         </div>
         <div id="link-wrapper">
+          
           <Link className="nav-link" name="home" to="/home" href="/home">
+            <img id="nav-icon" src={home} alt="home" />
             Home
           </Link>
           <Link className="nav-link" name="buy" to="/buy" href="/buy">Buy</Link>

@@ -56,10 +56,13 @@ class BookPost extends Component {
           <span className="bookName">{this.props.name}</span>
           <span className="bookEdition">{this.props.edition}th Edition</span>
         </div>
-
+        <div id="vertical-line" />
         <div className="leftBP">
-          <span>{this.props.condition} for ${this.props.price}</span>
-          <span className="bookSubject"><i>{this.props.comments}</i></span>
+          <div>
+            <span className="condition">{this.props.condition}</span>
+             for <span className="price">${this.props.price}</span>
+          </div>
+          <span className="comments"><i>{this.props.comments || 'No comments'}</i></span>
         </div>
         <div className="rightBP">
           <button

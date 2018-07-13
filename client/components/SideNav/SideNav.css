@@ -40,7 +40,15 @@
   height: auto;
 }
 
+#nav-icon {
+  width: 42px;
+  height: 42px;
+}
+
 .nav-link {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
   color: white;
   padding-left: 6px;
   margin: 8px;

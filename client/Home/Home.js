@@ -19,47 +19,17 @@ import BuyBook from '../components/BuyBook/BuyBook';
 import SellBook from '../components/SellBook/SellBook';
 import SideNav from '../components/SideNav/SideNav';
 
-class Home extends Component {
-  constructor() {
-    super();
-    this.state = {
-      buyHidden: true,
-      sellHidden: true,
-    };
-  }
-  toggleBuyVisibility() {
-    this.setState({ buyHidden: !this.state.buyHidden });
-  }
+const Home = () => (
+  <div className="app-wrapper">
+    <SideNav
+      selected="home"
+    />
 
-  toggleSellVisibility() {
-    this.setState({ sellHidden: !this.state.sellHidden });
-  }
-
-  render() {
-    return (
-      <div className="app-wrapper">
-        <SideNav
-          selected="home"
-        />
-
-        <div className="right-content">
-          <TopBar />
-          <button
-            className="button"
-            onClick={this.toggleBuyVisibility.bind(this)}
-          >Find Book
-          </button>
-          <button
-            className="button"
-            onClick={this.toggleSellVisibility.bind(this)}
-          >Sell Book
-          </button>
-          {!this.state.buyHidden && <BuyBook />}
-          {!this.state.sellHidden && <SellBook />}
-        </div>
-      </div>
-    );
-  }
-}
+    <div className="right-content">
+      <TopBar />
+      <h1>Home</h1>
+    </div>
+  </div>
+);
 
 export default Home;
