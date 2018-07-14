@@ -36,8 +36,21 @@
 }
 
 #logo {
-  width: 80%;
+  width: 50%;
   height: auto;
+  margin: 16px 8px;
+}
+
+#three-bar {
+  width: 20px;
+  height: 20px;
+  background: white;
+}
+
+.top-of-nav {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
 
 #nav-icon {
@@ -51,8 +64,9 @@
   align-items: center;
   color: white;
   padding-left: 6px;
-  margin: 8px;
+  margin: 8px 32px;
   font-size: 2em;
+  font-weight: bold;
   transition: all ease .1s;
 }
 
@@ -64,4 +78,11 @@
 
 .selected {
   border-left: 3px solid white;
+}
+
+#copyright-footer {
+  position: fixed;
+  bottom: 0;
+  margin: 16px 0;
+  align-self: center;
 }

@@ -58,7 +58,7 @@ class SellBook extends Component {
       owner: profile.userInfo._id,
     };
 
-    FetchService.POST(`/api/books/sellBook/${AUTH.getToken()}`, payload)
+    FetchService.POST(`/api/books/postBook/${AUTH.getToken()}`, payload)
       .then((response) => {
         console.log(response);
       });

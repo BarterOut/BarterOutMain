@@ -6,17 +6,8 @@
 
 import React, { Component } from 'react';
 
-import AuthService from '../services/AuthService';
-import FetchService from '../services/FetchService';
-
 import './Home.css';
 import TopBar from '../components/TopBar/TopBar';
-import logoPic from '../images/barterOutOrangeWhiteLogoHeader.png';
-import profile from '../images/barterOutProfilePhotoWebPage.png';
-
-import BookPost from '../components/BookPost/BookPost';
-import BuyBook from '../components/BuyBook/BuyBook';
-import SellBook from '../components/SellBook/SellBook';
 import SideNav from '../components/SideNav/SideNav';
 
 const Home = () => (
@@ -27,7 +18,13 @@ const Home = () => (
 
     <div className="right-content">
       <TopBar />
-      <h1>Home</h1>
+      <div className="page-content">
+        <div className="page-section-wrapper">
+          <div className="title--page-section-wrapper">
+            <h2 className="title-text--page-section-header">Notifications</h2>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 );

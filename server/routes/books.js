@@ -33,7 +33,7 @@ function sendEmail(mailOptions) {
   console.log('Sending the email!');
   transporter.sendMail(mailOptions, (err, info) => {
     if (err) {
-      console.warn(err);
+      console.error(err);
     } else {
       console.info(info);
     }
@@ -47,7 +47,7 @@ function sendEmail(mailOptions) {
  * @param {Object} res Body of HTTP response.
  * @returns {String} Status Code
  */
-router.post('/sellBook/:token', (req, res) => {
+router.post('/postBook/:token', (req, res) => {
   jwt.verify(req.params.token, 'secretKey', (error, authData) => {
     if (error) {
       res.sendStatus(403);
@@ -111,7 +111,7 @@ router.post('/sellBook/:token', (req, res) => {
  * @param {array} res Body of HTTP response.
  * @returns {object} Array of book objects.
  */
-router.post('/buyBook', (req, res) => {
+router.post('/requestBook', (req, res) => {
   // Method to verify, this is commented out because everything depends on
   // having some infomration in the session storage
   jwt.verify(req.token, 'secretkey', (errr, authData) => {
@@ -230,7 +230,7 @@ router.post('/clickBuy', (req, res) => {
  * @param {array} res Body of HTTP response.
  * @returns {object} Array of book objects.
  */
-router.get('/showMatches/:token', (req, res) => {
+router.get('/getUserMatches/:token', (req, res) => {
   jwt.verify(req.params.token, 'secretKey', (err, authData) => {
     if (err) {
       res.sendStatus(403);
@@ -259,7 +259,7 @@ router.get('/showMatches/:token', (req, res) => {
  * @param {array} res Body of HTTP response.
  * @returns {object} Array of books from database.
  */
-router.get('/searchBook/:query', (req, res) => {
+router.get('/search/:query', (req, res) => {
   const searchKey = req.params.query;
   Textbook.find({
     $and: [
@@ -282,7 +282,7 @@ router.get('/searchBook/:query', (req, res) => {
  * @param {array} res Body of HTTP response.
  * @returns {object} Array of books from database.
  */
-router.get('/displayAllBooks/:token', (req, res) => {
+router.get('/getAllBooks/:token', (req, res) => {
   jwt.verify(req.params.token, 'secretKey', (err, authData) => {
     if (err) {
       res.sendStatus(403);

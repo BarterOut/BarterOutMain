@@ -38,7 +38,7 @@ class BuyBook extends Component {
     };
 
     fetch(
-      '/api/books/buyBook',
+      '/api/books/requestBook',
       {
         headers: {
           Accept: 'application/json',

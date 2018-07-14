@@ -31,13 +31,13 @@ class Buy extends Component {
     const token = auth.getToken();
     this.setState({ token });
 
-    FetchService.GET(`/api/books/displayAllBooks/${token}`, {})
+    FetchService.GET(`/api/books/getAllBooks/${token}`, {})
       .then(response => response.json())
       .then((data) => {
         this.setState({ posts: data });
       });
 
-    FetchService.GET(`/api/books/showMatches/${token}`, {})
+    FetchService.GET(`/api/books/getUserMatches/${token}`, {})
       .then(response => response.json())
       .then((data) => {
         this.setState({ matches: data });
@@ -50,7 +50,7 @@ class Buy extends Component {
 
   search(query) {
     if (query === '') {
-      FetchService.GET(`/api/books/displayAllBooks/${this.state.token}`)
+      FetchService.GET(`/api/books/getAllBooks/${this.state.token}`)
         .then(response => response.json())
         .then((data) => {
           this.setState({ posts: data });
@@ -58,7 +58,7 @@ class Buy extends Component {
         .catch(err => console.warn(err));
       return;
     }
-    FetchService.GET(`/api/books/searchBook/${query}`)
+    FetchService.GET(`/api/books/search/${query}`)
       .then(response => response.json())
       .then((data) => {
         this.setState({ posts: data });

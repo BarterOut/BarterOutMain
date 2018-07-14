@@ -12,7 +12,7 @@ import '../../baseStyles.css';
 import './SideNav.css';
 
 import profile from '../../images/barterOutProfilePhotoWebPage.png';
-import logo from '../../images/barterOutOrangeWhiteLogo.png';
+import logo from '../../images/white Logo.png';
 import home from '../../res/icons/baseline_home_white_18dp.png';
 
 class SideNav extends Component {
@@ -24,7 +24,10 @@ class SideNav extends Component {
   render() {
     return (
       <div id="wrapper">
-        <img id="logo" src={logo} alt="logo" />
+        <div className="top-of-nav">
+          <img id="logo" src={logo} alt="logo" />
+          <div id="three-bar" />
+        </div>
         <div id="profile-wrapper">
           <img src={profile} alt="profile" id="profile-pic" />
           <div id="name">
@@ -32,7 +35,6 @@ class SideNav extends Component {
           </div>
         </div>
         <div id="link-wrapper">
-          
           <Link className="nav-link" name="home" to="/home" href="/home">
             <img id="nav-icon" src={home} alt="home" />
             Home
@@ -43,6 +45,7 @@ class SideNav extends Component {
           <Link className="nav-link" name="settings" to="/settings" href="/settings">Settings</Link>
           <Link className="nav-link" name="help" to="/help" href="/help">Help</Link>
         </div>
+        <span id="copyright-footer">Copyright 2018 BarterOut</span>
       </div>
     );
   }
