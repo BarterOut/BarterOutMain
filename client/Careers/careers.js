@@ -27,7 +27,7 @@ const Careers = () => (
         <p>
           Are you passionate about frontend web development using modern frameworks and techniques? Willing to work in a fast paced,
           highly competitive environment? Do you want to work for a company
-          working to make student&apos;s lives easier? If so, fill out <a rel="noopener noreferrer" target="_blank" href="https://google.com">this form.</a>
+          working to make student&apos;s lives easier? If so, fill out <a rel="noopener noreferrer" target="_blank" href="https://goo.gl/forms/ZfEQ36J24NcsK08Z2">this form.</a>
         </p>
         <b><p>Location</p></b>
         <p>Rochester, NY</p>
@@ -39,7 +39,7 @@ const Careers = () => (
         <p>
           Are you passionate about server-side web development using modern frameworks and techniques? Willing to work in a fast paced,
           highly competitive environment? Do you want to work for a company
-          working to make student&apos;s lives easier? If so, fill out <a rel="noopener noreferrer" target="_blank" href="https://google.com">this form.</a>
+          working to make student&apos;s lives easier? If so, fill out <a rel="noopener noreferrer" target="_blank" href="https://goo.gl/forms/mZBceWIBIM4q7iSv2">this form.</a>
         </p>
         <b><p>Location</p></b>
         <p>Rochester, NY</p>
