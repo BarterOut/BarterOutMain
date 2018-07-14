@@ -80,7 +80,7 @@ class Login extends Component {
     return (
       <div className="login-wrapper">
         <h1 id="login-header">Login to BarterOut</h1>
-        {this.state.badCreditials && <span>Incorrect Username or Password</span>}
+        {this.state.badCreditials && <span className="signup-error">Incorrect Username or Password</span>}
         <input
           className="input"
           onChange={this.onChange.bind(this)}

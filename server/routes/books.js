@@ -68,7 +68,7 @@ router.post('/postBook/:token', (req, res) => {
               // it doesn't match with users that status other than 0
               TextbookBuy.find({
                 $and: [
-                  { $or: [{ name: { $regex: req.body.payload.name, $options: 'i' } }, { course: { $regex: req.body.payload.course, $options: 'i' } }] },
+                  { $or: [{ name: { $regex: req.body.data.name, $options: 'i' } }, { course: { $regex: req.body.data.course, $options: 'i' } }] },
                   { status: 0 },
                 ],
               }, (er, matchedBooks) => {
@@ -94,9 +94,10 @@ router.post('/postBook/:token', (req, res) => {
                   });
                 });
               });
-              res.redirect('/home');
+              res.status(200).send();
             })
             .catch((e) => {
+              console.log(e);
               res.status(400).send(e);
             });
         }

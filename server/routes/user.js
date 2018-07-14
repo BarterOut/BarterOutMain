@@ -182,7 +182,7 @@ router.post('/signup', (req, res) => {
     venmoUsername,
     firstName,
     lastName,
-    univeristy,
+    university,
   } = req.body;
 
   // TODO: ADD VALIDATION
@@ -194,7 +194,7 @@ router.post('/signup', (req, res) => {
         error: `Sorry, already a user with the username: ${emailAddress}`,
       });
     } else {
-      console.log(`Making a new user from ${univeristy}`);
+      console.log(`Making a new user from ${university}`);
       const newUser = new User({
         emailAddress,
         password,
@@ -203,7 +203,7 @@ router.post('/signup', (req, res) => {
         firstName,
         lastName,
         matchedBooks: [],
-        univeristy,
+        university,
       });
 
       // More stuff for the email verification
@@ -233,10 +233,10 @@ router.post('/signup', (req, res) => {
   });
 });
 
-router.get('/userData/:token', (req, res) => {
-  const token = req.params.token;
-  jwt.verify(token, 'secretKey', (err, authData) => {
+router.get('/getUserData/:token', (req, res) => {
+  jwt.verify(req.params.token, 'secretKey', (err, authData) => {
     if (err) {
+      console.log(err);
       res.sendStatus(403);
     } else {
       User.findOne({ _id: authData.userInfo._id }, (error, user) => {
@@ -248,7 +248,7 @@ router.get('/userData/:token', (req, res) => {
             emailAddress: user.emailAddress,
             venmoUsername: user.venmoUsername,
             CMC: user.CMC,
-            univeristy: user.univeristy,
+            university: user.university,
             firstName: user.firstName,
             lastName: user.lastName,
             matchedBooks: user.matchedBooks,

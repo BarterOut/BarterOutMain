@@ -36,7 +36,7 @@ class SideNav extends Component {
         </div>
         <div id="link-wrapper">
           <Link className="nav-link" name="home" to="/home" href="/home">
-            <img id="nav-icon" src={home} alt="home" />
+            {/* <img id="nav-icon" src={home} alt="home" /> */}
             Home
           </Link>
           <Link className="nav-link" name="buy" to="/buy" href="/buy">Buy</Link>

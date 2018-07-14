@@ -21,6 +21,10 @@ class BookPost extends Component {
   }
 
   componentDidMount() {
+    this._setID();
+  }
+
+  _setID() {
     this.setState({ id: this.props.id });
   }
 
@@ -54,7 +58,7 @@ class BookPost extends Component {
         <div className="leftBP">
           <span className="bookSubject">{this.props.subject}</span>
           <span className="bookName">{this.props.name}</span>
-          <span className="bookEdition">{this.props.edition}th Edition</span>
+          <span className="bookEdition">Edition: {this.props.edition}</span>
         </div>
         <div id="vertical-line" />
         <div className="leftBP">

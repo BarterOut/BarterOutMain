@@ -39,8 +39,6 @@ export default class FetchService {
       body: JSON.stringify({ data }),
     };
 
-    console.log(data);
-
     return fetch(url, {
       headers,
       ...options,

@@ -25,12 +25,12 @@ class SellBook extends Component {
     };
   }
 
-  formSubmit(e) {
-    e.preventDefault();
-  }
-
   onChange(evt) {
     this.setState({ [evt.target.name]: evt.target.value });
+  }
+
+  formSubmit(e) {
+    e.preventDefault();
   }
 
   selectChange(evt) {
@@ -45,6 +45,11 @@ class SellBook extends Component {
   postToDatabase() {
     const AUTH = new AuthService();
     const profile = AUTH.getProfile();
+
+    if (!this._validateInputs()) {
+      return;
+    }
+
     const payload = {
       name: this.state.name,
       edition: this.state.edition,
@@ -59,9 +64,17 @@ class SellBook extends Component {
     };
 
     FetchService.POST(`/api/books/postBook/${AUTH.getToken()}`, payload)
-      .then((response) => {
-        console.log(response);
+      .then(() => {
+        window.location.reload();
       });
+  }
+
+  _validateInputs() {
+    if (this.state.price > 200) {
+      return false;
+    }
+
+    return true;
   }
 
   render() {
@@ -126,7 +139,7 @@ class SellBook extends Component {
               <option value="Poor">Poor</option>
               <option value="Fair">Fair</option>
               <option value="Good">Good</option>
-              <option value="Just as new">Just as new</option>
+              <option value="Like new">Like new</option>
             </select>
             <span className="inputLabelHome">Comments</span>
             <input

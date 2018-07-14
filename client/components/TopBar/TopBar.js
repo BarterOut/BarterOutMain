@@ -7,6 +7,7 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import AuthService from '../../services/AuthService';
+import FetchService from '../../services/FetchService';
 
 import '../../baseStyles.css';
 
@@ -17,18 +18,32 @@ class TopBar extends Component {
     super(props);
     this.state = {
       redirect: false,
+      school: String,
     };
   }
 
   componentWillMount() {
     const Auth = new AuthService();
     if (Auth.getToken() === null) {
-      this.setState({ redirect: true });
+      this._updateRedirect(true);
     }
+
+    FetchService.GET(`/api/auth/getUserData/${Auth.getToken()}`)
+      .then(response => response.json())
+      .then((data) => {
+        this._updateSchool(data.user.university);
+      });
+  }
+
+  _updateSchool(value) {
+    this.setState({ school: value });
+  }
+
+  _updateRedirect(value) {
+    this.setState({ redirect: value });
   }
 
   _logout() {
-    console.log('loggin out');
     const Auth = new AuthService();
     Auth.logout();
   }
@@ -43,7 +58,7 @@ class TopBar extends Component {
           <button className="button" id="cart">Cart</button>
         </div>
         <div className="middle-bar part">
-          School: U of R
+          <h4><b>{this.state.school}</b></h4>
         </div>
         <div className="right-bar part">
           <button className="button" onClick={this._logout.bind(this)}>Logout</button>

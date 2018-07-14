@@ -61,7 +61,7 @@ class SignUp extends Component {
       password: this.state.password,
       venmoUsername: this.state.venmoUsername,
       firstName: this.state.firstName,
-      univeristy: this.state.university,
+      university: this.state.university,
       lastName: this.state.lastName,
       CMC: this.state.CMC,
     })
