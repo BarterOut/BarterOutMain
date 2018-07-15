@@ -97,7 +97,7 @@ router.get('/email-verification/:URL', (req, res) => {
         firstName: tempUser.firstName,
         lastName: tempUser.lastName,
         matchedBooks: [],
-        univeristy: tempUser.univeristy,
+        university: tempUser.university,
         resetPasswordToken: '',
         resetPasswordExpires: '',
       });
@@ -105,7 +105,13 @@ router.get('/email-verification/:URL', (req, res) => {
         .then(() => {
           console.log('a new user has been verified');
           sendEmail(signedUpEmail(newUser.emailAddress, newUser.firstName));// Verified the user
-          TempUser.remove({ emailToken: url });// removes temp user
+          TempUser.remove({ emailToken: url }, function (err, reeeee) {
+            if (err) {
+              console.log('had an error' + err);
+            }
+            // console.log(reeeee);
+          });// removes temp user
+          // TempUser.remove({ emailAddress: newUser.emailAddress});
           res.redirect('/home');
         });
     } else {
@@ -245,7 +251,7 @@ router.post('/signup', (req, res) => {
     venmoUsername,
     firstName,
     lastName,
-    univeristy,
+    university,
   } = req.body;
 
   // TODO: ADD VALIDATION
@@ -262,12 +268,12 @@ router.post('/signup', (req, res) => {
           console.log(`tempUser.js post error: ${er}`);
 
         }
-        else if (existingUser){
+        else if (existingUser) {
           res.json({
             msg: 'You have already signed up. Please check your email to verify your account.'
           });
         } else {
-          console.log(`Making a temp user from ${univeristy}`);
+          console.log(`Making a temp user from ${university}`);
           var emailToken = rand.generate(48);
           const newUser = new TempUser({
             emailAddress,
@@ -277,7 +283,7 @@ router.post('/signup', (req, res) => {
             firstName,
             lastName,
             matchedBooks: [],
-            univeristy,
+            university,
             emailToken,
             createdAt: Date.now(),
           });

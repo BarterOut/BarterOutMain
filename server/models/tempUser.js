@@ -9,15 +9,17 @@ const tempUserSchema = new Schema({
   venmoUsername: { type: 'String', required: true },
   CMC: { type: 'String', required: true },
   firstName: { type:'String', required: true },
-  lastName: { type:'String', required: true} ,
+  lastName: { type:'String', required: true },
   matchedBooks: [{ type: String }],
   // array of matched books so you can look at those books might have to add quotes for it
-  univeristy: { type: 'String', required: true },
-  emailToken: { type: 'String', required: true},
-  createdAt: { type: Date, required: true},
+  university: { type: 'String', required: true },
+  emailToken: { type: 'String', required: true },
+  createdAt: {
+    type: Date, expires: '1h', default: Date.now(), required: true,
+  },
 },{
   collection: 'tempUsers',
-})
+});
 
 // Define schema methods
 tempUserSchema.methods = {
