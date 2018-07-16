@@ -22,10 +22,16 @@ class Track extends Component {
           <div className="page-content">
             <div className="page-section-wrapper">
               <div className="title--page-section-wrapper">
-                <h2 className="title-text--page-section-header">Track</h2>
+                <h2 className="title-text--page-section-header">Purchased</h2>
               </div>
-              CONTENT
             </div>
+
+            <div className="page-section-wrapper">
+              <div className="title--page-section-wrapper">
+                <h2 className="title-text--page-section-header">Sold</h2>
+              </div>
+            </div>
+
           </div>
         </div>
       </div>

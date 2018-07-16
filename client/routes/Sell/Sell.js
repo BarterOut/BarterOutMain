@@ -55,6 +55,13 @@ class Sell extends Component {
               >Sell Book
               </button>
             </div>
+
+            <div className="page-section-wrapper">
+              <div className="title--page-section-wrapper">
+                <h2 className="title-text--page-section-header">Books You Posted</h2>
+              </div>
+
+            </div>
             {!this.state.buyHidden && <BuyBook />}
             {!this.state.sellHidden && <SellBook />}
           </div>
