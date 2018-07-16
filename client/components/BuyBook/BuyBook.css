@@ -61,11 +61,6 @@
   font-size: 1.2em;
 }
 
-.condition {
-  width: 100%;
-  color: black;
-}
-
 .condition:focus {
-  border: 2px solid #41397c;
+  border: 1px solid #FF8D00;
 }

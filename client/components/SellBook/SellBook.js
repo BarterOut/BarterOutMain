@@ -87,7 +87,7 @@ class SellBook extends Component {
             <input
               autoComplete="off"
               className="formInput"
-              placeholder="e.g. Intro to Probability"
+              placeholder="e.g. Calculus and Early Transcendentals"
               type="text"
               name="name"
               onChange={this.onChange.bind(this)}
@@ -156,7 +156,7 @@ class SellBook extends Component {
                 type="submit"
                 className="button"
                 onClick={this.postToDatabase.bind(this)}
-              >Sell Book
+              >Sell Now
               </button>
             </div>
           </form>
