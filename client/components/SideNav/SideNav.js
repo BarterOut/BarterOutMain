@@ -7,6 +7,10 @@
 import React, { Component } from 'react';
 import propTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+
+import FetchService from '../../services/FetchService';
+import AuthService from '../../services/AuthService';
+
 import '../../baseStyles.css';
 
 import './SideNav.css';
@@ -16,9 +20,32 @@ import logo from '../../images/white Logo.png';
 import home from '../../res/icons/baseline_home_white_18dp.png';
 
 class SideNav extends Component {
+  constructor() {
+    super();
+    this.state = {
+      name: '',
+    };
+  }
+
   componentDidMount() {
     const selectedNavItem = document.getElementsByName(this.props.selected)[0];
     selectedNavItem.className = 'nav-link selected';
+
+    this._getProfileInfo();
+  }
+
+  _getProfileInfo() {
+    if (!sessionStorage.getItem('name')) {
+      const AUTH = new AuthService();
+      FetchService.GET(`/api/auth/getUserData/${AUTH.getToken()}`)
+        .then(response => response.json())
+        .then((data) => {
+          sessionStorage.setItem('name', `${data.user.firstName} ${data.user.lastName}`);
+          this.setState({ name: `${data.user.firstName} ${data.user.lastName}` });
+        });
+    } else {
+      this.setState({ name: sessionStorage.getItem('name') });
+    }
   }
 
   render() {
@@ -31,7 +58,7 @@ class SideNav extends Component {
         <div id="profile-wrapper">
           <img src={profile} alt="profile" id="profile-pic" />
           <div id="name">
-            Duncan Grubbs
+            {this.state.name}
           </div>
         </div>
         <div id="link-wrapper">

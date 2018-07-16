@@ -42,7 +42,7 @@ class Sell extends Component {
               <div className="title--page-section-wrapper">
                 <h2 className="title-text--page-section-header">Sell Your Textbooks</h2>
               </div>
-              Have textbooks you don't need anymore?
+              Have textbooks you don&apos;t need anymore?
               Sell them now and make some extra $$$
               <button
                 className="button"

@@ -7,12 +7,27 @@
 import React, { Component } from 'react';
 
 import SideNav from '../../components/SideNav/SideNav';
+import TopBar from '../../components/TopBar/TopBar';
 
 class Settings extends Component {
   render() {
     return (
       <div className="app-wrapper">
-        <SideNav selected="settings" />
+        <SideNav
+          selected="settings"
+        />
+
+        <div className="right-content">
+          <TopBar />
+          <div className="page-content">
+            <div className="page-section-wrapper">
+              <div className="title--page-section-wrapper">
+                <h2 className="title-text--page-section-header">Settings</h2>
+              </div>
+              CONTENT
+            </div>
+          </div>
+        </div>
       </div>
     );
   }

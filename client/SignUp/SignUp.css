@@ -11,13 +11,13 @@ select {
   margin: 8px 0;
 }
 
+#signup-success {
+  color: #4E2B84;
+}
+
 .terms {
   margin: 0 8px 16px 0;
   border: none;
-}
-
-.signup-error {
-  color: red;
 }
 
 .badInput {
