@@ -5,8 +5,10 @@
  */
 
 import React, { Component } from 'react';
-import FetchService from '../services/FetchService';
 import { Link } from 'react-router-dom';
+
+import FetchService from '../services/FetchService';
+import logo from '../images/barterOutOrangeWhiteLogo.png';
 
 import './SignUp.css';
 import '../baseStyles.css';
@@ -125,90 +127,97 @@ class SignUp extends Component {
   render() {
     return (
       <div className="login-wrapper">
-        <h1>Sign up for BarterOut</h1>
-        {this.state.success && <h3 id="signup-success">Thanks for signing up, before logging in, please check your email to verify your account!</h3>}
-        {!this.state.allFilledOut && <h4 className="input-error">Please ensure all the required fields are filled out.</h4>}
-        <span className="inputLabel">First Name *</span>
-        <input
-          className="input"
-          placeholder=""
-          type="text"
-          onChange={this.onChange.bind(this)}
-          name="firstName"
-          required
-        />
-        <span className="inputLabel">Last Name *</span>
-        <input
-          className="input"
-          placeholder=""
-          type="text"
-          onChange={this.onChange.bind(this)}
-          name="lastName"
-          required
-        />
-        <span className="inputLabel">Email *</span>
-        <input
-          className="input"
-          placeholder=""
-          type="email"
-          pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.+-]+\.edu$"
-          onChange={this.onChange.bind(this)}
-          name="emailAddress"
-          required
-        />
-        <span className="inputLabel">University *</span>
-        <select onChange={this.selectChange.bind(this)}>
-          <option value="University of Rochester">University of Rochester</option>
-        </select>
-        <span className="inputLabel">Venmo Username *</span>
-        <input
-          className="input"
-          placeholder=""
-          type="text"
-          onChange={this.onChange.bind(this)}
-          name="venmoUsername"
-          required
-        />
-        <span className="inputLabel">CMC Box Number *</span>
-        <input
-          className="input"
-          placeholder=""
-          type="number"
-          onChange={this.onChange.bind(this)}
-          name="CMC"
-          required
-        />
-        {!this.state.passwordsMatch && <h4 className="input-error">Please make sure your passwords are the same!</h4>}
-        <div className="line">
-          <input
-            className="input"
-            placeholder="Password"
-            type="password"
-            name="password"
-            onChange={this.onChange.bind(this)}
-            required
-          />
-          <input
-            className="input"
-            placeholder="Confirm Password"
-            type="password"
-            name="passwordConfirm"
-            onChange={this.onChange.bind(this)}
-            required
-          />
+        <div className="leftLoginContent">
+          <h1>Welcome to</h1>
+          <img src={logo} alt="logo" />
         </div>
-        <div className="terms">
-            By clicking "Sign Up" below, you are agreeing to our <a href="/termsOfService" target="_blank" rel="noopener"> Terms of Service </a>
-            and <a href="/privacyPolicy" target="_blank" rel="noopener"> Privacy Policy</a>.
-        </div>
-        <button
-          className="button"
-          type="submit"
-          onClick={this.signUp.bind(this)}
-        >Sign Up
-        </button>
 
-        <span>Back to <Link href="/login" to="/login">Login</Link></span>
+        <div className="rightLoginContent">
+          <h3>Sign Up for BarterOut</h3>
+          {this.state.success && <h3 id="signup-success">Thanks for signing up, before logging in, please check your email to verify your account!</h3>}
+          {!this.state.allFilledOut && <h4 className="input-error">Please ensure all the required fields are filled out.</h4>}
+          <span className="inputLabel">First Name *</span>
+          <input
+            className="formInputLoginSignup"
+            placeholder=""
+            type="text"
+            onChange={this.onChange.bind(this)}
+            name="firstName"
+            required
+          />
+          <span className="inputLabel">Last Name *</span>
+          <input
+            className="formInputLoginSignup"
+            placeholder=""
+            type="text"
+            onChange={this.onChange.bind(this)}
+            name="lastName"
+            required
+          />
+          <span className="inputLabel">Email *</span>
+          <input
+            className="formInputLoginSignup"
+            placeholder=""
+            type="email"
+            pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.+-]+\.edu$"
+            onChange={this.onChange.bind(this)}
+            name="emailAddress"
+            required
+          />
+          <span className="inputLabel">University *</span>
+          <select onChange={this.selectChange.bind(this)} className="conditionInput">
+            <option value="University of Rochester">University of Rochester</option>
+          </select>
+          <span className="inputLabel">Venmo Username *</span>
+          <input
+            className="formInputLoginSignup"
+            placeholder=""
+            type="text"
+            onChange={this.onChange.bind(this)}
+            name="venmoUsername"
+            required
+          />
+          <span className="inputLabel">CMC Box Number *</span>
+          <input
+            className="formInputLoginSignup"
+            placeholder=""
+            type="number"
+            onChange={this.onChange.bind(this)}
+            name="CMC"
+            required
+          />
+          {!this.state.passwordsMatch && <h4 className="input-error">Please make sure your passwords are the same!</h4>}
+          <div className="line">
+            <input
+              className="formInputLoginSignup"
+              placeholder="Password"
+              type="password"
+              name="password"
+              onChange={this.onChange.bind(this)}
+              required
+            />
+            <input
+              className="formInputLoginSignup"
+              placeholder="Confirm Password"
+              type="password"
+              name="passwordConfirm"
+              onChange={this.onChange.bind(this)}
+              required
+            />
+          </div>
+          <div className="terms">
+              By clicking "Sign Up" below, you are agreeing to our <a href="/termsOfService" target="_blank" rel="noopener"> Terms of Service </a>
+              and <a href="/privacyPolicy" target="_blank" rel="noopener"> Privacy Policy</a>.
+          </div>
+          <button
+            className="button"
+            type="submit"
+            onClick={this.signUp.bind(this)}
+          >Sign Up
+          </button>
+
+          <span>Back to <Link href="/login" to="/login">Login</Link></span>
+        </div>
       </div>
     );
   }

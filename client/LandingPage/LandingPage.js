@@ -251,7 +251,7 @@ class LandingPage extends Component {
                                                 <img id="staff" src={logo}></img>
                                                 <br/>
                                                 <div id="profileName">Daniel Munoz</div>
-                                                Software Developer
+                                                Full-Stack Developer
                                             </div>
                                         </td>
                                         <td>
@@ -259,7 +259,7 @@ class LandingPage extends Component {
                                                 <a href="https://www.linkedin.com/in/zixu-chen/" target="_blank"><img id="team" src={shawn}></img></a>
                                                 <br/>
                                                 <div id="profileName">Zixu (Shawn) Chen</div>
-                                                Software Developer
+                                                Backend Developer
                                             </div>
                                         </td>
                                         <td>
@@ -267,7 +267,7 @@ class LandingPage extends Component {
                                                 <a href="https://www.linkedin.com/in/melissa-k-7080ba103/" target="_blank"><img id="team" src={melissa}></img></a>
                                                 <br/>
                                                 <div id="profileName">Melissa Kagaju</div>
-                                                Software Developer
+                                                Android Developer
                                             </div>
                                         </td>
                                         <td>
@@ -293,7 +293,7 @@ class LandingPage extends Component {
                                                 <img id="staff" src={logo}></img>
                                                 <br/>
                                                 <div id="profileName">Tristan De Lange</div>
-                                                Software Developer
+                                                Frontend Developer
                                             </div>
                                         </td>
                                         
@@ -358,16 +358,16 @@ class LandingPage extends Component {
                 <div className="landingPageBottom">
                     <div id="bottomLinksCol1">
                         <div id="bottomLinkHeader">Company</div>
-                        <a href="/Careers" id="bottomPageLink">Careers</a>
+                        <a href="/careers" id="bottomPageLink">Careers</a>
                         <br/>
-                        <a href="/Contact" id="bottomPageLink">Contact</a>
+                        <a href="/contact" id="bottomPageLink">Contact</a>
                         <br/>
                     </div>
                     <div id="bottomLinksCol2">
                         <div id="bottomLinkHeader">Legal</div>
-                        <a href="/TermsOfService" id="bottomPageLink">Terms of Service</a>
+                        <a href="/termsOfService" id="bottomPageLink">Terms of Service</a>
                         <br/>
-                        <a href="/PrivacyPolicy" id="bottomPageLink">Privacy Policy</a>
+                        <a href="/privacyPolicy" id="bottomPageLink">Privacy Policy</a>
                     </div>
                 </div>
                 <div id="socialMedia">

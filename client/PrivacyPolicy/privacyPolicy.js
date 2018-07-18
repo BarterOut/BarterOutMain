@@ -14,7 +14,7 @@ const PrivacyPolicy = () => {
   return (
     <div className="infowrapper">
       <div className="bar">
-        <div className="right">
+        <div className="left">
           <a href="/"><img className="logo" src={logoPic} alt="logo" /></a>
         </div>
       </div>
