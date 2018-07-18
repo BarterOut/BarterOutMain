@@ -114,7 +114,10 @@ router.post('/postBook/:token', (req, res) => {
 router.post('/requestBook', (req, res) => {
   // Method to verify, this is commented out because everything depends on
   // having some infomration in the session storage
-  jwt.verify(req.token, 'secretkey', (errr, authData) => {
+
+  console.log(req.body.data.token);
+
+  jwt.verify(req.body.data.token, 'secretKey', (errr, authData) => {
     if (errr) {
       res.sendStatus(403);
     } else {
@@ -124,8 +127,8 @@ router.post('/requestBook', (req, res) => {
         } else {
           console.info('User posting book to Buy');
 
-          req.body.payload.date = Date.now();
-          const newBook = new TextbookBuy(req.body.payload);
+          req.body.data.payload.date = Date.now();
+          const newBook = new TextbookBuy(req.body.data.payload);
           newBook.save()
             .then(() => {
               console.info('Book was saved to DB');
@@ -134,7 +137,7 @@ router.post('/requestBook', (req, res) => {
                 { // looks for a book that matches based on the name matching and the
                   $and: [
                     { status: 0 },
-                    { $or: [{ name: { $regex: req.body.payload.name, $options: 'i' } }, { course: { $regex: req.body.payload.course, $options: 'i' } }] },
+                    { $or: [{ name: { $regex: req.body.data.payload.name, $options: 'i' } }, { course: { $regex: req.body.data.payload.course, $options: 'i' } }] },
                   ],
                 },
                 (err, matchedBooks) => {
@@ -145,14 +148,14 @@ router.post('/requestBook', (req, res) => {
                     addBooks.push(book._id);
                   });
                   if (addBooks.length !== 0) {
-                    realUser.find({ _id: req.body.payload.owner }, (error, userToEmail) => {
+                    realUser.find({ _id: req.body.data.payload.owner }, (error, userToEmail) => {
                       const email = userToEmail[0].emailAddress;
                       const firstName = userToEmail[0].firstName;
-                      sendEmail(emails.matchFoundEmail(email, firstName, req.body.payload.name));
+                      sendEmail(emails.matchFoundEmail(email, firstName, req.body.data.payload.name));
                     });
                   }
                   realUser.update(
-                    { _id: req.body.payload.owner },
+                    { _id: req.body.data.payload.owner },
                     {
                       $addToSet: {
                         matchedBooks: { $each: addBooks },
@@ -170,6 +173,8 @@ router.post('/requestBook', (req, res) => {
         }
       });
     }
+
+    res.sendStatus(200);
   });
 });
 
