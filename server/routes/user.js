@@ -150,14 +150,18 @@ function verifyEmail(emailTo, firstName, URL) {
     from: '"Barter Out" <office@barterout.com',
     to: emailTo,
     subject: 'Thank you for signing up',
-    html: `Dear ${firstName},<br />
-    Thank you for signing up on our platform.
-    Please verify your account by clicking <a href=http://localhost:8080/api/auth/email-verification/${URL}>this link</a>. <br /> 
-    Start using our service today on our <a href="https://www.barterout.com/" target="_blank">website</a> by putting a textbook up for sale or buying one from another student.<br />
+    html: `Dear ${firstName},
+    <br />
+    <br />
+    Thank you for creating an account on our platform.
+    Please verify your account by clicking <a href=http://localhost:8080/api/auth/email-verification/${URL}>this link</a>.
+    <br />
+    <br />
     If you have any questions, feel free to send us an email at office@barterout.com!
     <br /><br />
-    Thank you,<br />
-    The BarterOut Team<br /><br />
+    Thank you, <br />
+    The BarterOut Team
+    <br /><br />
     Like us on <a href="https://www.facebook.com/BarterOut/" target="_blank">Facebook</a> <br> </br> Follow us on <a href="https://www.instagram.com/barteroutofficial/" target="_blank">Instagram</a>`,
     auth: {
       user: 'office@barterout.com',
@@ -196,19 +200,17 @@ function signedUpEmail(emailTo, firstName) {
   return {
     from: '"Barter Out" <office@barterout.com',
     to: emailTo,
-    subject: 'Thank you for signing up',
-    html: 'Dear ' +firstName+',  <br></br> ' +
-    '\n' +
-    'Thank you for signing up on our platform. Start using our service today on our <a href="https://www.barterout.com/" target="_blank">website</a> by putting a textbook up for sale or buying one from another student.    <br></br> ' +
-    '\n' +
-    'If you know anyone looking to buy or sell used textbooks, feel free to invite them to join our platform in this beta version.    <br> </br> \n' +
-    '<br></br> ' +
-    'If you have any questions, feel free to send us an email at office@barterout.com!\n' +
-    '<br></br> <br></br>   ' +
-    'Thank you,<br></br> ' +
-    'The BarterOut team<br></br> <br></br> '+
-    '\n' +
-    'Like us on <a href="https://www.facebook.com/BarterOut/" target="_blank">Facebook</a> <br> </br> Follow us on <a href="https://www.instagram.com/barteroutofficial/" target="_blank">Instagram</a>',
+    subject: '[BarterOut] Thank you for Signing Up!',
+    html: `Dear ${firstName},
+    <br />
+    <br />
+    Start using our service today on our <a href="https://www.barterout.com/" target="_blank">website</a> by putting a textbook up for sale or buying one from another student.
+    <br />
+    If you have any questions, feel free to send us an email at office@barterout.com!
+    <br /><br />
+    Thank you,<br />
+    The BarterOut Team<br /><br />
+    Like us on <a href="https://www.facebook.com/BarterOut/" target="_blank">Facebook</a> <br> </br> Follow us on <a href="https://www.instagram.com/barteroutofficial/" target="_blank">Instagram</a>`,
 
     auth: {
       user: 'office@barterout.com',
@@ -223,7 +225,7 @@ function passwordResetEmail(emailTo, firstName, URL) {
   return {
     from: '"Barter Out" <office@barterout.com',
     to: emailTo,
-    subject: 'Thank you for signing up',
+    subject: '[BarterOut] Reset Password',
     html: 'Dear ' + firstName + ',  <br></br> ' +
     '\n' +
     'This email has been sent to reset your password.  <br></br> ' +
@@ -254,24 +256,19 @@ router.post('/signup', (req, res) => {
     firstName,
     lastName,
     university,
-  } = req.body;
+  } = req.body.data;
 
-  // TODO: ADD VALIDATION
   User.findOne({ emailAddress }, (err, user) => {
     if (err) {
       console.log(`User.js post error: ${err}`);
     } else if (user) {
-      res.json({
-        error: `Sorry, already a user with the username: ${emailAddress}`,
-      });
+      res.sendStatus(409);
     } else {
       TempUser.findOne({ emailAddress }, (er, existingUser) => {
         if (err) {
-          console.log(`tempUser.js post error: ${er}`);
+          console.error(`tempUser.js post error: ${er}`);
         } else if (existingUser) {
-          res.status(409).json({
-            msg: 'You have already signed up. Please check your email to verify your account.'
-          });
+          res.sendStatus(409);
         } else {
           console.log(`Making a temp user from ${university}`);
           const emailToken = rand.generate(48);
@@ -291,8 +288,8 @@ router.post('/signup', (req, res) => {
             .then(() => {
               console.info('temp user was saved to DB');
               const URL = newUser.emailToken;
-              console.log(emailAddress);
               sendEmail(verifyEmail(emailAddress, firstName, URL));
+              res.sendStatus(201);
             });
         }
       });
@@ -327,12 +324,12 @@ router.post('/signup', (req, res) => {
 router.get('/getUserData/:token', (req, res) => {
   jwt.verify(req.params.token, 'secretKey', (err, authData) => {
     if (err) {
-      console.log(err);
-      res.sendStatus(403);
+      console.error(err);
+      res.sendStatus(400);
     } else {
       User.findOne({ _id: authData.userInfo._id }, (error, user) => {
         if (!user) {
-          res.status(401).send({ error: 'You need to create an account' });
+          res.sendStatus(401);
         } else {
           const returnUser = {
             _id: user._id,
@@ -345,7 +342,6 @@ router.get('/getUserData/:token', (req, res) => {
             matchedBooks: user.matchedBooks,
           };
           res.status(200).json({
-            message: 'verified',
             user: returnUser,
           });
         }
@@ -358,20 +354,18 @@ router.post('/login', (req, res) => {
   const { emailAddress, password } = req.body;
   User.findOne({ emailAddress }, (err, user) => {
     if (err) {
-      console.warn(err);
+      console.error(err);
       res.status(400).json({ error: err });
       return;
     }
     if (!user) {
-      console.log('No user');
-      res.status(401).send({ error: 'You need to create an account' });
+      res.sendStatus(401);
       return;
     }
     if (!user.checkPassword(password)) {
-      res.status(401).send({ error: 'Incorrect Password' });
+      res.sendStatus(401);
       return;
     }
-    console.log('Good User.');
 
     const userInfo = {
       // Can add more stuff into this so that it has more info, for now it only has the id
@@ -397,7 +391,7 @@ router.post('/updateProfile', (req, res) => {
     } else {
       // console.log(req.body);
       console.log(authData.userInfo._id);
-      const stuff = User.update(
+      User.update(
         { _id: mongoose.Types.ObjectId(authData.userInfo._id) },
         {
           $set:

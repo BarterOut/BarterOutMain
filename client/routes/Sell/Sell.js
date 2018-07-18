@@ -14,6 +14,8 @@ import BookPost from '../../components/BookPost/BookPost';
 import BuyBook from '../../components/BuyBook/BuyBook';
 import SellBook from '../../components/SellBook/SellBook';
 
+import './Sell.css';
+
 class Sell extends Component {
   constructor() {
     super();
@@ -59,18 +61,23 @@ class Sell extends Component {
               <div className="title--page-section-wrapper">
                 <h2 className="title-text--page-section-header">Sell Your Textbooks</h2>
               </div>
-              Have textbooks you don&apos;t need anymore?
-              Sell them now and make some extra $$$
-              <button
-                className="button"
-                onClick={this.toggleBuyVisibility.bind(this)}
-              >Find Book
-              </button>
-              <button
-                className="button"
-                onClick={this.toggleSellVisibility.bind(this)}
-              >Sell Book
-              </button>
+
+              <div className="sellInfoSection">
+                <span id="sellPromptText">
+                  Have textbooks you don&apos;t need anymore?
+                  Sell them now and make some extra $$$
+                </span>
+                {/* <button
+                  className="button"
+                  onClick={this.toggleBuyVisibility.bind(this)}
+                >Find Book
+                </button> */}
+                <button
+                  className="button sellButton"
+                  onClick={this.toggleSellVisibility.bind(this)}
+                >Sell Now
+                </button>
+              </div>
             </div>
 
             <div className="page-section-wrapper">

@@ -1,0 +1,12 @@
+.sellInfoSection {
+  display: flex;
+  flex-direction: row;
+  padding: 8px 16px;
+  align-items: center;
+  font-size: 1.6em;
+  margin: auto 0;
+}
+
+#sellPromptText {
+  width: 60%;
+}

@@ -14,15 +14,14 @@ import '../../baseStyles.css';
 import './TopBar.css';
 
 class TopBar extends Component {
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
     this.state = {
-      redirect: false,
       school: String,
     };
   }
 
-  componentWillMount() {
+  componentDidMount() {
     const Auth = new AuthService();
     if (Auth.getToken() === null) {
       this._updateRedirect(true);
@@ -50,8 +49,9 @@ class TopBar extends Component {
 
   render() {
     if (this.state.redirect) {
-      return <Redirect to="/" />;
+      return (<Redirect to="/" />);
     }
+
     return (
       <div id="bar-wrapper">
         <div className="left-bar part">

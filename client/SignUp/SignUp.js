@@ -5,7 +5,7 @@
  */
 
 import React, { Component } from 'react';
-import axios from 'axios';
+import FetchService from '../services/FetchService';
 import { Link } from 'react-router-dom';
 
 import './SignUp.css';
@@ -56,7 +56,7 @@ class SignUp extends Component {
       return;
     }
 
-    axios.post('/api/auth/signup', {
+    FetchService.POST('/api/auth/signup', {
       emailAddress: this.state.emailAddress,
       password: this.state.password,
       venmoUsername: this.state.venmoUsername,
@@ -65,17 +65,14 @@ class SignUp extends Component {
       lastName: this.state.lastName,
       CMC: this.state.CMC,
     })
-      .then((response) => {
-        if (response.status >= 200 && response.status < 400) {
-          this.setState({ success: true });
-        }
-      })
-      .catch((error) => {
-        console.error(`Sign up server error: ${error}`);
+      .then(() => {
+        this.setState({ success: true });
       });
   }
 
   _validateInputs() {
+    let allGood = true;
+
     if (!(this.state.passwordConfirm === this.state.password)) {
       this.setState({ passwordsMatch: false });
       const $password = document.getElementsByName('password')[0];
@@ -85,12 +82,14 @@ class SignUp extends Component {
 
       $passwordConfirm.className = 'badInput';
 
-      return false;
+      allGood = false;
+    } else {
+      this.setState({ passwordsMatch: true });
     }
 
     if (!this.state.emailAddress.includes('@')) {
       this.setState({ allFilledOut: false });
-      return false;
+      allGood = false;
     }
 
     // This is only temporary since we only allow U of R students currently.
@@ -99,13 +98,17 @@ class SignUp extends Component {
     if (checkerEmail !== 'u.rochester.edu' && checkerEmail !== 'rochester.edu') {
       const $emailAddress = document.getElementsByName('emailAddress')[0];
 
-      $emailAddress.className = 'badInput';
+      $emailAddress.style.className = 'badInput';
       this.setState({ allFilledOut: false });
-      return false;
+      allGood = false;
     }
 
-    let allGood = true;
     const inputsArray = document.getElementsByClassName('input');
+
+    for (let i = 0; i < inputsArray.length; i++) {
+      inputsArray[i].className = 'input';
+    }
+
     for (let i = 0; i < inputsArray.length; i++) {
       if (inputsArray[i].value === '') {
         this.setState({ allFilledOut: false });
