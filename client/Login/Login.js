@@ -1,14 +1,11 @@
 /**
  * @file React component for loging users in.
  * @author Duncan Grubbs <duncan.grubbs@gmail.com>
- * @version 0.0.1
+ * @version 0.0.2
  */
-
-// TODO: Use auth service login function instead of axios
 
 import React, { Component } from 'react';
 import { Redirect, Link } from 'react-router-dom';
-import axios from 'axios';
 import AuthService from '../services/AuthService';
 
 import './Login.css';
@@ -21,6 +18,7 @@ class Login extends Component {
       emailAddress: '',
       password: '',
       redirect: false,
+      badCreditials: false,
     };
     this.Auth = new AuthService();
   }
@@ -49,25 +47,30 @@ class Login extends Component {
   }
 
   login() {
-    if (this.state.emailAddress === '' ||
-      this.state.password === '') {
+    if (!this._validateInputs()) {
       return;
     }
 
-    axios.post('/api/auth/login', {
-      emailAddress: this.state.emailAddress,
-      password: this.state.password,
-    })
-      .then((response) => {
-        if (response.status === 200) {
-          const user = response.data;
-          sessionStorage.setItem('token', JSON.stringify(user.token));
-          // update the state to redirect to home
-          this.setState({ redirect: true });
-        }
+    const Auth = new AuthService();
+
+    Auth.login(this.state.emailAddress, this.state.password)
+      .then(() => {
+        this.setState({ badCreditials: false });
+        this.setState({ redirect: true });
       }).catch((error) => {
-        console.warn(`Error Loggin in: ${error}`);
+        if (error.status === 401) {
+          this.setState({ badCreditials: true });
+        }
       });
+  }
+
+  _validateInputs() {
+    if (this.state.emailAddress === '' ||
+      this.state.password === '') {
+      this.setState({ badCreditials: true });
+      return false;
+    }
+    return true;
   }
 
   render() {
@@ -77,6 +80,7 @@ class Login extends Component {
     return (
       <div className="login-wrapper">
         <h1 id="login-header">Login to BarterOut</h1>
+        {this.state.badCreditials && <span className="input-error">Incorrect Username or Password</span>}
         <input
           className="input"
           onChange={this.onChange.bind(this)}

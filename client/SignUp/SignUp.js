@@ -1,12 +1,12 @@
 /**
  * @file React component for signing users up.
  * @author Duncan Grubbs <duncan.grubbs@gmail.com>
- * @version 0.0.1
+ * @version 0.0.2
  */
 
 import React, { Component } from 'react';
 import axios from 'axios';
-import { Redirect, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import './SignUp.css';
 import '../baseStyles.css';
@@ -23,7 +23,9 @@ class SignUp extends Component {
       university: 'University of Rochester',
       CMC: '',
       venmoUsername: '',
-      redirect: false,
+      success: false,
+      allFilledOut: true,
+      passwordsMatch: true,
     };
   }
 
@@ -41,25 +43,16 @@ class SignUp extends Component {
     }
   }
 
-  checkBox(evt) {
-    console.log(evt.target);
-  }
-
   selectChange(evt) {
     const index = evt.target.selectedIndex;
     this.setState({ university: evt.target[index].value });
   }
 
   signUp() {
-    if (!(this.state.passwordConfirm === this.state.password)) {
-      window.alert('Please make your passwords the same!');
-      return;
-    }
+    this.setState({ passwordsMatch: true });
+    this.setState({ allFilledOut: true });
 
-    const checkerEmail = this.state.emailAddress.split('@')[1];
-
-    if (checkerEmail !== 'u.rochester.edu' && checkerEmail !== 'rochester.edu') {
-      window.alert('Please user a school email account!');
+    if (!this._validateInputs()) {
       return;
     }
 
@@ -72,23 +65,66 @@ class SignUp extends Component {
       lastName: this.state.lastName,
       CMC: this.state.CMC,
     })
-      .then(() => {
-        console.log('You have been signed up!');
-        this.setState({ redirect: true });
-        // window.location.reload();
+      .then((response) => {
+        if (response.status >= 200 && response.status < 400) {
+          this.setState({ success: true });
+        }
       })
       .catch((error) => {
         console.error(`Sign up server error: ${error}`);
       });
   }
 
-  render() {
-    if (this.state.redirect) {
-      return (<Redirect to="/login" />);
+  _validateInputs() {
+    if (!(this.state.passwordConfirm === this.state.password)) {
+      this.setState({ passwordsMatch: false });
+      const $password = document.getElementsByName('password')[0];
+      const $passwordConfirm = document.getElementsByName('passwordConfirm')[0];
+
+      $password.className = 'badInput';
+
+      $passwordConfirm.className = 'badInput';
+
+      return false;
     }
+
+    if (!this.state.emailAddress.includes('@')) {
+      this.setState({ allFilledOut: false });
+      return false;
+    }
+
+    // This is only temporary since we only allow U of R students currently.
+    const checkerEmail = this.state.emailAddress.split('@')[1];
+
+    if (checkerEmail !== 'u.rochester.edu' && checkerEmail !== 'rochester.edu') {
+      const $emailAddress = document.getElementsByName('emailAddress')[0];
+
+      $emailAddress.className = 'badInput';
+      this.setState({ allFilledOut: false });
+      return false;
+    }
+
+    let allGood = true;
+    const inputsArray = document.getElementsByClassName('input');
+    for (let i = 0; i < inputsArray.length; i++) {
+      if (inputsArray[i].value === '') {
+        this.setState({ allFilledOut: false });
+        allGood = false;
+        inputsArray[i].className = 'badInput';
+      } else {
+        inputsArray[i].className = 'input';
+      }
+    }
+
+    return allGood;
+  }
+
+  render() {
     return (
       <div className="login-wrapper">
         <h1>Sign up for BarterOut</h1>
+        {this.state.success && <h3 id="signup-success">Thanks for signing up, before logging in, please check your email to verify your account!</h3>}
+        {!this.state.allFilledOut && <h4 className="input-error">Please ensure all the required fields are filled out.</h4>}
         <span className="inputLabel">First Name *</span>
         <input
           className="input"
@@ -130,17 +166,17 @@ class SignUp extends Component {
           name="venmoUsername"
           required
         />
-        <span className="inputLabel">CMC Box *</span>
+        <span className="inputLabel">CMC Box Number *</span>
         <input
           className="input"
           placeholder=""
-          type="text"
+          type="number"
           onChange={this.onChange.bind(this)}
           name="CMC"
           required
         />
+        {!this.state.passwordsMatch && <h4 className="input-error">Please make sure your passwords are the same!</h4>}
         <div className="line">
-          {/* <span className="inputLabel">Password</span> */}
           <input
             className="input"
             placeholder="Password"
@@ -149,7 +185,6 @@ class SignUp extends Component {
             onChange={this.onChange.bind(this)}
             required
           />
-          {/* <span className="inputLabel">Confirm Password</span> */}
           <input
             className="input"
             placeholder="Confirm Password"
@@ -160,15 +195,14 @@ class SignUp extends Component {
           />
         </div>
         <div className="terms">
-            By signing up you are agreeing to our<br />
-            <input id="terms" type="checkbox" onClick={this.checkBox.bind(this)} /><a href="/termsOfService" target="_blank" rel="noopener" rel="noopener" rel="noopener" rel="noopener" rel="noopener" rel="noopener"> Terms of Service </a>
-            and our <input id="privacy" type="checkbox" onClick={this.checkBox.bind(this)} /><a href="/privacyPolicy" target="_blank" rel="noopener" rel="noopener" rel="noopener" rel="noopener" rel="noopener" rel="noopener"> Privacy Policy</a>.
-          </div>
+            By clicking "Sign Up" below, you are agreeing to our <a href="/termsOfService" target="_blank" rel="noopener"> Terms of Service </a>
+            and <a href="/privacyPolicy" target="_blank" rel="noopener"> Privacy Policy</a>.
+        </div>
         <button
           className="button"
           type="submit"
           onClick={this.signUp.bind(this)}
-        >SignUp
+        >Sign Up
         </button>
 
         <span>Back to <Link href="/login" to="/login">Login</Link></span>

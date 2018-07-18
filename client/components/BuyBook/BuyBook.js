@@ -1,12 +1,16 @@
 /**
  * @file React component for posting a book you are searching for.
  * @author Duncan Grubbs <duncan.grubbs@gmail.com>
- * @version 0.0.1
+ * @version 0.0.2
  */
 
 import React, { Component } from 'react';
 
+import FetchService from '../../services/FetchService';
+import AuthService from '../../services/AuthService';
+
 import './BuyBook.css';
+import '../../baseStyles.css';
 
 class BuyBook extends Component {
   constructor() {
@@ -25,32 +29,37 @@ class BuyBook extends Component {
     window.location.reload();
   }
 
+  formSubmit(e) {
+    e.preventDefault();
+  }
+
   postToDatabase() {
-    console.log('posting buy');
-    const user = JSON.parse(sessionStorage.getItem('user'));
-    const ID = user._id;
+    if (!this._validateInputs()) {
+      return;
+    }
+
+    const AUTH = new AuthService();
+
+    console.log(AUTH.getProfile().userInfo._id);
+
     const payload = {
       name: this.state.name,
       course: this.state.course,
       status: 0,
-      owner: ID,
+      owner: AUTH.getProfile().userInfo._id,
     };
 
-    fetch(
-      '/api/books/buyBook',
-      {
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-        method: 'POST',
-        body: JSON.stringify({ payload }),
-      },
-    )
-      .then((response) => { response.json(); })
-      .then((data) => {
-        console.log(data);
+    FetchService.POST('/api/books/requestBook', { payload, token: AUTH.getToken() })
+      .then(() => {
+        window.location.reload();
       });
+  }
+
+  _validateInputs() {
+    if (!/^[A-Z]{3} \d{3}$/.test(this.state.course)) {
+      return false;
+    }
+    return true;
   }
 
   render() {
@@ -58,11 +67,11 @@ class BuyBook extends Component {
       <div className="wrapper-custom">
         <div className="modalContent">
           <h2>What are you looking for?</h2>
-          <form className="input-wrapper">
+          <form className="input-wrapper" onSubmit={this.formSubmit.bind(this)}>
             <span className="inputLabelHome">Title of Book *</span>
             <input
               autoComplete="off"
-              className="generalInput"
+              className="formInput"
               placeholder="e.g. Intro to Probability"
               type="text"
               name="name"
@@ -72,7 +81,7 @@ class BuyBook extends Component {
             <span className="inputLabelHome">Course *</span>
             <input
               autoComplete="off"
-              className="generalInput"
+              className="formInput"
               placeholder="e.g. MTH 101"
               type="text"
               pattern="^[A-Z]{3} \d{3}$"

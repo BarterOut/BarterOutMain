@@ -4,7 +4,7 @@
  * @author Daniel Munoz
  * @author Shawn Chan
  * @author Luis Nova
- * @version 0.0.1
+ * @version 0.0.2
  */
 
 // TODO: Make sure all methods send a response.
@@ -59,6 +59,27 @@ app.use(session({
   saveUninitialized: false, // required
   cookie: { secure: false },
 }));
+
+const ENV = 'development';
+
+function forceSsl(req, res, next) {
+  if (req.headers['x-forwarded-proto'] !== 'https') {
+    return res.redirect(['https://', req.get('Host'), req.url].join(''));
+  }
+  return next();
+}
+
+if (ENV === 'production') {
+  app.use(forceSsl);
+}
+
+app.get('/api/dummyGet', (req, res) => {
+  res.send({ dummy: 'Data' });
+});
+
+app.post('/api/dummyPost', (req, res) => {
+  res.send({ dummy: 'Data' });
+});
 
 app.use(passport.initialize());
 app.use(passport.session()); // calls serializeUser and deserializeUser

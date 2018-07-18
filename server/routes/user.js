@@ -1,3 +1,10 @@
+/**
+ * @file User routes for Express.js server.
+ * @author Daniel Munoz
+ * @author Duncan Grubbs <duncan.grubbs@gmail.com>
+ * @version 0.0.2
+ */
+
 import mongoose from 'mongoose';
 
 import User from '../models/newUser';
@@ -26,10 +33,11 @@ const rand = require('rand-token');
 // Makes the email configuration settings
 
 // Hashing function
-var myHasher = function(password, tempUserData, insertTempUser, callback) {
-  var hash = bcrypt.hashSync(password, 10, null);
+function myHasher(password, tempUserData, insertTempUser, callback) {
+  const hash = bcrypt.hashSync(password, 10, null);
   return insertTempUser(hash, tempUserData, callback);
-};
+}
+
 // Configurations for the temp user stuff
 nev.configure({
   verificationURL: 'https://www.barterout.com/api/auth/email-verification/${URL}',
@@ -66,19 +74,19 @@ nev.configure({
     return;
   }
 });
+
 // Creating the temp user
-nev.generateTempUserModel(User, function(err, tempUserModel) {
+nev.generateTempUserModel(User, (err) => {
   if (err) {
     console.log(err);
     return;
   }
-
 });
 
 
 // Needs functionality for this. Unsure if it will be used.
-router.post('/resendEmailVerification', ( req, res ) => {
-  var email = req.emailAddress;
+router.post('/resendEmailVerification', (req, res) => {
+  const email = req.emailAddress;
   console.log(email);
 });
 
@@ -141,18 +149,15 @@ function verifyEmail(emailTo, firstName, URL) {
     from: '"Barter Out" <office@barterout.com',
     to: emailTo,
     subject: 'Thank you for signing up',
-    html: 'Dear ' + firstName + ',  <br></br> ' +
-    '\n' +
-    'Thank you for signing up on our platform. Start using our service today on our <a href="https://www.barterout.com/" target="_blank">website</a> by putting a textbook up for sale or buying one from another student.    <br></br> ' +
-    'Please verify your account by clicking <a href=http://localhost:8080/api/auth/email-verification/' +URL+ '>this link</a>. If you are unable to do so, copy and paste the following link into your browser:' + URL + '<br> </br>' +
-    'If you know anyone looking to buy or sell used textbooks, feel free to invite them to join our platform in this beta version.    <br> </br> \n' +
-    '<br></br> ' +
-    'If you have any questions, feel free to send us an email at office@barterout.com!\n' +
-    '<br></br> <br></br>   ' +
-    'Thank you,<br></br> ' +
-    'The BarterOut team<br></br> <br></br> '+
-    '\n' +
-    'Like us on <a href="https://www.facebook.com/BarterOut/" target="_blank">Facebook</a> <br> </br> Follow us on <a href="https://www.instagram.com/barteroutofficial/" target="_blank">Instagram</a>',
+    html: `Dear ${firstName},<br />
+    Thank you for signing up on our platform.
+    Please verify your account by clicking <a href=http://localhost:8080/api/auth/email-verification/${URL}>this link</a>. <br /> 
+    Start using our service today on our <a href="https://www.barterout.com/" target="_blank">website</a> by putting a textbook up for sale or buying one from another student.<br />
+    If you have any questions, feel free to send us an email at office@barterout.com!
+    <br /><br />
+    Thank you,<br />
+    The BarterOut Team<br /><br />
+    Like us on <a href="https://www.facebook.com/BarterOut/" target="_blank">Facebook</a> <br> </br> Follow us on <a href="https://www.instagram.com/barteroutofficial/" target="_blank">Instagram</a>`,
     auth: {
       user: 'office@barterout.com',
       refreshToken: '1/9XdHU4k2vwYioRyAP8kaGYfZXKfp_JxqUwUMYVJWlZs',
@@ -186,8 +191,6 @@ const transporter = nodemailer.createTransport({ // secure authentication
 });
 
 
-
-
 function signedUpEmail(emailTo, firstName) {
   return {
     from: '"Barter Out" <office@barterout.com',
@@ -215,7 +218,6 @@ function signedUpEmail(emailTo, firstName) {
   };
 }
 
-
 function passwordResetEmail(emailTo, firstName, URL) {
   return {
     from: '"Barter Out" <office@barterout.com',
@@ -242,7 +244,6 @@ function passwordResetEmail(emailTo, firstName, URL) {
   };
 }
 
-// THIS FUNCTION WORKS
 router.post('/signup', (req, res) => {
   const {
     emailAddress,
@@ -269,7 +270,7 @@ router.post('/signup', (req, res) => {
 
         }
         else if (existingUser) {
-          res.json({
+          res.status(409).json({
             msg: 'You have already signed up. Please check your email to verify your account.'
           });
         } else {
@@ -324,29 +325,29 @@ router.post('/signup', (req, res) => {
   });
 });
 
-router.get('/userData/:token', (req, res) => {
-  const token = req.params.token;
-  jwt.verify(token, 'secretKey', (err, authData) => {
+router.get('/getUserData/:token', (req, res) => {
+  jwt.verify(req.params.token, 'secretKey', (err, authData) => {
     if (err) {
+      console.log(err);
       res.sendStatus(403);
     } else {
       User.findOne({ _id: authData.userInfo._id }, (error, user) => {
         if (!user) {
-          res.status(401).send({error: 'You need to create an account' });
+          res.status(401).send({ error: 'You need to create an account' });
         } else {
           const returnUser = {
             _id: user._id,
             emailAddress: user.emailAddress,
             venmoUsername: user.venmoUsername,
             CMC: user.CMC,
+            university: user.university,
             firstName: user.firstName,
             lastName: user.lastName,
             matchedBooks: user.matchedBooks,
           };
-          console.log(returnUser);
-          res.json({
+          res.status(200).json({
             message: 'verified',
-            returnUser,
+            user: returnUser,
           });
         }
       });
@@ -359,10 +360,11 @@ router.post('/login', (req, res) => {
   User.findOne({ emailAddress }, (err, user) => {
     if (err) {
       console.warn(err);
-      res.json({ error: err });
+      res.status(400).json({ error: err });
       return;
     }
     if (!user) {
+      console.log('No user');
       res.status(401).send({ error: 'You need to create an account' });
       return;
     }
@@ -370,6 +372,7 @@ router.post('/login', (req, res) => {
       res.status(401).send({ error: 'Incorrect Password' });
       return;
     }
+    console.log('Good User.');
 
     const userInfo = {
       // Can add more stuff into this so that it has more info, for now it only has the id
@@ -378,9 +381,7 @@ router.post('/login', (req, res) => {
 
     // Creates the token and sends the JSON back
     jwt.sign({ userInfo }, 'secretKey', { expiresIn: '30 days' }, (error, token) => {
-      res.json({
-        token,
-      });
+      res.status(200).json({ token });
     });
   });
 });

@@ -3,14 +3,14 @@
  */
 import React from 'react';
 import { render } from 'react-dom';
-import { Provider } from 'react-redux'
+import { Provider } from 'react-redux';
 import { AppContainer } from 'react-hot-loader';
 
-import store from '../store'
+import 'bootstrap';
+
+import store from '../store';
 
 import App from './App';
-
-import 'bootstrap';
 
 // Initialize store
 const mountApp = document.getElementById('root');
@@ -21,7 +21,7 @@ render(
       <App />
     </AppContainer>
   </Provider>,
-  mountApp
+  mountApp,
 );
 
 // For hot reloading of react components
@@ -34,7 +34,7 @@ if (module.hot) {
       <AppContainer>
         <NextApp />
       </AppContainer>,
-      mountApp
+      mountApp,
     );
   });
 }

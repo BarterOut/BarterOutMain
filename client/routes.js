@@ -12,14 +12,17 @@ import TermsOfService from './TermsOfService/termsOfService';
 import PrivacyPolicy from './PrivacyPolicy/privacyPolicy';
 import Contact from './Contact/contact';
 import Careers from './Careers/careers';
-import PreRegister from './PreRegister/preRegister';
 import Home from './Home/Home';
 import SignUp from './SignUp/SignUp';
 import Login from './Login/Login';
 import Dashboard from './Dashboard/Dashboard';
 import EditProfile from './EditProfile/EditProfile';
 import EditPassword from './EditPassword/EditPassword';
-
+import Buy from './routes/Buy/Buy';
+import Sell from './routes/Sell/Sell';
+import Track from './routes/Track/Track';
+import Settings from './routes/Settings/Settings';
+import Help from './routes/Help/Help';
 
 
 const HomePage = ({ component: Component, rest }) => {
@@ -39,18 +42,20 @@ const HomePage = ({ component: Component, rest }) => {
 export default (
   <Switch>
     <Route exact path="/" component={LandingPage} />
-    <Route path="/termsOfService" component={TermsOfService} />
-    <Route path="/privacyPolicy" component={PrivacyPolicy} />
-    <Route path="/contact" component={Contact} />
-    <Route path="/careers" component={Careers} />
-    <Route path="/preRegister" component={PreRegister} />
-    <HomePage path="/home" component={Home} />
-    <Route path="/login" component={Login} />
-    <Route path="/signup" component={SignUp} />
-    <Route path="/dashboard" component={Dashboard} />
+    <Route exact path="/termsOfService" component={TermsOfService} />
+    <Route exact path="/privacyPolicy" component={PrivacyPolicy} />
+    <Route exact path="/contact" component={Contact} />
+    <Route exact path="/careers" component={Careers} />
+    <HomePage exact path="/home" component={Home} />
+    <Route exact path="/login" component={Login} />
+    <Route exact path="/signup" component={SignUp} />
+    <Route exact path="/buy" component={Buy} />
+    <Route exact path="/sell" component={Sell} />
+    <Route exact path="/track" component={Track} />
+    <Route exact path="/settings" component={Settings} />
+    <Route exact path="/help" component={Help} />
     <Route path="/EditProfile" component={EditProfile} />
     <Route path="/EditPassword" component={EditPassword} />
-
-
+    <Route exact path="/dashboard" component={Dashboard} />
   </Switch>
 );
