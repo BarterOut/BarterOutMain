@@ -23,6 +23,7 @@ import Sell from './routes/Sell/Sell';
 import Track from './routes/Track/Track';
 import Settings from './routes/Settings/Settings';
 import Help from './routes/Help/Help';
+import Cart from './routes/Cart/Cart';
 
 
 const HomePage = ({ component: Component, rest }) => {
@@ -54,6 +55,7 @@ export default (
     <Route exact path="/track" component={Track} />
     <Route exact path="/settings" component={Settings} />
     <Route exact path="/help" component={Help} />
+    <Route exact path="/cart" component={Cart} />
     <Route path="/EditProfile" component={EditProfile} />
     <Route path="/EditPassword" component={EditPassword} />
     <Route exact path="/dashboard" component={Dashboard} />

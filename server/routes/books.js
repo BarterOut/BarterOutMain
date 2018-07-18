@@ -184,8 +184,8 @@ router.post('/requestBook', (req, res) => {
  * @param {array} res Body of HTTP response.
  * @returns {object} Array of book objects.
  */
-router.post('/clickBuy', (req, res) => {
-  jwt.verify(req.token, 'secretKey', (error, authData) => {
+router.post('/clickBuy/:token', (req, res) => {
+  jwt.verify(req.params.token, 'secretKey', (error, authData) => {
     if (error) {
       res.sendStatus(403);
     } else {

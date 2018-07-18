@@ -407,7 +407,7 @@ $(document).ready(() => {
   $('#registrationPageInfo').css('opacity', 0);
 
   const madeSimpleAnimations = new Waypoint({
-    element:  document.getElementById('madeSimpleInfo'),
+    element: document.getElementById('madeSimpleInfo'),
     handler: () => {
       $('.madeSimpleInfo').css('opacity', 100);
       $('.madeSimpleHeader').addClass('fadeIn');

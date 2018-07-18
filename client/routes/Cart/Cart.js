@@ -9,12 +9,12 @@ import React, { Component } from 'react';
 import SideNav from '../../components/SideNav/SideNav';
 import TopBar from '../../components/TopBar/TopBar';
 
-class Help extends Component {
+class Cart extends Component {
   render() {
     return (
       <div className="app-wrapper">
         <SideNav
-          selected="help"
+          selected="home"
         />
 
         <div className="right-content">
@@ -22,7 +22,7 @@ class Help extends Component {
           <div className="page-content">
             <div className="page-section-wrapper">
               <div className="title--page-section-wrapper">
-                <h2 className="title-text--page-section-header">Help</h2>
+                <h2 className="title-text--page-section-header">Cart</h2>
               </div>
               CONTENT
             </div>
@@ -33,4 +33,4 @@ class Help extends Component {
   }
 }
 
-export default Help;
+export default Cart;

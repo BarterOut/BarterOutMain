@@ -4,7 +4,7 @@
  * @version 0.0.2
  */
 
-import React, { Component } from 'react';
+import React, { Component, Link } from 'react';
 import { Redirect } from 'react-router-dom';
 import AuthService from '../../services/AuthService';
 import FetchService from '../../services/FetchService';
@@ -55,10 +55,10 @@ class TopBar extends Component {
     return (
       <div id="bar-wrapper">
         <div className="left-bar part">
-          <button className="button" id="cart">Cart</button>
+          <a href="/cart"><button className="button" id="cart">Cart</button></a>
         </div>
         <div className="middle-bar part">
-          <h4><b>{this.state.school}</b></h4>
+          {/* <h4><b>{this.state.school}</b></h4> */}
         </div>
         <div className="right-bar part">
           <button className="button" onClick={this._logout.bind(this)}>Logout</button>

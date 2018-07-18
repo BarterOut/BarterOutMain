@@ -34,14 +34,22 @@ class Buy extends Component {
     FetchService.GET(`/api/books/getAllBooks/${token}`, {})
       .then(response => response.json())
       .then((data) => {
-        this.setState({ posts: data });
+        this._setPosts(data);
       });
 
     FetchService.GET(`/api/books/getUserMatches/${token}`, {})
       .then(response => response.json())
       .then((data) => {
-        this.setState({ matches: data });
+        this._setMatches(data);
       });
+  }
+
+  _setPosts(data) {
+    this.setState({ posts: data });
+  }
+
+  _setMatches(data) {
+    this.setState({ matches: data });
   }
 
   updateInputValue(evt) {
