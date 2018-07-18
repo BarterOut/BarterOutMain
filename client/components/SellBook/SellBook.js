@@ -70,6 +70,10 @@ class SellBook extends Component {
   }
 
   _validateInputs() {
+    if (!/^[A-Z]{3} \d{3}$/.test(this.state.course)) {
+      return false;
+    }
+
     if (this.state.price > 200) {
       return false;
     }
