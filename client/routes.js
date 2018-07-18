@@ -16,6 +16,8 @@ import Home from './Home/Home';
 import SignUp from './SignUp/SignUp';
 import Login from './Login/Login';
 import Dashboard from './Dashboard/Dashboard';
+import EditProfile from './EditProfile/EditProfile';
+import EditPassword from './EditPassword/EditPassword';
 import Buy from './routes/Buy/Buy';
 import Sell from './routes/Sell/Sell';
 import Track from './routes/Track/Track';
@@ -52,6 +54,8 @@ export default (
     <Route exact path="/track" component={Track} />
     <Route exact path="/settings" component={Settings} />
     <Route exact path="/help" component={Help} />
+    <Route path="/EditProfile" component={EditProfile} />
+    <Route path="/EditPassword" component={EditPassword} />
     <Route exact path="/dashboard" component={Dashboard} />
   </Switch>
 );
