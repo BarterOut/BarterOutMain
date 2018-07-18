@@ -281,6 +281,33 @@ router.get('/search/:query', (req, res) => {
 });
 
 /**
+ * Finds all books in database with a matching name or course.
+ * @param {object} req Request body from client.
+ * @param {array} res Body of HTTP response.
+ * @returns {object} Array of books from database.
+ */
+router.get('/getUsersPosts/:token', (req, res) => {
+  jwt.verify(req.params.token, 'secretKey', (err, authData) => {
+    if (err) {
+      res.sendStatus(403);
+    } else {
+      Textbook.find({
+        $and: [
+          { status: 0 },
+          { owner: authData.userInfo._id },
+        ],
+      }, (err, books) => {
+        const bookMap = [];
+        books.forEach((book) => {
+          bookMap.push(book);
+        });
+        res.status(200).json(bookMap);
+      });
+    }
+  });
+});
+
+/**
  * @deprecated Due to inefficiency
  * Gets all books being sold from database.
  * @param {object} req Request body from client.

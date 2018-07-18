@@ -5,9 +5,12 @@
  */
 
 import React, { Component } from 'react';
+import FetchService from '../../services/FetchService';
+import AuthService from '../../services/AuthService';
 
 import SideNav from '../../components/SideNav/SideNav';
 import TopBar from '../../components/TopBar/TopBar';
+import BookPost from '../../components/BookPost/BookPost';
 import BuyBook from '../../components/BuyBook/BuyBook';
 import SellBook from '../../components/SellBook/SellBook';
 
@@ -17,7 +20,17 @@ class Sell extends Component {
     this.state = {
       buyHidden: true,
       sellHidden: true,
+      posts: [],
     };
+  }
+
+  componentDidMount() {
+    const AUTH = new AuthService();
+    FetchService.GET(`/api/books/getUsersPosts/${AUTH.getToken()}`, {})
+      .then(response => response.json())
+      .then((data) => {
+        this.setState({ posts: data });
+      });
   }
 
   toggleBuyVisibility() {
@@ -29,6 +42,10 @@ class Sell extends Component {
   }
 
   render() {
+    let posts = [];
+    if (this.state.posts) {
+      posts = this.state.posts;
+    }
     return (
       <div className="app-wrapper">
         <SideNav
@@ -57,14 +74,23 @@ class Sell extends Component {
             </div>
 
             <div className="page-section-wrapper">
-              <div className="title--page-section-wrapper">
-                <h2 className="title-text--page-section-header">Books You Posted</h2>
-              </div>
-
+              <div className="title--page-section-wrapper"><h2 className="title-text--page-section-header">Your Books</h2></div>
+              {posts.map(post => (
+                <BookPost
+                  key={post._id}
+                  id={post._id}
+                  name={post.name}
+                  subject={post.course}
+                  edition={post.edition}
+                  price={post.price}
+                  condition={post.condition}
+                  comments={post.comments}
+                />
+              ))}
             </div>
-            {!this.state.buyHidden && <BuyBook />}
-            {!this.state.sellHidden && <SellBook />}
           </div>
+          {!this.state.buyHidden && <BuyBook />}
+          {!this.state.sellHidden && <SellBook />}
         </div>
       </div>
     );

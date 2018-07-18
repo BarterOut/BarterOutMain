@@ -64,7 +64,8 @@ nev.configure({
       accessToken: 'ya29.GluwBeUQiUspdFo1yPRfzFMWADsKsyQhB-jgX3ivPBi5zcIldvyPYZtRME6xqZf7UNzkXzZLu1fh0NpeO11h6mwS2qdsL_JREzpKw_3ebOWLNgxTyFg5NmSdStnR',
     },
   },
-  hashingFunction: myHasher, // This might break the log in for the new users as it might be hashing the hash.
+  // This might break the log in for the new users as it might be hashing the hash.
+  hashingFunction: myHasher,
   emailFieldName: 'emailAddress',
   passwordFieldName: 'password',
 
@@ -91,7 +92,7 @@ router.post('/resendEmailVerification', (req, res) => {
 });
 
 router.get('/email-verification/:URL', (req, res) => {
-  var url = req.params.URL;
+  const url = req.params.URL;
   TempUser.findOne({ emailToken: url }, (error, tempUser ) => {
     if (error) {
       console.log(error);
@@ -113,7 +114,7 @@ router.get('/email-verification/:URL', (req, res) => {
         .then(() => {
           console.log('a new user has been verified');
           sendEmail(signedUpEmail(newUser.emailAddress, newUser.firstName));// Verified the user
-          TempUser.remove({ emailToken: url }, function (err, reeeee) {
+          TempUser.remove({ emailToken: url }, (err, reeeee) => {
             if (err) {
               console.log('had an error' + err);
             }
@@ -267,15 +268,13 @@ router.post('/signup', (req, res) => {
       TempUser.findOne({ emailAddress }, (er, existingUser) => {
         if (err) {
           console.log(`tempUser.js post error: ${er}`);
-
-        }
-        else if (existingUser) {
+        } else if (existingUser) {
           res.status(409).json({
             msg: 'You have already signed up. Please check your email to verify your account.'
           });
         } else {
           console.log(`Making a temp user from ${university}`);
-          var emailToken = rand.generate(48);
+          const emailToken = rand.generate(48);
           const newUser = new TempUser({
             emailAddress,
             password,
@@ -291,7 +290,7 @@ router.post('/signup', (req, res) => {
           newUser.save()
             .then(() => {
               console.info('temp user was saved to DB');
-              var URL = newUser.emailToken;
+              const URL = newUser.emailToken;
               console.log(emailAddress);
               sendEmail(verifyEmail(emailAddress, firstName, URL));
             });
@@ -386,18 +385,19 @@ router.post('/login', (req, res) => {
   });
 });
 
-//Needs testing
+// Needs testing
 // Will update name, venmo, address
-//Requires the token to be sent as we ll as the body to cointain the info that will be updated
+// Requires the token to be sent as we ll as the body to cointain the info that will be updated
 router.post('/updateProfile', (req, res) => {
-  //Method to verify, this is commented out because everything depends on having some infomration in the session storage
+  // Method to verify, this is commented out because everything
+  // depends on having some infomration in the session storage
   jwt.verify(req.body.token, 'secretKey', (errr, authData) => {
     if (errr) {
       res.sendStatus(403);
     } else {
       // console.log(req.body);
       console.log(authData.userInfo._id);
-      var stuff = User.update(
+      const stuff = User.update(
         { _id: mongoose.Types.ObjectId(authData.userInfo._id) },
         {
           $set:
@@ -420,11 +420,13 @@ router.post('/updateProfile', (req, res) => {
   });
 });
 
-//Needs testing
+// Needs testing
 // Will update the password
-// Requires the token to be sent as well as the plain text password to be sent, will be hashed inside of the function.
+// Requires the token to be sent as well as the plain
+// text password to be sent, will be hashed inside of the function.
 router.post('/updatePassword', (req, res) => {
-  // Method to verify, this is commented out because everything depends on having some infomration in the session storage
+  // Method to verify, this is commented out because everything depends
+  // on having some infomration in the session storage
   jwt.verify(req.body.token, 'secretKey', (errr, authData) => {
     if (errr) {
       res.sendStatus(403);
@@ -445,14 +447,14 @@ router.post('/updatePassword', (req, res) => {
           return;
         }
         console.log(req.body);
-        // if it passes all the check before there is a user and the password is correct so it can be updated for the new one
+        // if it passes all the check before there is a user and the
+        // password is correct so it can be updated for the new one
         User.update(
           { _id: authData.userInfo._id },
           {
             $set:
               {
                 password: user.hashPassword(req.body.newPassword),
-
               },
           },
           (error) => {
@@ -467,7 +469,7 @@ router.post('/updatePassword', (req, res) => {
 
 router.post('/passwordResetRequest', (req, res) => {
   const email = req.body.emailAddress;
-  var token;
+  let token;
   User.findOne({ emailAddress: email }, (err, user) => {
     if (user != null) {
       crypto.randomBytes(20, function (error, buf) {
@@ -481,23 +483,19 @@ router.post('/passwordResetRequest', (req, res) => {
         }
       });
       sendEmail(passwordResetEmail(user.emailAddress, user.firstName, user.resetPasswordToken));
-
     } else {
-      console.log('no such user found with email: ' + email);
+      console.log(`no such user found with email: ${email}`);
       res.status(406).send({ error: 'no user found' });
     }
   });
-
 });
 
 router.get('/passwordReset/:token', (req, res) => {
-  User.findOne({ resetPasswordToken: req.params.token}, (err, user) =>{
+  User.findOne({ resetPasswordToken: req.params.token }, (err, user) => {
     if (!user) {
-      console.log('invalid token: ' + req.params.token);
+      console.log(`invalid token: ${req.params.token}`);
       res.status(406).send({ error: 'token expired or is invalid' });
-
-    }
-    else {
+    } else {
       // res.set({ resetToken: req.params.token });
       res.redirect('/resetPassword/:token');
     }
@@ -507,18 +505,16 @@ router.get('/passwordReset/:token', (req, res) => {
 router.post('/passwordReset', (req, res) => {
   User.findOne({ resetPasswordToken: req.params.token, resetPasswordExpires: { $gt: Date.now() } }, (err, user) => {
     if (!user) {
-      console.log('invalid token: ' + req.params.token);
+      console.log(`invalid token: ${req.params.token}`);
       res.status(406).send({ error: 'token expired or is invalid' });
-
-    }
-    else {
+    } else {
       user.password = User.hashPassword(req.password);
       user.resetPasswordExpires = undefined;
       user.resetPasswordToken = undefined;
-      user.save(function (error) {
+      user.save((error) => {
         console.log(error);
       });
-      //can send an email here
+      // can send an email here
       res.redirect('/home');
     }
   });
