@@ -1,0 +1,88 @@
+#wrapper {
+  display: flex;
+  flex-direction: column;
+  background: #4E2B84;
+  flex-grow: 2;
+  max-width: 340px;
+  min-width: 340px;
+  height: 100vh;
+  margin: 0;
+  padding: 8px;
+  color: white;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+}
+
+#profile-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 32px 0;
+}
+
+#profile-pic {
+  width: 60%;
+  height: auto;
+  border-radius: 50%;
+}
+
+#name {
+  font-size: 1.6em;
+  margin: 8px;
+}
+
+#link-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+#logo {
+  width: 50%;
+  height: auto;
+  margin: 16px 8px;
+}
+
+#three-bar {
+  width: 20px;
+  height: 20px;
+  background: white;
+}
+
+.top-of-nav {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+#nav-icon {
+  width: 42px;
+  height: 42px;
+}
+
+.nav-link {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  color: white;
+  padding-left: 6px;
+  margin: 8px 32px;
+  font-size: 2em;
+  font-weight: bold;
+  transition: all ease .1s;
+}
+
+.nav-link:hover {
+  border-left: 3px solid #FF8D00;
+  color: white;
+  text-decoration: none;
+}
+
+.selected {
+  border-left: 3px solid white;
+}
+
+#copyright-footer {
+  position: fixed;
+  bottom: 0;
+  margin: 16px 0;
+  align-self: center;
+}

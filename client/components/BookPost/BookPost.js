@@ -21,6 +21,10 @@ class BookPost extends Component {
   }
 
   componentDidMount() {
+    this._setID();
+  }
+
+  _setID() {
     this.setState({ id: this.props.id });
   }
 
@@ -52,25 +56,30 @@ class BookPost extends Component {
     return (
       <div className="post">
         <div className="leftBP">
-          <span className="bookName">{this.props.name}</span>
-          <span className="bookEdition">{this.props.edition} Edition; Condition: {this.props.condition}</span>
           <span className="bookSubject">{this.props.subject}</span>
-          <span className="bookSubject"><i>{this.props.comments}</i></span>
+          <span className="bookName">{this.props.name}</span>
+          <span className="bookEdition">Edition: {this.props.edition}</span>
         </div>
-
+        <div id="vertical-line" />
+        <div className="leftBP">
+          <div>
+            <span className="condition">{this.props.condition}</span>
+             for <span className="price">${this.props.price}</span>
+          </div>
+          <span className="comments"><i>{this.props.comments || 'No comments'}</i></span>
+        </div>
         <div className="rightBP">
-          <span className="bookPrice">${this.props.price}</span>
           <button
             className="button"
             onClick={this.confirmBuy.bind(this)}
-          >Buy
+          >Add to Cart
           </button>
-          <button
+          {/* <button
             className="confirmButton button"
             id={this.props.name}
             onClick={this.buyBook.bind(this)}
           >Confirm Buy
-          </button>
+          </button> */}
         </div>
       </div>
     );

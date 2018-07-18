@@ -33,7 +33,7 @@ function sendEmail(mailOptions) {
   console.log('Sending the email!');
   transporter.sendMail(mailOptions, (err, info) => {
     if (err) {
-      console.warn(err);
+      console.error(err);
     } else {
       console.info(info);
     }
@@ -47,8 +47,8 @@ function sendEmail(mailOptions) {
  * @param {Object} res Body of HTTP response.
  * @returns {String} Status Code
  */
-router.post('/sellBook', (req, res) => {
-  jwt.verify(req.token, 'secretKey', (error, authData) => {
+router.post('/postBook/:token', (req, res) => {
+  jwt.verify(req.params.token, 'secretKey', (error, authData) => {
     if (error) {
       res.sendStatus(403);
     } else {
@@ -59,17 +59,16 @@ router.post('/sellBook', (req, res) => {
           res.status(401).send(err);
         } else {
           console.log('User Selling Book');
-          req.body.payload.date = Date.now();
-          const newBook = new Textbook(req.body.payload);
+          const newBook = new Textbook(req.body.data);
           newBook.save()
             .then(() => {
-              console.log('Saved Book to DBemails');
+              console.log('Saved Book to DB');
               const theBookID = newBook._id;
               // update match with an and statment such that
               // it doesn't match with users that status other than 0
               TextbookBuy.find({
                 $and: [
-                  { $or: [{ name: { $regex: req.body.payload.name, $options: 'i' } }, { course: { $regex: req.body.payload.course, $options: 'i' } }] },
+                  { $or: [{ name: { $regex: req.body.data.name, $options: 'i' } }, { course: { $regex: req.body.data.course, $options: 'i' } }] },
                   { status: 0 },
                 ],
               }, (er, matchedBooks) => {
@@ -95,11 +94,10 @@ router.post('/sellBook', (req, res) => {
                   });
                 });
               });
-              res.redirect('/home');
+              res.status(200).send();
             })
             .catch((e) => {
-              console.error(e);
-              res.status(401).send(e);
+              res.status(400).send(e);
             });
         }
       });
@@ -113,10 +111,13 @@ router.post('/sellBook', (req, res) => {
  * @param {array} res Body of HTTP response.
  * @returns {object} Array of book objects.
  */
-router.post('/buyBook', (req, res) => {
+router.post('/requestBook', (req, res) => {
   // Method to verify, this is commented out because everything depends on
   // having some infomration in the session storage
-  jwt.verify(req.token, 'secretkey', (errr, authData) => {
+
+  console.log(req.body.data.token);
+
+  jwt.verify(req.body.data.token, 'secretKey', (errr, authData) => {
     if (errr) {
       res.sendStatus(403);
     } else {
@@ -126,8 +127,8 @@ router.post('/buyBook', (req, res) => {
         } else {
           console.info('User posting book to Buy');
 
-          req.body.payload.date = Date.now();
-          const newBook = new TextbookBuy(req.body.payload);
+          req.body.data.payload.date = Date.now();
+          const newBook = new TextbookBuy(req.body.data.payload);
           newBook.save()
             .then(() => {
               console.info('Book was saved to DB');
@@ -136,7 +137,7 @@ router.post('/buyBook', (req, res) => {
                 { // looks for a book that matches based on the name matching and the
                   $and: [
                     { status: 0 },
-                    { $or: [{ name: { $regex: req.body.payload.name, $options: 'i' } }, { course: { $regex: req.body.payload.course, $options: 'i' } }] },
+                    { $or: [{ name: { $regex: req.body.data.payload.name, $options: 'i' } }, { course: { $regex: req.body.data.payload.course, $options: 'i' } }] },
                   ],
                 },
                 (err, matchedBooks) => {
@@ -147,14 +148,14 @@ router.post('/buyBook', (req, res) => {
                     addBooks.push(book._id);
                   });
                   if (addBooks.length !== 0) {
-                    realUser.find({ _id: req.body.payload.owner }, (error, userToEmail) => {
+                    realUser.find({ _id: req.body.data.payload.owner }, (error, userToEmail) => {
                       const email = userToEmail[0].emailAddress;
                       const firstName = userToEmail[0].firstName;
-                      sendEmail(emails.matchFoundEmail(email, firstName, req.body.payload.name));
+                      sendEmail(emails.matchFoundEmail(email, firstName, req.body.data.payload.name));
                     });
                   }
                   realUser.update(
-                    { _id: req.body.payload.owner },
+                    { _id: req.body.data.payload.owner },
                     {
                       $addToSet: {
                         matchedBooks: { $each: addBooks },
@@ -172,6 +173,8 @@ router.post('/buyBook', (req, res) => {
         }
       });
     }
+
+    res.sendStatus(200);
   });
 });
 
@@ -232,7 +235,7 @@ router.post('/clickBuy', (req, res) => {
  * @param {array} res Body of HTTP response.
  * @returns {object} Array of book objects.
  */
-router.get('/showMatches/:token', (req, res) => {
+router.get('/getUserMatches/:token', (req, res) => {
   jwt.verify(req.params.token, 'secretKey', (err, authData) => {
     if (err) {
       res.sendStatus(403);
@@ -261,7 +264,7 @@ router.get('/showMatches/:token', (req, res) => {
  * @param {array} res Body of HTTP response.
  * @returns {object} Array of books from database.
  */
-router.get('/searchBook/:query', (req, res) => {
+router.get('/search/:query', (req, res) => {
   const searchKey = req.params.query;
   Textbook.find({
     $and: [
@@ -284,7 +287,7 @@ router.get('/searchBook/:query', (req, res) => {
  * @param {array} res Body of HTTP response.
  * @returns {object} Array of books from database.
  */
-router.get('/displayAllBooks/:token', (req, res) => {
+router.get('/getAllBooks/:token', (req, res) => {
   jwt.verify(req.params.token, 'secretKey', (err, authData) => {
     if (err) {
       res.sendStatus(403);

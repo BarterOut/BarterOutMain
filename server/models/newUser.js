@@ -12,7 +12,7 @@ const newUserSchema = new Schema({
   lastName: {type:'String', required: true},
   matchedBooks: [{type:String}],
   // array of matched books so you can look at those books might have to add quotes for it
-  univeristy: {type: 'String', required: true},
+  university: {type: 'String', required: true},
 },{
   collection: 'userInfo',
 })

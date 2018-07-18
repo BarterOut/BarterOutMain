@@ -61,7 +61,7 @@ class SignUp extends Component {
       password: this.state.password,
       venmoUsername: this.state.venmoUsername,
       firstName: this.state.firstName,
-      univeristy: this.state.university,
+      university: this.state.university,
       lastName: this.state.lastName,
       CMC: this.state.CMC,
     })
@@ -123,8 +123,8 @@ class SignUp extends Component {
     return (
       <div className="login-wrapper">
         <h1>Sign up for BarterOut</h1>
-        {this.state.success && <h3>Thanks for signing up, before logging in, please check your email to verify your account!</h3>}
-        {!this.state.allFilledOut && <h4 className="signup-error">Please ensure all the required fields are filled out.</h4>}
+        {this.state.success && <h3 id="signup-success">Thanks for signing up, before logging in, please check your email to verify your account!</h3>}
+        {!this.state.allFilledOut && <h4 className="input-error">Please ensure all the required fields are filled out.</h4>}
         <span className="inputLabel">First Name *</span>
         <input
           className="input"
@@ -175,7 +175,7 @@ class SignUp extends Component {
           name="CMC"
           required
         />
-        {!this.state.passwordsMatch && <h4 className="signup-error">Please make sure your passwords are the same!</h4>}
+        {!this.state.passwordsMatch && <h4 className="input-error">Please make sure your passwords are the same!</h4>}
         <div className="line">
           <input
             className="input"

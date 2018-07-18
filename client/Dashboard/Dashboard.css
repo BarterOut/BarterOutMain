@@ -44,16 +44,6 @@
   align-items: flex-start;
 }
 
-.content-wrapper {
-  display: flex;
-  flex-direction: row;
-  margin: 32px auto;
-  height: 80vh;
-  overflow: hidden;
-  justify-content: center;
-  max-width: 1200px;
-}
-
 .profile-section {
   display: flex;
   flex-direction: column;
@@ -97,17 +87,6 @@
   overflow-y: scroll;
   max-height: 650px;
   padding: 8px;
-}
-
-.searchInput {
-  border-radius: 10px;
-  border: none;
-  padding: 8px;
-  height: 40px;
-  min-width: 300px;
-  color:#000;
-  background: white;
-  /* z-index: 5; */
 }
 
 .posts-header {

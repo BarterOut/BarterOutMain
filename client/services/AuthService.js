@@ -6,7 +6,6 @@ export default class AuthService {
     this.domain = domain || 'http://localhost:8080'; // API server domain
     this.fetch = this.fetch.bind(this); // React binding stuff
     this.login = this.login.bind(this);
-    this.getProfile = this.getProfile.bind(this);
   }
 
   login(emailAddress, password) {
@@ -60,6 +59,8 @@ export default class AuthService {
   logout() {
     // Clear user token and profile data from localStorage
     sessionStorage.removeItem('token');
+    sessionStorage.removeItem('name');
+    window.location.reload();
   }
 
   getProfile() {
@@ -71,15 +72,10 @@ export default class AuthService {
   fetch(url, options) {
     // performs api calls sending the required authentication headers
     const headers = {
-      'Accept': 'application/json',
+      Accept: 'application/json',
       'Content-Type': 'application/json',
     };
 
-    // Setting Authorization header
-    // Authorization: Bearer xxxxxxx.xxxxxxxx.xxxxxx
-    if (this.loggedIn()) {
-      headers['Authorization'] = `Bearer ${this.getToken()}`;
-    }
     return fetch(url, {
       headers,
       ...options,

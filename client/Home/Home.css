@@ -2,55 +2,23 @@
   box-sizing: border-box;
   margin: 0;
   overflow-y: hidden;
-}
-
-.bar {
   display: flex;
   flex-direction: row;
-  align-items: center;
-  width: 100vw;
-  height: 70px;
-  color: white;
-  background: #222;
-  font-size: 1.5em;
-  padding: 0 16px;
 }
 
-.logo {
-  height: 40px;
-  width: auto;
-}
-
-.header {
-  font-size: 2em;
-}
-
-.left {
+.right-content {
   display: flex;
-  align-items: center;
-  flex-grow: 3;
-  height: 100%;
-  flex-direction: row;
-  justify-content: flex-end;
-}
-
-.right {
-  display: flex;
-  justify-content: center;
-  align-self: auto;
-  flex-grow: 3;
-  height: 100%;
   flex-direction: column;
-  align-items: flex-start;
+  flex-grow: 11;
 }
 
 .content-wrapper {
   display: flex;
   flex-direction: row;
-  margin: 32px auto;
+  /* margin: 32px auto; */
   height: 80vh;
   overflow: hidden;
-  justify-content: center;
+  /* justify-content: center; */
   max-width: 1200px;
 }
 
@@ -97,17 +65,6 @@
   overflow-y: scroll;
   max-height: 650px;
   padding: 8px;
-}
-
-.searchInput {
-  border-radius: 10px;
-  border: none;
-  padding: 8px;
-  height: 40px;
-  min-width: 300px;
-  color:#000;
-  background: white;
-  /* z-index: 5; */
 }
 
 .posts-header {

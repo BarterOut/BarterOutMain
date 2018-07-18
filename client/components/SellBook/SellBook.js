@@ -5,6 +5,11 @@
  */
 
 import React, { Component } from 'react';
+import FetchService from '../../services/FetchService';
+import AuthService from '../../services/AuthService';
+
+import '../../baseStyles.css';
+
 
 class SellBook extends Component {
   constructor() {
@@ -24,6 +29,10 @@ class SellBook extends Component {
     this.setState({ [evt.target.name]: evt.target.value });
   }
 
+  formSubmit(e) {
+    e.preventDefault();
+  }
+
   selectChange(evt) {
     const index = evt.target.selectedIndex;
     this.setState({ condition: evt.target[index].value });
@@ -34,8 +43,12 @@ class SellBook extends Component {
   }
 
   postToDatabase() {
-    const user = JSON.parse(sessionStorage.getItem('user'));
-    const ID = user._id;
+    const AUTH = new AuthService();
+    const profile = AUTH.getProfile();
+
+    if (!this._validateInputs()) {
+      return;
+    }
 
     const payload = {
       name: this.state.name,
@@ -43,42 +56,42 @@ class SellBook extends Component {
       course: this.state.course,
       price: this.state.price,
       status: 0,
+      date: Date.now(),
       ISBN: this.state.ISBN,
       condition: this.state.condition,
       comments: this.state.comments,
-      owner: ID,
+      owner: profile.userInfo._id,
     };
 
-    const data = new FormData();
-
-    data.append('json', JSON.stringify(payload));
-    fetch(
-      '/api/sellBook',
-      {
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
-        },
-        method: 'POST',
-        body: JSON.stringify({ payload }),
-      },
-    )
+    FetchService.POST(`/api/books/postBook/${AUTH.getToken()}`, payload)
       .then(() => {
         window.location.reload();
       });
+  }
+
+  _validateInputs() {
+    if (!/^[A-Z]{3} \d{3}$/.test(this.state.course)) {
+      return false;
+    }
+
+    if (this.state.price > 200 || this.state.price < 1) {
+      return false;
+    }
+
+    return true;
   }
 
   render() {
     return (
       <div className="wrapper-custom">
         <div className="modalContent">
-          <h2>What's your book?</h2>
-          <form className="input-wrapper">
+          <h2>Tell us about your book</h2>
+          <form className="input-wrapper" onSubmit={this.formSubmit.bind(this)}>
             <span className="inputLabelHome">Title of Book *</span>
             <input
               autoComplete="off"
-              className="generalInput"
-              placeholder="e.g. Intro to Probability"
+              className="formInput"
+              placeholder="e.g. Calculus and Early Transcendentals"
               type="text"
               name="name"
               onChange={this.onChange.bind(this)}
@@ -87,7 +100,7 @@ class SellBook extends Component {
             <span className="inputLabelHome">Edition *</span>
             <input
               autoComplete="off"
-              className="generalInput"
+              className="formInput"
               placeholder="e.g. 11"
               type="number"
               name="edition"
@@ -97,7 +110,7 @@ class SellBook extends Component {
             <span className="inputLabelHome">Course *</span>
             <input
               autoComplete="off"
-              className="generalInput"
+              className="formInput"
               placeholder="e.g. MTH 101"
               type="text"
               pattern="^[A-Z]{3} \d{3}$"
@@ -108,7 +121,7 @@ class SellBook extends Component {
             <span className="inputLabelHome">Price *</span>
             <input
               autoComplete="off"
-              className="generalInput"
+              className="formInput"
               placeholder="$"
               type="number"
               name="price"
@@ -118,7 +131,7 @@ class SellBook extends Component {
             <span className="inputLabelHome">ISBN</span>
             <input
               autoComplete="off"
-              className="generalInput"
+              className="formInput"
               placeholder="ISBN"
               type="number"
               pattern="^(?=(?:\D*\d){10}(?:(?:\D*\d){3})?$)[\d-]+$"
@@ -126,16 +139,16 @@ class SellBook extends Component {
               name="ISBN"
             />
             <span className="inputLabelHome">Condition *</span>
-            <select onChange={this.selectChange.bind(this)} className="condition">
+            <select onChange={this.selectChange.bind(this)} className="conditionInput">
               <option value="Poor">Poor</option>
               <option value="Fair">Fair</option>
               <option value="Good">Good</option>
-              <option value="Just as new">Just as new</option>
+              <option value="Like new">Like new</option>
             </select>
             <span className="inputLabelHome">Comments</span>
             <input
               autoComplete="off"
-              className="generalInput"
+              className="formInput"
               placeholder="Comments"
               type="text"
               onChange={this.onChange.bind(this)}
@@ -147,7 +160,7 @@ class SellBook extends Component {
                 type="submit"
                 className="button"
                 onClick={this.postToDatabase.bind(this)}
-              >Sell Book
+              >Sell Now
               </button>
             </div>
           </form>
