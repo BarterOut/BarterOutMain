@@ -74,7 +74,7 @@ class SellBook extends Component {
       return false;
     }
 
-    if (this.state.price > 200) {
+    if (this.state.price > 200 || this.state.price < 1) {
       return false;
     }
 
@@ -139,7 +139,7 @@ class SellBook extends Component {
               name="ISBN"
             />
             <span className="inputLabelHome">Condition *</span>
-            <select onChange={this.selectChange.bind(this)} className="condition">
+            <select onChange={this.selectChange.bind(this)} className="conditionInput">
               <option value="Poor">Poor</option>
               <option value="Fair">Fair</option>
               <option value="Good">Good</option>

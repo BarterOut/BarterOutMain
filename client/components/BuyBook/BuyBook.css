@@ -61,6 +61,10 @@
   font-size: 1.2em;
 }
 
-.condition:focus {
+.conditionInput {
+  width: 100%;
+}
+
+.conditionInput:focus {
   border: 1px solid #FF8D00;
 }
