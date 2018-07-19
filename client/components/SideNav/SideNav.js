@@ -17,6 +17,7 @@ import './SideNav.css';
 
 import profile from '../../images/barterOutProfilePhotoWebPage.png';
 import logo from '../../images/white Logo.png';
+import MaterialIcon from 'react-google-material-icons';
 
 class SideNav extends Component {
   constructor() {
@@ -52,7 +53,7 @@ class SideNav extends Component {
       <div id="wrapper">
         <div className="top-of-nav">
           <img id="logo" src={logo} alt="logo" />
-          <div id="three-bar" />
+          <div id="three-bar"><MaterialIcon icon="menu" size={36} /></div>
         </div>
         <div id="profile-wrapper">
           <img src={profile} alt="profile" id="profile-pic" />
@@ -62,13 +63,29 @@ class SideNav extends Component {
         </div>
         <div id="link-wrapper">
           <Link className="nav-link" name="home" to="/home" href="/home">
+            <div className="nav-icon"><MaterialIcon icon="home" size={36} /></div>
             Home
           </Link>
-          <Link className="nav-link" name="buy" to="/buy" href="/buy">Buy</Link>
-          <Link className="nav-link" name="sell" to="/sell" href="/sell">Sell</Link>
-          <Link className="nav-link" name="track" to="/track" href="/track">Track</Link>
-          <Link className="nav-link" name="settings" to="/settings" href="/settings">Settings</Link>
-          <Link className="nav-link" name="help" to="/help" href="/help">Help</Link>
+          <Link className="nav-link" name="buy" to="/buy" href="/buy">
+            <div className="nav-icon"><MaterialIcon icon="shopping_cart" size={36} /></div>
+            Buy
+          </Link>
+          <Link className="nav-link" name="sell" to="/sell" href="/sell">
+            <div className="nav-icon"><MaterialIcon icon="store" size={36} /></div>
+            Sell
+          </Link>
+          <Link className="nav-link" name="track" to="/track" href="/track">
+            <div className="nav-icon"><MaterialIcon icon="timeline" size={36} /></div>
+            Track
+          </Link>
+          <Link className="nav-link" name="settings" to="/settings" href="/settings">
+            <div className="nav-icon"><MaterialIcon icon="settings" size={36} /></div>
+            Settings
+          </Link>
+          <Link className="nav-link" name="help" to="/help" href="/help">
+            <div className="nav-icon"><MaterialIcon icon="help" size={36} /></div>
+            Help
+          </Link>
         </div>
         <span id="copyright-footer">Copyright 2018 BarterOut</span>
       </div>
