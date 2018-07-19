@@ -8,7 +8,6 @@
 import mongoose from 'mongoose';
 
 import User from '../models/user';
-import TextbookBuy from "../models/textbookBuy";
 import Textbook from "../models/textbook";
 import TempUser from '../models/tempUser';
 
@@ -509,7 +508,58 @@ router.post('/passwordReset', (req, res) => {
   });
 });
 
-router.get('/getCartItems', (req, res) => {
+
+/**
+ * Method for returning all the current items in a user's cart.
+ * @param {object} req Request from client.
+ * @param {array} res Body of HTTP response.
+ * @returns {object} Array of book objects.
+ */
+router.get('/getCartItems/:token', (req, res) => {
+  jwt.verify(req.params.token, 'secretKey', (error, authData) => {
+    if (error) {
+      res.sendStatus(401);
+    } else {
+      User.findOne({ _id: authData.userInfo._id }, (err, user) => {
+        let itemsInCart = [];
+        const bookIDs = user.cart;
+        Textbook.find({ $and: [{ _id: { $in: bookIDs } }, { status: 0 }] }, (error, books) => {
+          itemsInCart = books;
+          res.status(200).json(itemsInCart);
+        });
+      });
+    }
+  });
+});
+
+/**
+ * Called when a user clicks add to cart on a given book.
+ * @param {object} req Request from client.
+ * @param {array} res Body of HTTP response.
+ * @returns {object} Success Status.
+ */
+router.post('/addToCart', (req, res) => {
+  jwt.verify(req.body.data.token, 'secretKey', (error, authData) => {
+    if (error) {
+      res.sendStatus(401);
+    } else {
+      const arr = [req.body.data.bookID];
+      User.update(
+        { _id: authData.userInfo._id },
+        {
+          $addToSet: {
+            cart: { $each: arr },
+          },
+        }, (error) => {
+          console.error(`Error: ${error}`);
+        },
+      );
+    }
+  });
+  res.sendStatus(202);
+});
+
+router.post('/removeFromCart', (req, res) => {
   jwt.verify(req.body.data.token, 'secretKey', (error, authData) => {
     if (error) {
       res.sendStatus(401);
@@ -519,14 +569,6 @@ router.get('/getCartItems', (req, res) => {
       });
     }
   });
-  res.sendStatus(200);
-});
-
-router.post('/addToCart', (req, res) => {
-  res.sendStatus(202);
-});
-
-router.post('/removeFromCart', (req, res) => {
   res.sendStatus(200);
 });
 

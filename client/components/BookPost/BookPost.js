@@ -7,6 +7,9 @@
 import React, { Component } from 'react';
 import propTypes from 'prop-types';
 
+import FetchService from '../../services/FetchService';
+import AuthService from '../../services/AuthService';
+
 import './BookPost.css';
 
 class BookPost extends Component {
@@ -27,10 +30,11 @@ class BookPost extends Component {
   }
 
   addToCart() {
-    console.log('CART');
-    const cart = [];
-    cart.push(this.state.id);
-    sessionStorage.setItem('cart', JSON.stringify(cart));
+    const AUTH = new AuthService();
+    FetchService.POST('/api/auth/addToCart', {
+      token: AUTH.getToken(),
+      bookID: this.state.id,
+    });
   }
 
   render() {
