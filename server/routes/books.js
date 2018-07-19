@@ -313,14 +313,14 @@ router.get('/getUsersPosts/:token', (req, res) => {
  * @param {array} res Body of HTTP response.
  * @returns {object} Array of books from database.
  */
-router.get('/deleteBook/:token/:bookID', (req, res) => {
-  jwt.verify(req.params.token, 'secretKey', (err, authData) => {
+router.post('/deleteBook/', (req, res) => {
+  jwt.verify(req.body.data.token, 'secretKey', (err, authData) => {
     if (err) {
       res.sendStatus(403);
     } else {
       Textbook.deleteOne({
         $and: [
-          { _id: req.params.bookID },
+          { _id: req.body.data.bookID },
           { owner: authData.userInfo._id },
         ],
       }, (error) => {

@@ -10,7 +10,7 @@ import AuthService from '../../services/AuthService';
 
 import SideNav from '../../components/SideNav/SideNav';
 import TopBar from '../../components/TopBar/TopBar';
-import BookPost from '../../components/BookPost/BookPost';
+import PersonalBookPost from '../../components/PersonalBookPost/PersonalBookPost';
 import BuyBook from '../../components/BuyBook/BuyBook';
 import SellBook from '../../components/SellBook/SellBook';
 
@@ -83,7 +83,7 @@ class Sell extends Component {
             <div className="page-section-wrapper">
               <div className="title--page-section-wrapper"><h2 className="title-text--page-section-header">Your Books</h2></div>
               {posts.map(post => (
-                <BookPost
+                <PersonalBookPost
                   key={post._id}
                   id={post._id}
                   name={post.name}

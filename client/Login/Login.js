@@ -106,14 +106,14 @@ class Login extends Component {
             required
           />
           <div>
-            <span>Remember me</span>
+            <input type="checkbox" />Remember Me
             Forgot Password
           </div>
           <div>
-            <button className="inputButtonFilled" onClick={this.login.bind(this)}>Login</button>
             <Link href="/signup" to="/signup">
               <button className="inputButton">Sign Up</button>
             </Link>
+            <button className="inputButtonFilled" onClick={this.login.bind(this)}>Login</button>
           </div>
           <div>Back to <Link href="/" to="/">Home</Link>.</div>
         </div>

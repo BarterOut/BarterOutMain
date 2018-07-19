@@ -29,7 +29,7 @@ class Buy extends Component {
   componentWillMount() {
     const auth = new AuthService();
     const token = auth.getToken();
-    this.setState({ token });
+    this._setToken(token);
 
     FetchService.GET(`/api/books/getAllBooks/${token}`, {})
       .then(response => response.json())
@@ -42,6 +42,10 @@ class Buy extends Component {
       .then((data) => {
         this._setMatches(data);
       });
+  }
+
+  _setToken(token) {
+    this.setState({ token });
   }
 
   _setPosts(data) {

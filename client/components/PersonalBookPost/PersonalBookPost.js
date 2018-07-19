@@ -7,11 +7,35 @@
 import React, { Component } from 'react';
 import propTypes from 'prop-types';
 
-import './BookPost.css';
+import FetchService from '../../services/FetchService';
+import AuthService from '../../services/AuthService';
 
-class BookPost extends Component {
-  addToCart() {
-    console.log('CART');
+class PersonalBookPost extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      id: '',
+    };
+  }
+
+  componentDidMount() {
+    this._setID();
+  }
+
+  _setID() {
+    this.setState({ id: this.props.id });
+  }
+
+  deleteBook() {
+    const AUTH = new AuthService();
+    FetchService.POST('/api/books/deleteBook', {
+      bookID: this.state.id,
+      token: AUTH.getToken(),
+    })
+      .then(() => {
+        window.location.reload();
+      });
   }
 
   render() {
@@ -33,8 +57,8 @@ class BookPost extends Component {
         <div className="rightBP">
           <button
             className="button"
-            onClick={this.addToCart.bind(this)}
-          >Add to Cart
+            onClick={this.deleteBook.bind(this)}
+          >Remove
           </button>
         </div>
       </div>
@@ -43,7 +67,7 @@ class BookPost extends Component {
 }
 
 // Props validation
-BookPost.propTypes = {
+PersonalBookPost.propTypes = {
   comments: propTypes.string.isRequired,
   condition: propTypes.string.isRequired,
   edition: propTypes.number.isRequired,
@@ -53,4 +77,4 @@ BookPost.propTypes = {
   subject: propTypes.string.isRequired,
 };
 
-export default BookPost;
+export default PersonalBookPost;
