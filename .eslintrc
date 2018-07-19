@@ -20,6 +20,7 @@
     "prefer-destructuring": "off",
     "no-else-return": "off",
     "no-console": "warn",
+    "no-shadow": "off",
     "no-underscore-dangle": 0,
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
     "react/sort-prop-types": 2,

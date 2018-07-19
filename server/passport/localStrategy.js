@@ -1,14 +1,14 @@
-const NewUser = require('../models/newUser')
-const LocalStrategy = require('passport-local').Strategy
 import User from '../models/user';
+
+const LocalStrategy = require('passport-local').Strategy;
 
 const strategy = new LocalStrategy(
   {
-    emailAddress: 'username' // not necessary, DEFAULT
+    emailAddress: 'username',
   },
-  function(emailAddress, password, done) {
-    console.log("gonna double check")
-    User.findOne({ emailAddress: emailAddress }, (err, user) => {
+
+  (emailAddress, password, done) => {
+    User.findOne({ emailAddress }, (err, user) => {
       if (err) {
         return done(err);
       }
@@ -21,6 +21,6 @@ const strategy = new LocalStrategy(
       return done(null, user);
     });
   },
-)
+);
 
 module.exports = strategy;
