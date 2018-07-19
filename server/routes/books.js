@@ -1,5 +1,5 @@
 /**
- * @file Booksß routes for Express.js server.
+ * @file Books routes for Express.js server.
  * @author Daniel Munoz
  * @author Duncan Grubbs <duncan.grubbs@gmail.com>
  * @version 0.0.2
@@ -7,7 +7,7 @@
 
 import Textbook from '../models/textbook';
 import TextbookBuy from '../models/textbookBuy';
-import realUser from '../models/newUser';
+import User from '../models/user';
 
 const express = require('express');
 
@@ -52,7 +52,7 @@ router.post('/postBook/:token', (req, res) => {
     if (error) {
       res.sendStatus(403);
     } else {
-      realUser.findOne({ _id: authData.userInfo._id }, (err, user) => {
+      User.findOne({ _id: authData.userInfo._id }, (err, user) => {
         if (!user) {
           res.status(401).send({ error: 'You need to create an account' });
         } else if (err) {
@@ -77,13 +77,13 @@ router.post('/postBook/:token', (req, res) => {
                   return;
                 }
                 matchedBooks.forEach((bookMatched) => {
-                  realUser.update(
+                  User.update(
                     { _id: bookMatched.owner },
                     {
                       $addToSet: { matchedBooks: theBookID },
                     },
                   );
-                  realUser.find({ _id: bookMatched.owner }, (errr, userToEmail) => {
+                  User.find({ _id: bookMatched.owner }, (errr, userToEmail) => {
                     if (userToEmail[0] == null) {
                       res.redirect('/home');
                       return;
@@ -121,7 +121,7 @@ router.post('/requestBook', (req, res) => {
     if (errr) {
       res.sendStatus(403);
     } else {
-      realUser.findOne({ _id: authData.userInfo._id }, (er, user) => {
+      User.findOne({ _id: authData.userInfo._id }, (er, user) => {
         if (!user) {
           res.status(401).send({ error: 'You need to create an account' });
         } else {
@@ -148,13 +148,13 @@ router.post('/requestBook', (req, res) => {
                     addBooks.push(book._id);
                   });
                   if (addBooks.length !== 0) {
-                    realUser.find({ _id: req.body.data.payload.owner }, (error, userToEmail) => {
+                    User.find({ _id: req.body.data.payload.owner }, (error, userToEmail) => {
                       const email = userToEmail[0].emailAddress;
                       const firstName = userToEmail[0].firstName;
                       sendEmail(emails.matchFoundEmail(email, firstName, req.body.data.payload.name));
                     });
                   }
-                  realUser.update(
+                  User.update(
                     { _id: req.body.data.payload.owner },
                     {
                       $addToSet: {
@@ -189,7 +189,7 @@ router.post('/clickBuy/:token', (req, res) => {
     if (error) {
       res.sendStatus(403);
     } else {
-      realUser.findOne({ _id: authData.userInfo._id }, (error, user) => {
+      User.findOne({ _id: authData.userInfo._id }, (error, user) => {
         if (!user) {
           res.status(401).send({ error: 'You need to create an account' });
         } else {
@@ -197,7 +197,7 @@ router.post('/clickBuy/:token', (req, res) => {
           let bookFound;
           let seller;
 
-          realUser.find({ _id: req.body.userID }, (e, foundUser) => {
+          User.find({ _id: req.body.userID }, (e, foundUser) => {
             if (e) {
               res.status(401).send(err);
               return;
@@ -214,7 +214,7 @@ router.post('/clickBuy/:token', (req, res) => {
               }, { $set: { status: 1 } }, (error) => {
                 console.log(`Error in finding book being bought:  ${error}`);
               });
-              realUser.find({ _id: bookFound.owner }, (error, sellerUser) => {
+              User.find({ _id: bookFound.owner }, (error, sellerUser) => {
                 seller = sellerUser[0];
                 sendEmail(emails.emailForUs(buyer, seller, bookFound));
                 sendEmail(emails.emailToSeller(seller.emailAddress, seller.firstName, bookFound.name));
@@ -240,11 +240,11 @@ router.get('/getUserMatches/:token', (req, res) => {
     if (err) {
       res.sendStatus(403);
     } else {
-      realUser.findOne({ _id: authData.userInfo._id }, (error, user) => {
+      User.findOne({ _id: authData.userInfo._id }, (error, user) => {
         if (!user) {
           res.status(401).send({ error: 'You need to create an account' });
         } else {
-          realUser.find({ _id: authData.userInfo._id }, (err, userMatch) => {
+          User.find({ _id: authData.userInfo._id }, (err, userMatch) => {
             let bookObjects = [];
             const bookIDs = userMatch[0].matchedBooks;
             Textbook.find({ $and: [{ _id: { $in: bookIDs } }, { status: 0 }] }, (error, books) => {
@@ -346,7 +346,7 @@ router.get('/getAllBooks/:token', (req, res) => {
     if (err) {
       res.sendStatus(403);
     } else {
-      realUser.findOne({ _id: authData.userInfo._id }, (error, user) => {
+      User.findOne({ _id: authData.userInfo._id }, (error, user) => {
         if (!user) {
           res.status(401).send({ error: 'You need to create an account' });
         } else {

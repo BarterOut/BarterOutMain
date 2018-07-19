@@ -102,8 +102,8 @@ class Buy extends Component {
               type="text"
               name="name"
             />
+            <div className="title--page-section-wrapper"><h2 className="title-text--page-section-header">Your Matches</h2></div>
             <div className="page-section-wrapper">
-              <div className="title--page-section-wrapper"><h2 className="title-text--page-section-header">Your Matches</h2></div>
               {matches.map(post => (
                 <BookPost
                   key={post._id}
@@ -117,8 +117,8 @@ class Buy extends Component {
                 />
               ))}
             </div>
+            <div className="title--page-section-wrapper"><h2 className="title-text--page-section-header">New Arrivals</h2></div>
             <div className="page-section-wrapper">
-              <div className="title--page-section-wrapper"><h2 className="title-text--page-section-header">New Arrivals</h2></div>
               {posts.map(post => (
                 <BookPost
                   key={post._id}

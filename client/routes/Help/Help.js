@@ -20,12 +20,10 @@ class Help extends Component {
         <div className="right-content">
           <TopBar />
           <div className="page-content">
-            <div className="page-section-wrapper">
-              <div className="title--page-section-wrapper">
-                <h2 className="title-text--page-section-header">Help</h2>
-              </div>
-              CONTENT
+            <div className="title--page-section-wrapper">
+              <h2 className="title-text--page-section-header">Help</h2>
             </div>
+            <div className="page-section-wrapper" />
           </div>
         </div>
       </div>

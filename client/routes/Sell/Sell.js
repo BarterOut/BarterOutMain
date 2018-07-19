@@ -57,10 +57,10 @@ class Sell extends Component {
         <div className="right-content">
           <TopBar />
           <div className="page-content">
+            <div className="title--page-section-wrapper">
+              <h2 className="title-text--page-section-header">Sell your  Textbooks</h2>
+            </div>
             <div className="page-section-wrapper">
-              <div className="title--page-section-wrapper">
-                <h2 className="title-text--page-section-header">Sell Your Textbooks</h2>
-              </div>
 
               <div className="sellInfoSection">
                 <span id="sellPromptText">
@@ -79,9 +79,8 @@ class Sell extends Component {
                 </button>
               </div>
             </div>
-
+            <div className="title--page-section-wrapper"><h2 className="title-text--page-section-header">Your Books</h2></div>
             <div className="page-section-wrapper">
-              <div className="title--page-section-wrapper"><h2 className="title-text--page-section-header">Your Books</h2></div>
               {posts.map(post => (
                 <PersonalBookPost
                   key={post._id}

@@ -10,8 +10,27 @@ import propTypes from 'prop-types';
 import './BookPost.css';
 
 class BookPost extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      id: '',
+    };
+  }
+
+  componentDidMount() {
+    this._setID();
+  }
+
+  _setID() {
+    this.setState({ id: this.props.id });
+  }
+
   addToCart() {
     console.log('CART');
+    const cart = [];
+    cart.push(this.state.id);
+    sessionStorage.setItem('cart', JSON.stringify(cart));
   }
 
   render() {

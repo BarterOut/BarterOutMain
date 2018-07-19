@@ -20,17 +20,15 @@ class Track extends Component {
         <div className="right-content">
           <TopBar />
           <div className="page-content">
-            <div className="page-section-wrapper">
-              <div className="title--page-section-wrapper">
-                <h2 className="title-text--page-section-header">Purchased</h2>
-              </div>
+          <div className="title--page-section-wrapper">
+              <h2 className="title-text--page-section-header">Purchased</h2>
             </div>
+            <div className="page-section-wrapper" />
 
-            <div className="page-section-wrapper">
-              <div className="title--page-section-wrapper">
-                <h2 className="title-text--page-section-header">Sold</h2>
-              </div>
+            <div className="title--page-section-wrapper">
+              <h2 className="title-text--page-section-header">Sold</h2>
             </div>
+            <div className="page-section-wrapper" />
 
           </div>
         </div>

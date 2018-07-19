@@ -7,7 +7,7 @@
 
 import mongoose from 'mongoose';
 
-import User from '../models/newUser';
+import User from '../models/user';
 import TextbookBuy from "../models/textbookBuy";
 import Textbook from "../models/textbook";
 import TempUser from '../models/tempUser';
@@ -406,10 +406,6 @@ router.post('/updateProfile', (req, res) => {
           console.log(`Error: ${error}`);
         },
       );
-      // console.log(stuff);
-      // User.findOne({_id: authData.userInfo._id}, (err, us) => {
-      //   console.log(us);
-      // });
     }
   });
 });
@@ -432,7 +428,7 @@ router.post('/updatePassword', (req, res) => {
           return;
         }
         if (!user) {
-          console.log('error in the finding of the user')
+          console.log('error in the finding of the user');
           res.status(401).send({ error: 'You need to create an account.' });
           return;
         }
@@ -490,7 +486,6 @@ router.get('/passwordReset/:token', (req, res) => {
       console.log(`invalid token: ${req.params.token}`);
       res.status(406).send({ error: 'token expired or is invalid' });
     } else {
-      // res.set({ resetToken: req.params.token });
       res.redirect('/resetPassword/:token');
     }
   });
@@ -512,6 +507,31 @@ router.post('/passwordReset', (req, res) => {
       res.redirect('/home');
     }
   });
+});
+
+router.get('/getCartItems', (req, res) => {
+  jwt.verify(req.body.data.token, 'secretKey', (error, authData) => {
+    if (error) {
+      res.sendStatus(401);
+    } else {
+      User.findOne({ _id: authData.userInfo._id }, (err, user) => {
+        console.log(user.cart);
+      });
+    }
+  });
+  res.sendStatus(200);
+});
+
+router.post('/addToCart', (req, res) => {
+  res.sendStatus(202);
+});
+
+router.post('/removeFromCart', (req, res) => {
+  res.sendStatus(200);
+});
+
+router.post('/clearCart', (req, res) => {
+  res.sendStatus(200);
 });
 
 // Just in case this is needed

@@ -19,11 +19,10 @@ const Home = () => (
     <div className="right-content">
       <TopBar />
       <div className="page-content">
-        <div className="page-section-wrapper">
-          <div className="title--page-section-wrapper">
-            <h2 className="title-text--page-section-header">Notifications</h2>
-          </div>
+        <div className="title--page-section-wrapper">
+          <h2 className="title-text--page-section-header">Notifications</h2>
         </div>
+        <div className="page-section-wrapper" />
       </div>
     </div>
   </div>
