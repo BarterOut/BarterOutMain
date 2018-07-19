@@ -559,17 +559,32 @@ router.post('/addToCart', (req, res) => {
   res.sendStatus(202);
 });
 
+
+// TODO: FIX THIS
 router.post('/removeFromCart', (req, res) => {
   jwt.verify(req.body.data.token, 'secretKey', (error, authData) => {
     if (error) {
       res.sendStatus(401);
     } else {
       User.findOne({ _id: authData.userInfo._id }, (err, user) => {
-        console.log(user.cart);
+        for (let i = 0; i < user.cart.length; i++) {
+          if (user.cart[i] === req.body.data.bookID) {
+            user.cart.splice(i, 1);
+          }
+        }
+        User.update(
+          { _id: authData.userInfo._id },
+          {
+            $update:
+              {
+                cart: user.cart,
+              },
+          },
+        );
+        res.sendStatus(200);
       });
     }
   });
-  res.sendStatus(200);
 });
 
 router.post('/clearCart', (req, res) => {

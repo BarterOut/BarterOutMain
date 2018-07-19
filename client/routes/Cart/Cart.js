@@ -8,7 +8,7 @@ import React, { Component } from 'react';
 
 import SideNav from '../../components/SideNav/SideNav';
 import TopBar from '../../components/TopBar/TopBar';
-import BookPost from '../../components/BookPost/BookPost';
+import CartBookPost from '../../components/CartBookPost/CartBookPost';
 
 import FetchService from '../../services/FetchService';
 import AuthService from '../../services/AuthService';
@@ -36,11 +36,12 @@ class Cart extends Component {
     this.setState({ items: data });
   }
 
+  buyBooks() {
+    // FetchService.POST('/api/books/clickBuy', {});
+    console.log('BUYING BOOKS');
+  }
+
   render() {
-    let items = [];
-    if (this.state.items) {
-      items = this.state.items;
-    }
     return (
       <div className="app-wrapper">
         <SideNav
@@ -55,7 +56,7 @@ class Cart extends Component {
             </div>
             <div className="page-section-wrapper">
               {this.state.items.map(post => (
-                <BookPost
+                <CartBookPost
                   key={post._id}
                   id={post._id}
                   name={post.name}
@@ -67,6 +68,13 @@ class Cart extends Component {
                 />
               ))}
             </div>
+
+            <h3>
+              When you click buy book(s), we will Venmo request you once we recieve the books and validate their condition.
+              Until you accept our venmo request, we will hold the book(s). However, once you accept it, the book(s) will be
+              delivered via the campus mail center.
+            </h3>
+            <button className="button" onClick={this.buyBooks.bind(this)}>Buy Book(s)</button>
           </div>
         </div>
       </div>
