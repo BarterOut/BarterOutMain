@@ -10,8 +10,6 @@
   line-height: 40px;
   max-width: 160px;
   padding: 4px 16px;
-  -webkit-box-shadow: 0 4px 6px rgba(50,50,93,.11), 0 1px 3px rgba(0,0,0,.08);
-  box-shadow: 0 4px 6px rgba(50,50,93,.11), 0 1px 3px rgba(0,0,0,.08);
   border: none;
   border-radius: 4px;
   font-size: 1.4em;
@@ -20,7 +18,13 @@
   color: #FFF;
   background: #41397c;
   text-decoration: none;
-  margin: 4px 16px;
+  transition: all 0.15s ease;
+  margin: 8px;
+}
+
+.inputButtonFilled:hover {
+  -webkit-box-shadow: 0 4px 6px rgba(50,50,93,.11), 0 1px 3px rgba(0,0,0,.08);
+  box-shadow: 0 4px 6px rgba(50,50,93,.11), 0 1px 3px rgba(0,0,0,.08);
 }
 
 .inputButton {
@@ -29,8 +33,6 @@
   line-height: 40px;
   max-width: 160px;
   padding: 4px 16px;
-  -webkit-box-shadow: 0 4px 6px rgba(50,50,93,.11), 0 1px 3px rgba(0,0,0,.08);
-  box-shadow: 0 4px 6px rgba(50,50,93,.11), 0 1px 3px rgba(0,0,0,.08);
   border: 2px solid #41397c;
   border-radius: 4px;
   font-size: 1.4em;
@@ -38,8 +40,14 @@
   letter-spacing: .025em;
   color: #444;
   background: none;
+  tranfermation: all ease .2s;
   text-decoration: none;
-  margin: 4px 16px;
+  margin: 8px;
+}
+
+.inputButton:hover {
+  -webkit-box-shadow: 0 4px 6px rgba(50,50,93,.11), 0 1px 3px rgba(0,0,0,.08);
+  box-shadow: 0 4px 6px rgba(50,50,93,.11), 0 1px 3px rgba(0,0,0,.08);
 }
 
 #login-header {
@@ -61,9 +69,8 @@
 .formInputLoginSignup {
   background: none;
   border: none;
-  width: 100%;
-  max-width: 600px;
-  margin: 8px 8px 32px 8px;
+  width: 90%;
+  margin: 8px 4px 32px 4px;
   font-size: 1.2em;
   border-bottom: 2px #41397c solid;
   color: #444;
@@ -86,14 +93,10 @@
 .login-wrapper {
   display: flex;
   width: 100vw;
-  /* max-width: 450px; */
   border-radius: 5px;
-  /* padding: 16px; */
   flex-direction: row;
   align-items: left;
   background: #FFF;
-  /* color: #4547e2; */
-  /* box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23); */
 }
 
 @media only screen and (max-width: 860px) {

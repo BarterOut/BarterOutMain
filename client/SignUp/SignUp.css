@@ -1,11 +1,13 @@
 .line {
   display: flex;
   flex-direction: row;
+  width: 90%
 }
 
 .inputLabel {
   margin: 4px 0;
-  align-self: flex-start;
+  width: 90%;
+  align-self: center;
 }
 
 select {
@@ -22,10 +24,20 @@ select {
 }
 
 .badInput {
-  margin: 8px 4px 8px 0;
+  background: none;
+  border: none;
   width: 100%;
-  padding: 8px;
-  border-radius: 3px;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
-  border: solid 2px red;
+  max-width: 600px;
+  margin: 8px 8px 32px 8px;
+  font-size: 1.2em;
+  border-bottom: 2px red solid;
+  color: #444;
+}
+
+.schoolInput {
+  width: 90%;
+}
+
+.schoolInput:focus {
+  border: 1px solid #FF8D00;
 }

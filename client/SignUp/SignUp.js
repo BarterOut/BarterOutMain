@@ -105,10 +105,10 @@ class SignUp extends Component {
       allGood = false;
     }
 
-    const inputsArray = document.getElementsByClassName('input');
+    const inputsArray = document.getElementsByClassName('formInputLoginSignup');
 
     for (let i = 0; i < inputsArray.length; i++) {
-      inputsArray[i].className = 'input';
+      inputsArray[i].className = 'formInputLoginSignup';
     }
 
     for (let i = 0; i < inputsArray.length; i++) {
@@ -117,7 +117,7 @@ class SignUp extends Component {
         allGood = false;
         inputsArray[i].className = 'badInput';
       } else {
-        inputsArray[i].className = 'input';
+        inputsArray[i].className = 'formInputLoginSignup';
       }
     }
 
@@ -133,7 +133,7 @@ class SignUp extends Component {
         </div>
 
         <div className="rightLoginContent">
-          <h3>Sign Up for BarterOut</h3>
+          <h3>Create an Account</h3>
           {this.state.success && <h3 id="signup-success">Thanks for signing up, before logging in, please check your email to verify your account!</h3>}
           {!this.state.allFilledOut && <h4 className="input-error">Please ensure all the required fields are filled out.</h4>}
           <span className="inputLabel">First Name *</span>
@@ -165,7 +165,7 @@ class SignUp extends Component {
             required
           />
           <span className="inputLabel">University *</span>
-          <select onChange={this.selectChange.bind(this)} className="conditionInput">
+          <select onChange={this.selectChange.bind(this)} className="schoolInput">
             <option value="University of Rochester">University of Rochester</option>
           </select>
           <span className="inputLabel">Venmo Username *</span>
