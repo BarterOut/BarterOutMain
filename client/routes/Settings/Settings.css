@@ -1,6 +1,6 @@
-.insideInfo-Password {
+.insideInfo {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     padding: 40px 16px;
     align-items: center;
     font-size: 1.6em;
@@ -18,8 +18,8 @@
     padding: 30px 0px 0px 0px;
 }
 
-.columns-Password{
-    padding: 50px 0px 50px 0px;
+.columns{
+    padding: 50px 0px 50px 30px;
     display: flex;
     flex-grow: 2;
     border: none;
@@ -38,7 +38,7 @@
     color: #444;
 }
 
-.page-section-wrapper-Password{
+.page-section-wrapper-Settings{
     width: 90%;
     max-height: 500px;
     min-height: 100px;
@@ -52,7 +52,7 @@
     margin-bottom: 8px;
 }
 
-.title--page-section-wrapper-Password{
+.title--page-section-wrapper-Settings{
     display: flex;
     flex-direction: column;
     background: #755F9F;
@@ -67,7 +67,7 @@
 
 }
 
-.page-content-Password {
+.page-content-settings {
     display: flex;
     flex-direction: column;
     align-items: center;

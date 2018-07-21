@@ -8,6 +8,12 @@ import './EditPassword.css';
 import '../baseStyles.css';
 
 
+import SideNav from '../components/SideNav/SideNav';
+import TopBar from '../components/TopBar/TopBar';
+
+
+import FetchService from '../services/FetchService';
+
 class EditPassword extends Component {
   constructor(props) {
     super(props);
@@ -43,7 +49,7 @@ class EditPassword extends Component {
 
 
   updatePassword() {
-    if (!(this.state.passwordConfirm === this.state.password)) {
+    if (!(this.state.passwordConfirm === this.state.newPassword)) {
       window.alert('Please make your passwords the same!');
       return;
     }
@@ -63,49 +69,76 @@ class EditPassword extends Component {
   }
 
   render() {
-    if (this.state.redirect) {
-      return (<Redirect to="/home" />);
-    }
+
     return (
-      <div className="login-wrapper">
-        <h1>Edit your Profile</h1>
-          <input
-            className="input"
-            placeholder="Password"
-            type="password"
-            name="password"
-            onChange={this.onChange.bind(this)}
-            required
-          />
-          {/* <span className="inputLabel">Confirm Password</span> */}
-          <input
-            className="input"
-            placeholder="Confirm Password"
-            type="password"
-            name="passwordConfirm"
-            onChange={this.onChange.bind(this)}
-            required
-          />
-          <input
-            className="input"
-            placeholder="New Password"
-            type="password"
-            name="newPassword"
-            onChange={this.onChange.bind(this)}
-            required
-          />
 
-        <button
-          className="button"
-          type="submit"
-          onClick={this.updatePassword.bind(this)}
-        >Update Password
-        </button>
+      <div className="app-wrapper">
+        <SideNav
+          selected="settings"
+        />
 
-        <span>Back to <Link href="/login" to="/login">Login</Link></span>
+        <div className="right-content">
+          <TopBar />
+          <div className="dividePage">
+            <div className="columns-Password">
+              <a href="/settings"><button className="button" id="Account">Account</button></a>
+
+
+              <a href="/EditPassword"><button className="button" id="EditPassword">Password</button></a>
+
+            </div>
+            <div className="page-content-Password">
+              <div className="title--page-section-wrapper-Password">
+                <h2 className="title-text--page-section-header">Password</h2>
+              </div>
+              <div className="page-section-wrapper-Password" >
+                <div className="insideInfo-Password">
+                  <input
+                    className="input"
+                    placeholder="Password"
+                    type="password"
+                    name="password"
+                    onChange={this.onChange.bind(this)}
+                    required
+                  />
+
+                  <input
+                    className="input"
+                    placeholder="New Password"
+                    type="password"
+                    name="newPassword"
+                    onChange={this.onChange.bind(this)}
+                    required
+                  />
+                  <input
+                    className="input"
+                    placeholder="Confirm Password"
+                    type="password"
+                    name="passwordConfirm"
+                    onChange={this.onChange.bind(this)}
+                    required
+                  />
+
+                </div>
+
+                <div className="insideInfo">
+                  <button
+                    className="button"
+                    type="submit"
+                    onClick={this.updatePassword.bind(this)}
+                  >Save
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
       </div>
+
     );
   }
+
 }
 
 export default EditPassword;
