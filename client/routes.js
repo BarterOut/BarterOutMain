@@ -23,6 +23,7 @@ import Track from './routes/Track/Track';
 import Settings from './routes/Settings/Settings';
 import Help from './routes/Help/Help';
 import Cart from './routes/Cart/Cart';
+import ForgotPassword from './routes/ForgotPassword/ForgotPassword';
 
 
 const HomePage = ({ component: Component, rest }) => {
@@ -56,6 +57,7 @@ export default (
     <Route exact path="/help" component={Help} />
     <Route exact path="/cart" component={Cart} />
     <Route path="/editPassword" component={EditPassword} />
+    <Route path="/forgotPassword" component={ForgotPassword} />
     <Route exact path="/dashboard" component={Dashboard} />
   </Switch>
 );

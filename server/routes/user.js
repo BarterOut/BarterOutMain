@@ -378,7 +378,7 @@ router.post('/updatePassword', (req, res) => {
 
 
 router.post('/passwordResetRequest', (req, res) => {
-  const email = req.body.emailAddress;
+  const email = req.body.data.emailAddress;
   let token;
   User.findOne({ emailAddress: email }, (err, user) => {
     if (user != null) {

@@ -1,24 +1,21 @@
 /**
- * @file React component for loging users in.
+ * @file React component for users who forgot thier password.
  * @author Duncan Grubbs <duncan.grubbs@gmail.com>
  * @version 0.0.2
  */
 
 import React, { Component } from 'react';
 import { Redirect, Link } from 'react-router-dom';
-import AuthService from '../services/AuthService';
+import FetchService from '../../services/FetchService';
+import AuthService from '../../services/AuthService';
 
-import logo from '../images/barterOutOrangeWhiteLogo.png';
-
-import './Login.css';
-import '../baseStyles.css';
+import logo from '../../images/barterOutOrangeWhiteLogo.png';
 
 class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
       emailAddress: '',
-      password: '',
       redirect: false,
       badCreditials: false,
     };
@@ -44,31 +41,30 @@ class Login extends Component {
 
   _handleKeyDown(e) {
     if (e.keyCode === 13) {
-      this.login();
+      this.resetPassword();
     }
   }
 
-  login() {
+  resetPassword() {
     if (!this._validateInputs()) {
       return;
     }
 
-    const Auth = new AuthService();
-
-    Auth.login(this.state.emailAddress, this.state.password)
-      .then(() => {
-        this.setState({ badCreditials: false });
-        this.setState({ redirect: true });
-      }).catch((error) => {
-        if (error.status === 401) {
-          this.setState({ badCreditials: true });
-        }
-      });
+    FetchService.POST('/api/auth/passwordResetRequest', {
+      emailAddress: this.state.emailAddress,
+    });
+      // .then(() => {
+      //   this.setState({ badCreditials: false });
+      //   this.setState({ redirect: true });
+      // }).catch((error) => {
+      //   if (error.status === 401) {
+      //     this.setState({ badCreditials: true });
+      //   }
+      // });
   }
 
   _validateInputs() {
-    if (this.state.emailAddress === '' ||
-      this.state.password === '') {
+    if (this.state.emailAddress === '') {
       this.setState({ badCreditials: true });
       return false;
     }
@@ -86,11 +82,12 @@ class Login extends Component {
           <img src={logo} alt="logo" />
         </div>
         <div className="rightLoginContent">
+          <h2 id="login-header">Forgot your Password?</h2>
           <h2 id="login-header">
-          Please enter your email
-          and password to log in
+            No worries! Enter your email and 
+            we will send you a password reset link:
           </h2>
-          {this.state.badCreditials && <span className="input-error">Incorrect Username or Password</span>}
+          {this.state.badCreditials && <span className="input-error">Please enter an email!</span>}
           <input
             className="formInputLoginSignup"
             onChange={this.onChange.bind(this)}
@@ -100,29 +97,11 @@ class Login extends Component {
             name="emailAddress"
             required
           />
-          <input
-            className="formInputLoginSignup"
-            onChange={this.onChange.bind(this)}
-            placeholder="Password"
-            type="password"
-            name="password"
-            required
-          />
           <div>
-            <input type="checkbox" />Remember Me
-            <Link href="/forgotPassword" to="/forgotPassword">Forgot Password</Link>
+            <button className="inputButtonFilled" onClick={this.resetPassword.bind(this)}>Reset Password</button>
           </div>
-          <div>
-            <Link href="/signup" to="/signup">
-              <button className="inputButton">Sign Up</button>
-            </Link>
-            <button className="inputButtonFilled" onClick={this.login.bind(this)}>Login</button>
-          </div>
-          <div>Back to <Link href="/" to="/">Home</Link>.</div>
-          <div>
-            <Link href="/termsOfService" to="/termsOfService">Terms of Service</Link>
-            <Link href="/privacyPolicy" to="/privacyPolicy">Privacy Policy</Link>
-          </div>
+          <div>Don&apos;t have an account?</div>
+          <div><Link href="/signup" to="/signup">Sign up now</Link>.</div>
         </div>
       </div>
     );
