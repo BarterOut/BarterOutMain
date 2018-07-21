@@ -8,7 +8,7 @@
 import mongoose from 'mongoose';
 
 import User from '../models/user';
-import Textbook from "../models/textbook";
+import Textbook from '../models/textbook';
 import TempUser from '../models/tempUser';
 
 
@@ -307,25 +307,23 @@ router.post('/login', (req, res) => {
 router.post('/updateProfile', (req, res) => {
   // Method to verify, this is commented out because everything
   // depends on having some infomration in the session storage
-  jwt.verify(req.body.token, 'secretKey', (errr, authData) => {
-    if (errr) {
+  jwt.verify(req.body.data.token, 'secretKey', (error, authData) => {
+    if (error) {
       res.sendStatus(403);
     } else {
-      // console.log(req.body);
-      console.log(authData.userInfo._id);
       User.update(
         { _id: mongoose.Types.ObjectId(authData.userInfo._id) },
         {
           $set:
             {
-              firstName: req.body.firstName,
-              lastName: req.body.lastName,
-              venmoUsername: req.body.venmoUsername,
-              CMC: req.body.CMC,
+              firstName: req.body.data.firstName,
+              lastName: req.body.data.lastName,
+              venmoUsername: req.body.data.venmoUsername,
+              CMC: req.body.data.CMC,
             },
         },
         (error) => {
-          console.log(`Error: ${error}`);
+          console.error(`Error: ${error}`);
         },
       );
     }
@@ -339,14 +337,14 @@ router.post('/updateProfile', (req, res) => {
 router.post('/updatePassword', (req, res) => {
   // Method to verify, this is commented out because everything depends
   // on having some infomration in the session storage
-  jwt.verify(req.body.token, 'secretKey', (errr, authData) => {
-    if (errr) {
+  jwt.verify(req.body.data.token, 'secretKey', (error, authData) => {
+    if (error) {
       res.sendStatus(403);
     } else {
-      User.findOne({ _id: authData.userInfo._id }, (err, user) => {
-        if (err) {
-          console.warn(err);
-          res.json({ error: err });
+      User.findOne({ _id: authData.userInfo._id }, (error, user) => {
+        if (error) {
+          console.warn(error);
+          res.sendStatus(400);
           return;
         }
         if (!user) {
@@ -354,11 +352,11 @@ router.post('/updatePassword', (req, res) => {
           res.status(401).send({ error: 'You need to create an account.' });
           return;
         }
-        if (!user.checkPassword(req.body.password)) {
+        if (!user.checkPassword(req.body.data.password)) {
           res.status(401).send({ error: 'Incorrect Password' });
           return;
         }
-        console.log(req.body);
+
         // if it passes all the check before there is a user and the
         // password is correct so it can be updated for the new one
         User.update(
@@ -366,7 +364,7 @@ router.post('/updatePassword', (req, res) => {
           {
             $set:
               {
-                password: user.hashPassword(req.body.newPassword),
+                password: user.hashPassword(req.body.data.newPassword),
               },
           },
           (error) => {
@@ -431,8 +429,6 @@ router.post('/passwordReset', (req, res) => {
   });
 });
 
-
-
 /**
  * Method for returning all the current items in a user's cart.
  * @param {object} req Request from client.
@@ -483,7 +479,12 @@ router.post('/addToCart', (req, res) => {
   res.sendStatus(202);
 });
 
-
+/**
+ * Called when a user clicks remove from cart on a book.
+ * @param {object} req Request from client.
+ * @param {array} res Body of HTTP response.
+ * @returns {object} Success Status.
+ */
 router.post('/removeFromCart', (req, res) => {
   jwt.verify(req.body.data.token, 'secretKey', (error, authData) => {
     if (error) {
@@ -512,6 +513,8 @@ router.post('/removeFromCart', (req, res) => {
   });
 });
 
+
+// TODO: fix this
 router.post('/clearCart', (req, res) => {
   jwt.verify(req.body.data.token, 'secretKey', (error, authData) => {
     if (error) {
@@ -534,6 +537,11 @@ router.post('/clearCart', (req, res) => {
   res.sendStatus(200);
 });
 
+/**
+ * @param {object} req Request from client.
+ * @param {array} res Body of HTTP response.
+ * @returns {object} Array of books purchased by the user.
+ */
 router.post('/getPurchasedBooks', (req, res) => {
   jwt.verify(req.body.data.token, 'secretKey', (error, authData) => {
     if (error) {
@@ -548,6 +556,11 @@ router.post('/getPurchasedBooks', (req, res) => {
   });
 });
 
+/**
+ * @param {object} req Request from client.
+ * @param {array} res Body of HTTP response.
+ * @returns {object} Array of books sold by the user.
+ */
 router.post('/getSoldBooks', (req, res) => {
   jwt.verify(req.body.data.token, 'secretKey', (error, authData) => {
     if (error) {

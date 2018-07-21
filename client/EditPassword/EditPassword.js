@@ -1,18 +1,15 @@
 
 import React, { Component } from 'react';
-import axios from 'axios';
-import { Redirect, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+
 import AuthService from '../services/AuthService';
+import FetchService from '../services/FetchService';
 
 import './EditPassword.css';
 import '../baseStyles.css';
 
-
 import SideNav from '../components/SideNav/SideNav';
 import TopBar from '../components/TopBar/TopBar';
-
-
-import FetchService from '../services/FetchService';
 
 class EditPassword extends Component {
   constructor(props) {
@@ -21,19 +18,23 @@ class EditPassword extends Component {
       password: '',
       passwordConfirm: '',
       newPassword: '',
-      redirect: false,
     };
   }
 
   componentDidMount() {
     const auth = new AuthService();
     const token = auth.getToken();
-    this.setState({ token: token });
+    this._setToken(token);
+
     document.addEventListener('keydown', this._handleKeyDown.bind(this));
   }
 
   onChange(evt) {
     this.setState({ [evt.target.name]: evt.target.value });
+  }
+
+  _setToken(token) {
+    this.setState({ token });
   }
 
   _handleKeyDown(e) {
@@ -42,36 +43,26 @@ class EditPassword extends Component {
     }
   }
 
-  checkBox(evt) {
-    console.log(evt.target);
-  }
-
-
-
   updatePassword() {
     if (!(this.state.passwordConfirm === this.state.newPassword)) {
       window.alert('Please make your passwords the same!');
       return;
     }
-    axios.post('/api/auth/updatePassword', {
+    FetchService.POST('/api/auth/updatePassword', {
       password: this.state.password,
       newPassword: this.state.newPassword,
       token: this.state.token,
     })
       .then(() => {
-        console.log('You have been signed up!');
-        this.setState({ redirect: true });
-        // window.location.reload();
+        console.log('Success');
       })
       .catch((error) => {
-        console.error(`Sign up server error: ${error}`);
+        console.error(`Server error: ${error}`);
       });
   }
 
   render() {
-
     return (
-
       <div className="app-wrapper">
         <SideNav
           selected="settings"
@@ -81,11 +72,12 @@ class EditPassword extends Component {
           <TopBar />
           <div className="dividePage">
             <div className="columns">
-              <a href="/settings"><button className="button" id="Account">Account</button></a>
-
-
-              <a href="/EditPassword"><button className="button" id="EditPassword">Password</button></a>
-
+              <Link className="nav-link-settings" name="settings" to="/settings" href="/settings">
+                Account
+              </Link>
+              <Link className="nav-link-settings selected-settings-nav" name="editPassword" to="/editPassword" href="/editPassword">
+                Security
+              </Link>
             </div>
             <div className="page-content">
               <div className="title--page-section-wrapper">
@@ -138,7 +130,6 @@ class EditPassword extends Component {
 
     );
   }
-
 }
 
 export default EditPassword;

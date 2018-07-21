@@ -55,7 +55,7 @@ export default (
     <Route exact path="/settings" component={Settings} />
     <Route exact path="/help" component={Help} />
     <Route exact path="/cart" component={Cart} />
-    <Route path="/EditPassword" component={EditPassword} />
+    <Route path="/editPassword" component={EditPassword} />
     <Route exact path="/dashboard" component={Dashboard} />
   </Switch>
 );

@@ -27,3 +27,25 @@
   align-items: center;
   justify-content: center;
 }
+
+.nav-link-settings {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  color: black;
+  padding-left: 6px;
+  margin: 8px 32px;
+  font-size: 2em;
+  font-weight: bold;
+  transition: all ease .1s;
+}
+
+.selected-settings-nav {
+  border-left: 3px solid black;
+}
+
+.nav-link-settings:hover {
+  border-left: 3px solid #FF8D00;
+  color: black;
+  text-decoration: none;
+}
