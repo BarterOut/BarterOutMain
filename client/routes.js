@@ -24,6 +24,7 @@ import Settings from './routes/Settings/Settings';
 import Help from './routes/Help/Help';
 import Cart from './routes/Cart/Cart';
 import ForgotPassword from './routes/ForgotPassword/ForgotPassword';
+import EmailConfirmed from './routes/EmailConfirmed/EmailConfirmed';
 
 
 const HomePage = ({ component: Component, rest }) => {
@@ -58,6 +59,7 @@ export default (
     <Route exact path="/cart" component={Cart} />
     <Route path="/editPassword" component={EditPassword} />
     <Route path="/forgotPassword" component={ForgotPassword} />
+    <Route path="/emailConfirmed" component={EmailConfirmed} />
     <Route exact path="/dashboard" component={Dashboard} />
   </Switch>
 );

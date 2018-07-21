@@ -122,7 +122,7 @@ router.get('/email-verification/:URL', (req, res) => {
             // console.log(reeeee);
           });// removes temp user
           // TempUser.remove({ emailAddress: newUser.emailAddress});
-          res.redirect('/home');
+          res.redirect('/emailConfirmed');
         });
     } else {
       console.log('user data probabbly expired, send some sort of msg');
