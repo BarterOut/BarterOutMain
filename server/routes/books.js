@@ -337,7 +337,7 @@ router.get('/search/:query', (req, res) => {
     $and: [
       { status: 0 },
       { $or: [{ name: { $regex: searchKey, $options: 'i' } }, { course: { $regex: searchKey, $options: 'i' } }] },
-      { owner: { $ne: authData.userInfo._id } },
+      // { owner: { $ne: authData.userInfo._id } }, needs to get the id from the request
 
     ],
   }, (err, books) => {
