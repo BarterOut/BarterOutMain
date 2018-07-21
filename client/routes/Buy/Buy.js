@@ -1,6 +1,7 @@
 /**
  * @file React component for a route on the web platform.
  * @author Duncan Grubbs <duncan.grubbs@gmail.com>
+ * @author Daniel Munoz
  * @version 0.0.2
  */
 
@@ -70,7 +71,11 @@ class Buy extends Component {
         .catch(err => console.warn(err));
       return;
     }
-    FetchService.GET(`/api/books/search/${query}`)
+    const auth = new AuthService();
+    const token = auth.getToken();
+    FetchService.GET(`/api/books/search/${query}`,{
+      token: token
+    })
       .then(response => response.json())
       .then((data) => {
         this.setState({ posts: data });

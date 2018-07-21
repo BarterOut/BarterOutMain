@@ -332,23 +332,28 @@ router.get('/getUserMatches/:token', (req, res) => {
  * @returns {object} Array of books from database.
  */
 router.get('/search/:query', (req, res) => {
-  const searchKey = req.params.query;
-  Textbook.find({
-    $and: [
-      { status: 0 },
-      { $or: [{ name: { $regex: searchKey, $options: 'i' } }, { course: { $regex: searchKey, $options: 'i' } }] },
-      // { owner: { $ne: authData.userInfo._id } }, needs to get the id from the request
+  jwt.verify(req.body.data.token, 'secretKey', (err, authData) => {
+    if (err) {
+      res.sendStatus(403);
+    } else {
+      const searchKey = req.params.query;
+      Textbook.find({
+        $and: [
+          { status: 0 },
+          { owner: { $ne: authData.userInfo._id } },
+          { $or: [{ name: { $regex: searchKey, $options: 'i' } }, { course: { $regex: searchKey, $options: 'i' } }] },
 
-    ],
-  }, (err, books) => {
-    const bookMap = [];
-    books.forEach((book) => {
-      bookMap.push(book);
-    });
-    res.status(200).json(bookMap);
+        ],
+      }, (err, books) => {
+        const bookMap = [];
+        books.forEach((book) => {
+          bookMap.push(book);
+        });
+        res.status(200).json(bookMap);
+      });
+    }
   });
 });
-
 /**
  * Returns all of a given users posts.
  * @param {object} req Request body from client.
@@ -419,7 +424,11 @@ router.get('/getAllBooks/:token', (req, res) => {
         if (!user) {
           res.status(401).send({ error: 'You need to create an account' });
         } else {
-          Textbook.find({ status: 0 }, (err, books) => {
+          Textbook.find({
+            $and: [
+              { status: 0 },
+              { owner: { $ne: authData.userInfo._id } }],
+          }, (err, books) => {
             res.json(books);
           });
         }
