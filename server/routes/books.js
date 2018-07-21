@@ -70,6 +70,8 @@ router.post('/postBook/:token', (req, res) => {
                 $and: [
                   { $or: [{ name: { $regex: req.body.data.name, $options: 'i' } }, { course: { $regex: req.body.data.course, $options: 'i' } }] },
                   { status: 0 },
+                  { owner: { $ne: authData.userInfo._id } },
+
                 ],
               }, (er, matchedBooks) => {
                 if (er) {
@@ -131,10 +133,11 @@ router.post('/requestBook', (req, res) => {
               console.info('Book was saved to DB');
 
               Textbook.find(
-                { // looks for a book that matches based on the name matching and the
+                { // looks for a book that matches based on the name matching or the course
                   $and: [
                     { status: 0 },
                     { $or: [{ name: { $regex: BOOK.name, $options: 'i' } }, { course: { $regex: BOOK.course, $options: 'i' } }] },
+                    { owner: { $ne: authData.userInfo._id } },
                   ],
                 },
                 (err, matchedBooks) => {
@@ -334,6 +337,8 @@ router.get('/search/:query', (req, res) => {
     $and: [
       { status: 0 },
       { $or: [{ name: { $regex: searchKey, $options: 'i' } }, { course: { $regex: searchKey, $options: 'i' } }] },
+      { owner: { $ne: authData.userInfo._id } },
+
     ],
   }, (err, books) => {
     const bookMap = [];
