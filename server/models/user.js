@@ -15,20 +15,24 @@ mongoose.promise = Promise;
 
 const userSchema = new Schema({
   // All required fields when user signs up are first
-  emailAddress: { type: 'String', unique: true, required: true },
-  password: { type: 'String', required: true },
-  venmoUsername: { type: 'String', required: true },
-  CMC: { type: 'String', required: true },
-  firstName: { type: 'String', required: true },
-  lastName: { type: 'String', required: true },
-  university: { type: 'String', required: true },
+  emailAddress: { type: String, unique: true, required: true },
+  password: { type: String, required: true },
+  venmoUsername: { type: String, required: true },
+  CMC: { type: String, required: true },
+  firstName: { type: String, required: true },
+  lastName: { type: String, required: true },
+  university: { type: String, required: true },
   // These are fields that will be updated later
-  numberOfBooksSold: { type: 'Number' },
-  numberOfBooksBought: { type: 'Number' },
-  moneyMade: { type: 'Number' },
+  numberOfBooksSold: { type: Number },
+  numberOfBooksBought: { type: Number },
+  moneyMade: { type: Number },
   matchedBooks: [{ type: String }],
   cart: [{ type: String }],
-  resetPasswordToken: { type: 'String' },
+  notifications: [{
+    date: Date,
+    message: String,
+  }],
+  resetPasswordToken: { type: String },
   resetPasswordExpires: { type: Date },
 }, {
   collection: 'users',

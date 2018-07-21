@@ -64,6 +64,18 @@ router.post('/postBook/:token', (req, res) => {
             .then(() => {
               console.log('Saved Book to DB');
               const theBookID = newBook._id;
+
+              User.update(
+                { _id: authData.userInfo._id },
+                {
+                  $addToSet: {
+                    notifications: { date: new Date(), message: `Thanks for posting ${newBook.name}.` },
+                  },
+                }, (error) => {
+                  console.error(`Error: ${error}`);
+                },
+              );
+
               // update match with an and statment such that
               // it doesn't match with users that status other than 0
               TextbookBuy.find({
@@ -131,6 +143,17 @@ router.post('/requestBook', (req, res) => {
           newBook.save()
             .then(() => {
               console.info('Book was saved to DB');
+
+              User.update(
+                { _id: authData.userInfo._id },
+                {
+                  $addToSet: {
+                    notifications: { date: new Date(), message: `Your request for ${BOOK.name} has been recorded.` },
+                  },
+                }, (error) => {
+                  console.error(`Error: ${error}`);
+                },
+              );
 
               Textbook.find(
                 { // looks for a book that matches based on the name matching or the course
@@ -254,12 +277,30 @@ router.post('/clickBuyTemp/:token', (req, res) => {
               res.status(401).send(e);
               return;
             }
+            User.update(
+              { _id: authData.userInfo._id },
+              {
+                numberOfBooksBought: foundUser.numberOfBooksBought + 1,
+              }, (error) => {
+                console.error(`Error: ${error}`);
+              },
+            );
             buyer = foundUser[0];
             console.log(req.body.data.cart);
             for (i = 0; i < req.body.data.cart.length; i++) {
               Textbook.update({ _id: req.body.data.cart[i]._id }, { $set: { status: 1, buyer: authData.userInfo._id } }, (error) => {
                 console.log(`Error: ${error}`);
               });
+              // FOR USER STATISTICS
+              // User.update(
+              //   { _id: req.body.data.cart[i].owner },
+              //   {
+              //     numberOfBooksSold: foundUser.numberOfBooksSold + 1,
+              //   }, (error) => {
+              //     console.error(`Error: ${error}`);
+              //   },
+              // );
+
               // updates the books being sought by the user that match the query
               Textbook.find({ _id: req.body.data.cart[i]._id }, (errors, foundBook) => {
                 bookFound = foundBook[0];

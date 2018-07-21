@@ -94,7 +94,7 @@ router.post('/resendEmailVerification', (req, res) => {
 
 router.get('/email-verification/:URL', (req, res) => {
   const url = req.params.URL;
-  TempUser.findOne({ emailToken: url }, (error, tempUser ) => {
+  TempUser.findOne({ emailToken: url }, (error, tempUser) => {
     if (error) {
       console.log(error);
     }
@@ -108,6 +108,7 @@ router.get('/email-verification/:URL', (req, res) => {
         lastName: tempUser.lastName,
         matchedBooks: [],
         university: tempUser.university,
+        notifications: [{ date: new Date(), message: 'Thank you for signing up!' }],
         resetPasswordToken: '',
         resetPasswordExpires: '',
       });
@@ -570,6 +571,43 @@ router.post('/getSoldBooks', (req, res) => {
         $and: [{ status: { $ne: 0 } }, { owner: authData.userInfo._id }],
       }, (err, booksFound) => {
         res.status(200).json(booksFound);
+      });
+    }
+  });
+});
+
+/**
+ * @param {object} req Request from client.
+ * @param {array} res Body of HTTP response.
+ * @returns {object} Array of notifications for the user.
+ */
+router.get('/getNotifications/:token', (req, res) => {
+  jwt.verify(req.params.token, 'secretKey', (error, authData) => {
+    if (error) {
+      res.sendStatus(401);
+    } else {
+      User.findOne({ _id: authData.userInfo._id }, (err, user) => {
+        res.status(200).json(user.notifications);
+      });
+    }
+  });
+});
+
+/**
+ * @param {object} req Request from client.
+ * @param {array} res Body of HTTP response.
+ * @returns {object} Stats for the user.
+ */
+router.get('/getUserStatistics/:token', (req, res) => {
+  jwt.verify(req.params.token, 'secretKey', (error, authData) => {
+    if (error) {
+      res.sendStatus(401);
+    } else {
+      User.findOne({ _id: authData.userInfo._id }, (err, user) => {
+        res.status(200).json({
+          numberOfBooksBought: user.numberOfBooksBought,
+          numberOfBooksSold: user.numberOfBooksSold,
+        });
       });
     }
   });

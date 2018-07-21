@@ -1,0 +1,21 @@
+.notification {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 90%;
+  height: 95px;
+  background: white;
+  color: #333;
+  padding: 8px;
+  margin: 8px auto;
+  border-radius: 5px;
+}
+
+.date {
+  color: #FF8D00;
+  font-size: 1.2em;
+}
+
+.message {
+  font-size: 1.5em;
+}

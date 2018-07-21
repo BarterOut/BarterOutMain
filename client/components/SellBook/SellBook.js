@@ -155,7 +155,7 @@ class SellBook extends Component {
               name="comments"
             />
             <div>
-              <a className="cancel" href="/home" onClick={this.cancel.bind(this)}>Cancel</a>
+              {/* <a className="cancel" href="/home" onClick={this.cancel.bind(this)}>Cancel</a> */}
               <button
                 type="submit"
                 className="button"

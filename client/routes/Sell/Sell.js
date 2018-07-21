@@ -5,6 +5,8 @@
  */
 
 import React, { Component } from 'react';
+import ReactModal from 'react-modal';
+
 import FetchService from '../../services/FetchService';
 import AuthService from '../../services/AuthService';
 
@@ -23,7 +25,11 @@ class Sell extends Component {
       buyHidden: true,
       sellHidden: true,
       posts: [],
+      showModal: false,
     };
+
+    this.handleOpenModal = this.handleOpenModal.bind(this);
+    this.handleCloseModal = this.handleCloseModal.bind(this);
   }
 
   componentDidMount() {
@@ -35,12 +41,12 @@ class Sell extends Component {
       });
   }
 
-  toggleBuyVisibility() {
-    this.setState({ buyHidden: !this.state.buyHidden });
+  handleOpenModal () {
+    this.setState({ showModal: true });
   }
-
-  toggleSellVisibility() {
-    this.setState({ sellHidden: !this.state.sellHidden });
+  
+  handleCloseModal () {
+    this.setState({ showModal: false });
   }
 
   render() {
@@ -74,7 +80,7 @@ class Sell extends Component {
                 </button> */}
                 <button
                   className="button sellButton"
-                  onClick={this.toggleSellVisibility.bind(this)}
+                  onClick={this.handleOpenModal}
                 >Sell Now
                 </button>
               </div>
@@ -95,8 +101,16 @@ class Sell extends Component {
               ))}
             </div>
           </div>
-          {!this.state.buyHidden && <BuyBook />}
-          {!this.state.sellHidden && <SellBook />}
+          <div>
+            <ReactModal
+              isOpen={this.state.showModal}
+              contentLabel="Minimal Modal Example"
+              ariaHideApp={false}
+            >
+              <button onClick={this.handleCloseModal}>Close Modal</button>
+              <SellBook />
+            </ReactModal>
+          </div>
         </div>
       </div>
     );
