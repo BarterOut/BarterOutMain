@@ -42,6 +42,10 @@
   color: #444;
 }
 
+.formInput:focus {
+  border-bottom: 2px #FF8D00 solid;
+}
+
 .cancel {
   color: black;
   text-decoration: underline;
