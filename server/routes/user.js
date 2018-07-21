@@ -170,7 +170,6 @@ const transporter = nodemailer.createTransport({ // secure authentication
 });
 
 router.post('/signup', (req, res) => {
-  console.log('hmmmmm')
   const {
     emailAddress,
     password,
@@ -434,7 +433,6 @@ router.post('/passwordReset', (req, res) => {
 
 
 
-
 /**
  * Method for returning all the current items in a user's cart.
  * @param {object} req Request from client.
@@ -486,7 +484,6 @@ router.post('/addToCart', (req, res) => {
 });
 
 
-// TODO: FIX THIS
 router.post('/removeFromCart', (req, res) => {
   jwt.verify(req.body.data.token, 'secretKey', (error, authData) => {
     if (error) {
@@ -501,10 +498,12 @@ router.post('/removeFromCart', (req, res) => {
         User.update(
           { _id: authData.userInfo._id },
           {
-            $update:
+            $set:
               {
                 cart: user.cart,
               },
+          }, (error) => {
+            console.log(`Error: ${error}`);
           },
         );
         res.sendStatus(200);
@@ -514,6 +513,24 @@ router.post('/removeFromCart', (req, res) => {
 });
 
 router.post('/clearCart', (req, res) => {
+  jwt.verify(req.body.data.token, 'secretKey', (error, authData) => {
+    if (error) {
+      res.sendStatus(401);
+    } else {
+      User.update(
+        { _id: authData.userInfo._id },
+        {
+          $set:
+            {
+              cart: [],
+            },
+        }, (error) => {
+          console.log(`Error: ${error}`);
+        },
+      );
+      res.sendStatus(200);
+    }
+  });
   res.sendStatus(200);
 });
 

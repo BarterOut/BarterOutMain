@@ -231,6 +231,74 @@ router.post('/clickBuy/:token', (req, res) => {
  * @param {array} res Body of HTTP response.
  * @returns {object} Array of book objects.
  */
+router.post('/clickBuyTemp/:token', (req, res) => {
+  var i =0;
+  jwt.verify(req.params.token, 'secretKey', (error, authData) => {
+    if (error) {
+      res.sendStatus(403);
+    } else {
+      //can probs remove this one
+      User.findOne({ _id: authData.userInfo._id }, (error, user) => {
+        if (!user) {
+          res.status(401).send({ error: 'You need to create an account' });
+        } else {
+          let buyer;
+          let bookFound;
+          let seller;
+
+          User.find({ _id: authData.userInfo._id }, (e, foundUser) => {
+            if (e) {
+              res.status(401).send(e);
+              return;
+            }
+            buyer = foundUser[0];
+            console.log(req.body.data.cart);
+            for (i = 0; i < req.body.data.cart.length; i++) {
+              Textbook.update({ _id: req.body.data.cart[i]._id }, { $set: { status: 1 } }, (error) => {
+                console.log(`Error: ${error}`);
+              });
+              Textbook.find({ _id: req.body.data.cart[i]._id }, (errors, foundBook) => {
+                bookFound = foundBook[0];
+                TextbookBuy.update({
+                  $and: [{ status: 0 }, { $or: [{ name: bookFound.name }, { course: bookFound.course }] },
+                    { owner: authData.userInfo._id }],
+                }, { $set: { status: 1 } }, (error) => {
+                  console.log(`Error in finding book being bought:  ${error}`);
+                });
+                User.find({ _id: bookFound.owner }, (error, sellerUser) => {
+                  seller = sellerUser[0];
+                  sendEmail(emails.emailForUs(buyer, seller, bookFound));
+                  sendEmail(emails.emailToSeller(seller.emailAddress, seller.firstName, bookFound.name));
+                  sendEmail(emails.venmoRequestEmail(buyer.emailAddress, buyer.firstName, bookFound.name));
+                });
+              });
+            }
+          });
+          // clear the cart
+          User.update(
+            { _id: authData.userInfo._id },
+            {
+              $set:
+                {
+                  cart: [],
+                },
+            }, (error) => {
+              console.log(`Error: ${error}`);
+            },
+          );
+          res.json(true);
+        }
+      });
+    }
+  });
+});
+
+/**
+ * Finds all books in given users matched books array.
+ * @param {object} req Request body from client.
+ * @param {array} res Body of HTTP response.
+ * @returns {object} Array of book objects.
+ */
 router.get('/getUserMatches/:token', (req, res) => {
   jwt.verify(req.params.token, 'secretKey', (err, authData) => {
     if (err) {

@@ -25,11 +25,12 @@ class Cart extends Component {
   componentDidMount() {
     const AUTH = new AuthService();
 
-    FetchService.GET(`/api/auth/getCartItems/${AUTH.getToken()}`, {})
+    FetchService.GET(`/api/auth/getCartItems/${AUTH.getToken()}`)
       .then(response => response.json())
       .then((data) => {
         this._updateItems(data);
       });
+
   }
 
   _updateItems(data) {
@@ -37,11 +38,16 @@ class Cart extends Component {
   }
 
   buyBooks() {
-    // FetchService.POST('/api/books/clickBuy', {});
+    const AUTH = new AuthService();
+    FetchService.POST(`/api/books/clickBuyTemp/${AUTH.getToken()}`,{
+      cart: this.state.items,
+
+    });
     console.log('BUYING BOOKS');
   }
 
   render() {
+
     return (
       <div className="app-wrapper">
         <SideNav

@@ -28,6 +28,7 @@ class CartBookPost extends Component {
   }
 
   removeFromCart() {
+    console.log('remove from the cart')
     const AUTH = new AuthService();
     FetchService.POST('/api/auth/removeFromCart', {
       bookID: this.state.id,
