@@ -1,75 +1,29 @@
 .insideInfo {
-    display: flex;
-    flex-direction: row;
-    padding: 40px 16px;
-    align-items: center;
-    font-size: 1.6em;
-    flex-wrap: wrap;
-    margin: auto 0;
-    justify-content: center;
+  display: flex;
+  flex-direction: row;
+  padding: 40px 16px;
+  align-items: center;
+  font-size: 1.6em;
+  flex-wrap: wrap;
+  margin: auto 0;
+  justify-content: center;
 
 }
 
-.dividePage{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    flex-wrap: nowrap;
-    padding: 30px 0px 0px 0px;
+.dividePage {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  flex-wrap: nowrap;
+  padding: 30px 0px 0px 0px;
 }
 
-.columns{
-    padding: 50px 0px 50px 30px;
-    display: flex;
-    flex-grow: 2;
-    border: none;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
-
-.input {
-    background: none;
-    border: none;
-    width: 45%;
-    margin: 8px 4px 32px 4px;
-    font-size: 1.2em;
-    border-bottom: 2px #41397c solid;
-    color: #444;
-}
-
-.page-section-wrapper-Settings{
-    width: 90%;
-    max-height: 500px;
-    min-height: 100px;
-    overflow-y: scroll;
-    -webkit-box-shadow: 0 4px 6px rgba(50,50,93,.11), 0 1px 3px rgba(0,0,0,.08);
-    box-shadow: 0 4px 6px rgba(50,50,93,.11), 0 1px 3px rgba(0,0,0,.08);
-    border-bottom-right-radius: 15px;
-    border-bottom-left-radius: 15px;
-    background: #E1DEEC;
-    align-items: center;
-    margin-bottom: 8px;
-}
-
-.title--page-section-wrapper-Settings{
-    display: flex;
-    flex-direction: column;
-    background: #755F9F;
-    width: 90%;
-    border-top-right-radius: 15px;
-    border-top-left-radius: 15px;
-    min-height: 64px;
-    margin-top: 8px;
-    padding: 8px 16px;
-    align-items: flex-start;
-    justify-content: center;
-
-}
-
-.page-content-settings {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    flex-grow: 7;
+.columns {
+  padding: 50px 0px 50px 30px;
+  display: flex;
+  flex-grow: 2;
+  border: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }

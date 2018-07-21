@@ -32,16 +32,6 @@
   width: 90%;
 }
 
-.formInput {
-  background: none;
-  border: none;
-  width: 100%;
-  margin: 8px;
-  font-size: 1.2em;
-  border-bottom: 2px #41397c solid;
-  color: #444;
-}
-
 .cancel {
   color: black;
   text-decoration: underline;
