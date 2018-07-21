@@ -539,12 +539,13 @@ router.post('/getPurchasedBooks', (req, res) => {
     if (error) {
       res.sendStatus(401);
     } else {
-      Textbook.find({ $and: [{ status: { $ne: 0 } }, { buyer: authData.userInfo._id }] }, (err, booksFound) => {
-        res.sendStatus(200).json(booksFound);
+      Textbook.find({
+        $and: [{ status: { $ne: 0 } }, { buyer: authData.userInfo._id }],
+      }, (err, booksFound) => {
+        res.status(200).json(booksFound);
       });
     }
   });
-  res.sendStatus(200);
 });
 
 router.post('/getSoldBooks', (req, res) => {
@@ -552,12 +553,13 @@ router.post('/getSoldBooks', (req, res) => {
     if (error) {
       res.sendStatus(401);
     } else {
-      Textbook.find({ $and: [{ status: { $ne: 0 } }, { owner: authData.userInfo._id }] }, (err, booksFound) => {
-        res.sendStatus(200).json(booksFound);
+      Textbook.find({
+        $and: [{ status: { $ne: 0 } }, { owner: authData.userInfo._id }],
+      }, (err, booksFound) => {
+        res.status(200).json(booksFound);
       });
     }
   });
-  res.sendStatus(200);
 });
 
 // Just in case this is needed
