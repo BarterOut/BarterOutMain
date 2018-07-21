@@ -170,6 +170,7 @@ const transporter = nodemailer.createTransport({ // secure authentication
 });
 
 router.post('/signup', (req, res) => {
+  console.log('hmmmmm')
   const {
     emailAddress,
     password,
@@ -301,7 +302,7 @@ router.post('/login', (req, res) => {
   });
 });
 
-// Needs testing
+
 // Will update name, venmo, address
 // Requires the token to be sent as we ll as the body to cointain the info that will be updated
 router.post('/updateProfile', (req, res) => {
@@ -332,7 +333,7 @@ router.post('/updateProfile', (req, res) => {
   });
 });
 
-// Needs testing
+
 // Will update the password
 // Requires the token to be sent as well as the plain
 // text password to be sent, will be hashed inside of the function.
@@ -430,6 +431,8 @@ router.post('/passwordReset', (req, res) => {
     }
   });
 });
+
+
 
 
 /**
