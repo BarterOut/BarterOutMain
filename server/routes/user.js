@@ -24,6 +24,8 @@ const nodemailer = require('nodemailer');
 
 const bcrypt = require('bcryptjs');
 
+const emails = require('../emails/emailFunctions');
+
 // const crypto = require("crypto");
 
 const nev = require('email-verification')(mongoose);
@@ -112,7 +114,7 @@ router.get('/email-verification/:URL', (req, res) => {
       newUser.save()
         .then(() => {
           console.log('a new user has been verified');
-          sendEmail(signedUpEmail(newUser.emailAddress, newUser.firstName));// Verified the user
+          sendEmail(emails.signedUpEmail(newUser.emailAddress, newUser.firstName));// Verified the user
           TempUser.remove({ emailToken: url }, (err, reeeee) => {
             if (err) {
               console.log('had an error' + err);
@@ -144,33 +146,6 @@ router.get('/email-verification/:URL', (req, res) => {
   // });
 });
 
-function verifyEmail(emailTo, firstName, URL) {
-  return {
-    from: '"Barter Out" <office@barterout.com',
-    to: emailTo,
-    subject: 'Thank you for signing up',
-    html: `Dear ${firstName},
-    <br />
-    <br />
-    Thank you for creating an account on our platform.
-    Please verify your account by clicking <a href=http://localhost:8080/api/auth/email-verification/${URL}>this link</a>.
-    <br />
-    <br />
-    If you have any questions, feel free to send us an email at office@barterout.com!
-    <br /><br />
-    Thank you, <br />
-    The BarterOut Team
-    <br /><br />
-    Like us on <a href="https://www.facebook.com/BarterOut/" target="_blank">Facebook</a> <br> </br> Follow us on <a href="https://www.instagram.com/barteroutofficial/" target="_blank">Instagram</a>`,
-    auth: {
-      user: 'office@barterout.com',
-      refreshToken: '1/9XdHU4k2vwYioRyAP8kaGYfZXKfp_JxqUwUMYVJWlZs',
-      accessToken: 'ya29.GluwBeUQiUspdFo1yPRfzFMWADsKsyQhB-jgX3ivPBi5zcIldvyPYZtRME6xqZf7UNzkXzZLu1fh0NpeO11h6mwS2qdsL_JREzpKw_3ebOWLNgxTyFg5NmSdStnR',
-      // expires: 1484314697598
-    },
-  };
-}
-
 // End of email verification changes
 const jwt = require('jsonwebtoken');
 
@@ -193,58 +168,6 @@ const transporter = nodemailer.createTransport({ // secure authentication
     clientSecret: '5OTf_iLhmt0tjJCKIdnuC5XM',
   },
 });
-
-
-function signedUpEmail(emailTo, firstName) {
-  return {
-    from: '"Barter Out" <office@barterout.com',
-    to: emailTo,
-    subject: '[BarterOut] Thank you for Signing Up!',
-    html: `Dear ${firstName},
-    <br />
-    <br />
-    Start using our service today on our <a href="https://www.barterout.com/" target="_blank">website</a> by putting a textbook up for sale or buying one from another student.
-    <br />
-    If you have any questions, feel free to send us an email at office@barterout.com!
-    <br /><br />
-    Thank you,<br />
-    The BarterOut Team<br /><br />
-    Like us on <a href="https://www.facebook.com/BarterOut/" target="_blank">Facebook</a> <br> </br> Follow us on <a href="https://www.instagram.com/barteroutofficial/" target="_blank">Instagram</a>`,
-
-    auth: {
-      user: 'office@barterout.com',
-      refreshToken: '1/9XdHU4k2vwYioRyAP8kaGYfZXKfp_JxqUwUMYVJWlZs',
-      accessToken: 'ya29.GluwBeUQiUspdFo1yPRfzFMWADsKsyQhB-jgX3ivPBi5zcIldvyPYZtRME6xqZf7UNzkXzZLu1fh0NpeO11h6mwS2qdsL_JREzpKw_3ebOWLNgxTyFg5NmSdStnR',
-      // expires: 1484314697598
-    },
-  };
-}
-
-function passwordResetEmail(emailTo, firstName, URL) {
-  return {
-    from: '"Barter Out" <office@barterout.com',
-    to: emailTo,
-    subject: '[BarterOut] Reset Password',
-    html: 'Dear ' + firstName + ',  <br></br> ' +
-    '\n' +
-    'This email has been sent to reset your password.  <br></br> ' +
-    'Please click <a href=http://localhost:8080/api/auth/passwordReset/' +URL+ '>this link</a> in order to continue. If you are unable to do so, copy and paste the following link into your browser:' + URL + '<br> </br>' +
-    'If you know anyone looking to buy or sell used textbooks, feel free to invite them to join our platform in this beta version.    <br> </br> \n' +
-    '<br></br> ' +
-    'If you have any questions, feel free to send us an email at office@barterout.com!\n' +
-    '<br></br> <br></br>   ' +
-    'Thank you,<br></br> ' +
-    'The BarterOut team<br></br> <br></br> '+
-    '\n' +
-    'Like us on <a href="https://www.facebook.com/BarterOut/" target="_blank">Facebook</a> <br> </br> Follow us on <a href="https://www.instagram.com/barteroutofficial/" target="_blank">Instagram</a>',
-    auth: {
-      user: 'office@barterout.com',
-      refreshToken: '1/9XdHU4k2vwYioRyAP8kaGYfZXKfp_JxqUwUMYVJWlZs',
-      accessToken: 'ya29.GluwBeUQiUspdFo1yPRfzFMWADsKsyQhB-jgX3ivPBi5zcIldvyPYZtRME6xqZf7UNzkXzZLu1fh0NpeO11h6mwS2qdsL_JREzpKw_3ebOWLNgxTyFg5NmSdStnR',
-      // expires: 1484314697598
-    },
-  };
-}
 
 router.post('/signup', (req, res) => {
   const {
@@ -287,7 +210,7 @@ router.post('/signup', (req, res) => {
             .then(() => {
               console.info('temp user was saved to DB');
               const URL = newUser.emailToken;
-              sendEmail(verifyEmail(emailAddress, firstName, URL));
+              sendEmail(emails.verifyEmail(emailAddress, firstName, URL));
               res.sendStatus(201);
             });
         }
@@ -307,7 +230,7 @@ router.post('/signup', (req, res) => {
       //   if (newTempUser) {
       //     var URL = newTempUser[nev.options.URLFieldName];
       //     console.log(emailAddress);
-      //     sendEmail(verifyEmail(emailAddress, firstName, URL));
+      //     sendEmail(emails.verifyEmail(emailAddress, firstName, URL));
       //   } else {
       //     res.json({
       //       msg: 'You have already signed up. Please check your email to verify your account.'
@@ -471,7 +394,7 @@ router.post('/passwordResetRequest', (req, res) => {
           console.log(er);
         }
       });
-      sendEmail(passwordResetEmail(user.emailAddress, user.firstName, user.resetPasswordToken));
+      sendEmail(emails.passwordResetEmail(user.emailAddress, user.firstName, user.resetPasswordToken));
     } else {
       console.log(`no such user found with email: ${email}`);
       res.status(406).send({ error: 'no user found' });

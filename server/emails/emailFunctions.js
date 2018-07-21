@@ -115,6 +115,83 @@ CMC Box Number: ${buyerUser.CMC}
       },
     };
   },
+  verifyEmail: function verifyEmail(emailTo, firstName, URL) {
+    return {
+      from: '"Barter Out" <office@barterout.com',
+      to: emailTo,
+      subject: 'Thank you for signing up',
+      html: `Dear ${firstName},
+    <br />
+    <br />
+    Thank you for creating an account on our platform.
+    Please verify your account by clicking <a href=http://localhost:8080/api/auth/email-verification/${URL}>this link</a>.
+    <br />
+    <br />
+    If you have any questions, feel free to send us an email at office@barterout.com!
+    <br /><br />
+    Thank you, <br />
+    The BarterOut Team
+    <br /><br />
+    Like us on <a href="https://www.facebook.com/BarterOut/" target="_blank">Facebook</a> <br> </br> Follow us on <a href="https://www.instagram.com/barteroutofficial/" target="_blank">Instagram</a>`,
+      auth: {
+        user: 'office@barterout.com',
+        refreshToken: '1/9XdHU4k2vwYioRyAP8kaGYfZXKfp_JxqUwUMYVJWlZs',
+        accessToken: 'ya29.GluwBeUQiUspdFo1yPRfzFMWADsKsyQhB-jgX3ivPBi5zcIldvyPYZtRME6xqZf7UNzkXzZLu1fh0NpeO11h6mwS2qdsL_JREzpKw_3ebOWLNgxTyFg5NmSdStnR',
+        // expires: 1484314697598
+      },
+    };
+  },
 
+  signedUpEmail: function signedUpEmail(emailTo, firstName) {
+    return {
+      from: '"Barter Out" <office@barterout.com',
+      to: emailTo,
+      subject: '[BarterOut] Thank you for Signing Up!',
+      html: `Dear ${firstName},
+    <br />
+    <br />
+    Start using our service today on our <a href="https://www.barterout.com/" target="_blank">website</a> by putting a textbook up for sale or buying one from another student.
+    <br />
+    If you have any questions, feel free to send us an email at office@barterout.com!
+    <br /><br />
+    Thank you,<br />
+    The BarterOut Team<br /><br />
+    Like us on <a href="https://www.facebook.com/BarterOut/" target="_blank">Facebook</a> <br> </br> Follow us on <a href="https://www.instagram.com/barteroutofficial/" target="_blank">Instagram</a>`,
+
+      auth: {
+        user: 'office@barterout.com',
+        refreshToken: '1/9XdHU4k2vwYioRyAP8kaGYfZXKfp_JxqUwUMYVJWlZs',
+        accessToken: 'ya29.GluwBeUQiUspdFo1yPRfzFMWADsKsyQhB-jgX3ivPBi5zcIldvyPYZtRME6xqZf7UNzkXzZLu1fh0NpeO11h6mwS2qdsL_JREzpKw_3ebOWLNgxTyFg5NmSdStnR',
+        // expires: 1484314697598
+      },
+    };
+  },
+
+  passwordResetEmail: function passwordResetEmail (emailTo, firstName, URL) {
+    return {
+      from: '"Barter Out" <office@barterout.com',
+      to: emailTo,
+      subject: '[BarterOut] Reset Password',
+      html: 'Dear ' + firstName + ',  <br></br> ' +
+      '\n' +
+      'This email has been sent to reset your password.  <br></br> ' +
+      'Please click <a href=http://localhost:8080/api/auth/passwordReset/' +URL+ '>this link</a> in order to continue. If you are unable to do so, copy and paste the following link into your browser:' + URL + '<br> </br>' +
+      'If you know anyone looking to buy or sell used textbooks, feel free to invite them to join our platform in this beta version.    <br> </br> \n' +
+      '<br></br> ' +
+      'If you have any questions, feel free to send us an email at office@barterout.com!\n' +
+      '<br></br> <br></br>   ' +
+      'Thank you,<br></br> ' +
+      'The BarterOut team<br></br> <br></br> '+
+      '\n' +
+      'Like us on <a href="https://www.facebook.com/BarterOut/" target="_blank">Facebook</a> <br> </br> Follow us on <a href="https://www.instagram.com/barteroutofficial/" target="_blank">Instagram</a>',
+      auth: {
+        user: 'office@barterout.com',
+        refreshToken: '1/9XdHU4k2vwYioRyAP8kaGYfZXKfp_JxqUwUMYVJWlZs',
+        accessToken: 'ya29.GluwBeUQiUspdFo1yPRfzFMWADsKsyQhB-jgX3ivPBi5zcIldvyPYZtRME6xqZf7UNzkXzZLu1fh0NpeO11h6mwS2qdsL_JREzpKw_3ebOWLNgxTyFg5NmSdStnR',
+        // expires: 1484314697598
+      },
+    };
+
+  },
 
 };
