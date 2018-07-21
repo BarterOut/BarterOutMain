@@ -80,21 +80,21 @@ class EditPassword extends Component {
         <div className="right-content">
           <TopBar />
           <div className="dividePage">
-            <div className="columns-Password">
+            <div className="columns">
               <a href="/settings"><button className="button" id="Account">Account</button></a>
 
 
               <a href="/EditPassword"><button className="button" id="EditPassword">Password</button></a>
 
             </div>
-            <div className="page-content-Password">
-              <div className="title--page-section-wrapper-Password">
+            <div className="page-content">
+              <div className="title--page-section-wrapper">
                 <h2 className="title-text--page-section-header">Password</h2>
               </div>
-              <div className="page-section-wrapper-Password" >
-                <div className="insideInfo-Password">
+              <div className="page-section-wrapper" >
+                <div className="insideInfo">
                   <input
-                    className="input"
+                    className="formInput"
                     placeholder="Password"
                     type="password"
                     name="password"
@@ -103,7 +103,7 @@ class EditPassword extends Component {
                   />
 
                   <input
-                    className="input"
+                    className="formInput"
                     placeholder="New Password"
                     type="password"
                     name="newPassword"
@@ -111,7 +111,7 @@ class EditPassword extends Component {
                     required
                   />
                   <input
-                    className="input"
+                    className="formInput"
                     placeholder="Confirm Password"
                     type="password"
                     name="passwordConfirm"

@@ -55,6 +55,7 @@
   flex-direction: column;
   background: #755F9F;
   width: 70%;
+  min-width: 300px;
   border-top-right-radius: 15px;
   border-top-left-radius: 15px;
   min-height: 64px;
@@ -99,6 +100,20 @@
 .button:hover {
   transform: translateY(-1px);
   box-shadow: 0 7px 14px rgba(50, 50, 93, 0.1), 0 3px 6px rgba(0, 0, 0, 0.08);
+}
+
+.formInput {
+  background: none;
+  border: none;
+  width: 100%;
+  margin: 8px;
+  font-size: 1.2em;
+  border-bottom: 2px #41397c solid;
+  color: #444;
+}
+
+.formInput:focus {
+  border-bottom: 2px #FF8D00 solid;
 }
 
 .input-error {

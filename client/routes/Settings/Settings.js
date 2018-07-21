@@ -18,7 +18,6 @@ import FetchService from '../../services/FetchService';
 
 
 class Settings extends Component {
-
   constructor(props) {
     super(props);
     this.state = {
@@ -102,22 +101,22 @@ class Settings extends Component {
               <a href="/EditPassword"><button className="button" id="EditPassword">Password</button></a>
 
             </div>
-            <div className="page-content-settings">
-              <div className="title--page-section-wrapper-Settings">
+            <div className="page-content">
+              <div className="title--page-section-wrapper">
                 <h2 className="title-text--page-section-header">Settings</h2>
               </div>
-              <div className="page-section-wrapper-Settings" >
+              <div className="page-section-wrapper" >
                 <div className="insideInfo">
                   <input
-                    className="input"
+                    className="formInput"
                     onChange={this.onChange.bind(this)}
-                    placeholder= {this.state.firstName}
+                    placeholder={this.state.firstName}
                     type="text"
                     name="firstName"
                     required
                   />
                   <input
-                    className="input"
+                    className="formInput"
                     onChange={this.onChange.bind(this)}
                     placeholder={this.state.lastName}
                     type="text"
@@ -127,7 +126,7 @@ class Settings extends Component {
                 </div>
                 <div className="insideInfo">
                   <input
-                    className="input"
+                    className="formInput"
                     onChange={this.onChange.bind(this)}
                     placeholder={this.state.venmoUsername}
                     type="text"
@@ -135,7 +134,7 @@ class Settings extends Component {
                     required
                   />
                   <input
-                    className="input"
+                    className="formInput"
                     onChange={this.onChange.bind(this)}
                     placeholder={this.state.CMC}
                     type="text"
