@@ -94,10 +94,10 @@ class Settings extends Component {
               </Link>
             </div>
             <div className="page-content">
-              <div className="title--page-section-wrapper">
-                <h2 className="title-text--page-section-header">Settings</h2>
+              <div className="title--page-section-wrapper-settings">
+                <h2 className="title-text--page-section-header">Account</h2>
               </div>
-              <div className="page-section-wrapper" >
+              <div className="page-section-wrapper-settings" >
                 <div className="insideInfo">
                   <input
                     className="formInput"
@@ -115,8 +115,6 @@ class Settings extends Component {
                     name="lastName"
                     required
                   />
-                </div>
-                <div className="insideInfo">
                   <input
                     className="formInput"
                     onChange={this.onChange.bind(this)}

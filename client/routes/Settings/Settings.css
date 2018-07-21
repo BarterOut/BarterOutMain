@@ -6,25 +6,50 @@
   font-size: 1.6em;
   flex-wrap: wrap;
   margin: auto 0;
-  justify-content: center;
-
 }
 
 .dividePage {
   display: flex;
   flex-direction: row;
-  align-items: center;
-  flex-wrap: nowrap;
-  padding: 30px 0px 0px 0px;
+  margin: auto 8px;
 }
 
 .columns {
-  padding: 50px 0px 50px 30px;
+  margin: 0 42px;
   display: flex;
   flex-grow: 2;
+  max-width: 200px;
   border: none;
   flex-direction: column;
+}
+
+.page-section-wrapper-settings {
+  width: 90%;
+  min-width: 600px;
+  max-height: 500px;
+  min-height: 100px;
+  overflow-y: scroll;
+  -webkit-box-shadow: 0 4px 6px rgba(50,50,93,.11), 0 1px 3px rgba(0,0,0,.08);
+  box-shadow: 0 4px 6px rgba(50,50,93,.11), 0 1px 3px rgba(0,0,0,.08);
+  border-bottom-right-radius: 15px;
+  border-bottom-left-radius: 15px;
+  background: #E1DEEC;
   align-items: center;
+  margin-bottom: 32px;
+}
+
+.title--page-section-wrapper-settings {
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+  min-width: 600px;
+  background: #755F9F;
+  border-top-right-radius: 15px;
+  border-top-left-radius: 15px;
+  min-height: 64px;
+  margin-top: 8px;
+  padding: 8px 16px;
+  align-items: flex-start;
   justify-content: center;
 }
 

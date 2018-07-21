@@ -80,20 +80,21 @@ class EditPassword extends Component {
               </Link>
             </div>
             <div className="page-content">
-              <div className="title--page-section-wrapper">
-                <h2 className="title-text--page-section-header">Password</h2>
+              <div className="title--page-section-wrapper-settings">
+                <h2 className="title-text--page-section-header">
+                  Reset Password
+                </h2>
               </div>
-              <div className="page-section-wrapper" >
+              <div className="page-section-wrapper-settings">
                 <div className="insideInfo">
                   <input
                     className="formInput"
-                    placeholder="Password"
+                    placeholder="Old Password"
                     type="password"
                     name="password"
                     onChange={this.onChange.bind(this)}
                     required
                   />
-
                   <input
                     className="formInput"
                     placeholder="New Password"
@@ -104,21 +105,19 @@ class EditPassword extends Component {
                   />
                   <input
                     className="formInput"
-                    placeholder="Confirm Password"
+                    placeholder="Confirm New Password"
                     type="password"
                     name="passwordConfirm"
                     onChange={this.onChange.bind(this)}
                     required
                   />
-
                 </div>
-
                 <div className="insideInfo">
                   <button
                     className="button"
                     type="submit"
                     onClick={this.updatePassword.bind(this)}
-                  >Save
+                  >Update
                   </button>
                 </div>
               </div>
