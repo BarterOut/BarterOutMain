@@ -257,9 +257,10 @@ router.post('/clickBuyTemp/:token', (req, res) => {
             buyer = foundUser[0];
             console.log(req.body.data.cart);
             for (i = 0; i < req.body.data.cart.length; i++) {
-              Textbook.update({ _id: req.body.data.cart[i]._id }, { $set: { status: 1 } }, (error) => {
+              Textbook.update({ _id: req.body.data.cart[i]._id }, { $set: { status: 1, buyer: authData.userInfo._id } }, (error) => {
                 console.log(`Error: ${error}`);
               });
+              // updates the books being sought by the user that match the query
               Textbook.find({ _id: req.body.data.cart[i]._id }, (errors, foundBook) => {
                 bookFound = foundBook[0];
                 TextbookBuy.update({

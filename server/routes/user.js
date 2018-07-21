@@ -534,6 +534,32 @@ router.post('/clearCart', (req, res) => {
   res.sendStatus(200);
 });
 
+router.post('/getPurchasedBooks', (req, res) => {
+  jwt.verify(req.body.data.token, 'secretKey', (error, authData) => {
+    if (error) {
+      res.sendStatus(401);
+    } else {
+      Textbook.find({ $and: [{ status: { $ne: 0 } }, { buyer: authData.userInfo._id }] }, (err, booksFound) => {
+        res.sendStatus(200).json(booksFound);
+      });
+    }
+  });
+  res.sendStatus(200);
+});
+
+router.post('/getSoldBooks', (req, res) => {
+  jwt.verify(req.body.data.token, 'secretKey', (error, authData) => {
+    if (error) {
+      res.sendStatus(401);
+    } else {
+      Textbook.find({ $and: [{ status: { $ne: 0 } }, { owner: authData.userInfo._id }] }, (err, booksFound) => {
+        res.sendStatus(200).json(booksFound);
+      });
+    }
+  });
+  res.sendStatus(200);
+});
+
 // Just in case this is needed
 router.get('/', (req, res) => {
   if (req.user) {
