@@ -99,6 +99,20 @@
   background: #FFF;
 }
 
+.legal-links-login {
+  text-align: left;
+  width: 90%;
+}
+
+.login-prefs {
+  text-align: left;
+  width: 90%;
+}
+
+.fine-print-login {
+  margin-right: 8px;
+}
+
 @media only screen and (max-width: 860px) {
   .login-wrapper {
     width: 95vw;
