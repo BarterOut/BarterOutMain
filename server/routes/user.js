@@ -607,6 +607,7 @@ router.get('/getUserStatistics/:token', (req, res) => {
         res.status(200).json({
           numberOfBooksBought: user.numberOfBooksBought,
           numberOfBooksSold: user.numberOfBooksSold,
+          moneyMade: user.moneyMade,
         });
       });
     }

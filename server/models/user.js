@@ -23,9 +23,9 @@ const userSchema = new Schema({
   lastName: { type: String, required: true },
   university: { type: String, required: true },
   // These are fields that will be updated later
-  numberOfBooksSold: { type: Number },
-  numberOfBooksBought: { type: Number },
-  moneyMade: { type: Number },
+  numberOfBooksSold: { type: Number, default: 0 },
+  numberOfBooksBought: { type: Number, default: 0 },
+  moneyMade: { type: Number, default: 0 },
   matchedBooks: [{ type: String }],
   cart: [{ type: String }],
   notifications: [{

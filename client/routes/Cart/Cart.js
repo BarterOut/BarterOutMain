@@ -13,6 +13,8 @@ import CartBookPost from '../../components/CartBookPost/CartBookPost';
 import FetchService from '../../services/FetchService';
 import AuthService from '../../services/AuthService';
 
+import './Cart.css';
+
 class Cart extends Component {
   constructor() {
     super();
@@ -39,7 +41,7 @@ class Cart extends Component {
 
   buyBooks() {
     const AUTH = new AuthService();
-    FetchService.POST(`/api/books/clickBuyTemp/${AUTH.getToken()}`,{
+    FetchService.POST(`/api/books/clickBuyTemp/${AUTH.getToken()}`, {
       cart: this.state.items,
 
     });
@@ -47,7 +49,6 @@ class Cart extends Component {
   }
 
   render() {
-
     return (
       <div className="app-wrapper">
         <SideNav
@@ -75,12 +76,12 @@ class Cart extends Component {
               ))}
             </div>
 
-            <h3>
-              When you click buy book(s), we will Venmo request you once we recieve the books and validate their condition.
+            <h3 id="cart-message">
+              When you click &quot;Checkout&quot;, we will Venmo request (USERNAME) once we recieve the books and validate their condition.
               Until you accept our venmo request, we will hold the book(s). However, once you accept it, the book(s) will be
               delivered via the campus mail center.
             </h3>
-            <button className="button" onClick={this.buyBooks.bind(this)}>Buy Book(s)</button>
+            <button className="button" onClick={this.buyBooks.bind(this)}>Checkout</button>
           </div>
         </div>
       </div>

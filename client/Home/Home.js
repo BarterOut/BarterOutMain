@@ -20,6 +20,9 @@ class Home extends Component {
 
     this.state = {
       notifications: [],
+      numberOfBooksBought: 0,
+      numberOfBooksSold: 0,
+      moneyMade: 0,
     };
 
     this.Auth = new AuthService();
@@ -27,6 +30,7 @@ class Home extends Component {
 
   componentDidMount() {
     this.getNotifications();
+    this.getUserStatistics();
   }
 
   getNotifications() {
@@ -34,6 +38,16 @@ class Home extends Component {
       .then(response => response.json())
       .then((data) => {
         this.setState({ notifications: data });
+      });
+  }
+
+  getUserStatistics() {
+    FetchService.GET(`/api/auth/getUserStatistics/${this.Auth.getToken()}`)
+      .then(response => response.json())
+      .then((data) => {
+        this.setState({ numberOfBooksBought: data.numberOfBooksBought });
+        this.setState({ numberOfBooksSold: data.numberOfBooksSold });
+        this.setState({ moneyMade: data.moneyMade });
       });
   }
 
@@ -47,6 +61,34 @@ class Home extends Component {
         <div className="right-content">
           <TopBar />
           <div className="page-content">
+            <div className="stats-section">
+              <div className="stat-wrap">
+                <div className="title--page-section-wrapper--stat">
+                  <h2 className="title-text--page-section-header">Books Bought</h2>
+                </div>
+                <div className="page-section-wrapper--stat">
+                  <h2 className="stat-text">{this.state.numberOfBooksBought}</h2>
+                </div>
+              </div>
+              <div className="stat-wrap">
+                <div className="title--page-section-wrapper--stat">
+                  <h2 className="title-text--page-section-header">Books Sold</h2>
+                </div>
+                <div className="page-section-wrapper--stat">
+                  <h2 className="stat-text">{this.state.numberOfBooksSold}</h2>
+                </div>
+              </div>
+              <div className="stat-wrap">
+                <div className="title--page-section-wrapper--stat">
+                  <h2 className="title-text--page-section-header">Money Made</h2>
+                </div>
+                <div className="page-section-wrapper--stat">
+                  <h2 className="stat-text">${this.state.moneyMade}</h2>
+                </div>
+              </div>
+            </div>
+
+
             <div className="title--page-section-wrapper">
               <h2 className="title-text--page-section-header">Notifications</h2>
             </div>
