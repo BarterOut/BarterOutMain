@@ -59,7 +59,7 @@
   min-width: 540px;
   border-top-right-radius: 15px;
   border-top-left-radius: 15px;
-  min-height: 64px;
+  min-height: 50px;
   margin-top: 8px;
   padding: 8px 16px;
   align-items: flex-start;
@@ -69,6 +69,7 @@
 .title-text--page-section-header {
   margin: 0;
   padding: 0;
+  font-size: 1.6em;
   color: white;
 }
 

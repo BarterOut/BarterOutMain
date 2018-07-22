@@ -53,6 +53,7 @@ class Home extends Component {
             <div className="page-section-wrapper">
               {this.state.notifications.map(notification => (
                 <Notification
+                  key={notification._id}
                   date={notification.date.toString()}
                   message={notification.message}
                 />

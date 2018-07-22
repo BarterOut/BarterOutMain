@@ -21,22 +21,6 @@ class Notification extends Component {
     };
   }
 
-  componentDidMount() {
-    this._setID();
-  }
-
-  _setID() {
-    this.setState({ id: this.props.id });
-  }
-
-  addToCart() {
-    const AUTH = new AuthService();
-    FetchService.POST('/api/auth/addToCart', {
-      token: AUTH.getToken(),
-      bookID: this.state.id,
-    });
-  }
-
   render() {
     return (
       <div className="notification">
