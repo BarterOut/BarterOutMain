@@ -7,27 +7,35 @@
   opacity: 1; /* Firefox */
 }
 
-.input {
-  margin: 8px 4px 8px 0;
-  width: 100%;
-  padding: 8px;
-  border-radius: 3px;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
-  border: solid 1px #41397c;
-  color: black;
-}
-
-.searchInput {
+.searchInputWrapper {
+  display: flex;
+  justify-content: center;
   width: 70%;
-  height: 64px;
+  height: 72px;
   background: #E1DEEC;
   border: none;
   border-radius: 15px;
-  padding: 0 16px;
+  padding: 8px 16px;
   -webkit-box-shadow: 0 4px 6px rgba(50,50,93,.11), 0 1px 3px rgba(0,0,0,.08);
   box-shadow: 0 4px 6px rgba(50,50,93,.11), 0 1px 3px rgba(0,0,0,.08);
-  font-size: 1.4em;
   margin: 16px;
+}
+
+.searchInputWrapperBig {
+  outline: none;
+  height: 70vh;
+  z-index: 10;
+  position: fixed;
+  opacity: .86;
+}
+
+.searchInput {
+  width: 95%;
+  height: 60px;
+  background: none;
+  font-size: 1.4em;
+  border: none;
+  border-bottom: 2px solid orange;
 }
 
 .page-content {
@@ -78,10 +86,7 @@
   display: inline-block;
   height: 40px;
   line-height: 40px;
-  max-width: 140px;
   padding: 0 14px;
-  /* -webkit-box-shadow: 0 4px 6px rgba(50,50,93,.11), 0 1px 3px rgba(0,0,0,.08);
-  box-shadow: 0 4px 6px rgba(50,50,93,.11), 0 1px 3px rgba(0,0,0,.08); */
   border: none;
   border-radius: 4px;
   font-size: 15px;

@@ -6,12 +6,15 @@
 
 import React, { Component } from 'react';
 import { Redirect, Link } from 'react-router-dom';
+import MaterialIcon from 'react-google-material-icons';
 import FetchService from '../../services/FetchService';
 import AuthService from '../../services/AuthService';
 
 import logo from '../../images/barterOutOrangeWhiteLogo.png';
 
-class Login extends Component {
+import './ForgotPassword.css';
+
+class ForgotPassword extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -52,15 +55,13 @@ class Login extends Component {
 
     FetchService.POST('/api/auth/passwordResetRequest', {
       emailAddress: this.state.emailAddress,
-    });
-      // .then(() => {
-      //   this.setState({ badCreditials: false });
-      //   this.setState({ redirect: true });
-      // }).catch((error) => {
-      //   if (error.status === 401) {
-      //     this.setState({ badCreditials: true });
-      //   }
-      // });
+    })
+      .then(() => {
+        this.setState({ badCreditials: false });
+        this.setState({ redirect: true });
+      }).catch(() => {
+        this.setState({ badCreditials: true });
+      });
   }
 
   _validateInputs() {
@@ -73,23 +74,24 @@ class Login extends Component {
 
   render() {
     if (this.state.redirect) {
-      return (<Redirect to="/home" />);
+      return (<Redirect to="/forgotPasswordSuccess" />);
     }
     return (
-      <div className="login-wrapper">
-        <div className="leftLoginContent">
-          <h1>Welcome to</h1>
-          <img src={logo} alt="logo" />
+      <div className="wrapper-soft-bg">
+        <div className="top-section">
+          <img className="logo-nonav" src={logo} alt="logo" />
+          <button className="button">Back to Log In</button>
         </div>
-        <div className="rightLoginContent">
-          <h2 id="login-header">Forgot your Password?</h2>
-          <h2 id="login-header">
-            No worries! Enter your email and 
+        <div className="central-content-card">
+          <MaterialIcon icon="lock" id="lock-icon" />
+          <h2 id="header-custom">Forgot your Password?</h2>
+          <h3 id="forgot-password-message">
+            No worries! Enter your email and
             we will send you a password reset link:
-          </h2>
-          {this.state.badCreditials && <span className="input-error">Please enter an email!</span>}
+          </h3>
+          {this.state.badCreditials && <span className="input-error">Please enter an valid email.</span>}
           <input
-            className="formInputLoginSignup"
+            className="formInputForgotPassword"
             onChange={this.onChange.bind(this)}
             placeholder="Email"
             type="email"
@@ -98,7 +100,7 @@ class Login extends Component {
             required
           />
           <div>
-            <button className="inputButtonFilled" onClick={this.resetPassword.bind(this)}>Reset Password</button>
+            <button className="button" onClick={this.resetPassword.bind(this)}>Reset Password</button>
           </div>
           <div>Don&apos;t have an account?</div>
           <div><Link href="/signup" to="/signup">Sign up now</Link>.</div>
@@ -108,4 +110,4 @@ class Login extends Component {
   }
 }
 
-export default Login;
+export default ForgotPassword;

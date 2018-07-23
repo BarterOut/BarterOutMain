@@ -61,6 +61,15 @@ class Buy extends Component {
     this.search(evt.target.value);
   }
 
+  animateSearch() {
+    // const searchWrapper = document.getElementById('searchInputWrapper');
+    // if (searchWrapper.classList.contains('searchInputWrapperBig')) {
+    //   searchWrapper.classList.remove('searchInputWrapperBig');
+    // } else {
+    //   searchWrapper.classList.add('searchInputWrapperBig');
+    // }
+  }
+
   search(query) {
     if (query === '') {
       FetchService.GET(`/api/books/getAllBooks/${this.state.token}`)
@@ -99,14 +108,22 @@ class Buy extends Component {
           <TopBar />
 
           <div className="page-content">
-            <input
-              autoComplete="off"
-              className="searchInput"
-              onChange={this.updateInputValue.bind(this)}
-              placeholder="Search Books"
-              type="text"
-              name="name"
-            />
+            <div
+              id="searchInputWrapper"
+              // onClick={this.animateSearch.bind(this)}
+              className="searchInputWrapper"
+              tabIndex="-1"
+            >
+              <input
+                autoComplete="off"
+                className="searchInput"
+                onClick={this.animateSearch.bind(this)}
+                onChange={this.updateInputValue.bind(this)}
+                placeholder="Search Books"
+                type="text"
+                name="name"
+              />
+            </div>
             <div className="title--page-section-wrapper"><h2 className="title-text--page-section-header">Your Matches</h2></div>
             <div className="page-section-wrapper">
               {matches.map(post => (

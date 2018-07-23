@@ -58,7 +58,7 @@ class TopBar extends Component {
           <a href="/cart"><button className="button" id="cart">Cart</button></a>
         </div>
         <div className="middle-bar part">
-          {/* <h4><b>{this.state.school}</b></h4> */}
+          <h4><b>{this.state.school}</b></h4>
         </div>
         <div className="right-bar part">
           <button className="button" onClick={this._logout.bind(this)}>Logout</button>

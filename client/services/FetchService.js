@@ -56,7 +56,7 @@ export default class FetchService {
     if (response.status >= 200 && response.status < 300) { // Success status lies between 200 to 300
       return true;
     } else {
-      const error = new Error(response.statusText);
+      const error = new Error(response.status);
       error.response = response;
       throw error;
     }

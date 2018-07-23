@@ -24,6 +24,7 @@ import Settings from './routes/Settings/Settings';
 import Help from './routes/Help/Help';
 import Cart from './routes/Cart/Cart';
 import ForgotPassword from './routes/ForgotPassword/ForgotPassword';
+import ForgotPasswordSuccess from './routes/ForgotPassword/ForgotPasswordSuccess';
 import EmailConfirmed from './routes/EmailConfirmed/EmailConfirmed';
 
 
@@ -59,6 +60,7 @@ export default (
     <Route exact path="/cart" component={Cart} />
     <Route path="/editPassword" component={EditPassword} />
     <Route path="/forgotPassword" component={ForgotPassword} />
+    <Route path="/forgotPasswordSuccess" component={ForgotPasswordSuccess} />
     <Route path="/emailConfirmed" component={EmailConfirmed} />
     <Route exact path="/dashboard" component={Dashboard} />
   </Switch>
