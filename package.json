@@ -8,7 +8,7 @@
   },
   "scripts": {
     "test": "NODE_ENV=test MONGO_URL=mongodb://localhost:27017/mernstacktest nyc mocha --exit",
-    "start": "BABEL_DISABLE_CACHE=1 nodemon index.js",
+    "start": "nodemon index.js",
     "dev": "concurrently \"npm start\" "
   },
   "author": "David Thingsaker",
