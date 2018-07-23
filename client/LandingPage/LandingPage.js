@@ -32,10 +32,10 @@ import pavel from '../images/pavelStan.jpg';
 import melissa from '../images/melissaKagaju.jpg';
 import duncan from '../images/duncanGrubbs.jpg';
 import shawn from '../images/zixuChen.jpg';
+import nikolai from '../images/Nikolai.jpg';
 import genessis from '../images/genessisGalindo.jpg';
 import logo from '../images/barterOutProfilePhotoWebPage.png';
 import zacqueline from '../images/zacquelineBaldwin.jpg';
-import nikolai from '../images/nikolaiDraganov.jpg';
 
 import adviserOne from '../images/meyerElizabeth.jpg';
 
