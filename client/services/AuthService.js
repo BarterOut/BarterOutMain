@@ -43,7 +43,10 @@ export default class AuthService {
 
   setToken(idToken) {
     // Saves user token to localStorage
-    sessionStorage.setItem('token', idToken);
+    if (!sessionStorage.getItem('token')) {
+      console.log(idToken);
+      sessionStorage.setItem('token', idToken);
+    }
   }
 
   getToken() {

@@ -32,13 +32,13 @@ class Buy extends Component {
     const token = auth.getToken();
     this._setToken(token);
 
-    FetchService.GET(`/api/books/getAllBooks/${token}`, {})
+    FetchService.GET(`/api/books/getAllBooks/${token}`)
       .then(response => response.json())
       .then((data) => {
         this._setPosts(data);
       });
 
-    FetchService.GET(`/api/books/getUserMatches/${token}`, {})
+    FetchService.GET(`/api/books/getUserMatches/${token}`)
       .then(response => response.json())
       .then((data) => {
         this._setMatches(data);
@@ -82,8 +82,8 @@ class Buy extends Component {
     }
     const auth = new AuthService();
     const token = auth.getToken();
-    FetchService.GET(`/api/books/search/${query}`,{
-      token: token
+    FetchService.GET(`/api/books/search/${query}`, {
+      token,
     })
       .then(response => response.json())
       .then((data) => {
@@ -112,7 +112,7 @@ class Buy extends Component {
               id="searchInputWrapper"
               // onClick={this.animateSearch.bind(this)}
               className="searchInputWrapper"
-              tabIndex="-1"
+              // tabIndex="-1"
             >
               <input
                 autoComplete="off"

@@ -34,18 +34,18 @@ class Sell extends Component {
 
   componentDidMount() {
     const AUTH = new AuthService();
-    FetchService.GET(`/api/books/getUsersPosts/${AUTH.getToken()}`, {})
+    FetchService.GET(`/api/books/getUsersPosts/${AUTH.getToken()}`)
       .then(response => response.json())
       .then((data) => {
         this.setState({ posts: data });
       });
   }
 
-  handleOpenModal () {
+  handleOpenModal() {
     this.setState({ showModal: true });
   }
-  
-  handleCloseModal () {
+
+  handleCloseModal() {
     this.setState({ showModal: false });
   }
 

@@ -10,10 +10,9 @@ export default class FetchService {
    * @param {String} url URL for the API request.
    * @param {Object} data Any data you want to pass to the server.
    */
-  static GET(url, data) {
+  static GET(url) {
     return fetch(url, {
       method: 'GET',
-      body: data,
     }).then((res) => {
       if (!FetchService._checkStatus(res)) {
         return Promise.reject(new Error(`Bad Status Code ${res.status}`));
