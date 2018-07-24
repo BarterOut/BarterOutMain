@@ -2,14 +2,12 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  /* width: 100vw; */
   height: 72px;
   border-bottom: 4px #E36700 solid;
 }
 
 .part {
-  flex-grow: 3;
-  margin: 0 16px;
+  margin: auto;
   width: 30%;
 }
 
@@ -20,4 +18,8 @@
   height: 100%;
   flex-direction: column;
   align-items: flex-end;
+}
+
+.middle-bar {
+  text-align: center;
 }

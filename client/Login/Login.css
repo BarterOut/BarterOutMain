@@ -40,7 +40,7 @@
   letter-spacing: .025em;
   color: #444;
   background: none;
-  tranfermation: all ease .2s;
+  transition: all ease .2s;
   text-decoration: none;
   margin: 8px;
 }
@@ -70,7 +70,7 @@
   background: none;
   border: none;
   width: 90%;
-  margin: 8px 4px 32px 4px;
+  margin: 0px 4px 24px 4px;
   font-size: 1.2em;
   border-bottom: 2px #41397c solid;
   color: #444;
@@ -87,7 +87,7 @@
   justify-content: center;
   width: 50%;
   height: 100vh;
-  padding: 32px 64px;
+  padding: 0 64px;
 }
 
 .login-wrapper {
@@ -117,5 +117,6 @@
   .login-wrapper {
     width: 95vw;
     margin: auto;
+    flex-direction: column;
   }
 }

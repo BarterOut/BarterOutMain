@@ -103,8 +103,10 @@ class Sell extends Component {
           </div>
           <div>
             <ReactModal
+              className="modal"
+              overlayClassName="overlay"
               isOpen={this.state.showModal}
-              contentLabel="Minimal Modal Example"
+              contentLabel="Sell Book Modal"
               ariaHideApp={false}
             >
               <button onClick={this.handleCloseModal}>Close Modal</button>

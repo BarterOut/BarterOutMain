@@ -53,7 +53,9 @@ class SideNav extends Component {
       <div id="wrapper">
         <div className="top-of-nav">
           <img id="logo" src={logo} alt="logo" />
-          <div id="three-bar"><MaterialIcon icon="menu" size={36} /></div>
+          <div id="three-bar">
+            <MaterialIcon icon="menu" size={36} />
+          </div>
         </div>
         <div id="profile-wrapper">
           <img src={profile} alt="profile" id="profile-pic" />

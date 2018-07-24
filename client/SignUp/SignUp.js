@@ -206,11 +206,11 @@ class SignUp extends Component {
             />
           </div>
           <div className="terms">
-              By clicking "Sign Up" below, you are agreeing to our <a href="/termsOfService" target="_blank" rel="noopener"> Terms of Service </a>
+              By clicking &quot;Sign Up&quot; below, you are agreeing to our <a href="/termsOfService" target="_blank" rel="noopener"> Terms of Service </a>
               and <a href="/privacyPolicy" target="_blank" rel="noopener"> Privacy Policy</a>.
           </div>
           <button
-            className="button"
+            className="inputButtonFilled"
             type="submit"
             onClick={this.signUp.bind(this)}
           >Sign Up
