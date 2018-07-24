@@ -27,7 +27,7 @@ class TopBar extends Component {
       this._updateRedirect(true);
     }
 
-    FetchService.GET(`/api/auth/getUserData/${Auth.getToken()}`)
+    FetchService.GET(`/api/user/getUserData/${Auth.getToken()}`)
       .then(response => response.json())
       .then((data) => {
         this._updateSchool(data.user.university);

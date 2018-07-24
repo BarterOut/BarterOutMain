@@ -27,7 +27,7 @@ class Cart extends Component {
   componentDidMount() {
     const AUTH = new AuthService();
 
-    FetchService.GET(`/api/auth/getCartItems/${AUTH.getToken()}`)
+    FetchService.GET(`/api/user/getCartItems/${AUTH.getToken()}`)
       .then(response => response.json())
       .then((data) => {
         this._updateItems(data);
