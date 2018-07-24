@@ -373,8 +373,9 @@ router.get('/getUserMatches/:token', (req, res) => {
  * @param {array} res Body of HTTP response.
  * @returns {object} Array of books from database.
  */
-router.get('/search/:query', (req, res) => {
-  jwt.verify(req.body.data.token, 'secretKey', (err, authData) => {
+router.get('/search/:query/:token', (req, res) => {
+  console.log('something');
+  jwt.verify(req.params.token, 'secretKey', (err, authData) => {
     if (err) {
       res.sendStatus(403);
     } else {
@@ -391,6 +392,7 @@ router.get('/search/:query', (req, res) => {
         books.forEach((book) => {
           bookMap.push(book);
         });
+        console.log(bookMap);
         res.status(200).json(bookMap);
       });
     }

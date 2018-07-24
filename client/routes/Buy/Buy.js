@@ -82,9 +82,7 @@ class Buy extends Component {
     }
     const auth = new AuthService();
     const token = auth.getToken();
-    FetchService.GET(`/api/books/search/${query}`, {
-      token,
-    })
+    FetchService.GET(`/api/books/search/${query}/${token}`)
       .then(response => response.json())
       .then((data) => {
         this.setState({ posts: data });
@@ -117,7 +115,7 @@ class Buy extends Component {
               <input
                 autoComplete="off"
                 className="searchInput"
-                onClick={this.animateSearch.bind(this)}
+                // onClick={this.animateSearch.bind(this)}
                 onChange={this.updateInputValue.bind(this)}
                 placeholder="Search Books"
                 type="text"

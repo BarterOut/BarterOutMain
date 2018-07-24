@@ -130,6 +130,10 @@
   font-weight: bold;
 }
 
+input {
+  outline: none;
+}
+
 input:focus,
 select:focus,
 textarea:focus,
