@@ -1,27 +1,28 @@
 module.exports = {
-
   // Email sent when user gets matched with a seller
   matchFoundEmail: function matchFoundEmail(emailTo, firstName, bookTitle) {
     return {
       from: '"Barter Out" <office@barterout.com',
       to: emailTo,
       subject: 'Match found for you',
-      html: `Dear ${firstName},
-
+      html: `Dear ${firstName}, <br />
+      <br />
       We are excited to let you know that we found a match for your request to buy ${bookTitle}. Check it on our <a href=”https://www.barterout.com/”>website</a> and complete the purchase if you are satisfied with the price and condition of the book.
-      
+      <br />
       After you click buy, we will Venmo request you as soon as we get and inspect your book, which should not take more than 2 business days. If everything is ok and you send in the payment, it will be delivered to you the following day.
-      
+      <br />
       If you have any questions, feel free to send us an email at office@barterout.com and we will reply promptly!
-      
+      <br />
+      <br />
       Oh, one more thing: we are still a developing startup and want to make sure we are building a service that is useful to you. If you have 3-4 minutes to spare, please consider filling in our <a href=”https://goo.gl/forms/KMhLK9N7ZFtHTyjF2”>short survey</a>. We greatly value your feedback so please send us any comments or concerns.
-      
-      
-      Thank you,
+      <br />
+      <br />
+      Thank you,<br />
       The BarterOut team
-      
-      Do you like social media as much as we do? Consider:
-      Liking us on <a href=”https://www.facebook.com/BarterOut/”>Facebook</a>
+      <br />
+      <br />
+      Do you like social media as much as we do? Consider:<br />
+      Liking us on <a href=”https://www.facebook.com/BarterOut/”>Facebook</a><br />
       Following us on <a href=”https://www.instagram.com/barteroutofficial/”>Instagram</a>`,
       auth: {
         user: 'office@barterout.com',
@@ -37,26 +38,28 @@ module.exports = {
     return {
       from: '"Barter Out" <office@barterout.com',
       to: emailTo,
-      subject: 'We found a buyer for your book',
-      html: `Dear ${firstName},
-
+      subject: '[BarterOut] We found a buyer for your book',
+      html: `Dear ${firstName},<br />
+      <br />
       We are excited to let you know that we found a buyer for your copy of ${bookTitle}. Please drop the book as soon as you can at one of our crew members in the following schedule:
-      
+      <br />
       Monday - Friday: 11 AM - 4 PM @ the Q&I area in Rush Rhees Library
       Saturday: 11 AM - 2 PM @ the Q&I area in Rush Rhees Library
-      
+      <br />
       We will check the condition of the book and if it matches the one advertised, we will send you the money via Venmo before delivering the book to the other student. 
-      
+      <br />
       If you have any questions, feel free to send us an email at office@barterout.com and we will reply promptly!
-      
+      <br />
+      <br />
       Oh, one more thing: we are still a developing startup and want to make sure we are building a service that is useful to you. If you have 3-4 minutes to spare, please consider filling in our <a href=”https://goo.gl/forms/KMhLK9N7ZFtHTyjF2”>short survey</a>. We greatly value your feedback so please send us any comments or concerns.
-      
-      
-      Thank you,
+      <br />
+      <br />
+      Thank you,<br />
       The BarterOut team
-      
-      Do you like social media as much as we do? Consider:
-      Liking us on <a href=”https://www.facebook.com/BarterOut/”>Facebook</a>
+      <br />
+      <br />
+      Do you like social media as much as we do? Consider:<br />
+      Liking us on <a href=”https://www.facebook.com/BarterOut/”>Facebook</a><br />
       Following us on <a href=”https://www.instagram.com/barteroutofficial/”>Instagram</a>`,
       auth: {
         user: 'office@barterout.com',
@@ -71,21 +74,24 @@ module.exports = {
     return {
       from: '"Barter Out" <office@barterout.com',
       to: emailTo,
-      subject: 'Purchase initiated',
-      html: `Dear ${firstName},
-
+      subject: '[BarterOut] Purchase Initiated',
+      html: `Dear ${firstName},<br />
+      <br />
       You successfully purchased ${bookTitle}! We will Venmo request you as soon as we get and inspect your book, which should not take more than 2 business days. If everything is ok and you send in the payment, it will be delivered to you the following day.
-      
+      <br />
+      <br />
       If you have any questions, feel free to send us an email at office@barterout.com and we will reply promptly!
-      
+      <br />
+      <br />
       Oh, one more thing: we are still a developing startup and want to make sure we are building a service that is useful to you. If you have 3-4 minutes to spare, please consider filling in our <a href=”https://goo.gl/forms/KMhLK9N7ZFtHTyjF2”>short survey</a>. We greatly value your feedback so please send us any comments or concerns.
-      
-      
-      Thank you,
+      <br />
+      <br />
+      Thank you,<br />
       The BarterOut team
-      
-      Do you like social media as much as we do? Consider:
-      Liking us on <a href=”https://www.facebook.com/BarterOut/”>Facebook</a>
+      <br />
+      <br />
+      Do you like social media as much as we do? Consider:<br />
+      Liking us on <a href=”https://www.facebook.com/BarterOut/”>Facebook</a><br />
       Following us on <a href=”https://www.instagram.com/barteroutofficial/”>Instagram</a>`,
       auth: {
         user: 'office@barterout.com',
@@ -131,27 +137,31 @@ module.exports = {
     return {
       from: '"Barter Out" <office@barterout.com',
       to: emailTo,
-      subject: 'Thank you for signing up',
-      html: `Dear ${firstName},
-
+      subject: '[BarterOut] Please Verify your Email',
+      html: `Dear ${firstName},<br />
+      <br />
       Thank you for signing up for our services. Please click on the following link to confirm your email and start using BarterOut today on our website by putting a textbook up for sale or buying one from another student.
-      
+      <br />
+      <br />
       <b><a href=http://localhost:8080/api/auth/email-verification/${URL}>CONFIRM EMAIL</a></b>
-      
+      <br />
+      <br />
       This version is currently available only at the University of Rochester and does not have all features implemented. If you know anyone looking to buy or sell used textbooks, feel free to invite them to join our platform.
-      
+      <br />
+      <br />
       If you have any questions, feel free to send us an email at office@barterout.com and we will reply promptly!
-      
+      <br />
+      <br />
       Oh, one more thing: we are still a developing startup and want to make sure we are building a service that is useful to you. If you have 3-4 minutes to spare, please consider filling in our <a href=”https://goo.gl/forms/KMhLK9N7ZFtHTyjF2”>short survey</a>. We greatly value your feedback so please send us any comments or concerns.
-      
-      
-      Thank you,
+      <br />
+      <br />
+      Thank you,<br />
       The BarterOut team
-      
-      Do you like social media as much as we do? Consider:
-      Liking us on <a href=”https://www.facebook.com/BarterOut/”>Facebook</a>
-      Following us on <a href=”https://www.instagram.com/barteroutofficial/”>Instagram</a>`
-      ,
+      <br />
+      <br />
+      Do you like social media as much as we do? Consider:<br />
+      Liking us on <a href=”https://www.facebook.com/BarterOut/”>Facebook</a><br />
+      Following us on <a href=”https://www.instagram.com/barteroutofficial/”>Instagram</a>`,
       auth: {
         user: 'office@barterout.com',
         refreshToken: '1/9XdHU4k2vwYioRyAP8kaGYfZXKfp_JxqUwUMYVJWlZs',
@@ -166,19 +176,21 @@ module.exports = {
       from: '"Barter Out" <office@barterout.com',
       to: emailTo,
       subject: '[BarterOut] Thank you for Signing Up!',
-      html: `Dear ${firstName},
-
+      html: `Dear ${firstName},<br />
+      <br />
       Thank you for confirming your email and becoming a member of our community. Start using BarterOut today on our <a href=”https://www.barterout.com/”>website</a> by putting a textbook up for sale or buying one from another student.
-      
+      <br />
+      <br />
       If you have any questions, feel free to send us an email at office@barterout.com and we will reply promptly!
-      
-      
-      Thank you,
+      <br />
+      <br />
+      Thank you,<br />
       The BarterOut team
-      
-      Do you like social media as much as we do? Consider:
-      Liking us on <a href=”https://www.facebook.com/BarterOut/”>Facebook</a>
-      Following us on <a href=”https://www.instagram.com/barteroutofficial/”>Instagram</a>`,      
+      <br />
+      <br />
+      Do you like social media as much as we do? Consider:<br />
+      Liking us on <a href=”https://www.facebook.com/BarterOut/”>Facebook</a><br />
+      Following us on <a href=”https://www.instagram.com/barteroutofficial/”>Instagram</a>`,
       auth: {
         user: 'office@barterout.com',
         refreshToken: '1/9XdHU4k2vwYioRyAP8kaGYfZXKfp_JxqUwUMYVJWlZs',
@@ -188,7 +200,7 @@ module.exports = {
     };
   },
 
-  passwordResetEmail: function passwordResetEmail (emailTo, firstName, URL) {
+  passwordResetEmail: function passwordResetEmail(emailTo, firstName, URL) {
     return {
       from: '"Barter Out" <office@barterout.com',
       to: emailTo,
@@ -212,7 +224,5 @@ module.exports = {
         // expires: 1484314697598
       },
     };
-
   },
-
 };
