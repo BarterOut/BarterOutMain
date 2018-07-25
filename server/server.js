@@ -33,8 +33,12 @@ const passport = require('./passport');
 const sslRedirect = require('heroku-ssl-redirect');
 
 
-// USER ROUTE
+// Auth ROUTE
+const auth = require('./routes/auth');
+// User Route
+
 const user = require('./routes/user');
+
 const booksRoute = require('./routes/books');
 const dashboard = require('./routes/dashboard');
 
@@ -83,7 +87,8 @@ app.post('/api/dummyPost', (req, res) => {
 
 app.use(passport.initialize());
 app.use(passport.session()); // calls serializeUser and deserializeUser
-app.use('/api/auth', user);
+app.use('/api/auth', auth);
+app.use('/api/user', user);
 app.use('/api/books', booksRoute);
 app.use('/api/dashboard', dashboard);
 

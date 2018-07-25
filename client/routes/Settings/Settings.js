@@ -35,7 +35,7 @@ class Settings extends Component {
 
     document.addEventListener('keydown', this._handleKeyDown.bind(this));
 
-    FetchService.GET(`/api/auth/getUserData/${AUTH.getToken()}`)
+    FetchService.GET(`/api/user/getUserData/${AUTH.getToken()}`)
       .then(response => response.json())
       .then((data) => {
         this.setState({ firstName: data.user.firstName });

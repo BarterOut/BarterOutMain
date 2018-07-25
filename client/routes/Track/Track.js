@@ -30,7 +30,7 @@ class Track extends Component {
   }
 
   getPurchasedBooks() {
-    FetchService.POST('/api/auth/getPurchasedBooks', {
+    FetchService.POST('/api/user/getPurchasedBooks', {
       token: this.auth.getToken(),
     })
       .then(response => response.json())
@@ -40,7 +40,7 @@ class Track extends Component {
   }
 
   getSoldBooks() {
-    FetchService.POST('/api/auth/getSoldBooks', {
+    FetchService.POST('/api/user/getSoldBooks', {
       token: this.auth.getToken(),
     })
       .then(response => response.json())

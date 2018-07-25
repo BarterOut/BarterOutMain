@@ -34,7 +34,7 @@ class Home extends Component {
   }
 
   getNotifications() {
-    FetchService.GET(`/api/auth/getNotifications/${this.Auth.getToken()}`)
+    FetchService.GET(`/api/user/getNotifications/${this.Auth.getToken()}`)
       .then(response => response.json())
       .then((data) => {
         this.setState({ notifications: data });
@@ -42,7 +42,7 @@ class Home extends Component {
   }
 
   getUserStatistics() {
-    FetchService.GET(`/api/auth/getUserStatistics/${this.Auth.getToken()}`)
+    FetchService.GET(`/api/user/getUserStatistics/${this.Auth.getToken()}`)
       .then(response => response.json())
       .then((data) => {
         this.setState({ numberOfBooksBought: data.numberOfBooksBought });
