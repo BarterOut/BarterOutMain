@@ -7,14 +7,14 @@ module.exports = {
       subject: 'Match found for you',
       html: `Dear ${firstName}, <br />
       <br />
-      We are excited to let you know that we found a match for your request to buy ${bookTitle}. Check it on our <a href=”https://www.barterout.com/”>website</a> and complete the purchase if you are satisfied with the price and condition of the book.
+      We are excited to let you know that we found a match for your request to buy ${bookTitle}. Check it on our <a href="https://www.barterout.com/">website</a> and complete the purchase if you are satisfied with the price and condition of the book.
       <br />
       After you click buy, we will Venmo request you as soon as we get and inspect your book, which should not take more than 2 business days. If everything is ok and you send in the payment, it will be delivered to you the following day.
       <br />
       If you have any questions, feel free to send us an email at office@barterout.com and we will reply promptly!
       <br />
       <br />
-      Oh, one more thing: we are still a developing startup and want to make sure we are building a service that is useful to you. If you have 3-4 minutes to spare, please consider filling in our <a href=”https://goo.gl/forms/KMhLK9N7ZFtHTyjF2”>short survey</a>. We greatly value your feedback so please send us any comments or concerns.
+      Oh, one more thing: we are still a developing startup and want to make sure we are building a service that is useful to you. If you have 3-4 minutes to spare, please consider filling in our <a href="https://goo.gl/forms/KMhLK9N7ZFtHTyjF2">short survey</a>. We greatly value your feedback so please send us any comments or concerns.
       <br />
       <br />
       Thank you,<br />
@@ -22,8 +22,8 @@ module.exports = {
       <br />
       <br />
       Do you like social media as much as we do? Consider:<br />
-      Liking us on <a href=”https://www.facebook.com/BarterOut/”>Facebook</a><br />
-      Following us on <a href=”https://www.instagram.com/barteroutofficial/”>Instagram</a>`,
+      Liking us on <a href="https://www.facebook.com/BarterOut/">Facebook</a><br />
+      Following us on <a href="https://www.instagram.com/barteroutofficial/">Instagram</a>`,
       auth: {
         user: 'office@barterout.com',
         refreshToken: '1/9XdHU4k2vwYioRyAP8kaGYfZXKfp_JxqUwUMYVJWlZs',
@@ -51,7 +51,7 @@ module.exports = {
       If you have any questions, feel free to send us an email at office@barterout.com and we will reply promptly!
       <br />
       <br />
-      Oh, one more thing: we are still a developing startup and want to make sure we are building a service that is useful to you. If you have 3-4 minutes to spare, please consider filling in our <a href=”https://goo.gl/forms/KMhLK9N7ZFtHTyjF2”>short survey</a>. We greatly value your feedback so please send us any comments or concerns.
+      Oh, one more thing: we are still a developing startup and want to make sure we are building a service that is useful to you. If you have 3-4 minutes to spare, please consider filling in our <a href="https://goo.gl/forms/KMhLK9N7ZFtHTyjF2">short survey</a>. We greatly value your feedback so please send us any comments or concerns.
       <br />
       <br />
       Thank you,<br />
@@ -59,8 +59,8 @@ module.exports = {
       <br />
       <br />
       Do you like social media as much as we do? Consider:<br />
-      Liking us on <a href=”https://www.facebook.com/BarterOut/”>Facebook</a><br />
-      Following us on <a href=”https://www.instagram.com/barteroutofficial/”>Instagram</a>`,
+      Liking us on <a href="https://www.facebook.com/BarterOut/">Facebook</a><br />
+      Following us on <a href="https://www.instagram.com/barteroutofficial/">Instagram</a>`,
       auth: {
         user: 'office@barterout.com',
         refreshToken: '1/9XdHU4k2vwYioRyAP8kaGYfZXKfp_JxqUwUMYVJWlZs',
@@ -83,7 +83,7 @@ module.exports = {
       If you have any questions, feel free to send us an email at office@barterout.com and we will reply promptly!
       <br />
       <br />
-      Oh, one more thing: we are still a developing startup and want to make sure we are building a service that is useful to you. If you have 3-4 minutes to spare, please consider filling in our <a href=”https://goo.gl/forms/KMhLK9N7ZFtHTyjF2”>short survey</a>. We greatly value your feedback so please send us any comments or concerns.
+      Oh, one more thing: we are still a developing startup and want to make sure we are building a service that is useful to you. If you have 3-4 minutes to spare, please consider filling in our <a href="https://goo.gl/forms/KMhLK9N7ZFtHTyjF2">short survey</a>. We greatly value your feedback so please send us any comments or concerns.
       <br />
       <br />
       Thank you,<br />
@@ -91,8 +91,8 @@ module.exports = {
       <br />
       <br />
       Do you like social media as much as we do? Consider:<br />
-      Liking us on <a href=”https://www.facebook.com/BarterOut/”>Facebook</a><br />
-      Following us on <a href=”https://www.instagram.com/barteroutofficial/”>Instagram</a>`,
+      Liking us on <a href="https://www.facebook.com/BarterOut/">Facebook</a><br />
+      Following us on <a href="https://www.instagram.com/barteroutofficial/">Instagram</a>`,
       auth: {
         user: 'office@barterout.com',
         refreshToken: '1/9XdHU4k2vwYioRyAP8kaGYfZXKfp_JxqUwUMYVJWlZs',
@@ -152,7 +152,7 @@ module.exports = {
       If you have any questions, feel free to send us an email at office@barterout.com and we will reply promptly!
       <br />
       <br />
-      Oh, one more thing: we are still a developing startup and want to make sure we are building a service that is useful to you. If you have 3-4 minutes to spare, please consider filling in our <a href=”https://goo.gl/forms/KMhLK9N7ZFtHTyjF2”>short survey</a>. We greatly value your feedback so please send us any comments or concerns.
+      Oh, one more thing: we are still a developing startup and want to make sure we are building a service that is useful to you. If you have 3-4 minutes to spare, please consider filling in our <a href="https://goo.gl/forms/KMhLK9N7ZFtHTyjF2">short survey</a>. We greatly value your feedback so please send us any comments or concerns.
       <br />
       <br />
       Thank you,<br />
@@ -160,8 +160,8 @@ module.exports = {
       <br />
       <br />
       Do you like social media as much as we do? Consider:<br />
-      Liking us on <a href=”https://www.facebook.com/BarterOut/”>Facebook</a><br />
-      Following us on <a href=”https://www.instagram.com/barteroutofficial/”>Instagram</a>`,
+      Liking us on <a href="https://www.facebook.com/BarterOut/">Facebook</a><br />
+      Following us on <a href="https://www.instagram.com/barteroutofficial/">Instagram</a>`,
       auth: {
         user: 'office@barterout.com',
         refreshToken: '1/9XdHU4k2vwYioRyAP8kaGYfZXKfp_JxqUwUMYVJWlZs',
@@ -178,7 +178,7 @@ module.exports = {
       subject: '[BarterOut] Thank you for Signing Up!',
       html: `Dear ${firstName},<br />
       <br />
-      Thank you for confirming your email and becoming a member of our community. Start using BarterOut today on our <a href=”https://www.barterout.com/”>website</a> by putting a textbook up for sale or buying one from another student.
+      Thank you for confirming your email and becoming a member of our community. Start using BarterOut today on our <a href="https://www.barterout.com/">website</a> by putting a textbook up for sale or buying one from another student.
       <br />
       <br />
       If you have any questions, feel free to send us an email at office@barterout.com and we will reply promptly!
@@ -189,8 +189,8 @@ module.exports = {
       <br />
       <br />
       Do you like social media as much as we do? Consider:<br />
-      Liking us on <a href=”https://www.facebook.com/BarterOut/”>Facebook</a><br />
-      Following us on <a href=”https://www.instagram.com/barteroutofficial/”>Instagram</a>`,
+      Liking us on <a href="https://www.facebook.com/BarterOut/">Facebook</a><br />
+      Following us on <a href="https://www.instagram.com/barteroutofficial/">Instagram</a>`,
       auth: {
         user: 'office@barterout.com',
         refreshToken: '1/9XdHU4k2vwYioRyAP8kaGYfZXKfp_JxqUwUMYVJWlZs',
