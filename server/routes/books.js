@@ -279,9 +279,7 @@ router.post('/clickBuyTemp/:token', (req, res) => {
             }
             User.update(
               { _id: authData.userInfo._id },
-              {
-                numberOfBooksBought: foundUser.numberOfBooksBought + 1,
-              }, (error) => {
+              { $set: { numberOfBooksBought: foundUser[0].numberOfBooksBought + 1 } }, (error) => {
                 console.error(`Error: ${error}`);
               },
             );
@@ -291,15 +289,7 @@ router.post('/clickBuyTemp/:token', (req, res) => {
               Textbook.update({ _id: req.body.data.cart[i]._id }, { $set: { status: 1, buyer: authData.userInfo._id } }, (error) => {
                 console.log(`Error: ${error}`);
               });
-              // FOR USER STATISTICS
-              // User.update(
-              //   { _id: req.body.data.cart[i].owner },
-              //   {
-              //     numberOfBooksSold: foundUser.numberOfBooksSold + 1,
-              //   }, (error) => {
-              //     console.error(`Error: ${error}`);
-              //   },
-              // );
+
 
               // updates the books being sought by the user that match the query
               Textbook.find({ _id: req.body.data.cart[i]._id }, (errors, foundBook) => {
@@ -310,6 +300,13 @@ router.post('/clickBuyTemp/:token', (req, res) => {
                 }, { $set: { status: 1 } }, (error) => {
                   console.log(`Error in finding book being bought:  ${error}`);
                 });
+                // FOR USER STATISTICS
+                User.update(
+                  { _id: bookFound.owner },
+                  { $inc: { numberOfBooksSold: 1, moneyMade: bookFound.price } }, (error) => {
+                    console.error(`Error update seller: ${error}`);
+                  },
+                );
                 User.find({ _id: bookFound.owner }, (error, sellerUser) => {
                   seller = sellerUser[0];
                   sendEmail(emails.emailForUs(buyer, seller, bookFound));

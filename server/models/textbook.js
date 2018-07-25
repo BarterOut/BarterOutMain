@@ -13,6 +13,7 @@ const textbookSchema = new Schema({
   owner: { type: 'String', required: true },
   comments: { type: 'String', required: false },
   date: { type: 'Number', required: true },
+  buyer: { type: 'String', required: false, default: '' },
 });
 
 
