@@ -59,8 +59,9 @@ class Home extends Component {
         />
 
         <div className="right-content">
-          <TopBar />
+          <TopBar page="Your Dashboard" />
           <div className="page-content">
+            <h2>Welcome back!</h2>
             <div className="stats-section">
               <div className="stat-wrap">
                 <div className="title--page-section-wrapper--stat">

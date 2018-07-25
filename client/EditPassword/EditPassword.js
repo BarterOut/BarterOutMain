@@ -18,6 +18,7 @@ class EditPassword extends Component {
       password: '',
       passwordConfirm: '',
       newPassword: '',
+      updateMessageVisible: false,
     };
   }
 
@@ -48,13 +49,14 @@ class EditPassword extends Component {
       window.alert('Please make your passwords the same!');
       return;
     }
+
     FetchService.POST('/api/auth/updatePassword', {
       password: this.state.password,
       newPassword: this.state.newPassword,
       token: this.state.token,
     })
       .then(() => {
-        console.log('Success');
+        this.setState({ updateMessageVisible: true });
       })
       .catch((error) => {
         console.error(`Server error: ${error}`);
@@ -87,6 +89,10 @@ class EditPassword extends Component {
               </div>
               <div className="page-section-wrapper-settings">
                 <div className="insideInfo">
+                  {
+                    this.state.updateMessageVisible &&
+                    <h3>You succesfully updated your password.</h3>
+                  }
                   <input
                     className="formInput"
                     placeholder="Old Password"

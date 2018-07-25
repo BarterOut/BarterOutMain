@@ -25,10 +25,95 @@ import Help from './routes/Help/Help';
 import Cart from './routes/Cart/Cart';
 import ForgotPassword from './routes/ForgotPassword/ForgotPassword';
 import ForgotPasswordSuccess from './routes/ForgotPassword/ForgotPasswordSuccess';
+import SignUpSuccess from './routes/SignUpSuccess/SignUpSuccess';
 import EmailConfirmed from './routes/EmailConfirmed/EmailConfirmed';
 
 
 const HomePage = ({ component: Component, rest }) => {
+  const auth = new AuthService();
+  return (
+    <Route
+      {...rest}
+      render={(props) => 
+        auth.loggedIn()
+        ? <Component {...props} />
+        : <Redirect to={{pathname: '/login'}}
+      />}
+    />
+  );
+};
+
+const BuyPage = ({ component: Component, rest }) => {
+  const auth = new AuthService();
+  return (
+    <Route
+      {...rest}
+      render={(props) => 
+        auth.loggedIn()
+        ? <Component {...props} />
+        : <Redirect to={{pathname: '/login'}}
+      />}
+    />
+  );
+};
+
+const SellPage = ({ component: Component, rest }) => {
+  const auth = new AuthService();
+  return (
+    <Route
+      {...rest}
+      render={(props) => 
+        auth.loggedIn()
+        ? <Component {...props} />
+        : <Redirect to={{pathname: '/login'}}
+      />}
+    />
+  );
+};
+
+const SettingsPage = ({ component: Component, rest }) => {
+  const auth = new AuthService();
+  return (
+    <Route
+      {...rest}
+      render={(props) => 
+        auth.loggedIn()
+        ? <Component {...props} />
+        : <Redirect to={{pathname: '/login'}}
+      />}
+    />
+  );
+};
+
+const TrackPage = ({ component: Component, rest }) => {
+  const auth = new AuthService();
+  return (
+    <Route
+      {...rest}
+      render={(props) => 
+        auth.loggedIn()
+        ? <Component {...props} />
+        : <Redirect to={{pathname: '/login'}}
+      />}
+    />
+  );
+};
+
+const HelpPage = ({ component: Component, rest }) => {
+  const auth = new AuthService();
+  return (
+    <Route
+      {...rest}
+      render={(props) => 
+        auth.loggedIn()
+        ? <Component {...props} />
+        : <Redirect to={{pathname: '/login'}}
+      />}
+    />
+  );
+};
+
+const CartPage = ({ component: Component, rest }) => {
   const auth = new AuthService();
   return (
     <Route
@@ -52,15 +137,16 @@ export default (
     <HomePage exact path="/home" component={Home} />
     <Route exact path="/login" component={Login} />
     <Route exact path="/signup" component={SignUp} />
-    <Route exact path="/buy" component={Buy} />
-    <Route exact path="/sell" component={Sell} />
-    <Route exact path="/track" component={Track} />
-    <Route exact path="/settings" component={Settings} />
-    <Route exact path="/help" component={Help} />
-    <Route exact path="/cart" component={Cart} />
+    <BuyPage exact path="/buy" component={Buy} />
+    <SellPage exact path="/sell" component={Sell} />
+    <TrackPage exact path="/track" component={Track} />
+    <SettingsPage exact path="/settings" component={Settings} />
+    <HelpPage exact path="/help" component={Help} />
+    <CartPage exact path="/cart" component={Cart} />
     <Route path="/editPassword" component={EditPassword} />
     <Route path="/forgotPassword" component={ForgotPassword} />
     <Route path="/forgotPasswordSuccess" component={ForgotPasswordSuccess} />
+    <Route path="/signUpSuccess" component={SignUpSuccess} />
     <Route path="/emailConfirmed" component={EmailConfirmed} />
     <Route exact path="/dashboard" component={Dashboard} />
   </Switch>

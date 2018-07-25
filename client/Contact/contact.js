@@ -23,12 +23,11 @@ const Contact = () => (
 
         <ul>
           <li>Email: office@barterout.com</li>
-          <li><a href="#">Facebook</a></li>
-          <li><a href="#">Instagram</a></li>
-          <li><a href="#">LinkedIn</a></li>
+          <li><a rel="noopener noreferrer" target="_blank" href="https://www.facebook.com/BarterOut/">Facebook</a></li>
+          <li><a rel="noopener noreferrer" target="_blank" href="https://www.linkedin.com/company/18490388/">LinkedIn</a></li>
         </ul>
 
-        <h3>or by filling out <a href="#">this</a> form.</h3>
+        <h3>or by filling out <a rel="noopener noreferrer" target="_blank" href="https://goo.gl/forms/KMhLK9N7ZFtHTyjF2">this</a> form.</h3>
       </div>
     </div>
   </div>

@@ -2,3 +2,9 @@
   font-size: 1.4em;
   width: 70%;
 }
+
+#cart-totals {
+  width: 70%;
+  padding: 16px;
+  text-align: right;
+}

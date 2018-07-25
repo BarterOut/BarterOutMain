@@ -25,10 +25,19 @@ class Settings extends Component {
       lastName: '',
       CMC: '',
       venmoUsername: '',
+      updateMessageVisible: false,
     };
   }
 
   componentDidMount() {
+    this.getProfileInfo();
+  }
+
+  onChange(evt) {
+    this.setState({ [evt.target.name]: evt.target.value });
+  }
+
+  getProfileInfo() {
     const AUTH = new AuthService();
     const token = AUTH.getToken();
     this._setToken(token);
@@ -43,10 +52,6 @@ class Settings extends Component {
         this.setState({ CMC: data.user.CMC });
         this.setState({ venmoUsername: data.user.venmoUsername });
       });
-  }
-
-  onChange(evt) {
-    this.setState({ [evt.target.name]: evt.target.value });
   }
 
   _setToken(token) {
@@ -68,7 +73,9 @@ class Settings extends Component {
       token: this.state.token,
     })
       .then(() => {
-        console.log('You have updated your information');
+        this.getProfileInfo();
+        sessionStorage.setItem('name', `${this.state.firstName} ${this.state.lastName}`);
+        this.setState({ updateMessageVisible: true });
       })
       .catch((error) => {
         console.error(`Sign up server error: ${error}`);
@@ -83,7 +90,7 @@ class Settings extends Component {
         />
 
         <div className="right-content">
-          <TopBar />
+          <TopBar page="Profile Settings" />
           <div className="dividePage">
             <div className="columns">
               <Link className="nav-link-settings selected-settings-nav" name="settings" to="/settings" href="/settings">
@@ -99,6 +106,11 @@ class Settings extends Component {
               </div>
               <div className="page-section-wrapper-settings" >
                 <div className="insideInfo">
+                  {
+                    this.state.updateMessageVisible &&
+                    <h3>You succesfully updated your information.</h3>
+                  }
+                  <span className="inputLabelHome">First Name</span>
                   <input
                     className="formInput"
                     onChange={this.onChange.bind(this)}
@@ -107,6 +119,7 @@ class Settings extends Component {
                     name="firstName"
                     required
                   />
+                  <span className="inputLabelHome">Last Name</span>
                   <input
                     className="formInput"
                     onChange={this.onChange.bind(this)}
@@ -115,6 +128,7 @@ class Settings extends Component {
                     name="lastName"
                     required
                   />
+                  <span className="inputLabelHome">Venmo Username</span>
                   <input
                     className="formInput"
                     onChange={this.onChange.bind(this)}
@@ -123,6 +137,7 @@ class Settings extends Component {
                     name="venmoUsername"
                     required
                   />
+                  <span className="inputLabelHome">CMC Box Number</span>
                   <input
                     className="formInput"
                     onChange={this.onChange.bind(this)}
@@ -137,7 +152,7 @@ class Settings extends Component {
                     className="button"
                     type="submit"
                     onClick={this.updateProfile.bind(this)}
-                  >Save
+                  >Update Information
                   </button>
                 </div>
               </div>

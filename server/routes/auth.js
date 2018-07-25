@@ -298,6 +298,7 @@ router.post('/updateProfile', (req, res) => {
           console.error(`Error: ${error}`);
         },
       );
+      res.sendStatus(200);
     }
   });
 });
@@ -343,6 +344,7 @@ router.post('/updatePassword', (req, res) => {
             console.log(`Error: ${error}`);
           },
         );
+        res.sendStatus(200);
       });
     }
   });

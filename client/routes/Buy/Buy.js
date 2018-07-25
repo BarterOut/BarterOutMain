@@ -103,7 +103,7 @@ class Buy extends Component {
       <div className="app-wrapper">
         <SideNav selected="buy" />
         <div className="right-content">
-          <TopBar />
+          <TopBar page="Buy" />
 
           <div className="page-content">
             <div
@@ -122,6 +122,10 @@ class Buy extends Component {
                 name="name"
               />
             </div>
+            <p className="searchInfo">
+              * You can search for Book Name, Title, Edition, Class, or Price, note
+              that the class must be in the same format as on the book posting, (e.g. MTH 101, WRT 105, etc).
+            </p>
             <div className="title--page-section-wrapper"><h2 className="title-text--page-section-header">Your Matches</h2></div>
             <div className="page-section-wrapper">
               {matches.map(post => (

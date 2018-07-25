@@ -21,18 +21,30 @@ class Cart extends Component {
 
     this.state = {
       items: [],
+      venmo: '',
+      CMC: '',
     };
+
+    this.AUTH = new AuthService();
   }
 
   componentDidMount() {
-    const AUTH = new AuthService();
+    this.getUserData();
 
-    FetchService.GET(`/api/user/getCartItems/${AUTH.getToken()}`)
+    FetchService.GET(`/api/user/getCartItems/${this.AUTH.getToken()}`)
       .then(response => response.json())
       .then((data) => {
         this._updateItems(data);
       });
+  }
 
+  getUserData() {
+    FetchService.GET(`/api/user/getUserData/${this.AUTH.getToken()}`)
+      .then(response => response.json())
+      .then((data) => {
+        this.setState({ venmo: data.user.venmoUserName });
+        this.setState({ CMC: data.user.CMC });
+      });
   }
 
   _updateItems(data) {
@@ -43,9 +55,10 @@ class Cart extends Component {
     const AUTH = new AuthService();
     FetchService.POST(`/api/books/clickBuyTemp/${AUTH.getToken()}`, {
       cart: this.state.items,
-
-    });
-    console.log('BUYING BOOKS');
+    })
+      .then(() => {
+        window.location.reload();
+      });
   }
 
   render() {
@@ -56,7 +69,7 @@ class Cart extends Component {
         />
 
         <div className="right-content">
-          <TopBar />
+          <TopBar page="Cart" />
           <div className="page-content">
             <div className="title--page-section-wrapper">
               <h2 className="title-text--page-section-header">Cart</h2>
@@ -76,10 +89,23 @@ class Cart extends Component {
               ))}
             </div>
 
+            <p id="cart-totals">
+              <b>Items:</b><br />
+              <span>Principles of Calc: <i>$25</i></span><br />
+              <span>Principles of Calc: <i>$25</i></span><br />
+              <span>Principles of Calc: <i>$25</i></span><br />
+              <br />
+              <br />
+              <span>Subtotal: <b>$75.00</b></span><br />
+              <br />
+              <span>Our 5% Fee: <i>$3.75</i></span><br />
+              <span>Total: <b>$78.75</b></span><br />
+            </p>
+
             <h3 id="cart-message">
-              When you click &quot;Checkout&quot;, we will Venmo request (USERNAME) once we recieve the books and validate their condition.
+              When you click &quot;Checkout&quot;, we will Venmo request @<b>{this.state.venmo}</b> once we recieve the books and validate their condition.
               Until you accept our venmo request, we will hold the book(s). However, once you accept it, the book(s) will be
-              delivered via the campus mail center.
+              delivered via the campus mail center to the CMC Box <b>{this.state.CMC}</b>.
             </h3>
             <button className="button" onClick={this.buyBooks.bind(this)}>Checkout</button>
           </div>

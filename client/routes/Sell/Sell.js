@@ -61,7 +61,7 @@ class Sell extends Component {
         />
 
         <div className="right-content">
-          <TopBar />
+          <TopBar page="Sell" />
           <div className="page-content">
             <div className="title--page-section-wrapper">
               <h2 className="title-text--page-section-header">Sell your  Textbooks</h2>

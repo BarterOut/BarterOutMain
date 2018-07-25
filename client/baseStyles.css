@@ -3,7 +3,7 @@
 }
 
 ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
-  color: #252329;
+  color: #444;
   opacity: 1; /* Firefox */
 }
 
@@ -38,6 +38,12 @@
   font-size: 1.5em;
   border: none;
   border-bottom: 2px solid orange;
+}
+
+.searchInfo {
+  text-align: left;
+  width: 70%;
+  padding: 0 8px;
 }
 
 .page-content {
@@ -128,6 +134,8 @@
 .input-error {
   color: red;
   font-weight: bold;
+  font-size: 1.3em;
+  margin: 8px;
 }
 
 input {

@@ -5,7 +5,7 @@
  */
 
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 
 import FetchService from '../services/FetchService';
 import logo from '../images/barterOutOrangeWhiteLogo.png';
@@ -25,7 +25,7 @@ class SignUp extends Component {
       university: 'University of Rochester',
       CMC: '',
       venmoUsername: '',
-      success: false,
+      redirectToSuccess: false,
       allFilledOut: true,
       passwordsMatch: true,
     };
@@ -68,7 +68,7 @@ class SignUp extends Component {
       CMC: this.state.CMC,
     })
       .then(() => {
-        this.setState({ success: true });
+        this.setState({ redirectToSuccess: true });
       });
   }
 
@@ -125,6 +125,9 @@ class SignUp extends Component {
   }
 
   render() {
+    if (this.state.redirectToSuccess) {
+      return <Redirect to="/signUpSuccess" />;
+    }
     return (
       <div className="login-wrapper">
         <div className="leftLoginContent">
@@ -134,7 +137,6 @@ class SignUp extends Component {
 
         <div className="rightLoginContent">
           <h3>Create an Account</h3>
-          {this.state.success && <h3 id="signup-success">Thanks for signing up, before logging in, please check your email to verify your account!</h3>}
           {!this.state.allFilledOut && <h4 className="input-error">Please ensure all the required fields are filled out.</h4>}
           <span className="inputLabel">First Name *</span>
           <input

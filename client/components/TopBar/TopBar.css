@@ -23,3 +23,8 @@
 .middle-bar {
   text-align: center;
 }
+
+#cart {
+  display: flex;
+  align-items: center;
+}

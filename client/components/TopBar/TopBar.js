@@ -5,9 +5,12 @@
  */
 
 import React, { Component } from 'react';
+import propTypes from 'prop-types';
 import { Redirect, Link } from 'react-router-dom';
 import AuthService from '../../services/AuthService';
-import FetchService from '../../services/FetchService';
+
+import MaterialIcon from 'react-google-material-icons';
+// import FetchService from '../../services/FetchService';
 
 import '../../baseStyles.css';
 
@@ -17,26 +20,26 @@ class TopBar extends Component {
   constructor() {
     super();
     this.state = {
-      school: String,
+      redirect: false,
     };
   }
 
-  componentDidMount() {
-    const Auth = new AuthService();
-    if (Auth.getToken() === null) {
-      this._updateRedirect(true);
-    }
+  // componentDidMount() {
+  //   const Auth = new AuthService();
+  //   if (Auth.getToken() === null) {
+  //     this._updateRedirect(true);
+  //   }
 
-    FetchService.GET(`/api/user/getUserData/${Auth.getToken()}`)
-      .then(response => response.json())
-      .then((data) => {
-        this._updateSchool(data.user.university);
-      });
-  }
+  //   FetchService.GET(`/api/user/getUserData/${Auth.getToken()}`)
+  //     .then(response => response.json())
+  //     .then((data) => {
+  //       this._updateSchool(data.user.university);
+  //     });
+  // }
 
-  _updateSchool(value) {
-    this.setState({ school: value });
-  }
+  // _updateSchool(value) {
+  //   this.setState({ school: value });
+  // }
 
   _updateRedirect(value) {
     this.setState({ redirect: value });
@@ -55,10 +58,12 @@ class TopBar extends Component {
     return (
       <div id="bar-wrapper">
         <div className="left-bar part">
-          <Link to="/cart" href="/cart"><button className="button" id="cart">Cart</button></Link>
+          <Link to="/cart" href="/cart">
+            <button className="button" id="cart"><MaterialIcon icon="shopping_cart" />Cart</button>
+          </Link>
         </div>
         <div className="middle-bar part">
-          <h4><b>{this.state.school}</b></h4>
+          <h4><b>{this.props.page}</b></h4>
         </div>
         <div className="right-bar part">
           <button className="button" onClick={this._logout.bind(this)}>Logout</button>
@@ -67,5 +72,9 @@ class TopBar extends Component {
     );
   }
 }
+
+TopBar.propTypes = {
+  page: propTypes.string.isRequired,
+};
 
 export default TopBar;

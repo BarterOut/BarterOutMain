@@ -109,8 +109,8 @@ class Login extends Component {
             required
           />
           <div className="login-prefs">
-            {/* <input className="fine-print-login" type="checkbox" />Remember Me */}
-            <Link className="fine-print-login" href="/forgotPassword" to="/forgotPassword">Forgot Password</Link>
+            <Link className="forgot-password" href="/forgotPassword" to="/forgotPassword">Forgot Password?</Link>
+            <div>Back to <Link href="/" to="/">Home</Link>.</div>
           </div>
           <div>
             <Link href="/signup" to="/signup">
@@ -118,10 +118,10 @@ class Login extends Component {
             </Link>
             <button className="inputButtonFilled" onClick={this.login.bind(this)}>Login</button>
           </div>
-          <div className="login-prefs">Back to <Link href="/" to="/">Home</Link>.</div>
           <div className="legal-links-login">
             <Link className="fine-print-login" href="/termsOfService" to="/termsOfService">Terms of Service</Link>
-            <Link className="fine-print-login" href="/privacyPolicy" to="/privacyPolicy">Privacy Policy</Link>
+            |
+            <Link className="fine-print-login" href="/privacyPolicy" to="/privacyPolicy"> Privacy Policy</Link>
           </div>
         </div>
       </div>

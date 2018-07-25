@@ -51,7 +51,9 @@
 }
 
 #login-header {
-  margin: 8px 0;
+  margin: 32px 0;
+  width: 85%;
+  text-align: center;
 }
 
 .leftLoginContent {
@@ -100,12 +102,16 @@
 }
 
 .legal-links-login {
-  text-align: left;
+  text-align: center;
+  position: fixed;
+  bottom: 16px;
   width: 90%;
 }
 
 .login-prefs {
-  text-align: left;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
   width: 90%;
 }
 

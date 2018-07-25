@@ -1,9 +1,9 @@
 .insideInfo {
   display: flex;
   flex-direction: row;
-  padding: 40px 16px;
+  padding: 16px;
   align-items: center;
-  font-size: 1.6em;
+  font-size: 1.3em;
   flex-wrap: wrap;
   margin: auto 0;
 }

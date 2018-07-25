@@ -57,7 +57,7 @@ class Track extends Component {
         />
 
         <div className="right-content">
-          <TopBar />
+          <TopBar page="Track" />
           <div className="page-content">
             <div className="title--page-section-wrapper">
               <h2 className="title-text--page-section-header">Purchased</h2>

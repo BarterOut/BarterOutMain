@@ -330,7 +330,7 @@ router.post('/clickBuyTemp/:token', (req, res) => {
               console.log(`Error: ${error}`);
             },
           );
-          res.json(true);
+          res.sendStatus(200);
         }
       });
     }
