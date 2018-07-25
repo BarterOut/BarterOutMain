@@ -17,6 +17,8 @@ const nodemailer = require('nodemailer');
 
 const emails = require('../emails/emailFunctions');
 
+const notification = require('../Notifications');
+
 const jwt = require('jsonwebtoken');
 
 const transporter = nodemailer.createTransport({ // secure authentication
@@ -69,7 +71,7 @@ router.post('/postBook/:token', (req, res) => {
                 { _id: authData.userInfo._id },
                 {
                   $addToSet: {
-                    notifications: { date: new Date(), message: `Thanks for posting ${newBook.name}.` },
+                    notifications: notification.thanksForPosting(newBook.name),
                   },
                 }, (error) => {
                   console.error(`Error: ${error}`);
@@ -148,7 +150,7 @@ router.post('/requestBook', (req, res) => {
                 { _id: authData.userInfo._id },
                 {
                   $addToSet: {
-                    notifications: { date: new Date(), message: `Your request for ${BOOK.name} has been recorded.` },
+                    notifications: notification.postedRequest(BOOK.name),
                   },
                 }, (error) => {
                   console.error(`Error: ${error}`);
