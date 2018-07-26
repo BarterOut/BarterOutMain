@@ -1,7 +1,7 @@
 {
   "name": "barter-out",
   "version": "0.0.2",
-  "description": "Smart shopping for smart students",
+  "description": "Smart shopping for smart students.",
   "main": "index.js",
   "directories": {
     "test": "test"
@@ -18,7 +18,6 @@
     "url": ""
   },
   "dependencies": {
-    "axios": "^0.18.0",
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.3",
     "babel-eslint": "^8.2.3",
