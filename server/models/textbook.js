@@ -2,12 +2,13 @@ import mongoose from 'mongoose';
 
 const Schema = mongoose.Schema;
 
-const textbookSchema = new Schema({
+const textbook = new Schema({
   name: { type: 'String', required: true },
   edition: { type: 'Number', required: true },
   course: { type: 'String', required: true },
   price: { type: 'Number', required: true },
-  status: { type: 'Number', required: true },//status of 0 is not bought probs wants to make this boolean
+  // status of 0 is avaliable, 1 is purchased
+  status: { type: 'Number', required: true },
   ISBN: { type: 'Number', required: false },
   condition: { type: 'String', required: true },
   owner: { type: 'String', required: true },
@@ -17,8 +18,13 @@ const textbookSchema = new Schema({
 });
 
 
-// textbookSchema.index({ '$**': 'text' });
-textbookSchema.index({ name: 'text', course: 'text', status: 'text', edition: 'text', owner: 'text'}) // can add weights here later!
+textbook.index({
+  name: 'text',
+  course: 'text',
+  status: 'text',
+  edition: 'text',
+  owner: 'text',
+}); // can add weights here later!
 
 
-export default mongoose.model('Textbook', textbookSchema);
+export default mongoose.model('Textbook', textbook);

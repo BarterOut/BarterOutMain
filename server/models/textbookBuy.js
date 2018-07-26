@@ -13,7 +13,12 @@ const TextbookBuy = new Schema({
 });
 
 // TextbookBuy.index({ '$**': 'text' });
-TextbookBuy.index({ name: 'text', course: 'text', status: 'text',owner: 'text'}) // can add weights here later!
+TextbookBuy.index({
+  name: 'text',
+  course: 'text',
+  status: 'text',
+  owner: 'text',
+}); // can add weights here later!
 
 
 export default mongoose.model('TextbookBuy', TextbookBuy);

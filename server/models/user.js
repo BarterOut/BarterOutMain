@@ -12,7 +12,6 @@ const bcrypt = require('bcryptjs');
 
 mongoose.promise = Promise;
 
-
 const userSchema = new Schema({
   // All required fields when user signs up are first
   emailAddress: { type: String, unique: true, required: true },

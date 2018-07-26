@@ -89,6 +89,7 @@
     "nyc": "^13.0.1",
     "rimraf": "^2.6.2",
     "style-loader": "^0.19.0",
+    "uglify-js-brunch": "^2.10.0",
     "url-loader": "^0.6.2"
   },
   "nyc": {

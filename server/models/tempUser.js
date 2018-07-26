@@ -1,15 +1,17 @@
 import mongoose from 'mongoose';
+
 const Schema = mongoose.Schema;
 const bcrypt = require('bcryptjs');
-mongoose.promise = Promise
+
+mongoose.promise = Promise;
 
 const tempUserSchema = new Schema({
   emailAddress: { type: 'String', unique: true, required: true },
   password: { type: 'String', required: true },
   venmoUsername: { type: 'String', required: true },
   CMC: { type: 'String', required: true },
-  firstName: { type:'String', required: true },
-  lastName: { type:'String', required: true },
+  firstName: { type: 'String', required: true },
+  lastName: { type: 'String', required: true },
   matchedBooks: [{ type: String }],
   // array of matched books so you can look at those books might have to add quotes for it
   university: { type: 'String', required: true },
@@ -17,7 +19,7 @@ const tempUserSchema = new Schema({
   createdAt: {
     type: Date, expires: '1h', default: Date.now(), required: true,
   },
-},{
+}, {
   collection: 'tempUsers',
 });
 
@@ -41,11 +43,11 @@ tempUserSchema.pre('save', function (next) {
   } else {
     console.log('models/tempUser.js hashPassword in pre save');
 
-    this.password = this.hashPassword(this.password)
+    this.password = this.hashPassword(this.password);
     console.log(this.password)
     next();
   }
-})
+});
 
 
 export default mongoose.model('TempUser', tempUserSchema);
