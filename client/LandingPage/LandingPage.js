@@ -18,7 +18,7 @@ import '../res/sylesheetOrkneyRegular.css';
 import '../res/sylesheetOrkneyLight.css';
 import '../res/sylesheetOrkneyMedium.css';
 import '../res/sylesheetOrkneyBold.css';
-import '../res/animate.css';
+// import '../res/animate.css';
 
 import logoPic from '../images/barterOutOrangeWhiteLogoHeader.png';
 
@@ -26,18 +26,19 @@ import picOne from '../images/overtheShoulderCompressed.jpg';
 import picTwo from '../images/groupMeetingCompressed.jpg';
 import picThree from '../images/outdoorsCompressed.jpg';
 
-import vlad from '../images/vladCazacu.jpg';
-import annie from '../images/annieHamburgen.png';
-import pavel from '../images/pavelStan.jpg';
-import melissa from '../images/melissaKagaju.jpg';
-import duncan from '../images/duncanGrubbs.jpg';
-import shawn from '../images/zixuChen.jpg';
-import nikolai from '../images/Nikolai.jpg';
-import genessis from '../images/genessisGalindo.jpg';
-import logo from '../images/barterOutProfilePhotoWebPage.png';
-import zacqueline from '../images/zacquelineBaldwin.jpg';
+import vlad from '../images/team-photos/vladCazacu.jpg';
+import annie from '../images/team-photos/annieHamburgen.png';
+import pavel from '../images/team-photos/pavelStan.jpg';
+import melissa from '../images/team-photos/melissaKagaju.jpg';
+import duncan from '../images/team-photos/duncanGrubbs.jpg';
+import shawn from '../images/team-photos/zixuChen.jpg';
+import nikolai from '../images/team-photos/Nikolai.jpg';
+import genessis from '../images/team-photos/genessisGalindo.jpg';
+import zacqueline from '../images/team-photos/zacquelineBaldwin.jpg';
 
-import adviserOne from '../images/meyerElizabeth.jpg';
+import adviserOne from '../images/team-photos/meyerElizabeth.jpg';
+
+import logo from '../images/barterOutProfilePhotoWebPage.png';
 
 import linkedInLogo from '../images/linkedIn.png';
 import facebookLogo from '../images/facebook.png';
@@ -208,105 +209,105 @@ class LandingPage extends Component {
                                 <tbody>
                                     <tr className="animated" id="rowOne">
                                         <td>
-                                            <div id="profile">
-                                                <a href="https://www.linkedin.com/in/vladcazacu/" target="_blank"><img id="team" src={vlad}></img></a>
+                                            <div className="profile">
+                                                <a href="https://www.linkedin.com/in/vladcazacu/" target="_blank"><img alt="Team Profile" className="team" src={vlad}></img></a>
                                                 <br/>
-                                                <div id="profileName">Vlad Cazacu</div>
+                                                <div className="profileName">Vlad Cazacu</div>
                                                 Co-founder & CEO
                                             </div>
                                         </td>
                                         <td>
-                                            <div id="profile">
-                                                <a href="https://www.linkedin.com/in/pavel-stan-232911140/" target="_blank"><img id="team" src={pavel}></img></a>
+                                            <div className="profile">
+                                                <a href="https://www.linkedin.com/in/pavel-stan-232911140/" target="_blank"><img alt="Team Profile" className="team" src={pavel}></img></a>
                                                 <br/>
-                                                <div id="profileName">Pavel Stan</div>
+                                                <div className="profileName">Pavel Stan</div>
                                                 Co-founder & Director
                                                 <br/>
                                                 of External Relations
                                             </div>
                                         </td>
                                         <td>
-                                            <div id="profile">
-                                                <a href="https://www.linkedin.com/in/annmarie-hamburgen-9ab65a12b/" target="_blank"><img id="team" src={annie}></img></a>
+                                            <div className="profile">
+                                                <a href="https://www.linkedin.com/in/annmarie-hamburgen-9ab65a12b/" target="_blank"><img alt="Team Profile" className="team" src={annie}></img></a>
                                                 <br/>
-                                                <div id="profileName">Annie Hamburgen</div>
+                                                <div className="profileName">Annie Hamburgen</div>
                                                 CMO
                                             </div>
                                         </td>
                                         <td>
-                                            <div id="profile">
-                                                <a href="https://www.linkedin.com/in/duncan-grubbs-01979a14a/" target="_blank"><img id="team" src={duncan}></img></a>
+                                            <div className="profile">
+                                                <a href="https://www.linkedin.com/in/duncan-grubbs-01979a14a/" target="_blank"><img alt="Team Profile" className="team" src={duncan}></img></a>
                                                 <br/>
-                                                <div id="profileName">Duncan Grubbs</div>
+                                                <div className="profileName">Duncan Grubbs</div>
                                                 CTO
                                             </div>
                                         </td>
                                     </tr>
                                     <tr className="animated" id="rowTwo">
                                           <td>
-                                            <div id="profile">
+                                            <div className="profile">
                                                 <img id="staff" src={logo}></img>
                                                 <br/>
-                                                <div id="profileName">Daniel Munoz</div>
+                                                <div className="profileName">Daniel Munoz</div>
                                                 Full-Stack Developer
                                             </div>
                                         </td>
                                         <td>
-                                            <div id="profile">
-                                                <a href="https://www.linkedin.com/in/zixu-chen/" target="_blank"><img id="team" src={shawn}></img></a>
+                                            <div className="profile">
+                                                <a href="https://www.linkedin.com/in/zixu-chen/" target="_blank"><img alt="Team Profile" className="team" src={shawn}></img></a>
                                                 <br/>
-                                                <div id="profileName">Zixu (Shawn) Chen</div>
+                                                <div className="profileName">Zixu (Shawn) Chen</div>
                                                 Backend Developer
                                             </div>
                                         </td>
                                         <td>
-                                            <div id="profile">
-                                                <a href="https://www.linkedin.com/in/melissa-k-7080ba103/" target="_blank"><img id="team" src={melissa}></img></a>
+                                            <div className="profile">
+                                                <a href="https://www.linkedin.com/in/melissa-k-7080ba103/" target="_blank"><img alt="Team Profile" className="team" src={melissa}></img></a>
                                                 <br/>
-                                                <div id="profileName">Melissa Kagaju</div>
+                                                <div className="profileName">Melissa Kagaju</div>
                                                 Android Developer
                                             </div>
                                         </td>
                                         <td>
-                                            <div id="profile">
-                                                <a href="https://www.linkedin.com/in/genessis-galindo/" target="_blank"><img id="team" src={genessis}></img></a>
+                                            <div className="profile">
+                                                <a href="https://www.linkedin.com/in/genessis-galindo/" target="_blank"><img alt="Team Profile" className="team" src={genessis}></img></a>
                                                 <br/>
-                                                <div id="profileName">Genessis Galindo</div>
+                                                <div className="profileName">Genessis Galindo</div>
                                                 Marketing Analyst
                                             </div>
                                         </td>
                                     </tr>
                                     <tr className="animated" id="rowThree">
                                         <td>
-                                            <div id="profile">
-                                                <a href="https://www.linkedin.com/in/sam-hirschhorn-03029a7a/" target="_blank"><img id="team" src={logo}></img></a>
+                                            <div className="profile">
+                                                <a href="https://www.linkedin.com/in/sam-hirschhorn-03029a7a/" target="_blank"><img alt="Team Profile" className="team" src={logo}></img></a>
                                                 <br/>
-                                                <div id="profileName">Sam Hirschhorn</div>
+                                                <div className="profileName">Sam Hirschhorn</div>
                                                 Video Marketer
                                             </div>
                                         </td>
                                         <td>
-                                            <div id="profile">
+                                            <div className="profile">
                                                 <img id="staff" src={logo}></img>
                                                 <br/>
-                                                <div id="profileName">Tristan De Lange</div>
+                                                <div className="profileName">Tristan De Lange</div>
                                                 Frontend Developer
                                             </div>
                                         </td>
                                         
                                         <td>
-                                            <div id="profile">
-                                                <a href="https://www.linkedin.com/in/nikolai-draganov-314986161/" target="_blank"><img id="team" src={nikolai}></img></a>
+                                            <div className="profile">
+                                                <a href="https://www.linkedin.com/in/nikolai-draganov-314986161/" target="_blank"><img alt="Team Profile" className="team" src={nikolai}></img></a>
                                                 <br/>
-                                                <div id="profileName">Nikolai Draganov</div>
+                                                <div className="profileName">Nikolai Draganov</div>
                                                 Marketing Strategist
                                             </div>
                                         </td>
                                         <td>
-                                            <div id="profile">
+                                            <div className="profile">
                                                 <img id="staff" src={zacqueline}></img>
                                                 <br/>
-                                                <div id="profileName">Zacqueline Baldwin (ZQ)</div>
+                                                <div className="profileName">Zacqueline Baldwin (ZQ)</div>
                                                 Marketing Intern
                                             </div>
                                         </td>
@@ -332,10 +333,10 @@ class LandingPage extends Component {
                                 <tbody>
                                     <tr>
                                         <td>
-                                            <div id="profile">
-                                                <a href="https://www.linkedin.com/in/elizabeth-meyer-3483411b/" target="_blank"><img id="team" src={adviserOne}></img></a>
+                                            <div className="profile">
+                                                <a href="https://www.linkedin.com/in/elizabeth-meyer-3483411b/" target="_blank"><img className="team" src={adviserOne}></img></a>
                                                 <br/>
-                                                <div id="profileName">Elizabeth Meyer</div>
+                                                <div className="profileName">Elizabeth Meyer</div>
                                                 Strategy Advisor
                                                 <br/>
                                             </div>

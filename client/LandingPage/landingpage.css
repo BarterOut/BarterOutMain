@@ -1,45 +1,45 @@
 .app {
-    height: 100%;
-    width: 100%;
-    padding-top: 0;
-    margin-top: 0;
-    background-image: url("../images/gradientFirstPageCompressed.jpg");
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
+  height: auto;
+  width: 100vw;
+  padding: 0;
+  margin: auto;
+  background-image: url("../images/newYorkCompressed.jpg");
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 .steps {
-    font-weight: bold;
+  font-weight: bold;
 }
 
 .headerBar {
-    position: fixed;
-    background-color: rgba(0,0,0, 0.80);
-    width: 100%;
-    z-index: 1;
-    margin-top: 0%;
-    padding-left: 5%;
-    padding-right: 5%;
-    padding-top: 1%;
-    padding-bottom: 1%;
-    color: white;
-    display: block;
-    vertical-align: middle;
+  position: fixed;
+  background-color: rgba(0,0,0, 0.80);
+  width: 100%;
+  z-index: 1;
+  margin-top: 0%;
+  padding-left: 5%;
+  padding-right: 5%;
+  padding-top: 1%;
+  padding-bottom: 1%;
+  color: white;
+  display: block;
+  vertical-align: middle;
 }
 
 .logo {
-    display: block;
-    vertical-align: middle;
-    height: 100%;
-    float: left;
-    font-size: 20pt;
-    font-weight: bold;
+  display: block;
+  vertical-align: middle;
+  height: 100%;
+  float: left;
+  font-size: 20pt;
+  font-weight: bold;
 }
 
 #logoPic {
-    height: 40px;
-    width: auto;
+  height: 40px;
+  width: auto;
 }
 
 .pageLinks {
@@ -481,7 +481,7 @@
     transition: opacity 0.5s ease-out;
 }
 
-#team {
+.team {
     -webkit-transform: rotate(0);
     -moz-transform: rotate(0);
     transform: rotate(0);
@@ -496,14 +496,14 @@
 }
 
 
-#team:hover {
+.team:hover {
     -webkit-transform: rotate(0);
     -moz-transform: rotate(0);
     transform: rotate(0);
     opacity: 0.50;
 }
 
-#profile {
+.profile {
     font-size: 10pt;
     font-style: italic;
     padding-top: 5%;
@@ -551,7 +551,7 @@
     text-decoration: none;
 }
 
-#profileName {
+.profileName {
     font-style: normal;
     font-weight: bold;
 }

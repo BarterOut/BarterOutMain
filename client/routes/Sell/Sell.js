@@ -13,7 +13,6 @@ import AuthService from '../../services/AuthService';
 import SideNav from '../../components/SideNav/SideNav';
 import TopBar from '../../components/TopBar/TopBar';
 import PersonalBookPost from '../../components/PersonalBookPost/PersonalBookPost';
-// import BuyBook from '../../components/BuyBook/BuyBook';
 import SellBook from '../../components/SellBook/SellBook';
 
 import './Sell.css';
@@ -62,7 +61,7 @@ class Sell extends Component {
           <TopBar page="Sell" />
           <div className="page-content">
             <div className="title--page-section-wrapper">
-              <h2 className="title-text--page-section-header">Sell your  Textbooks</h2>
+              <h2 className="title-text--page-section-header">Sell your Textbooks</h2>
             </div>
             <div className="page-section-wrapper">
 
@@ -71,11 +70,6 @@ class Sell extends Component {
                   Have textbooks you don&apos;t need anymore?
                   Sell them now and make some extra $$$
                 </span>
-                {/* <button
-                  className="button"
-                  onClick={this.toggleBuyVisibility.bind(this)}
-                >Find Book
-                </button> */}
                 <button
                   className="button sellButton"
                   onClick={this.handleOpenModal}
@@ -83,7 +77,7 @@ class Sell extends Component {
                 </button>
               </div>
             </div>
-            <div className="title--page-section-wrapper"><h2 className="title-text--page-section-header">Your Books</h2></div>
+            <div className="title--page-section-wrapper"><h2 className="title-text--page-section-header">Books You&apos;re Selling</h2></div>
             <div className="page-section-wrapper">
               {posts.map(post => (
                 <PersonalBookPost
