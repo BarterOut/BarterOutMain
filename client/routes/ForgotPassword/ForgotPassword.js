@@ -23,6 +23,9 @@ class ForgotPassword extends Component {
       badCreditials: false,
     };
     this.Auth = new AuthService();
+
+    this.resetPassword = this.resetPassword.bind(this);
+    this.onChange = this.onChange.bind(this);
   }
 
   componentDidMount() {
@@ -79,8 +82,16 @@ class ForgotPassword extends Component {
     return (
       <div className="wrapper-soft-bg">
         <div className="top-section">
-          <img className="logo-nonav" src={logo} alt="logo" />
-          <Link to="/login" href="/login"><button className="button">Back to Log In</button></Link>
+          <div className="part-fgp left-bar">
+            <Link to="/" href="/">
+              <img className="logo-nonav" src={logo} alt="logo" />
+            </Link>
+          </div>
+          <div className="part-fgp right-bar">
+            <Link to="/login" href="/login">
+              <button className="button">Back to Log In</button>
+            </Link>
+          </div>
         </div>
         <div className="central-content-card">
           <MaterialIcon icon="lock" id="lock-icon" />
@@ -92,7 +103,7 @@ class ForgotPassword extends Component {
           {this.state.badCreditials && <span className="input-error">Please enter an valid email.</span>}
           <input
             className="formInputForgotPassword"
-            onChange={this.onChange.bind(this)}
+            onChange={this.onChange}
             placeholder="Email"
             type="email"
             pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.+-]+\.edu$"
@@ -100,7 +111,7 @@ class ForgotPassword extends Component {
             required
           />
           <div>
-            <button className="button" onClick={this.resetPassword.bind(this)}>Reset Password</button>
+            <button className="button" onClick={this.resetPassword}>Reset Password</button>
           </div>
           <div>Don&apos;t have an account?</div>
           <div><Link href="/signup" to="/signup">Sign up now</Link>.</div>

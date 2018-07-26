@@ -82,12 +82,11 @@ class LandingPage extends Component {
                         <a className="productLink" id="landingPageLink" href="#madeSimple">Our Product</a>
                         <a className="missionLink" id="landingPageLink" href="#whatWereAbout">Our Mission</a>
                         <a className="teamLink" id="landingPageLink" href="#teamPage">Our Team</a>
-                        {/* <a className="preRegisterLink" id="landingPageLink" href="#registrationPage">Pre-Register</a> */}
                         <Link id="landingPageLink" className="preRegisterLink" to="/login" href="login">Login</Link>
                     </div>
                 </nav>
                 <div className="mainText animated fadeIn" id="mainText">
-                    <h1>TEXTBOOK SHOPPING
+                    <h1>TEXTBOOK SHOPPING,
                         <br/>
                         MADE EASY</h1>
                     <a href="/signup" id="buttonLink"><button className="barterOutButton">JOIN NOW FREE</button></a>
@@ -100,11 +99,11 @@ class LandingPage extends Component {
                         <div className="madeSimpleText animated">
                             <p>
                                 At BarterOut, we know textbooks can get very expensive and finding second-hand ones can be a hassle.
-                                That's why we make it easier for you to get your books and get to class, all with just a couple
+                                That&apos;s why we make it easier for you to get your books and get to class, all with just a couple
                                 clicks on our platform. Enter some simple information and let our automated matching algorithm do
                                 the magic!
                             </p>
-                            <br/>
+                            <br />
                             Buy and sell with us in minutes!
                         </div>
                     </div>

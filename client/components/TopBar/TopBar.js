@@ -56,7 +56,7 @@ class TopBar extends Component {
     }
 
     return (
-      <div id="bar-wrapper">
+      <div className="bar-wrapper">
         <div className="left-bar part">
           <Link to="/cart" href="/cart">
             <button className="button" id="cart"><MaterialIcon icon="shopping_cart" />Cart</button>
