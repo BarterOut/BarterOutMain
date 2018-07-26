@@ -11,28 +11,3 @@
   width: 60%;
   margin: 0 32px;
 }
-
-.modal {
-  position: fixed;
-  display: block;
-  padding: 16px;
-  width: 50%;
-  height: 70%;
-  margin: auto;
-  border-radius: 5px;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  color: black;
-  background: white;
-}
-
-.overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, .3);
-}

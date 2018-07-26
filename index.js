@@ -1,16 +1,14 @@
-// Babel polyfill to convert ES6 code in runtime
 require('babel-register')({
-  plugins: [
+  'plugins': [
     [
       'babel-plugin-webpack-loaders',
       {
-        config: './webpack.config.js',
-        verbose: false
+        'config': './webpack.config.js',
+        'verbose': false
       }
+    ]
   ]
 });
-
-require('babel-polyfill');
 require('babel-polyfill');
 require('./server/server');
 

@@ -13,7 +13,7 @@ import AuthService from '../../services/AuthService';
 import SideNav from '../../components/SideNav/SideNav';
 import TopBar from '../../components/TopBar/TopBar';
 import PersonalBookPost from '../../components/PersonalBookPost/PersonalBookPost';
-import BuyBook from '../../components/BuyBook/BuyBook';
+// import BuyBook from '../../components/BuyBook/BuyBook';
 import SellBook from '../../components/SellBook/SellBook';
 
 import './Sell.css';
@@ -22,8 +22,6 @@ class Sell extends Component {
   constructor() {
     super();
     this.state = {
-      buyHidden: true,
-      sellHidden: true,
       posts: [],
       showModal: false,
     };
@@ -109,7 +107,9 @@ class Sell extends Component {
               contentLabel="Sell Book Modal"
               ariaHideApp={false}
             >
-              <button onClick={this.handleCloseModal}>Close Modal</button>
+              <div className="top-modal-section">
+                <button className="close-modal-button" onClick={this.handleCloseModal}>X</button>
+              </div>
               <SellBook />
             </ReactModal>
           </div>

@@ -16,7 +16,7 @@ import '../../baseStyles.css';
 import './SideNav.css';
 
 import profile from '../../images/barterOutProfilePhotoWebPage.png';
-import logo from '../../images/white Logo.png';
+import logo from '../../images/white Logo@2x.png';
 import MaterialIcon from 'react-google-material-icons';
 
 class SideNav extends Component {
@@ -52,7 +52,9 @@ class SideNav extends Component {
     return (
       <div id="wrapper">
         <div className="top-of-nav">
-          <img id="logo" src={logo} alt="logo" />
+          <Link id="logo-link" to="/home" href="/home">
+            <img id="logo" src={logo} alt="logo" />
+          </Link>
           <div id="three-bar">
             <MaterialIcon icon="menu" size={36} />
           </div>

@@ -84,86 +84,84 @@ class SellBook extends Component {
   render() {
     return (
       <div className="wrapper-custom">
-        <div className="modalContent">
-          <h2>Tell us about your book</h2>
-          <form className="input-wrapper" onSubmit={this.formSubmit}>
-            <span className="inputLabelHome">Title of Book *</span>
-            <input
-              autoComplete="off"
-              className="formInput"
-              placeholder="e.g. Calculus and Early Transcendentals"
-              type="text"
-              name="name"
-              onChange={this.onChange}
-              required
-            />
-            <span className="inputLabelHome">Edition *</span>
-            <input
-              autoComplete="off"
-              className="formInput"
-              placeholder="e.g. 11"
-              type="number"
-              name="edition"
-              onChange={this.onChange}
-              required
-            />
-            <span className="inputLabelHome">Course *</span>
-            <input
-              autoComplete="off"
-              className="formInput"
-              placeholder="e.g. MTH 101"
-              type="text"
-              pattern="^[A-Z]{3} \d{3}$"
-              name="course"
-              onChange={this.onChange}
-              required
-            />
-            <span className="inputLabelHome">Price *</span>
-            <input
-              autoComplete="off"
-              className="formInput"
-              placeholder="$"
-              type="number"
-              name="price"
-              onChange={this.onChange}
-              required
-            />
-            <span className="inputLabelHome">ISBN</span>
-            <input
-              autoComplete="off"
-              className="formInput"
-              placeholder="ISBN"
-              type="number"
-              pattern="^(?=(?:\D*\d){10}(?:(?:\D*\d){3})?$)[\d-]+$"
-              onChange={this.onChange}
-              name="ISBN"
-            />
-            <span className="inputLabelHome">Condition *</span>
-            <select onChange={this.selectChange} className="conditionInput">
-              <option value="Poor">Poor</option>
-              <option value="Fair">Fair</option>
-              <option value="Good">Good</option>
-              <option value="Like new">Like new</option>
-            </select>
-            <span className="inputLabelHome">Comments</span>
-            <input
-              autoComplete="off"
-              className="formInput"
-              placeholder="Comments"
-              type="text"
-              onChange={this.onChange}
-              name="comments"
-            />
-            <div>
-              <button
-                type="submit"
-                className="button"
-                onClick={this.postToDatabase}
-              >Sell Now
-              </button>
-            </div>
-          </form>
-        </div>
+        <h2>Tell us about your book</h2>
+        <form className="input-wrapper" onSubmit={this.formSubmit}>
+          <span className="inputLabelHome">Title of Book *</span>
+          <input
+            autoComplete="off"
+            className="formInput"
+            placeholder="e.g. Calculus and Early Transcendentals"
+            type="text"
+            name="name"
+            onChange={this.onChange}
+            required
+          />
+          <span className="inputLabelHome">Edition *</span>
+          <input
+            autoComplete="off"
+            className="formInput"
+            placeholder="e.g. 11"
+            type="number"
+            name="edition"
+            onChange={this.onChange}
+            required
+          />
+          <span className="inputLabelHome">Course *</span>
+          <input
+            autoComplete="off"
+            className="formInput"
+            placeholder="e.g. MTH 101"
+            type="text"
+            pattern="^[A-Z]{3} \d{3}$"
+            name="course"
+            onChange={this.onChange}
+            required
+          />
+          <span className="inputLabelHome">Price *</span>
+          <input
+            autoComplete="off"
+            className="formInput"
+            placeholder="$"
+            type="number"
+            name="price"
+            onChange={this.onChange}
+            required
+          />
+          <span className="inputLabelHome">ISBN</span>
+          <input
+            autoComplete="off"
+            className="formInput"
+            placeholder="ISBN"
+            type="number"
+            pattern="^(?=(?:\D*\d){10}(?:(?:\D*\d){3})?$)[\d-]+$"
+            onChange={this.onChange}
+            name="ISBN"
+          />
+          <span className="inputLabelHome">Condition *</span>
+          <select onChange={this.selectChange} className="conditionInput">
+            <option value="Poor">Poor</option>
+            <option value="Fair">Fair</option>
+            <option value="Good">Good</option>
+            <option value="Like new">Like new</option>
+          </select>
+          <span className="inputLabelHome">Comments</span>
+          <input
+            autoComplete="off"
+            className="formInput"
+            placeholder="Comments"
+            type="text"
+            onChange={this.onChange}
+            name="comments"
+          />
+          <div>
+            <button
+              type="submit"
+              className="button"
+              onClick={this.postToDatabase}
+            >Sell Now
+            </button>
+          </div>
+        </form>
       </div>
     );
   }

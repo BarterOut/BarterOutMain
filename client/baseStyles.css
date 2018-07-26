@@ -3,7 +3,7 @@
 }
 
 ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
-  color: #444;
+  color: #777;
   opacity: 1; /* Firefox */
 }
 
@@ -120,8 +120,8 @@
 .formInput {
   background: none;
   border: none;
-  width: 100%;
-  margin: 8px;
+  width: 95%;
+  margin: 2px 8px;
   font-size: 1.2em;
   border-bottom: 2px #41397c solid;
   color: #444;
@@ -146,5 +146,76 @@ input:focus,
 select:focus,
 textarea:focus,
 button:focus {
-    outline: none;
+  outline: none;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+.input-wrapper {
+  width: 70%;
+  text-align: center;
+  overflow-y: scroll;
+}
+
+.wrapper-custom {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  width: 100%;
+}
+
+.inputLabelHome {
+  display: flex;
+  margin: 8px;
+  text-align: left;
+  font-weight: bold;
+  font-size: 1.2em;
+}
+
+.conditionInput {
+  width: 100%;
+}
+
+.conditionInput:focus {
+  border: 1px solid #FF8D00;
+}
+
+.close-modal-button {
+  background: none;
+  border: none;
+}
+
+.modal {
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+  width: 50%;
+  height: 70%;
+  margin: auto;
+  border-radius: 5px;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  color: black;
+  background: white;
+}
+
+.top-modal-section {
+  width: 100%;
+  text-align: right;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, .3);
 }

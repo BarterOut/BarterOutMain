@@ -366,6 +366,7 @@ router.get('/getUserMatches/:token', (req, res) => {
   });
 });
 
+// TODO: Add search by price, etc.
 /**
  * Finds all books in database with a matching name or course.
  * @param {object} req Request body from client.
@@ -373,7 +374,6 @@ router.get('/getUserMatches/:token', (req, res) => {
  * @returns {object} Array of books from database.
  */
 router.get('/search/:query/:token', (req, res) => {
-  console.log('something');
   jwt.verify(req.params.token, 'secretKey', (err, authData) => {
     if (err) {
       res.sendStatus(403);
@@ -383,15 +383,18 @@ router.get('/search/:query/:token', (req, res) => {
         $and: [
           { status: 0 },
           { owner: { $ne: authData.userInfo._id } },
-          { $or: [{ name: { $regex: searchKey, $options: 'i' } }, { course: { $regex: searchKey, $options: 'i' } }] },
-
+          {
+            $or: [
+              { name: { $regex: searchKey, $options: 'i' } },
+              { course: { $regex: searchKey, $options: 'i' } },
+            ],
+          },
         ],
       }, (err, books) => {
         const bookMap = [];
         books.forEach((book) => {
           bookMap.push(book);
         });
-        console.log(bookMap);
         res.status(200).json(bookMap);
       });
     }
