@@ -6,7 +6,7 @@
 
 import React from 'react';
 
-import logoPic from '../images/barterOutOrangeWhiteLogoHeader.png';
+import logoPic from '../../images/barterOutOrangeWhiteLogoHeader.png';
 
 const Contact = () => (
   <div className="infowrapper">

@@ -6,12 +6,12 @@
 
 import React, { Component } from 'react';
 import { Redirect, Link } from 'react-router-dom';
-import AuthService from '../services/AuthService';
+import AuthService from '../../services/AuthService';
 
-import logo from '../images/barterOutOrangeWhiteLogo.png';
+import logo from '../../images/barterOutOrangeWhiteLogo.png';
 
 import './Login.css';
-import '../baseStyles.css';
+import '../../baseStyles.css';
 
 class Login extends Component {
   constructor(props) {
@@ -23,6 +23,9 @@ class Login extends Component {
       badCreditials: false,
     };
     this.Auth = new AuthService();
+
+    this.login = this.login.bind(this);
+    this.onChange = this.onChange.bind(this);
   }
 
   componentDidMount() {
@@ -93,7 +96,7 @@ class Login extends Component {
           {this.state.badCreditials && <span className="input-error">Incorrect Username or Password</span>}
           <input
             className="formInputLoginSignup"
-            onChange={this.onChange.bind(this)}
+            onChange={this.onChange}
             placeholder="Email"
             type="email"
             pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.+-]+\.edu$"
@@ -102,7 +105,7 @@ class Login extends Component {
           />
           <input
             className="formInputLoginSignup"
-            onChange={this.onChange.bind(this)}
+            onChange={this.onChange}
             placeholder="Password"
             type="password"
             name="password"
@@ -116,7 +119,7 @@ class Login extends Component {
             <Link href="/signup" to="/signup">
               <button className="inputButton">Sign Up</button>
             </Link>
-            <button className="inputButtonFilled" onClick={this.login.bind(this)}>Login</button>
+            <button className="inputButtonFilled" onClick={this.login}>Login</button>
           </div>
           <div className="legal-links-login">
             <Link className="fine-print-login" href="/termsOfService" to="/termsOfService">Terms of Service</Link>

@@ -7,7 +7,7 @@
 import React from 'react';
 import MaterialIcon from 'react-google-material-icons';
 
-import logo from '../../images/barterOutOrangeWhiteLogo.png';
+import logo from '../../images/BarterOutDarkLogo.png';
 
 const SignUpSuccess = () => {
   return (

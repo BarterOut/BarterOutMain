@@ -26,6 +26,7 @@ class Cart extends Component {
     };
 
     this.AUTH = new AuthService();
+    this.buyBooks = this.buyBooks.bind(this);
   }
 
   componentDidMount() {
@@ -42,7 +43,7 @@ class Cart extends Component {
     FetchService.GET(`/api/user/getUserData/${this.AUTH.getToken()}`)
       .then(response => response.json())
       .then((data) => {
-        this.setState({ venmo: data.user.venmoUserName });
+        this.setState({ venmo: data.user.venmoUsername });
         this.setState({ CMC: data.user.CMC });
       });
   }
@@ -107,7 +108,7 @@ class Cart extends Component {
               Until you accept our venmo request, we will hold the book(s). However, once you accept it, the book(s) will be
               delivered via the campus mail center to the CMC Box <b>{this.state.CMC}</b>.
             </h3>
-            <button className="button" onClick={this.buyBooks.bind(this)}>Checkout</button>
+            <button className="button" onClick={this.buyBooks}>Checkout</button>
           </div>
         </div>
       </div>

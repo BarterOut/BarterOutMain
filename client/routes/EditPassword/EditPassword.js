@@ -1,15 +1,21 @@
+/**
+ * @file React component for editing a password.
+ * @author Duncan Grubbs <duncan.grubbs@gmail.com>
+ * @author Daniel Munoz
+ * @version 0.0.2
+ */
 
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
-import AuthService from '../services/AuthService';
-import FetchService from '../services/FetchService';
+import AuthService from '../../services/AuthService';
+import FetchService from '../../services/FetchService';
 
 import './EditPassword.css';
-import '../baseStyles.css';
+import '../../baseStyles.css';
 
-import SideNav from '../components/SideNav/SideNav';
-import TopBar from '../components/TopBar/TopBar';
+import SideNav from '../../components/SideNav/SideNav';
+import TopBar from '../../components/TopBar/TopBar';
 
 class EditPassword extends Component {
   constructor(props) {
@@ -20,6 +26,9 @@ class EditPassword extends Component {
       newPassword: '',
       updateMessageVisible: false,
     };
+
+    this.onChange = this.onChange.bind(this);
+    this.updatePassword = this.updatePassword.bind(this);
   }
 
   componentDidMount() {
@@ -71,7 +80,7 @@ class EditPassword extends Component {
         />
 
         <div className="right-content">
-          <TopBar />
+          <TopBar page="Update Password" />
           <div className="dividePage">
             <div className="columns">
               <Link className="nav-link-settings" name="settings" to="/settings" href="/settings">
@@ -98,7 +107,7 @@ class EditPassword extends Component {
                     placeholder="Old Password"
                     type="password"
                     name="password"
-                    onChange={this.onChange.bind(this)}
+                    onChange={this.onChange}
                     required
                   />
                   <input
@@ -106,7 +115,7 @@ class EditPassword extends Component {
                     placeholder="New Password"
                     type="password"
                     name="newPassword"
-                    onChange={this.onChange.bind(this)}
+                    onChange={this.onChange}
                     required
                   />
                   <input
@@ -114,7 +123,7 @@ class EditPassword extends Component {
                     placeholder="Confirm New Password"
                     type="password"
                     name="passwordConfirm"
-                    onChange={this.onChange.bind(this)}
+                    onChange={this.onChange}
                     required
                   />
                 </div>
@@ -122,7 +131,7 @@ class EditPassword extends Component {
                   <button
                     className="button"
                     type="submit"
-                    onClick={this.updatePassword.bind(this)}
+                    onClick={this.updatePassword}
                   >Update
                   </button>
                 </div>

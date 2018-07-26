@@ -6,9 +6,9 @@
 
 import React from 'react';
 
-import '../res/sylesheetOrkneyRegular.css';
+import '../../res/sylesheetOrkneyRegular.css';
 
-import logoPic from '../images/barterOutOrangeWhiteLogoHeader.png';
+import logoPic from '../../images/barterOutOrangeWhiteLogoHeader.png';
 
 const PrivacyPolicy = () => {
   return (

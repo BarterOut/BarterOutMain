@@ -8,15 +8,15 @@ import {
 import AuthService from './services/AuthService';
 
 import LandingPage from './LandingPage/LandingPage';
-import TermsOfService from './TermsOfService/termsOfService';
-import PrivacyPolicy from './PrivacyPolicy/privacyPolicy';
-import Contact from './Contact/contact';
+import TermsOfService from './routes/TermsOfService/termsOfService';
+import PrivacyPolicy from './routes/PrivacyPolicy/privacyPolicy';
+import Contact from './routes/Contact/contact';
 import Careers from './Careers/careers';
 import Home from './Home/Home';
-import SignUp from './SignUp/SignUp';
-import Login from './Login/Login';
+import SignUp from './routes/SignUp/SignUp';
+import Login from './routes/Login/Login';
 import Dashboard from './Dashboard/Dashboard';
-import EditPassword from './EditPassword/EditPassword';
+import EditPassword from './routes/EditPassword/EditPassword';
 import Buy from './routes/Buy/Buy';
 import Sell from './routes/Sell/Sell';
 import Track from './routes/Track/Track';

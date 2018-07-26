@@ -10,7 +10,7 @@ import MaterialIcon from 'react-google-material-icons';
 import FetchService from '../../services/FetchService';
 import AuthService from '../../services/AuthService';
 
-import logo from '../../images/barterOutOrangeWhiteLogo.png';
+import logo from '../../images/BarterOutDarkLogo.png';
 
 import './ForgotPassword.css';
 
@@ -80,7 +80,7 @@ class ForgotPassword extends Component {
       <div className="wrapper-soft-bg">
         <div className="top-section">
           <img className="logo-nonav" src={logo} alt="logo" />
-          <button className="button">Back to Log In</button>
+          <Link to="/login" href="/login"><button className="button">Back to Log In</button></Link>
         </div>
         <div className="central-content-card">
           <MaterialIcon icon="lock" id="lock-icon" />

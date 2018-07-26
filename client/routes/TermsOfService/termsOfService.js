@@ -6,10 +6,10 @@
 
 import React from 'react';
 
-import '../res/sylesheetOrkneyRegular.css';
-import '../res/animate.css';
+import '../../res/sylesheetOrkneyRegular.css';
+import '../../res/animate.css';
 
-import logoPic from '../images/barterOutOrangeWhiteLogoHeader.png';
+import logoPic from '../../images/barterOutOrangeWhiteLogoHeader.png';
 
 const TermsOfService = () => {
   return (

@@ -7,11 +7,11 @@
 import React, { Component } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 
-import FetchService from '../services/FetchService';
-import logo from '../images/barterOutOrangeWhiteLogo.png';
+import FetchService from '../../services/FetchService';
+import logo from '../../images/barterOutOrangeWhiteLogo.png';
 
 import './SignUp.css';
-import '../baseStyles.css';
+import '../../baseStyles.css';
 
 class SignUp extends Component {
   constructor(props) {
@@ -29,6 +29,9 @@ class SignUp extends Component {
       allFilledOut: true,
       passwordsMatch: true,
     };
+
+    this.signUp = this.signUp.bind(this);
+    this.onChange = this.onChange.bind(this);
   }
 
   componentDidMount() {
@@ -143,7 +146,7 @@ class SignUp extends Component {
             className="formInputLoginSignup"
             placeholder=""
             type="text"
-            onChange={this.onChange.bind(this)}
+            onChange={this.onChange}
             name="firstName"
             required
           />
@@ -152,7 +155,7 @@ class SignUp extends Component {
             className="formInputLoginSignup"
             placeholder=""
             type="text"
-            onChange={this.onChange.bind(this)}
+            onChange={this.onChange}
             name="lastName"
             required
           />
@@ -162,12 +165,12 @@ class SignUp extends Component {
             placeholder=""
             type="email"
             pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.+-]+\.edu$"
-            onChange={this.onChange.bind(this)}
+            onChange={this.onChange}
             name="emailAddress"
             required
           />
           <span className="inputLabel">University *</span>
-          <select onChange={this.selectChange.bind(this)} className="schoolInput">
+          <select onChange={this.selectChange} className="schoolInput">
             <option value="University of Rochester">University of Rochester</option>
           </select>
           <span className="inputLabel">Venmo Username *</span>
@@ -175,7 +178,7 @@ class SignUp extends Component {
             className="formInputLoginSignup"
             placeholder=""
             type="text"
-            onChange={this.onChange.bind(this)}
+            onChange={this.onChange}
             name="venmoUsername"
             required
           />
@@ -184,7 +187,7 @@ class SignUp extends Component {
             className="formInputLoginSignup"
             placeholder=""
             type="number"
-            onChange={this.onChange.bind(this)}
+            onChange={this.onChange}
             name="CMC"
             required
           />
@@ -195,7 +198,7 @@ class SignUp extends Component {
               placeholder="Password"
               type="password"
               name="password"
-              onChange={this.onChange.bind(this)}
+              onChange={this.onChange}
               required
             />
             <input
@@ -203,7 +206,7 @@ class SignUp extends Component {
               placeholder="Confirm Password"
               type="password"
               name="passwordConfirm"
-              onChange={this.onChange.bind(this)}
+              onChange={this.onChange}
               required
             />
           </div>
@@ -214,7 +217,7 @@ class SignUp extends Component {
           <button
             className="inputButtonFilled"
             type="submit"
-            onClick={this.signUp.bind(this)}
+            onClick={this.signUp}
           >Sign Up
           </button>
 

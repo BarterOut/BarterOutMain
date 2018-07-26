@@ -1,5 +1,5 @@
 /**
- * @file Reusable React component for a route on the web platform.
+ * @file React component for a route on the web platform.
  * @author Duncan Grubbs <duncan.grubbs@gmail.com>
  * @author Daniel Munoz
  * @version 0.0.2
@@ -27,6 +27,9 @@ class Settings extends Component {
       venmoUsername: '',
       updateMessageVisible: false,
     };
+
+    this.onChange = this.onChange.bind(this);
+    this.updateProfile = this.updateProfile.bind(this);
   }
 
   componentDidMount() {
@@ -113,7 +116,7 @@ class Settings extends Component {
                   <span className="inputLabelHome">First Name</span>
                   <input
                     className="formInput"
-                    onChange={this.onChange.bind(this)}
+                    onChange={this.onChange}
                     placeholder={this.state.firstName}
                     type="text"
                     name="firstName"
@@ -122,7 +125,7 @@ class Settings extends Component {
                   <span className="inputLabelHome">Last Name</span>
                   <input
                     className="formInput"
-                    onChange={this.onChange.bind(this)}
+                    onChange={this.onChange}
                     placeholder={this.state.lastName}
                     type="text"
                     name="lastName"
@@ -131,7 +134,7 @@ class Settings extends Component {
                   <span className="inputLabelHome">Venmo Username</span>
                   <input
                     className="formInput"
-                    onChange={this.onChange.bind(this)}
+                    onChange={this.onChange}
                     placeholder={this.state.venmoUsername}
                     type="text"
                     name="venmoUsername"
@@ -140,7 +143,7 @@ class Settings extends Component {
                   <span className="inputLabelHome">CMC Box Number</span>
                   <input
                     className="formInput"
-                    onChange={this.onChange.bind(this)}
+                    onChange={this.onChange}
                     placeholder={this.state.CMC}
                     type="text"
                     name="CMC"
@@ -151,7 +154,7 @@ class Settings extends Component {
                   <button
                     className="button"
                     type="submit"
-                    onClick={this.updateProfile.bind(this)}
+                    onClick={this.updateProfile}
                   >Update Information
                   </button>
                 </div>

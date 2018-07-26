@@ -8,7 +8,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import MaterialIcon from 'react-google-material-icons';
 
-import logo from '../../images/barterOutOrangeWhiteLogo.png';
+import logo from '../../images/BarterOutDarkLogo.png';
 
 class ForgotPasswordSuccess extends Component {
   render() {

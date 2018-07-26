@@ -40,8 +40,6 @@ class BuyBook extends Component {
 
     const AUTH = new AuthService();
 
-    console.log(AUTH.getProfile().userInfo._id);
-
     const payload = {
       name: this.state.name,
       course: this.state.course,
