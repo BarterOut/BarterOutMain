@@ -24,6 +24,7 @@ class Buy extends Component {
       posts: [],
       matches: [],
       token: String,
+      loading: false,
     };
   }
 
@@ -71,10 +72,13 @@ class Buy extends Component {
   }
 
   search(query) {
+    this.setState({ loading: true });
+    this.setState({ posts: [] });
     if (query === '') {
       FetchService.GET(`/api/books/getAllBooks/${this.state.token}`)
         .then(response => response.json())
         .then((data) => {
+          this.setState({ loading: false });
           this.setState({ posts: data });
         })
         .catch(err => console.warn(err));
@@ -85,6 +89,7 @@ class Buy extends Component {
     FetchService.GET(`/api/books/search/${query}/${token}`)
       .then(response => response.json())
       .then((data) => {
+        this.setState({ loading: false });
         this.setState({ posts: data });
       })
       .catch(err => console.warn(err));
@@ -143,6 +148,10 @@ class Buy extends Component {
             </div>
             <div className="title--page-section-wrapper"><h2 className="title-text--page-section-header">New Arrivals</h2></div>
             <div className="page-section-wrapper">
+              {
+                this.state.loading &&
+                <div className="loading" />
+              }
               {posts.map(post => (
                 <BookPost
                   key={post._id}

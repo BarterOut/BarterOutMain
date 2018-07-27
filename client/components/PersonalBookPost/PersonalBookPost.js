@@ -68,7 +68,7 @@ class PersonalBookPost extends Component {
 
 // Props validation
 PersonalBookPost.propTypes = {
-  comments: propTypes.string.isRequired,
+  comments: propTypes.string,
   condition: propTypes.string.isRequired,
   edition: propTypes.number.isRequired,
   id: propTypes.string.isRequired,

@@ -35,7 +35,7 @@ class TrackBookPost extends Component {
 
 // Props validation
 TrackBookPost.propTypes = {
-  comments: propTypes.string.isRequired,
+  comments: propTypes.string,
   condition: propTypes.string.isRequired,
   edition: propTypes.number.isRequired,
   name: propTypes.string.isRequired,

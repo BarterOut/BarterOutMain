@@ -231,3 +231,16 @@ a:hover {
   bottom: 0;
   background: rgba(0, 0, 0, .3);
 }
+
+.loading {
+  width: 64px;
+  height: 64px;
+  border: 4px solid #FF8D00;
+  animation: loaderAnim 1.25s alternate infinite ease-in-out;
+  margin: 32px auto;
+}
+
+@keyframes loaderAnim {
+  0% {transform: rotate(0deg);}
+  100% {transform: rotate(180deg);}
+}
