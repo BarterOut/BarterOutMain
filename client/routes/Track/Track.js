@@ -8,7 +8,7 @@ import React, { Component } from 'react';
 
 import SideNav from '../../components/SideNav/SideNav';
 import TopBar from '../../components/TopBar/TopBar';
-import PersonalBookPost from '../../components/PersonalBookPost/PersonalBookPost';
+import TrackBookPost from '../../components/TrackBookPost/TrackBookPost';
 
 import FetchService from '../../services/FetchService';
 import AuthService from '../../services/AuthService';
@@ -64,7 +64,7 @@ class Track extends Component {
             </div>
             <div className="page-section-wrapper">
               {this.state.booksPurchased.map(post => (
-                <PersonalBookPost
+                <TrackBookPost
                   key={post._id}
                   id={post._id}
                   name={post.name}
@@ -82,7 +82,7 @@ class Track extends Component {
             </div>
             <div className="page-section-wrapper">
               {this.state.booksSold.map(post => (
-                <PersonalBookPost
+                <TrackBookPost
                   key={post._id}
                   id={post._id}
                   name={post.name}
