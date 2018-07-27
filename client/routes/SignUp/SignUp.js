@@ -57,27 +57,26 @@ class SignUp extends Component {
     this.setState({ passwordsMatch: true });
     this.setState({ allFilledOut: true });
 
-    if (!this._validateInputs()) {
-      return;
+    if (this._validateInputs()) {
+      FetchService.POST('/api/auth/signup', {
+        emailAddress: this.state.emailAddress,
+        password: this.state.password,
+        venmoUsername: this.state.venmoUsername,
+        firstName: this.state.firstName,
+        university: this.state.university,
+        lastName: this.state.lastName,
+        CMC: this.state.CMC,
+      })
+        .then(() => {
+          this.setState({ redirectToSuccess: true });
+        });
     }
-
-    FetchService.POST('/api/auth/signup', {
-      emailAddress: this.state.emailAddress,
-      password: this.state.password,
-      venmoUsername: this.state.venmoUsername,
-      firstName: this.state.firstName,
-      university: this.state.university,
-      lastName: this.state.lastName,
-      CMC: this.state.CMC,
-    })
-      .then(() => {
-        this.setState({ redirectToSuccess: true });
-      });
   }
 
   _validateInputs() {
     let allGood = true;
 
+    // Making sure passwords are the same.
     if (!(this.state.passwordConfirm === this.state.password)) {
       this.setState({ passwordsMatch: false });
       const $password = document.getElementsByName('password')[0];
@@ -99,16 +98,22 @@ class SignUp extends Component {
 
     // This is only temporary since we only allow U of R students currently.
     const checkerEmail = this.state.emailAddress.split('@')[1];
+    const $emailAddress = document.getElementsByName('emailAddress')[0];
 
     if (checkerEmail !== 'u.rochester.edu' && checkerEmail !== 'rochester.edu') {
-      const $emailAddress = document.getElementsByName('emailAddress')[0];
-
-      $emailAddress.style.className = 'badInput';
+      $emailAddress.className = 'badInput';
       this.setState({ allFilledOut: false });
       allGood = false;
+    } else {
+      $emailAddress.className = 'formInputLoginSignup';
     }
 
     const inputsArray = document.getElementsByClassName('formInputLoginSignup');
+    const badInputsArray = document.getElementsByClassName('badInput');
+
+    for (let i = 0; i < badInputsArray.length; i++) {
+      badInputsArray[i].className = 'formInputLoginSignup';
+    }
 
     for (let i = 0; i < inputsArray.length; i++) {
       inputsArray[i].className = 'formInputLoginSignup';
@@ -141,6 +146,7 @@ class SignUp extends Component {
         <div className="rightLoginContent">
           <h3>Create an Account</h3>
           {!this.state.allFilledOut && <h4 className="input-error">Please ensure all the required fields are filled out.</h4>}
+
           <span className="inputLabel">First Name *</span>
           <input
             className="formInputLoginSignup"
@@ -150,6 +156,7 @@ class SignUp extends Component {
             name="firstName"
             required
           />
+
           <span className="inputLabel">Last Name *</span>
           <input
             className="formInputLoginSignup"
@@ -159,6 +166,7 @@ class SignUp extends Component {
             name="lastName"
             required
           />
+
           <span className="inputLabel">Email *</span>
           <input
             className="formInputLoginSignup"
@@ -169,10 +177,12 @@ class SignUp extends Component {
             name="emailAddress"
             required
           />
+
           <span className="inputLabel">University *</span>
           <select onChange={this.selectChange} className="schoolInput">
             <option value="University of Rochester">University of Rochester</option>
           </select>
+
           <span className="inputLabel">Venmo Username *</span>
           <input
             className="formInputLoginSignup"
@@ -182,6 +192,7 @@ class SignUp extends Component {
             name="venmoUsername"
             required
           />
+
           <span className="inputLabel">CMC Box Number *</span>
           <input
             className="formInputLoginSignup"
@@ -191,6 +202,7 @@ class SignUp extends Component {
             name="CMC"
             required
           />
+
           {!this.state.passwordsMatch && <h4 className="input-error">Please make sure your passwords are the same!</h4>}
           <div className="line">
             <input

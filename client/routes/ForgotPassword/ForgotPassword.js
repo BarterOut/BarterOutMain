@@ -94,7 +94,7 @@ class ForgotPassword extends Component {
           </div>
         </div>
         <div className="central-content-card">
-          <MaterialIcon icon="lock" id="lock-icon" />
+          <MaterialIcon size={100} icon="lock" id="lock-icon" />
           <h2 id="header-custom">Forgot your Password?</h2>
           <h3 id="forgot-password-message">
             No worries! Enter your email and

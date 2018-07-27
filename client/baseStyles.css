@@ -131,6 +131,16 @@
   border-bottom: 2px #FF8D00 solid;
 }
 
+.badInput {
+  background: none;
+  border: none;
+  width: 90%;
+  margin: 0px 4px 24px 4px;
+  font-size: 1.2em;
+  border-bottom: 2px red solid;
+  color: #444;
+}
+
 .input-error {
   color: red;
   font-weight: bold;

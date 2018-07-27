@@ -18,7 +18,7 @@ class ForgotPasswordSuccess extends Component {
           <img className="logo-nonav" src={logo} alt="logo" />
         </div>
         <div className="central-content-card">
-          <MaterialIcon icon="lock_open" id="lock-icon" />
+          <MaterialIcon size={100} icon="lock_open" id="lock-icon" />
           <h2 id="header-custom">Success!</h2>
           <h3 id="forgot-password-message">
           A password reset email is waiting in your
