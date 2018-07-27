@@ -70,8 +70,11 @@ router.post('/postBook/:token', (req, res) => {
               User.update(
                 { _id: authData.userInfo._id },
                 {
-                  $addToSet: {
-                    notifications: notification.thanksForPosting(newBook.name),
+                  $push: {
+                    notifications: {
+                      $each: [notification.thanksForPosting(newBook.name)],
+                      $position: 0,
+                    },
                   },
                 }, (error) => {
                   console.error(`Error: ${error}`);
@@ -149,8 +152,11 @@ router.post('/requestBook', (req, res) => {
               User.update(
                 { _id: authData.userInfo._id },
                 {
-                  $addToSet: {
-                    notifications: notification.postedRequest(BOOK.name),
+                  $push: {
+                    notifications: {
+                      $each: [notification.postedRequest(newBook.name)],
+                      $position: 0,
+                    },
                   },
                 }, (error) => {
                   console.error(`Error: ${error}`);
