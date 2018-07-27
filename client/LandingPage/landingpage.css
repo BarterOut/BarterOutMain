@@ -1,12 +1,17 @@
-.app {
-  height: auto;
+.photo-bg {
+  background-image: url("../images/gradientFirstPageCompressed.jpg");
+  height: 100vh;
   width: 100vw;
-  padding: 0;
-  margin: auto;
-  background-image: url("../images/newYorkCompressed.jpg");
-  background-position: center center;
+  background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
+}
+
+.app {
+  height: 100%;
+  width: 100%;
+  padding-top: 0;
+  margin-top: 0;
 }
 
 .steps {
@@ -122,7 +127,6 @@
 
 .madeSimple {
     position: relative;
-    height: 100%;
     width: 100%;
     text-align: center;
     color: white;
@@ -144,7 +148,6 @@
 
 .howItWorks {
     position: relative;
-    height: 100%;
     width: 100%;
     text-align: center;
     color: white;
@@ -182,7 +185,6 @@
 
 .whatWereAbout {
     position: relative;
-    height: 100%;
     width: 100%;
     text-align: center;
     color: white;
@@ -265,7 +267,6 @@
 
 .teamPage {
     position: relative;
-    height: 100%;
     width: 100%;
     text-align: center;
     color: white;
@@ -284,73 +285,6 @@
     padding-left: 15%;
     padding-right: 15%;
 }
-
-.registrationPage {
-    position: relative;
-    height: 100%;
-    width: 100%;
-    text-align: center;
-    color: white;
-    text-shadow: 0px 4px 8px rgba(0,0,0, 0.50);
-    font-size: 14pt;
-
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-
-    background-image: url("../images/newYorkCompressed.jpg");
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-}
-
-.registrationPageText {
-    font-family: "orkneyregular";
-    display: inline-block;
-    position: relative;
-    vertical-align:middle;
-    width: 70%;
-    height: 100%;
-}
-
-.registrationForm {
-    position: relative;
-    display: inline-block;
-    vertical-align:middle;
-    width: 25%;
-    margin-left: 2.5%;
-    margin-right: 2.5%;
-    margin-top: 5%;
-    margin-bottom: 5%;
-    background-color: rgba(0,0,0, 0.60);
-}
-
-.formTitle {
-    font-family: "orkneybold";
-    text-align: left;
-    font-size: 14pt;
-    padding-top: 5%;
-    padding-left: 7.5%;
-}
-
-.formSubTitle{
-    font-family: "orkneylight";
-    text-align: left;
-    font-size: 10pt;
-    padding-left: 7.5%;
-}
-
-.registrationPageOverlay {
-    height: 100%;
-    width: 100%;
-    background-color: rgba(0,0,0, 0.125);
-}
-
-.registrationPageBodyText {
-    padding-left: 15%;
-    padding-right: 15%;
-}
-
 
 .landingPageBottom {
     position: relative;

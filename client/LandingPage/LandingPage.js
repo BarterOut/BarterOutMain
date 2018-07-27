@@ -75,22 +75,24 @@ class LandingPage extends Component {
     return (
         <div className="app">
             <div className="landingpage">
-                <nav className="headerBar animated slideInDown">
-                    <div className="logo">
-                        <a href="#" id="buttonLink"><img id="logoPic" src={logoPic}></img></a>
+                <div className="photo-bg">
+                    <nav className="headerBar animated slideInDown">
+                        <div className="logo">
+                            <a href="#" id="buttonLink"><img id="logoPic" src={logoPic}></img></a>
+                        </div>
+                        <div className="pageLinks">
+                            <a className="productLink" id="landingPageLink" href="#madeSimple">Our Product</a>
+                            <a className="missionLink" id="landingPageLink" href="#whatWereAbout">Our Mission</a>
+                            <a className="teamLink" id="landingPageLink" href="#teamPage">Our Team</a>
+                            <Link id="landingPageLink" className="preRegisterLink" to="/login" href="login">Login</Link>
+                        </div>
+                    </nav>
+                    <div className="mainText animated fadeIn" id="mainText">
+                        <h1>TEXTBOOK SHOPPING,
+                            <br/>
+                            MADE EASY</h1>
+                        <a href="/signup" id="buttonLink"><button className="barterOutButton">JOIN NOW FREE</button></a>
                     </div>
-                    <div className="pageLinks">
-                        <a className="productLink" id="landingPageLink" href="#madeSimple">Our Product</a>
-                        <a className="missionLink" id="landingPageLink" href="#whatWereAbout">Our Mission</a>
-                        <a className="teamLink" id="landingPageLink" href="#teamPage">Our Team</a>
-                        <Link id="landingPageLink" className="preRegisterLink" to="/login" href="login">Login</Link>
-                    </div>
-                </nav>
-                <div className="mainText animated fadeIn" id="mainText">
-                    <h1>TEXTBOOK SHOPPING,
-                        <br/>
-                        MADE EASY</h1>
-                    <a href="/signup" id="buttonLink"><button className="barterOutButton">JOIN NOW FREE</button></a>
                 </div>
                 <div className="madeSimple" id="madeSimple">
                     <div className="madeSimpleInfo animated" id="madeSimpleInfo">
