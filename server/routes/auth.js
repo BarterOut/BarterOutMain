@@ -108,21 +108,20 @@ router.get('/email-verification/:URL', (req, res) => {
         lastName: tempUser.lastName,
         matchedBooks: [],
         university: tempUser.university,
-        notifications: [{ date: new Date(), message: 'Thank you for signing up!' }],
+        notifications: [{ date: new Date().toLocaleString(), message: 'Thank you for signing up!' }],
         resetPasswordToken: '',
         resetPasswordExpires: '',
       });
       newUser.save()
         .then(() => {
-          console.log('a new user has been verified');
-          sendEmail(emails.signedUpEmail(newUser.emailAddress, newUser.firstName));// Verified the user
-          TempUser.remove({ emailToken: url }, (err, reeeee) => {
+          // Verified the user
+          sendEmail(emails.signedUpEmail(newUser.emailAddress, newUser.firstName));
+          TempUser.remove({ emailToken: url }, (err, output) => {
             if (err) {
-              console.log('had an error' + err);
+              console.error('An error occured: ' + err);
             }
-            // console.log(reeeee);
-          });// removes temp user
-          // TempUser.remove({ emailAddress: newUser.emailAddress});
+            console.log(output);
+          });
           res.redirect('/emailConfirmed');
         });
     } else {

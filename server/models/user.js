@@ -28,7 +28,7 @@ const userSchema = new Schema({
   matchedBooks: [{ type: String }],
   cart: [{ type: String }],
   notifications: [{
-    date: Date,
+    date: String,
     message: String,
   }],
   resetPasswordToken: { type: String },

@@ -97,7 +97,7 @@ class Home extends Component {
               {this.state.notifications.map(notification => (
                 <Notification
                   key={notification._id}
-                  date={notification.date.toString()}
+                  date={notification.date}
                   message={notification.message}
                 />
               ))}

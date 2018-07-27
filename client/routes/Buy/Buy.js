@@ -123,7 +123,7 @@ class Buy extends Component {
               />
             </div>
             <p className="searchInfo">
-              * You can search for Book Name, Edition, Class, or Price, note
+              You can search for Book Name, Edition, or Class. * Note
               that the class must be in the same format as on the book posting, (e.g. MTH 101, WRT 105, etc).
             </p>
             <div className="title--page-section-wrapper"><h2 className="title-text--page-section-header">Your Matches</h2></div>
