@@ -11,7 +11,7 @@ import LandingPage from './LandingPage/LandingPage';
 import TermsOfService from './routes/TermsOfService/termsOfService';
 import PrivacyPolicy from './routes/PrivacyPolicy/privacyPolicy';
 import Contact from './routes/Contact/contact';
-import Careers from './Careers/careers';
+import Careers from './routes/Careers/careers';
 import Home from './Home/Home';
 import SignUp from './routes/SignUp/SignUp';
 import Login from './routes/Login/Login';

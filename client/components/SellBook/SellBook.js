@@ -21,6 +21,7 @@ class SellBook extends Component {
       ISBN: String,
       condition: 'Poor',
       comments: String,
+      correctlyFilledOut: true,
     };
 
     this.onChange = this.onChange.bind(this);
@@ -71,10 +72,20 @@ class SellBook extends Component {
 
   _validateInputs() {
     if (!/^[A-Z]{3} \d{3}$/.test(this.state.course)) {
+      this.setState({ correctlyFilledOut: false });
       return false;
     }
 
     if (this.state.price > 200 || this.state.price < 1) {
+      this.setState({ correctlyFilledOut: false });
+      return false;
+    }
+
+    if (this.state.name === '' ||
+        this.state.edition === '' ||
+        this.state.price === '' ||
+        this.state.course === '') {
+      this.setState({ correctlyFilledOut: false });
       return false;
     }
 
@@ -86,6 +97,7 @@ class SellBook extends Component {
       <div className="wrapper-custom">
         <h2>Tell us about your book</h2>
         <form className="input-wrapper" onSubmit={this.formSubmit}>
+          {!this.state.correctlyFilledOut && <h4 className="input-error">Please ensure all the required fields are filled out.</h4>}
           <span className="inputLabelHome">Title of Book *</span>
           <input
             autoComplete="off"

@@ -7,7 +7,7 @@
 import React from 'react';
 
 import './careers.css';
-import logoPic from '../images/barterOutOrangeWhiteLogoHeader.png';
+import logoPic from '../../images/barterOutOrangeWhiteLogoHeader.png';
 
 const Careers = () => (
   <div className="infowrapper">
@@ -38,6 +38,7 @@ const Careers = () => (
         <p className="careers-text">
           <ol>
             <li>Write performent Javascript code in a team setting.</li>
+            <li>Write and execute unit tests with NYC and Jest.</li>
             <li>Design and implement smart, modular React components.</li>
             <li>Work with web protocols (HTTP, SLL) to utilize our API.</li>
           </ol>
@@ -47,6 +48,7 @@ const Careers = () => (
         </b>
         <p className="careers-text">Experience with HTML, CSS, and Javascript.<br />
           Understanding of SEO preferred.
+          Familiar with Git and Github (Branching, Pull Requests, Code Review).
         </p>
         <h4 className="position-header">Backend Web Developer</h4>
         <b>
@@ -65,6 +67,7 @@ const Careers = () => (
         <p className="careers-text">
           <ol>
             <li>Write performent Javascript code in a team setting.</li>
+            <li>Write and execute unit tests with NYC and Jest.</li>
             <li>Design and implement mongoose schemas.</li>
             <li>Implement new, well documented API functionality.</li>
           </ol>
@@ -72,8 +75,8 @@ const Careers = () => (
         <b>
           <p className="careers-text">Required Experience</p>
         </b>
-        <p className="careers-text">Experience with Javascript, and JSON.<br />
-           Familiar with Git.
+        <p className="careers-text">Experience with Javascript, Express.js, and JSON.<br />
+           Familiar with Git and Github (Branching, Pull Requests, Code Review).
         </p>
         <h4 className="position-header">UI/UX Designer</h4>
         <b>

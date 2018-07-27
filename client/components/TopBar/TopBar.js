@@ -10,7 +10,6 @@ import { Redirect, Link } from 'react-router-dom';
 import AuthService from '../../services/AuthService';
 
 import MaterialIcon from 'react-google-material-icons';
-// import FetchService from '../../services/FetchService';
 
 import '../../baseStyles.css';
 
@@ -22,32 +21,18 @@ class TopBar extends Component {
     this.state = {
       redirect: false,
     };
+
+    this.AUTH = new AuthService();
+
+    this._logout = this._logout.bind(this);
   }
-
-  // componentDidMount() {
-  //   const Auth = new AuthService();
-  //   if (Auth.getToken() === null) {
-  //     this._updateRedirect(true);
-  //   }
-
-  //   FetchService.GET(`/api/user/getUserData/${Auth.getToken()}`)
-  //     .then(response => response.json())
-  //     .then((data) => {
-  //       this._updateSchool(data.user.university);
-  //     });
-  // }
-
-  // _updateSchool(value) {
-  //   this.setState({ school: value });
-  // }
 
   _updateRedirect(value) {
     this.setState({ redirect: value });
   }
 
   _logout() {
-    const Auth = new AuthService();
-    Auth.logout();
+    this.AUTH.logout();
   }
 
   render() {
@@ -59,14 +44,14 @@ class TopBar extends Component {
       <div className="bar-wrapper">
         <div className="left-bar part">
           <Link to="/cart" href="/cart">
-            <button className="button" id="cart"><MaterialIcon icon="shopping_cart" />Cart</button>
+            <button className="button" id="cart"><MaterialIcon icon="shopping_cart" /></button>
           </Link>
         </div>
         <div className="middle-bar part">
           <h4><b>{this.props.page}</b></h4>
         </div>
         <div className="right-bar part">
-          <button className="button" onClick={this._logout.bind(this)}>Logout</button>
+          <button className="button" onClick={this._logout}>Logout</button>
         </div>
       </div>
     );
