@@ -383,24 +383,54 @@ router.get('/search/:query/:token', (req, res) => {
       res.sendStatus(403);
     } else {
       const searchKey = req.params.query;
-      Textbook.find({
-        $and: [
-          { status: 0 },
-          { owner: { $ne: authData.userInfo._id } },
-          {
-            $or: [
-              { name: { $regex: searchKey, $options: 'i' } },
-              { course: { $regex: searchKey, $options: 'i' } },
-            ],
-          },
-        ],
-      }, (err, books) => {
-        const bookMap = [];
-        books.forEach((book) => {
-          bookMap.push(book);
+      // console.log("search " + searchKey + " " + authData.userInfo._id);
+
+      var parsed = Number.parseInt(searchKey, 10);
+      if (Number.isNaN(parsed)) {
+        Textbook.find({
+          $and: [
+            { status: 0 },
+            { owner: { $ne: authData.userInfo._id } },
+            {
+              $or: [
+                { name: { $regex: searchKey, $options: 'i' } },
+                { course: { $regex: searchKey, $options: 'i' } },
+              ],
+            },
+          ],
+        }, (err, books) => {
+          // const bookMap = [];
+          // books.forEach((book) => {
+          //   bookMap.push(book);
+          // });
+          // console.log(err);
+          // console.log("The search gives: " + books);
+          res.status(200).json(books);
         });
-        res.status(200).json(bookMap);
-      });
+      } else {
+        Textbook.find({
+          $and: [
+            {status: 0},
+            {owner: {$ne: authData.userInfo._id}},
+            {
+              $or: [
+                {name: {$regex: searchKey, $options: 'i'}},
+                {course: {$regex: searchKey, $options: 'i'}},
+                { ISBN: { $eq: parsed } },
+
+              ],
+            },
+          ],
+        }, (err, books) => {
+          // const bookMap = [];
+          // books.forEach((book) => {
+          //   bookMap.push(book);
+          // });
+          // console.log(err);
+          // console.log("The search gives: " + books);
+          res.status(200).json(books);
+        });
+      }
     }
   });
 });
