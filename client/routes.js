@@ -27,6 +27,7 @@ import ForgotPassword from './routes/ForgotPassword/ForgotPassword';
 import ForgotPasswordSuccess from './routes/ForgotPassword/ForgotPasswordSuccess';
 import SignUpSuccess from './routes/SignUpSuccess/SignUpSuccess';
 import EmailConfirmed from './routes/EmailConfirmed/EmailConfirmed';
+import page404 from './routes/page404/page404';
 
 
 const HomePage = ({ component: Component, rest }) => {
@@ -143,11 +144,12 @@ export default (
     <SettingsPage exact path="/settings" component={Settings} />
     <HelpPage exact path="/help" component={Help} />
     <CartPage exact path="/cart" component={Cart} />
-    <Route path="/editPassword" component={EditPassword} />
-    <Route path="/forgotPassword" component={ForgotPassword} />
-    <Route path="/forgotPasswordSuccess" component={ForgotPasswordSuccess} />
-    <Route path="/signUpSuccess" component={SignUpSuccess} />
-    <Route path="/emailConfirmed" component={EmailConfirmed} />
+    <Route exact path="/editPassword" component={EditPassword} />
+    <Route exact path="/forgotPassword" component={ForgotPassword} />
+    <Route exact path="/forgotPasswordSuccess" component={ForgotPasswordSuccess} />
+    <Route exact path="/signUpSuccess" component={SignUpSuccess} />
+    <Route exact path="/emailConfirmed" component={EmailConfirmed} />
     <Route exact path="/dashboard" component={Dashboard} />
+    <Route path="*" component={page404} />
   </Switch>
 );
