@@ -1,3 +1,10 @@
+/**
+ * @file Notification functions for returning various types of notifications.
+ * @author Daniel Munoz
+ * @author Duncan Grubbs <duncan.grubbs@gmail.com>
+ * @version 0.0.2
+ */
+
 module.exports = {
   thanksForPosting: function thanksForPosting(bookName) {
     return {
@@ -12,7 +19,7 @@ module.exports = {
       message: `Someone purchased ${bookName} from you! Please drop the book to us for inspection. Check your email and see the track page for more details.`,
     };
   },
-  
+
   paymentReceived: function paymentReceived() {
     return {
       date: new Date().toLocaleString(),

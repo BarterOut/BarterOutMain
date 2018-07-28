@@ -26,7 +26,7 @@ const Careers = () => (
           <p className="careers-text">Role</p>
         </b>
         <p className="careers-text">
-          Are you passionate about frontend web development using modern frameworks and techniques? Willing to work in a fast paced, agile environment? Do you want to work for a startup whose aim is to make student&apos;s lives easier? If so, fill out <a rel="noopener noreferrer" target="_blank" href="https://goo.gl/forms/ZfEQ36J24NcsK08Z2">this form.</a>
+          Are you passionate about frontend web development using modern frameworks and techniques? Willing to work in a fast paced, agile environment? Do you want to work for a startup whose aim is to make students&apos; lives easier? If so, fill out <a rel="noopener noreferrer" target="_blank" href="https://goo.gl/forms/ZfEQ36J24NcsK08Z2">this form.</a>
         </p>
         <b>
           <p className="careers-text">Location</p>
@@ -35,14 +35,14 @@ const Careers = () => (
         <b>
           <p className="careers-text">Duties & Responsibilities</p>
         </b>
-        <p className="careers-text">
+        <div className="careers-text">
           <ol>
             <li>Write performent Javascript code in a team setting.</li>
             <li>Write and execute unit tests with NYC and Jest.</li>
             <li>Design and implement smart, modular React components.</li>
             <li>Work with web protocols (HTTP, SLL) to utilize our API.</li>
           </ol>
-        </p>
+        </div>
         <b>
           <p className="careers-text">Required Experience</p>
         </b>
@@ -55,7 +55,7 @@ const Careers = () => (
           <p className="careers-text">Role</p>
         </b>
         <p className="careers-text">
-          Are you passionate about server-side web development using modern frameworks and techniques? Willing to work in a fast paced, agile environment? Do you want to work for a startup whose aim is to make student&apos;s lives easier? If so, fill out <a rel="noopener noreferrer" target="_blank" href="https://goo.gl/forms/mZBceWIBIM4q7iSv2">this form.</a>
+          Are you passionate about server-side web development using modern frameworks and techniques? Willing to work in a fast paced, agile environment? Do you want to work for a startup whose aim is to make students&apos; lives easier? If so, fill out <a rel="noopener noreferrer" target="_blank" href="https://goo.gl/forms/mZBceWIBIM4q7iSv2">this form.</a>
         </p>
         <b>
           <p className="careers-text">Location</p>
@@ -64,14 +64,14 @@ const Careers = () => (
         <b>
           <p className="careers-text">Duties & Responsibilities</p>
         </b>
-        <p className="careers-text">
+        <div className="careers-text">
           <ol>
             <li>Write performent Javascript code in a team setting.</li>
             <li>Write and execute unit tests with NYC and Jest.</li>
             <li>Design and implement mongoose schemas.</li>
             <li>Implement new, well documented API functionality.</li>
           </ol>
-        </p>
+        </div>
         <b>
           <p className="careers-text">Required Experience</p>
         </b>
@@ -83,7 +83,7 @@ const Careers = () => (
           <p className="careers-text">Role</p>
         </b>
         <p className="careers-text">
-          Are you passionate about modern UI/UX design and have experience using design tools? Do you want to work for a startup whose aim is to make student&apos;s lives easier? If so, fill out <a rel="noopener noreferrer" target="_blank" href="https://google.com">this form.</a>
+          Are you passionate about modern UI/UX design and have experience using design tools? Do you want to work for a startup whose aim is to make students&apos; lives easier? If so, fill out <a rel="noopener noreferrer" target="_blank" href="https://google.com">this form.</a>
         </p>
         <b>
           <p className="careers-text">Location</p>
@@ -107,7 +107,7 @@ const Careers = () => (
           <p className="careers-text">Role</p>
         </b>
         <p className="careers-text">
-          Are you passionate about and have experience with mobile development on iOS? Willing to work in a fast paced, agile environment? Do you want to work for a startup whose aim is to make student&apos;s lives easier? If so, fill out <a rel="noopener noreferrer" target="_blank" href="need to create link">this form.</a>
+          Are you passionate about and have experience with mobile development on iOS? Willing to work in a fast paced, agile environment? Do you want to work for a startup whose aim is to make students&apos; lives easier? If so, fill out <a rel="noopener noreferrer" target="_blank" href="need to create link">this form.</a>
         </p>
         <b>
           <p className="careers-text">Location</p>
@@ -116,13 +116,13 @@ const Careers = () => (
         <b>
           <p className="careers-text">Duties & Responsibilities</p>
         </b>
-        <p className="careers-text">
+        <div className="careers-text">
           <ol>
             <li>Use modern techniques to build interactive UIs from design a spec.</li>
             <li>Manage deploying and updating an iOS app.</li>
             <li>Work with web protocols (HTTP, SLL) to utilize our API.</li>
           </ol>
-        </p>
+        </div>
         <b>
           <p className="careers-text">Required Experience</p>
         </b>
@@ -136,7 +136,7 @@ const Careers = () => (
           <p className="careers-text">Role</p>
         </b>
         <p className="careers-text">
-          Are you passionate about and have experience with mobile development on Android? Willing to work in a fast paced, agile environment? Do you want to work for a startup whose aim is to make student&apos;s lives easier? If so, fill out <a rel="noopener noreferrer" target="_blank" href="need to create link">this form.</a>
+          Are you passionate about and have experience with mobile development on Android? Willing to work in a fast paced, agile environment? Do you want to work for a startup whose aim is to make students&apos; lives easier? If so, fill out <a rel="noopener noreferrer" target="_blank" href="need to create link">this form.</a>
         </p>
         <b>
           <p className="careers-text">Location</p>
@@ -145,17 +145,17 @@ const Careers = () => (
         <b>
           <p className="careers-text">Duties & Responsibilities</p>
         </b>
-        <p className="careers-text">
+        <div className="careers-text">
           <ol>
             <li>Use modern techniques to build interactive UIs from a design spec.</li>
             <li>Manage deploying and updating an Android app.</li>
             <li>Work with web protocols (HTTP, SLL) to utilize our API.</li>
           </ol>
-        </p>
+        </div>
         <b>
           <p className="careers-text">Required Experience</p>
         </b>
-        <p className="careers-text">Experience with Android Studio, Java (or Kotlin) and Google&apos;s Play Store Review Guidelines.<br />
+        <p className="careers-text">Experience with Android Studio, Java (or Kotlin) and Googles&apos; Play Store Review Guidelines.<br />
           Experience with Google&apos; API capabilities preferred.<br />
           Understanding of modern app design preferred.
         </p>

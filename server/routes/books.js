@@ -1,5 +1,5 @@
 /**
- * @file Books routes for Express.js server.
+ * @file Routes relating to books for Express.js server.
  * @author Daniel Munoz
  * @author Duncan Grubbs <duncan.grubbs@gmail.com>
  * @version 0.0.2
@@ -41,7 +41,6 @@ function sendEmail(mailOptions) {
     }
   });
 }
-
 
 /**
  * Called when a user posts a book they want to sell.
@@ -266,12 +265,12 @@ router.post('/clickBuy/:token', (req, res) => {
  * @returns {object} Array of book objects.
  */
 router.post('/clickBuyTemp/:token', (req, res) => {
-  var i =0;
+  let i = 0;
   jwt.verify(req.params.token, 'secretKey', (error, authData) => {
     if (error) {
       res.sendStatus(403);
     } else {
-      //can probs remove this one
+      // can probs remove this one
       User.findOne({ _id: authData.userInfo._id }, (error, user) => {
         if (!user) {
           res.status(401).send({ error: 'You need to create an account' });
@@ -372,7 +371,6 @@ router.get('/getUserMatches/:token', (req, res) => {
   });
 });
 
-// TODO: Add search by price, etc.
 /**
  * Finds all books in database with a matching name or course.
  * @param {object} req Request body from client.
@@ -406,6 +404,7 @@ router.get('/search/:query/:token', (req, res) => {
     }
   });
 });
+
 /**
  * Returns all of a given users posts.
  * @param {object} req Request body from client.
@@ -461,7 +460,7 @@ router.post('/deleteBook/', (req, res) => {
 });
 
 /**
- * @deprecated Due to inefficiency
+ * @deprecated Due to inefficiency (still in use but needs changing)
  * Gets all books being sold from database.
  * @param {object} req Request body from client.
  * @param {array} res Body of HTTP response.

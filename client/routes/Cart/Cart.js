@@ -65,9 +65,7 @@ class Cart extends Component {
   render() {
     return (
       <div className="app-wrapper">
-        <SideNav
-          selected="home"
-        />
+        <SideNav />
 
         <div className="right-content">
           <TopBar page="Cart" />

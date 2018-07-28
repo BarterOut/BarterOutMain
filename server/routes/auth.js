@@ -8,9 +8,7 @@
 import mongoose from 'mongoose';
 
 import User from '../models/user';
-import Textbook from '../models/textbook';
 import TempUser from '../models/tempUser';
-
 
 // TempUser.getIndexes({ 'createdAt': 1 }, { expireAfterSeconds: 86400 })
 
@@ -20,7 +18,6 @@ const router = express.Router();
 
 const nodemailer = require('nodemailer');
 
-// Start of email verification changes
 
 const bcrypt = require('bcryptjs');
 
@@ -70,10 +67,9 @@ nev.configure({
   emailFieldName: 'emailAddress',
   passwordFieldName: 'password',
 
-}, function(error, options){
-  if (error){
+}, (error, options) => {
+  if (error) {
     console.log(error);
-    return;
   }
 });
 
@@ -81,10 +77,8 @@ nev.configure({
 nev.generateTempUserModel(User, (err) => {
   if (err) {
     console.log(err);
-    return;
   }
 });
-
 
 // Needs functionality for this. Unsure if it will be used.
 router.post('/resendEmailVerification', (req, res) => {
@@ -118,7 +112,7 @@ router.get('/email-verification/:URL', (req, res) => {
           sendEmail(emails.signedUpEmail(newUser.emailAddress, newUser.firstName));
           TempUser.remove({ emailToken: url }, (err, output) => {
             if (err) {
-              console.error('An error occured: ' + err);
+              console.error(`An error occured:  ${err}`);
             }
             console.log(output);
           });
@@ -385,24 +379,28 @@ router.get('/passwordReset/:token', (req, res) => {
 });
 
 router.post('/passwordReset', (req, res) => {
-  User.findOne({ resetPasswordToken: req.params.token, resetPasswordExpires: { $gt: Date.now() } }, (err, user) => {
-    if (!user) {
-      console.log(`invalid token: ${req.params.token}`);
-      res.status(406).send({ error: 'token expired or is invalid' });
-    } else {
-      user.password = User.hashPassword(req.password);
-      user.resetPasswordExpires = undefined;
-      user.resetPasswordToken = undefined;
-      user.save((error) => {
-        console.log(error);
-      });
-      // can send an email here
-      res.redirect('/home');
-    }
-  });
+  User.findOne(
+    {
+      resetPasswordToken: req.params.token,
+      resetPasswordExpires: { $gt: Date.now() },
+    },
+    (err, user) => {
+      if (!user) {
+        console.warn(`Invalid token: ${req.params.token}`);
+        res.status(406).send({ error: 'token expired or is invalid' });
+      } else {
+        user.password = User.hashPassword(req.password);
+        user.resetPasswordExpires = undefined;
+        user.resetPasswordToken = undefined;
+        user.save((error) => {
+          console.error(error);
+        });
+        // can send an email here
+        res.redirect('/home');
+      }
+    },
+  );
 });
-
-
 
 
 // Just in case this is needed

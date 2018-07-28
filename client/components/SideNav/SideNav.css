@@ -46,6 +46,11 @@
   width: 50%;
 }
 
+#profile-photo-link {
+  width: 100%;
+  text-align: center;
+}
+
 #three-bar {
   display: flex;
   width: 50%;

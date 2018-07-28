@@ -1,8 +1,7 @@
+import Textbook from '../models/textbook';
+import User from '../models/user';
+
 const jwt = require('jsonwebtoken');
-
-
-import Textbook from "../models/textbook";
-import User from "../models/user";
 
 const express = require('express');
 
@@ -92,7 +91,13 @@ router.post('/removeFromCart', (req, res) => {
 });
 
 
-// TODO: fix this
+/**
+ * Called when a user clicks clear cart on the cart page
+ * currently not in use.
+ * @param {object} req Request from client.
+ * @param {array} res Body of HTTP response.
+ * @returns {object} Success Status.
+ */
 router.post('/clearCart', (req, res) => {
   jwt.verify(req.body.data.token, 'secretKey', (error, authData) => {
     if (error) {

@@ -28,8 +28,10 @@ class SideNav extends Component {
   }
 
   componentDidMount() {
-    const selectedNavItem = document.getElementsByName(this.props.selected)[0];
-    selectedNavItem.className = 'nav-link selected';
+    if (this.props.selected) {
+      const selectedNavItem = document.getElementsByName(this.props.selected)[0];
+      selectedNavItem.className = 'nav-link selected';
+    }
 
     this._getProfileInfo();
   }
@@ -60,7 +62,9 @@ class SideNav extends Component {
           </div>
         </div>
         <div id="profile-wrapper">
-          <img src={profile} alt="profile" id="profile-pic" />
+          <Link to="/home" href="home" id="profile-photo-link">
+            <img src={profile} alt="profile" id="profile-pic" />
+          </Link>
           <div id="name">
             {this.state.name}
           </div>
@@ -98,7 +102,7 @@ class SideNav extends Component {
 }
 
 SideNav.propTypes = {
-  selected: propTypes.string.isRequired,
+  selected: propTypes.string,
 };
 
 export default SideNav;
