@@ -41,6 +41,19 @@ function sendEmail(mailOptions) {
     }
   });
 }
+// will return an array of JSON objects in reverse cronological order (Newest at the top)
+function sortBooksReverseCronological(bookJSONArray) {
+  console.log('before: ' + bookJSONArray);
+  bookJSONArray.sort(function (a, b) {
+    return new Date(a.date).getTime() - new Date(b.date).getTime();
+  });
+  console.log('after: ' + bookJSONArray.sort(function (a, b) {
+    console.log(new Date(a.date).getTime());
+    return new Date(b.date).getTime() - new Date(a.date).getTime();
+  }));
+
+  return bookJSONArray;
+}
 
 /**
  * Called when a user posts a book they want to sell.
@@ -510,7 +523,7 @@ router.get('/getAllBooks/:token', (req, res) => {
               { status: 0 },
               { owner: { $ne: authData.userInfo._id } }],
           }, (err, books) => {
-            res.json(books);
+            res.json(sortBooksReverseCronological(books));
           });
         }
       });
