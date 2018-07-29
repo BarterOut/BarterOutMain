@@ -43,16 +43,48 @@ function sendEmail(mailOptions) {
 }
 // will return an array of JSON objects in reverse cronological order (Newest at the top)
 function sortBooksReverseCronological(bookJSONArray) {
-  console.log('before: ' + bookJSONArray);
   bookJSONArray.sort(function (a, b) {
-    return new Date(a.date).getTime() - new Date(b.date).getTime();
-  });
-  console.log('after: ' + bookJSONArray.sort(function (a, b) {
-    console.log(new Date(a.date).getTime());
     return new Date(b.date).getTime() - new Date(a.date).getTime();
-  }));
-
+  });
   return bookJSONArray;
+}
+// Remakes matches based on the books in the request collection. *Needs testing*
+function remakeMatches(userID) {
+  TextbookBuy.find( { owner: userID }, (err, books) => {
+    if (books) {
+      for (var i = 0; i < books.length; i++) {
+        var BOOK = books[i];
+        Textbook.find(
+          { // looks for a book that matches based on the name matching or the course
+            $and: [
+              { status: 0},
+              { $or: [{ name: { $regex: BOOK.name, $options: 'i' } }, {course: {$regex: BOOK.course, $options: 'i' } }] },
+              { owner: { $ne: userID } },
+            ],
+          },
+          (err, matchedBooks) => {
+            console.log('Book was found in matching.');
+
+            const addBooks = [];
+            matchedBooks.forEach((book) => {
+              addBooks.push(book._id);
+            });
+
+            User.update(
+              {_id: BOOK.owner },
+              {
+                $set: {
+                  matchedBooks: { addBooks },
+                },
+              }, (error) => {
+                console.error(`Error: ${error}`);
+              },
+            );
+          },
+        );
+      }
+    }
+  });
 }
 
 /**
@@ -501,6 +533,35 @@ router.post('/deleteBook/', (req, res) => {
     }
   });
 });
+
+/**
+ * Finds all books in database with a matching name or course.
+ * @param {object} req Request body from client.
+ * @param {array} res Body of HTTP response.
+ * @returns {object} Array of books from database.
+ */
+router.post('/deleteRequest/', (req, res) => {
+  jwt.verify(req.body.data.token, 'secretKey', (err, authData) => {
+    if (err) {
+      res.sendStatus(403);
+    } else {
+      TextbookBuy.deleteOne({
+        $and: [
+          { _id: req.body.data.bookID },
+          { owner: authData.userInfo._id },
+        ],
+      }, (error) => {
+        remakeMatches(authData.user._id);
+        if (!error) {
+          res.sendStatus(200);
+        } else {
+          res.sendStatus(400);
+        }
+      });
+    }
+  });
+});
+
 
 /**
  * @deprecated Due to inefficiency (still in use but needs changing)
