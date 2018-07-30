@@ -71,27 +71,27 @@ class SideNav extends Component {
         </div>
         <div id="link-wrapper">
           <Link className="nav-link" name="home" to="/home" href="/home">
-            <div className="nav-icon"><MaterialIcon icon="home" size={36} /></div>
+            <div className="nav-icon"><MaterialIcon icon="home" size={30} /></div>
             Home
           </Link>
           <Link className="nav-link" name="buy" to="/buy" href="/buy">
-            <div className="nav-icon"><MaterialIcon icon="shopping_cart" size={36} /></div>
+            <div className="nav-icon"><MaterialIcon icon="shopping_cart" size={30} /></div>
             Buy
           </Link>
           <Link className="nav-link" name="sell" to="/sell" href="/sell">
-            <div className="nav-icon"><MaterialIcon icon="store" size={36} /></div>
+            <div className="nav-icon"><MaterialIcon icon="store" size={30} /></div>
             Sell
           </Link>
           <Link className="nav-link" name="track" to="/track" href="/track">
-            <div className="nav-icon"><MaterialIcon icon="timeline" size={36} /></div>
+            <div className="nav-icon"><MaterialIcon icon="timeline" size={30} /></div>
             Track
           </Link>
           <Link className="nav-link" name="settings" to="/settings" href="/settings">
-            <div className="nav-icon"><MaterialIcon icon="settings" size={36} /></div>
+            <div className="nav-icon"><MaterialIcon icon="settings" size={30} /></div>
             Settings
           </Link>
           <Link className="nav-link" name="help" to="/help" href="/help">
-            <div className="nav-icon"><MaterialIcon icon="help" size={36} /></div>
+            <div className="nav-icon"><MaterialIcon icon="help" size={30} /></div>
             Help
           </Link>
         </div>

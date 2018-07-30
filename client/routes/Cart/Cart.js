@@ -5,6 +5,7 @@
  */
 
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 
 import SideNav from '../../components/SideNav/SideNav';
 import TopBar from '../../components/TopBar/TopBar';
@@ -107,20 +108,23 @@ class Cart extends Component {
             <div id="cart-totals">
               <b>Items:</b><br />
               {this.state.items.map(post => (
-                <div key={post._id}>{post.name}: <i>${post.price}</i></div>
+                <div className="cart-money-info" key={post._id}>{post.name}: <i>${post.price}</i></div>
               ))}
               <br />
               <br />
-              <span>Subtotal: <b>${this._calculateMoney().subtotal}</b></span><br />
+              <span className="cart-money-info" >Subtotal: <b>${this._calculateMoney().subtotal}</b></span><br />
               <br />
-              <span>Our 5% Fee: <i>${this._calculateMoney().fee}</i></span><br />
-              <span>Total: <b>${this._calculateMoney().total}</b></span><br />
+              <span className="cart-money-info" >Our 5% Fee: <i>${this._calculateMoney().fee}</i></span><br />
+              <span className="cart-money-info" >Total: <b>${this._calculateMoney().total}</b></span><br />
             </div>
 
             <h3 id="cart-message">
-              When you click &quot;Checkout&quot;, we will Venmo request @<b>{this.state.venmo}</b> once we recieve the books and validate their condition.
-              Until you accept our venmo request, we will hold the book(s). However, once you accept it, the book(s) will be
-              delivered via the campus mail center to the CMC Box <b>{this.state.CMC}</b>.
+              When you click &quot;Checkout&quot;, we will Venmo request @<b>{this.state.venmo}</b>.
+              Please change your venmo username <Link to="/settings" href="settings">here</Link> if it
+              is not accurate. Until you accept our venmo request, we will hold the book(s).
+              Once you pay, the book(s) will be delivered via the campus mail center to
+              the CMC Box <b>{this.state.CMC}</b>. Again if any of this information is not accurate, please
+              change it <Link to="/settings" href="settings">here</Link>.
             </h3>
             <button className="button" onClick={this.buyBooks}>Checkout</button>
           </div>
