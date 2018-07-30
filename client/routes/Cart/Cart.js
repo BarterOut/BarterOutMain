@@ -27,6 +27,7 @@ class Cart extends Component {
 
     this.AUTH = new AuthService();
     this.buyBooks = this.buyBooks.bind(this);
+    this._calculateMoney = this._calculateMoney.bind(this);
   }
 
   componentDidMount() {
@@ -50,6 +51,21 @@ class Cart extends Component {
 
   _updateItems(data) {
     this.setState({ items: data });
+  }
+
+  _calculateMoney() {
+    let subtotal = 0;
+    for (let i = 0; i < this.state.items.length; i++) {
+      subtotal += this.state.items[i].price;
+    }
+
+    const fee = subtotal * 0.05;
+
+    return {
+      subtotal,
+      fee,
+      total: subtotal + fee,
+    };
   }
 
   buyBooks() {
@@ -88,18 +104,18 @@ class Cart extends Component {
               ))}
             </div>
 
-            <p id="cart-totals">
+            <div id="cart-totals">
               <b>Items:</b><br />
-              <span>Principles of Calc: <i>$25</i></span><br />
-              <span>Principles of Calc: <i>$25</i></span><br />
-              <span>Principles of Calc: <i>$25</i></span><br />
+              {this.state.items.map(post => (
+                <div key={post._id}>{post.name}: <i>${post.price}</i></div>
+              ))}
               <br />
               <br />
-              <span>Subtotal: <b>$75.00</b></span><br />
+              <span>Subtotal: <b>${this._calculateMoney().subtotal}</b></span><br />
               <br />
-              <span>Our 5% Fee: <i>$3.75</i></span><br />
-              <span>Total: <b>$78.75</b></span><br />
-            </p>
+              <span>Our 5% Fee: <i>${this._calculateMoney().fee}</i></span><br />
+              <span>Total: <b>${this._calculateMoney().total}</b></span><br />
+            </div>
 
             <h3 id="cart-message">
               When you click &quot;Checkout&quot;, we will Venmo request @<b>{this.state.venmo}</b> once we recieve the books and validate their condition.
