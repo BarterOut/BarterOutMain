@@ -2,6 +2,10 @@
   font-family: sans-serif;
 }
 
+/* html, body {
+  overflow: hidden;
+} */
+
 ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
   color: #777;
   opacity: 1; /* Firefox */
@@ -51,6 +55,7 @@
   flex-direction: column;
   align-items: center;
   margin: 16px 0;
+  overflow-y: scroll;
 }
 
 .page-section-wrapper {

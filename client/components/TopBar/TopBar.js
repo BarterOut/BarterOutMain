@@ -9,8 +9,6 @@ import propTypes from 'prop-types';
 import { Redirect, Link } from 'react-router-dom';
 import AuthService from '../../services/AuthService';
 
-import MaterialIcon from 'react-google-material-icons';
-
 import '../../baseStyles.css';
 
 import './TopBar.css';
@@ -44,7 +42,7 @@ class TopBar extends Component {
       <div className="bar-wrapper">
         <div className="left-bar part">
           <Link to="/cart" href="/cart">
-            <button className="button" id="cart"><MaterialIcon icon="shopping_cart" /></button>
+            <button className="button" id="cart">Cart</button>
           </Link>
         </div>
         <div className="middle-bar part">

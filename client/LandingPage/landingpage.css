@@ -48,96 +48,96 @@
 }
 
 .pageLinks {
-    padding-right: 5%;
-    display: block;
-    padding-top: 0.5%;
-    vertical-align: middle;
-    height: 100%;
-    float: right;
-    font-size: 14pt;
-    font-weight: bold;
-    white-space: nowrap;
+  padding-right: 5%;
+  display: block;
+  padding-top: 0.5%;
+  height: 100%;
+  float: right;
+  font-size: 14pt;
+  font-weight: bold;
+  white-space: nowrap;
 }
 
-#landingPageLink {
-    text-align: center;
-    color: white;
-    padding: 0% 2.5%;
-    text-decoration: none;
-    -webkit-transition: color 0.25s ease-out;
-    -moz-transition: color 0.25s ease-out;
-    -o-transition: color 0.25s ease-out;
-    transition: color 0.25s ease-out;
+.landingPageLink {
+  text-align: center;
+  color: white;
+  padding: 0% 2.5%;
+  text-decoration: none;
+  -webkit-transition: color 0.25s ease-out;
+  -moz-transition: color 0.25s ease-out;
+  -o-transition: color 0.25s ease-out;
+  transition: color 0.25s ease-out;
 }
 
-#landingPageLink:hover {
-    color: #FFB814;
+.landingPageLink:hover {
+  color: #FFB814;
+  text-decoration: none;
 }
 
-#landingPageLink:active {
-    color: #FFB814;
+.landingPageLink:active {
+  color: #FFB814;
 }
 
-#productLink {
-    color: white;
+.productLink {
+  color: white;
 }
 
 #missionLink {
-    color: white;
+  color: white;
 }
 
 #teamLink {
-    color: white;
+  color: white;
 }
 
 #preRegisterLink {
-    color: white;
+  color: white;
 }
 
 .mainText{
-    font-family: "orkneybold";
-    letter-spacing: 2.5px;
-    position: relative;
-    height: 100vh;
-    width: 100%;
-    text-shadow: 0px 2px 8px rgba(0,0,0, 0.75);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+  font-family: "orkneybold";
+  letter-spacing: 2.5px;
+  position: relative;
+  height: 100vh;
+  width: 100%;
+  text-shadow: 0px 2px 8px rgba(0,0,0, 0.75);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .landingpage h1 {
-     color: white;
-     font-size: 40pt;
-     text-align: center;
-     font-weight: bold;
-     margin-top: 0;
+    color: white;
+    font-size: 40pt;
+    text-align: center;
+    font-weight: bold;
+    margin-top: 0;
  }
 
 .landingpage h2 {
-    color: white;
-    font-family: "orkneybold";
-    width: 100%;
-    padding-top: 1.25%;
-    padding-bottom: 1.25%;
-    font-size: 25pt;
-    text-align: center;
-    background-color: rgba(129,104,208, 0.80)
+  color: white;
+  font-family: "orkneybold";
+  width: 100%;
+  padding-top: 1.25%;
+  padding-bottom: 1.25%;
+  font-size: 25pt;
+  text-align: center;
+  background-color: rgba(129,104,208, 0.80)
 }
 
 .madeSimple {
-    position: relative;
-    width: 100%;
-    text-align: center;
-    color: white;
-    text-shadow: 0px 2px 8px rgba(0,0,0, 0.50);
-    font-size: 14pt;
-    background-color: #FFB814;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding-top: 5%;
-    padding-bottom: 5%;
+  position: relative;
+  width: 100%;
+  text-align: center;
+  color: white;
+  text-shadow: 0px 2px 8px rgba(0,0,0, 0.50);
+  font-size: 14pt;
+  background-color: #FFB814;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-top: 5%;
+  padding-bottom: 5%;
 }
 
 .madeSimpleText {
@@ -147,36 +147,45 @@
 }
 
 .howItWorks {
-    position: relative;
-    width: 100%;
-    text-align: center;
-    color: white;
-    text-shadow: 0px 2px 8px rgba(0,0,0, 0.50);
-    font-size: 14pt;
-    background-color: dimgray;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-
-    background-image: url("../images/stairsCompressed.jpg");
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
+  position: relative;
+  width: 100%;
+  text-align: center;
+  color: white;
+  text-shadow: 0px 2px 8px rgba(0,0,0, 0.50);
+  font-size: 14pt;
+  background-color: dimgray;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  background-image: url("../images/stairsCompressed.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 .howItWorksText {
-    font-family: "orkneyregular";
-    alignment: left;
-    padding-top: 2.5%;
-    width: 40%;
-    height: 100%;
-    background-color: rgba(0,0,0, 0.45);
-    padding-bottom: 5%;
+  font-family: "orkneyregular";
+  padding-top: 1.7%;
+  width: 40%;
+  height: 100%;
+  margin: 16px 32px;
+  background-color: rgba(0,0,0, 0.6);
+  padding-bottom: 2.5%;
+}
+
+.forUniversitiesText {
+  font-family: "orkneyregular";
+  padding-top: 1.7%;
+  width: 40%;
+  height: 100%;
+  margin: 10% 32px 16px 32px;
+  background-color: rgba(0,0,0, 0.6);
+  padding-bottom: 2.5%;
 }
 
 .howItWorksBodyText {
-    padding-left: 15%;
-    padding-right: 15%;
+  padding-left: 15%;
+  padding-right: 15%;
 }
 
 #whatWereAboutHeader {
@@ -401,7 +410,7 @@
     margin: auto;
 }
 
-#staff {
+.staff {
     -webkit-transform: rotate(0);
     -moz-transform: rotate(0);
     transform: rotate(0);
@@ -462,51 +471,52 @@
 }
 
 #bottomLinksCol2 {
-    font-family: "orkneylight";
-    font-style: normal;
-    float: left;
-    padding-left: 5%;
-    padding-top: 1%;
-    font-size: 12pt;
-    text-align: left;
+  font-family: "orkneylight";
+  font-style: normal;
+  float: left;
+  padding-left: 5%;
+  padding-top: 1%;
+  font-size: 12pt;
+  text-align: left;
 }
 
-#bottomPageLink {
-    color: white;
-    font-weight: normal;
-    text-decoration: none;
+.bottomPageLink {
+  color: white;
+  font-weight: normal;
+  text-decoration: none;
 }
 
-#bottomPageLink:hover {
-    color: #999
+.bottomPageLink:hover {
+  color: #AAA;
+  text-decoration: none;
 }
 
-#buttonLink:hover {
-    text-decoration: none;
+.buttonLink:hover {
+  text-decoration: none;
 }
 
 .profileName {
-    font-style: normal;
-    font-weight: bold;
+  font-style: normal;
+  font-weight: bold;
 }
 
-#bottomLinkHeader {
-    font-family: "orkneybold";
-    font-size: 14pt;
+.bottomLinkHeader {
+  font-family: "orkneybold";
+  font-size: 14pt;
 }
 
 #copyright {
-    font-family: "orkneyregular";
-    text-align: center;
-    justify-content: center;
-    color: white;
-    background-color: #25221F;
-    padding-bottom: 2.5%;
+  font-family: "orkneyregular";
+  text-align: center;
+  justify-content: center;
+  color: white;
+  background-color: #25221F;
+  padding-bottom: 2.5%;
 }
 
-img{
-    max-width: 490px;
-    width: 45vw;
+img {
+  max-width: 490px;
+  width: 45vw;
 }
 
 .landing-para {
@@ -514,24 +524,24 @@ img{
 }
 
 #socialMedia {
-    text-align: center;
-    justify-content: center;
-    background-color: #25221F;
+  text-align: center;
+  justify-content: center;
+  background-color: #25221F;
 }
 
-#logoImage {
-    margin: 2.5% 0.5%;
-    max-width: 50px;
-    -webkit-transition: opacity 0.25s ease-out;
-    -moz-transition: opacity 0.25s ease-out;
-    -o-transition: opacity 0.25s ease-out;
-    transition: opacity 0.25s ease-out;
+.logoImage {
+  margin: 2.5% 0.5%;
+  max-width: 50px;
+  -webkit-transition: opacity 0.25s ease-out;
+  -moz-transition: opacity 0.25s ease-out;
+  -o-transition: opacity 0.25s ease-out;
+  transition: opacity 0.25s ease-out;
 }
 
-#logoImage:hover {
+.logoImage:hover {
     opacity: 0.50;
 }
 
-#buttonLink {
+.buttonLink {
     text-decoration: none;
 }

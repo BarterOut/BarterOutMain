@@ -116,10 +116,10 @@ class Login extends Component {
             <div>Back to <Link href="/" to="/">Home</Link>.</div>
           </div>
           <div>
+            <button className="inputButtonFilled" onClick={this.login}>Log In</button>
             <Link href="/signup" to="/signup">
               <button className="inputButton">Sign Up</button>
             </Link>
-            <button className="inputButtonFilled" onClick={this.login}>Login</button>
           </div>
           <div className="legal-links-login">
             <Link className="fine-print-login" href="/termsOfService" to="/termsOfService">Terms of Service</Link>

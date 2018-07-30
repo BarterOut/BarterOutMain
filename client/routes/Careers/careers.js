@@ -161,6 +161,25 @@ const Careers = () => (
         </p>
       </div>
     </div>
+
+    <div className="landingPageBottom">
+      <div id="bottomLinksCol1">
+        <div className="bottomLinkHeader">Company</div>
+        <a href="/careers" className="bottomPageLink">Careers</a>
+        <br />
+        <a href="/contact" className="bottomPageLink">Contact</a>
+        <br />
+      </div>
+      <div id="bottomLinksCol2">
+        <div className="bottomLinkHeader">Resources</div>
+        <a href="/termsOfService" className="bottomPageLink">Terms of Service</a>
+        <br />
+        <a href="/privacyPolicy" className="bottomPageLink">Privacy Policy</a>
+      </div>
+    </div>
+    <div id="copyright">
+      © 2018 BarterOut. All Rights Reserved.
+    </div>
   </div>
 );
 

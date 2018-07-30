@@ -43,6 +43,7 @@ import logo from '../images/barterOutProfilePhotoWebPage.png';
 
 import linkedInLogo from '../images/linkedIn.png';
 import facebookLogo from '../images/facebook.png';
+import instagramLogo from '../images/instagram.png';
 
 import './noframework.waypoints.min.js';
 import '../res/jquery-3.3.1.min.js';
@@ -79,13 +80,13 @@ class LandingPage extends Component {
           <div className="photo-bg">
             <nav className="headerBar animated slideInDown">
               <div className="logo">
-                <a href="/" id="buttonLink"><img alt="logo" id="logoPic" src={logoPic} /></a>
+                <a href="/" className="buttonLink"><img alt="logo" id="logoPic" src={logoPic} /></a>
               </div>
               <div className="pageLinks">
-                <a className="productLink" id="landingPageLink" href="#madeSimple">Our Product</a>
-                <a className="missionLink" id="landingPageLink" href="#whatWereAbout">Our Mission</a>
-                <a className="teamLink" id="landingPageLink" href="#teamPage">Our Team</a>
-                <Link id="landingPageLink" className="preRegisterLink" to="/login" href="login">Login</Link>
+                <a className="productLink landingPageLink" href="#madeSimple">Our Product</a>
+                <a className="missionLink landingPageLink" href="#whatWereAbout">Our Mission</a>
+                <a className="teamLink landingPageLink" href="#teamPage">Our Team</a>
+                <Link className="landingPageLink preRegisterLink" to="/login" href="login">Login</Link>
               </div>
             </nav>
             <div className="mainText animated fadeIn" id="mainText">
@@ -94,7 +95,7 @@ class LandingPage extends Component {
                 PEER-TO-PEER <br />
                 SHOPPING
               </h1>
-              <Link to="/signup" href="/signup" id="buttonLink">
+              <Link to="/signup" href="/signup" className="buttonLink">
                 <button className="barterOutButton">JOIN NOW FREE</button>
               </Link>
             </div>
@@ -117,7 +118,7 @@ class LandingPage extends Component {
             </div>
           </div>
           <div className="howItWorks">
-            <div className="howItWorksText animated" id="howItWorksInfo">
+            <div className="howItWorksText animated">
               <h2 className="howItWorksHeader animated">FOR STUDENTS</h2>
               <div className="howItWorksBodyText">
                 <br />
@@ -125,14 +126,15 @@ class LandingPage extends Component {
                     1. <b>Simple &amp; Organized:</b>
                 </div>
                 <p>
-                    Our easy-to-use software is intuitive and will get you to checkout in no time.
+                  Our easy-to-use software is intuitive and will get you to checkout in no time.
                 </p>
                 <br />
                 <div className="steps">
                   2. <b>Affordable:</b>
                 </div>
                 <p>
-                  Save money by buying used textbooks from your peers, earn money by selling the textbooks you don’t need anymore.
+                  Save money by buying used textbooks from your peers,earn money by selling the
+                 textbooks you don’t need anymore.
                 </p>
                 <br />
                 <div className="steps">
@@ -140,6 +142,34 @@ class LandingPage extends Component {
                 </div>
                 <p>
                   Everything happens at on-campus with no shipping necessary.
+                </p>
+              </div>
+            </div>
+            <div className="forUniversitiesText animated">
+              <h2 className="howItWorksHeader animated">FOR UNIVERSITIES</h2>
+              <div className="howItWorksBodyText">
+                <br />
+                <div className="steps">
+                    1. <b>Safe:</b>
+                </div>
+                <p>
+                  Exclusive to the university community.
+                </p>
+                <br />
+                <div className="steps">
+                  2. <b>Sustainable &amp; Efficient:</b>
+                </div>
+                <p>
+                  Helps the students transact used textbooks, better for the students
+                  and better for the environment.
+                </p>
+                <br />
+                <div className="steps">
+                  3. <b>Simple:</b>
+                </div>
+                <p>
+                  Our fast onboarding process and dedicated consultancy team make it easy
+                  for you to start a textbook exchange
                 </p>
               </div>
             </div>
@@ -169,9 +199,9 @@ class LandingPage extends Component {
                   <h2 className="helpingOthersBlockHeader animated">WHILE HELPING OTHERS</h2>
                   <div className="whatWereAboutText">
                     <p>
-                      Every book sold or bought on BarterOut turns into an opportunity for an underprivileged student. We
-                      give back 30% of our profits as free credit on the platform for financially disadvantaged students so
-                      they can get textbooks for FREE.
+                      When books on the BarterOut platform fail to sell, we give the seller the
+                      option to donate the book, helping financially disadvantaged
+                      students in the community.
                     </p>
                   </div>
                 </div>
@@ -183,7 +213,7 @@ class LandingPage extends Component {
               <br />
               <div className="blurbBlock" id="fastCheapEasyBlock">
                 <div className="fastCheapEasyBlock animated">
-                  <h2 className="fastCheapEasyBlockHeader animated">EASY, FAST &ampersand; CHEAP</h2>
+                  <h2 className="fastCheapEasyBlockHeader animated">EASY, FAST &amp; CHEAP</h2>
                   <div className="whatWereAboutText">
                     <p>
                       Because we care about you, we have built an easy-to-use system capable
@@ -199,7 +229,7 @@ class LandingPage extends Component {
               </div>
             </div>
             <div className="blurbBlock">
-              <Link to="/signup" href="/signup" id="buttonLink">
+              <Link to="/signup" href="/signup" className="buttonLink">
                 <button className="barterOutButton animated" id="joinTodayButton" href="/signup">JOIN TODAY</button>
               </Link>
             </div>
@@ -209,7 +239,7 @@ class LandingPage extends Component {
               <h2 className="animated" id="meetOurTeamHeader">MEET OUR TEAM</h2>
               <div className="teamTextTop animated">
                 <br />
-                A company created by students with the help of other students, all to benefit... well... students
+                A company created by students, all to benefit... well... students
               </div>
               <table className="staffPhotos">
                 <tbody>
@@ -219,7 +249,7 @@ class LandingPage extends Component {
                         <a href="https://www.linkedin.com/in/vladcazacu/" rel="noopener noreferrer" target="_blank"><img alt="Team Profile" className="team" src={vlad} /></a>
                         <br />
                         <div className="profileName">Vlad Cazacu</div>
-                        Co-founder &ampersand; CEO
+                        Co-founder &amp; CEO
                       </div>
                     </td>
                     <td>
@@ -229,7 +259,7 @@ class LandingPage extends Component {
                         </a>
                         <br />
                         <div className="profileName">Pavel Stan</div>
-                        Co-founder &ampersand; Director
+                        Co-founder &amp; Director
                         <br />
                         of External Relations
                       </div>
@@ -249,14 +279,14 @@ class LandingPage extends Component {
                         <a href="https://www.linkedin.com/in/duncan-grubbs-01979a14a/" rel="noopener noreferrer" target="_blank"><img alt="Team Profile" className="team" src={duncan} /></a>
                         <br />
                         <div className="profileName">Duncan Grubbs</div>
-                        CTO
+                        Interim CTO
                       </div>
                     </td>
                   </tr>
                   <tr className="animated" id="rowTwo">
                     <td>
                       <div className="profile">
-                        <img alt="Team Profile" id="staff" src={daniel} />
+                        <img alt="Team Profile" className="staff" src={daniel} />
                         <br />
                         <div className="profileName">Daniel Munoz</div>
                         Full-Stack Developer
@@ -306,7 +336,7 @@ class LandingPage extends Component {
                     </td>
                     <td>
                       <div className="profile">
-                        <img alt="Team Profile" id="staff" src={logo} />
+                        <img alt="Team Profile" className="staff" src={logo} />
                         <br />
                         <div className="profileName">Tristan De Lange</div>
                         Frontend Developer
@@ -323,7 +353,7 @@ class LandingPage extends Component {
                     </td>
                     <td>
                       <div className="profile">
-                        <img alt="Team Profile" id="staff" src={zacqueline} />
+                        <img alt="Team Profile" className="staff" src={zacqueline} />
                         <br />
                         <div className="profileName">Zacqueline Baldwin (ZQ)</div>
                         Marketing Intern
@@ -336,7 +366,7 @@ class LandingPage extends Component {
                 <br />
                 Interested in working with us?
                 <br />
-                <a id="buttonLink" href="/careers"><button className="barterOutButton animated" id="applyButtonOne">Apply Now</button></a>
+                <a className="buttonLink" href="/careers"><button className="barterOutButton animated" id="applyButtonOne">Apply Now</button></a>
               </div>
             </div>
             <br />
@@ -368,7 +398,7 @@ class LandingPage extends Component {
                   <br />
                   Interested in helping us grow?
                   <br />
-                  <a id="buttonLink" href="https://goo.gl/forms/tAXa5huk9hAcaNSH2" rel="noopener noreferrer" target="_blank">
+                  <a className="buttonLink" href="https://goo.gl/forms/tAXa5huk9hAcaNSH2" rel="noopener noreferrer" target="_blank">
                     <button className="barterOutButton animated" id="applyButtonTwo">Apply Now</button>
                   </a>
                 </div>
@@ -377,25 +407,28 @@ class LandingPage extends Component {
           </div>
           <div className="landingPageBottom">
             <div id="bottomLinksCol1">
-              <div id="bottomLinkHeader">Company</div>
-              <a href="/careers" id="bottomPageLink">Careers</a>
+              <div className="bottomLinkHeader">Company</div>
+              <a href="/careers" className="bottomPageLink">Careers</a>
               <br />
-              <a href="/contact" id="bottomPageLink">Contact</a>
+              <a href="/contact" className="bottomPageLink">Contact</a>
               <br />
             </div>
             <div id="bottomLinksCol2">
-              <div id="bottomLinkHeader">Legal</div>
-              <a href="/termsOfService" id="bottomPageLink">Terms of Service</a>
+              <div className="bottomLinkHeader">Resources</div>
+              <a href="/termsOfService" className="bottomPageLink">Terms of Service</a>
               <br />
-              <a href="/privacyPolicy" id="bottomPageLink">Privacy Policy</a>
+              <a href="/privacyPolicy" className="bottomPageLink">Privacy Policy</a>
             </div>
           </div>
           <div id="socialMedia">
             <a href="https://www.linkedin.com/company/18490388/" rel="noopener noreferrer" target="_blank">
-              <img alt="logo" id="logoImage" src={linkedInLogo} />
+              <img alt="logo" className="logoImage" src={linkedInLogo} />
             </a>
             <a href="https://www.facebook.com/BarterOut/" rel="noopener noreferrer" target="_blank">
-              <img alt="facebook logo" id="logoImage" src={facebookLogo} />
+              <img alt="facebook logo" className="logoImage" src={facebookLogo} />
+            </a>
+            <a href="https://www.instagram.com/barteroutofficial/" rel="noopener noreferrer" target="_blank">
+              <img alt="instagram logo" className="logoImage" src={instagramLogo} />
             </a>
           </div>
           <div id="copyright">
