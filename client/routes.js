@@ -36,9 +36,9 @@ const HomePage = ({ component: Component, rest }) => {
     <Route
       {...rest}
       render={(props) => 
-        auth.loggedIn()
+        false
         ? <Component {...props} />
-        : <Redirect to={{pathname: '/login'}}
+        : <Redirect to={{pathname: '/'}}
       />}
     />
   );
@@ -50,9 +50,9 @@ const BuyPage = ({ component: Component, rest }) => {
     <Route
       {...rest}
       render={(props) => 
-        auth.loggedIn()
+        false
         ? <Component {...props} />
-        : <Redirect to={{pathname: '/login'}}
+        : <Redirect to={{pathname: '/'}}
       />}
     />
   );
@@ -64,9 +64,9 @@ const SellPage = ({ component: Component, rest }) => {
     <Route
       {...rest}
       render={(props) => 
-        auth.loggedIn()
+        false
         ? <Component {...props} />
-        : <Redirect to={{pathname: '/login'}}
+        : <Redirect to={{pathname: '/'}}
       />}
     />
   );
@@ -78,9 +78,9 @@ const SettingsPage = ({ component: Component, rest }) => {
     <Route
       {...rest}
       render={(props) => 
-        auth.loggedIn()
+        false
         ? <Component {...props} />
-        : <Redirect to={{pathname: '/login'}}
+        : <Redirect to={{pathname: '/'}}
       />}
     />
   );
@@ -92,9 +92,9 @@ const TrackPage = ({ component: Component, rest }) => {
     <Route
       {...rest}
       render={(props) => 
-        auth.loggedIn()
+        false
         ? <Component {...props} />
-        : <Redirect to={{pathname: '/login'}}
+        : <Redirect to={{pathname: '/'}}
       />}
     />
   );
@@ -106,9 +106,9 @@ const HelpPage = ({ component: Component, rest }) => {
     <Route
       {...rest}
       render={(props) => 
-        auth.loggedIn()
+        false
         ? <Component {...props} />
-        : <Redirect to={{pathname: '/login'}}
+        : <Redirect to={{pathname: '/'}}
       />}
     />
   );
@@ -120,9 +120,37 @@ const CartPage = ({ component: Component, rest }) => {
     <Route
       {...rest}
       render={(props) => 
-        auth.loggedIn()
+        false
         ? <Component {...props} />
-        : <Redirect to={{pathname: '/login'}}
+        : <Redirect to={{pathname: '/'}}
+      />}
+    />
+  );
+};
+
+const SignUpPage = ({ component: Component, rest }) => {
+  const auth = new AuthService();
+  return (
+    <Route
+      {...rest}
+      render={(props) => 
+        false
+        ? <Component {...props} />
+        : <Redirect to={{pathname: '/'}}
+      />}
+    />
+  );
+};
+
+const LoginPage = ({ component: Component, rest }) => {
+  const auth = new AuthService();
+  return (
+    <Route
+      {...rest}
+      render={(props) => 
+        false
+        ? <Component {...props} />
+        : <Redirect to={{pathname: '/'}}
       />}
     />
   );
@@ -136,8 +164,8 @@ export default (
     <Route exact path="/contact" component={Contact} />
     <Route exact path="/careers" component={Careers} />
     <HomePage exact path="/home" component={Home} />
-    <Route exact path="/login" component={Login} />
-    <Route exact path="/signup" component={SignUp} />
+    <LoginPage exact path="/login" component={Login} />
+    <SignUpPage exact path="/signup" component={SignUp} />
     <BuyPage exact path="/buy" component={Buy} />
     <SellPage exact path="/sell" component={Sell} />
     <TrackPage exact path="/track" component={Track} />
