@@ -135,8 +135,8 @@ class Buy extends Component {
             </div>
             {this.state.displaySearch && <Search query={this.state.query} />}
             <p className="searchInfo">
-              You can search for Book Name, Edition, or Class. * Note
-              that the class must be in the same format as on the book posting,
+              You can search for books by title, edition, or course code. *Note
+              that the course code must be in the same format as on the book posting,
               (e.g. MTH 101, WRT 105, etc).
             </p>
             <div className="title--page-section-wrapper">
@@ -179,8 +179,8 @@ class Buy extends Component {
             </div>
             <div>
               <h3>
-                The book you are looking for is not here yet? <br />
-                Request it below and we will let you know when someone posted it.
+                Don&apos;t see the book you are looking for? <br />
+                Request it below and we will let you know when someone posts it.
               </h3>
               <button className="button" onClick={this.handleOpenModal}>Request a book</button>
             </div>

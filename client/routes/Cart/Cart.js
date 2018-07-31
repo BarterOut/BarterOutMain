@@ -64,8 +64,8 @@ class Cart extends Component {
 
     return {
       subtotal,
-      fee,
-      total: subtotal + fee,
+      fee: fee.toFixed(2),
+      total: (subtotal + fee).toFixed(2),
     };
   }
 

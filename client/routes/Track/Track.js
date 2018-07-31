@@ -36,7 +36,6 @@ class Track extends Component {
     FetchService.GET(`/api/user/getRequests/${this.auth.getToken()}`)
       .then(response => response.json())
       .then((data) => {
-        console.log(data);
         this.setState({ booksRequested: data });
       });
   }
@@ -104,7 +103,7 @@ class Track extends Component {
             </div>
 
             <div className="title--page-section-wrapper">
-              <h2 className="title-text--page-section-header">Requested for Matching</h2>
+              <h2 className="title-text--page-section-header">Requested</h2>
             </div>
             <div className="page-section-wrapper">
               {this.state.booksRequested.map(post => (
