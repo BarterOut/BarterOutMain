@@ -92,7 +92,7 @@ class Buy extends Component {
         this.setState({ loading: false });
         this.setState({ posts: data });
       })
-      .catch(err => console.warn(err));
+      .catch(err => console.error(err));
   }
 
   render() {
@@ -129,9 +129,12 @@ class Buy extends Component {
             </div>
             <p className="searchInfo">
               You can search for Book Name, Edition, or Class. * Note
-              that the class must be in the same format as on the book posting, (e.g. MTH 101, WRT 105, etc).
+              that the class must be in the same format as on the book posting,
+              (e.g. MTH 101, WRT 105, etc).
             </p>
-            <div className="title--page-section-wrapper"><h2 className="title-text--page-section-header">Your Matches</h2></div>
+            <div className="title--page-section-wrapper">
+              <h2 className="title-text--page-section-header">Your Matches</h2>
+            </div>
             <div className="page-section-wrapper">
               {matches.map(post => (
                 <BookPost

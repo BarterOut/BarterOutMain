@@ -51,7 +51,8 @@ nev.configure({
       clientSecret: '5OTf_iLhmt0tjJCKIdnuC5XM',
     },
   },
-  verifyMailOptions: { // This won't actually be used but it is necessary for the package to work. the
+  verifyMailOptions: {
+    // This won't actually be used but it is necessary for the package to work. the
     from: '"Barter Out" <office@barterout.com',
     subject: 'Please confirm account',
     html: '<p>Please verify your account by clicking <a href="${URL}">this link</a>. If you are unable to do so, copy and ' +
@@ -69,22 +70,21 @@ nev.configure({
 
 }, (error, options) => {
   if (error) {
-    console.log(error);
+    console.error(error);
   }
 });
 
 // Creating the temp user
 nev.generateTempUserModel(User, (err) => {
   if (err) {
-    console.log(err);
+    console.error(err);
   }
 });
 
 // Needs functionality for this. Unsure if it will be used.
-router.post('/resendEmailVerification', (req, res) => {
-  const email = req.emailAddress;
-  console.log(email);
-});
+// router.post('/resendEmailVerification', (req, res) => {
+//   const email = req.emailAddress;
+// });
 
 router.get('/email-verification/:URL', (req, res) => {
   const url = req.params.URL;
@@ -110,16 +110,14 @@ router.get('/email-verification/:URL', (req, res) => {
         .then(() => {
           // Verified the user
           sendEmail(emails.signedUpEmail(newUser.emailAddress, newUser.firstName));
-          TempUser.remove({ emailToken: url }, (err, output) => {
+          TempUser.remove({ emailToken: url }, (err) => {
             if (err) {
-              console.error(`An error occured:  ${err}`);
+              console.error(`An error occured: ${err}`);
             }
-            console.log(output);
           });
           res.redirect('/emailConfirmed');
         });
     } else {
-      console.log('user data probabbly expired, send some sort of msg');
       res.redirect('/signup');
     }
   });
@@ -144,12 +142,9 @@ router.get('/email-verification/:URL', (req, res) => {
 const jwt = require('jsonwebtoken');
 
 function sendEmail(mailOptions) {
-  console.info('Send the email!');
   transporter.sendMail(mailOptions, (err, info) => {
     if (err) {
-      console.log(err);
-    } else {
-      console.log(info);
+      console.error(err);
     }
   });
 }
@@ -174,19 +169,18 @@ router.post('/signup', (req, res) => {
     university,
   } = req.body.data;
 
-  User.findOne({ emailAddress }, (err, user) => {
-    if (err) {
-      console.log(`User.js post error: ${err}`);
+  User.findOne({ emailAddress }, (error, user) => {
+    if (error) {
+      console.log(`User.js post error: ${error}`);
     } else if (user) {
       res.sendStatus(409);
     } else {
-      TempUser.findOne({ emailAddress }, (er, existingUser) => {
-        if (err) {
-          console.error(`tempUser.js post error: ${er}`);
+      TempUser.findOne({ emailAddress }, (error, existingUser) => {
+        if (error) {
+          console.error(`tempUser.js post error: ${error}`);
         } else if (existingUser) {
           res.sendStatus(409);
         } else {
-          console.log(`Making a temp user from ${university}`);
           const emailToken = rand.generate(48);
           const newUser = new TempUser({
             emailAddress,
@@ -202,7 +196,6 @@ router.post('/signup', (req, res) => {
           });
           newUser.save()
             .then(() => {
-              console.info('temp user was saved to DB');
               const URL = newUser.emailToken;
               sendEmail(emails.verifyEmail(emailAddress, firstName, URL));
               res.sendStatus(201);
@@ -314,7 +307,6 @@ router.post('/updatePassword', (req, res) => {
           return;
         }
         if (!user) {
-          console.log('error in the finding of the user');
           res.status(401).send({ error: 'You need to create an account.' });
           return;
         }
@@ -334,7 +326,7 @@ router.post('/updatePassword', (req, res) => {
               },
           },
           (error) => {
-            console.log(`Error: ${error}`);
+            console.error(`Error: ${error}`);
           },
         );
         res.sendStatus(200);
@@ -361,7 +353,6 @@ router.post('/passwordResetRequest', (req, res) => {
       });
       sendEmail(emails.passwordResetEmail(user.emailAddress, user.firstName, user.resetPasswordToken));
     } else {
-      console.log(`no such user found with email: ${email}`);
       res.status(406).send({ error: 'no user found' });
     }
   });

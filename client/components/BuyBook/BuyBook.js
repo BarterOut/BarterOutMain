@@ -9,7 +9,6 @@ import React, { Component } from 'react';
 import FetchService from '../../services/FetchService';
 import AuthService from '../../services/AuthService';
 
-import './BuyBook.css';
 import '../../baseStyles.css';
 
 class BuyBook extends Component {

@@ -47,8 +47,6 @@ router.post('/addToCart', (req, res) => {
           $addToSet: {
             cart: { $each: arr },
           },
-        }, (error) => {
-          console.error(`Error: ${error}`);
         },
       );
     }
@@ -80,8 +78,6 @@ router.post('/removeFromCart', (req, res) => {
               {
                 cart: user.cart,
               },
-          }, (error) => {
-            console.log(`Error: ${error}`);
           },
         );
         res.sendStatus(200);
@@ -110,8 +106,6 @@ router.post('/clearCart', (req, res) => {
             {
               cart: [],
             },
-        }, (error) => {
-          console.log(`Error: ${error}`);
         },
       );
       res.sendStatus(200);
@@ -197,9 +191,8 @@ router.get('/getUserStatistics/:token', (req, res) => {
 });
 
 router.get('/getUserData/:token', (req, res) => {
-  jwt.verify(req.params.token, 'secretKey', (err, authData) => {
-    if (err) {
-      console.error(err);
+  jwt.verify(req.params.token, 'secretKey', (error, authData) => {
+    if (error) {
       res.sendStatus(400);
     } else {
       User.findOne({ _id: authData.userInfo._id }, (error, user) => {
