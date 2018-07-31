@@ -18,6 +18,7 @@ import '../res/sylesheetOrkneyRegular.css';
 import '../res/sylesheetOrkneyLight.css';
 import '../res/sylesheetOrkneyMedium.css';
 import '../res/sylesheetOrkneyBold.css';
+// import '../res/animate.css';
 
 import logoPic from '../images/barterOutOrangeWhiteLogoHeader.png';
 
@@ -85,7 +86,7 @@ class LandingPage extends Component {
                 <a className="productLink landingPageLink" href="#madeSimple">Our Product</a>
                 <a className="missionLink landingPageLink" href="#whatWereAbout">Our Mission</a>
                 <a className="teamLink landingPageLink" href="#teamPage">Our Team</a>
-                {/* <Link className="landingPageLink preRegisterLink" to="/login" href="login">Login</Link> */}
+                <Link className="landingPageLink preRegisterLink" to="/login" href="login">Login</Link>
               </div>
             </nav>
             <div className="mainText animated fadeIn" id="mainText">
@@ -95,7 +96,7 @@ class LandingPage extends Component {
                 SHOPPING
               </h1>
               <Link to="/signup" href="/signup" className="buttonLink">
-                <button className="barterOutButton">COMING SOON</button>
+                <button className="barterOutButton">JOIN NOW FREE</button>
               </Link>
             </div>
           </div>
@@ -229,7 +230,7 @@ class LandingPage extends Component {
             </div>
             <div className="blurbBlock">
               <Link to="/signup" href="/signup" className="buttonLink">
-                <button className="barterOutButton animated" id="joinTodayButton" href="/signup">COMING SOON</button>
+                <button className="barterOutButton animated" id="joinTodayButton" href="/signup">JOIN TODAY</button>
               </Link>
             </div>
           </div>
