@@ -51,7 +51,6 @@ class Search extends Component {
       .catch(err => console.error(err));
   }
 
-
   render() {
     return (
       <div className="search-results-wrapper">

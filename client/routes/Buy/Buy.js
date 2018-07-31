@@ -36,11 +36,11 @@ class Buy extends Component {
     this.handleCloseModal = this.handleCloseModal.bind(this);
     this.updateInputValue = this.updateInputValue.bind(this);
     this.animateSearch = this.animateSearch.bind(this);
+    this.auth = new AuthService();
   }
 
   componentWillMount() {
-    const auth = new AuthService();
-    const token = auth.getToken();
+    const token = this.auth.getToken();
 
     FetchService.GET(`/api/books/getAllBooks/${token}`)
       .then(response => response.json())
@@ -64,7 +64,7 @@ class Buy extends Component {
   }
 
   updateInputValue(evt) {
-    this.setState({ query: evt.target.value });
+    this.search(evt.target.value);
   }
 
   handleOpenModal() {
@@ -76,7 +76,30 @@ class Buy extends Component {
   }
 
   animateSearch() {
-    this.setState({ displaySearch: !this.state.displaySearch });
+    // this.setState({ displaySearch: !this.state.displaySearch });
+  }
+
+  search(query) {
+    this.setState({ loading: true });
+    this.setState({ posts: [] });
+    if (query === '') {
+      FetchService.GET(`/api/books/getAllBooks/${this.auth.getToken()}`)
+        .then(response => response.json())
+        .then((data) => {
+          this.setState({ loading: false });
+          this.setState({ posts: data });
+        })
+        .catch(err => console.warn(err));
+      return;
+    }
+
+    FetchService.GET(`/api/books/search/${query}/${this.auth.getToken()}`)
+      .then(response => response.json())
+      .then((data) => {
+        this.setState({ loading: false });
+        this.setState({ posts: data });
+      })
+      .catch(err => console.error(err));
   }
 
   render() {
@@ -115,7 +138,6 @@ class Buy extends Component {
               that the class must be in the same format as on the book posting,
               (e.g. MTH 101, WRT 105, etc).
             </p>
-            <button className="button" onClick={this.handleOpenModal}>Modal</button>
             <div className="title--page-section-wrapper">
               <h2 className="title-text--page-section-header">Your Matches</h2>
             </div>
@@ -151,6 +173,13 @@ class Buy extends Component {
                   comments={post.comments}
                 />
               ))}
+            </div>
+            <div>
+              <h3>
+                The book you are looking for is not here yet? <br />
+                Request it below and we will let you know when someone posted it.
+              </h3>
+              <button className="button" onClick={this.handleOpenModal}>Request a book</button>
             </div>
             <ReactModal
               className="modal"

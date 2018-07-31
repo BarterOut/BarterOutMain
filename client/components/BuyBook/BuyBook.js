@@ -18,6 +18,10 @@ class BuyBook extends Component {
       name: String,
       course: String,
     };
+
+    this.onChange = this.onChange.bind(this);
+    this.postToDatabase = this.postToDatabase.bind(this);
+    this.formSubmit = this.formSubmit.bind(this);
   }
 
   onChange(evt) {
@@ -62,40 +66,37 @@ class BuyBook extends Component {
   render() {
     return (
       <div className="wrapper-custom">
-        <div className="modalContent">
-          <h2>What are you looking for?</h2>
-          <form className="input-wrapper" onSubmit={this.formSubmit.bind(this)}>
-            <span className="inputLabelHome">Title of Book *</span>
-            <input
-              autoComplete="off"
-              className="formInput"
-              placeholder="e.g. Intro to Probability"
-              type="text"
-              name="name"
-              onChange={this.onChange.bind(this)}
-              required
-            />
-            <span className="inputLabelHome">Course *</span>
-            <input
-              autoComplete="off"
-              className="formInput"
-              placeholder="e.g. MTH 101"
-              type="text"
-              pattern="^[A-Z]{3} \d{3}$"
-              name="course"
-              onChange={this.onChange.bind(this)}
-              required
-            />
-            <div>
-              <a className="cancel" href="/home" onClick={this.cancel.bind(this)}>Cancel</a>
-              <button
-                className="button"
-                onClick={this.postToDatabase.bind(this)}
-              >Submit
-              </button>
-            </div>
-          </form>
-        </div>
+        <h2>What are you looking for?</h2>
+        <form className="input-wrapper" onSubmit={this.formSubmit}>
+          <span className="inputLabelHome">Title of Book *</span>
+          <input
+            autoComplete="off"
+            className="formInput"
+            placeholder="e.g. Intro to Probability"
+            type="text"
+            name="name"
+            onChange={this.onChange}
+            required
+          />
+          <span className="inputLabelHome">Course Code *</span>
+          <input
+            autoComplete="off"
+            className="formInput"
+            placeholder="e.g. MTH 101"
+            type="text"
+            pattern="^[A-Z]{3} \d{3}$"
+            name="course"
+            onChange={this.onChange}
+            required
+          />
+          <div>
+            <button
+              className="button"
+              onClick={this.postToDatabase}
+            >Request
+            </button>
+          </div>
+        </form>
       </div>
     );
   }
