@@ -41,13 +41,7 @@ class Buy extends Component {
 
   componentWillMount() {
     const token = this.auth.getToken();
-
-    FetchService.GET(`/api/books/getAllBooks/${token}`)
-      .then(response => response.json())
-      .then((data) => {
-        console.log(data);
-        this._setPosts(data);
-      });
+    this.getBooks();
 
     FetchService.GET(`/api/books/getUserMatches/${token}`)
       .then(response => response.json())
@@ -56,8 +50,14 @@ class Buy extends Component {
       });
   }
 
-  _setPosts(data) {
-    this.setState({ posts: data });
+  getBooks() {
+    this.setState({ loading: true });
+    FetchService.GET(`/api/books/getAllBooks/${this.auth.getToken()}`)
+      .then(response => response.json())
+      .then((data) => {
+        this.setState({ loading: false });
+        this.setState({ posts: data });
+      });
   }
 
   _setMatches(data) {

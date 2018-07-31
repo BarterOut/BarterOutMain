@@ -7,7 +7,6 @@
  * @version 0.0.2
  */
 
-// TODO: Make sure all methods send a response.
 // TODO: Comment all code.
 
 import Express from 'express';
@@ -29,17 +28,18 @@ import kittens from './kittens/kitten';
 // PASSPORT
 const passport = require('./passport');
 
-// TODO: Fix auto-https redirect.
 const sslRedirect = require('heroku-ssl-redirect');
 
-
-// Auth ROUTE
+// Auth Route
 const auth = require('./routes/auth');
-// User Route
 
+// User Route
 const user = require('./routes/user');
 
+// Books Route
 const booksRoute = require('./routes/books');
+
+// Dashboard Route
 const dashboard = require('./routes/dashboard');
 
 const PORT = serverConfig.port;
@@ -76,14 +76,6 @@ function forceSsl(req, res, next) {
 if (ENV === 'production') {
   app.use(forceSsl);
 }
-
-app.get('/api/dummyGet', (req, res) => {
-  res.send({ dummy: 'Data' });
-});
-
-app.post('/api/dummyPost', (req, res) => {
-  res.send({ dummy: 'Data' });
-});
 
 app.use(passport.initialize());
 app.use(passport.session()); // calls serializeUser and deserializeUser
