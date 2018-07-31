@@ -17,24 +17,31 @@ class BookPost extends Component {
     super(props);
 
     this.state = {
-      id: '',
+      inCart: false,
     };
+
+    this.addToCart = this.addToCart.bind(this);
   }
 
   componentDidMount() {
-    this._setID();
+    if (this.props.status === 3) {
+      this._setInCart();
+    }
   }
 
-  _setID() {
-    this.setState({ id: this.props.id });
+  _setInCart() {
+    this.setState({ inCart: true });
   }
 
   addToCart() {
     const AUTH = new AuthService();
     FetchService.POST('/api/user/addToCart', {
       token: AUTH.getToken(),
-      bookID: this.state.id,
-    });
+      bookID: this.props.id,
+    })
+      .then(() => {
+        this.setState({ inCart: true });
+      });
   }
 
   render() {
@@ -54,11 +61,21 @@ class BookPost extends Component {
           <span className="comments"><i>{this.props.comments || 'No comments'}</i></span>
         </div>
         <div className="rightBP">
-          <button
-            className="button"
-            onClick={this.addToCart.bind(this)}
-          >Add to Cart
-          </button>
+          {
+            !this.state.inCart &&
+            <button
+              className="button"
+              onClick={this.addToCart}
+            >Add to Cart
+            </button>
+          }
+          {
+            this.state.inCart &&
+            <button
+              className="button green"
+            >Added to Cart
+            </button>
+          }
         </div>
       </div>
     );
@@ -73,6 +90,7 @@ BookPost.propTypes = {
   id: propTypes.string.isRequired,
   name: propTypes.string.isRequired,
   price: propTypes.number.isRequired,
+  status: propTypes.number.isRequired,
   subject: propTypes.string.isRequired,
 };
 

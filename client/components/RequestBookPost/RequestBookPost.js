@@ -17,6 +17,8 @@ class RequestBookPost extends Component {
     this.state = {
       id: '',
     };
+
+    this.deleteBook = this.deleteBook.bind(this);
   }
 
   componentDidMount() {
@@ -44,20 +46,13 @@ class RequestBookPost extends Component {
         <div className="leftBP">
           <span className="bookSubject">{this.props.subject}</span>
           <span className="bookName">{this.props.name}</span>
-          <span className="bookEdition">Edition: {this.props.edition}</span>
         </div>
         <div id="vertical-line" />
-        <div className="leftBP">
-          <div>
-            <span className="condition">{this.props.condition}</span>
-             for <span className="price">${this.props.price}</span>
-          </div>
-          <span className="comments"><i>{this.props.comments || 'No comments'}</i></span>
-        </div>
+        <div className="leftBP" />
         <div className="rightBP">
           <button
             className="button"
-            onClick={this.deleteBook.bind(this)}
+            onClick={this.deleteBook}
           >Remove
           </button>
         </div>
@@ -68,12 +63,8 @@ class RequestBookPost extends Component {
 
 // Props validation
 RequestBookPost.propTypes = {
-  comments: propTypes.string,
-  condition: propTypes.string,
-  edition: propTypes.number,
   id: propTypes.string.isRequired,
   name: propTypes.string.isRequired,
-  price: propTypes.number,
   subject: propTypes.string.isRequired,
 };
 

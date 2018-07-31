@@ -47,6 +47,11 @@ function sortBooksReverseCronological(bookJSONArray) {
   return bookJSONArray;
 }
 
+function isInUsersCart(bookID, userID) {
+  
+  return true;
+}
+
 /**
  * Called when a user posts a book they want to sell.
  * @param {Object} req Request body from client.
@@ -497,7 +502,16 @@ router.get('/getAllBooks/:token', (req, res) => {
               { status: 0 },
               { owner: { $ne: authData.userInfo._id } }],
           }, (err, books) => {
-            res.json(sortBooksReverseCronological(books));
+            User.findById(authData.userInfo._id, (err, user) => {
+              for (let i = 0; i < books.length; i++) {
+                for (let x = 0; x < user.cart.length; x++) {
+                  if (books[i]._id == user.cart[x]) {
+                    books[i].status = 3;
+                  }
+                }
+              }
+              res.status(200).json(sortBooksReverseCronological(books));
+            });
           });
         }
       });

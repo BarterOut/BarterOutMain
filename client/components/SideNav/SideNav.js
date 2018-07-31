@@ -62,7 +62,7 @@ class SideNav extends Component {
           </div>
         </div>
         <div id="profile-wrapper">
-          <Link to="/home" href="home" id="profile-photo-link">
+          <Link to="/settings" href="/settings" id="profile-photo-link">
             <img src={profile} alt="profile" id="profile-pic" />
           </Link>
           <div id="name">

@@ -45,6 +45,7 @@ class Buy extends Component {
     FetchService.GET(`/api/books/getAllBooks/${token}`)
       .then(response => response.json())
       .then((data) => {
+        console.log(data);
         this._setPosts(data);
       });
 
@@ -150,6 +151,7 @@ class Buy extends Component {
                   subject={post.course}
                   edition={post.edition}
                   price={post.price}
+                  status={post.inCart}
                   condition={post.condition}
                   comments={post.comments}
                 />
@@ -168,6 +170,7 @@ class Buy extends Component {
                   name={post.name}
                   subject={post.course}
                   edition={post.edition}
+                  status={post.status}
                   price={post.price}
                   condition={post.condition}
                   comments={post.comments}

@@ -17,6 +17,8 @@ class CartBookPost extends Component {
     this.state = {
       id: '',
     };
+
+    this.removeFromCart = this.removeFromCart.bind(this);
   }
 
   componentDidMount() {
@@ -28,7 +30,6 @@ class CartBookPost extends Component {
   }
 
   removeFromCart() {
-    console.log('remove from the cart')
     const AUTH = new AuthService();
     FetchService.POST('/api/user/removeFromCart', {
       bookID: this.state.id,
@@ -58,7 +59,7 @@ class CartBookPost extends Component {
         <div className="rightBP">
           <button
             className="button"
-            onClick={this.removeFromCart.bind(this)}
+            onClick={this.removeFromCart}
           >Remove
           </button>
         </div>

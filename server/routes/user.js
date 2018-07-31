@@ -79,13 +79,17 @@ router.post('/addToCart', (req, res) => {
     if (error) {
       res.sendStatus(401);
     } else {
-      const arr = [req.body.data.bookID];
       User.update(
         { _id: authData.userInfo._id },
         {
-          $addToSet: {
-            cart: { $each: arr },
+          $push: {
+            cart: {
+              $each: [req.body.data.bookID],
+              $position: 0,
+            },
           },
+        }, (error) => {
+          console.error(`Error: ${error}`);
         },
       );
     }
@@ -117,9 +121,10 @@ router.post('/removeFromCart', (req, res) => {
               {
                 cart: user.cart,
               },
+          }, (err, raw) => {
+            res.sendStatus(200);
           },
         );
-        res.sendStatus(200);
       });
     }
   });

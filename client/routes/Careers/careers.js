@@ -33,7 +33,7 @@ const Careers = () => (
         </b>
         <p className="careers-text">Rochester, NY</p>
         <b>
-          <p className="careers-text">Duties & Responsibilities</p>
+          <p className="careers-text">Duties &amp; Responsibilities</p>
         </b>
         <div className="careers-text">
           <ol>
@@ -62,7 +62,7 @@ const Careers = () => (
         </b>
         <p className="careers-text">Rochester, NY</p>
         <b>
-          <p className="careers-text">Duties & Responsibilities</p>
+          <p className="careers-text">Duties &amp; Responsibilities</p>
         </b>
         <div className="careers-text">
           <ol>
@@ -83,14 +83,14 @@ const Careers = () => (
           <p className="careers-text">Role</p>
         </b>
         <p className="careers-text">
-          Are you passionate about modern UI/UX design and have experience using design tools? Do you want to work for a startup whose aim is to make students&apos; lives easier? If so, fill out <a rel="noopener noreferrer" target="_blank" href="https://google.com">this form.</a>
+          Are you passionate about modern UI/UX design and have experience using design tools? Do you want to work for a startup whose aim is to make students&apos; lives easier? If so, fill out <a rel="noopener noreferrer" target="_blank" href="https://goo.gl/forms/TmJZPoOI2Y8EIVAs2">this form.</a>
         </p>
         <b>
           <p className="careers-text">Location</p>
         </b>
         <p className="careers-text">Rochester, NY</p>
         <b>
-          <p className="careers-text">Duties & Responsibilities</p>
+          <p className="careers-text">Duties &amp; Responsibilities</p>
         </b>
         <p className="careers-text">Design the client and admin end of our website in both desktop and mobile versions. <br />
           Design the mobile applications for our services. <br />
@@ -107,14 +107,14 @@ const Careers = () => (
           <p className="careers-text">Role</p>
         </b>
         <p className="careers-text">
-          Are you passionate about and have experience with mobile development on iOS? Willing to work in a fast paced, agile environment? Do you want to work for a startup whose aim is to make students&apos; lives easier? If so, fill out <a rel="noopener noreferrer" target="_blank" href="need to create link">this form.</a>
+          Are you passionate about and have experience with mobile development on iOS? Willing to work in a fast paced, agile environment? Do you want to work for a startup whose aim is to make students&apos; lives easier? If so, fill out <a rel="noopener noreferrer" target="_blank" href="https://goo.gl/forms/xgxmPJFRerqP2kdd2">this form.</a>
         </p>
         <b>
           <p className="careers-text">Location</p>
         </b>
         <p className="careers-text">Rochester, NY</p>
         <b>
-          <p className="careers-text">Duties & Responsibilities</p>
+          <p className="careers-text">Duties &amp; Responsibilities</p>
         </b>
         <div className="careers-text">
           <ol>
@@ -136,14 +136,14 @@ const Careers = () => (
           <p className="careers-text">Role</p>
         </b>
         <p className="careers-text">
-          Are you passionate about and have experience with mobile development on Android? Willing to work in a fast paced, agile environment? Do you want to work for a startup whose aim is to make students&apos; lives easier? If so, fill out <a rel="noopener noreferrer" target="_blank" href="need to create link">this form.</a>
+          Are you passionate about and have experience with mobile development on Android? Willing to work in a fast paced, agile environment? Do you want to work for a startup whose aim is to make students&apos; lives easier? If so, fill out <a rel="noopener noreferrer" target="_blank" href="https://goo.gl/forms/Jxyci6YMknB2r9QA3">this form.</a>
         </p>
         <b>
           <p className="careers-text">Location</p>
         </b>
         <p className="careers-text">Rochester, NY</p>
         <b>
-          <p className="careers-text">Duties & Responsibilities</p>
+          <p className="careers-text">Duties &amp; Responsibilities</p>
         </b>
         <div className="careers-text">
           <ol>
