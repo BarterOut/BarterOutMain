@@ -2,7 +2,7 @@
  * @file React component for editing a password.
  * @author Duncan Grubbs <duncan.grubbs@gmail.com>
  * @author Daniel Munoz
- * @version 0.0.2
+ * @version 0.0.3
  */
 
 import React, { Component } from 'react';
