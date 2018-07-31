@@ -1,4 +1,4 @@
-var webpack = require('webpack');
+const webpack = require('webpack');
 const { resolve } = require('path');
 
 module.exports = {
@@ -48,10 +48,10 @@ module.exports = {
           {
             loader: 'url-loader',
             options: {
-              limit: 8192
-            }
-          }
-        ]
+              limit: 8192,
+            },
+          },
+        ],
       },
     ],
   },
@@ -59,12 +59,12 @@ module.exports = {
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
     new webpack.ProvidePlugin({
-        $: 'jquery',
-        jQuery: 'jquery',
-        'window.jQuery': 'jquery',
-        Popper: ['popper.js', 'default']
-      })
+      $: 'jquery',
+      jQuery: 'jquery',
+      'window.jQuery': 'jquery',
+      Popper: ['popper.js', 'default'],
+    }),
   ],
 };
 
-console.log(resolve(__dirname, 'server'))
+console.log(resolve(__dirname, 'server'));

@@ -1,0 +1,128 @@
+.inputs {
+  display: flex;
+  flex-direction: column;
+  width: 30%;
+}
+
+.inputButtonFilled {
+  white-space: nowrap;
+  display: inline-block;
+  line-height: 40px;
+  max-width: 160px;
+  padding: 4px 16px;
+  border: none;
+  border-radius: 4px;
+  font-size: 1.4em;
+  font-weight: 600;
+  letter-spacing: .025em;
+  color: #FFF;
+  background: #41397c;
+  text-decoration: none;
+  transition: all 0.15s ease;
+  margin: 8px;
+}
+
+.inputButtonFilled:hover {
+  -webkit-box-shadow: 0 4px 6px rgba(50,50,93,.11), 0 1px 3px rgba(0,0,0,.08);
+  box-shadow: 0 4px 6px rgba(50,50,93,.11), 0 1px 3px rgba(0,0,0,.08);
+}
+
+.inputButton {
+  white-space: nowrap;
+  display: inline-block;
+  line-height: 40px;
+  max-width: 160px;
+  padding: 4px 16px;
+  border: 2px solid #41397c;
+  border-radius: 4px;
+  font-size: 1.4em;
+  font-weight: 600;
+  letter-spacing: .025em;
+  color: #444;
+  background: none;
+  transition: all ease .2s;
+  text-decoration: none;
+  margin: 8px;
+}
+
+.inputButton:hover {
+  -webkit-box-shadow: 0 4px 6px rgba(50,50,93,.11), 0 1px 3px rgba(0,0,0,.08);
+  box-shadow: 0 4px 6px rgba(50,50,93,.11), 0 1px 3px rgba(0,0,0,.08);
+}
+
+#login-header {
+  margin: 32px 0;
+  width: 85%;
+  text-align: center;
+}
+
+.leftLoginContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 50%;
+  background: #4E2B84;
+  height: 100vh;
+  padding: 32px 16px;
+  color: white;
+}
+
+.formInputLoginSignup {
+  background: none;
+  border: none;
+  width: 90%;
+  margin: 0px 4px 24px 4px;
+  font-size: 1.2em;
+  border-bottom: 2px #41397c solid;
+  color: #444;
+}
+
+.formInputLoginSignup:focus {
+  border-bottom: 2px #FF8D00 solid;
+}
+
+.rightLoginContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 50%;
+  height: 100vh;
+  padding: 0 64px;
+}
+
+.login-wrapper {
+  display: flex;
+  width: 100vw;
+  border-radius: 5px;
+  flex-direction: row;
+  align-items: left;
+  background: #FFF;
+}
+
+.legal-links-login {
+  text-align: center;
+  position: fixed;
+  bottom: 16px;
+  width: 90%;
+}
+
+.login-prefs {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  width: 90%;
+}
+
+.fine-print-login {
+  margin-right: 8px;
+}
+
+@media only screen and (max-width: 860px) {
+  .login-wrapper {
+    width: 95vw;
+    margin: auto;
+    flex-direction: column;
+  }
+}

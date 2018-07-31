@@ -1,0 +1,32 @@
+.line {
+  display: flex;
+  flex-direction: row;
+  width: 90%
+}
+
+.inputLabel {
+  margin: 4px 0;
+  width: 90%;
+  align-self: center;
+}
+
+select {
+  margin: 8px 0;
+}
+
+#signup-success {
+  color: #4E2B84;
+}
+
+.terms {
+  margin: 0 8px 16px 0;
+  border: none;
+}
+
+.schoolInput {
+  width: 90%;
+}
+
+.schoolInput:focus {
+  border: 1px solid #FF8D00;
+}

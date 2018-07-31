@@ -2,7 +2,7 @@ module.exports = {
   // verify token format
   verifyTokenFormat: function verifyToken(req, res, next) {
     // Ger auth header value
-    const bearerHeader = req.user.token;//change this later to header.authoriuzation
+    const bearerHeader = req.user.token; // change this later to header.authoriuzation
     // Check if bearer is undefined
     if (typeof bearerHeader !== 'undefined') {
       // split at the space
@@ -19,5 +19,4 @@ module.exports = {
       res.send(403);
     }
   },
-
 };

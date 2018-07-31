@@ -4,10 +4,9 @@
  * @author Daniel Munoz
  * @author Shawn Chan
  * @author Luis Nova
- * @version 0.0.2
+ * @version 0.0.3
  */
 
-// TODO: Make sure all methods send a response.
 // TODO: Comment all code.
 
 import Express from 'express';
@@ -29,13 +28,18 @@ import kittens from './kittens/kitten';
 // PASSPORT
 const passport = require('./passport');
 
-// TODO: Fix auto-https redirect.
 const sslRedirect = require('heroku-ssl-redirect');
 
+// Auth Route
+const auth = require('./routes/auth');
 
-// USER ROUTE
+// User Route
 const user = require('./routes/user');
+
+// Books Route
 const booksRoute = require('./routes/books');
+
+// Dashboard Route
 const dashboard = require('./routes/dashboard');
 
 const PORT = serverConfig.port;
@@ -75,7 +79,8 @@ if (ENV === 'production') {
 
 app.use(passport.initialize());
 app.use(passport.session()); // calls serializeUser and deserializeUser
-app.use('/api/auth', user);
+app.use('/api/auth', auth);
+app.use('/api/user', user);
 app.use('/api/books', booksRoute);
 app.use('/api/dashboard', dashboard);
 

@@ -1,6 +1,6 @@
 import Textbook from '../models/textbook';
 import TextbookBuy from '../models/textbookBuy';
-import realUser from '../models/newUser';
+import User from '../models/user';
 
 const express = require('express');
 

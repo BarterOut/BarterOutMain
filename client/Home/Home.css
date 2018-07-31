@@ -2,117 +2,61 @@
   box-sizing: border-box;
   margin: 0;
   overflow-y: hidden;
-}
-
-.bar {
   display: flex;
   flex-direction: row;
-  align-items: center;
-  width: 100vw;
-  height: 70px;
-  color: white;
-  background: #222;
-  font-size: 1.5em;
-  padding: 0 16px;
 }
 
-.logo {
-  height: 40px;
-  width: auto;
-}
-
-.header {
-  font-size: 2em;
-}
-
-.left {
+.right-content {
   display: flex;
-  align-items: center;
-  flex-grow: 3;
-  height: 100%;
-  flex-direction: row;
-  justify-content: flex-end;
-}
-
-.right {
-  display: flex;
-  justify-content: center;
-  align-self: auto;
-  flex-grow: 3;
-  height: 100%;
   flex-direction: column;
-  align-items: flex-start;
+  flex-grow: 11;
 }
 
 .content-wrapper {
   display: flex;
   flex-direction: row;
-  margin: 32px auto;
   height: 80vh;
   overflow: hidden;
-  justify-content: center;
   max-width: 1200px;
 }
 
-.profile-section {
+.stats-section {
   display: flex;
-  flex-direction: column;
-  flex-grow: 1;
-  margin: 16px;
-  background: #6d5fd4;
-  color: white;
-  padding: 8px;
-  height: 500px;
-  min-width: 240px;
-  max-height: 500px;
-  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
-  align-items: center;
+  flex-direction: row;
+  width: 70%;
   justify-content: center;
 }
 
-.profile-pic {
-  width: 120px;
-  height: 120px;
-  background: white;
-  border-radius: 50%;
+.stat-text {
+  text-align: center;
+  font-size: 2.3em;
+  color: #E36700;
 }
 
-.books-lists {
-  display: flex;
-  flex-direction: column;
-  flex-grow: 50;
-}
-
-.posts-section {
-  display: flex;
-  flex-direction: column;
-  padding: 16px;
-  background: #6d5fd4;
-  margin: 16px;
-  color: white;
-  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
-}
-
-.posts {
+.page-section-wrapper--stat {
+  width: 30%;
+  min-width: 200px;
   overflow-y: scroll;
-  max-height: 650px;
-  padding: 8px;
+  -webkit-box-shadow: 0 4px 6px rgba(50,50,93,.11), 0 1px 3px rgba(0,0,0,.08);
+  box-shadow: 0 4px 6px rgba(50,50,93,.11), 0 1px 3px rgba(0,0,0,.08);
+  border-bottom-right-radius: 15px;
+  border-bottom-left-radius: 15px;
+  background: #E1DEEC;
+  margin: 0 16px 8px 16px;
+  padding-bottom: 16px;
 }
 
-.searchInput {
-  border-radius: 10px;
-  border: none;
-  padding: 8px;
-  height: 40px;
-  min-width: 300px;
-  color:#000;
-  background: white;
-  /* z-index: 5; */
-}
-
-.posts-header {
+.title--page-section-wrapper--stat {
   display: flex;
-  flex-direction: row;
-  align-items: center;
-  margin-bottom: 16px;
+  flex-direction: column;
+  background: #755F9F;
+  width: 30%;
+  min-width: 200px;
+  border-top-right-radius: 15px;
+  border-top-left-radius: 15px;
+  min-height: 50px;
+  margin: 8px 16px 0 16px;
+  padding: 8px 16px;
+  align-items: flex-start;
+  justify-content: center;
 }
