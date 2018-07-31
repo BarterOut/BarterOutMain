@@ -1,4 +1,5 @@
 import Textbook from '../models/textbook';
+import TextbookBuy from '../models/textbookBuy';
 import User from '../models/user';
 
 const jwt = require('jsonwebtoken');
@@ -6,6 +7,44 @@ const jwt = require('jsonwebtoken');
 const express = require('express');
 
 const router = express.Router();
+
+// Remakes matches based on the books in the request collection. *Needs testing*
+function remakeMatches(userID) {
+  TextbookBuy.find({ owner: userID }, (err, books) => {
+    if (books) {
+      for (let i = 0; i < books.length; i++) {
+        const BOOK = books[i];
+        Textbook.find(
+          { // looks for a book that matches based on the name matching or the course
+            $and: [
+              { status: 0 },
+              { $or: [{ name: { $regex: BOOK.name, $options: 'i' } }, { course: { $regex: BOOK.course, $options: 'i' } }] },
+              { owner: { $ne: userID } },
+            ],
+          },
+          (err, matchedBooks) => {
+            const addBooks = [];
+            matchedBooks.forEach((book) => {
+              addBooks.push(book._id);
+            });
+
+            User.update(
+              { _id: BOOK.owner },
+              {
+                $set: {
+                  matchedBooks: { addBooks },
+                },
+              }, (error) => {
+                console.error(`Error: ${error}`);
+              },
+            );
+          },
+        );
+      }
+    }
+  });
+}
+
 /**
  * Method for returning all the current items in a user's cart.
  * @param {object} req Request from client.
@@ -86,7 +125,6 @@ router.post('/removeFromCart', (req, res) => {
   });
 });
 
-
 /**
  * Called when a user clicks clear cart on the cart page
  * currently not in use.
@@ -119,8 +157,8 @@ router.post('/clearCart', (req, res) => {
  * @param {array} res Body of HTTP response.
  * @returns {object} Array of books purchased by the user.
  */
-router.post('/getPurchasedBooks', (req, res) => {
-  jwt.verify(req.body.data.token, 'secretKey', (error, authData) => {
+router.get('/getPurchasedBooks/:token', (req, res) => {
+  jwt.verify(req.params.token, 'secretKey', (error, authData) => {
     if (error) {
       res.sendStatus(401);
     } else {
@@ -138,8 +176,8 @@ router.post('/getPurchasedBooks', (req, res) => {
  * @param {array} res Body of HTTP response.
  * @returns {object} Array of books sold by the user.
  */
-router.post('/getSoldBooks', (req, res) => {
-  jwt.verify(req.body.data.token, 'secretKey', (error, authData) => {
+router.get('/getSoldBooks/:token', (req, res) => {
+  jwt.verify(req.params.token, 'secretKey', (error, authData) => {
     if (error) {
       res.sendStatus(401);
     } else {
@@ -212,6 +250,58 @@ router.get('/getUserData/:token', (req, res) => {
           res.status(200).json({
             user: returnUser,
           });
+        }
+      });
+    }
+  });
+});
+
+/**
+ * Removes a matching request for a given user.
+ * @param {object} req Request body from client.
+ * @param {array} res Body of HTTP response.
+ * @returns {object} Response status.
+ */
+router.post('/deleteRequest/', (req, res) => {
+  jwt.verify(req.body.data.token, 'secretKey', (err, authData) => {
+    if (err) {
+      res.sendStatus(403);
+    } else {
+      TextbookBuy.deleteOne({
+        $and: [
+          { _id: req.body.data.bookID },
+          { owner: authData.userInfo._id },
+        ],
+      }, (error) => {
+        remakeMatches(authData.userInfo._id);
+        if (!error) {
+          res.sendStatus(200);
+        } else {
+          res.sendStatus(400);
+        }
+      });
+    }
+  });
+});
+
+/**
+ * Gets all the books a given user has requested a match for.
+ * @param {object} req Request body from client.
+ * @param {array} res Body of HTTP response.
+ * @returns {object} Array of books from database.
+ */
+router.get('/getRequests/:token', (req, res) => {
+  jwt.verify(req.params.token, 'secretKey', (err, authData) => {
+    if (err) {
+      res.sendStatus(403);
+    } else {
+      TextbookBuy.find({
+        owner: authData.userInfo._id,
+      }, (error, books) => {
+        if (error) {
+          res.sendStatus(400);
+        } else {
+          res.status(200).json(books);
         }
       });
     }

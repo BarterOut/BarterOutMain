@@ -32,7 +32,6 @@ const transporter = nodemailer.createTransport({ // secure authentication
 
 
 function sendEmail(mailOptions) {
-  console.log('Sending the email!');
   transporter.sendMail(mailOptions, (err, info) => {
     if (err) {
       console.error(err);
@@ -41,50 +40,11 @@ function sendEmail(mailOptions) {
     }
   });
 }
+
 // will return an array of JSON objects in reverse cronological order (Newest at the top)
 function sortBooksReverseCronological(bookJSONArray) {
-  bookJSONArray.sort(function (a, b) {
-    return new Date(b.date).getTime() - new Date(a.date).getTime();
-  });
+  bookJSONArray.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
   return bookJSONArray;
-}
-// Remakes matches based on the books in the request collection. *Needs testing*
-function remakeMatches(userID) {
-  TextbookBuy.find( { owner: userID }, (err, books) => {
-    if (books) {
-      for (var i = 0; i < books.length; i++) {
-        var BOOK = books[i];
-        Textbook.find(
-          { // looks for a book that matches based on the name matching or the course
-            $and: [
-              { status: 0},
-              { $or: [{ name: { $regex: BOOK.name, $options: 'i' } }, {course: {$regex: BOOK.course, $options: 'i' } }] },
-              { owner: { $ne: userID } },
-            ],
-          },
-          (err, matchedBooks) => {
-            console.log('Book was found in matching.');
-
-            const addBooks = [];
-            matchedBooks.forEach((book) => {
-              addBooks.push(book._id);
-            });
-
-            User.update(
-              {_id: BOOK.owner },
-              {
-                $set: {
-                  matchedBooks: { addBooks },
-                },
-              }, (error) => {
-                console.error(`Error: ${error}`);
-              },
-            );
-          },
-        );
-      }
-    }
-  });
 }
 
 /**
@@ -185,14 +145,10 @@ router.post('/requestBook', (req, res) => {
         if (!user) {
           res.status(401).send({ error: 'You need to create an account' });
         } else {
-          console.info('User posting book to Buy');
-
           BOOK.date = Date.now();
           const newBook = new TextbookBuy(BOOK);
           newBook.save()
             .then(() => {
-              console.info('Book was saved to DB');
-
               User.update(
                 { _id: authData.userInfo._id },
                 {
@@ -216,8 +172,6 @@ router.post('/requestBook', (req, res) => {
                   ],
                 },
                 (err, matchedBooks) => {
-                  console.log('Book was found in matching.');
-
                   const addBooks = [];
                   matchedBooks.forEach((book) => {
                     addBooks.push(book._id);
@@ -339,7 +293,7 @@ router.post('/clickBuyTemp/:token', (req, res) => {
             console.log(req.body.data.cart);
             for (i = 0; i < req.body.data.cart.length; i++) {
               Textbook.update({ _id: req.body.data.cart[i]._id }, { $set: { status: 1, buyer: authData.userInfo._id } }, (error) => {
-                console.log(`Error: ${error}`);
+                console.error(`Error: ${error}`);
               });
 
 
@@ -350,7 +304,7 @@ router.post('/clickBuyTemp/:token', (req, res) => {
                   $and: [{ status: 0 }, { $or: [{ name: bookFound.name }, { course: bookFound.course }] },
                     { owner: authData.userInfo._id }],
                 }, { $set: { status: 1 } }, (error) => {
-                  console.log(`Error in finding book being bought:  ${error}`);
+                  console.warn(`Error in finding book being bought: ${error}`);
                 });
                 // FOR USER STATISTICS
                 User.update(
@@ -417,7 +371,7 @@ router.get('/getUserMatches/:token', (req, res) => {
 });
 
 /**
- * Finds all books in database with a matching name or course.
+ * Finds all books in database with a matching name, course or ISBN.
  * @param {object} req Request body from client.
  * @param {array} res Body of HTTP response.
  * @returns {object} Array of books from database.
@@ -430,7 +384,7 @@ router.get('/search/:query/:token', (req, res) => {
       const searchKey = req.params.query;
       // console.log("search " + searchKey + " " + authData.userInfo._id);
 
-      var parsed = Number.parseInt(searchKey, 10);
+      const parsed = Number.parseInt(searchKey, 10);
       if (Number.isNaN(parsed)) {
         Textbook.find({
           $and: [
@@ -444,35 +398,23 @@ router.get('/search/:query/:token', (req, res) => {
             },
           ],
         }, (err, books) => {
-          // const bookMap = [];
-          // books.forEach((book) => {
-          //   bookMap.push(book);
-          // });
-          // console.log(err);
-          // console.log("The search gives: " + books);
           res.status(200).json(books);
         });
       } else {
         Textbook.find({
           $and: [
-            {status: 0},
-            {owner: {$ne: authData.userInfo._id}},
+            { status: 0 },
+            { owner: { $ne: authData.userInfo._id } },
             {
               $or: [
-                {name: {$regex: searchKey, $options: 'i'}},
-                {course: {$regex: searchKey, $options: 'i'}},
+                { name: { $regex: searchKey, $options: 'i' } },
+                { course: { $regex: searchKey, $options: 'i' } },
                 { ISBN: { $eq: parsed } },
 
               ],
             },
           ],
         }, (err, books) => {
-          // const bookMap = [];
-          // books.forEach((book) => {
-          //   bookMap.push(book);
-          // });
-          // console.log(err);
-          // console.log("The search gives: " + books);
           res.status(200).json(books);
         });
       }
@@ -508,7 +450,7 @@ router.get('/getUsersPosts/:token', (req, res) => {
 });
 
 /**
- * Finds all books in database with a matching name or course.
+ * Removes a book up for sale from the database.
  * @param {object} req Request body from client.
  * @param {array} res Body of HTTP response.
  * @returns {object} Array of books from database.
@@ -533,35 +475,6 @@ router.post('/deleteBook/', (req, res) => {
     }
   });
 });
-
-/**
- * Finds all books in database with a matching name or course.
- * @param {object} req Request body from client.
- * @param {array} res Body of HTTP response.
- * @returns {object} Array of books from database.
- */
-router.post('/deleteRequest/', (req, res) => {
-  jwt.verify(req.body.data.token, 'secretKey', (err, authData) => {
-    if (err) {
-      res.sendStatus(403);
-    } else {
-      TextbookBuy.deleteOne({
-        $and: [
-          { _id: req.body.data.bookID },
-          { owner: authData.userInfo._id },
-        ],
-      }, (error) => {
-        remakeMatches(authData.user._id);
-        if (!error) {
-          res.sendStatus(200);
-        } else {
-          res.sendStatus(400);
-        }
-      });
-    }
-  });
-});
-
 
 /**
  * @deprecated Due to inefficiency (still in use but needs changing)

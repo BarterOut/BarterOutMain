@@ -6,6 +6,7 @@
  */
 
 import React, { Component } from 'react';
+import ReactModal from 'react-modal';
 
 import SideNav from '../../components/SideNav/SideNav';
 import TopBar from '../../components/TopBar/TopBar';
@@ -14,6 +15,8 @@ import FetchService from '../../services/FetchService';
 import AuthService from '../../services/AuthService';
 
 import BookPost from '../../components/BookPost/BookPost';
+import BuyBook from '../../components/BuyBook/BuyBook';
+import Search from '../../components/Search/Search';
 
 import '../../baseStyles.css';
 
@@ -22,16 +25,22 @@ class Buy extends Component {
     super();
     this.state = {
       posts: [],
+      query: '',
       matches: [],
-      token: String,
       loading: false,
+      showModal: false,
+      displaySearch: false,
     };
+
+    this.handleOpenModal = this.handleOpenModal.bind(this);
+    this.handleCloseModal = this.handleCloseModal.bind(this);
+    this.updateInputValue = this.updateInputValue.bind(this);
+    this.animateSearch = this.animateSearch.bind(this);
   }
 
   componentWillMount() {
     const auth = new AuthService();
     const token = auth.getToken();
-    this._setToken(token);
 
     FetchService.GET(`/api/books/getAllBooks/${token}`)
       .then(response => response.json())
@@ -46,10 +55,6 @@ class Buy extends Component {
       });
   }
 
-  _setToken(token) {
-    this.setState({ token });
-  }
-
   _setPosts(data) {
     this.setState({ posts: data });
   }
@@ -59,40 +64,19 @@ class Buy extends Component {
   }
 
   updateInputValue(evt) {
-    this.search(evt.target.value);
+    this.setState({ query: evt.target.value });
+  }
+
+  handleOpenModal() {
+    this.setState({ showModal: true });
+  }
+
+  handleCloseModal() {
+    this.setState({ showModal: false });
   }
 
   animateSearch() {
-    // const searchWrapper = document.getElementById('searchInputWrapper');
-    // if (searchWrapper.classList.contains('searchInputWrapperBig')) {
-    //   searchWrapper.classList.remove('searchInputWrapperBig');
-    // } else {
-    //   searchWrapper.classList.add('searchInputWrapperBig');
-    // }
-  }
-
-  search(query) {
-    this.setState({ loading: true });
-    this.setState({ posts: [] });
-    if (query === '') {
-      FetchService.GET(`/api/books/getAllBooks/${this.state.token}`)
-        .then(response => response.json())
-        .then((data) => {
-          this.setState({ loading: false });
-          this.setState({ posts: data });
-        })
-        .catch(err => console.warn(err));
-      return;
-    }
-    const auth = new AuthService();
-    const token = auth.getToken();
-    FetchService.GET(`/api/books/search/${query}/${token}`)
-      .then(response => response.json())
-      .then((data) => {
-        this.setState({ loading: false });
-        this.setState({ posts: data });
-      })
-      .catch(err => console.error(err));
+    this.setState({ displaySearch: !this.state.displaySearch });
   }
 
   render() {
@@ -113,25 +97,25 @@ class Buy extends Component {
           <div className="page-content">
             <div
               id="searchInputWrapper"
-              // onClick={this.animateSearch.bind(this)}
               className="searchInputWrapper"
-              // tabIndex="-1"
             >
               <input
                 autoComplete="off"
                 className="searchInput"
-                // onClick={this.animateSearch.bind(this)}
-                onChange={this.updateInputValue.bind(this)}
+                onClick={this.animateSearch}
+                onChange={this.updateInputValue}
                 placeholder="Search Books"
                 type="text"
                 name="name"
               />
             </div>
+            {this.state.displaySearch && <Search query={this.state.query} />}
             <p className="searchInfo">
               You can search for Book Name, Edition, or Class. * Note
               that the class must be in the same format as on the book posting,
               (e.g. MTH 101, WRT 105, etc).
             </p>
+            <button className="button" onClick={this.handleOpenModal}>Modal</button>
             <div className="title--page-section-wrapper">
               <h2 className="title-text--page-section-header">Your Matches</h2>
             </div>
@@ -168,6 +152,18 @@ class Buy extends Component {
                 />
               ))}
             </div>
+            <ReactModal
+              className="modal"
+              overlayClassName="overlay"
+              isOpen={this.state.showModal}
+              contentLabel="Request Book Modal"
+              ariaHideApp={false}
+            >
+              <div className="top-modal-section">
+                <button className="close-modal-button" onClick={this.handleCloseModal}>X</button>
+              </div>
+              <BuyBook />
+            </ReactModal>
           </div>
         </div>
       </div>

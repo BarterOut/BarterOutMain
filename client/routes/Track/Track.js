@@ -9,6 +9,7 @@ import React, { Component } from 'react';
 import SideNav from '../../components/SideNav/SideNav';
 import TopBar from '../../components/TopBar/TopBar';
 import TrackBookPost from '../../components/TrackBookPost/TrackBookPost';
+import RequestBookPost from '../../components/RequestBookPost/RequestBookPost';
 
 import FetchService from '../../services/FetchService';
 import AuthService from '../../services/AuthService';
@@ -20,6 +21,7 @@ class Track extends Component {
     this.state = {
       booksSold: [],
       booksPurchased: [],
+      booksRequested: [],
     };
     this.auth = new AuthService();
   }
@@ -27,12 +29,20 @@ class Track extends Component {
   componentDidMount() {
     this.getPurchasedBooks();
     this.getSoldBooks();
+    this.getRequestedBooks();
+  }
+
+  getRequestedBooks() {
+    FetchService.GET(`/api/user/getRequests/${this.auth.getToken()}`)
+      .then(response => response.json())
+      .then((data) => {
+        console.log(data);
+        this.setState({ booksRequested: data });
+      });
   }
 
   getPurchasedBooks() {
-    FetchService.POST('/api/user/getPurchasedBooks', {
-      token: this.auth.getToken(),
-    })
+    FetchService.GET(`/api/user/getPurchasedBooks/${this.auth.getToken()}`)
       .then(response => response.json())
       .then((data) => {
         this.setState({ booksPurchased: data });
@@ -40,9 +50,7 @@ class Track extends Component {
   }
 
   getSoldBooks() {
-    FetchService.POST('/api/user/getSoldBooks', {
-      token: this.auth.getToken(),
-    })
+    FetchService.GET(`/api/user/getSoldBooks/${this.auth.getToken()}`)
       .then(response => response.json())
       .then((data) => {
         this.setState({ booksSold: data });
@@ -91,6 +99,20 @@ class Track extends Component {
                   price={post.price}
                   condition={post.condition}
                   comments={post.comments}
+                />
+              ))}
+            </div>
+
+            <div className="title--page-section-wrapper">
+              <h2 className="title-text--page-section-header">Requested for Matching</h2>
+            </div>
+            <div className="page-section-wrapper">
+              {this.state.booksRequested.map(post => (
+                <RequestBookPost
+                  key={post._id}
+                  id={post._id}
+                  name={post.name}
+                  subject={post.course}
                 />
               ))}
             </div>
