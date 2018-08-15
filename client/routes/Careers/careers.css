@@ -43,3 +43,9 @@
   font-size: 1.5em;
   padding: 0 16px;
 }
+
+@media only screen and (max-width: 600px) {
+  .content {
+    width: 85vw;
+  }
+}

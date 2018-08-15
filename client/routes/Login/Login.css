@@ -119,6 +119,20 @@
   margin-right: 8px;
 }
 
+@media only screen and (max-width: 600px) {
+  .login-wrapper {
+    align-items: center;
+  }
+  .leftLoginContent {
+    display: none;
+  }
+  .rightLoginContent {
+    width: 95%;
+    height: auto;
+    padding: 8px;
+  }
+}
+
 @media only screen and (max-width: 860px) {
   .login-wrapper {
     width: 95vw;
