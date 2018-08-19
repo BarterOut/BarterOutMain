@@ -38,7 +38,7 @@ const PrivateRoute = ({ component: Component, rest }) => {
       render={(props) => 
         auth.loggedIn()
         ? <Component {...props} />
-        : <Redirect to={{pathname: '/login'}}
+        : <Redirect to={{pathname: '/'}}  // It was origninally login
       />}
     />
   );
@@ -52,7 +52,7 @@ export default (
     <Route exact path="/contact" component={Contact} />
     <Route exact path="/careers" component={Careers} />
     <PrivateRoute exact path="/home" component={Home} />
-    <Route exact path="/login" component={Login} />
+    <PrivateRoute exact path="/login" component={Login} />
     <Route exact path="/signup" component={SignUp} />
     <PrivateRoute exact path="/buy" component={Buy} />
     <PrivateRoute exact path="/sell" component={Sell} />

@@ -206,7 +206,7 @@ class SignUp extends Component {
           {!this.state.passwordsMatch && <h4 className="input-error">Please make sure your passwords are the same!</h4>}
           <div className="line">
             <input
-              className="formInputLoginSignup"
+              className="formInputSignup"
               placeholder="Password"
               type="password"
               name="password"
@@ -214,7 +214,7 @@ class SignUp extends Component {
               required
             />
             <input
-              className="formInputLoginSignup"
+              className="formInputSignup"
               placeholder="Confirm Password"
               type="password"
               name="passwordConfirm"
@@ -233,7 +233,7 @@ class SignUp extends Component {
           >Sign Up
           </button>
 
-          <span>Back to <Link href="/login" to="/login">Login</Link></span>
+          <span>Back to <Link href="/" to="/">Home</Link></span>
         </div>
       </div>
     );
