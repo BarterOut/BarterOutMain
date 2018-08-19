@@ -313,6 +313,31 @@ router.get('/getRequests/:token', (req, res) => {
   });
 });
 
+/**
+ * Gets all the users in the server. ADMIN FUNCTION
+ * @param {object} req Request body from client.
+ * @param {array} res Body of HTTP response.
+ * @returns {object} Array of books from database.
+ */
+router.get('/getAllUserData/:token', (req, res) => {
+  jwt.verify(req.params.token, 'secretKey', (error, authData) => {
+    if (error) {
+      res.sendStatus(400);
+    } else {
+      //check if it is an admin ie permissionType == 1
+      User.find({ }, (error, returnUsers) => {
+        if (!returnUsers) {
+          res.sendStatus(401);
+        } else {
+          res.status(200).json({
+            users: returnUsers,
+          });
+        }
+      });
+    }
+  });
+});
+
 // Just in case this is needed
 router.get('/', (req, res) => {
   if (req.user) {

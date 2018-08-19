@@ -539,7 +539,67 @@ router.get('/getAllBooksAdmin/:token', (req, res) => {
           Textbook.find({
            // Finds all of the books
           }, (err, books) => {
-            User.findById(authData.userInfo._id, (err, user) => {
+            User.findById(authData.userInfo._id, (err, user) => { //this search is not needed
+              res.status(200).json(sortBooksReverseCronological(books));
+            });
+          });
+        }
+      });
+    }
+  });
+});
+
+/**
+ * @deprecated Due to inefficiency (still in use but needs changing)
+ * Gets all books being sold from database. All of them!
+ * @param {object} req Request body from client.
+ * @param {array} res Body of HTTP response.
+ * @returns {object} Array of books from database.
+ */
+router.get('/getCompletedBooks/:token', (req, res) => {
+  jwt.verify(req.params.token, 'secretKey', (err, authData) => {
+    if (err) {
+      res.sendStatus(403);
+    } else {
+      User.findOne({ _id: authData.userInfo._id }, (error, user) => {
+        if (!user) {
+          res.status(401).send({ error: 'You need to create an account' });
+        } else {
+          // check if permission is 1 where 1 is admin but that will be for later
+          Textbook.find({
+            status: 4, // Finds all of the books of status 4 (completed)
+          }, (err, books) => {
+            User.findById(authData.userInfo._id, (err, user) => { //this search is not needed
+              res.status(200).json(sortBooksReverseCronological(books));
+            });
+          });
+        }
+      });
+    }
+  });
+});
+
+/**
+ * @deprecated Due to inefficiency (still in use but needs changing)
+ * Gets all books being sold from database. All of them!
+ * @param {object} req Request body from client.
+ * @param {array} res Body of HTTP response.
+ * @returns {object} Array of books from database.
+ */
+router.get('/getInProcessBooks/:token', (req, res) => {
+  jwt.verify(req.params.token, 'secretKey', (err, authData) => {
+    if (err) {
+      res.sendStatus(403);
+    } else {
+      User.findOne({ _id: authData.userInfo._id }, (error, user) => {
+        if (!user) {
+          res.status(401).send({ error: 'You need to create an account' });
+        } else {
+          // check if permission is 1 where 1 is admin but that will be for later
+          Textbook.find({
+            status: { $lt: 4 }, // Finds all of the books of status 4 (completed)
+          }, (err, books) => {
+            User.findById(authData.userInfo._id, (err, user) => { //this search is not needed
               res.status(200).json(sortBooksReverseCronological(books));
             });
           });
