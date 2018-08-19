@@ -143,7 +143,7 @@ module.exports = {
       Thank you for signing up for our services. Please click on the following link to confirm your email and start using BarterOut today on our website by putting a textbook up for sale or buying one from another student.
       <br />
       <br />
-      <b><a href=http://localhost:8080/api/auth/email-verification/${URL}>CONFIRM EMAIL</a></b>
+      <b><a href=http://barterout.com/api/auth/email-verification/${URL}>CONFIRM EMAIL</a></b>
       <br />
       <br />
       This version is currently available only at the University of Rochester and does not have all features implemented. If you know anyone looking to buy or sell used textbooks, feel free to invite them to join our platform.
