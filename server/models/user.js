@@ -21,6 +21,7 @@ const userSchema = new Schema({
   firstName: { type: String, required: true },
   lastName: { type: String, required: true },
   university: { type: String, required: true },
+  permissionType: { type: Number, required: true, default: 0 },
   // These are fields that will be updated later
   numberOfBooksSold: { type: Number, default: 0 },
   numberOfBooksBought: { type: Number, default: 0 },
