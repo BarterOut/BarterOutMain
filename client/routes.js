@@ -30,127 +30,15 @@ import EmailConfirmed from './routes/EmailConfirmed/EmailConfirmed';
 import page404 from './routes/page404/page404';
 
 
-const HomePage = ({ component: Component, rest }) => {
+const PrivateRoute = ({ component: Component, rest }) => {
   const auth = new AuthService();
   return (
     <Route
       {...rest}
       render={(props) => 
-        false
+        auth.loggedIn()
         ? <Component {...props} />
-        : <Redirect to={{pathname: '/'}}
-      />}
-    />
-  );
-};
-
-const BuyPage = ({ component: Component, rest }) => {
-  const auth = new AuthService();
-  return (
-    <Route
-      {...rest}
-      render={(props) => 
-        false
-        ? <Component {...props} />
-        : <Redirect to={{pathname: '/'}}
-      />}
-    />
-  );
-};
-
-const SellPage = ({ component: Component, rest }) => {
-  const auth = new AuthService();
-  return (
-    <Route
-      {...rest}
-      render={(props) => 
-        false
-        ? <Component {...props} />
-        : <Redirect to={{pathname: '/'}}
-      />}
-    />
-  );
-};
-
-const SettingsPage = ({ component: Component, rest }) => {
-  const auth = new AuthService();
-  return (
-    <Route
-      {...rest}
-      render={(props) => 
-        false
-        ? <Component {...props} />
-        : <Redirect to={{pathname: '/'}}
-      />}
-    />
-  );
-};
-
-const TrackPage = ({ component: Component, rest }) => {
-  const auth = new AuthService();
-  return (
-    <Route
-      {...rest}
-      render={(props) => 
-        false
-        ? <Component {...props} />
-        : <Redirect to={{pathname: '/'}}
-      />}
-    />
-  );
-};
-
-const HelpPage = ({ component: Component, rest }) => {
-  const auth = new AuthService();
-  return (
-    <Route
-      {...rest}
-      render={(props) => 
-        false
-        ? <Component {...props} />
-        : <Redirect to={{pathname: '/'}}
-      />}
-    />
-  );
-};
-
-const CartPage = ({ component: Component, rest }) => {
-  const auth = new AuthService();
-  return (
-    <Route
-      {...rest}
-      render={(props) => 
-        false
-        ? <Component {...props} />
-        : <Redirect to={{pathname: '/'}}
-      />}
-    />
-  );
-};
-
-const SignUpPage = ({ component: Component, rest }) => {
-  const auth = new AuthService();
-  return (
-    <Route
-      {...rest}
-      render={(props) => 
-        false
-        ? <Component {...props} />
-        : <Redirect to={{pathname: '/'}}
-      />}
-    />
-  );
-};
-
-const LoginPage = ({ component: Component, rest }) => {
-  const auth = new AuthService();
-  return (
-    <Route
-      {...rest}
-      render={(props) => 
-        false
-        ? <Component {...props} />
-        : <Redirect to={{pathname: '/'}}
+        : <Redirect to={{pathname: '/'}}  // It was origninally login
       />}
     />
   );
@@ -163,15 +51,15 @@ export default (
     <Route exact path="/privacyPolicy" component={PrivacyPolicy} />
     <Route exact path="/contact" component={Contact} />
     <Route exact path="/careers" component={Careers} />
-    <HomePage exact path="/home" component={Home} />
-    <LoginPage exact path="/login" component={Login} />
-    <SignUpPage exact path="/signup" component={SignUp} />
-    <BuyPage exact path="/buy" component={Buy} />
-    <SellPage exact path="/sell" component={Sell} />
-    <TrackPage exact path="/track" component={Track} />
-    <SettingsPage exact path="/settings" component={Settings} />
-    <HelpPage exact path="/help" component={Help} />
-    <CartPage exact path="/cart" component={Cart} />
+    <PrivateRoute exact path="/home" component={Home} />
+    <PrivateRoute exact path="/login" component={Login} />
+    <Route exact path="/signup" component={SignUp} />
+    <PrivateRoute exact path="/buy" component={Buy} />
+    <PrivateRoute exact path="/sell" component={Sell} />
+    <PrivateRoute exact path="/track" component={Track} />
+    <PrivateRoute exact path="/settings" component={Settings} />
+    <PrivateRoute exact path="/help" component={Help} />
+    <PrivateRoute exact path="/cart" component={Cart} />
     <Route exact path="/editPassword" component={EditPassword} />
     <Route exact path="/forgotPassword" component={ForgotPassword} />
     <Route exact path="/forgotPasswordSuccess" component={ForgotPasswordSuccess} />
