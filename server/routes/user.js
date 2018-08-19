@@ -314,7 +314,8 @@ router.get('/getRequests/:token', (req, res) => {
 });
 
 /**
- * Gets all the users in the server. ADMIN FUNCTION
+ * Gets all the users in the server. ADMIN FUNCTION.
+ * Finds all users and returns all fields except for the password and similar fields
  * @param {object} req Request body from client.
  * @param {array} res Body of HTTP response.
  * @returns {object} Array of books from database.
@@ -325,15 +326,20 @@ router.get('/getAllUserData/:token', (req, res) => {
       res.sendStatus(400);
     } else {
       //check if it is an admin ie permissionType == 1
-      User.find({ }, (error, returnUsers) => {
-        if (!returnUsers) {
-          res.sendStatus(401);
-        } else {
-          res.status(200).json({
-            users: returnUsers,
-          });
-        }
-      });
+      User.find(
+        { }, {
+          password: 0, resetPasswordToken: 0, resetPasswordExpires: 0, notifications: 0, cart: 0,
+        },
+        (error, returnUsers) => {
+          if (!returnUsers) {
+            res.sendStatus(401);
+          } else {
+            res.status(200).json({
+              users: returnUsers,
+            });
+          }
+        },
+      );
     }
   });
 });
