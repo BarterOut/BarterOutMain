@@ -143,7 +143,7 @@ module.exports = {
       Thank you for signing up for our services. Please click on the following link to confirm your email and start using BarterOut today on our website by putting a textbook up for sale or buying one from another student.
       <br />
       <br />
-      <b><a href=http://barterout.com/api/auth/email-verification/${URL}>CONFIRM EMAIL</a></b>
+      <b><a href=http://www.barterout.com/api/auth/email-verification/${URL}>CONFIRM EMAIL</a></b>
       <br />
       <br />
       This version is currently available only at the University of Rochester and does not have all features implemented. If you know anyone looking to buy or sell used textbooks, feel free to invite them to join our platform.
@@ -208,7 +208,7 @@ module.exports = {
       html: 'Dear ' + firstName + ',  <br></br> ' +
       '\n' +
       'This email has been sent to reset your password.  <br></br> ' +
-      'Please click <a href=http://localhost:8080/api/auth/passwordReset/' +URL+ '>this link</a> in order to continue. If you are unable to do so, copy and paste the following link into your browser:' + URL + '<br> </br>' +
+      'Please click <a href=http://www.barterout.com/api/auth/passwordReset/' +URL+ '>this link</a> in order to continue. If you are unable to do so, copy and paste the following link into your browser:' + URL + '<br> </br>' +
       'If you know anyone looking to buy or sell used textbooks, feel free to invite them to join our platform in this beta version.    <br> </br> \n' +
       '<br></br> ' +
       'If you have any questions, feel free to send us an email at office@barterout.com!\n' +
