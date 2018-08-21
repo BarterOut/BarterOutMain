@@ -17,7 +17,7 @@ const tempUserSchema = new Schema({
   university: { type: 'String', required: true },
   emailToken: { type: 'String', required: true },
   createdAt: {
-    type: Date, expires: '1h', default: Date.now(), required: true,
+    type: Date, expires: '24h', default: Date.now(), required: true,
   },
 }, {
   collection: 'tempUsers',
