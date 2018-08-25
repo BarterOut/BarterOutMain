@@ -23,6 +23,7 @@ class DashboardHome extends Component {
 
     this.AUTH = new AuthService();
     this.confirm = this.confirm.bind(this);
+    this.logout = this.logout.bind(this);
   }
 
   componentDidMount() {
@@ -61,11 +62,15 @@ class DashboardHome extends Component {
       .then(() => window.location.reload());
   }
 
+  logout() {
+    this.AUTH.logout();
+  }
+
   render() {
     return (
       <div>
-        <h1>Welcome to Dashboard</h1>
-        <button>Logout</button>
+        <h1>Welcome to the Dashboard</h1>
+        <button onClick={this.logout}>Logout</button>
 
         <h2>On-going transactions</h2>
         <table>
