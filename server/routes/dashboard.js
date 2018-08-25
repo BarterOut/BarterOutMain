@@ -6,20 +6,39 @@ const express = require('express');
 
 const router = express.Router();
 
-router.get('/displayTransactions', (req, res) => {
-  TextbookBuy.find({ status: 0 }, (err, books) => {
-    res.json(books);
+router.get('/getPurchasedBooks/:token', (req, res) => {
+  Textbook.find({ status: 2 }, (err, books) => {
+    res.status(200).json(books);
   });
 });
 
-router.get('/home', (req, res) => {
-  //TODO:
-  if (req.user) {
-    res.json({ user: req.user });
-  } else {
-    res.json({ user: null });
-  }
-})
+router.get('/getTransactions/:token', (req, res) => {
+  Textbook.find({ status: 1 }, (err, books) => {
+    res.status(200).json(books);
+  });
+});
+
+router.get('/getUsers/:token', (req, res) => {
+  User.find({}, (err, users) => {
+    res.status(200).json(users);
+  });
+});
+
+router.post('/confirmBook', (req, res) => {
+  Textbook.update(
+    { _id: req.body.data.id },
+    {
+      $set:
+        {
+          status: 2,
+        },
+    }, (err) => {
+      if (!err) {
+        res.sendStatus(200);
+      }
+    },
+  );
+});
 
 router.get('/', (req, res) => {
   if (req.user) {

@@ -15,7 +15,7 @@ import Careers from './routes/Careers/careers';
 import Home from './Home/Home';
 import SignUp from './routes/SignUp/SignUp';
 import Login from './routes/Login/Login';
-import Dashboard from './Dashboard/Dashboard';
+import DashboardHome from './Dashboard/Home/DashboardHome';
 import EditPassword from './routes/EditPassword/EditPassword';
 import Buy from './routes/Buy/Buy';
 import Sell from './routes/Sell/Sell';
@@ -65,7 +65,7 @@ export default (
     <Route exact path="/forgotPasswordSuccess" component={ForgotPasswordSuccess} />
     <Route exact path="/signUpSuccess" component={SignUpSuccess} />
     <Route exact path="/emailConfirmed" component={EmailConfirmed} />
-    <Route exact path="/dashboard" component={Dashboard} />
+    <Route exact path="/dashboard" component={DashboardHome} />
     <Route path="*" component={page404} />
   </Switch>
 );
