@@ -100,7 +100,9 @@ router.get('/getUsers/:token', (req, res) => {
         if (!user) {
           res.status(401).send({ error: 'You need to create an account' });
         } else if (authData.userInfo.permissionType === 1) {
-          User.find({}, (err, users) => {
+          User.find({}, {
+            password: 0, resetPasswordToken: 0, resetPasswordExpires: 0, notifications: 0, cart: 0,
+          }, (err, users) => {
             res.status(200).json(users);
           });
         } else {
