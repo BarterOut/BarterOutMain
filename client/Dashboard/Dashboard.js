@@ -6,7 +6,7 @@
 
 import React, { Component } from 'react';
 import { Redirect, Link } from 'react-router-dom';
-import FetchService from '../services/FetchService';
+import AuthService from '../services/AuthService';
 
 import logo from '../images/barterOutOrangeWhiteLogo.png';
 
@@ -19,6 +19,7 @@ class Dashboard extends Component {
       redirect: false,
       badCreditials: false,
     };
+    this.AUTH = new AuthService();
 
     this.login = this.login.bind(this);
     this.onChange = this.onChange.bind(this);
@@ -39,14 +40,7 @@ class Dashboard extends Component {
   }
 
   login() {
-    console.log('login');
-    FetchService.POST(
-      '/api/dashboard/login',
-      {
-        emailAddress: this.state.emailAddress,
-        password: this.state.password,
-      },
-    )
+    this.AUTH.login(this.state.emailAddress, this.state.password)
       .then(() => {
         this.setState({ redirect: true });
       });

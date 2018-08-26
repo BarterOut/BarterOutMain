@@ -74,72 +74,78 @@ class DashboardHome extends Component {
 
         <h2>On-going transactions</h2>
         <table>
-          <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Course</th>
-            <th>Owner</th>
-            <th>Condition</th>
-            <th>Buyer</th>
-            <th>Confirm</th>
-          </tr>
-          {this.state.transactions.map(book => (
-            <tr id={book._id}>
-              <td>{book._id}</td>
-              <td>{book.name}</td>
-              <td>{book.course}</td>
-              <td>{book.owner}</td>
-              <td>{book.condition}</td>
-              <td>{book.buyer}</td>
-              <td><button id={book._id} onClick={this.confirm}>Confirm Purchase</button></td>
+          <tbody>
+            <tr>
+              <th>ID</th>
+              <th>Name</th>
+              <th>Course</th>
+              <th>Owner</th>
+              <th>Condition</th>
+              <th>Buyer</th>
+              <th>Confirm</th>
             </tr>
-          ))}
+            {this.state.transactions.map(book => (
+              <tr id={book._id}>
+                <td>{book._id}</td>
+                <td>{book.name}</td>
+                <td>{book.course}</td>
+                <td>{book.owner}</td>
+                <td>{book.condition}</td>
+                <td>{book.buyer}</td>
+                <td><button id={book._id} onClick={this.confirm}>Confirm Purchase</button></td>
+              </tr>
+            ))}
+          </tbody>
         </table>
         <h2>Completed Transactions</h2>
         <table>
-          <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Course</th>
-            <th>Owner</th>
-            <th>Condition</th>
-            <th>Buyer</th>
-          </tr>
-          {this.state.purchasedBooks.map(book => (
-            <tr id={book._id}>
-              <td>{book._id}</td>
-              <td>{book.name}</td>
-              <td>{book.course}</td>
-              <td>{book.owner}</td>
-              <td>{book.condition}</td>
-              <td>{book.buyer}</td>
+          <tbody>
+            <tr>
+              <th>ID</th>
+              <th>Name</th>
+              <th>Course</th>
+              <th>Owner</th>
+              <th>Condition</th>
+              <th>Buyer</th>
             </tr>
-          ))}
+            {this.state.purchasedBooks.map(book => (
+              <tr id={book._id}>
+                <td>{book._id}</td>
+                <td>{book.name}</td>
+                <td>{book.course}</td>
+                <td>{book.owner}</td>
+                <td>{book.condition}</td>
+                <td>{book.buyer}</td>
+              </tr>
+            ))}
+          </tbody>
         </table>
         <h2>Users</h2>
         <table>
-          <tr>
-            <th>ID</th>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Email</th>
-            <th>Venmo</th>
-            <th>CMC</th>
-            <th># Sold</th>
-            <th># Bought</th>
-          </tr>
-          {this.state.users.map(user => (
-            <tr id={user._id}>
-              <td>{user._id}</td>
-              <td>{user.firstName}</td>
-              <td>{user.lastName}</td>
-              <td>{user.emailAddress}</td>
-              <td>{user.venmoUsername}</td>
-              <td>{user.CMC}</td>
-              <td>{user.numberOfBooksSold}</td>
-              <td>{user.numberOfBooksBought}</td>
+          <tbody>
+            <tr>
+              <th>ID</th>
+              <th>First Name</th>
+              <th>Last Name</th>
+              <th>Email</th>
+              <th>Venmo</th>
+              <th>CMC</th>
+              <th># Sold</th>
+              <th># Bought</th>
             </tr>
-          ))}
+            {this.state.users.map(user => (
+              <tr id={user._id}>
+                <td>{user._id}</td>
+                <td>{user.firstName}</td>
+                <td>{user.lastName}</td>
+                <td>{user.emailAddress}</td>
+                <td>{user.venmoUsername}</td>
+                <td>{user.CMC}</td>
+                <td>{user.numberOfBooksSold}</td>
+                <td>{user.numberOfBooksBought}</td>
+              </tr>
+            ))}
+          </tbody>
         </table>
       </div>
     );

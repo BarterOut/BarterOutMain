@@ -46,7 +46,21 @@ const PrivateRoute = ({ component: Component, rest }) => {
       render={(props) => 
         auth.loggedIn()
         ? <Component {...props} />
-        : <Redirect to={{pathname: '/login'}} // It was origninally login
+        : <Redirect to={{pathname: '/login'}}
+      />}
+    />
+  );
+};
+
+const DashboardRoute = ({ component: Component, rest }) => {
+  const auth = new AuthService();
+  return (
+    <Route
+      {...rest}
+      render={(props) => 
+        auth.getProfile().userInfo.permissionType === 1
+        ? <Component {...props} />
+        : <Redirect to={{pathname: '/dashboard'}}
       />}
     />
   );
@@ -74,7 +88,7 @@ export default (
     <Route exact path="/signUpSuccess" component={SignUpSuccess} />
     <Route exact path="/emailConfirmed" component={EmailConfirmed} />
     <Route exact path="/dashboard" component={Dashboard} />
-    <Route exact path="/dashboard/home" component={DashboardHome} />
+    <DashboardRoute exact path="/dashboard/home" component={DashboardHome} />
     <Route path="*" component={page404} />
   </Switch>
 );
