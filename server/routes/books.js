@@ -8,6 +8,7 @@
 import Textbook from '../models/textbook';
 import TextbookBuy from '../models/textbookBuy';
 import User from '../models/user';
+import Transaction from "../models/transaction";
 
 const express = require('express');
 
@@ -282,6 +283,8 @@ router.post('/clickBuyTemp/:token', (req, res) => {
           let buyer;
           let bookFound;
           let seller;
+          let totalCharged;
+          let bookList = [];
 
           User.find({ _id: authData.userInfo._id }, (e, foundUser) => {
             if (e) {
@@ -296,6 +299,7 @@ router.post('/clickBuyTemp/:token', (req, res) => {
             );
             buyer = foundUser[0];
             console.log(req.body.data.cart);
+
             for (i = 0; i < req.body.data.cart.length; i++) {
               Textbook.update({ _id: req.body.data.cart[i]._id }, { $set: { status: 1, buyer: authData.userInfo._id } }, (error) => {
                 console.error(`Error: ${error}`);
@@ -305,6 +309,8 @@ router.post('/clickBuyTemp/:token', (req, res) => {
               // updates the books being sought by the user that match the query
               Textbook.find({ _id: req.body.data.cart[i]._id }, (errors, foundBook) => {
                 bookFound = foundBook[0];
+                totalCharged += bookFound.price;
+                bookList.push(bookFound._id)
                 TextbookBuy.update({
                   $and: [{ status: 0 }, { $or: [{ name: bookFound.name }, { course: bookFound.course }] },
                     { owner: authData.userInfo._id }],
@@ -326,6 +332,19 @@ router.post('/clickBuyTemp/:token', (req, res) => {
                 });
               });
             }
+            const newTransaction = new Transaction({
+              buyerID: buyer._id,
+              buyerFirstName: buyer.firstName,
+              buyerLastName: buyer.lastName,
+              buyerVenmo: buyer.venmoUsername,
+              sellerID: seller._id,
+              sellerFirstName: seller.firstName,
+              sellerLastName: seller.lastName,
+              sellerVenmo: seller.venmoUsername,
+              totalCharged,
+              booksPurchased: bookList,
+            });
+            newTransaction.save();
           });
           // clear the cart
           User.update(
