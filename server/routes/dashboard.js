@@ -305,42 +305,6 @@ router.get('/getPendingTransactions/:token/', (req, res) => {
   });
 });
 
-/**
- * @deprecated Due to inefficiency (still in use but needs changing)
- * Gets all books being sold from database. All of them!
- * @param {object} req Request body from client.
- * @param {array} res Body of HTTP response.
- * @returns {object} Array of books from database.
- */
-router.post('/confirmTransaction', (req, res) => {
-  jwt.verify(req.body.data.token, 'secretKey', (err, authData) => {
-    if (err) {
-      res.sendStatus(403);
-    } else {
-      User.findOne({ _id: authData.userInfo._id }, (error, user) => {
-        if (!user) {
-          res.status(401).send({ error: 'You need to create an account' });
-        } else if (authData.permissionType === 1) {
-          Transactions.update(
-            { _id: req.body.data.id },
-            {
-              $set:
-                {
-                  status: 1,
-                },
-            }, (err) => {
-              if (!err) {
-                res.sendStatus(200);
-              }
-            },
-          );
-        } else {
-          res.redirect('/home');
-        }
-      });
-    }
-  });
-});
 
 /**
  * @deprecated Due to inefficiency (still in use but needs changing)
@@ -400,6 +364,102 @@ router.get('/getCompletedTransactions/:token/', (req, res) => {
     }
   });
 });
+
+/**
+ * @deprecated Due to inefficiency (still in use but needs changing)
+ * Gets all books being sold from database. All of them!
+ * @param {object} req Request body from client.
+ * @param {array} res Body of HTTP response.
+ * @returns {object} Array of books from database.
+ */
+router.get('/getPendingSpecificPendingTransaction/:token/', (req, res) => {
+  jwt.verify(req.params.token, 'secretKey', (err, authData) => {
+    if (err) {
+      res.sendStatus(403);
+    } else {
+      User.findOne({ _id: authData.userInfo._id }, (error, user) => {
+        if (!user) {
+          res.status(401).send({ error: 'You need to create an account' });
+        } else if (authData.userInfo.permissionType === 1) {
+          // check if permission is 1 where 1 is admin but that will be for later
+          Transactions.find({
+            status: 1,
+          }, (err, transactionList) => {
+            res.status(200).json(sortReverseCronological(transactionList));
+          });
+        } else {
+          res.redirect('/home');
+        }
+      });
+    }
+  });
+});
+/**
+ * @deprecated Due to inefficiency (still in use but needs changing)
+ * Gets all books being sold from database. All of them!
+ * @param {object} req Request body from client.
+ * @param {array} res Body of HTTP response.
+ * @returns {object} Array of books from database.
+ */
+router.post('/confirmTransaction', (req, res) => {
+  jwt.verify(req.body.data.token, 'secretKey', (err, authData) => {
+    if (err) {
+      res.sendStatus(403);
+    } else {
+      User.findOne({ _id: authData.userInfo._id }, (error, user) => {
+        if (!user) {
+          res.status(401).send({ error: 'You need to create an account' });
+        } else if (authData.permissionType === 1) {
+          Transactions.update(
+            { _id: req.body.data.id },
+            {
+              $set:
+                {
+                  status: 1,
+                },
+            }, (err) => {
+              if (!err) {
+                res.sendStatus(200);
+              }
+            },
+          );
+        } else {
+          res.redirect('/home');
+        }
+      });
+    }
+  });
+});
+
+/**
+ * @deprecated Due to inefficiency (still in use but needs changing)
+ * Gets all books being sold from database. All of them!
+ * @param {object} req Request body from client.
+ * @param {array} res Body of HTTP response.
+ * @returns {object} Array of books from database.
+ */
+router.get('/getTransactionsByName/:token/:firstName/:LastName', (req, res) => {
+  jwt.verify(req.params.token, 'secretKey', (err, authData) => {
+    if (err) {
+      res.sendStatus(403);
+    } else {
+      User.findOne({ _id: authData.userInfo._id }, (error, user) => {
+        if (!user) {
+          res.status(401).send({ error: 'You need to create an account' });
+        } else if (authData.permissionType === 1) {
+          Transactions.find({ $and: [{ buyerFirstName: req.params.firstName }, { buyerLastName: req.params.lastName }] }, (err, transactions) => {
+            res.json(sortReverseCronological(transactions));
+          });
+        } else {
+          res.redirect('/home');
+        }
+      });
+    }
+  });
+});
+
+
+
 
 router.get('/', (req, res) => {
   if (req.user) {
