@@ -19,7 +19,7 @@ class TopBar extends Component {
     super();
     this.state = {
       redirect: false,
-      visible: true,
+      visible: false,
     };
 
     this.AUTH = new AuthService();
@@ -57,7 +57,7 @@ class TopBar extends Component {
             <MaterialIcon icon="menu" size={36} />
           </div>
           <Link to="/cart" href="/cart">
-            <button className="button" id="cart">Cart</button>
+            <button onClick={this.toggleVis} className="button" id="cart">Cart</button>
           </Link>
         </div>
         <div className="middle-bar part">

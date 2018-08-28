@@ -96,3 +96,9 @@
   margin: 16px 0;
   align-self: center;
 }
+
+@media only screen and (max-width: 600px) {
+  #wrapper {
+    display: none;
+  }
+}
