@@ -43,7 +43,8 @@ module.exports = {
       <br />
       We are excited to let you know that we found a buyer for your copy of ${bookTitle}. Please drop the book as soon as you can at one of our crew members in the following schedule:
       <br />
-      Monday - Friday: 11 AM - 4 PM @ the Q&I area in Rush Rhees Library
+      Thursday: 2 PM - 4 PM @ the Q&I area in Rush Rhees Library
+      Friday: 12 PM - 2 PM @ the Q&I area in Rush Rhees Library
       Saturday: 11 AM - 2 PM @ the Q&I area in Rush Rhees Library
       <br />
       We will check the condition of the book and if it matches the one advertised, we will send you the money via Venmo before delivering the book to the other student. 
