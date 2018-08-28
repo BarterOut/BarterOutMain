@@ -2,9 +2,6 @@
   font-family: sans-serif;
 }
 
-/* html, body {
-  overflow: hidden;
-} */
 
 ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
   color: #777;
@@ -85,6 +82,14 @@
   padding: 0;
   font-size: 1.6em;
   color: white;
+}
+
+@media only screen and (max-width: 600px) {
+  .page-section-wrapper, .title-text--page-section-header, .page-section-wrapper, .title--page-section-wrapper,
+  .searchInputWrapper, .searchInfo {
+    max-width: 90vw;
+    min-width: 90vw;
+  }
 }
 
 .button {
@@ -215,6 +220,15 @@ button:focus {
 .top-modal-section {
   width: 100%;
   text-align: right;
+}
+
+@media only screen and (max-width: 600px) {
+  .modal {
+    width: 90%;
+  }
+  .input-wrapper {
+    width: 100%;
+  }
 }
 
 .overlay {

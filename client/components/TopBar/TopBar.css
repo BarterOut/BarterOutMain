@@ -11,6 +11,19 @@
   width: 30%;
 }
 
+.left-bar {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+#three-bar {
+  display: flex;
+  justify-content: flex-end;
+  cursor: pointer;
+}
+
 .right-bar {
   display: flex;
   justify-content: center;

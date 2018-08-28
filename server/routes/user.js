@@ -324,7 +324,7 @@ router.get('/getAllUserData/:token', (req, res) => {
   jwt.verify(req.params.token, 'secretKey', (error, authData) => {
     if (error) {
       res.sendStatus(400);
-    } else {
+    } else if (authData.permissionType === 1){
       //check if it is an admin ie permissionType == 1
       User.find(
         { }, {

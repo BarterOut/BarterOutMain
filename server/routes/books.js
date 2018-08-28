@@ -8,6 +8,7 @@
 import Textbook from '../models/textbook';
 import TextbookBuy from '../models/textbookBuy';
 import User from '../models/user';
+import Transaction from "../models/transaction";
 
 const express = require('express');
 
@@ -282,6 +283,8 @@ router.post('/clickBuyTemp/:token', (req, res) => {
           let buyer;
           let bookFound;
           let seller;
+          let totalCharged = 0;
+          let bookList = [];
 
           User.find({ _id: authData.userInfo._id }, (e, foundUser) => {
             if (e) {
@@ -295,7 +298,7 @@ router.post('/clickBuyTemp/:token', (req, res) => {
               },
             );
             buyer = foundUser[0];
-            console.log(req.body.data.cart);
+
             for (i = 0; i < req.body.data.cart.length; i++) {
               Textbook.update({ _id: req.body.data.cart[i]._id }, { $set: { status: 1, buyer: authData.userInfo._id } }, (error) => {
                 console.error(`Error: ${error}`);
@@ -305,6 +308,8 @@ router.post('/clickBuyTemp/:token', (req, res) => {
               // updates the books being sought by the user that match the query
               Textbook.find({ _id: req.body.data.cart[i]._id }, (errors, foundBook) => {
                 bookFound = foundBook[0];
+                totalCharged += bookFound.price;
+                bookList.push(bookFound._id)
                 TextbookBuy.update({
                   $and: [{ status: 0 }, { $or: [{ name: bookFound.name }, { course: bookFound.course }] },
                     { owner: authData.userInfo._id }],
@@ -323,9 +328,24 @@ router.post('/clickBuyTemp/:token', (req, res) => {
                   sendEmail(emails.emailForUs(buyer, seller, bookFound));
                   sendEmail(emails.emailToSeller(seller.emailAddress, seller.firstName, bookFound.name));
                   sendEmail(emails.venmoRequestEmail(buyer.emailAddress, buyer.firstName, bookFound.name));
+                  console.log(buyer);
+                  const newTransaction = new Transaction({
+                    buyerID: buyer._id,
+                    buyerFirstName: buyer.firstName,
+                    buyerLastName: buyer.lastName,
+                    buyerVenmo: buyer.venmoUsername,
+                    sellerID: seller._id,
+                    sellerFirstName: seller.firstName,
+                    sellerLastName: seller.lastName,
+                    sellerVenmo: seller.venmoUsername,
+                    totalCharged,
+                    booksPurchased: bookList,
+                  });
+                  newTransaction.save();
                 });
               });
             }
+            
           });
           // clear the cart
           User.update(
@@ -513,129 +533,6 @@ router.get('/getAllBooks/:token', (req, res) => {
               res.status(200).json(sortBooksReverseCronological(books));
             });
           });
-        }
-      });
-    }
-  });
-});
-
-/**
- * @deprecated Due to inefficiency (still in use but needs changing)
- * Gets all books being sold from database. All of them!
- * @param {object} req Request body from client.
- * @param {array} res Body of HTTP response.
- * @returns {object} Array of books from database.
- */
-router.get('/getAllBooksAdmin/:token', (req, res) => {
-  jwt.verify(req.params.token, 'secretKey', (err, authData) => {
-    if (err) {
-      res.sendStatus(403);
-    } else {
-      User.findOne({ _id: authData.userInfo._id }, (error, user) => {
-        if (!user) {
-          res.status(401).send({ error: 'You need to create an account' });
-        } else {
-          // check if permission is 1 where 1 is admin but that will be for later
-          Textbook.find({
-           // Finds all of the books
-          }, (err, books) => {
-            User.findById(authData.userInfo._id, (err, user) => { //this search is not needed
-              res.status(200).json(sortBooksReverseCronological(books));
-            });
-          });
-        }
-      });
-    }
-  });
-});
-
-/**
- * @deprecated Due to inefficiency (still in use but needs changing)
- * Gets all books being sold from database. All of them!
- * @param {object} req Request body from client.
- * @param {array} res Body of HTTP response.
- * @returns {object} Array of books from database.
- */
-router.get('/getCompletedBooks/:token', (req, res) => {
-  jwt.verify(req.params.token, 'secretKey', (err, authData) => {
-    if (err) {
-      res.sendStatus(403);
-    } else {
-      User.findOne({ _id: authData.userInfo._id }, (error, user) => {
-        if (!user) {
-          res.status(401).send({ error: 'You need to create an account' });
-        } else {
-          // check if permission is 1 where 1 is admin but that will be for later
-          Textbook.find({
-            status: 4, // Finds all of the books of status 4 (completed)
-          }, (err, books) => {
-            User.findById(authData.userInfo._id, (err, user) => { //this search is not needed
-              res.status(200).json(sortBooksReverseCronological(books));
-            });
-          });
-        }
-      });
-    }
-  });
-});
-
-/**
- * @deprecated Due to inefficiency (still in use but needs changing)
- * Gets all books being sold from database. All of them!
- * @param {object} req Request body from client.
- * @param {array} res Body of HTTP response.
- * @returns {object} Array of books from database.
- */
-router.get('/getInProcessBooks/:token', (req, res) => {
-  jwt.verify(req.params.token, 'secretKey', (err, authData) => {
-    if (err) {
-      res.sendStatus(403);
-    } else {
-      User.findOne({ _id: authData.userInfo._id }, (error, user) => {
-        if (!user) {
-          res.status(401).send({ error: 'You need to create an account' });
-        } else {
-          // check if permission is 1 where 1 is admin but that will be for later
-          Textbook.find({
-            status: { $lt: 4 }, // Finds all of the books of status 4 (completed)
-          }, (err, books) => {
-            User.findById(authData.userInfo._id, (err, user) => { //this search is not needed
-              res.status(200).json(sortBooksReverseCronological(books));
-            });
-          });
-        }
-      });
-    }
-  });
-});
-
-/**
- * @deprecated Due to inefficiency (still in use but needs changing)
- * Updates the status of a book, requires book ID and the status to be set (number)
- * @param {object} req Request body from client.
- * @param {array} res Body of HTTP response.
- * @returns {object} Array of books from database.
- */
-router.post('/setBookStatus/:token', (req, res) => {
-  jwt.verify(req.params.token, 'secretKey', (err, authData) => {
-    if (err) {
-      res.sendStatus(403);
-    } else {
-      User.findOne({ _id: authData.userInfo._id }, (error, user) => {
-        if (!user) {
-          res.status(401).send({ error: 'You need to create an account' });
-        } else {
-          // check if permission is 1 where 1 is admin but that will be for later when we have admin accounts
-          Textbook.update(
-            { _id: req.body.data.bookID },
-            {
-              $set:
-                {
-                  status: req.body.data.status,
-                },
-            },
-          );
-          res.status(200);
         }
       });
     }

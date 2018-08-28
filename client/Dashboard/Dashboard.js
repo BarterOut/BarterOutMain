@@ -1,79 +1,103 @@
+/**
+ * @file React component for loging users in.
+ * @author Duncan Grubbs <duncan.grubbs@gmail.com>
+ * @version 0.0.3
+ */
 
 import React, { Component } from 'react';
+import { Redirect, Link } from 'react-router-dom';
+import AuthService from '../services/AuthService';
 
-
-import "./Dashboard.css"
-import logoPic from '../images/barterOutOrangeWhiteLogoHeader.png';
-import profile from '../images/barterOutProfilePhotoWebPage.png';
-
-import Home from './Home/Home'
+import logo from '../images/barterOutOrangeWhiteLogo.png';
 
 class Dashboard extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
-      user: JSON.parse(sessionStorage.getItem('user')),
-      name: '',
-      university: '',
+      emailAddress: '',
+      password: '',
+      redirect: false,
+      badCreditials: false,
     };
+    this.AUTH = new AuthService();
+
+    this.login = this.login.bind(this);
+    this.onChange = this.onChange.bind(this);
   }
 
-  async callApi(url) {
-    const response = await fetch(url);
-    const body = await response.json();
-    return body;
+  componentDidMount() {
+    document.addEventListener('keydown', this._handleKeyDown.bind(this));
   }
 
-  logout() {
-    sessionStorage.clear();
-    window.location.reload();
+  onChange(evt) {
+    this.setState({ [evt.target.name]: evt.target.value });
   }
 
-  // callHome() {
-  //   this.callApi('/api/dashboard/Home')
-  // }
+  _handleKeyDown(e) {
+    if (e.keyCode === 13) {
+      this.login();
+    }
+  }
+
+  login() {
+    this.AUTH.login(this.state.emailAddress, this.state.password)
+      .then(() => {
+        this.setState({ redirect: true });
+      });
+  }
 
   render() {
+    if (this.state.redirect) {
+      console.log('redirect')
+      return (<Redirect to="/dashboard/home" />);
+    }
     return (
-      <div className="app-wrapper">
-      <div className="bar">
-        <div className="right">
-          <img className="logo" src={logoPic} alt="logo" />
+      <div className="login-wrapper">
+        <div className="leftLoginContent">
+          <h1>Welcome to</h1>
+          <img src={logo} alt="logo" />
+          <h1>Dashboard</h1>
         </div>
-        <div className="left">
-          <button
-            className="button"
-            onClick={this.logout.bind(this)}
-          >Logout
-          </button>
+        <div className="rightLoginContent">
+          <h2 id="login-header">
+          Please enter your email
+          and password to log in
+          </h2>
+          {this.state.badCreditials && <span className="input-error">Incorrect Username or Password</span>}
+          <input
+            className="formInputLoginSignup"
+            onChange={this.onChange}
+            placeholder="Email"
+            type="email"
+            pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.+-]+\.edu$"
+            name="emailAddress"
+            required
+          />
+          <input
+            className="formInputLoginSignup"
+            onChange={this.onChange}
+            placeholder="Password"
+            type="password"
+            name="password"
+            required
+          />
+          <div className="login-prefs">
+            <div>Back to <Link href="/" to="/">Home</Link>.</div>
+          </div>
+          <div>
+            <button className="inputButtonFilled" onClick={this.login}>Log In</button>
+            <Link href="/signup" to="/signup">
+              <button className="inputButton">Sign Up</button>
+            </Link>
+          </div>
+          <div className="legal-links-login">
+            <Link className="fine-print-login" href="/termsOfService" to="/termsOfService">Terms of Service</Link>
+            |
+            <Link className="fine-print-login" href="/privacyPolicy" to="/privacyPolicy"> Privacy Policy</Link>
+          </div>
         </div>
       </div>
-      <div className="content-wrapper">
-        <div className="profile-section">
-          <img src={profile} alt="profile" className="profile-pic" />
-          <h2>Profile</h2>
-          <h4>{user.firstName} {user.lastName}</h4>
-          <h4>{user.emailAddress}</h4>
-          <h4>@{user.venmoUsername}</h4>
-          <h4>CMC Box: {user.CMC}</h4>
-          {/* <button
-            className="button"
-            onClick={this.toggleBuyVisibility.bind(this)}
-          >Find Book
-          </button>
-          <button
-            className="button"
-            onClick={this.toggleSellVisibility.bind(this)}
-          >Sell Book
-          </button> */}
-        </div>
-      </div>
-    </div>
-      // <div>
-      //   <h1>Test</h1>
-      //   {/* <button onClick={this.callHome.bind(this)}>Go to home</button> */}
-      // </div>
-    )
+    );
   }
 }
 
