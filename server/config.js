@@ -1,6 +1,6 @@
 const config = {
   mongoURL: process.env.MONGO_URL ||
-  'mongodb://BarterOutDev:LuisInnovation1@ds127342.mlab.com:27342/barterout-release',
+  'mongodb://BarterOut:LuisInnovation1@ds127342.mlab.com:27342/barterout-release',
   port: process.env.PORT || 8080,
 };
 
