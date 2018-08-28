@@ -112,7 +112,7 @@ class Login extends Component {
             required
           />
           <div className="login-prefs">
-            <Link className="forgot-password" href="/forgotPassword" to="/forgotPassword">Forgot Password?</Link>
+            {/* <Link className="forgot-password" href="/forgotPassword" to="/forgotPassword">Forgot Password?</Link> */}
             <div>Back to <Link href="/" to="/">Home</Link>.</div>
           </div>
           <div>
