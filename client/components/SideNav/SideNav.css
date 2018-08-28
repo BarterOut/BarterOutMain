@@ -51,13 +51,6 @@
   text-align: center;
 }
 
-#three-bar {
-  display: flex;
-  width: 50%;
-  justify-content: flex-end;
-  cursor: pointer;
-}
-
 .top-of-nav {
   display: flex;
   flex-direction: row;

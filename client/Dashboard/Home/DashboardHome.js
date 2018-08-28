@@ -73,7 +73,7 @@ class DashboardHome extends Component {
         <button onClick={this.logout}>Logout</button>
 
         <h2>On-going transactions</h2>
-        <table>
+        <table className="has-border">
           <tbody>
             <tr>
               <th>ID</th>
@@ -86,19 +86,19 @@ class DashboardHome extends Component {
             </tr>
             {this.state.transactions.map(book => (
               <tr id={book._id}>
-                <td>{book._id}</td>
-                <td>{book.name}</td>
-                <td>{book.course}</td>
-                <td>{book.owner}</td>
-                <td>{book.condition}</td>
-                <td>{book.buyer}</td>
-                <td><button id={book._id} onClick={this.confirm}>Confirm Purchase</button></td>
+                <td className="has-border">{book._id}</td>
+                <td className="has-border">{book.name}</td>
+                <td className="has-border">{book.course}</td>
+                <td className="has-border">{book.owner}</td>
+                <td className="has-border">{book.condition}</td>
+                <td className="has-border">{book.buyer}</td>
+                <td className="has-border"><button id={book._id} onClick={this.confirm}>Confirm Purchase</button></td>
               </tr>
             ))}
           </tbody>
         </table>
         <h2>Completed Transactions</h2>
-        <table>
+        <table className="has-border">
           <tbody>
             <tr>
               <th>ID</th>
@@ -110,18 +110,18 @@ class DashboardHome extends Component {
             </tr>
             {this.state.purchasedBooks.map(book => (
               <tr id={book._id}>
-                <td>{book._id}</td>
-                <td>{book.name}</td>
-                <td>{book.course}</td>
-                <td>{book.owner}</td>
-                <td>{book.condition}</td>
-                <td>{book.buyer}</td>
+                <td className="has-border">{book._id}</td>
+                <td className="has-border">{book.name}</td>
+                <td className="has-border">{book.course}</td>
+                <td className="has-border">{book.owner}</td>
+                <td className="has-border">{book.condition}</td>
+                <td className="has-border">{book.buyer}</td>
               </tr>
             ))}
           </tbody>
         </table>
         <h2>Users</h2>
-        <table>
+        <table className="has-border">
           <tbody>
             <tr>
               <th>ID</th>
@@ -135,14 +135,14 @@ class DashboardHome extends Component {
             </tr>
             {this.state.users.map(user => (
               <tr id={user._id}>
-                <td>{user._id}</td>
-                <td>{user.firstName}</td>
-                <td>{user.lastName}</td>
-                <td>{user.emailAddress}</td>
-                <td>{user.venmoUsername}</td>
-                <td>{user.CMC}</td>
-                <td>{user.numberOfBooksSold}</td>
-                <td>{user.numberOfBooksBought}</td>
+                <td className="has-border">{user._id}</td>
+                <td className="has-border">{user.firstName}</td>
+                <td className="has-border">{user.lastName}</td>
+                <td className="has-border">{user.emailAddress}</td>
+                <td className="has-border">{user.venmoUsername}</td>
+                <td className="has-border">{user.CMC}</td>
+                <td className="has-border">{user.numberOfBooksSold}</td>
+                <td className="has-border">{user.numberOfBooksBought}</td>
               </tr>
             ))}
           </tbody>
