@@ -298,7 +298,6 @@ router.post('/clickBuyTemp/:token', (req, res) => {
               },
             );
             buyer = foundUser[0];
-            console.log(req.body.data.cart);
 
             for (i = 0; i < req.body.data.cart.length; i++) {
               Textbook.update({ _id: req.body.data.cart[i]._id }, { $set: { status: 1, buyer: authData.userInfo._id } }, (error) => {
@@ -329,22 +328,24 @@ router.post('/clickBuyTemp/:token', (req, res) => {
                   sendEmail(emails.emailForUs(buyer, seller, bookFound));
                   sendEmail(emails.emailToSeller(seller.emailAddress, seller.firstName, bookFound.name));
                   sendEmail(emails.venmoRequestEmail(buyer.emailAddress, buyer.firstName, bookFound.name));
+                  console.log(buyer);
+                  const newTransaction = new Transaction({
+                    buyerID: buyer._id,
+                    buyerFirstName: buyer.firstName,
+                    buyerLastName: buyer.lastName,
+                    buyerVenmo: buyer.venmoUsername,
+                    sellerID: seller._id,
+                    sellerFirstName: seller.firstName,
+                    sellerLastName: seller.lastName,
+                    sellerVenmo: seller.venmoUsername,
+                    totalCharged,
+                    booksPurchased: bookList,
+                  });
+                  newTransaction.save();
                 });
               });
             }
-            const newTransaction = new Transaction({
-              buyerID: buyer._id,
-              buyerFirstName: buyer.firstName,
-              buyerLastName: buyer.lastName,
-              buyerVenmo: buyer.venmoUsername,
-              sellerID: seller._id,
-              sellerFirstName: seller.firstName,
-              sellerLastName: seller.lastName,
-              sellerVenmo: seller.venmoUsername,
-              totalCharged,
-              booksPurchased: bookList,
-            });
-            newTransaction.save();
+            
           });
           // clear the cart
           User.update(
