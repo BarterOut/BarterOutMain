@@ -8,6 +8,7 @@ import React, { Component } from 'react';
 import propTypes from 'prop-types';
 import { Redirect, Link } from 'react-router-dom';
 import AuthService from '../../services/AuthService';
+import MaterialIcon from 'react-google-material-icons';
 
 import '../../baseStyles.css';
 
@@ -18,10 +19,11 @@ class TopBar extends Component {
     super();
     this.state = {
       redirect: false,
+      visible: false,
     };
 
     this.AUTH = new AuthService();
-
+    this.toggleVis = this.toggleVis.bind(this);
     this._logout = this._logout.bind(this);
   }
 
@@ -33,6 +35,16 @@ class TopBar extends Component {
     this.AUTH.logout();
   }
 
+  toggleVis() {
+    if (this.state.visible) {
+      this.setState({ visible: false });
+      document.getElementById('wrapper').style.display = 'none';
+    } else {
+      this.setState({ visible: true });
+      document.getElementById('wrapper').style.display = 'flex';
+    }
+  }
+
   render() {
     if (this.state.redirect) {
       return (<Redirect to="/" />);
@@ -41,8 +53,11 @@ class TopBar extends Component {
     return (
       <div className="bar-wrapper">
         <div className="left-bar part">
+          <div onClick={this.toggleVis} id="three-bar">
+            <MaterialIcon icon="menu" size={36} />
+          </div>
           <Link to="/cart" href="/cart">
-            <button className="button" id="cart">Cart</button>
+            <button onClick={this.toggleVis} className="button" id="cart">Cart</button>
           </Link>
         </div>
         <div className="middle-bar part">

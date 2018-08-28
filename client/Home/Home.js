@@ -65,7 +65,7 @@ class Home extends Component {
             <div className="stats-section">
               <div className="stat-wrap">
                 <div className="title--page-section-wrapper--stat">
-                  <h2 className="title-text--page-section-header">Books Bought</h2>
+                  <h2 className="title-text--page-section-header">Bought</h2>
                 </div>
                 <div className="page-section-wrapper--stat">
                   <h2 className="stat-text">{this.state.numberOfBooksBought}</h2>
@@ -73,7 +73,7 @@ class Home extends Component {
               </div>
               <div className="stat-wrap">
                 <div className="title--page-section-wrapper--stat">
-                  <h2 className="title-text--page-section-header">Books Sold</h2>
+                  <h2 className="title-text--page-section-header">Sold</h2>
                 </div>
                 <div className="page-section-wrapper--stat">
                   <h2 className="stat-text">{this.state.numberOfBooksSold}</h2>
@@ -81,7 +81,7 @@ class Home extends Component {
               </div>
               <div className="stat-wrap">
                 <div className="title--page-section-wrapper--stat">
-                  <h2 className="title-text--page-section-header">Money Made</h2>
+                  <h2 className="title-text--page-section-header">$$ Made</h2>
                 </div>
                 <div className="page-section-wrapper--stat">
                   <h2 className="stat-text">${this.state.moneyMade}</h2>

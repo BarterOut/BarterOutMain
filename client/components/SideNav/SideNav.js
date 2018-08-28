@@ -57,9 +57,9 @@ class SideNav extends Component {
           <Link id="logo-link" to="/home" href="/home">
             <img id="logo" src={logo} alt="logo" />
           </Link>
-          <div id="three-bar">
+          {/* <div onClick={this.hide} id="three-bar">
             <MaterialIcon icon="menu" size={36} />
-          </div>
+          </div> */}
         </div>
         <div id="profile-wrapper">
           <Link to="/settings" href="/settings" id="profile-photo-link">

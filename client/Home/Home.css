@@ -60,3 +60,13 @@
   align-items: flex-start;
   justify-content: center;
 }
+
+@media only screen and (max-width: 600px) {
+  .page-content {
+    max-width: 95vw;
+  }
+  .title--page-section-wrapper--stat, .page-section-wrapper--stat, .stats-section {
+    max-width: 25vw;
+    min-width: 25vw;
+  }
+}

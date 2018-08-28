@@ -51,13 +51,6 @@
   text-align: center;
 }
 
-#three-bar {
-  display: flex;
-  width: 50%;
-  justify-content: flex-end;
-  cursor: pointer;
-}
-
 .top-of-nav {
   display: flex;
   flex-direction: row;
@@ -102,4 +95,10 @@
   bottom: 0;
   margin: 16px 0;
   align-self: center;
+}
+
+@media only screen and (max-width: 600px) {
+  #wrapper {
+    display: none;
+  }
 }

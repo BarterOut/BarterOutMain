@@ -250,6 +250,7 @@ router.post('/login', (req, res) => {
     const userInfo = {
       // Can add more stuff into this so that it has more info, for now it only has the id
       _id: user._id,
+      permissionType: user.permissionType,
     };
 
     // Creates the token and sends the JSON back

@@ -86,7 +86,7 @@ class LandingPage extends Component {
                 <a className="productLink landingPageLink" href="#madeSimple">Our Product</a>
                 <a className="missionLink landingPageLink" href="#whatWereAbout">Our Mission</a>
                 <a className="teamLink landingPageLink" href="#teamPage">Our Team</a>
-                {/*<Link className="landingPageLink preRegisterLink" to="/login" href="login">Login</Link>*/}
+                <Link className="landingPageLink preRegisterLink" to="/login" href="login">Login</Link>
               </div>
             </nav>
             <div className="mainText animated fadeIn" id="mainText">
