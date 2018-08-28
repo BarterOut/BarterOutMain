@@ -283,7 +283,7 @@ router.post('/clickBuyTemp/:token', (req, res) => {
           let buyer;
           let bookFound;
           let seller;
-          let totalCharged;
+          let totalCharged = 0;
           let bookList = [];
 
           User.find({ _id: authData.userInfo._id }, (e, foundUser) => {

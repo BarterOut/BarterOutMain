@@ -12,7 +12,7 @@ const express = require('express');
 const router = express.Router();
 
 // will return an array of JSON objects in reverse cronological order (Newest at the top)
-function sortReverseCronological(bookJSONArray) {
+function sortReverseCronological(JSONArray) {
   JSONArray.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
   return JSONArray;
 }

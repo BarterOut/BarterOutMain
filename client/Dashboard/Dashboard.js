@@ -48,6 +48,7 @@ class Dashboard extends Component {
 
   render() {
     if (this.state.redirect) {
+      console.log('redirect')
       return (<Redirect to="/dashboard/home" />);
     }
     return (
