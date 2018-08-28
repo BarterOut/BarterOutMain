@@ -108,8 +108,7 @@ class ResetPassword extends Component {
           <MaterialIcon size={100} icon="lock" id="lock-icon" />
           <h2 id="header-custom">Forgot your Password?</h2>
           <h3 id="forgot-password-message">
-            No worries! Enter your email and
-            we will send you a password reset link:
+            No worries! Enter your new password!
           </h3>
           {this.state.badCreditials && <span className="input-error">Please enter an valid email.</span>}
 
