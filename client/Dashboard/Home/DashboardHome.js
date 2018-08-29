@@ -76,13 +76,14 @@ class DashboardHome extends Component {
         <table className="has-border">
           <tbody>
             <tr>
-              <th>ID</th>
-              <th>Name</th>
-              <th>Course</th>
-              <th>Owner</th>
-              <th>Condition</th>
-              <th>Buyer</th>
-              <th>Confirm</th>
+              <th className="has-border">ID</th>
+              <th className="has-border">Name</th>
+              <th className="has-border">Course</th>
+              <th className="has-border">Owner</th>
+              <th className="has-border">Price</th>
+              <th className="has-border">Condition</th>
+              <th className="has-border">Buyer</th>
+              <th className="has-border">Confirm</th>
             </tr>
             {this.state.transactions.map(book => (
               <tr id={book._id}>
@@ -90,6 +91,7 @@ class DashboardHome extends Component {
                 <td className="has-border">{book.name}</td>
                 <td className="has-border">{book.course}</td>
                 <td className="has-border">{book.owner}</td>
+                <td className="has-border">{book.price}</td>
                 <td className="has-border">{book.condition}</td>
                 <td className="has-border">{book.buyer}</td>
                 <td className="has-border"><button id={book._id} onClick={this.confirm}>Confirm Purchase</button></td>
@@ -124,14 +126,14 @@ class DashboardHome extends Component {
         <table className="has-border">
           <tbody>
             <tr>
-              <th>ID</th>
-              <th>First Name</th>
-              <th>Last Name</th>
-              <th>Email</th>
-              <th>Venmo</th>
-              <th>CMC</th>
-              <th># Sold</th>
-              <th># Bought</th>
+              <th className="has-border">ID</th>
+              <th className="has-border">First Name</th>
+              <th className="has-border">Last Name</th>
+              <th className="has-border">Email</th>
+              <th className="has-border">Venmo</th>
+              <th className="has-border">CMC</th>
+              <th className="has-border"># Sold</th>
+              <th className="has-border"># Bought</th>
             </tr>
             {this.state.users.map(user => (
               <tr id={user._id}>
