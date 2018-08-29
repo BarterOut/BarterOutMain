@@ -140,7 +140,7 @@ class SignUp extends Component {
       <div className="login-wrapper">
         <div className="leftLoginContent">
           <h1>Welcome to</h1>
-          <img src={logo} alt="logo" />
+          <img className="wide-logo" src={logo} alt="logo" />
         </div>
 
         <div className="rightLoginContent">
@@ -167,7 +167,7 @@ class SignUp extends Component {
             required
           />
 
-          <span className="inputLabel">Email *</span>
+          <span className="inputLabel">Email * (must be U of R email)</span>
           <input
             className="formInputLoginSignup"
             placeholder=""

@@ -189,7 +189,7 @@ class LandingPage extends Component {
                   </div>
                 </div>
                 <div className="slideInPhotoRight animated" id="smartPeopleBlockPhoto">
-                  <img src={picOne} alt="students" />
+                  <img className="landing-students-img" src={picOne} alt="students" />
                 </div>
               </div>
 
@@ -206,7 +206,7 @@ class LandingPage extends Component {
                   </div>
                 </div>
                 <div className="slideInPhotoLeft animated" id="helpingOthersBlockPhoto">
-                  <img src={picTwo} alt="students" />
+                  <img className="landing-students-img" src={picTwo} alt="students" />
                 </div>
               </div>
 
@@ -224,7 +224,7 @@ class LandingPage extends Component {
                   </div>
                 </div>
                 <div className="slideInPhotoRight animated" id="fastCheapEasyBlockPhoto">
-                  <img src={picThree} alt="students" />
+                  <img className="landing-students-img" src={picThree} alt="students" />
                 </div>
               </div>
             </div>

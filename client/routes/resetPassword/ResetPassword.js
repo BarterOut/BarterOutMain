@@ -1,8 +1,3 @@
-/**
- * @file React component for users who forgot thier password.
- * @author Duncan Grubbs <duncan.grubbs@gmail.com>
- * @version 0.0.3
- */
 
 import React, { Component } from 'react';
 import { Redirect, Link } from 'react-router-dom';
@@ -12,15 +7,16 @@ import AuthService from '../../services/AuthService';
 
 import logo from '../../images/BarterOutDarkLogo.png';
 
-import './ForgotPassword.css';
+import './ResetPassword.css';
 
-class ForgotPassword extends Component {
+class ResetPassword extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      emailAddress: '',
       redirect: false,
       badCreditials: false,
+      passwordConfirm: '',
+      password: '',
     };
     this.Auth = new AuthService();
 
@@ -29,7 +25,8 @@ class ForgotPassword extends Component {
   }
 
   componentDidMount() {
-    this.setRedirect();
+    // this.setRedirect();
+    console.log(this.props.match.params.resetToken);
     document.addEventListener('keydown', this._handleKeyDown.bind(this));
   }
 
@@ -37,13 +34,13 @@ class ForgotPassword extends Component {
     this.setState({ [evt.target.name]: evt.target.value });
   }
 
-  setRedirect() {
-    if (!this.Auth.isTokenExpired(this.Auth.getToken)) {
-      this.setState({ redirect: true });
-    } else {
-      this.setState({ redirect: false });
-    }
-  }
+  // setRedirect() {
+  //   if (!this.Auth.isTokenExpired(this.Auth.getToken)) {
+  //     this.setState({ redirect: true });
+  //   } else {
+  //     this.setState({ redirect: false });
+  //   }
+  // }
 
   _handleKeyDown(e) {
     if (e.keyCode === 13) {
@@ -52,38 +49,52 @@ class ForgotPassword extends Component {
   }
 
   resetPassword() {
+    console.log('click');
     if (!this._validateInputs()) {
+      console.log(this.state.password);
+      console.log(this.state.passwordConfirm);
       return;
     }
+    console.log('click 2')
 
-    FetchService.POST('/api/auth/passwordResetRequest', {
-      emailAddress: this.state.emailAddress,
+    FetchService.POST('/api/auth/passwordReset/', {
+      password: this.state.password,
+      token: this.props.match.params.resetToken,
     })
       .then(() => {
         this.setState({ badCreditials: false });
         this.setState({ redirect: true });
       }).catch(() => {
-        this.setState({ badCreditials: true });
-      });
+      this.setState({ badCreditials: true });
+    });
   }
 
   _validateInputs() {
-    if (this.state.emailAddress === '') {
+
+    if (this.state.passwordConfirm === '') {
       this.setState({ badCreditials: true });
+      return false;
+    }
+    if (this.state.password === '') {
+      // this.setState({ badCreditials: true });
+      return false;
+    }
+    if (!(this.state.password === this.state.passwordConfirm)) {
+      // this.setState({ badCreditials: true });
       return false;
     }
     return true;
   }
 
   render() {
-    if (this.state.redirect) {
-      return (<Redirect to="/forgotPasswordSuccess" />);
-    }
+    // if (this.state.redirect) {
+    //   return (<Redirect to="/forgotPasswordSuccess" />);
+    // }
     return (
       <div className="wrapper-soft-bg">
         <div className="top-section">
           <div className="part-fgp left-bar">
-            <Link id="logo-wrap" to="/" href="/">
+            <Link to="/" href="/">
               <img className="logo-nonav" src={logo} alt="logo" />
             </Link>
           </div>
@@ -97,17 +108,25 @@ class ForgotPassword extends Component {
           <MaterialIcon size={100} icon="lock" id="lock-icon" />
           <h2 id="header-custom">Forgot your Password?</h2>
           <h3 id="forgot-password-message">
-            No worries! Enter your email and
-            we will send you a password reset link:
+            No worries! Enter your new password!
           </h3>
           {this.state.badCreditials && <span className="input-error">Please enter an valid email.</span>}
+
+
           <input
-            className="formInputForgotPassword"
+            className="formInput"
+            placeholder="New Password"
+            type="password"
+            name="password"
             onChange={this.onChange}
-            placeholder="Email"
-            type="email"
-            pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.+-]+\.edu$"
-            name="emailAddress"
+            required
+          />
+          <input
+            className="formInput"
+            placeholder="Confirm New Password"
+            type="password"
+            name="passwordConfirm"
+            onChange={this.onChange}
             required
           />
           <div>
@@ -121,4 +140,4 @@ class ForgotPassword extends Component {
   }
 }
 
-export default ForgotPassword;
+export default ResetPassword;

@@ -19,16 +19,17 @@ import Track from './routes/Track/Track';
 import Settings from './routes/Settings/Settings';
 import Help from './routes/Help/Help';
 import Cart from './routes/Cart/Cart';
+import EditPassword from './routes/EditPassword/EditPassword';
 
 import TermsOfService from './routes/TermsOfService/termsOfService';
 import PrivacyPolicy from './routes/PrivacyPolicy/privacyPolicy';
 import Contact from './routes/Contact/contact';
 import Careers from './routes/Careers/careers';
 
-import EditPassword from './routes/EditPassword/EditPassword';
+
 import ForgotPassword from './routes/ForgotPassword/ForgotPassword';
 import ForgotPasswordSuccess from './routes/ForgotPassword/ForgotPasswordSuccess';
-
+import ResetPassword from './routes/resetPassword/ResetPassword';
 import SignUpSuccess from './routes/SignUpSuccess/SignUpSuccess';
 import EmailConfirmed from './routes/EmailConfirmed/EmailConfirmed';
 
@@ -52,6 +53,7 @@ const PrivateRoute = ({ component: Component, rest }) => {
   );
 };
 
+
 const DashboardRoute = ({ component: Component, rest }) => {
   const auth = new AuthService();
   return (
@@ -73,6 +75,8 @@ export default (
     <Route exact path="/privacyPolicy" component={PrivacyPolicy} />
     <Route exact path="/contact" component={Contact} />
     <Route exact path="/careers" component={Careers} />
+    <Route path="/resetPassword/:resetToken" component={ResetPassword} />
+
     <PrivateRoute exact path="/home" component={Home} />
     <Route exact path="/login" component={Login} />
     <Route exact path="/signup" component={SignUp} />
@@ -82,7 +86,7 @@ export default (
     <PrivateRoute exact path="/settings" component={Settings} />
     <PrivateRoute exact path="/help" component={Help} />
     <PrivateRoute exact path="/cart" component={Cart} />
-    <Route exact path="/editPassword" component={EditPassword} />
+    <PrivateRoute exact path="/editPassword" component={EditPassword} />
     <Route exact path="/forgotPassword" component={ForgotPassword} />
     <Route exact path="/forgotPasswordSuccess" component={ForgotPasswordSuccess} />
     <Route exact path="/signUpSuccess" component={SignUpSuccess} />

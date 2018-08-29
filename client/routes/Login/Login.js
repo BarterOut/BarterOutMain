@@ -86,7 +86,7 @@ class Login extends Component {
       <div className="login-wrapper">
         <div className="leftLoginContent">
           <h1>Welcome to</h1>
-          <img src={logo} alt="logo" />
+          <img className="wide-logo" src={logo} alt="logo" />
         </div>
         <div className="rightLoginContent">
           <h2 id="login-header">

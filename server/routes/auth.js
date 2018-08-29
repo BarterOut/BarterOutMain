@@ -23,7 +23,7 @@ const bcrypt = require('bcryptjs');
 
 const emails = require('../emails/emailFunctions');
 
-// const crypto = require("crypto");
+const crypto = require("crypto");
 
 const nev = require('email-verification')(mongoose);
 
@@ -340,19 +340,27 @@ router.post('/updatePassword', (req, res) => {
 router.post('/passwordResetRequest', (req, res) => {
   const email = req.body.data.emailAddress;
   let token;
-  User.findOne({ emailAddress: email }, (err, user) => {
+  const endDate = Date.now() + 86400000;
+  User.findOne({ emailAddress: { $regex: email, $options: 'i' } }, (err, user) => {
     if (user != null) {
-      crypto.randomBytes(20, function (error, buf) {
-        token = buf.toString('hex');
+      crypto.randomBytes(32, function(err, buffer) {
+        token = buffer.toString('hex');
+        User.update(
+          { _id: user._id },
+          {
+            $set:
+              {
+                resetPasswordToken: token,
+                resetPasswordExpires: endDate,
+              },
+          },
+          (error) => {
+            console.error(`Error: ${error}`);
+          },
+        );
+        sendEmail(emails.passwordResetEmail(user.emailAddress, user.firstName, token));
+        res.sendStatus(200);
       });
-      user.resetPasswordToken = token;
-      user.resetPasswordExpires = Date.now() + 86400000;
-      user.save(function (er) {
-        if (er) {
-          console.log(er);
-        }
-      });
-      sendEmail(emails.passwordResetEmail(user.emailAddress, user.firstName, user.resetPasswordToken));
     } else {
       res.status(406).send({ error: 'no user found' });
     }
@@ -360,33 +368,45 @@ router.post('/passwordResetRequest', (req, res) => {
 });
 
 router.get('/passwordReset/:token', (req, res) => {
+  // console.log(req);
+
   User.findOne({ resetPasswordToken: req.params.token }, (err, user) => {
     if (!user) {
       console.log(`invalid token: ${req.params.token}`);
       res.status(406).send({ error: 'token expired or is invalid' });
     } else {
-      res.redirect('/resetPassword/:token');
+      res.redirect(`/resetPassword/${req.params.token}`);
     }
   });
 });
 
-router.post('/passwordReset', (req, res) => {
+router.post('/passwordReset/', (req, res) => {
+  console.log(req.body)
   User.findOne(
     {
-      resetPasswordToken: req.params.token,
+      resetPasswordToken: req.body.data.token,
       resetPasswordExpires: { $gt: Date.now() },
     },
     (err, user) => {
       if (!user) {
-        console.warn(`Invalid token: ${req.params.token}`);
+        console.warn(`Invalid token: ${req.body.data.token}`);
         res.status(406).send({ error: 'token expired or is invalid' });
       } else {
-        user.password = User.hashPassword(req.password);
-        user.resetPasswordExpires = undefined;
-        user.resetPasswordToken = undefined;
-        user.save((error) => {
-          console.error(error);
-        });
+        User.update(
+          { _id: user._id },
+          {
+            $set:
+              {
+                resetPasswordToken: undefined,
+                resetPasswordExpires: undefined,
+                password: user.hashPassword(req.body.data.password),
+              },
+          },
+          (error) => {
+            console.error(`Error: ${error}`);
+          },
+        );
+
         // can send an email here
         res.redirect('/home');
       }

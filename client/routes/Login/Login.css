@@ -119,6 +119,11 @@
   margin-right: 8px;
 }
 
+.wide-logo {
+  width: 90%;
+  height: auto;
+}
+
 @media only screen and (max-width: 600px) {
   .login-wrapper {
     align-items: center;
