@@ -71,7 +71,7 @@ class Cart extends Component {
 
   buyBooks() {
     const AUTH = new AuthService();
-    FetchService.POST(`/api/books/clickBuyTemp/${AUTH.getToken()}`, {
+    FetchService.POST(`/api/books/checkoutCart/${AUTH.getToken()}`, {
       cart: this.state.items,
     })
       .then(() => {
