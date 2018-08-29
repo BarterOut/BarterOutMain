@@ -70,6 +70,9 @@ class Cart extends Component {
   }
 
   buyBooks() {
+    if (!this.state.cart) {
+      return;
+    }
     const AUTH = new AuthService();
     FetchService.POST(`/api/books/checkoutCart/${AUTH.getToken()}`, {
       cart: this.state.items,

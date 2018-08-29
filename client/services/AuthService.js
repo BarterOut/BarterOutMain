@@ -28,6 +28,17 @@ export default class AuthService {
     return !this.isTokenExpired(token); // handwaiving here
   }
 
+  isAdmin() {
+    const token = this.getToken();
+    if (token == null) {
+      return false;
+    }
+    if (this.getProfile().userInfo.permissionType == 1) {
+      return true;
+    }
+    return false;
+  }
+
   isTokenExpired(token) {
     try {
       const decoded = decode(token);
