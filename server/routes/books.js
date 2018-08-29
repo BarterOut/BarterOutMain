@@ -320,30 +320,39 @@ router.post('/clickBuyTemp/:token', (req, res) => {
                 User.update(
                   { _id: bookFound.owner },
                   { $inc: { numberOfBooksSold: 1, moneyMade: bookFound.price } }, (error) => {
-                    console.error(`Error update seller: ${error}`);
+                    console.error(`Error update seller: ${error}`)sellerUser;
                   },
                 );
                 User.find({ _id: bookFound.owner }, (error, sellerUser) => {
+                  console.log(buyer);
                   seller = sellerUser[0];
+                  console.log('seller')
+                  console.log(seller);
+                  console.log('on the loop');
+                  console.log(i);
+                  console.log();
                   sendEmail(emails.emailForUs(buyer, seller, bookFound));
                   sendEmail(emails.emailToSeller(seller.emailAddress, seller.firstName, bookFound.name));
                   sendEmail(emails.venmoRequestEmail(buyer.emailAddress, buyer.firstName, bookFound.name));
-                  console.log(buyer);
-                  const newTransaction = new Transaction({
-                    buyerID: buyer._id,
-                    buyerFirstName: buyer.firstName,
-                    buyerLastName: buyer.lastName,
-                    buyerVenmo: buyer.venmoUsername,
-                    sellerID: seller._id,
-                    sellerFirstName: seller.firstName,
-                    sellerLastName: seller.lastName,
-                    sellerVenmo: seller.venmoUsername,
-                    totalCharged,
-                    booksPurchased: bookList,
-                  });
-                  newTransaction.save();
+                  console.log(bookFound);
+                  if (i === req.body.data.cart.length - 1) {
+                    const newTransaction = new Transaction({
+                      buyerID: buyer._id,
+                      buyerFirstName: buyer.firstName,
+                      buyerLastName: buyer.lastName,
+                      buyerVenmo: buyer.venmoUsername,
+                      sellerID: seller._id,
+                      sellerFirstName: seller.firstName,
+                      sellerLastName: seller.lastName,
+                      sellerVenmo: seller.venmoUsername,
+                      totalCharged,
+                      booksPurchased: bookList,
+                    });
+                    newTransaction.save();
+                  }
                 });
               });
+
             }
             
           });
@@ -359,6 +368,7 @@ router.post('/clickBuyTemp/:token', (req, res) => {
               console.log(`Error: ${error}`);
             },
           );
+          //new function goes here to send it.
           res.sendStatus(200);
         }
       });
