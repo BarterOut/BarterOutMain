@@ -83,7 +83,7 @@ class ForgotPassword extends Component {
       <div className="wrapper-soft-bg">
         <div className="top-section">
           <div className="part-fgp left-bar">
-            <Link to="/" href="/">
+            <Link id="logo-wrap" to="/" href="/">
               <img className="logo-nonav" src={logo} alt="logo" />
             </Link>
           </div>

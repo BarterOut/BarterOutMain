@@ -358,18 +358,9 @@ router.post('/passwordResetRequest', (req, res) => {
             console.error(`Error: ${error}`);
           },
         );
-        // user.resetPasswordToken = token;
-        // user.resetPasswordExpires = Date.now() + 86400000;
-        // user.save(function (er) {
-        //   if (er) {
-        //     console.log(er);
-        //   }
-        // });
-        // console.log('the token is:' + token)
         sendEmail(emails.passwordResetEmail(user.emailAddress, user.firstName, token));
+        res.sendStatus(200);
       });
-
-
     } else {
       res.status(406).send({ error: 'no user found' });
     }
