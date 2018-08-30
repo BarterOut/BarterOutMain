@@ -42,7 +42,7 @@ function transactionEmail(transactionID) {
             console.log(seller);
             console.log(book);
             console.log('sending');
-            sendEmail(emails.emailForUs(buyer, seller, book.name));
+            sendEmail(emails.emailForUs(buyer, seller, book));
             sendEmail(emails.emailToSeller(seller.emailAddress, seller.firstName, book.name));
             sendEmail(emails.venmoRequestEmail(buyer.emailAddress, buyer.firstName, book.name));
           });
