@@ -60,6 +60,7 @@ class DashboardHome extends Component {
 
   confirm(evt) {
     const id = evt.target.id;
+    console.log(id);
     FetchService.POST('/api/dashboard/confirmBook', { id, token: this.AUTH.getToken() })
       .then(() => window.location.reload());
   }
@@ -108,12 +109,12 @@ class DashboardHome extends Component {
         <table className="has-border">
           <tbody>
             <tr>
-              <th>ID</th>
-              <th>Name</th>
-              <th>Course</th>
-              <th>Owner</th>
-              <th>Condition</th>
-              <th>Buyer</th>
+              <th className="has-border">ID</th>
+              <th className="has-border">Name</th>
+              <th className="has-border">Course</th>
+              <th className="has-border">Owner</th>
+              <th className="has-border">Condition</th>
+              <th className="has-border">Buyer</th>
             </tr>
             {this.state.purchasedBooks.map(book => (
               <tr id={book._id}>
