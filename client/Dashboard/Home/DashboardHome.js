@@ -26,12 +26,36 @@ class DashboardHome extends Component {
     this.AUTH = new AuthService();
     this.confirm = this.confirm.bind(this);
     this.logout = this.logout.bind(this);
+
+    this.getBooksSold = this.getBooksSold.bind(this);
+    this.getMoneyMade = this.getMoneyMade.bind(this);
+    this.getTotalTransacted = this.getTotalTransacted.bind(this);
   }
 
   componentDidMount() {
     this._getAllUsers();
     this._getPurchasedBooks();
     this._getTransactions();
+  }
+
+  getBooksSold() {
+    return this.state.purchasedBooks.length;
+  }
+
+  getMoneyMade() {
+    let sum = 0;
+    this.state.purchasedBooks.forEach((book) => {
+      sum += book.price;
+    });
+    return sum * 0.05;
+  }
+
+  getTotalTransacted() {
+    let sum = 0;
+    this.state.purchasedBooks.forEach((book) => {
+      sum += book.price;
+    });
+    return sum;
   }
 
   _getAllUsers() {
@@ -60,7 +84,6 @@ class DashboardHome extends Component {
 
   confirm(evt) {
     const id = evt.target.id;
-    console.log(id);
     FetchService.POST('/api/dashboard/confirmBook', { id, token: this.AUTH.getToken() })
       .then(() => window.location.reload());
   }
@@ -74,12 +97,12 @@ class DashboardHome extends Component {
       return (<Redirect to="/home" />);
     }
     return (
-      <div>
+      <div className="dashboard-wrapper">
         <h1>Welcome to the Dashboard</h1>
-        <button onClick={this.logout}>Logout</button>
+        <button className="button" onClick={this.logout}>Logout</button>
 
-        <h2>On-going transactions</h2>
-        <table className="has-border">
+        <h2>On-Going transactions</h2>
+        <table className="dash-table">
           <tbody>
             <tr>
               <th className="has-border">ID</th>
@@ -97,22 +120,23 @@ class DashboardHome extends Component {
                 <td className="has-border">{book.name}</td>
                 <td className="has-border">{book.course}</td>
                 <td className="has-border">{book.owner}</td>
-                <td className="has-border">{book.price}</td>
+                <td className="has-border">${book.price}</td>
                 <td className="has-border">{book.condition}</td>
                 <td className="has-border">{book.buyer}</td>
-                <td className="has-border"><button id={book._id} onClick={this.confirm}>Confirm Purchase</button></td>
+                <td className="has-border"><button id={book._id} className="button" onClick={this.confirm}>Confirm Purchase</button></td>
               </tr>
             ))}
           </tbody>
         </table>
         <h2>Completed Transactions</h2>
-        <table className="has-border">
+        <table className="dash-table">
           <tbody>
             <tr>
               <th className="has-border">ID</th>
               <th className="has-border">Name</th>
               <th className="has-border">Course</th>
               <th className="has-border">Owner</th>
+              <th className="has-border">Price</th>
               <th className="has-border">Condition</th>
               <th className="has-border">Buyer</th>
             </tr>
@@ -122,14 +146,31 @@ class DashboardHome extends Component {
                 <td className="has-border">{book.name}</td>
                 <td className="has-border">{book.course}</td>
                 <td className="has-border">{book.owner}</td>
+                <td className="has-border">${book.price}</td>
                 <td className="has-border">{book.condition}</td>
                 <td className="has-border">{book.buyer}</td>
               </tr>
             ))}
           </tbody>
         </table>
+        <h2>Statistics</h2>
+        <table className="dash-table">
+          <tbody>
+            <tr>
+              <th className="has-border">Books Sold</th>
+              <th className="has-border">Total Money Transacted</th>
+              <th className="has-border">Money Made</th>
+            </tr>
+            <tr>
+              <td className="has-border">{this.getBooksSold()}</td>
+              <td className="has-border">${this.getTotalTransacted()}</td>
+              <td className="has-border">${this.getMoneyMade()}</td>
+
+            </tr>
+          </tbody>
+        </table>
         <h2>Users</h2>
-        <table className="has-border">
+        <table className="dash-table">
           <tbody>
             <tr>
               <th className="has-border">ID</th>

@@ -1,8 +1,22 @@
+.dashboard-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .has-border {
-  border: 1px solid black;
+  border-bottom: 1px solid grey;
   padding: 8px;
 }
 
 table {
   margin: 8px;
+}
+
+.dash-table {
+  margin: 16px;
+  border-radius: 5px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+  padding: 8px;
+  width: 90%;
 }
