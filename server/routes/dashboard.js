@@ -119,28 +119,22 @@ router.post('/confirmBook', (req, res) => {
   jwt.verify(req.body.data.token, 'secretKey', (err, authData) => {
     if (err) {
       res.sendStatus(403);
-    } else {
-      User.findOne({ _id: authData.userInfo._id }, (error, user) => {
-        if (!user) {
-          res.status(401).send({ error: 'You need to create an account' });
-        } else if (authData.permissionType === 1) {
-          Textbook.update(
-            { _id: req.body.data.id },
+    } else if (authData.userInfo.permissionType === 1) {
+      Textbook.update(
+        { _id: req.body.data.id },
+        {
+          $set:
             {
-              $set:
-                {
-                  status: 2,
-                },
-            }, (err) => {
-              if (!err) {
-                res.sendStatus(200);
-              }
+              status: 2,
             },
-          );
-        } else {
-          res.redirect('/home');
-        }
-      });
+        }, (err) => {
+          if (!err) {
+            res.sendStatus(200);
+          }
+        },
+      );
+    } else {
+      res.redirect('/home');
     }
   });
 });
@@ -178,13 +172,6 @@ router.get('/getAllBooks/:token', (req, res) => {
   });
 });
 
-/**
- * @deprecated Due to inefficiency (still in use but needs changing)
- * Gets all books being sold from database. All of them!
- * @param {object} req Request body from client.
- * @param {array} res Body of HTTP response.
- * @returns {object} Array of books from database.
- */
 router.get('/getCompletedBooks/:token', (req, res) => {
   jwt.verify(req.params.token, 'secretKey', (err, authData) => {
     if (err) {
@@ -208,13 +195,6 @@ router.get('/getCompletedBooks/:token', (req, res) => {
   });
 });
 
-/**
- * @deprecated Due to inefficiency (still in use but needs changing)
- * Gets all books being sold from database. All of them!
- * @param {object} req Request body from client.
- * @param {array} res Body of HTTP response.
- * @returns {object} Array of books from database.
- */
 router.get('/getInProcessBooks/:token', (req, res) => {
   jwt.verify(req.params.token, 'secretKey', (err, authData) => {
     if (err) {
@@ -240,13 +220,6 @@ router.get('/getInProcessBooks/:token', (req, res) => {
   });
 });
 
-/**
- * @deprecated Due to inefficiency (still in use but needs changing)
- * Updates the status of a book, requires book ID and the status to be set (number)
- * @param {object} req Request body from client.
- * @param {array} res Body of HTTP response.
- * @returns {object} Array of books from database.
- */
 router.post('/setBookStatus/:token', (req, res) => {
   jwt.verify(req.params.token, 'secretKey', (err, authData) => {
     if (err) {
@@ -275,13 +248,6 @@ router.post('/setBookStatus/:token', (req, res) => {
   });
 });
 
-/**
- * @deprecated Due to inefficiency (still in use but needs changing)
- * Gets all books being sold from database. All of them!
- * @param {object} req Request body from client.
- * @param {array} res Body of HTTP response.
- * @returns {object} Array of books from database.
- */
 router.get('/getPendingTransactions/:token/', (req, res) => {
   jwt.verify(req.params.token, 'secretKey', (err, authData) => {
     if (err) {
@@ -365,13 +331,7 @@ router.get('/getCompletedTransactions/:token/', (req, res) => {
   });
 });
 
-/**
- * @deprecated Due to inefficiency (still in use but needs changing)
- * Gets all books being sold from database. All of them!
- * @param {object} req Request body from client.
- * @param {array} res Body of HTTP response.
- * @returns {object} Array of books from database.
- */
+
 router.get('/getPendingSpecificPendingTransaction/:token/', (req, res) => {
   jwt.verify(req.params.token, 'secretKey', (err, authData) => {
     if (err) {
@@ -394,13 +354,8 @@ router.get('/getPendingSpecificPendingTransaction/:token/', (req, res) => {
     }
   });
 });
-/**
- * @deprecated Due to inefficiency (still in use but needs changing)
- * Gets all books being sold from database. All of them!
- * @param {object} req Request body from client.
- * @param {array} res Body of HTTP response.
- * @returns {object} Array of books from database.
- */
+
+
 router.post('/confirmTransaction', (req, res) => {
   jwt.verify(req.body.data.token, 'secretKey', (err, authData) => {
     if (err) {
@@ -431,13 +386,6 @@ router.post('/confirmTransaction', (req, res) => {
   });
 });
 
-/**
- * @deprecated Due to inefficiency (still in use but needs changing)
- * Gets all books being sold from database. All of them!
- * @param {object} req Request body from client.
- * @param {array} res Body of HTTP response.
- * @returns {object} Array of books from database.
- */
 router.get('/getTransactionsByName/:token/:firstName/:LastName', (req, res) => {
   jwt.verify(req.params.token, 'secretKey', (err, authData) => {
     if (err) {
@@ -457,8 +405,6 @@ router.get('/getTransactionsByName/:token/:firstName/:LastName', (req, res) => {
     }
   });
 });
-
-
 
 
 router.get('/', (req, res) => {
