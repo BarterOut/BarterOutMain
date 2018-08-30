@@ -32,11 +32,16 @@ const transporter = nodemailer.createTransport({ // secure authentication
 });
 
 function transactionEmail(transactionID) {
+  console.log('in function');
   Transaction.findOne({ _id: transactionID }, (err, transa) => {
+    console.log('found');
     for (let i = 0; i < transa.booksPurchased.length; i++) {
       Textbook.findOne({ _id: transa.booksPurchased[i] }, (er, book) => {
         User.findOne({ _id: book.owner }, (E, seller) => {
-          sendEmail(emails.emailForUs(transa.buyerFirstName, seller.name, book.name));
+          console.log(seller);
+          console.log(book);
+          console.log('sending');
+          sendEmail(emails.emailForUs(transa.buyerFirstName, seller.firstName, book.name));
           sendEmail(emails.emailToSeller(seller.emailAddress, seller.firstName, book.name));
           sendEmail(emails.venmoRequestEmail(transa.buyerFirstName, transa.buyerFirstName, book.name));
         });
@@ -243,55 +248,67 @@ router.post('/checkoutCart/:token', (req, res) => {
           res.status(401).send(e);
           return;
         }
+
+        buyer = foundUser[0];
+
         User.update(
           { _id: authData.userInfo._id },
-          { $set: { numberOfBooksBought: foundUser[0].numberOfBooksBought + 1 } }, (error) => {
+          { $inc: { numberOfBooksBought: 1 } }, (error) => {
             console.error(`Error: ${error}`);
           },
         );
-        buyer = foundUser[0];
-
-        for (i = 0; i < req.body.data.cart.length; i++) {
-          Textbook.update({ _id: req.body.data.cart[i]._id }, { $set: { status: 1, buyer: authData.userInfo._id } }, (error) => {
-            console.error(`Error: ${error}`);
-          });
+        console.log(req.body.data.cart.length);
+        for (let i = 0; i < req.body.data.cart.length; i++) {
+          console.log('first');
+          console.log(i);
+          // This part works
+          Textbook.update(
+            { _id: req.body.data.cart[i]._id },
+            { $set: { status: 1, buyer: authData.userInfo._id } }, (error) => {
+              console.error(`Error: ${error}`);
+            },
+          );
 
           // updates the books being sought by the user that match the query
           Textbook.find({ _id: req.body.data.cart[i]._id }, (errors, foundBook) => {
             bookFound = foundBook[0];
             totalCharged += bookFound.price;
-            bookList.push(bookFound._id)
+            bookList.push(bookFound._id);
+
+            // Set status of requested book if they exist
             TextbookBuy.update({
               $and: [{ status: 0 }, { $or: [{ name: bookFound.name }, { course: bookFound.course }] },
                 { owner: authData.userInfo._id }],
             }, { $set: { status: 1 } }, (error) => {
               console.warn(`Error in finding book being bought: ${error}`);
             });
-            // FOR USER STATISTICS
+
+            // FOR SELLER USER STATISTICS
             User.update(
               { _id: bookFound.owner },
               { $inc: { numberOfBooksSold: 1, moneyMade: bookFound.price } }, (error) => {
                 console.error(`Error update seller: ${error}`);
               },
             );
-            User.find({ _id: bookFound.owner }, (error, sellerUser) => {
-              seller = sellerUser[0];
 
-              if (i === req.body.data.cart.length - 1) {
-                const newTransaction = new Transaction({
-                  buyerID: buyer._id,
-                  buyerFirstName: buyer.firstName,
-                  buyerLastName: buyer.lastName,
-                  buyerVenmo: buyer.venmoUsername,
-                  buyerEmail: buyer.emailAddress,
-                  totalCharged,
-                  booksPurchased: bookList,
-                });
-                newTransaction.save();
-                console.log('saved');
+            // For this specific book, find seller
+            console.log(i);
+            if (i === req.body.data.cart.length - 1) {
+              const newTransaction = new Transaction({
+                buyerID: buyer._id,
+                buyerFirstName: buyer.firstName,
+                buyerLastName: buyer.lastName,
+                buyerVenmo: buyer.venmoUsername,
+                buyerEmail: buyer.emailAddress,
+                totalCharged,
+                booksPurchased: bookList,
+              });
+              newTransaction.save()
+              .then(() => {
                 transactionEmail(newTransaction._id);
-              }
-            });
+              });
+              console.log('saved');
+            }
           });
         }
       });
