@@ -31,12 +31,12 @@ const transporter = nodemailer.createTransport({ // secure authentication
   },
 });
 
-function transactionEmail(transactionID){
-  Transaction.findOne({_id: transactionID}, (err, transa) =>{
-    for (var i = 0; i < transa.booksPurchased.length; i++) {
-      Textbook.findOne({ _id: transa.booksPurchased[i]}, (er, book) => {
-        User.findOne({_id: transa.owner}, (E, seller)=>{
-          sendEmail(emails.emailForUs(transa.buyerFirstName, seller.name, book.na));
+function transactionEmail(transactionID) {
+  Transaction.findOne({ _id: transactionID }, (err, transa) => {
+    for (let i = 0; i < transa.booksPurchased.length; i++) {
+      Textbook.findOne({ _id: transa.booksPurchased[i] }, (er, book) => {
+        User.findOne({ _id: book.owner }, (E, seller) => {
+          sendEmail(emails.emailForUs(transa.buyerFirstName, seller.name, book.name));
           sendEmail(emails.emailToSeller(seller.emailAddress, seller.firstName, book.name));
           sendEmail(emails.venmoRequestEmail(transa.buyerFirstName, transa.buyerFirstName, book.name));
         });
@@ -281,7 +281,7 @@ router.post('/checkoutCart/:token', (req, res) => {
                 );
                 User.find({ _id: bookFound.owner }, (error, sellerUser) => {
                   seller = sellerUser[0];
-                  
+
                   if (i === req.body.data.cart.length - 1) {
                     const newTransaction = new Transaction({
                       buyerID: buyer._id,
