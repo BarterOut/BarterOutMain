@@ -105,21 +105,21 @@ class DashboardHome extends Component {
         <table className="dash-table">
           <tbody>
             <tr>
-              <th className="has-border">ID</th>
               <th className="has-border">Name</th>
               <th className="has-border">Course</th>
               <th className="has-border">Owner</th>
-              <th className="has-border">Price</th>
+              <th className="has-border">Charge Buyer</th>
+              <th className="has-border">Pay Seller</th>
               <th className="has-border">Condition</th>
               <th className="has-border">Buyer</th>
               <th className="has-border">Confirm</th>
             </tr>
             {this.state.transactions.map(book => (
               <tr id={book._id}>
-                <td className="has-border">{book._id}</td>
                 <td className="has-border">{book.name}</td>
                 <td className="has-border">{book.course}</td>
                 <td className="has-border">{book.owner}</td>
+                <td className="has-border">${book.price * 1.05}</td>
                 <td className="has-border">${book.price}</td>
                 <td className="has-border">{book.condition}</td>
                 <td className="has-border">{book.buyer}</td>
@@ -132,7 +132,6 @@ class DashboardHome extends Component {
         <table className="dash-table">
           <tbody>
             <tr>
-              <th className="has-border">ID</th>
               <th className="has-border">Name</th>
               <th className="has-border">Course</th>
               <th className="has-border">Owner</th>
@@ -142,7 +141,6 @@ class DashboardHome extends Component {
             </tr>
             {this.state.purchasedBooks.map(book => (
               <tr id={book._id}>
-                <td className="has-border">{book._id}</td>
                 <td className="has-border">{book.name}</td>
                 <td className="has-border">{book.course}</td>
                 <td className="has-border">{book.owner}</td>
