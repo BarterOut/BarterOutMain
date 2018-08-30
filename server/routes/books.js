@@ -31,6 +31,21 @@ const transporter = nodemailer.createTransport({ // secure authentication
   },
 });
 
+function transactionEmail(transactionID){
+  Transaction.findOne({_id: transactionID}, (err, transa) =>{
+    for (var i = 0; i < transa.booksPurchased.length; i++) {
+      Textbook.findOne({ _id: transa.booksPurchased[i]}, (er, book) => {
+        User.findOne({_id: transa.owner}, (E, seller)=>{
+          sendEmail(emails.emailForUs(transa.buyerFirstName, seller.name, book.na));
+          sendEmail(emails.emailToSeller(seller.emailAddress, seller.firstName, book.name));
+          sendEmail(emails.venmoRequestEmail(transa.buyerFirstName, transa.buyerFirstName, book.name));
+        });
+      });
+    }
+  });
+
+}
+
 
 function sendEmail(mailOptions) {
   transporter.sendMail(mailOptions, (err, info) => {
@@ -331,9 +346,9 @@ router.post('/clickBuyTemp/:token', (req, res) => {
                   console.log('on the loop');
                   console.log(i);
                   console.log();
-                  sendEmail(emails.emailForUs(buyer, seller, bookFound));
-                  sendEmail(emails.emailToSeller(seller.emailAddress, seller.firstName, bookFound.name));
-                  sendEmail(emails.venmoRequestEmail(buyer.emailAddress, buyer.firstName, bookFound.name));
+                  // sendEmail(emails.emailForUs(buyer, seller, bookFound));
+                  // sendEmail(emails.emailToSeller(seller.emailAddress, seller.firstName, bookFound.name));
+                  // sendEmail(emails.venmoRequestEmail(buyer.emailAddress, buyer.firstName, bookFound.name));
                   console.log(bookFound);
                   if (i === req.body.data.cart.length - 1) {
                     const newTransaction = new Transaction({
@@ -341,14 +356,12 @@ router.post('/clickBuyTemp/:token', (req, res) => {
                       buyerFirstName: buyer.firstName,
                       buyerLastName: buyer.lastName,
                       buyerVenmo: buyer.venmoUsername,
-                      sellerID: seller._id,
-                      sellerFirstName: seller.firstName,
-                      sellerLastName: seller.lastName,
-                      sellerVenmo: seller.venmoUsername,
+                      buyerEmail: buyer.emailAddress,
                       totalCharged,
                       booksPurchased: bookList,
                     });
                     newTransaction.save();
+                    transactionEmail(newTransaction._id);
                   }
                 });
               });
@@ -368,13 +381,15 @@ router.post('/clickBuyTemp/:token', (req, res) => {
               console.log(`Error: ${error}`);
             },
           );
-          //new function goes here to send it.
+          //new function goes here to send it.dmh
           res.sendStatus(200);
         }
       });
     }
   });
 });
+
+
 
 /**
  * Finds all books in given users matched books array.
