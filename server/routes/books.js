@@ -281,10 +281,7 @@ router.post('/checkoutCart/:token', (req, res) => {
                 );
                 User.find({ _id: bookFound.owner }, (error, sellerUser) => {
                   seller = sellerUser[0];
-
-                  sendEmail(emails.emailForUs(buyer, seller, bookFound));
-                  sendEmail(emails.emailToSeller(seller.emailAddress, seller.firstName, bookFound.name));
-                  sendEmail(emails.venmoRequestEmail(buyer.emailAddress, buyer.firstName, bookFound.name));
+                  
                   if (i === req.body.data.cart.length - 1) {
                     const newTransaction = new Transaction({
                       buyerID: buyer._id,
