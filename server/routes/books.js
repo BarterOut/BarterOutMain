@@ -236,14 +236,12 @@ router.post('/requestBook', (req, res) => {
  * @returns {status} Response status.
  */
 router.post('/checkoutCart/:token', (req, res) => {
-  let i = 0;
   jwt.verify(req.params.token, 'secretKey', (error, authData) => {
     if (error) {
       res.sendStatus(403);
     } else {
       let buyer;
       let bookFound;
-      let seller;
       let totalCharged = 0;
       const bookList = [];
 
@@ -261,10 +259,7 @@ router.post('/checkoutCart/:token', (req, res) => {
             console.error(`Error: ${error}`);
           },
         );
-        console.log(req.body.data.cart.length);
         for (let i = 0; i < req.body.data.cart.length; i++) {
-          console.log('first');
-          console.log(i);
           // This part works
           Textbook.update(
             { _id: req.body.data.cart[i]._id },
@@ -296,7 +291,6 @@ router.post('/checkoutCart/:token', (req, res) => {
             );
 
             // For this specific book, find seller
-            console.log(i);
             if (i === req.body.data.cart.length - 1) {
               const newTransaction = new Transaction({
                 buyerID: buyer._id,
@@ -311,7 +305,6 @@ router.post('/checkoutCart/:token', (req, res) => {
               .then(() => {
                 transactionEmail(newTransaction._id);
               });
-              console.log('saved');
             }
           });
         }
