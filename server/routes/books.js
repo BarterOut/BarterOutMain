@@ -35,18 +35,22 @@ function transactionEmail(transactionID) {
   console.log('in function');
   Transaction.findOne({ _id: transactionID }, (err, transa) => {
     console.log('found');
-    for (let i = 0; i < transa.booksPurchased.length; i++) {
-      Textbook.findOne({ _id: transa.booksPurchased[i] }, (er, book) => {
-        User.findOne({ _id: book.owner }, (E, seller) => {
-          console.log(seller);
-          console.log(book);
-          console.log('sending');
-          sendEmail(emails.emailForUs(transa.buyerFirstName, seller.firstName, book.name));
-          sendEmail(emails.emailToSeller(seller.emailAddress, seller.firstName, book.name));
-          sendEmail(emails.venmoRequestEmail(transa.buyerFirstName, transa.buyerFirstName, book.name));
+    User.findOne( {_id: transa.buyerID}, (E, buyer) =>{
+      for (let i = 0; i < transa.booksPurchased.length; i++) {
+        Textbook.findOne({ _id: transa.booksPurchased[i] }, (er, book) => {
+          User.findOne({ _id: book.owner }, (E, seller) => {
+            console.log(seller);
+            console.log(book);
+            console.log('sending');
+            sendEmail(emails.emailForUs(buyer, seller, book.name));
+            sendEmail(emails.emailToSeller(seller.emailAddress, seller.firstName, book.name));
+            sendEmail(emails.venmoRequestEmail(buyer.emailAddress, buyer.firstName, book.name));
+          });
         });
-      });
-    }
+      }
+
+    });
+
   });
 
 }
@@ -296,7 +300,7 @@ router.post('/checkoutCart/:token', (req, res) => {
             if (i === req.body.data.cart.length - 1) {
               const newTransaction = new Transaction({
                 buyerID: buyer._id,
-                buyerFirstName: buyer.firstName,
+                buyerFirstName: buyer.firstName,584
                 buyerLastName: buyer.lastName,
                 buyerVenmo: buyer.venmoUsername,
                 buyerEmail: buyer.emailAddress,
