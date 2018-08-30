@@ -60,7 +60,7 @@ class DashboardHome extends Component {
 
   confirm(evt) {
     const id = evt.target.id;
-    FetchService.POST('/api/dashboard/confirmBook', { id, token: this.AUTH.getToken })
+    FetchService.POST('/api/dashboard/confirmBook', { id, token: this.AUTH.getToken() })
       .then(() => window.location.reload());
   }
 
