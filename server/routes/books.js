@@ -8,7 +8,7 @@
 import Textbook from '../models/textbook';
 import TextbookBuy from '../models/textbookBuy';
 import User from '../models/user';
-import Transaction from "../models/transaction";
+import Transaction from '../models/transaction';
 
 const express = require('express');
 
@@ -31,6 +31,30 @@ const transporter = nodemailer.createTransport({ // secure authentication
   },
 });
 
+function transactionEmail(transactionID) {
+  console.log('in function');
+  Transaction.findOne({ _id: transactionID }, (err, transa) => {
+    console.log('found');
+    User.findOne( {_id: transa.buyerID}, (E, buyer) =>{
+      for (let i = 0; i < transa.booksPurchased.length; i++) {
+        Textbook.findOne({ _id: transa.booksPurchased[i] }, (er, book) => {
+          User.findOne({ _id: book.owner }, (E, seller) => {
+            console.log(seller);
+            console.log(book);
+            console.log('sending');
+            sendEmail(emails.emailForUs(buyer, seller, book));
+            sendEmail(emails.emailToSeller(seller.emailAddress, seller.firstName, book.name));
+            sendEmail(emails.venmoRequestEmail(buyer.emailAddress, buyer.firstName, book.name));
+          });
+        });
+      }
+
+    });
+
+  });
+
+}
+
 
 function sendEmail(mailOptions) {
   transporter.sendMail(mailOptions, (err, info) => {
@@ -46,11 +70,6 @@ function sendEmail(mailOptions) {
 function sortBooksReverseCronological(bookJSONArray) {
   bookJSONArray.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
   return bookJSONArray;
-}
-
-function isInUsersCart(bookID, userID) {
-  
-  return true;
 }
 
 /**
@@ -70,11 +89,9 @@ router.post('/postBook/:token', (req, res) => {
         } else if (err) {
           res.status(401).send(err);
         } else {
-          console.log('User Selling Book');
           const newBook = new Textbook(req.body.data);
           newBook.save()
             .then(() => {
-              console.log('Saved Book to DB');
               const theBookID = newBook._id;
 
               User.update(
@@ -135,7 +152,7 @@ router.post('/postBook/:token', (req, res) => {
 });
 
 /**
- * Called when a user posts a book they want to buy.
+ * Called when a user posts a request for a book they want to buy.
  * @param {object} req Request body from client.
  * @param {array} res Body of HTTP response.
  * @returns {object} Array of book objects.
@@ -213,155 +230,99 @@ router.post('/requestBook', (req, res) => {
 });
 
 /**
- * Finds all books in given users matched books array.
+ * Called when user checks out of cart.
  * @param {object} req Request body from client.
- * @param {array} res Body of HTTP response.
- * @returns {object} Array of book objects.
+ * @param {object} res Body of HTTP response.
+ * @returns {status} Response status.
  */
-router.post('/clickBuy/:token', (req, res) => {
+router.post('/checkoutCart/:token', (req, res) => {
   jwt.verify(req.params.token, 'secretKey', (error, authData) => {
     if (error) {
       res.sendStatus(403);
     } else {
-      User.findOne({ _id: authData.userInfo._id }, (error, user) => {
-        if (!user) {
-          res.status(401).send({ error: 'You need to create an account' });
-        } else {
-          let buyer;
-          let bookFound;
-          let seller;
+      let buyer;
+      let bookFound;
+      let totalCharged = 0;
+      const bookList = [];
 
-          User.find({ _id: req.body.userID }, (e, foundUser) => {
-            if (e) {
-              res.status(401).send(e);
-              return;
-            }
-            buyer = foundUser[0];
-            Textbook.update({ _id: req.body.bookID }, { $set: { status: 1 } }, (error) => {
-              console.log(`Error: ${error}`);
-            });
-            Textbook.find({ _id: req.body.bookID }, (errors, foundBook) => {
-              bookFound = foundBook[0];
-              TextbookBuy.update({
-                $and: [{ status: 0 }, { $or: [{ name: bookFound.name }, { course: bookFound.course }] },
-                  { owner: req.body.userID }],
-              }, { $set: { status: 1 } }, (error) => {
-                console.log(`Error in finding book being bought:  ${error}`);
-              });
-              User.find({ _id: bookFound.owner }, (error, sellerUser) => {
-                seller = sellerUser[0];
-                sendEmail(emails.emailForUs(buyer, seller, bookFound));
-                sendEmail(emails.emailToSeller(seller.emailAddress, seller.firstName, bookFound.name));
-                sendEmail(emails.venmoRequestEmail(buyer.emailAddress, buyer.firstName, bookFound.name));
-              });
-            });
-          });
-          res.json(true);
+      User.find({ _id: authData.userInfo._id }, (e, foundUser) => {
+        if (e) {
+          res.status(401).send(e);
+          return;
         }
-      });
-    }
-  });
-});
 
-/**
- * Finds all books in given users matched books array.
- * @param {object} req Request body from client.
- * @param {array} res Body of HTTP response.
- * @returns {object} Array of book objects.
- */
-router.post('/clickBuyTemp/:token', (req, res) => {
-  let i = 0;
-  jwt.verify(req.params.token, 'secretKey', (error, authData) => {
-    if (error) {
-      res.sendStatus(403);
-    } else {
-      // can probs remove this one
-      User.findOne({ _id: authData.userInfo._id }, (error, user) => {
-        if (!user) {
-          res.status(401).send({ error: 'You need to create an account' });
-        } else {
-          let buyer;
-          let bookFound;
-          let seller;
-          let totalCharged = 0;
-          let bookList = [];
+        buyer = foundUser[0];
 
-          User.find({ _id: authData.userInfo._id }, (e, foundUser) => {
-            if (e) {
-              res.status(401).send(e);
-              return;
-            }
-            User.update(
-              { _id: authData.userInfo._id },
-              { $set: { numberOfBooksBought: foundUser[0].numberOfBooksBought + 1 } }, (error) => {
-                console.error(`Error: ${error}`);
-              },
-            );
-            buyer = foundUser[0];
-
-            for (i = 0; i < req.body.data.cart.length; i++) {
-              Textbook.update({ _id: req.body.data.cart[i]._id }, { $set: { status: 1, buyer: authData.userInfo._id } }, (error) => {
-                console.error(`Error: ${error}`);
-              });
-
-
-              // updates the books being sought by the user that match the query
-              Textbook.find({ _id: req.body.data.cart[i]._id }, (errors, foundBook) => {
-                bookFound = foundBook[0];
-                totalCharged += bookFound.price;
-                bookList.push(bookFound._id)
-                TextbookBuy.update({
-                  $and: [{ status: 0 }, { $or: [{ name: bookFound.name }, { course: bookFound.course }] },
-                    { owner: authData.userInfo._id }],
-                }, { $set: { status: 1 } }, (error) => {
-                  console.warn(`Error in finding book being bought: ${error}`);
-                });
-                // FOR USER STATISTICS
-                User.update(
-                  { _id: bookFound.owner },
-                  { $inc: { numberOfBooksSold: 1, moneyMade: bookFound.price } }, (error) => {
-                    console.error(`Error update seller: ${error}`);
-                  },
-                );
-                User.find({ _id: bookFound.owner }, (error, sellerUser) => {
-                  seller = sellerUser[0];
-                  sendEmail(emails.emailForUs(buyer, seller, bookFound));
-                  sendEmail(emails.emailToSeller(seller.emailAddress, seller.firstName, bookFound.name));
-                  sendEmail(emails.venmoRequestEmail(buyer.emailAddress, buyer.firstName, bookFound.name));
-                  console.log(buyer);
-                  const newTransaction = new Transaction({
-                    buyerID: buyer._id,
-                    buyerFirstName: buyer.firstName,
-                    buyerLastName: buyer.lastName,
-                    buyerVenmo: buyer.venmoUsername,
-                    sellerID: seller._id,
-                    sellerFirstName: seller.firstName,
-                    sellerLastName: seller.lastName,
-                    sellerVenmo: seller.venmoUsername,
-                    totalCharged,
-                    booksPurchased: bookList,
-                  });
-                  newTransaction.save();
-                });
-              });
-            }
-            
-          });
-          // clear the cart
-          User.update(
-            { _id: authData.userInfo._id },
-            {
-              $set:
-                {
-                  cart: [],
-                },
-            }, (error) => {
-              console.log(`Error: ${error}`);
+        User.update(
+          { _id: authData.userInfo._id },
+          { $inc: { numberOfBooksBought: 1 } }, (error) => {
+            console.error(`Error: ${error}`);
+          },
+        );
+        for (let i = 0; i < req.body.data.cart.length; i++) {
+          // This part works
+          Textbook.update(
+            { _id: req.body.data.cart[i]._id },
+            { $set: { status: 1, buyer: authData.userInfo._id } }, (error) => {
+              console.error(`Error: ${error}`);
             },
           );
-          res.sendStatus(200);
+
+          // updates the books being sought by the user that match the query
+          Textbook.find({ _id: req.body.data.cart[i]._id }, (errors, foundBook) => {
+            bookFound = foundBook[0];
+            totalCharged += bookFound.price;
+            bookList.push(bookFound._id);
+
+            // Set status of requested book if they exist
+            TextbookBuy.update({
+              $and: [{ status: 0 }, { $or: [{ name: bookFound.name }, { course: bookFound.course }] },
+                { owner: authData.userInfo._id }],
+            }, { $set: { status: 1 } }, (error) => {
+              console.warn(`Error in finding book being bought: ${error}`);
+            });
+
+            // FOR SELLER USER STATISTICS
+            User.update(
+              { _id: bookFound.owner },
+              { $inc: { numberOfBooksSold: 1, moneyMade: bookFound.price } }, (error) => {
+                console.error(`Error update seller: ${error}`);
+              },
+            );
+
+            // For this specific book, find seller
+            if (i === req.body.data.cart.length - 1) {
+              const newTransaction = new Transaction({
+                buyerID: buyer._id,
+                buyerFirstName: buyer.firstName,
+                buyerLastName: buyer.lastName,
+                buyerVenmo: buyer.venmoUsername,
+                buyerEmail: buyer.emailAddress,
+                totalCharged,
+                booksPurchased: bookList,
+              });
+              newTransaction.save()
+              .then(() => {
+                transactionEmail(newTransaction._id);
+              });
+            }
+          });
         }
       });
+      // clear the cart
+      User.update(
+        { _id: authData.userInfo._id },
+        {
+          $set:
+            {
+              cart: [],
+            },
+        }, (error) => {
+          console.log(`Error: ${error}`);
+        },
+      );
+
+      res.sendStatus(200);
     }
   });
 });
@@ -540,13 +501,60 @@ router.get('/getAllBooks/:token', (req, res) => {
 });
 
 
+/**
+ * Called when user buys book.
+ * @deprecated
+ * @param {object} req Request body from client.
+ * @param {array} res Body of HTTP response.
+ * @returns {object} Array of book objects.
+ */
+// router.post('/clickBuy/:token', (req, res) => {
+//   jwt.verify(req.params.token, 'secretKey', (error, authData) => {
+//     if (error) {
+//       res.sendStatus(403);
+//     } else {
+//       User.findOne({ _id: authData.userInfo._id }, (error, user) => {
+//         if (!user) {
+//           res.status(401).send({ error: 'You need to create an account' });
+//         } else {
+//           let buyer;
+//           let bookFound;
+//           let seller;
+
+//           User.find({ _id: req.body.userID }, (e, foundUser) => {
+//             if (e) {
+//               res.status(401).send(e);
+//               return;
+//             }
+//             buyer = foundUser[0];
+//             Textbook.update({ _id: req.body.bookID }, { $set: { status: 1 } }, (error) => {
+//               console.log(`Error: ${error}`);
+//             });
+//             Textbook.find({ _id: req.body.bookID }, (errors, foundBook) => {
+//               bookFound = foundBook[0];
+//               TextbookBuy.update({
+//                 $and: [{ status: 0 }, { $or: [{ name: bookFound.name }, { course: bookFound.course }] },
+//                   { owner: req.body.userID }],
+//               }, { $set: { status: 1 } }, (error) => {
+//                 console.log(`Error in finding book being bought:  ${error}`);
+//               });
+//               User.find({ _id: bookFound.owner }, (error, sellerUser) => {
+//                 seller = sellerUser[0];
+//                 sendEmail(emails.emailForUs(buyer, seller, bookFound));
+//                 sendEmail(emails.emailToSeller(seller.emailAddress, seller.firstName, bookFound.name));
+//                 sendEmail(emails.venmoRequestEmail(buyer.emailAddress, buyer.firstName, bookFound.name));
+//               });
+//             });
+//           });
+//           res.json(true);
+//         }
+//       });
+//     }
+//   });
+// });
 
 router.get('/', (req, res) => {
-  if (req.user) {
-    res.json({ user: req.user });
-  } else {
-    res.json({ user: null });
-  }
+  res.sendStatus(200);
 });
 
 

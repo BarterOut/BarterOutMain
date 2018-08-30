@@ -48,14 +48,13 @@ class Dashboard extends Component {
 
   render() {
     if (this.state.redirect) {
-      console.log('redirect')
       return (<Redirect to="/dashboard/home" />);
     }
     return (
       <div className="login-wrapper">
         <div className="leftLoginContent">
           <h1>Welcome to</h1>
-          <img src={logo} alt="logo" />
+          <img className="wide-logo" src={logo} alt="logo" />
           <h1>Dashboard</h1>
         </div>
         <div className="rightLoginContent">

@@ -207,18 +207,21 @@ module.exports = {
       from: '"Barter Out" <office@barterout.com',
       to: emailTo,
       subject: '[BarterOut] Reset Password',
-      html: 'Dear ' + firstName + ',  <br></br> ' +
-      '\n' +
-      'This email has been sent to reset your password.  <br></br> ' +
-      'Please click <a href=http://www.barterout.com/api/auth/passwordReset/' +URL+ '>this link</a> in order to continue. If you are unable to do so, copy and paste the following link into your browser:' + URL + '<br> </br>' +
-      'If you know anyone looking to buy or sell used textbooks, feel free to invite them to join our platform in this beta version.    <br> </br> \n' +
-      '<br></br> ' +
-      'If you have any questions, feel free to send us an email at office@barterout.com!\n' +
-      '<br></br> <br></br>   ' +
-      'Thank you,<br></br> ' +
-      'The BarterOut team<br></br> <br></br> '+
-      '\n' +
-      'Like us on <a href="https://www.facebook.com/BarterOut/" target="_blank">Facebook</a> <br> </br> Follow us on <a href="https://www.instagram.com/barteroutofficial/" target="_blank">Instagram</a>',
+      html: `Dear ${firstName}, <br></br>
+      \n
+      This email has been sent to reset your password.
+      <br></br>
+      Please click <a href=http://www.barterout.com/api/auth/passwordReset/${URL}>this link</a> in order to continue.
+      <br> </br>
+      If you know anyone looking to buy or sell used textbooks, feel free to invite them to join our platform in this beta version.
+      <br> </br> \n
+      <br></br>
+      If you have any questions, feel free to send us an email at office@barterout.com!\n
+      <br></br> <br></br>
+      Thank you,<br></br>
+      The BarterOut team<br></br> <br></br>
+      \n
+      Like us on <a href="https://www.facebook.com/BarterOut/" target="_blank">Facebook</a> <br> </br> Follow us on <a href="https://www.instagram.com/barteroutofficial/" target="_blank">Instagram</a>`,
       auth: {
         user: 'office@barterout.com',
         refreshToken: '1/9XdHU4k2vwYioRyAP8kaGYfZXKfp_JxqUwUMYVJWlZs',

@@ -5,6 +5,7 @@
  */
 
 import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom';
 
 import FetchService from '../../services/FetchService';
 import AuthService from '../../services/AuthService';
@@ -19,6 +20,7 @@ class DashboardHome extends Component {
       users: [],
       purchasedBooks: [],
       transactions: [],
+      redirect: false,
     };
 
     this.AUTH = new AuthService();
@@ -63,10 +65,13 @@ class DashboardHome extends Component {
   }
 
   logout() {
-    this.AUTH.logout();
+    this.setState({ redirect: true });
   }
 
   render() {
+    if (this.state.redirect) {
+      return (<Redirect to="/home" />);
+    }
     return (
       <div>
         <h1>Welcome to the Dashboard</h1>
