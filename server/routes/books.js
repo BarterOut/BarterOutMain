@@ -300,7 +300,7 @@ router.post('/checkoutCart/:token', (req, res) => {
             if (i === req.body.data.cart.length - 1) {
               const newTransaction = new Transaction({
                 buyerID: buyer._id,
-                buyerFirstName: buyer.firstName,584
+                buyerFirstName: buyer.firstName,
                 buyerLastName: buyer.lastName,
                 buyerVenmo: buyer.venmoUsername,
                 buyerEmail: buyer.emailAddress,
