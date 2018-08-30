@@ -10,6 +10,8 @@ import TextbookBuy from '../models/textbookBuy';
 import User from '../models/user';
 import Transaction from '../models/transaction';
 
+import Pricing from '../pricing';
+
 const express = require('express');
 
 const router = express.Router();
@@ -296,7 +298,7 @@ router.post('/checkoutCart/:token', (req, res) => {
                 buyerLastName: buyer.lastName,
                 buyerVenmo: buyer.venmoUsername,
                 buyerEmail: buyer.emailAddress,
-                totalCharged,
+                totalCharged: totalCharged + (totalCharged * Pricing.FEE),
                 booksPurchased: req.body.data.cart,
               });
               newTransaction.save()

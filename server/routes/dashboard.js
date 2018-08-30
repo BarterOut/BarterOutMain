@@ -1,5 +1,4 @@
 import Textbook from '../models/textbook';
-import TextbookBuy from '../models/textbookBuy';
 import User from '../models/user';
 
 import Transactions from '../models/transaction';
