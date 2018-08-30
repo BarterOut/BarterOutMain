@@ -232,94 +232,86 @@ router.post('/checkoutCart/:token', (req, res) => {
     if (error) {
       res.sendStatus(403);
     } else {
-      // can probs remove this one
-      User.findOne({ _id: authData.userInfo._id }, (error, user) => {
-        if (!user) {
-          res.status(401).send({ error: 'You need to create an account' });
-        } else {
-          let buyer;
-          let bookFound;
-          let seller;
-          let totalCharged = 0;
-          const bookList = [];
+      let buyer;
+      let bookFound;
+      let seller;
+      let totalCharged = 0;
+      const bookList = [];
 
-          User.find({ _id: authData.userInfo._id }, (e, foundUser) => {
-            if (e) {
-              res.status(401).send(e);
-              return;
-            }
+      User.find({ _id: authData.userInfo._id }, (e, foundUser) => {
+        if (e) {
+          res.status(401).send(e);
+          return;
+        }
+        User.update(
+          { _id: authData.userInfo._id },
+          { $set: { numberOfBooksBought: foundUser[0].numberOfBooksBought + 1 } }, (error) => {
+            console.error(`Error: ${error}`);
+          },
+        );
+        buyer = foundUser[0];
+
+        for (i = 0; i < req.body.data.cart.length; i++) {
+          Textbook.update({ _id: req.body.data.cart[i]._id }, { $set: { status: 1, buyer: authData.userInfo._id } }, (error) => {
+            console.error(`Error: ${error}`);
+          });
+
+          // updates the books being sought by the user that match the query
+          Textbook.find({ _id: req.body.data.cart[i]._id }, (errors, foundBook) => {
+            bookFound = foundBook[0];
+            totalCharged += bookFound.price;
+            bookList.push(bookFound._id)
+            TextbookBuy.update({
+              $and: [{ status: 0 }, { $or: [{ name: bookFound.name }, { course: bookFound.course }] },
+                { owner: authData.userInfo._id }],
+            }, { $set: { status: 1 } }, (error) => {
+              console.warn(`Error in finding book being bought: ${error}`);
+            });
+            // FOR USER STATISTICS
             User.update(
-              { _id: authData.userInfo._id },
-              { $set: { numberOfBooksBought: foundUser[0].numberOfBooksBought + 1 } }, (error) => {
-                console.error(`Error: ${error}`);
+              { _id: bookFound.owner },
+              { $inc: { numberOfBooksSold: 1, moneyMade: bookFound.price } }, (error) => {
+                console.error(`Error update seller: ${error}`);
               },
             );
-            buyer = foundUser[0];
+            User.find({ _id: bookFound.owner }, (error, sellerUser) => {
+              seller = sellerUser[0];
 
-            for (i = 0; i < req.body.data.cart.length; i++) {
-              Textbook.update({ _id: req.body.data.cart[i]._id }, { $set: { status: 1, buyer: authData.userInfo._id } }, (error) => {
-                console.error(`Error: ${error}`);
-              });
-
-              // updates the books being sought by the user that match the query
-              Textbook.find({ _id: req.body.data.cart[i]._id }, (errors, foundBook) => {
-                bookFound = foundBook[0];
-                totalCharged += bookFound.price;
-                bookList.push(bookFound._id)
-                TextbookBuy.update({
-                  $and: [{ status: 0 }, { $or: [{ name: bookFound.name }, { course: bookFound.course }] },
-                    { owner: authData.userInfo._id }],
-                }, { $set: { status: 1 } }, (error) => {
-                  console.warn(`Error in finding book being bought: ${error}`);
+              if (i === req.body.data.cart.length - 1) {
+                const newTransaction = new Transaction({
+                  buyerID: buyer._id,
+                  buyerFirstName: buyer.firstName,
+                  buyerLastName: buyer.lastName,
+                  buyerVenmo: buyer.venmoUsername,
+                  buyerEmail: buyer.emailAddress,
+                  totalCharged,
+                  booksPurchased: bookList,
                 });
-                // FOR USER STATISTICS
-                User.update(
-                  { _id: bookFound.owner },
-                  { $inc: { numberOfBooksSold: 1, moneyMade: bookFound.price } }, (error) => {
-                    console.error(`Error update seller: ${error}`);
-                  },
-                );
-                User.find({ _id: bookFound.owner }, (error, sellerUser) => {
-                  seller = sellerUser[0];
-
-                  if (i === req.body.data.cart.length - 1) {
-                    const newTransaction = new Transaction({
-                      buyerID: buyer._id,
-                      buyerFirstName: buyer.firstName,
-                      buyerLastName: buyer.lastName,
-                      buyerVenmo: buyer.venmoUsername,
-                      buyerEmail: buyer.emailAddress,
-                      totalCharged,
-                      booksPurchased: bookList,
-                    });
-                    newTransaction.save();
-                    transactionEmail(newTransaction._id);
-                  }
-                });
-              });
-            }
+                newTransaction.save();
+                console.log('saved');
+                transactionEmail(newTransaction._id);
+              }
+            });
           });
-          // clear the cart
-          User.update(
-            { _id: authData.userInfo._id },
-            {
-              $set:
-                {
-                  cart: [],
-                },
-            }, (error) => {
-              console.log(`Error: ${error}`);
-            },
-          );
-
-          res.sendStatus(200);
         }
       });
+      // clear the cart
+      User.update(
+        { _id: authData.userInfo._id },
+        {
+          $set:
+            {
+              cart: [],
+            },
+        }, (error) => {
+          console.log(`Error: ${error}`);
+        },
+      );
+
+      res.sendStatus(200);
     }
   });
 });
-
-
 
 /**
  * Finds all books in given users matched books array.
