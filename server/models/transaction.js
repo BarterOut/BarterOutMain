@@ -8,7 +8,7 @@ const TransactionSchema = new Schema({
   buyerFirstName: { type: String, required: true, default: '' },
   buyerLastName: { type: String, required: true, default: '' },
   buyerVenmo: { type: String, required: true, default: '' },
-  buyerEmail: { type: String, required, default: ''},
+  buyerEmail: { type: String, required: true, default: '' },
   totalCharged: { type: Number, required: true },
   booksPurchased: [{ type: String }],
   status: { type: Number, required: true, default: 0 },
