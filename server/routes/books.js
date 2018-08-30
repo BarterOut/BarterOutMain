@@ -42,7 +42,7 @@ function transactionEmail(transactionID) {
             console.log(seller);
             console.log(book);
             console.log('sending');
-            sendEmail(emails.emailForUs(buyer, seller, book.name));
+            sendEmail(emails.emailForUs(buyer, seller, book));
             sendEmail(emails.emailToSeller(seller.emailAddress, seller.firstName, book.name));
             sendEmail(emails.venmoRequestEmail(buyer.emailAddress, buyer.firstName, book.name));
           });
@@ -300,7 +300,7 @@ router.post('/checkoutCart/:token', (req, res) => {
             if (i === req.body.data.cart.length - 1) {
               const newTransaction = new Transaction({
                 buyerID: buyer._id,
-                buyerFirstName: buyer.firstName,584
+                buyerFirstName: buyer.firstName,
                 buyerLastName: buyer.lastName,
                 buyerVenmo: buyer.venmoUsername,
                 buyerEmail: buyer.emailAddress,
