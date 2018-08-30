@@ -243,7 +243,6 @@ router.post('/checkoutCart/:token', (req, res) => {
       let buyer;
       let bookFound;
       let totalCharged = 0;
-      const bookList = [];
 
       User.find({ _id: authData.userInfo._id }, (e, foundUser) => {
         if (e) {
@@ -272,7 +271,6 @@ router.post('/checkoutCart/:token', (req, res) => {
           Textbook.find({ _id: req.body.data.cart[i]._id }, (errors, foundBook) => {
             bookFound = foundBook[0];
             totalCharged += bookFound.price;
-            bookList.push(bookFound._id);
 
             // Set status of requested book if they exist
             TextbookBuy.update({
@@ -299,7 +297,7 @@ router.post('/checkoutCart/:token', (req, res) => {
                 buyerVenmo: buyer.venmoUsername,
                 buyerEmail: buyer.emailAddress,
                 totalCharged,
-                booksPurchased: bookList,
+                booksPurchased: req.body.data.cart,
               });
               newTransaction.save()
               .then(() => {

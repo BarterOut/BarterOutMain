@@ -97,7 +97,7 @@ class SellBook extends Component {
       <div className="wrapper-custom">
         <h2>Tell us about your book</h2>
         <form className="input-wrapper" onSubmit={this.formSubmit}>
-          {!this.state.correctlyFilledOut && <h4 className="input-error">Please ensure all the required fields are filled out.</h4>}
+          {!this.state.correctlyFilledOut && <h4 className="input-error">Please ensure all the required fields are filled out correctly.</h4>}
           <span className="inputLabelHome">Title of Book *</span>
           <input
             autoComplete="off"
