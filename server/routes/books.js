@@ -253,13 +253,16 @@ router.post('/checkoutCart/:token', (req, res) => {
 
         buyer = foundUser[0];
 
-        User.update(
-          { _id: authData.userInfo._id },
-          { $inc: { numberOfBooksBought: 1 } }, (error) => {
-            console.error(`Error: ${error}`);
-          },
-        );
+
         for (let i = 0; i < req.body.data.cart.length; i++) {
+          // Updates the user
+          User.update(
+            { _id: authData.userInfo._id },
+            { $inc: { numberOfBooksBought: 1 } }, (error) => {
+              console.error(`Error: ${error}`);
+            },
+          );
+
           // This part works
           Textbook.update(
             { _id: req.body.data.cart[i]._id },
