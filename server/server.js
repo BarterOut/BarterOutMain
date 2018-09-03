@@ -7,8 +7,6 @@
  * @version 0.0.3
  */
 
-// TODO: Comment all code.
-
 import Express from 'express';
 import path from 'path';
 
@@ -37,7 +35,7 @@ const auth = require('./routes/auth');
 const user = require('./routes/user');
 
 // Books Route
-const booksRoute = require('./routes/books');
+const books = require('./routes/books');
 
 // Dashboard Route
 const dashboard = require('./routes/dashboard');
@@ -56,6 +54,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // Sessions
 // const session = require('express-session')
+// TODO: Make salting string better.
 app.use(session({
   secret: 'ourOwnSaltingString', // pick a random string to make the hash that is generated secure
   // Following lines are to avoid some deprecation warnings
@@ -81,7 +80,7 @@ app.use(passport.initialize());
 app.use(passport.session()); // calls serializeUser and deserializeUser
 app.use('/api/auth', auth);
 app.use('/api/user', user);
-app.use('/api/books', booksRoute);
+app.use('/api/books', books);
 app.use('/api/dashboard', dashboard);
 
 // Run Webpack dev server in development mode

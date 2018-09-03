@@ -81,6 +81,11 @@ class SellBook extends Component {
       return false;
     }
 
+    if (this.state.edition < 0) {
+      this.setState({ correctlyFilledOut: false });
+      return false;
+    }
+
     if (this.state.name === '' ||
         this.state.edition === '' ||
         this.state.price === '' ||

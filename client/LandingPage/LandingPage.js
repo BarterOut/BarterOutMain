@@ -1,5 +1,5 @@
 /**
- * @file React component for loging users in.
+ * @file React component for landing page.
  * @author Duncan Grubbs <duncan.grubbs@gmail.com>
  * @author Luis Nova
  * @version 0.0.3
@@ -18,7 +18,6 @@ import '../res/sylesheetOrkneyRegular.css';
 import '../res/sylesheetOrkneyLight.css';
 import '../res/sylesheetOrkneyMedium.css';
 import '../res/sylesheetOrkneyBold.css';
-// import '../res/animate.css';
 
 import logoPic from '../images/barterOutOrangeWhiteLogoHeader.png';
 
@@ -44,9 +43,6 @@ import logo from '../images/barterOutProfilePhotoWebPage.png';
 import linkedInLogo from '../images/linkedIn.png';
 import facebookLogo from '../images/facebook.png';
 import instagramLogo from '../images/instagram.png';
-
-import './noframework.waypoints.min.js';
-import '../res/jquery-3.3.1.min.js';
 
 class LandingPage extends Component {
   constructor() {
@@ -440,140 +436,5 @@ class LandingPage extends Component {
   }
 }
 
-
 export default LandingPage;
 
-// $(document).ready(() => {
-//   $('.madeSimpleInfo').css('opacity', 0);
-//   $('.howItWorksText').css('opacity', 0);
-//   $('.whatWereAboutHeader').css('opacity', 0);
-//   $('#smartPeopleBlock').css('opacity', 0);
-//   $('#helpingOthersBlock').css('opacity', 0);
-//   $('#fastCheapEasyBlock').css('opacity', 0);
-//   $('#joinTodayButton').css('opacity', 0);
-//   $('#joinTodayButton').css('opacity', 0);
-//   $('#meetOurTeamHeader').css('opacity', 0);
-//   $('.teamTextTop').css('opacity', 0);
-//   $('#rowOne').css('opacity', 0);
-//   $('#rowTwo').css('opacity', 0);
-//   $('#rowThree').css('opacity', 0);
-//   $('#rowFive').css('opacity', 0);
-//   $('.teamTextBottom').css('opacity', 0);
-//   $('#meetOurAdvisersHeader').css('opacity', 0);
-//   $('#adviserPageText').css('opacity', 0);
-//   $('#registrationPageInfo').css('opacity', 0);
-
-//   const madeSimpleAnimations = new Waypoint({
-//     element: document.getElementById('madeSimpleInfo'),
-//     handler: () => {
-//       $('.madeSimpleInfo').css('opacity', 100);
-//       $('.madeSimpleHeader').addClass('fadeIn');
-//       $('.madeSimpleText').addClass('fadeInUp');
-//     },
-//     offset: '75%',
-//   });
-//   const howItWorksAnimations = new Waypoint({
-//     element: document.getElementById('howItWorksInfo'),
-//     handler: () => {
-//       $('.howItWorksText').css('opacity', 100);
-//       $('.howItWorksHeader').addClass('fadeInLeft');
-//       $('.howItWorksText').addClass('fadeInLeft');
-//     },
-//     offset: '50%',
-//   });
-//   const whatWereAboutHeaderAnimations = new Waypoint({
-//     element: document.getElementById('whatWereAboutHeader'),
-//     handler: () => {
-//       $('#whatWereAboutHeader').css('opacity', 100);
-//       $('#whatWereAboutHeader').addClass('fadeIn');
-//     },
-//     offset: '70%',
-//   });
-//   const smartPeopleBlockAnimations = new Waypoint({
-//     element: document.getElementById('smartPeopleBlock'),
-//     handler: () => {
-//       $('#smartPeopleBlock').css('opacity', 100);
-//       $('.smartPeopleBlock').addClass('fadeInLeft');
-//       $('.smartPeopleBlockHeader').addClass('fadeInLeft');
-//       $('#smartPeopleBlockPhoto').addClass('fadeInRight');
-//     },
-//     offset: '60%',
-//   });
-//   const helpingOthersBlockAnimations = new Waypoint({
-//     element: document.getElementById('helpingOthersBlock'),
-//     handler: () => {
-//       $('#helpingOthersBlock').css('opacity', 100);
-//       $('.helpingOthersBlock').addClass('fadeInRight');
-//       $('.helpingOthersBlockHeader').addClass('fadeInRight');
-//       $('#helpingOthersBlockPhoto').addClass('fadeInLeft');
-//     },
-//     offset: '60%',
-//   });
-//   const fastCheapEasyBlockAnimations = new Waypoint({
-//     element: document.getElementById('fastCheapEasyBlock'),
-//     handler: () => {
-//       $('#fastCheapEasyBlock').css('opacity', 100);
-//       $('.fastCheapEasyBlock').addClass('fadeInLeft');
-//       $('.fastCheapEaskBlockHeader').addClass('fadeInLeft');
-//       $('#fastCheapEasyBlockPhoto').addClass('fadeInRight');
-//     },
-//     offset: '60%',
-//   });
-//   const joinTodayButtonAnimations = new Waypoint({
-//     element: document.getElementById('joinTodayButton'),
-//     handler: () => {
-//       $('#joinTodayButton').css('opacity', 100);
-//       $('#joinTodayButton').addClass('fadeIn');
-//     },
-//     offset: '85%',
-//   });
-//   const meetOurTeamHeaderAnimations = new Waypoint({
-//     element: document.getElementById('meetOurTeamHeader'),
-//     handler: () => {
-//       $('#meetOurTeamHeader').css('opacity', 100);
-//       $('#meetOurTeamHeader').addClass('fadeIn');
-//       $('.teamTextTop').css('opacity', 100);
-//       $('.teamTextTop').addClass('fadeInDown');
-//       $('#rowOne').css('opacity', 100);
-//       $('#rowOne').addClass('fadeIn');
-//     },
-//     offset: '60%',
-//   });
-//   const teamRowTwoAnimation = new Waypoint({
-//     element: document.getElementById('rowTwo'),
-//     handler: () => {
-//       $('#rowTwo').css('opacity', 100);
-//       $('#rowTwo').addClass('fadeIn');
-//     },
-//     offset: '60%',
-//   });
-//   const teamRowThreeAnimation = new Waypoint({
-//     element: document.getElementById('rowThree'),
-//     handler: () => {
-//       $('#rowThree').css('opacity', 100);
-//       $('#rowThree').addClass('fadeIn');
-//     },
-//     offset: '60%',
-//   });
-//   const teamTextBottomAnimation = new Waypoint({
-//     element: document.getElementById('teamTextBottom'),
-//     handler: () => {
-//       $('.teamTextBottom').css('opacity', 100);
-//       $('.teamTextBottom').addClass('fadeInUp');
-//     },
-//     offset: '80%',
-//   });
-//   const meetOurAdvisers = new Waypoint({
-//     element: document.getElementById('meetOurAdvisersHeader'),
-//     handler: () => {
-//       $('#meetOurAdvisersHeader').css('opacity', 100);
-//       $('#meetOurAdvisersHeader').addClass('fadeIn');
-//       $('#adviserPageText').css('opacity', 100);
-//       $('.adviserTextTop').addClass('fadeInDown');
-//       $('.adviserPhotos').addClass('fadeIn');
-//       $('.adviserTextBottom').addClass('fadeInUp');
-//       $('.applyButtonTwo').addClass('fadeIn');
-//     },
-//     offset: '60%',
-//   });
-// });
