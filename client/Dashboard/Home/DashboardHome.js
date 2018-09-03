@@ -55,7 +55,7 @@ class DashboardHome extends Component {
     this.state.purchasedBooks.forEach((book) => {
       sum += book.price;
     });
-    return sum;
+    return sum * 1.05;
   }
 
   _getAllUsers() {
