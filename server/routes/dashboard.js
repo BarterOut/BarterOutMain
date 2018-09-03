@@ -27,7 +27,7 @@ router.get('/isAdmin/:token', (req, res) => {
         } else if (authData.userInfo.permissionType === 1) {
           res.sendStatus(200);
         } else {
-          res.redirect('/home');
+          res.status(403);
         }
       });
     }
@@ -138,39 +138,6 @@ router.post('/confirmBook', (req, res) => {
   });
 });
 
-
-/**
- * @deprecated Due to inefficiency (still in use but needs changing)
- * Gets all books being sold from database. All of them!
- * @param {object} req Request body from client.
- * @param {array} res Body of HTTP response.
- * @returns {object} Array of books from database.
- */
-router.get('/getAllBooks/:token', (req, res) => {
-  jwt.verify(req.params.token, 'secretKey', (err, authData) => {
-    if (err) {
-      res.sendStatus(403);
-    } else {
-      User.findOne({ _id: authData.userInfo._id }, (error, user) => {
-        if (!user) {
-          res.status(401).send({ error: 'You need to create an account' });
-        } else if (authData.userInfo.permissionType === 1) {
-          // check if permission is 1 where 1 is admin but that will be for later
-          Textbook.find({
-            // Finds all of the books
-          }, (err, books) => {
-            User.findById(authData.userInfo._id, (err, user) => { //this search is not needed
-              res.status(200).json(sortReverseCronological(books));
-            });
-          });
-        } else {
-          res.redirect('/home');
-        }
-      });
-    }
-  });
-});
-
 router.get('/getCompletedBooks/:token', (req, res) => {
   jwt.verify(req.params.token, 'secretKey', (err, authData) => {
     if (err) {
@@ -207,9 +174,7 @@ router.get('/getInProcessBooks/:token', (req, res) => {
           Textbook.find({
             status: { $lt: 4 }, // Finds all of the books of status 4 (completed)
           }, (err, books) => {
-            User.findById(authData.userInfo._id, (err, user) => { //this search is not needed
-              res.status(200).json(sortReverseCronological(books));
-            });
+            res.status(200).json(sortReverseCronological(books));
           });
         } else {
           res.redirect('/home');
@@ -228,7 +193,8 @@ router.post('/setBookStatus/:token', (req, res) => {
         if (!user) {
           res.status(401).send({ error: 'You need to create an account' });
         } else if (authData.userInfo.permissionType === 1) {
-          // check if permission is 1 where 1 is admin but that will be for later when we have admin accounts
+          // check if permission is 1 where 1 is admin but that
+          // will be for later when we have admin accounts
           Textbook.update(
             { _id: req.body.data.bookID },
             {
@@ -238,9 +204,9 @@ router.post('/setBookStatus/:token', (req, res) => {
                 },
             },
           );
-          res.status(200);
+          res.sendStatus(200);
         } else {
-          res.redirect('/home');
+          res.sendStatus(403);
         }
       });
     }
@@ -263,7 +229,7 @@ router.get('/getPendingTransactions/:token/', (req, res) => {
             res.status(200).json(sortReverseCronological(transactionList));
           });
         } else {
-          res.redirect('/home');
+          res.sendStatus(403);
         }
       });
     }
@@ -272,11 +238,9 @@ router.get('/getPendingTransactions/:token/', (req, res) => {
 
 
 /**
- * @deprecated Due to inefficiency (still in use but needs changing)
- * Gets all books being sold from database. All of them!
- * @param {object} req Request body from client.
- * @param {array} res Body of HTTP response.
- * @returns {object} Array of books from database.
+ * @param {Object} req Request body from client.
+ * @param {Object} res Body of HTTP response.
+ * @returns {String} Status code.
  */
 router.get('/getAllTransactions/:token/', (req, res) => {
   jwt.verify(req.params.token, 'secretKey', (err, authData) => {
@@ -301,11 +265,9 @@ router.get('/getAllTransactions/:token/', (req, res) => {
 });
 
 /**
- * @deprecated Due to inefficiency (still in use but needs changing)
- * Gets all books being sold from database. All of them!
- * @param {object} req Request body from client.
- * @param {array} res Body of HTTP response.
- * @returns {object} Array of books from database.
+ * @param {Object} req Request body from client.
+ * @param {Object} res Body of HTTP response.
+ * @returns {Array} Array of books from database.
  */
 router.get('/getCompletedTransactions/:token/', (req, res) => {
   jwt.verify(req.params.token, 'secretKey', (err, authData) => {
@@ -323,7 +285,7 @@ router.get('/getCompletedTransactions/:token/', (req, res) => {
             res.status(200).json(sortReverseCronological(transactionList));
           });
         } else {
-          res.redirect('/home');
+          res.sendStatus(403);
         }
       });
     }
@@ -378,7 +340,7 @@ router.post('/confirmTransaction', (req, res) => {
             },
           );
         } else {
-          res.redirect('/home');
+          res.sendStatus(403);
         }
       });
     }
@@ -394,17 +356,21 @@ router.get('/getTransactionsByName/:token/:firstName/:LastName', (req, res) => {
         if (!user) {
           res.status(401).send({ error: 'You need to create an account' });
         } else if (authData.permissionType === 1) {
-          Transactions.find({ $and: [{ buyerFirstName: req.params.firstName }, { buyerLastName: req.params.lastName }] }, (err, transactions) => {
+          Transactions.find({
+            $and: [
+              { buyerFirstName: req.params.firstName },
+              { buyerLastName: req.params.lastName },
+            ],
+          }, (err, transactions) => {
             res.json(sortReverseCronological(transactions));
           });
         } else {
-          res.redirect('/home');
+          res.sendStatus(403);
         }
       });
     }
   });
 });
-
 
 router.get('/', (req, res) => {
   if (req.user) {
@@ -413,6 +379,5 @@ router.get('/', (req, res) => {
     res.json({ user: null });
   }
 });
-
 
 module.exports = router;
