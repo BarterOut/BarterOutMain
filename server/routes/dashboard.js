@@ -26,7 +26,7 @@ router.get('/isAdmin/:token', (req, res) => {
         } else if (authData.userInfo.permissionType === 1) {
           res.sendStatus(200);
         } else {
-          res.status(403);
+          res.status(401);
         }
       });
     }
@@ -51,6 +51,12 @@ router.get('/permissionLv/:token', (req, res) => {
   });
 });
 
+/**
+ * Gets a list of all completed transactions (books with status 2).
+ * @param {Object} req Request body from client.
+ * @param {Object} res Body of HTTP response.
+ * @returns {Array} List of completed transactions.
+ */
 router.get('/getPurchasedBooks/:token', (req, res) => {
   jwt.verify(req.params.token, 'secretKey', (err, authData) => {
     if (err) {
@@ -64,13 +70,19 @@ router.get('/getPurchasedBooks/:token', (req, res) => {
             res.status(200).json(books);
           });
         } else {
-          res.redirect('/home');
+          res.sendStatus(401);
         }
       });
     }
   });
 });
 
+/**
+ * Gets a list of all in process transactions (books with status 1).
+ * @param {Object} req Request body from client.
+ * @param {Object} res Body of HTTP response.
+ * @returns {Array} List of transactions.
+ */
 router.get('/getTransactions/:token', (req, res) => {
   jwt.verify(req.params.token, 'secretKey', (err, authData) => {
     if (err) {
@@ -84,13 +96,19 @@ router.get('/getTransactions/:token', (req, res) => {
             res.status(200).json(sortReverseCronological(books));
           });
         } else {
-          res.redirect('/home');
+          res.sendStatus(401);
         }
       });
     }
   });
 });
 
+/**
+ * Gets a list of all currently users.
+ * @param {Object} req Request body from client.
+ * @param {Object} res Body of HTTP response.
+ * @returns {Array} List of users from DB.
+ */
 router.get('/getUsers/:token', (req, res) => {
   jwt.verify(req.params.token, 'secretKey', (err, authData) => {
     if (err) {
@@ -106,13 +124,20 @@ router.get('/getUsers/:token', (req, res) => {
             res.status(200).json(users);
           });
         } else {
-          res.redirect('/home');
+          res.sendStatus(401);
         }
       });
     }
   });
 });
 
+
+/**
+ * Sets the status of a given book to 2, confirming it.
+ * @param {Object} req Request body from client.
+ * @param {Object} res Body of HTTP response.
+ * @returns {Number} Status code.
+ */
 router.post('/confirmBook', (req, res) => {
   jwt.verify(req.body.data.token, 'secretKey', (err, authData) => {
     if (err) {
@@ -132,7 +157,7 @@ router.post('/confirmBook', (req, res) => {
         },
       );
     } else {
-      res.redirect('/home');
+      res.sendStatus(401);
     }
   });
 });
@@ -183,6 +208,13 @@ router.get('/getInProcessBooks/:token', (req, res) => {
   });
 });
 
+/**
+ * Sets the status of a given book to a given status.
+ * Currenty NOT in use.
+ * @param {Object} req Request body from client.
+ * @param {Object} res Body of HTTP response.
+ * @returns {Number} Status code.
+ */
 router.post('/setBookStatus/:token', (req, res) => {
   jwt.verify(req.params.token, 'secretKey', (err, authData) => {
     if (err) {
@@ -212,6 +244,12 @@ router.post('/setBookStatus/:token', (req, res) => {
   });
 });
 
+/**
+ * Returns all books in the database with a status of 1.
+ * @param {Object} req Request body from client.
+ * @param {Object} res Body of HTTP response.
+ * @returns {Array} Array of books from database.
+ */
 router.get('/getPendingTransactions/:token/', (req, res) => {
   jwt.verify(req.params.token, 'secretKey', (err, authData) => {
     if (err) {
@@ -237,9 +275,11 @@ router.get('/getPendingTransactions/:token/', (req, res) => {
 
 
 /**
+ * Returns a list of all transaction object in the DB
+ * Currently not in use.
  * @param {Object} req Request body from client.
  * @param {Object} res Body of HTTP response.
- * @returns {String} Status code.
+ * @returns {Number} Status code.
  */
 router.get('/getAllTransactions/:token/', (req, res) => {
   jwt.verify(req.params.token, 'secretKey', (err, authData) => {
@@ -264,6 +304,7 @@ router.get('/getAllTransactions/:token/', (req, res) => {
 });
 
 /**
+ * Returns all books in the database with a status of 2.
  * @param {Object} req Request body from client.
  * @param {Object} res Body of HTTP response.
  * @returns {Array} Array of books from database.
