@@ -1,20 +1,37 @@
+/**
+ * @file All routes relating to the dashboard for Express.js server.
+ * @author Daniel Munoz
+ * @author Duncan Grubbs <duncan.grubbs@gmail.com>
+ * @version 0.0.3
+ */
+
+// Import DB models
 import Textbook from '../models/textbook';
 import User from '../models/user';
-
 import Transactions from '../models/transaction';
 
+// JWT and Express
 const jwt = require('jsonwebtoken');
-
 const express = require('express');
 
 const router = express.Router();
 
-// will return an array of JSON objects in reverse cronological order (Newest at the top)
+/**
+ * Will return an array of JSON objects in reverse cronological order (Newest at the top)
+ * @param {Array} JSONArray Array of books to sort.
+ */
 function sortReverseCronological(JSONArray) {
   JSONArray.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
   return JSONArray;
 }
 
+/**
+ * Returns a status code providing information on the permission
+ * level of a given user.
+ * @param {Object} req Request body from client.
+ * @param {Object} res Body of HTTP response.
+ * @returns {Number} Status code.
+ */
 router.get('/isAdmin/:token', (req, res) => {
   jwt.verify(req.params.token, 'secretKey', (err, authData) => {
     if (err) {
@@ -26,13 +43,19 @@ router.get('/isAdmin/:token', (req, res) => {
         } else if (authData.userInfo.permissionType === 1) {
           res.sendStatus(200);
         } else {
-          res.status(401);
+          res.sendStatus(401);
         }
       });
     }
   });
 });
 
+/**
+ * Gets the permission level of a given user.
+ * @param {Object} req Request body from client.
+ * @param {Object} res Body of HTTP response.
+ * @returns {Object} Contains permission level under permissionLevel.
+ */
 router.get('/permissionLv/:token', (req, res) => {
   jwt.verify(req.params.token, 'secretKey', (err, authData) => {
     if (err) {

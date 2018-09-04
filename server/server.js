@@ -52,8 +52,6 @@ app.use(sslRedirect());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// Sessions
-// const session = require('express-session')
 // TODO: Make salting string better.
 app.use(session({
   secret: 'ourOwnSaltingString', // pick a random string to make the hash that is generated secure
