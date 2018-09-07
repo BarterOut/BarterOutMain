@@ -324,7 +324,9 @@ router.post('/passwordResetRequest', (req, res) => {
               },
           },
           (error) => {
-            res.send(400).json(error);
+            if (error) {
+              res.status(400).json(error);
+            }
           },
         );
         sendEmail(emails.passwordResetEmail(user.emailAddress, user.firstName, token));
@@ -367,11 +369,12 @@ router.post('/passwordReset/', (req, res) => {
               },
           },
           (error) => {
-            res.send(400).json(error);
+            if (error) {
+              res.send(400).json(error);
+            }
           },
         );
-        // can send an email here
-        res.redirect('/home');
+        res.sendStatus(200);
       }
     },
   );
