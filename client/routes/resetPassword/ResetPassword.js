@@ -1,3 +1,10 @@
+/**
+ * @file React component for users when the click the forgot password
+ * link in their email.
+ * @author Duncan Grubbs <duncan.grubbs@gmail.com>
+ * @author Daniel Munoz
+ * @version 0.0.3
+ */
 
 import React, { Component } from 'react';
 import { Redirect, Link } from 'react-router-dom';
@@ -25,22 +32,12 @@ class ResetPassword extends Component {
   }
 
   componentDidMount() {
-    // this.setRedirect();
-    console.log(this.props.match.params.resetToken);
     document.addEventListener('keydown', this._handleKeyDown.bind(this));
   }
 
   onChange(evt) {
     this.setState({ [evt.target.name]: evt.target.value });
   }
-
-  // setRedirect() {
-  //   if (!this.Auth.isTokenExpired(this.Auth.getToken)) {
-  //     this.setState({ redirect: true });
-  //   } else {
-  //     this.setState({ redirect: false });
-  //   }
-  // }
 
   _handleKeyDown(e) {
     if (e.keyCode === 13) {
@@ -49,13 +46,9 @@ class ResetPassword extends Component {
   }
 
   resetPassword() {
-    console.log('click');
     if (!this._validateInputs()) {
-      console.log(this.state.password);
-      console.log(this.state.passwordConfirm);
       return;
     }
-    console.log('click 2')
 
     FetchService.POST('/api/auth/passwordReset/', {
       password: this.state.password,
@@ -64,45 +57,34 @@ class ResetPassword extends Component {
       .then(() => {
         this.setState({ badCreditials: false });
         this.setState({ redirect: true });
-      }).catch(() => {
-      this.setState({ badCreditials: true });
-    });
+      })
+      .catch(() => {
+        this.setState({ badCreditials: true });
+      });
   }
 
   _validateInputs() {
-
     if (this.state.passwordConfirm === '') {
       this.setState({ badCreditials: true });
       return false;
     }
     if (this.state.password === '') {
-      // this.setState({ badCreditials: true });
       return false;
     }
     if (!(this.state.password === this.state.passwordConfirm)) {
-      // this.setState({ badCreditials: true });
       return false;
     }
     return true;
   }
 
   render() {
-    // if (this.state.redirect) {
-    //   return (<Redirect to="/forgotPasswordSuccess" />);
-    // }
+    if (this.state.redirect) {
+      return <Redirect to="/login" />;
+    }
     return (
       <div className="wrapper-soft-bg">
         <div className="top-section">
-          <div className="part-fgp left-bar">
-            <Link to="/" href="/">
-              <img className="logo-nonav" src={logo} alt="logo" />
-            </Link>
-          </div>
-          <div className="part-fgp right-bar">
-            <Link to="/login" href="/login">
-              <button className="button">Back to Log In</button>
-            </Link>
-          </div>
+          <img className="logo-nonav" src={logo} alt="logo" />
         </div>
         <div className="central-content-card">
           <MaterialIcon size={100} icon="lock" id="lock-icon" />
@@ -111,7 +93,6 @@ class ResetPassword extends Component {
             No worries! Enter your new password!
           </h3>
           {this.state.badCreditials && <span className="input-error">Please enter an valid email.</span>}
-
 
           <input
             className="formInput"

@@ -1,3 +1,10 @@
+/**
+ * @file Auth service to standardize and simplify all of our API requests.
+ * relating to authorization.
+ * @author Duncan Grubbs <duncan.grubbs@gmail.com>
+ * @version 0.0.3
+ */
+
 import decode from 'jwt-decode';
 
 export default class AuthService {

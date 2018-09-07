@@ -10,6 +10,8 @@ import propTypes from 'prop-types';
 class TrackBookPost extends Component {
   constructor(props) {
     super(props);
+
+    this.state = {};
   }
 
   render() {

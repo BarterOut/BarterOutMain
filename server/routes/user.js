@@ -1,14 +1,23 @@
+/**
+ * @file All routes relating to users for Express.js server.
+ * @author Daniel Munoz
+ * @author Duncan Grubbs <duncan.grubbs@gmail.com>
+ * @version 0.0.3
+ */
+
 import Textbook from '../models/textbook';
 import TextbookBuy from '../models/textbookBuy';
 import User from '../models/user';
 
 const jwt = require('jsonwebtoken');
-
 const express = require('express');
 
 const router = express.Router();
 
-// Remakes matches based on the books in the request collection. *Needs testing*
+/**
+ * [RESOURCE] Remakes matches based on the books in the request collection. *Needs testing*
+ * @param {String} transactionID ID of the transaction schema saved in the DB.
+ */
 function remakeMatches(userID) {
   TextbookBuy.find({ owner: userID }, (err, books) => {
     if (books) {
@@ -47,9 +56,9 @@ function remakeMatches(userID) {
 
 /**
  * Method for returning all the current items in a user's cart.
- * @param {object} req Request from client.
- * @param {array} res Body of HTTP response.
- * @returns {object} Array of book objects.
+ * @param {Object} req Request from client.
+ * @param {Object} res Body of HTTP response.
+ * @returns {Array} Array of book objects.
  */
 router.get('/getCartItems/:token', (req, res) => {
   jwt.verify(req.params.token, 'secretKey', (error, authData) => {
@@ -69,10 +78,10 @@ router.get('/getCartItems/:token', (req, res) => {
 });
 
 /**
- * Called when a user clicks add to cart on a given book.
- * @param {object} req Request from client.
- * @param {array} res Body of HTTP response.
- * @returns {object} Success Status.
+ * Adds a given book ID to the in cart section of the user schema.
+ * @param {Object} req Request from client.
+ * @param {Object} res Body of HTTP response.
+ * @returns {String} Success Status.
  */
 router.post('/addToCart', (req, res) => {
   jwt.verify(req.body.data.token, 'secretKey', (error, authData) => {
@@ -89,7 +98,7 @@ router.post('/addToCart', (req, res) => {
             },
           },
         }, (error) => {
-          console.error(`Error: ${error}`);
+          res.status(400).json(error);
         },
       );
     }
@@ -98,10 +107,10 @@ router.post('/addToCart', (req, res) => {
 });
 
 /**
- * Called when a user clicks remove from cart on a book.
- * @param {object} req Request from client.
- * @param {array} res Body of HTTP response.
- * @returns {object} Success Status.
+ * Removes given book from cart array in user.
+ * @param {Object} req Request from client.
+ * @param {Object} res Body of HTTP response.
+ * @returns {String} Success Status.
  */
 router.post('/removeFromCart', (req, res) => {
   jwt.verify(req.body.data.token, 'secretKey', (error, authData) => {
@@ -121,7 +130,10 @@ router.post('/removeFromCart', (req, res) => {
               {
                 cart: user.cart,
               },
-          }, (err, raw) => {
+          }, (err) => {
+            if (err) {
+              res.status(400).json(err);
+            }
             res.sendStatus(200);
           },
         );
@@ -133,9 +145,9 @@ router.post('/removeFromCart', (req, res) => {
 /**
  * Called when a user clicks clear cart on the cart page
  * currently not in use.
- * @param {object} req Request from client.
- * @param {array} res Body of HTTP response.
- * @returns {object} Success Status.
+ * @param {Object} req Request from client.
+ * @param {Object} res Body of HTTP response.
+ * @returns {String} Success Status.
  */
 router.post('/clearCart', (req, res) => {
   jwt.verify(req.body.data.token, 'secretKey', (error, authData) => {
@@ -154,13 +166,13 @@ router.post('/clearCart', (req, res) => {
       res.sendStatus(200);
     }
   });
-  res.sendStatus(200);
 });
 
 /**
- * @param {object} req Request from client.
- * @param {array} res Body of HTTP response.
- * @returns {object} Array of books purchased by the user.
+ * Gets all books that have been purchased by a given user.
+ * @param {Object} req Request from client.
+ * @param {Object} res Body of HTTP response.
+ * @returns {Array} Array of books purchased by the user.
  */
 router.get('/getPurchasedBooks/:token', (req, res) => {
   jwt.verify(req.params.token, 'secretKey', (error, authData) => {
@@ -177,9 +189,10 @@ router.get('/getPurchasedBooks/:token', (req, res) => {
 });
 
 /**
- * @param {object} req Request from client.
- * @param {array} res Body of HTTP response.
- * @returns {object} Array of books sold by the user.
+ * Gets all books that have been sold by a given user.
+ * @param {Object} req Request from client.
+ * @param {Object} res Body of HTTP response.
+ * @returns {Array} Array of books sold by the user.
  */
 router.get('/getSoldBooks/:token', (req, res) => {
   jwt.verify(req.params.token, 'secretKey', (error, authData) => {
@@ -196,9 +209,10 @@ router.get('/getSoldBooks/:token', (req, res) => {
 });
 
 /**
- * @param {object} req Request from client.
- * @param {array} res Body of HTTP response.
- * @returns {object} Array of notifications for the user.
+ * Gets all of a given users notifications.
+ * @param {Object} req Request from client.
+ * @param {Object} res Body of HTTP response.
+ * @returns {Array} Array of notifications for the user.
  */
 router.get('/getNotifications/:token', (req, res) => {
   jwt.verify(req.params.token, 'secretKey', (error, authData) => {
@@ -213,9 +227,11 @@ router.get('/getNotifications/:token', (req, res) => {
 });
 
 /**
- * @param {object} req Request from client.
- * @param {array} res Body of HTTP response.
- * @returns {object} Stats for the user.
+ * Gets a given users statistics, (we store money made, books sold
+ * and books bought.)
+ * @param {Object} req Request from client.
+ * @param {Object} res Body of HTTP response.
+ * @returns {Object} Stats for the user.
  */
 router.get('/getUserStatistics/:token', (req, res) => {
   jwt.verify(req.params.token, 'secretKey', (error, authData) => {
@@ -263,9 +279,9 @@ router.get('/getUserData/:token', (req, res) => {
 
 /**
  * Removes a matching request for a given user.
- * @param {object} req Request body from client.
- * @param {array} res Body of HTTP response.
- * @returns {object} Response status.
+ * @param {Object} req Request body from client.
+ * @param {Object} res Body of HTTP response.
+ * @returns {String} Response status.
  */
 router.post('/deleteRequest/', (req, res) => {
   jwt.verify(req.body.data.token, 'secretKey', (err, authData) => {
@@ -291,9 +307,9 @@ router.post('/deleteRequest/', (req, res) => {
 
 /**
  * Gets all the books a given user has requested a match for.
- * @param {object} req Request body from client.
- * @param {array} res Body of HTTP response.
- * @returns {object} Array of books from database.
+ * @param {Object} req Request body from client.
+ * @param {Object} res Body of HTTP response.
+ * @returns {Array} Array of books from database.
  */
 router.get('/getRequests/:token', (req, res) => {
   jwt.verify(req.params.token, 'secretKey', (err, authData) => {
@@ -309,37 +325,6 @@ router.get('/getRequests/:token', (req, res) => {
           res.status(200).json(books);
         }
       });
-    }
-  });
-});
-
-/**
- * Gets all the users in the server. ADMIN FUNCTION.
- * Finds all users and returns all fields except for the password and similar fields
- * @param {object} req Request body from client.
- * @param {array} res Body of HTTP response.
- * @returns {object} Array of books from database.
- */
-router.get('/getAllUserData/:token', (req, res) => {
-  jwt.verify(req.params.token, 'secretKey', (error, authData) => {
-    if (error) {
-      res.sendStatus(400);
-    } else if (authData.permissionType === 1){
-      //check if it is an admin ie permissionType == 1
-      User.find(
-        { }, {
-          password: 0, resetPasswordToken: 0, resetPasswordExpires: 0, notifications: 0, cart: 0,
-        },
-        (error, returnUsers) => {
-          if (!returnUsers) {
-            res.sendStatus(401);
-          } else {
-            res.status(200).json({
-              users: returnUsers,
-            });
-          }
-        },
-      );
     }
   });
 });

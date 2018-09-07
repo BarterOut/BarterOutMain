@@ -1,5 +1,5 @@
 /**
- * @file Routes relating to books for Express.js server.
+ * @file All routes relating to books for Express.js server.
  * @author Daniel Munoz
  * @author Duncan Grubbs <duncan.grubbs@gmail.com>
  * @version 0.0.3
@@ -17,11 +17,8 @@ const express = require('express');
 const router = express.Router();
 
 const nodemailer = require('nodemailer');
-
 const emails = require('../emails/emailFunctions');
-
 const notification = require('../Notifications');
-
 const jwt = require('jsonwebtoken');
 
 const transporter = nodemailer.createTransport({ // secure authentication
@@ -33,31 +30,30 @@ const transporter = nodemailer.createTransport({ // secure authentication
   },
 });
 
+/**
+ * [RESOURCE] Sends out all needs emails when a transaction occurs.
+ * @param {String} transactionID ID of the transaction schema saved in the DB.
+ */
 function transactionEmail(transactionID) {
-  console.log('in function');
   Transaction.findOne({ _id: transactionID }, (err, transa) => {
-    console.log('found');
-    User.findOne( {_id: transa.buyerID}, (E, buyer) =>{
+    User.findOne({ _id: transa.buyerID }, (E, buyer) => {
       for (let i = 0; i < transa.booksPurchased.length; i++) {
         Textbook.findOne({ _id: transa.booksPurchased[i] }, (er, book) => {
           User.findOne({ _id: book.owner }, (E, seller) => {
-            console.log(seller);
-            console.log(book);
-            console.log('sending');
             sendEmail(emails.emailForUs(buyer, seller, book));
             sendEmail(emails.emailToSeller(seller.emailAddress, seller.firstName, book.name));
             sendEmail(emails.venmoRequestEmail(buyer.emailAddress, buyer.firstName, book.name));
           });
         });
       }
-
     });
-
   });
-
 }
 
-
+/**
+ * [RESOURCE] Sends a given email.
+ * @param {Object} mailOptions Required options to send email, various address, subject, etc.
+ */
 function sendEmail(mailOptions) {
   transporter.sendMail(mailOptions, (err, info) => {
     if (err) {
@@ -68,7 +64,11 @@ function sendEmail(mailOptions) {
   });
 }
 
-// will return an array of JSON objects in reverse cronological order (Newest at the top)
+
+/**
+ * [RESOURCE] Will return an array of JSON objects in reverse cronological order (Newest at the top)
+ * @param {Array} bookJSONArray Arrays of books to sort.
+ */
 function sortBooksReverseCronological(bookJSONArray) {
   bookJSONArray.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
   return bookJSONArray;
@@ -78,7 +78,7 @@ function sortBooksReverseCronological(bookJSONArray) {
  * Called when a user posts a book they want to sell.
  * @param {Object} req Request body from client.
  * @param {Object} res Body of HTTP response.
- * @returns {String} Status Code
+ * @returns {Number} Status Code.
  */
 router.post('/postBook/:token', (req, res) => {
   jwt.verify(req.params.token, 'secretKey', (error, authData) => {
@@ -154,10 +154,10 @@ router.post('/postBook/:token', (req, res) => {
 });
 
 /**
- * Called when a user posts a request for a book they want to buy.
- * @param {object} req Request body from client.
- * @param {array} res Body of HTTP response.
- * @returns {object} Array of book objects.
+ * Called when a user requests a book they need.
+ * @param {Object} req Request body from client.
+ * @param {Object} res Body of HTTP response.
+ * @returns {Number} Status code.
  */
 router.post('/requestBook', (req, res) => {
   const BOOK = req.body.data.payload;
@@ -233,7 +233,7 @@ router.post('/requestBook', (req, res) => {
 
 /**
  * Called when user checks out of cart.
- * @param {object} req Request body from client.
+ * @param {object} req Request body from client, includes array of book ID's from cart.
  * @param {object} res Body of HTTP response.
  * @returns {status} Response status.
  */
@@ -350,7 +350,7 @@ router.get('/getUserMatches/:token', (req, res) => {
             const bookIDs = userMatch[0].matchedBooks;
             Textbook.find({ $and: [{ _id: { $in: bookIDs } }, { status: 0 }] }, (error, books) => {
               bookObjects = books;
-              res.json(bookObjects);
+              res.status(200).json(bookObjects);
             });
           });
         }
@@ -413,9 +413,9 @@ router.get('/search/:query/:token', (req, res) => {
 
 /**
  * Returns all of a given users posts.
- * @param {object} req Request body from client.
- * @param {array} res Body of HTTP response.
- * @returns {object} Array of books from database.
+ * @param {Object} req Request body from client.
+ * @param {Object} res Body of HTTP response.
+ * @returns {Array} Array of books from database.
  */
 router.get('/getUsersPosts/:token', (req, res) => {
   jwt.verify(req.params.token, 'secretKey', (err, authData) => {
@@ -440,9 +440,9 @@ router.get('/getUsersPosts/:token', (req, res) => {
 
 /**
  * Removes a book up for sale from the database.
- * @param {object} req Request body from client.
- * @param {array} res Body of HTTP response.
- * @returns {object} Array of books from database.
+ * @param {Object} req Request body from client.
+ * @param {Object} res Body of HTTP response.
+ * @returns {Number} Status code.
  */
 router.post('/deleteBook/', (req, res) => {
   jwt.verify(req.body.data.token, 'secretKey', (err, authData) => {
@@ -468,9 +468,9 @@ router.post('/deleteBook/', (req, res) => {
 /**
  * @deprecated Due to inefficiency (still in use but needs changing)
  * Gets all books being sold from database and that are not from the user.
- * @param {object} req Request body from client.
- * @param {array} res Body of HTTP response.
- * @returns {object} Array of books from database.
+ * @param {Object} req Request body from client.
+ * @param {Object} res Body of HTTP response.
+ * @returns {Array} Array of books from database.
  */
 router.get('/getAllBooks/:token', (req, res) => {
   jwt.verify(req.params.token, 'secretKey', (err, authData) => {
@@ -503,62 +503,8 @@ router.get('/getAllBooks/:token', (req, res) => {
   });
 });
 
-
-/**
- * Called when user buys book.
- * @deprecated
- * @param {object} req Request body from client.
- * @param {array} res Body of HTTP response.
- * @returns {object} Array of book objects.
- */
-// router.post('/clickBuy/:token', (req, res) => {
-//   jwt.verify(req.params.token, 'secretKey', (error, authData) => {
-//     if (error) {
-//       res.sendStatus(403);
-//     } else {
-//       User.findOne({ _id: authData.userInfo._id }, (error, user) => {
-//         if (!user) {
-//           res.status(401).send({ error: 'You need to create an account' });
-//         } else {
-//           let buyer;
-//           let bookFound;
-//           let seller;
-
-//           User.find({ _id: req.body.userID }, (e, foundUser) => {
-//             if (e) {
-//               res.status(401).send(e);
-//               return;
-//             }
-//             buyer = foundUser[0];
-//             Textbook.update({ _id: req.body.bookID }, { $set: { status: 1 } }, (error) => {
-//               console.log(`Error: ${error}`);
-//             });
-//             Textbook.find({ _id: req.body.bookID }, (errors, foundBook) => {
-//               bookFound = foundBook[0];
-//               TextbookBuy.update({
-//                 $and: [{ status: 0 }, { $or: [{ name: bookFound.name }, { course: bookFound.course }] },
-//                   { owner: req.body.userID }],
-//               }, { $set: { status: 1 } }, (error) => {
-//                 console.log(`Error in finding book being bought:  ${error}`);
-//               });
-//               User.find({ _id: bookFound.owner }, (error, sellerUser) => {
-//                 seller = sellerUser[0];
-//                 sendEmail(emails.emailForUs(buyer, seller, bookFound));
-//                 sendEmail(emails.emailToSeller(seller.emailAddress, seller.firstName, bookFound.name));
-//                 sendEmail(emails.venmoRequestEmail(buyer.emailAddress, buyer.firstName, bookFound.name));
-//               });
-//             });
-//           });
-//           res.json(true);
-//         }
-//       });
-//     }
-//   });
-// });
-
 router.get('/', (req, res) => {
   res.sendStatus(200);
 });
-
 
 module.exports = router;
