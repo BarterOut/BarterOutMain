@@ -95,7 +95,7 @@ class SideNav extends Component {
             Help
           </Link>
         </div>
-        <span id="copyright-footer">Copyright 2018 BarterOut</span>
+        <span id="copyright-footer">© 2018 BarterOut.</span>
       </div>
     );
   }

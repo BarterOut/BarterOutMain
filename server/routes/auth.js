@@ -1,5 +1,5 @@
 /**
- * @file User routes for Express.js server.
+ * @file Authentication routes for Express.js server.
  * @author Daniel Munoz
  * @author Duncan Grubbs <duncan.grubbs@gmail.com>
  * @version 0.0.3
@@ -10,23 +10,15 @@ import mongoose from 'mongoose';
 import User from '../models/user';
 import TempUser from '../models/tempUser';
 
-// TempUser.getIndexes({ 'createdAt': 1 }, { expireAfterSeconds: 86400 })
-
 const express = require('express');
 
 const router = express.Router();
 
 const nodemailer = require('nodemailer');
-
-
 const bcrypt = require('bcryptjs');
-
 const emails = require('../emails/emailFunctions');
-
-const crypto = require("crypto");
-
+const crypto = require('crypto');
 const nev = require('email-verification')(mongoose);
-
 const rand = require('rand-token');
 // Makes the email configuration settings
 
@@ -68,7 +60,7 @@ nev.configure({
   emailFieldName: 'emailAddress',
   passwordFieldName: 'password',
 
-}, (error, options) => {
+}, (error) => {
   if (error) {
     console.error(error);
   }
@@ -81,16 +73,17 @@ nev.generateTempUserModel(User, (err) => {
   }
 });
 
-// Needs functionality for this. Unsure if it will be used.
-// router.post('/resendEmailVerification', (req, res) => {
-//   const email = req.emailAddress;
-// });
-
+/**
+ * Called when a user clicks the confirm link in thier email.
+ * @param {Object} req Request body from client.
+ * @param {Object} res Body of HTTP response.
+ * @returns {NULL} Redirects to new page.
+ */
 router.get('/email-verification/:URL', (req, res) => {
   const url = req.params.URL;
   TempUser.findOne({ emailToken: url }, (error, tempUser) => {
     if (error) {
-      console.log(error);
+      res.status(400).json(error);
     }
     if (tempUser) {
       const newUser = new User({
@@ -112,7 +105,7 @@ router.get('/email-verification/:URL', (req, res) => {
           sendEmail(emails.signedUpEmail(newUser.emailAddress, newUser.firstName));
           TempUser.remove({ emailToken: url }, (err) => {
             if (err) {
-              console.error(`An error occured: ${err}`);
+              res.status(400).json(err);
             }
           });
           res.redirect('/emailConfirmed');
@@ -121,28 +114,13 @@ router.get('/email-verification/:URL', (req, res) => {
       res.redirect('/signup');
     }
   });
-
-  // nev.confirmTempUser(url, function(err, user) {
-  //   if (err) {
-  //     console.log(err);
-  //   }
-  //   // user was found!
-  //   if (user) {
-  //     // optional
-  //     sendEmail(signedUpEmail(user.emailAddress, user.firstName));// Verified the user
-  //     res.redirect('/home');
-  //   } else{
-  //     console.log('user data probably expired, send some sort of msg');
-  //     res.redirect('api/auth/signup');
-  //   }
-  // });
 });
 
 // End of email verification changes
 const jwt = require('jsonwebtoken');
 
 function sendEmail(mailOptions) {
-  transporter.sendMail(mailOptions, (err, info) => {
+  transporter.sendMail(mailOptions, (err) => {
     if (err) {
       console.error(err);
     }
@@ -158,6 +136,12 @@ const transporter = nodemailer.createTransport({ // secure authentication
   },
 });
 
+/**
+ * Creates an temporary (unconfirmed) account for a user.
+ * @param {Object} req Request body from client.
+ * @param {Object} res Body of HTTP response.
+ * @returns {Number} Status code.
+ */
 router.post('/signup', (req, res) => {
   const {
     emailAddress,
@@ -171,13 +155,13 @@ router.post('/signup', (req, res) => {
 
   User.findOne({ emailAddress }, (error, user) => {
     if (error) {
-      console.log(`User.js post error: ${error}`);
+      res.status(400).json(error);
     } else if (user) {
       res.sendStatus(409);
     } else {
       TempUser.findOne({ emailAddress }, (error, existingUser) => {
         if (error) {
-          console.error(`tempUser.js post error: ${error}`);
+          res.status(400).json(error);
         } else if (existingUser) {
           res.sendStatus(409);
         } else {
@@ -202,39 +186,20 @@ router.post('/signup', (req, res) => {
             });
         }
       });
-      // // More stuff for the email verification
-      // nev.createTempUser(newUser, function(err, existingPersistentUser, newTempUser) {
-      //   // some sort of error
-      //   if (err) {
-      //     console.log(`User.js post error: ${err}`);
-      //   }
-      //   // user already exists in persistent collection...
-      //   if (existingPersistentUser){
-      //     res.json({
-      //       error: `Sorry, already a user with the username: ${emailAddress}`,
-      //     });}
-      //   // a new user
-      //   if (newTempUser) {
-      //     var URL = newTempUser[nev.options.URLFieldName];
-      //     console.log(emailAddress);
-      //     sendEmail(emails.verifyEmail(emailAddress, firstName, URL));
-      //   } else {
-      //     res.json({
-      //       msg: 'You have already signed up. Please check your email to verify your account.'
-      //     });
-      //     // flash message of failure...
-      //     console.log('failure; auth.js');
-      //   }
-      // });
     }
   });
 });
 
+/**
+ * Logs in a user provided a valid email and password.
+ * @param {Object} req Request body from client.
+ * @param {Object} res Body of HTTP response.
+ * @returns {Object} Status code and JWT.
+ */
 router.post('/login', (req, res) => {
   const { emailAddress, password } = req.body;
   User.findOne({ emailAddress }, (err, user) => {
     if (err) {
-      console.error(err);
       res.status(400).json({ error: err });
       return;
     }
@@ -261,11 +226,14 @@ router.post('/login', (req, res) => {
 });
 
 
-// Will update name, venmo, address
-// Requires the token to be sent as we ll as the body to cointain the info that will be updated
+/**
+ * Will update name, venmo, address
+ * Requires the token to be sent as we ll as the body to cointain the info that will be updated
+ * @param {Object} req Request body from client.
+ * @param {Object} res Body of HTTP response.
+ * @returns {Number} Status code.
+ */
 router.post('/updateProfile', (req, res) => {
-  // Method to verify, this is commented out because everything
-  // depends on having some infomration in the session storage
   jwt.verify(req.body.data.token, 'secretKey', (error, authData) => {
     if (error) {
       res.sendStatus(403);
@@ -282,7 +250,7 @@ router.post('/updateProfile', (req, res) => {
             },
         },
         (error) => {
-          console.error(`Error: ${error}`);
+          res.status(400).json(error);
         },
       );
       res.sendStatus(200);
@@ -290,20 +258,21 @@ router.post('/updateProfile', (req, res) => {
   });
 });
 
-
-// Will update the password
-// Requires the token to be sent as well as the plain
-// text password to be sent, will be hashed inside of the function.
+/**
+ * Will update the password
+ * Requires the token to be sent as well as the plain
+ * text password to be sent, will be hashed inside of the function.
+ * @param {Object} req Request body from client.
+ * @param {Object} res Body of HTTP response.
+ * @returns {Number} Status code.
+ */
 router.post('/updatePassword', (req, res) => {
-  // Method to verify, this is commented out because everything depends
-  // on having some infomration in the session storage
   jwt.verify(req.body.data.token, 'secretKey', (error, authData) => {
     if (error) {
       res.sendStatus(403);
     } else {
       User.findOne({ _id: authData.userInfo._id }, (error, user) => {
         if (error) {
-          console.warn(error);
           res.sendStatus(400);
           return;
         }
@@ -327,7 +296,7 @@ router.post('/updatePassword', (req, res) => {
               },
           },
           (error) => {
-            console.error(`Error: ${error}`);
+            res.send(400).json(error);
           },
         );
         res.sendStatus(200);
@@ -343,7 +312,7 @@ router.post('/passwordResetRequest', (req, res) => {
   const endDate = Date.now() + 86400000;
   User.findOne({ emailAddress: { $regex: email, $options: 'i' } }, (err, user) => {
     if (user != null) {
-      crypto.randomBytes(32, function(err, buffer) {
+      crypto.randomBytes(32, (err, buffer) => {
         token = buffer.toString('hex');
         User.update(
           { _id: user._id },
@@ -355,7 +324,9 @@ router.post('/passwordResetRequest', (req, res) => {
               },
           },
           (error) => {
-            console.error(`Error: ${error}`);
+            if (error) {
+              res.status(400).json(error);
+            }
           },
         );
         sendEmail(emails.passwordResetEmail(user.emailAddress, user.firstName, token));
@@ -368,12 +339,9 @@ router.post('/passwordResetRequest', (req, res) => {
 });
 
 router.get('/passwordReset/:token', (req, res) => {
-  // console.log(req);
-
   User.findOne({ resetPasswordToken: req.params.token }, (err, user) => {
     if (!user) {
-      console.log(`invalid token: ${req.params.token}`);
-      res.status(406).send({ error: 'token expired or is invalid' });
+      res.status(406).send({ error: 'Token expired or is invalid' });
     } else {
       res.redirect(`/resetPassword/${req.params.token}`);
     }
@@ -381,7 +349,6 @@ router.get('/passwordReset/:token', (req, res) => {
 });
 
 router.post('/passwordReset/', (req, res) => {
-  console.log(req.body)
   User.findOne(
     {
       resetPasswordToken: req.body.data.token,
@@ -389,7 +356,6 @@ router.post('/passwordReset/', (req, res) => {
     },
     (err, user) => {
       if (!user) {
-        console.warn(`Invalid token: ${req.body.data.token}`);
         res.status(406).send({ error: 'token expired or is invalid' });
       } else {
         User.update(
@@ -403,25 +369,19 @@ router.post('/passwordReset/', (req, res) => {
               },
           },
           (error) => {
-            console.error(`Error: ${error}`);
+            if (error) {
+              res.send(400).json(error);
+            }
           },
         );
-
-        // can send an email here
-        res.redirect('/home');
+        res.sendStatus(200);
       }
     },
   );
 });
 
-
-// Just in case this is needed
 router.get('/', (req, res) => {
-  if (req.user) {
-    res.json({ user: req.user });
-  } else {
-    res.json({ user: null });
-  }
+  res.sendStatus(200);
 });
 
 module.exports = router;

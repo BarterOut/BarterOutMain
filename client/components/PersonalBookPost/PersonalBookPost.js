@@ -17,6 +17,8 @@ class PersonalBookPost extends Component {
     this.state = {
       id: '',
     };
+
+    this.deleteBook = this.deleteBook.bind(this);
   }
 
   componentDidMount() {
@@ -57,7 +59,7 @@ class PersonalBookPost extends Component {
         <div className="rightBP">
           <button
             className="button"
-            onClick={this.deleteBook.bind(this)}
+            onClick={this.deleteBook}
           >Remove
           </button>
         </div>

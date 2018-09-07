@@ -7,7 +7,6 @@
 import React from 'react';
 
 import '../../res/sylesheetOrkneyRegular.css';
-import '../../res/animate.css';
 
 import logoPic from '../../images/barterOutOrangeWhiteLogoHeader.png';
 
