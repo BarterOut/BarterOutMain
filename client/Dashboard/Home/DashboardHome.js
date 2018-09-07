@@ -21,6 +21,7 @@ class DashboardHome extends Component {
       purchasedBooks: [],
       transactions: [],
       redirect: false,
+      generalStatistics: {},
     };
 
     this.AUTH = new AuthService();
@@ -36,6 +37,7 @@ class DashboardHome extends Component {
     this._getAllUsers();
     this._getPurchasedBooks();
     this._getTransactions();
+    this._getGeneralStatistics();
   }
 
   getBooksSold() {
@@ -56,6 +58,14 @@ class DashboardHome extends Component {
       sum += book.price;
     });
     return sum * 1.05;
+  }
+
+  _getGeneralStatistics() {
+    FetchService.GET(`/api/dashboard/getStatistics/${this.AUTH.getToken()}`)
+      .then(response => response.json())
+      .then((data) => {
+        this.setState({ generalStatistics: data });
+      });
   }
 
   _getAllUsers() {
@@ -155,15 +165,18 @@ class DashboardHome extends Component {
         <table className="dash-table">
           <tbody>
             <tr>
+              <th className="has-border"># Books</th>
+              <th className="has-border"># Users</th>
               <th className="has-border">Books Sold</th>
               <th className="has-border">Total Money Transacted</th>
               <th className="has-border">Money Made</th>
             </tr>
             <tr>
+              <td className="has-border">{this.state.generalStatistics.totalBooks}</td>
+              <td className="has-border">{this.state.generalStatistics.totalUsers}</td>
               <td className="has-border">{this.getBooksSold()}</td>
               <td className="has-border">${this.getTotalTransacted()}</td>
               <td className="has-border">${this.getMoneyMade()}</td>
-
             </tr>
           </tbody>
         </table>

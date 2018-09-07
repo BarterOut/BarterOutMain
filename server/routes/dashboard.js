@@ -355,6 +355,31 @@ router.get('/getCompletedTransactions/:token/', (req, res) => {
   });
 });
 
+/**
+ * Returns object of general stats form the DB.
+ * @param {Object} req Request body from client.
+ * @param {Object} res Body of HTTP response.
+ * @returns {Object} General statistics about BarterOut.
+ */
+router.get('/getStatistics/:token/', (req, res) => {
+  jwt.verify(req.params.token, 'secretKey', (err, authData) => {
+    if (err) {
+      res.sendStatus(403);
+    } else {
+      let totalUsers;
+      let totalBooks;
+      User.count({}, (error, count) => {
+        totalUsers = count;
+
+        Textbook.count({}, (error, count) => {
+          totalBooks = count;
+          res.status(200).json({ totalUsers, totalBooks });
+        });
+      });
+    }
+  });
+});
+
 
 router.get('/getPendingSpecificPendingTransaction/:token/', (req, res) => {
   jwt.verify(req.params.token, 'secretKey', (err, authData) => {
