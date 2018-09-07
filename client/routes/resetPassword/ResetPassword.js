@@ -1,3 +1,10 @@
+/**
+ * @file React component for users when the click the forgot password
+ * link in their email.
+ * @author Duncan Grubbs <duncan.grubbs@gmail.com>
+ * @author Daniel Munoz
+ * @version 0.0.3
+ */
 
 import React, { Component } from 'react';
 import { Redirect, Link } from 'react-router-dom';
