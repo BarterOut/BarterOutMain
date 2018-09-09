@@ -2,7 +2,6 @@ const webpack = require('webpack');
 const { resolve } = require('path');
 
 module.exports = {
-
   entry: {
     app: [
       'webpack-hot-middleware/client',
@@ -37,7 +36,7 @@ module.exports = {
         use: ['style-loader', 'css-loader'],
       }, {
         test: /\.woff($|\?)|\.woff2($|\?)|\.ttf($|\?)|\.eot($|\?)|\.svg($|\?)/,
-        use: 'url-loader'
+        use: 'url-loader',
       }, {
         test: /\.jsx*$/,
         exclude: [/node_modules/, /.+\.config.js/],
@@ -66,5 +65,4 @@ module.exports = {
     }),
   ],
 };
-
-console.log(resolve(__dirname, 'server'));
+// console.log(resolve(__dirname, 'server'));

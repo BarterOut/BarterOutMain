@@ -1,3 +1,10 @@
+/**
+ * @file Textbook schema for the DB.
+ * @author Duncan Grubbs <duncan.grubbs@gmail.com>
+ * @author Daniel Munoz
+ * @version 0.0.3
+ */
+
 import mongoose from 'mongoose';
 
 const Schema = mongoose.Schema;
@@ -17,7 +24,6 @@ const textbook = new Schema({
   buyer: { type: 'String', required: false, default: '' },
 });
 
-
 textbook.index({
   name: 'text',
   course: 'text',
@@ -25,6 +31,5 @@ textbook.index({
   edition: 'text',
   owner: 'text',
 }); // can add weights here later!
-
 
 export default mongoose.model('Textbook', textbook);

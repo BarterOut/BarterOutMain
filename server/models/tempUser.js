@@ -1,3 +1,9 @@
+/**
+ * @file TempUser schema for the DB (created when a user clicks sign up on the website).
+ * @author Daniel Munoz
+ * @version 0.0.3
+ */
+
 import mongoose from 'mongoose';
 
 const Schema = mongoose.Schema;
@@ -36,18 +42,11 @@ tempUserSchema.methods = {
 // Define hooks for pre-saving disabled in order to avoid double hashing of passwords
 tempUserSchema.pre('save', function (next) {
   if (!this.password) {
-    console.log('models/auth.js =======NO PASSWORD PROVIDED=======');
-
-
     next();
   } else {
-    console.log('models/tempUser.js hashPassword in pre save');
-
     this.password = this.hashPassword(this.password);
-    console.log(this.password)
     next();
   }
 });
-
 
 export default mongoose.model('TempUser', tempUserSchema);
