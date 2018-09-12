@@ -61,7 +61,7 @@ app.use(session({
   cookie: { secure: false },
 }));
 
-const ENV = 'development';
+const ENV = 'production';
 
 function forceSsl(req, res, next) {
   if (req.headers['x-forwarded-proto'] !== 'https') {
