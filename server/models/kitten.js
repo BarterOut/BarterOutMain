@@ -1,3 +1,8 @@
+/**
+ * @file Kitten schema for DB testing.
+ * @version 0.0.3
+ */
+
 import mongoose from 'mongoose';
 
 const Schema = mongoose.Schema;

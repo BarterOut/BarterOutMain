@@ -25,55 +25,7 @@ function sortReverseCronological(JSONArray) {
   return JSONArray;
 }
 
-/**
- * Returns a status code providing information on the permission
- * level of a given user.
- * @param {Object} req Request body from client.
- * @param {Object} res Body of HTTP response.
- * @returns {Number} Status code.
- */
-router.get('/isAdmin/:token', (req, res) => {
-  jwt.verify(req.params.token, 'secretKey', (err, authData) => {
-    if (err) {
-      res.sendStatus(403);
-    } else {
-      User.findOne({ _id: authData.userInfo._id }, (error, user) => {
-        if (!user) {
-          res.status(401).send({ error: 'You need to create an account' });
-        } else if (authData.userInfo.permissionType === 1) {
-          res.sendStatus(200);
-        } else {
-          res.sendStatus(401);
-        }
-      });
-    }
-  });
-});
-
-/**
- * Gets the permission level of a given user.
- * @param {Object} req Request body from client.
- * @param {Object} res Body of HTTP response.
- * @returns {Object} Contains permission level under permissionLevel.
- */
-router.get('/permissionLv/:token', (req, res) => {
-  jwt.verify(req.params.token, 'secretKey', (err, authData) => {
-    if (err) {
-      res.sendStatus(403);
-    } else {
-      User.findOne({ _id: authData.userInfo._id }, (error, user) => {
-        if (!user) {
-          res.status(401).send({ error: 'You need to create an account' });
-        } else if (authData.userInfo.permissionType === 1) {
-          res.sendStatus(200).json({ permissionType: 1 });
-        } else {
-          res.json({ permissionType: 0 });
-        }
-      });
-    }
-  });
-});
-
+// METHODS THAT ARE IN USE
 /**
  * Gets a list of all completed transactions (books with status 2).
  * @param {Object} req Request body from client.
@@ -90,7 +42,7 @@ router.get('/getPurchasedBooks/:token', (req, res) => {
           res.status(401).send({ error: 'You need to create an account' });
         } else if (authData.userInfo.permissionType === 1) {
           Textbook.find({ status: 2 }, (err, books) => {
-            res.status(200).json(books);
+            res.status(200).json(sortReverseCronological(books));
           });
         } else {
           res.sendStatus(401);
@@ -122,6 +74,33 @@ router.get('/getTransactions/:token', (req, res) => {
           res.sendStatus(401);
         }
       });
+    }
+  });
+});
+
+/**
+ * Returns object of general stats form the DB.
+ * @param {Object} req Request body from client.
+ * @param {Object} res Body of HTTP response.
+ * @returns {Object} General statistics about BarterOut.
+ */
+router.get('/getStatistics/:token/', (req, res) => {
+  jwt.verify(req.params.token, 'secretKey', (err, authData) => {
+    if (err) {
+      res.sendStatus(403);
+    } else if (authData.userInfo.permissionType === 1) {
+      let totalUsers;
+      let totalBooks;
+      User.count({}, (error, count) => {
+        totalUsers = count;
+
+        Textbook.count({}, (error, count) => {
+          totalBooks = count;
+          res.status(200).json({ totalUsers, totalBooks });
+        });
+      });
+    } else {
+      res.sendStatus(403);
     }
   });
 });
@@ -184,6 +163,8 @@ router.post('/confirmBook', (req, res) => {
     }
   });
 });
+
+// END OF METHODS THAT ARE IN USE
 
 router.get('/getCompletedBooks/:token', (req, res) => {
   jwt.verify(req.params.token, 'secretKey', (err, authData) => {
@@ -327,7 +308,7 @@ router.get('/getAllTransactions/:token/', (req, res) => {
 });
 
 /**
- * Returns all books in the database with a status of 2.
+ * Returns all transaction schemas from database with status 1.
  * @param {Object} req Request body from client.
  * @param {Object} res Body of HTTP response.
  * @returns {Array} Array of books from database.
@@ -354,32 +335,6 @@ router.get('/getCompletedTransactions/:token/', (req, res) => {
     }
   });
 });
-
-/**
- * Returns object of general stats form the DB.
- * @param {Object} req Request body from client.
- * @param {Object} res Body of HTTP response.
- * @returns {Object} General statistics about BarterOut.
- */
-router.get('/getStatistics/:token/', (req, res) => {
-  jwt.verify(req.params.token, 'secretKey', (err, authData) => {
-    if (err) {
-      res.sendStatus(403);
-    } else {
-      let totalUsers;
-      let totalBooks;
-      User.count({}, (error, count) => {
-        totalUsers = count;
-
-        Textbook.count({}, (error, count) => {
-          totalBooks = count;
-          res.status(200).json({ totalUsers, totalBooks });
-        });
-      });
-    }
-  });
-});
-
 
 router.get('/getPendingSpecificPendingTransaction/:token/', (req, res) => {
   jwt.verify(req.params.token, 'secretKey', (err, authData) => {
@@ -454,6 +409,55 @@ router.get('/getTransactionsByName/:token/:firstName/:LastName', (req, res) => {
           });
         } else {
           res.sendStatus(403);
+        }
+      });
+    }
+  });
+});
+
+/**
+ * Returns a status code providing information on the permission
+ * level of a given user.
+ * @param {Object} req Request body from client.
+ * @param {Object} res Body of HTTP response.
+ * @returns {Number} Status code.
+ */
+router.get('/isAdmin/:token', (req, res) => {
+  jwt.verify(req.params.token, 'secretKey', (err, authData) => {
+    if (err) {
+      res.sendStatus(403);
+    } else {
+      User.findOne({ _id: authData.userInfo._id }, (error, user) => {
+        if (!user) {
+          res.status(401).send({ error: 'You need to create an account' });
+        } else if (authData.userInfo.permissionType === 1) {
+          res.sendStatus(200);
+        } else {
+          res.sendStatus(401);
+        }
+      });
+    }
+  });
+});
+
+/**
+ * Gets the permission level of a given user.
+ * @param {Object} req Request body from client.
+ * @param {Object} res Body of HTTP response.
+ * @returns {Object} Contains permission level under permissionLevel.
+ */
+router.get('/permissionLv/:token', (req, res) => {
+  jwt.verify(req.params.token, 'secretKey', (err, authData) => {
+    if (err) {
+      res.sendStatus(403);
+    } else {
+      User.findOne({ _id: authData.userInfo._id }, (error, user) => {
+        if (!user) {
+          res.status(401).send({ error: 'You need to create an account' });
+        } else if (authData.userInfo.permissionType === 1) {
+          res.sendStatus(200).json({ permissionType: 1 });
+        } else {
+          res.json({ permissionType: 0 });
         }
       });
     }

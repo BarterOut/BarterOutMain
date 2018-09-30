@@ -76,7 +76,6 @@ export default (
     <Route exact path="/contact" component={Contact} />
     <Route exact path="/careers" component={Careers} />
     <Route path="/resetPassword/:resetToken" component={ResetPassword} />
-
     <PrivateRoute exact path="/home" component={Home} />
     <Route exact path="/login" component={Login} />
     <Route exact path="/signup" component={SignUp} />
