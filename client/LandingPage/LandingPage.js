@@ -27,14 +27,14 @@ import picThree from '../images/outdoorsCompressed.jpg';
 
 import vlad from '../images/team-photos/vladCazacu.jpg';
 import annie from '../images/team-photos/annieHamburgen.png';
-import pavel from '../images/team-photos/pavelStan.jpg';
+// import pavel from '../images/team-photos/pavelStan.jpg';
 import melissa from '../images/team-photos/melissaKagaju.jpg';
 import duncan from '../images/team-photos/duncanGrubbs.jpg';
 import daniel from '../images/team-photos/danielMunoz.jpg';
-import shawn from '../images/team-photos/zixuChen.jpg';
+// import shawn from '../images/team-photos/zixuChen.jpg';
 import nikolai from '../images/team-photos/Nikolai.jpg';
 import genessis from '../images/team-photos/genessisGalindo.jpg';
-import zacqueline from '../images/team-photos/zacquelineBaldwin.jpg';
+// import zacqueline from '../images/team-photos/zacquelineBaldwin.jpg';
 
 import adviserOne from '../images/team-photos/meyerElizabeth.jpg';
 
@@ -248,7 +248,7 @@ class LandingPage extends Component {
                         Co-founder &amp; CEO
                       </div>
                     </td>
-                    <td>
+                    {/* <td>
                       <div className="profile">
                         <a href="https://www.linkedin.com/in/pavel-stan-232911140/" rel="noopener noreferrer" target="_blank">
                           <img alt="Team Profile" className="team" src={pavel} />
@@ -259,7 +259,7 @@ class LandingPage extends Component {
                         <br />
                         of External Relations
                       </div>
-                    </td>
+                    </td> */}
                     <td>
                       <div className="profile">
                         <a href="https://www.linkedin.com/in/annmarie-hamburgen-9ab65a12b/" rel="noopener noreferrer" target="_blank">
@@ -278,24 +278,22 @@ class LandingPage extends Component {
                         Interim CTO
                       </div>
                     </td>
-                  </tr>
-                  <tr className="animated" id="rowTwo">
                     <td>
                       <div className="profile">
                         <img alt="Team Profile" className="staff" src={daniel} />
                         <br />
                         <div className="profileName">Daniel Munoz</div>
-                        Full-Stack Developer
+                        Lead Full-Stack Developer
                       </div>
                     </td>
+                  </tr>
+                  <tr className="animated" id="rowTwo">
                     <td>
                       <div className="profile">
-                        <a href="https://www.linkedin.com/in/zixu-chen/" rel="noopener noreferrer" target="_blank">
-                          <img alt="Team Profile" className="team" src={shawn} />
-                        </a>
+                        <img alt="Team Profile" className="staff" src={logo} />
                         <br />
-                        <div className="profileName">Zixu (Shawn) Chen</div>
-                        Backend Developer
+                        <div className="profileName">Zino Hu</div>
+                        Full-Stack Developer
                       </div>
                     </td>
                     <td>
@@ -318,6 +316,14 @@ class LandingPage extends Component {
                         Marketing Analyst
                       </div>
                     </td>
+                    <td>
+                      <div className="profile">
+                        <a href="https://www.linkedin.com/in/nikolai-draganov-314986161/" rel="noopener noreferrer" target="_blank"><img alt="Team Profile" className="team" src={nikolai} /></a>
+                        <br />
+                        <div className="profileName">Nikolai Draganov</div>
+                        Marketing Strategist
+                      </div>
+                    </td>
                   </tr>
                   <tr className="animated" id="rowThree">
                     <td>
@@ -338,23 +344,40 @@ class LandingPage extends Component {
                         Frontend Developer
                       </div>
                     </td>
-
                     <td>
                       <div className="profile">
-                        <a href="https://www.linkedin.com/in/nikolai-draganov-314986161/" rel="noopener noreferrer" target="_blank"><img alt="Team Profile" className="team" src={nikolai} /></a>
+                        <img alt="Team Profile" className="staff" src={logo} />
                         <br />
-                        <div className="profileName">Nikolai Draganov</div>
-                        Marketing Strategist
+                        <div className="profileName">Aman Shrestha</div>
+                        Android Developer
                       </div>
                     </td>
                     <td>
+                      <div className="profile">
+                        <img alt="Team Profile" className="staff" src={logo} />
+                        <br />
+                        <div className="profileName">Shagun Bose</div>
+                        UI/UX Developer
+                      </div>
+                    </td>
+                  </tr>
+                  <tr className="animated" id="rowTwo">
+                    <td>
+                      <div className="profile">
+                        <img alt="Team Profile" className="staff" src={logo} />
+                        <br />
+                        <div className="profileName">May Lyan</div>
+                        UI/UX Developer
+                      </div>
+                    </td>
+                    {/* <td>
                       <div className="profile">
                         <img alt="Team Profile" className="staff" src={zacqueline} />
                         <br />
                         <div className="profileName">Zacqueline Baldwin (ZQ)</div>
                         Marketing Intern
                       </div>
-                    </td>
+                    </td> */}
                   </tr>
                 </tbody>
               </table>
