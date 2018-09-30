@@ -6,7 +6,7 @@ mongoose.Promise = global.Promise;
 // your local database url
 // 27017 is the default mongoDB port
 
-const uri = 'mongodb://BarterOut:LuisInnovation1@ds127342.mlab.com:27342/barterout-release';
+const uri = 'mongodb://BarterOut:LuisInnovation1@ds245150.mlab.com:45150/barterout-development';
 
 
 mongoose.connect(uri, { useMongoClient: true }).then(
