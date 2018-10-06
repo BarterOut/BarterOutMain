@@ -202,7 +202,7 @@
 }
 
 .whatWereAbout {
-    position: relative;
+  position: relative;
   width: 100%;
   text-align: center;
   color: white;
@@ -372,52 +372,52 @@
 }
 
 .firstName {
-    margin-bottom: 2.5%;
+  margin-bottom: 2.5%;
 }
 
 .lastName {
-    margin-bottom: 2.5%;
+  margin-bottom: 2.5%;
 }
 
 .email {
-    margin-bottom: 2.5%;
+  margin-bottom: 2.5%;
 }
 
 #agreement {
-    padding-left: 7.5%;
-    padding-right: 7.5%;
+  padding-left: 7.5%;
+  padding-right: 7.5%;
 }
 
 #registerButton {
-    position: relative;
-    display: block;
-    left: 0;
-    right: 0;
-    margin: auto;
-    bottom: 0;
-    margin-top: 5%;
-    margin-bottom: 10%;
-    width: 50%;
+  position: relative;
+  display: block;
+  left: 0;
+  right: 0;
+  margin: auto;
+  bottom: 0;
+  margin-top: 5%;
+  margin-bottom: 10%;
+  width: 50%;
 }
 
 #registerButton:focus {
-    outline: 0;
+  outline: 0;
 }
 
 #applyButtonOne {
-    margin-top: 2.5%;
+  margin-top: 2.5%;
 }
 
 #applyButtonTwo {
-    margin-top: 2.5%;
+  margin-top: 2.5%;
 }
 
 .staffPhotos {
-     margin: auto;
+  margin: auto;
 }
 
 .adviserPhotos {
-    margin: auto;
+  margin: auto;
 }
 
 .staff {
@@ -435,34 +435,34 @@
 }
 
 .team {
-    -webkit-transform: rotate(0);
-    -moz-transform: rotate(0);
-    transform: rotate(0);
-    border-radius: 50%;
-    margin: 2.5% 2.5%;
-    max-width: 200px;
-    width: 17.5vw;
-    -webkit-transition: opacity 0.5s ease-out;
-    -moz-transition: opacity 0.5s ease-out;
-    -o-transition: opacity 0.5s ease-out;
-    transition: opacity 0.5s ease-out;
+  -webkit-transform: rotate(0);
+  -moz-transform: rotate(0);
+  transform: rotate(0);
+  border-radius: 50%;
+  margin: 2.5% 2.5%;
+  max-width: 200px;
+  width: 17.5vw;
+  -webkit-transition: opacity 0.5s ease-out;
+  -moz-transition: opacity 0.5s ease-out;
+  -o-transition: opacity 0.5s ease-out;
+  transition: opacity 0.5s ease-out;
 }
 
 
 .team:hover {
-    -webkit-transform: rotate(0);
-    -moz-transform: rotate(0);
-    transform: rotate(0);
-    opacity: 0.50;
+  -webkit-transform: rotate(0);
+  -moz-transform: rotate(0);
+  transform: rotate(0);
+  opacity: 0.50;
 }
 
 .profile {
-    font-size: 10pt;
-    font-style: italic;
-    padding-top: 5%;
-    padding-bottom: 5%;
-    padding-left: 7.5%;
-    padding-right: 7.5%;
+  font-size: 10pt;
+  font-style: italic;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
 }
 
 #applyLink {
