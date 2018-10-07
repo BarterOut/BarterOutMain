@@ -354,7 +354,7 @@ class LandingPage extends Component {
                       <div className="profile">
                         <img alt="Team Profile" className="staff" src={logo} />
                         <br />
-                        <div className="profileName">May Lyan</div>
+                        <div className="profileName">May Shin Lyan</div>
                         UI/UX Developer
                       </div>
                     </td>
