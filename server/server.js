@@ -63,11 +63,6 @@ app.use(session({
   cookie: { secure: false },
 }));
 
-const airbrake = new AirbrakeClient({
-  projectId: 198681,
-  projectKey: '6da3a08e11432204d9747ffd5e332816',
-});
-
 const ENV = 'development';
 
 function forceSsl(req, res, next) {
@@ -79,6 +74,10 @@ function forceSsl(req, res, next) {
 
 if (ENV === 'production') {
   app.use(forceSsl);
+  const airbrake = new AirbrakeClient({
+    projectId: 198681,
+    projectKey: '6da3a08e11432204d9747ffd5e332816',
+  });
 }
 
 app.use(passport.initialize());

@@ -1,14 +1,15 @@
 // Connect to Mongo database
+import config from '../config';
+
 const mongoose = require('mongoose');
+
 
 mongoose.Promise = global.Promise;
 
 // your local database url
 // 27017 is the default mongoDB port
 
-const uri = 'mongodb://BarterOutDev:LuisInnovation1@ds245150.mlab.com:45150/barterout-development';
-
-mongoose.connect(uri, { useMongoClient: true }).then(
+mongoose.connect(config.mongoURL, { useMongoClient: true }).then(
   () => {
     /** ready to use. The `mongoose.connect()` promise resolves to undefined. */
   },
