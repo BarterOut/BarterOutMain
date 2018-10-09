@@ -25,7 +25,6 @@ function sortReverseCronological(JSONArray) {
   return JSONArray;
 }
 
-// METHODS THAT ARE IN USE
 /**
  * Gets a list of all completed transactions (books with status 2).
  * @param {Object} req Request body from client.
@@ -163,8 +162,6 @@ router.post('/confirmBook', (req, res) => {
     }
   });
 });
-
-// END OF METHODS THAT ARE IN USE
 
 router.get('/getCompletedBooks/:token', (req, res) => {
   jwt.verify(req.params.token, 'secretKey', (err, authData) => {
