@@ -40,6 +40,8 @@ const books = require('./routes/books');
 // Dashboard Route
 const dashboard = require('./routes/dashboard');
 
+const AirbrakeClient = require('airbrake-js');
+
 const PORT = serverConfig.port;
 
 const bodyParser = require('body-parser');
@@ -61,7 +63,7 @@ app.use(session({
   cookie: { secure: false },
 }));
 
-const ENV = 'production';
+const ENV = 'development';
 
 function forceSsl(req, res, next) {
   if (req.headers['x-forwarded-proto'] !== 'https') {
@@ -72,6 +74,10 @@ function forceSsl(req, res, next) {
 
 if (ENV === 'production') {
   app.use(forceSsl);
+  const airbrake = new AirbrakeClient({
+    projectId: 198681,
+    projectKey: '6da3a08e11432204d9747ffd5e332816',
+  });
 }
 
 app.use(passport.initialize());

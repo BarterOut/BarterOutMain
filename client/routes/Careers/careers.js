@@ -78,7 +78,7 @@ const Careers = () => (
         <p className="careers-text">Experience with Javascript, Express.js, and JSON.<br />
            Familiar with Git and Github (Branching, Pull Requests, Code Review).
         </p>
-        <h4 className="position-header">UI/UX Designer</h4>
+        {/* <h4 className="position-header">UI/UX Designer</h4>
         <b>
           <p className="careers-text">Role</p>
         </b>
@@ -101,7 +101,7 @@ const Careers = () => (
         </b>
         <p className="careers-text">Some design experience with a modern design tool such as Adobe XD, Figma, Sketch, Illustrator or similar. <br />
           Knowledge of SEO, HTML and CSS preferred.
-        </p>
+        </p> */}
         <h4 className="position-header">iOS Developer</h4>
         <b>
           <p className="careers-text">Role</p>
