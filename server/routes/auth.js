@@ -47,8 +47,7 @@ nev.configure({
     // This won't actually be used but it is necessary for the package to work. the
     from: '"Barter Out" <office@barterout.com',
     subject: 'Please confirm account',
-    html: '<p>Please verify your account by clicking <a href="${URL}">this link</a>. If you are unable to do so, copy and ' +
-    'paste the following link into your browser:</p><p>${URL}</p>',
+    html: '<p>Please verify your account by clicking <a href="${URL}">this link</a>.',
     auth: {
       user: 'office@barterout.com',
       refreshToken: '1/9XdHU4k2vwYioRyAP8kaGYfZXKfp_JxqUwUMYVJWlZs',
