@@ -20,9 +20,10 @@ export default class AuthService {
     return this.fetch('/api/auth/login', {
       method: 'POST',
       body: JSON.stringify({ emailAddress, password }),
-    }).then((data) => {
-      this.setToken(data.token); // Setting the token in localStorage
-      return Promise.resolve(data);
+    }).then((response) => {
+      console.log(response.data.token);
+      this.setToken(response.data.token); // Setting the token in localStorage
+      return Promise.resolve(response);
     });
   }
 

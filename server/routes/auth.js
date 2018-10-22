@@ -8,6 +8,7 @@
 import mongoose from 'mongoose';
 
 import User from '../models/user';
+import response from '../response';
 import TempUser from '../models/tempUser';
 
 const express = require('express');
@@ -219,7 +220,7 @@ router.post('/login', (req, res) => {
 
     // Creates the token and sends the JSON back
     jwt.sign({ userInfo }, 'secretKey', { expiresIn: '30 days' }, (error, token) => {
-      res.status(200).json({ token });
+      res.status(200).json(response('/api/auth/login', { token }));
     });
   });
 });
