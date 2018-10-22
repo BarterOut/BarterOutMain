@@ -23,9 +23,6 @@ import config from '../webpack.config';
 import serverConfig from './config';
 import kittens from './kittens/kitten';
 
-// PASSPORT
-const passport = require('./passport');
-
 const sslRedirect = require('heroku-ssl-redirect');
 
 // Auth Route
@@ -80,8 +77,6 @@ if (ENV === 'production') {
   });
 }
 
-app.use(passport.initialize());
-app.use(passport.session()); // calls serializeUser and deserializeUser
 app.use('/api/auth', auth);
 app.use('/api/user', user);
 app.use('/api/books', books);
