@@ -309,7 +309,7 @@ class LandingPage extends Component {
                         <a href="https://www.linkedin.com/in/nikolai-draganov-314986161/" rel="noopener noreferrer" target="_blank"><img alt="Team Profile" className="team" src={nikolai} /></a>
                         <br />
                         <div className="profileName">Nikolai Draganov</div>
-                        Marketing Strategist
+                        Product Development
                       </div>
                     </td>
                   </tr>
