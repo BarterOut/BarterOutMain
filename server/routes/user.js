@@ -99,7 +99,6 @@ router.post('/addToCart', (req, res) => {
           },
         }, (er) => {
           if (er){
-            console.log("ohhh this is going to make an error");
             res.status(400).json(er);
           }
 
