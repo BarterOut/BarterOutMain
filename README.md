@@ -6,7 +6,7 @@ Github Repository for the Web Platform and API of BarterOut.
 
 While these are not requirements, we strongly recommend that you familiarize yourself with the following:
 
-1. VS Code, Atom, Sublime Textm, Web Storm or another editor.
+1. VS Code, Atom, Sublime Text, Web Storm or another editor.
 
 2. [Bash](https://en.wikipedia.org/wiki/Bash_(Unix_shell))
 
