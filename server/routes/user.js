@@ -97,8 +97,10 @@ router.post('/addToCart', (req, res) => {
               $position: 0,
             },
           },
-        }, (error) => {
-          res.status(400).json(error);
+        }, (er) => {
+          if (er) {
+            res.status(400).json(er);
+          }
         },
       );
     }
