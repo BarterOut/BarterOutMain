@@ -62,17 +62,18 @@ nev.configure({
 
 }, (error) => {
   if (error) {
-    console.error(error);
+    throw new Error(`Error: ${error}`);
   }
 });
 
 // Creating the temp user
-nev.generateTempUserModel(User, (err) => {
-  if (err) {
-    console.error(err);
+nev.generateTempUserModel(User, (error) => {
+  if (error) {
+    throw new Error(`Error: ${error}`);
   }
 });
 
+// TODO Remove redirects
 /**
  * Called when a user clicks the confirm link in thier email.
  * @param {Object} req Request body from client.
@@ -103,9 +104,9 @@ router.get('/email-verification/:URL', (req, res) => {
         .then(() => {
           // Verified the user
           sendEmail(emails.signedUpEmail(newUser.emailAddress, newUser.firstName));
-          TempUser.remove({ emailToken: url }, (err) => {
-            if (err) {
-              res.status(400).json(err);
+          TempUser.remove({ emailToken: url }, (error) => {
+            if (error) {
+              res.status(400).json(response('/api/auth/email-verification/:URL', { error }));
             }
           });
           res.redirect('/emailConfirmed');
@@ -120,9 +121,9 @@ router.get('/email-verification/:URL', (req, res) => {
 const jwt = require('jsonwebtoken');
 
 function sendEmail(mailOptions) {
-  transporter.sendMail(mailOptions, (err) => {
-    if (err) {
-      console.error(err);
+  transporter.sendMail(mailOptions, (error) => {
+    if (error) {
+      throw new Error(`Error: ${error}`);
     }
   });
 }
@@ -155,15 +156,15 @@ router.post('/signup', (req, res) => {
 
   User.findOne({ emailAddress }, (error, user) => {
     if (error) {
-      res.status(400).json(error);
+      res.status(400).json(response('/api/auth/signup', { error }));
     } else if (user) {
-      res.sendStatus(409);
+      res.status(409).json(response('/api/auth/signup', { error: 'Existing User' }));
     } else {
       TempUser.findOne({ emailAddress }, (error, existingUser) => {
         if (error) {
           res.status(400).json(response('/api/auth/signup', { error }));
         } else if (existingUser) {
-          res.status(409).json(response('/api/auth/signup', null));
+          res.status(409).json(response('/api/auth/signup', { error: 'Existing Temp User' }));
         } else {
           const emailToken = rand.generate(48);
           const newUser = new TempUser({
@@ -204,16 +205,17 @@ router.post('/login', (req, res) => {
       return;
     }
     if (!user) {
-      res.status(401).json(response('/api/auth/login', null));
+      res.status(401).json(response('/api/auth/login', { error: 'No Account' }));
       return;
     }
     if (!user.checkPassword(password)) {
-      res.status(401).json(response('/api/auth/login', null));
+      res.status(401).json(response('/api/auth/login', { error: 'Incorrect Password' }));
       return;
     }
 
     const userInfo = {
       // Can add more stuff into this so that it has more info, for now it only has the id
+      // and the permission type for handling admin dashboard auth on frontend.
       _id: user._id,
       permissionType: user.permissionType,
     };
@@ -231,7 +233,7 @@ router.post('/login', (req, res) => {
  * Requires the token to be sent as we ll as the body to cointain the info that will be updated
  * @param {Object} req Request body from client.
  * @param {Object} res Body of HTTP response.
- * @returns {Number} Status code.
+ * @returns {Object} Standard API response.
  */
 router.post('/updateProfile', (req, res) => {
   jwt.verify(req.body.data.token, 'secretKey', (error, authData) => {
@@ -264,7 +266,7 @@ router.post('/updateProfile', (req, res) => {
  * text password to be sent, will be hashed inside of the function.
  * @param {Object} req Request body from client.
  * @param {Object} res Body of HTTP response.
- * @returns {Number} Status code.
+ * @returns {Object} Standard Response.
  */
 router.post('/updatePassword', (req, res) => {
   jwt.verify(req.body.data.token, 'secretKey', (error, authData) => {
@@ -296,7 +298,9 @@ router.post('/updatePassword', (req, res) => {
               },
           },
           (error) => {
-            res.status(400).json(response('/api/auth/updatePassword', { error }));
+            if (error) {
+              res.status(400).json(response('/api/auth/updatePassword', { error }));
+            }
           },
         );
         res.status(200).json(response('/api/auth/updatePassword', null));
@@ -306,6 +310,13 @@ router.post('/updatePassword', (req, res) => {
 });
 
 
+/**
+ * Sends email to user with token to reset password,
+ * this token is verified by the another API call.
+ * @param {Object} req Request body from client.
+ * @param {Object} res Body of HTTP response.
+ * @returns {Object} Standard Response.
+ */
 router.post('/passwordResetRequest', (req, res) => {
   const email = req.body.data.emailAddress;
   let token;
