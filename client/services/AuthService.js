@@ -79,7 +79,7 @@ export default class AuthService {
 
   /**
    * Adds or updates user token in session storage.
-   * @param {Strign} idToken Token from API response.
+   * @param {String} idToken Token from API response.
    */
   setToken(idToken) {
     // Saves user token to localStorage
