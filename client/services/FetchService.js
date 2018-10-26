@@ -50,6 +50,11 @@ export default class FetchService {
       });
   }
 
+  /**
+   * Checks the status code of a given response, return true or throwing an error.
+   * @param {Object} response Any data you want to pass to the server.
+   * @returns {Boolean} If the reponse code is good (>=200, <300)
+   */
   static _checkStatus(response) {
     // Raises an error in case response status is not a success
     if (response.status >= 200 && response.status < 300) { // Success status lies between 200 to 300
