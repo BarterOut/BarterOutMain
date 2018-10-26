@@ -1,6 +1,6 @@
 # BarterOut
 
-Github Repository for the Web Platform of BarterOut.
+Github Repository for the Web Platform and API of BarterOut.
 
 ### Prerequisites
 
