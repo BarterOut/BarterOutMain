@@ -98,10 +98,9 @@ router.post('/addToCart', (req, res) => {
             },
           },
         }, (er) => {
-          if (er){
+          if (er) {
             res.status(400).json(er);
           }
-
         },
       );
     }
