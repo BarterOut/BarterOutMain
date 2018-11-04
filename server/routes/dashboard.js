@@ -160,6 +160,41 @@ router.get('/getUsers/:token', (req, res) => {
 
 
 /**
+ * Get the info of the books and make them bigger
+ * @param {Object} req Request body from client.
+ * @param {Object} res Body of HTTP response.
+ * @returns {Number} Status code.
+ */
+router.post('/extendBookInfo', (req, res) => {
+  jwt.verify(req.body.data.token, 'secretKey', (err, authData) => {
+    if (err) {
+      res.sendStatus(403);
+    } else if (authData.userInfo.permissionType === 1) {
+      // req.body.data.books
+      
+
+
+      // Textbook.update(
+      //   { _id: req.body.data.id },
+      //   {
+      //     $set:
+      //       {
+      //         status: 2,
+      //       },
+      //   }, (err) => {
+      //     if (!err) {
+      //       res.sendStatus(200);
+      //     }
+      //   },
+      // );
+    } else {
+      res.sendStatus(401);
+    }
+  });
+});
+
+
+/**
  * Sets the status of a given book to 2, confirming it.
  * @param {Object} req Request body from client.
  * @param {Object} res Body of HTTP response.
