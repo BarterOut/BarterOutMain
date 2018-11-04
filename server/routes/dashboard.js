@@ -57,7 +57,7 @@ router.get('/getPurchasedBooks/:token', (req, res) => {
  * @param {Object} res Body of HTTP response.
  * @returns {Array} List of transactions.
  */
-router.get('/getTransactions/:token', (req, res) => {
+router.get('/getBooksStatus1/:token', (req, res) => {
   jwt.verify(req.params.token, 'secretKey', (err, authData) => {
     if (err) {
       res.sendStatus(403);
@@ -67,6 +67,32 @@ router.get('/getTransactions/:token', (req, res) => {
           res.status(401).send({ error: 'You need to create an account' });
         } else if (authData.userInfo.permissionType === 1) {
           Textbook.find({ status: 1 }, (err, books) => {
+            res.status(200).json(sortReverseCronological(books));
+          });
+        } else {
+          res.sendStatus(401);
+        }
+      });
+    }
+  });
+});
+
+/**
+ * Gets a list of all in process transactions (books with status 1).
+ * @param {Object} req Request body from client.
+ * @param {Object} res Body of HTTP response.
+ * @returns {Array} List of transactions.
+ */
+router.get('/getBooksStatus2/:token', (req, res) => {
+  jwt.verify(req.params.token, 'secretKey', (err, authData) => {
+    if (err) {
+      res.sendStatus(403);
+    } else {
+      User.findOne({ _id: authData.userInfo._id }, (error, user) => {
+        if (!user) {
+          res.status(401).send({ error: 'You need to create an account' });
+        } else if (authData.userInfo.permissionType === 1) {
+          Textbook.find({ status: 2 }, (err, books) => {
             res.status(200).json(sortReverseCronological(books));
           });
         } else {
@@ -150,6 +176,36 @@ router.post('/confirmBook', (req, res) => {
           $set:
             {
               status: 2,
+            },
+        }, (err) => {
+          if (!err) {
+            res.sendStatus(200);
+          }
+        },
+      );
+    } else {
+      res.sendStatus(401);
+    }
+  });
+});
+
+/**
+ * Sets the status of a given book to 3, confirming it's paid.
+ * @param {Object} req Request body from client.
+ * @param {Object} res Body of HTTP response.
+ * @returns {Number} Status code.
+ */
+router.post('/setBookPaid', (req, res) => {
+  jwt.verify(req.body.data.token, 'secretKey', (err, authData) => {
+    if (err) {
+      res.sendStatus(403);
+    } else if (authData.userInfo.permissionType === 1) {
+      Textbook.update(
+        { _id: req.body.data.id },
+        {
+          $set:
+            {
+              status: 3,
             },
         }, (err) => {
           if (!err) {
