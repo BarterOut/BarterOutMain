@@ -10,11 +10,11 @@ import ReactModal from 'react-modal';
 
 import SideNav from '../../components/SideNav/SideNav';
 import TopBar from '../../components/TopBar/TopBar';
+import BookPost from '../../components/BookPost/BookPost';
 
 import FetchService from '../../services/FetchService';
 import AuthService from '../../services/AuthService';
 
-import BookPost from '../../components/BookPost/BookPost';
 import BuyBook from '../../components/BuyBook/BuyBook';
 import Search from '../../components/Search/Search';
 
@@ -26,7 +26,6 @@ class Buy extends Component {
     this.state = {
       posts: [],
       query: '',
-      matches: [],
       loading: false,
       showModal: false,
       displaySearch: false,
@@ -40,14 +39,7 @@ class Buy extends Component {
   }
 
   componentWillMount() {
-    const token = this.auth.getToken();
     this.getBooks();
-
-    FetchService.GET(`/api/books/getUserMatches/${token}`)
-      .then(response => response.json())
-      .then((data) => {
-        this._setMatches(data);
-      });
   }
 
   getBooks() {
@@ -139,24 +131,6 @@ class Buy extends Component {
               that the course code must be in the same format as on the book posting,
               (e.g. MTH 101, WRT 105, etc).
             </p>
-            <div className="title--page-section-wrapper">
-              <h2 className="title-text--page-section-header">Your Matches</h2>
-            </div>
-            <div className="page-section-wrapper">
-              {matches.map(post => (
-                <BookPost
-                  key={post._id}
-                  id={post._id}
-                  name={post.name}
-                  subject={post.course}
-                  edition={post.edition}
-                  price={post.price}
-                  status={post.inCart}
-                  condition={post.condition}
-                  comments={post.comments}
-                />
-              ))}
-            </div>
             <div className="title--page-section-wrapper"><h2 className="title-text--page-section-header">New Arrivals</h2></div>
             <div className="page-section-wrapper">
               {

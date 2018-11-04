@@ -70,9 +70,9 @@ class SideNav extends Component {
           </div>
         </div>
         <div id="link-wrapper">
-          <Link className="nav-link" name="home" to="/home" href="/home">
+          <Link className="nav-link" name="dash" to="/home" href="/home">
             <div className="nav-icon"><MaterialIcon icon="home" size={30} /></div>
-            Home
+            Dash
           </Link>
           <Link className="nav-link" name="buy" to="/buy" href="/buy">
             <div className="nav-icon"><MaterialIcon icon="shopping_cart" size={30} /></div>
@@ -92,7 +92,7 @@ class SideNav extends Component {
           </Link>
           <Link className="nav-link" name="help" to="/help" href="/help">
             <div className="nav-icon"><MaterialIcon icon="help" size={30} /></div>
-            Help
+            Contact Us
           </Link>
         </div>
         <span id="copyright-footer">© 2018 BarterOut.</span>
