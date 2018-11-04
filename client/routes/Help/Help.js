@@ -23,7 +23,9 @@ class Help extends Component {
             <div className="title--page-section-wrapper">
               <h2 className="title-text--page-section-header">Help</h2>
             </div>
-            <div className="page-section-wrapper" />
+            <div className="page-section-wrapper">
+              <span>office@barterout.com</span>
+            </div>
           </div>
         </div>
       </div>

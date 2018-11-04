@@ -15,7 +15,7 @@
 }
 
 .columns {
-  margin: 0 42px;
+  margin: 0 2em;
   display: flex;
   flex-grow: 2;
   max-width: 200px;
@@ -25,7 +25,7 @@
 
 .page-section-wrapper-settings {
   width: 90%;
-  min-width: 600px;
+  max-width: 700px;
   max-height: 500px;
   min-height: 100px;
   overflow-y: scroll;
@@ -42,7 +42,7 @@
   display: flex;
   flex-direction: column;
   width: 90%;
-  min-width: 600px;
+  max-width: 700px;
   background: #755F9F;
   border-top-right-radius: 15px;
   border-top-left-radius: 15px;

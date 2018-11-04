@@ -10,6 +10,7 @@ import './Home.css';
 import TopBar from '../components/TopBar/TopBar';
 import SideNav from '../components/SideNav/SideNav';
 import Notification from '../components/Notification/Notification';
+import BookPost from '../components/BookPost/BookPost';
 
 import FetchService from '../services/FetchService';
 import AuthService from '../services/AuthService';
@@ -20,6 +21,7 @@ class Home extends Component {
 
     this.state = {
       notifications: [],
+      matches: [],
       numberOfBooksBought: 0,
       numberOfBooksSold: 0,
       moneyMade: 0,
@@ -31,6 +33,15 @@ class Home extends Component {
   componentDidMount() {
     this.getNotifications();
     this.getUserStatistics();
+    this.getMatches();
+  }
+
+  getMatches() {
+    FetchService.GET(`/api/books/getUserMatches/${this.Auth.getToken()}`)
+      .then(response => response.json())
+      .then((data) => {
+        this.setState({ matches: data });
+      });
   }
 
   getNotifications() {
@@ -55,7 +66,7 @@ class Home extends Component {
     return (
       <div className="app-wrapper">
         <SideNav
-          selected="home"
+          selected="dash"
         />
 
         <div className="right-content">
@@ -87,6 +98,25 @@ class Home extends Component {
                   <h2 className="stat-text">${this.state.moneyMade}</h2>
                 </div>
               </div>
+            </div>
+
+            <div className="title--page-section-wrapper">
+              <h2 className="title-text--page-section-header">Your Matches</h2>
+            </div>
+            <div className="page-section-wrapper">
+              {this.state.matches.map(post => (
+                <BookPost
+                  key={post._id}
+                  id={post._id}
+                  name={post.name}
+                  subject={post.course}
+                  edition={post.edition}
+                  price={post.price}
+                  status={post.inCart}
+                  condition={post.condition}
+                  comments={post.comments}
+                />
+              ))}
             </div>
 
 
