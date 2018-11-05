@@ -6,6 +6,7 @@
 
 import React, { Component } from 'react';
 import propTypes from 'prop-types';
+import moment from 'moment';
 
 import FetchService from '../../services/FetchService';
 import AuthService from '../../services/AuthService';
@@ -46,6 +47,7 @@ class RequestBookPost extends Component {
         <div className="leftBP">
           <span className="bookSubject">{this.props.subject}</span>
           <span className="bookName">{this.props.name}</span>
+          <span className="bookEdition">{moment.unix(this.props.date / 1000).format('L')}</span>
         </div>
         <div id="vertical-line" />
         <div className="leftBP" />
@@ -53,7 +55,7 @@ class RequestBookPost extends Component {
           <button
             className="button"
             onClick={this.deleteBook}
-          >Remove
+          >Unrequest
           </button>
         </div>
       </div>
@@ -63,6 +65,7 @@ class RequestBookPost extends Component {
 
 // Props validation
 RequestBookPost.propTypes = {
+  date: propTypes.number.isRequired,
   id: propTypes.string.isRequired,
   name: propTypes.string.isRequired,
   subject: propTypes.string.isRequired,

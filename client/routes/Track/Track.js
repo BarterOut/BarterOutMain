@@ -125,6 +125,7 @@ class Track extends Component {
                   key={post._id}
                   id={post._id}
                   name={post.name}
+                  date={post.date}
                   subject={post.course}
                 />
               ))}
