@@ -127,9 +127,11 @@ class Buy extends Component {
             </div>
             {this.state.displaySearch && <Search query={this.state.query} />}
             <p className="searchInfo">
-              You can search for books by title, edition, or course code. *Note
-              that the course code must be in the same format as on the book posting,
-              (e.g. MTH 101, WRT 105, etc).
+              You can search for books by <b>title, edition, or course code.</b> <br />
+              <em>
+                *Note that the course code must be in the same format as on the book posting,
+                (e.g. MTH 101, WRT 105, etc).
+              </em>
             </p>
             <div className="title--page-section-wrapper"><h2 className="title-text--page-section-header">New Arrivals</h2></div>
             <div className="page-section-wrapper">
