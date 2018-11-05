@@ -108,10 +108,10 @@ class DashboardHome extends Component {
     }
     return (
       <div className="dashboard-wrapper">
-        <h1>Welcome to the Dashboard</h1>
-        <button className="button" onClick={this.logout}>Logout</button>
+        <h1 className="dashboard-header">BarterOut Dashboard</h1>
+        {/* <button className="button" onClick={this.logout}>Logout</button> */}
 
-        <h2>On-Going transactions</h2>
+        <h2 className="dashboard-header">Ongoing Transactions</h2>
         <table className="dash-table">
           <tbody>
             <tr>
@@ -138,7 +138,7 @@ class DashboardHome extends Component {
             ))}
           </tbody>
         </table>
-        <h2>Completed Transactions</h2>
+        <h2 className="dashboard-header">Completed Transactions</h2>
         <table className="dash-table">
           <tbody>
             <tr>
@@ -161,7 +161,7 @@ class DashboardHome extends Component {
             ))}
           </tbody>
         </table>
-        <h2>Statistics</h2>
+        <h2 className="dashboard-header">Statistics</h2>
         <table className="dash-table">
           <tbody>
             <tr>
@@ -180,7 +180,7 @@ class DashboardHome extends Component {
             </tr>
           </tbody>
         </table>
-        <h2>Users</h2>
+        <h2 className="dashboard-header">Users</h2>
         <table className="dash-table">
           <tbody>
             <tr>
