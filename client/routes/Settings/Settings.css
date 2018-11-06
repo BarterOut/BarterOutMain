@@ -10,7 +10,6 @@
 .dividePage {
   display: flex;
   flex-direction: row;
-  height: 100%;
   justify-content: center;
   margin: 64px 8px;
 }
@@ -30,10 +29,8 @@
   max-height: 500px;
   min-height: 100px;
   overflow-y: scroll;
-  -webkit-box-shadow: 0 4px 6px rgba(50,50,93,.11), 0 1px 3px rgba(0,0,0,.08);
-  box-shadow: 0 4px 6px rgba(50,50,93,.11), 0 1px 3px rgba(0,0,0,.08);
-  border-bottom-right-radius: 15px;
-  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 6px;
+  border-bottom-left-radius: 6px;
   background: #E1DEEC;
   align-items: center;
   margin-bottom: 32px;
@@ -45,8 +42,8 @@
   width: 90%;
   max-width: 700px;
   background: #755F9F;
-  border-top-right-radius: 15px;
-  border-top-left-radius: 15px;
+  border-top-right-radius: 6px;
+  border-top-left-radius: 6px;
   min-height: 50px;
   margin-top: 8px;
   padding: 8px 16px;
@@ -81,7 +78,7 @@
     flex-direction: column;
   }
   .page-section-wrapper-settings, .inside-info, .title--page-section-wrapper-settings{
-    max-width: 100%;
-    min-width: 100%;
+    max-width: 95%;
+    min-width: 95%;
   }
 }

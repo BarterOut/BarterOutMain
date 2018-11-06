@@ -108,13 +108,13 @@ class DashboardHome extends Component {
     }
     return (
       <div className="dashboard-wrapper">
-        <h1 className="dashboard-header">BarterOut Dashboard</h1>
+        <h1 className="dashboard-header">BarterOut Admin Dashboard</h1>
         <h2 className="dashboard-header">Ongoing Transactions</h2>
         <table className="dash-table">
           <tbody>
             <tr>
-              <th className="has-border">Name</th>
-              <th className="has-border">Course</th>
+              <th className="has-border">Book Name</th>
+              <th className="has-border">Course Code</th>
               <th className="has-border">Owner</th>
               <th className="has-border">Charge Buyer</th>
               <th className="has-border">Pay Seller</th>
@@ -140,10 +140,10 @@ class DashboardHome extends Component {
         <table className="dash-table">
           <tbody>
             <tr>
-              <th className="has-border">Name</th>
-              <th className="has-border">Course</th>
+              <th className="has-border">Book Name</th>
+              <th className="has-border">Course Code</th>
               <th className="has-border">Owner</th>
-              <th className="has-border">Price</th>
+              <th className="has-border">List Price</th>
               <th className="has-border">Condition</th>
               <th className="has-border">Buyer</th>
             </tr>
