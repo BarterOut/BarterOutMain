@@ -21,8 +21,6 @@ body {
   border: none;
   border-radius: 6px;
   padding: 8px 16px;
-  /* -webkit-box-shadow: 0 4px 6px rgba(50,50,93,.11), 0 1px 3px rgba(0,0,0,.08);
-  box-shadow: 0 4px 6px rgba(50,50,93,.11), 0 1px 3px rgba(0,0,0,.08); */
 }
 
 .searchInput {
@@ -55,8 +53,6 @@ body {
   max-height: 500px;
   min-height: 100px;
   overflow-y: scroll;
-  /* -webkit-box-shadow: 0 4px 6px rgba(50,50,93,.11), 0 1px 3px rgba(0,0,0,.08);
-  box-shadow: 0 4px 6px rgba(50,50,93,.11), 0 1px 3px rgba(0,0,0,.08); */
   border-bottom-right-radius: 6px;
   border-bottom-left-radius: 6px;
   background: #E1DEEC;

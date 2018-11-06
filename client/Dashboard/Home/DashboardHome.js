@@ -109,8 +109,6 @@ class DashboardHome extends Component {
     return (
       <div className="dashboard-wrapper">
         <h1 className="dashboard-header">BarterOut Dashboard</h1>
-        {/* <button className="button" onClick={this.logout}>Logout</button> */}
-
         <h2 className="dashboard-header">Ongoing Transactions</h2>
         <table className="dash-table">
           <tbody>

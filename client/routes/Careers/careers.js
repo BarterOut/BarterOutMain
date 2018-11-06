@@ -78,30 +78,6 @@ const Careers = () => (
         <p className="careers-text">Experience with Javascript, Express.js, and JSON.<br />
            Familiar with Git and Github (Branching, Pull Requests, Code Review).
         </p>
-        {/* <h4 className="position-header">UI/UX Designer</h4>
-        <b>
-          <p className="careers-text">Role</p>
-        </b>
-        <p className="careers-text">
-          Are you passionate about modern UI/UX design and have experience using design tools? Do you want to work for a startup whose aim is to make students&apos; lives easier? If so, fill out <a rel="noopener noreferrer" target="_blank" href="https://goo.gl/forms/TmJZPoOI2Y8EIVAs2">this form.</a>
-        </p>
-        <b>
-          <p className="careers-text">Location</p>
-        </b>
-        <p className="careers-text">Rochester, NY</p>
-        <b>
-          <p className="careers-text">Duties &amp; Responsibilities</p>
-        </b>
-        <p className="careers-text">Design the client and admin end of our website in both desktop and mobile versions. <br />
-          Design the mobile applications for our services. <br />
-          Communicate with the developer team to br /ing the designs to life.
-        </p>
-        <b>
-          <p className="careers-text">Required Experience</p>
-        </b>
-        <p className="careers-text">Some design experience with a modern design tool such as Adobe XD, Figma, Sketch, Illustrator or similar. <br />
-          Knowledge of SEO, HTML and CSS preferred.
-        </p> */}
         <h4 className="position-header">iOS Developer</h4>
         <b>
           <p className="careers-text">Role</p>
