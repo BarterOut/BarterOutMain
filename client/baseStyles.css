@@ -16,6 +16,7 @@ body {
   justify-content: center;
   align-items: center;
   width: 70%;
+  max-width: 760px;
   height: 64px;
   background: #E1DEEC;
   border: none;
@@ -35,6 +36,7 @@ body {
 .searchInfo {
   text-align: left;
   width: 70%;
+  max-width: 760px;
   margin: 8px 0;
   font-size: 1.1em;
 }
@@ -50,8 +52,9 @@ body {
 .page-section-wrapper {
   width: 70%;
   min-width: 540px;
-  max-height: 500px;
+  max-width: 760px;
   min-height: 100px;
+  max-height: 500px;
   overflow-y: scroll;
   border-bottom-right-radius: 6px;
   border-bottom-left-radius: 6px;
@@ -65,6 +68,7 @@ body {
   background: #755F9F;
   width: 70%;
   min-width: 540px;
+  max-width: 760px;
   border-top-right-radius: 6px;
   border-top-left-radius: 6px;
   min-height: 50px;
@@ -245,6 +249,10 @@ button:focus {
   width: 50px;
   height: 50px;
   animation: loaderAnim 1.2s linear infinite;
+}
+
+#help-content {
+  margin: auto 16px;
 }
 
 @keyframes loaderAnim {

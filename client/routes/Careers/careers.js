@@ -20,6 +20,23 @@ const Careers = () => (
       <h1 className="text-header">Careers</h1>
       <div className="header-line" />
       <div className="text-content">
+        <b>
+          <h4 className="position-header">Intro</h4>
+        </b>
+        <p className="careers-text">
+          At BarterOut, we have a <em>very</em> small team of seven, highly motivated developers,
+          working at a fast pace. We work hard to create an inclusive, yet realistic environment
+          that pushes all of us to become better team members and developers. We make learning a
+          priority, which allows us to open our doors to a much wider range of people. This being
+          said, BarterOut is still a <em>very young</em> company and we do not have many of
+          the resources larger companies do.
+          <b><p className="careers-text">Note:</p></b>
+          <ul>
+            <li>We do not pay employees.</li>
+            <li>You must be very self motivated, there is little managment overhead.</li>
+            <li>Be ready to <b>learn</b> if you are not familiar with our tech stack.</li>
+          </ul>
+        </p>
         <h3>Open Positions</h3>
         <h4 className="position-header">Frontend Web Developer</h4>
         <b>

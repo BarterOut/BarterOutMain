@@ -5,13 +5,14 @@
   align-items: center;
   font-size: 1.3em;
   flex-wrap: wrap;
-  margin: auto 0;
 }
 
 .dividePage {
   display: flex;
   flex-direction: row;
-  margin: auto 8px;
+  height: 100%;
+  justify-content: center;
+  margin: 64px 8px;
 }
 
 .columns {
@@ -59,7 +60,7 @@
   align-items: center;
   color: black;
   padding-left: 6px;
-  margin: 8px 32px;
+  margin: 8px 0;
   font-size: 2em;
   font-weight: bold;
   transition: all ease .1s;
@@ -75,12 +76,12 @@
   text-decoration: none;
 }
 
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 900px) {
   .dividePage {
     flex-direction: column;
   }
   .page-section-wrapper-settings, .inside-info, .title--page-section-wrapper-settings{
-    max-width: 95vw;
-    min-width: 95vw;
+    max-width: 100%;
+    min-width: 100%;
   }
 }
