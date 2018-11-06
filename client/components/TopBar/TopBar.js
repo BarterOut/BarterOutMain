@@ -8,7 +8,7 @@ import React, { Component } from 'react';
 import propTypes from 'prop-types';
 import { Redirect, Link } from 'react-router-dom';
 import AuthService from '../../services/AuthService';
-// import MaterialIcon from 'react-google-material-icons';
+import MaterialIcon from 'react-google-material-icons';
 
 import '../../baseStyles.css';
 
@@ -53,6 +53,9 @@ class TopBar extends Component {
     return (
       <div className="bar-wrapper">
         <div className="left-bar part">
+          <div onClick={this.toggleVis} id="three-bar">
+            <MaterialIcon icon="menu" size={36} />
+          </div>
           <Link to="/cart" href="/cart">
             <button onClick={this.toggleVis} className="button" id="cart">Cart</button>
           </Link>

@@ -90,7 +90,7 @@ BookPost.propTypes = {
   id: propTypes.string.isRequired,
   name: propTypes.string.isRequired,
   price: propTypes.number.isRequired,
-  status: propTypes.number.isRequired,
+  status: propTypes.number,
   subject: propTypes.string.isRequired,
 };
 

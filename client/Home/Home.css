@@ -1,7 +1,7 @@
 .app-wrapper {
   box-sizing: border-box;
   margin: 0;
-  overflow-y: hidden;
+  overflow: hidden;
   display: flex;
   flex-direction: row;
 }
@@ -27,6 +27,11 @@
   justify-content: center;
 }
 
+.stat-wrap {
+  width: 30%;
+  margin: 0 auto;
+}
+
 .stat-text {
   text-align: center;
   font-size: 2.3em;
@@ -35,28 +40,21 @@
 }
 
 .page-section-wrapper--stat {
-  width: 30%;
-  min-width: 200px;
+  width: 100%;
   overflow-y: scroll;
-  /* -webkit-box-shadow: 0 4px 6px rgba(50,50,93,.11), 0 1px 3px rgba(0,0,0,.08);
-  box-shadow: 0 4px 6px rgba(50,50,93,.11), 0 1px 3px rgba(0,0,0,.08); */
   border-bottom-right-radius: 6px;
   border-bottom-left-radius: 6px;
   background: #E1DEEC;
-  margin: 0 16px 8px 16px;
-  /* padding-bottom: 16px; */
 }
 
 .title--page-section-wrapper--stat {
   display: flex;
   flex-direction: column;
   background: #755F9F;
-  width: 30%;
-  min-width: 200px;
+  width: 100%;
+  min-height: 50px;
   border-top-right-radius: 6px;
   border-top-left-radius: 6px;
-  min-height: 50px;
-  margin: 8px 16px 0 16px;
   padding: 8px 16px;
   align-items: flex-start;
   justify-content: center;
@@ -64,10 +62,9 @@
 
 @media only screen and (max-width: 600px) {
   .page-content {
-    max-width: 95vw;
+    max-width: 100vw;
   }
-  .title--page-section-wrapper--stat, .page-section-wrapper--stat, .stats-section {
-    max-width: 25vw;
-    min-width: 25vw;
+  .stats-section {
+    width: 100vw;
   }
 }

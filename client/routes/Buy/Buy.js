@@ -34,7 +34,6 @@ class Buy extends Component {
     this.handleOpenModal = this.handleOpenModal.bind(this);
     this.handleCloseModal = this.handleCloseModal.bind(this);
     this.updateInputValue = this.updateInputValue.bind(this);
-    this.animateSearch = this.animateSearch.bind(this);
     this.auth = new AuthService();
   }
 
@@ -52,10 +51,6 @@ class Buy extends Component {
       });
   }
 
-  _setMatches(data) {
-    this.setState({ matches: data });
-  }
-
   updateInputValue(evt) {
     this.search(evt.target.value);
   }
@@ -66,10 +61,6 @@ class Buy extends Component {
 
   handleCloseModal() {
     this.setState({ showModal: false });
-  }
-
-  animateSearch() {
-    // this.setState({ displaySearch: !this.state.displaySearch });
   }
 
   search(query) {
@@ -97,12 +88,8 @@ class Buy extends Component {
 
   render() {
     let posts = [];
-    let matches = [];
     if (this.state.posts) {
       posts = this.state.posts;
-    }
-    if (this.state.matches) {
-      matches = this.state.matches;
     }
     return (
       <div className="app-wrapper">

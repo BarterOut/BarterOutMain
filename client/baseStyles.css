@@ -2,6 +2,10 @@
   font-family: sans-serif;
 }
 
+body {
+  overflow-x: hidden;
+}
+
 ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
   color: #777;
   opacity: 1; /* Firefox */
@@ -41,7 +45,6 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 8px 0;
   padding: 8px 0;
   overflow-y: scroll;
 }
@@ -83,7 +86,7 @@
 }
 
 @media only screen and (max-width: 600px) {
-  .page-section-wrapper, .title-text--page-section-header, .page-section-wrapper, .title--page-section-wrapper,
+  .page-section-wrapper, .title-text--page-section-header, .title--page-section-wrapper,
   .searchInputWrapper, .searchInfo {
     max-width: 90vw;
     min-width: 90vw;
