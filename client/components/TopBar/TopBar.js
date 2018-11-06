@@ -19,12 +19,22 @@ class TopBar extends Component {
     super();
     this.state = {
       redirect: false,
-      visible: false,
+      visible: true,
     };
 
     this.AUTH = new AuthService();
     this.toggleVis = this.toggleVis.bind(this);
     this._logout = this._logout.bind(this);
+  }
+
+  componentDidMount() {
+    if (/Mobi/.test(navigator.userAgent)) {
+      this._setMobile();
+    }
+  }
+
+  _setMobile() {
+    this.setState({ visible: false });
   }
 
   _updateRedirect(value) {
