@@ -51,6 +51,8 @@ router.get('/getPurchasedBooks/:token', (req, res) => {
   });
 });
 
+//We could add this thing where the parameter is the status we would like to search for
+
 /**
  * Gets a list of all in process transactions (books with status 1).
  * @param {Object} req Request body from client.
@@ -93,6 +95,33 @@ router.get('/getBooksStatus2/:token', (req, res) => {
           res.status(401).send({ error: 'You need to create an account' });
         } else if (authData.userInfo.permissionType === 1) {
           Textbook.find({ status: 2 }, (err, books) => {
+            res.status(200).json(sortReverseCronological(books));
+          });
+        } else {
+          res.sendStatus(401);
+        }
+      });
+    }
+  });
+});
+
+
+/**
+ * Gets a list of all in process transactions (books with status 1).
+ * @param {Object} req Request body from client.
+ * @param {Object} res Body of HTTP response.
+ * @returns {Array} List of transactions.
+ */
+router.get('/getBooksStatus3/:token', (req, res) => {
+  jwt.verify(req.params.token, 'secretKey', (err, authData) => {
+    if (err) {
+      res.sendStatus(403);
+    } else {
+      User.findOne({ _id: authData.userInfo._id }, (error, user) => {
+        if (!user) {
+          res.status(401).send({ error: 'You need to create an account' });
+        } else if (authData.userInfo.permissionType === 1) {
+          Textbook.find({ status: 3 }, (err, books) => {
             res.status(200).json(sortReverseCronological(books));
           });
         } else {
@@ -170,7 +199,21 @@ router.post('/extendBookInfo', (req, res) => {
     if (err) {
       res.sendStatus(403);
     } else if (authData.userInfo.permissionType === 1) {
-      // req.body.data.books
+      const bookArray = req.body.data.books;
+      let output = [bookArray.length];
+      for( let i = 0; i < bookArray.length; i++){
+        let newBook = bookArray[i];
+
+        User.findOne({ _id: bookArray[i].owner }, (error, owner) => {
+          newBook.owner = owner;
+          User.findOne({ _id: bookArray[i].buyer }, (error, buyer) => {
+            newBook.buter = buyer;
+            output[i] = newBook;
+          });
+        });
+      }
+      res.sendStatus(200).json(output);
+
 
 
 
