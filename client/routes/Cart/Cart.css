@@ -1,10 +1,12 @@
 #cart-message {
   font-size: 1.4em;
   width: 70%;
+  max-width: 760px;
 }
 
 #cart-totals {
   width: 70%;
+  max-width: 760px;
   padding: 16px;
   text-align: right;
 }

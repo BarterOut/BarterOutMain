@@ -1,10 +1,11 @@
 /**
  * @file React component for a textbook posting on the webapp.
  * @author Duncan Grubbs <duncan.grubbs@gmail.com>
- * @version 0.0.3
+ * @version 0.0.4
  */
 
 import React, { Component } from 'react';
+import moment from 'moment';
 import propTypes from 'prop-types';
 
 class TrackBookPost extends Component {
@@ -20,7 +21,7 @@ class TrackBookPost extends Component {
         <div className="leftBP">
           <span className="bookSubject">{this.props.subject}</span>
           <span className="bookName">{this.props.name}</span>
-          <span className="bookEdition">Edition: {this.props.edition}</span>
+          <span className="bookEdition">{moment.unix(this.props.date / 1000).format('L')}</span>
         </div>
         <div id="vertical-line" />
         <div className="leftBP">
@@ -29,6 +30,7 @@ class TrackBookPost extends Component {
              for <span className="price">${this.props.price}</span>
           </div>
           <span className="comments"><i>{this.props.comments || 'No comments'}</i></span>
+          <span className="comments"><i>{this.props.type}</i></span>
         </div>
       </div>
     );
@@ -39,10 +41,11 @@ class TrackBookPost extends Component {
 TrackBookPost.propTypes = {
   comments: propTypes.string,
   condition: propTypes.string.isRequired,
-  edition: propTypes.number.isRequired,
+  date: propTypes.number.isRequired,
   name: propTypes.string.isRequired,
   price: propTypes.number.isRequired,
   subject: propTypes.string.isRequired,
+  type: propTypes.string.isRequired,
 };
 
 export default TrackBookPost;

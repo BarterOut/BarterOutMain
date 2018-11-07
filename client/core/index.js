@@ -3,12 +3,9 @@
  */
 import React from 'react';
 import { render } from 'react-dom';
-import { Provider } from 'react-redux';
 import { AppContainer } from 'react-hot-loader';
 
 import 'bootstrap';
-
-import store from '../store';
 
 import App from './App';
 
@@ -16,11 +13,9 @@ import App from './App';
 const mountApp = document.getElementById('root');
 
 render(
-  <Provider store={store}>
-    <AppContainer>
-      <App />
-    </AppContainer>
-  </Provider>,
+  <AppContainer>
+    <App />
+  </AppContainer>,
   mountApp,
 );
 

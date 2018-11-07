@@ -2,7 +2,7 @@
  * @file Authentication routes for Express.js server.
  * @author Daniel Munoz
  * @author Duncan Grubbs <duncan.grubbs@gmail.com>
- * @version 0.0.3
+ * @version 0.0.4
  */
 
 import mongoose from 'mongoose';
@@ -30,7 +30,7 @@ function myHasher(password, tempUserData, insertTempUser, callback) {
 
 // Configurations for the temp user stuff
 nev.configure({
-  verificationURL: 'https://www.barterout.com/api/auth/email-verification/${URL}',
+  verificationURL: 'https://barterout-dev.herokuapp.com/api/auth/email-verification/${URL}',
   persistentUserModel: User,
   tempUserCollection: 'barterOut_tempusers',
   shouldSendConfirmation: false,

@@ -1,7 +1,7 @@
 /**
  * @file Fetch service to standardize and simplify all of our API requests.
  * @author Duncan Grubbs <duncan.grubbs@gmail.com>
- * @version 0.0.3
+ * @version 0.0.4
  */
 
 export default class FetchService {

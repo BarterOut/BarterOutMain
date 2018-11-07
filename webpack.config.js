@@ -65,4 +65,3 @@ module.exports = {
     }),
   ],
 };
-// console.log(resolve(__dirname, 'server'));

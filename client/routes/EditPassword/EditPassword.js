@@ -2,7 +2,7 @@
  * @file React component for editing a password.
  * @author Duncan Grubbs <duncan.grubbs@gmail.com>
  * @author Daniel Munoz
- * @version 0.0.3
+ * @version 0.0.4
  */
 
 import React, { Component } from 'react';
@@ -102,6 +102,7 @@ class EditPassword extends Component {
                     this.state.updateMessageVisible &&
                     <h3>You succesfully updated your password.</h3>
                   }
+                  <span className="inputLabelHome">Old Password</span>
                   <input
                     className="formInput"
                     placeholder="Old Password"
@@ -110,6 +111,7 @@ class EditPassword extends Component {
                     onChange={this.onChange}
                     required
                   />
+                  <span className="inputLabelHome">New Password</span>
                   <input
                     className="formInput"
                     placeholder="New Password"
@@ -118,6 +120,7 @@ class EditPassword extends Component {
                     onChange={this.onChange}
                     required
                   />
+                  <span className="inputLabelHome">Confirm New Password</span>
                   <input
                     className="formInput"
                     placeholder="Confirm New Password"

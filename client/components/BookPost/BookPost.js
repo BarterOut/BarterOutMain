@@ -1,7 +1,7 @@
 /**
  * @file React component for a textbook posting on the webapp.
  * @author Duncan Grubbs <duncan.grubbs@gmail.com>
- * @version 0.0.3
+ * @version 0.0.4
  */
 
 import React, { Component } from 'react';
@@ -24,7 +24,7 @@ class BookPost extends Component {
   }
 
   componentDidMount() {
-    if (this.props.status === 3) {
+    if (this.props.status === 42) {
       this._setInCart();
     }
   }
@@ -90,7 +90,7 @@ BookPost.propTypes = {
   id: propTypes.string.isRequired,
   name: propTypes.string.isRequired,
   price: propTypes.number.isRequired,
-  status: propTypes.number.isRequired,
+  status: propTypes.number,
   subject: propTypes.string.isRequired,
 };
 

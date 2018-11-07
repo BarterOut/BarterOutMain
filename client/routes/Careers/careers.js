@@ -1,7 +1,7 @@
 /**
  * @file React component for the careers route.
  * @author Duncan Grubbs <duncan.grubbs@gmail.com>
- * @version 0.0.3
+ * @version 0.0.4
  */
 
 import React from 'react';
@@ -20,6 +20,23 @@ const Careers = () => (
       <h1 className="text-header">Careers</h1>
       <div className="header-line" />
       <div className="text-content">
+        <b>
+          <h4 className="position-header">Intro</h4>
+        </b>
+        <p className="careers-text">
+          At BarterOut, we have a <em>very</em> small team of seven, highly motivated developers,
+          working at a fast pace. We work hard to create an inclusive, yet realistic environment
+          that pushes all of us to become better team members and developers. We make learning a
+          priority, which allows us to open our doors to a much wider range of people. This being
+          said, BarterOut is still a <em>very young</em> company and we do not have many of
+          the resources larger companies do.
+          <b><p className="careers-text">Note:</p></b>
+          <ul>
+            <li>We do not pay employees.</li>
+            <li>You must be very self motivated, there is little managment overhead.</li>
+            <li>Be ready to <b>learn</b> if you are not familiar with our tech stack.</li>
+          </ul>
+        </p>
         <h3>Open Positions</h3>
         <h4 className="position-header">Frontend Web Developer</h4>
         <b>
@@ -78,30 +95,6 @@ const Careers = () => (
         <p className="careers-text">Experience with Javascript, Express.js, and JSON.<br />
            Familiar with Git and Github (Branching, Pull Requests, Code Review).
         </p>
-        {/* <h4 className="position-header">UI/UX Designer</h4>
-        <b>
-          <p className="careers-text">Role</p>
-        </b>
-        <p className="careers-text">
-          Are you passionate about modern UI/UX design and have experience using design tools? Do you want to work for a startup whose aim is to make students&apos; lives easier? If so, fill out <a rel="noopener noreferrer" target="_blank" href="https://goo.gl/forms/TmJZPoOI2Y8EIVAs2">this form.</a>
-        </p>
-        <b>
-          <p className="careers-text">Location</p>
-        </b>
-        <p className="careers-text">Rochester, NY</p>
-        <b>
-          <p className="careers-text">Duties &amp; Responsibilities</p>
-        </b>
-        <p className="careers-text">Design the client and admin end of our website in both desktop and mobile versions. <br />
-          Design the mobile applications for our services. <br />
-          Communicate with the developer team to br /ing the designs to life.
-        </p>
-        <b>
-          <p className="careers-text">Required Experience</p>
-        </b>
-        <p className="careers-text">Some design experience with a modern design tool such as Adobe XD, Figma, Sketch, Illustrator or similar. <br />
-          Knowledge of SEO, HTML and CSS preferred.
-        </p> */}
         <h4 className="position-header">iOS Developer</h4>
         <b>
           <p className="careers-text">Role</p>

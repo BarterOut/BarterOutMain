@@ -1,7 +1,7 @@
 /**
  * @file React component for signing users up.
  * @author Duncan Grubbs <duncan.grubbs@gmail.com>
- * @version 0.0.3
+ * @version 0.0.4
  */
 
 import React, { Component } from 'react';
@@ -110,6 +110,13 @@ class SignUp extends Component {
       $emailAddress.className = 'formInputLoginSignup';
     }
 
+    const digits = new RegExp('^d{6}$');
+
+    if (!this.state.CMC.match(digits)) {
+      this.setState({ allFilledOut: false });
+      allGood = false;
+    }
+
     const inputsArray = document.getElementsByClassName('formInputLoginSignup');
     const badInputsArray = document.getElementsByClassName('badInput');
 
@@ -195,7 +202,7 @@ class SignUp extends Component {
             required
           />
 
-          <span className="inputLabel">CMC Box Number *</span>
+          <span className="inputLabel">CMC Box Number (6 digits) *</span>
           <input
             className="formInputLoginSignup"
             placeholder=""

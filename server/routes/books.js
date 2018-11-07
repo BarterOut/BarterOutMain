@@ -2,7 +2,7 @@
  * @file All routes relating to books for Express.js server.
  * @author Daniel Munoz
  * @author Duncan Grubbs <duncan.grubbs@gmail.com>
- * @version 0.0.3
+ * @version 0.0.4
  */
 
 import Textbook from '../models/textbook';
@@ -337,6 +337,7 @@ router.post('/checkoutCart/:token', (req, res) => {
  * @returns {object} Array of book objects.
  */
 router.get('/getUserMatches/:token', (req, res) => {
+  // console.log("hi!");
   jwt.verify(req.params.token, 'secretKey', (err, authData) => {
     if (err) {
       res.sendStatus(403);
@@ -349,7 +350,17 @@ router.get('/getUserMatches/:token', (req, res) => {
             let bookObjects = [];
             const bookIDs = userMatch[0].matchedBooks;
             Textbook.find({ $and: [{ _id: { $in: bookIDs } }, { status: 0 }] }, (error, books) => {
+              for (let i = 0; i < books.length; i++) {
+                for (let x = 0; x < user.cart.length; x++) {
+                  // console.log(books[i]._id + "    "+ user.cart[x]);
+                  // console.log(String(books[i]._id) === String(user.cart[x]));
+                  if (String(books[i]._id) === String(user.cart[x])) {
+                    books[i].status = 42;
+                  }
+                }
+              }
               bookObjects = books;
+              // console.log(bookObjects);
               res.status(200).json(bookObjects);
             });
           });
@@ -490,10 +501,11 @@ router.get('/getAllBooks/:token', (req, res) => {
               for (let i = 0; i < books.length; i++) {
                 for (let x = 0; x < user.cart.length; x++) {
                   if (books[i]._id == user.cart[x]) {
-                    books[i].status = 3;
+                    books[i].status = 42;
                   }
                 }
               }
+              // console.log(books);
               res.status(200).json(sortBooksReverseCronological(books));
             });
           });
