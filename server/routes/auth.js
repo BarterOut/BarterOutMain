@@ -30,7 +30,7 @@ function myHasher(password, tempUserData, insertTempUser, callback) {
 
 // Configurations for the temp user stuff
 nev.configure({
-  verificationURL: 'https://barterout-dev.herokuapp.com/api/auth/email-verification/${URL}',
+  verificationURL: 'https://www.barterout.com/api/auth/email-verification/${URL}',
   persistentUserModel: User,
   tempUserCollection: 'barterOut_tempusers',
   shouldSendConfirmation: false,
