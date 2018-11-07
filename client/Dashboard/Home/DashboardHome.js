@@ -37,10 +37,10 @@ class DashboardHome extends Component {
 
   componentDidMount() {
     this._getAllUsers();
-    // this._getPurchasedBooks();
     this._getOnGoingTransactions();
-    // this._getRecievedTransactions();
-    // this._getGeneralStatistics();
+    this._getRecievedTransactions();
+    this._getPurchasedBooks();
+    this._getGeneralStatistics();
   }
 
   getBooksSold() {
@@ -83,7 +83,14 @@ class DashboardHome extends Component {
     FetchService.GET(`/api/dashboard/getBooksStatus3/${this.AUTH.getToken()}`)
       .then(response => response.json())
       .then((data) => {
-        this.setState({ purchasedBooks: data });
+        FetchService.POST('/api/dashboard/extendBookInfo', {
+          token: this.AUTH.getToken(),
+          books: data,
+        })
+          .then(response => response.json())
+          .then((fullData) => {
+            this.setState({ purchasedBooks: fullData });
+          });
       });
   }
 
@@ -97,8 +104,7 @@ class DashboardHome extends Component {
         })
           .then(response => response.json())
           .then((fullData) => {
-            console.log(fullData);
-            // this.setState({ onGoingTransactions: data });
+            this.setState({ onGoingTransactions: fullData });
           });
       });
   }
@@ -107,7 +113,14 @@ class DashboardHome extends Component {
     FetchService.GET(`/api/dashboard/getBooksStatus2/${this.AUTH.getToken()}`)
       .then(response => response.json())
       .then((data) => {
-        this.setState({ recievedTransactions: data });
+        FetchService.POST('/api/dashboard/extendBookInfo', {
+          token: this.AUTH.getToken(),
+          books: data,
+        })
+          .then(response => response.json())
+          .then((fullData) => {
+            this.setState({ recievedTransactions: fullData });
+          });
       });
   }
 
@@ -143,22 +156,22 @@ class DashboardHome extends Component {
             <tr>
               <th className="has-border">Book Name</th>
               <th className="has-border">Course Code</th>
-              <th className="has-border">Owner</th>
-              <th className="has-border">Charge Buyer</th>
-              <th className="has-border">Pay Seller</th>
               <th className="has-border">Condition</th>
-              <th className="has-border">Buyer</th>
+              <th className="has-border">Charge</th>
+              <th className="has-border">Amount</th>
+              <th className="has-border">Pay Seller</th>
+              <th className="has-border">Amount</th>
               <th className="has-border">Confirm</th>
             </tr>
             {this.state.onGoingTransactions.map(book => (
               <tr key={book._id} id={book._id}>
                 <td className="has-border">{book.name}</td>
                 <td className="has-border">{book.course}</td>
-                <td className="has-border">{book.owner}</td>
-                <td className="has-border">${book.price * 1.05}</td>
-                <td className="has-border">${book.price}</td>
                 <td className="has-border">{book.condition}</td>
-                <td className="has-border">{book.buyer}</td>
+                <td className="has-border">@{book.buyerObject.venmoUsername}</td>
+                <td className="has-border">${book.price * 1.05}</td>
+                <td className="has-border">@{book.ownerObject.venmoUsername}</td>
+                <td className="has-border">${book.price}</td>
                 <td className="has-border"><button id={book._id} className="button" onClick={this.confirm}>Confirm</button></td>
               </tr>
             ))}
@@ -170,23 +183,23 @@ class DashboardHome extends Component {
             <tr>
               <th className="has-border">Book Name</th>
               <th className="has-border">Course Code</th>
-              <th className="has-border">Owner</th>
-              <th className="has-border">List Price</th>
               <th className="has-border">Condition</th>
-              <th className="has-border">Buyer</th>
-              <th className="has-border">Confirm Payment</th>
+              <th className="has-border">Charge</th>
+              <th className="has-border">Amount</th>
+              <th className="has-border">Pay Seller</th>
+              <th className="has-border">Amount</th>
+              <th className="has-border">Confirm</th>
             </tr>
             {this.state.recievedTransactions.map(book => (
               <tr key={book._id} id={book._id}>
                 <td className="has-border">{book.name}</td>
                 <td className="has-border">{book.course}</td>
-                <td className="has-border">{book.owner}</td>
-                <td className="has-border">${book.price}</td>
                 <td className="has-border">{book.condition}</td>
-                <td className="has-border">{book.buyer}</td>
-                <td className="has-border">
-                  <button id={book._id} className="button" onClick={this.confirmPayment}>Confirm Payment</button>
-                </td>
+                <td className="has-border">@{book.buyerObject.venmoUsername}</td>
+                <td className="has-border">${book.price * 1.05}</td>
+                <td className="has-border">@{book.ownerObject.venmoUsername}</td>
+                <td className="has-border">${book.price}</td>
+                <td className="has-border"><button id={book._id} className="button" onClick={this.confirmPayment}>Confirm Payment</button></td>
               </tr>
             ))}
           </tbody>
@@ -207,10 +220,10 @@ class DashboardHome extends Component {
               <tr key={book._id} id={book._id}>
                 <td className="has-border">{book.name}</td>
                 <td className="has-border">{book.course}</td>
-                <td className="has-border">{book.owner}</td>
+                <td className="has-border">{book.ownerObject.firstName} {book.ownerObject.lastName}</td>
                 <td className="has-border">${book.price}</td>
                 <td className="has-border">{book.condition}</td>
-                <td className="has-border">{book.buyer}</td>
+                <td className="has-border">{book.buyerObject.firstName} {book.buyerObject.lastName}</td>
               </tr>
             ))}
           </tbody>
