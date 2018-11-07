@@ -201,18 +201,33 @@ router.post('/extendBookInfo', (req, res) => {
     } else if (authData.userInfo.permissionType === 1) {
       const bookArray = req.body.data.books;
       const output = [];
-      for (let i = 0; i < bookArray.length; i++) {
-        const newBook = bookArray[i];
-
-        User.findOne({ _id: bookArray[i].owner }, (error, owner) => {
-          newBook.owner = owner;
-          User.findOne({ _id: bookArray[i].buyer }, (error, buyer) => {
-            newBook.buyer = buyer;
-            output.push(newBook);
-          });
-        });
-      }
-      res.status(200).json(output);
+      // for (let i = 0; i < bookArray.length; i++) {
+      //
+      //   User.findOne({ _id: bookArray[i].owner }, (error, owner) => {
+      //     console.log(owner);
+      //     newBook.owner = owner;
+      //     User.findOne({ _id: bookArray[i].buyer }, (error, buyer) => {
+      //       console.log(buyer);
+      //       newBook.buyer = buyer;
+      //       output.push(newBook);
+      //     });
+      //   });
+      // }
+      User.find({}, (error, users) => {
+        for (let i = 0; i < bookArray.length; i++) {
+          const newBook = bookArray[i];
+          for (let j = 0; j < users.length; j++) {
+            if (String(newBook.owner) === String(users[j]._id)) {
+              newBook.ownerObject = users[j];
+            } else if (String(newBook.buyer) === String(users[j]._id)) {
+              newBook.buyerObject = users[j];
+            }
+          }
+          output.push(newBook);
+        }
+        console.log(output);
+        res.status(200).json(output);
+      });
     } else {
       res.sendStatus(401);
     }
