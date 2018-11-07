@@ -2,7 +2,7 @@
  * @file React component for a route on the web platform.
  * @author Duncan Grubbs <duncan.grubbs@gmail.com>
  * @author Daniel Munoz
- * @version 0.0.3
+ * @version 0.0.4
  */
 
 import React, { Component } from 'react';
@@ -125,6 +125,10 @@ class Buy extends Component {
               {
                 this.state.loading &&
                 <div className="loading" />
+              }
+              {
+                this.state.posts.length == 0 &&
+                <h4 id="no-res">No Results for Query<br />Please request book below.</h4>
               }
               {posts.map(post => (
                 <BookPost

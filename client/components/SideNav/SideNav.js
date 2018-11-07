@@ -1,7 +1,7 @@
 /**
  * @file Reusable React component for the side nav of the website.
  * @author Duncan Grubbs <duncan.grubbs@gmail.com>
- * @version 0.0.3
+ * @version 0.0.4
  */
 
 import React, { Component } from 'react';

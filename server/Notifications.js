@@ -2,7 +2,7 @@
  * @file Notification functions for returning various types of notifications.
  * @author Daniel Munoz
  * @author Duncan Grubbs <duncan.grubbs@gmail.com>
- * @version 0.0.3
+ * @version 0.0.4
  */
 
 import moment from 'moment';

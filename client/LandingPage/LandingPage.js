@@ -2,7 +2,7 @@
  * @file React component for landing page.
  * @author Duncan Grubbs <duncan.grubbs@gmail.com>
  * @author Luis Nova
- * @version 0.0.3
+ * @version 0.0.4
  */
 
 import React, { Component } from 'react';
