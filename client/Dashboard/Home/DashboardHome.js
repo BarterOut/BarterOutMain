@@ -37,10 +37,10 @@ class DashboardHome extends Component {
 
   componentDidMount() {
     this._getAllUsers();
-    this._getPurchasedBooks();
+    // this._getPurchasedBooks();
     this._getOnGoingTransactions();
-    this._getRecievedTransactions();
-    this._getGeneralStatistics();
+    // this._getRecievedTransactions();
+    // this._getGeneralStatistics();
   }
 
   getBooksSold() {
@@ -91,7 +91,15 @@ class DashboardHome extends Component {
     FetchService.GET(`/api/dashboard/getBooksStatus1/${this.AUTH.getToken()}`)
       .then(response => response.json())
       .then((data) => {
-        this.setState({ onGoingTransactions: data });
+        FetchService.POST('/api/dashboard/extendBookInfo', {
+          token: this.AUTH.getToken(),
+          books: data,
+        })
+          .then(response => response.json())
+          .then((fullData) => {
+            console.log(fullData);
+            // this.setState({ onGoingTransactions: data });
+          });
       });
   }
 
@@ -106,13 +114,16 @@ class DashboardHome extends Component {
   confirm(evt) {
     const id = evt.target.id;
     FetchService.POST('/api/dashboard/confirmBook', { id, token: this.AUTH.getToken() })
-      .then(() => window.location.reload());
+      .then(() => this._getRecievedTransactions());
   }
 
   confirmPayment(evt) {
     const id = evt.target.id;
     FetchService.POST('/api/dashboard/setBookPaid', { id, token: this.AUTH.getToken() })
-      .then(() => window.location.reload());
+      .then(() => {
+        this._getPurchasedBooks();
+        this._getRecievedTransactions();
+      });
   }
 
   logout() {

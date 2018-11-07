@@ -201,7 +201,7 @@ router.post('/extendBookInfo', (req, res) => {
     } else if (authData.userInfo.permissionType === 1) {
       const bookArray = req.body.data.books;
       let output = [bookArray.length];
-      for( let i = 0; i < bookArray.length; i++){
+      for(let i = 0; i < bookArray.length; i++){
         let newBook = bookArray[i];
 
         User.findOne({ _id: bookArray[i].owner }, (error, owner) => {
@@ -212,24 +212,7 @@ router.post('/extendBookInfo', (req, res) => {
           });
         });
       }
-      res.sendStatus(200).json(output);
-
-
-
-
-      // Textbook.update(
-      //   { _id: req.body.data.id },
-      //   {
-      //     $set:
-      //       {
-      //         status: 2,
-      //       },
-      //   }, (err) => {
-      //     if (!err) {
-      //       res.sendStatus(200);
-      //     }
-      //   },
-      // );
+      res.status(200).json(output);
     } else {
       res.sendStatus(401);
     }
