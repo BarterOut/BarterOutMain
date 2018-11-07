@@ -1,7 +1,7 @@
 /**
  * @file React component for a textbook posting of a requested book.
  * @author Duncan Grubbs <duncan.grubbs@gmail.com>
- * @version 0.0.3
+ * @version 0.0.4
  */
 
 import React, { Component } from 'react';

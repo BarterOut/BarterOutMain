@@ -41,9 +41,9 @@ module.exports = {
       subject: '[BarterOut] We found a buyer for your book',
       html: `Dear ${firstName},<br />
       <br />
-      We are excited to let you know that we found a buyer for your copy of ${bookTitle}. Please drop the book as soon as you can at one of our crew members in the following schedule:
+      We are excited to let you know that we found a buyer for your copy of ${bookTitle}. Please drop the book as soon as you can to one of our teams members.
       <br />
-      Sunday: 10 AM - 11 AM in iZone Conference Room (back of 1st Floor near IT Center)<br />
+      <a target="_blank" href="https://google.com">Here</a> is the schedule for dropping off books.
       <br />
       We will check the condition of the book and if it matches the one advertised, we will send you the money via Venmo before delivering the book to the other student. 
       <br />
@@ -76,7 +76,7 @@ module.exports = {
       subject: '[BarterOut] Purchase Initiated',
       html: `Dear ${firstName},<br />
       <br />
-      You successfully purchased ${bookTitle}! We will Venmo request you as soon as we get and inspect your book, which should not take more than 2 business days. If everything is ok and you send in the payment, it will be delivered to you the following day.
+      You successfully purchased ${bookTitle}! We will Venmo request you as soon as we get and inspect the book, which should not take more than 2 business days. If everything is ok and you send in the payment, it will be delivered to you the following day.
       <br />
       <br />
       If you have any questions, feel free to send us an email at office@barterout.com and we will reply promptly!

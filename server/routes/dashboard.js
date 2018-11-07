@@ -2,7 +2,7 @@
  * @file All routes relating to the dashboard for Express.js server.
  * @author Daniel Munoz
  * @author Duncan Grubbs <duncan.grubbs@gmail.com>
- * @version 0.0.3
+ * @version 0.0.4
  */
 
 // Import DB models

@@ -1,7 +1,7 @@
 /**
  * @file TempUser schema for the DB (created when a user clicks sign up on the website).
  * @author Daniel Munoz
- * @version 0.0.3
+ * @version 0.0.4
  */
 
 import mongoose from 'mongoose';

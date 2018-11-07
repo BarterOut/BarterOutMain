@@ -1,7 +1,7 @@
 /**
  * @file React component for loging users in.
  * @author Duncan Grubbs <duncan.grubbs@gmail.com>
- * @version 0.0.3
+ * @version 0.0.4
  */
 
 import React, { Component } from 'react';
@@ -59,10 +59,10 @@ class Dashboard extends Component {
         </div>
         <div className="rightLoginContent">
           <h2 id="login-header">
-          Please enter your email
-          and password to log in
+          Log In
           </h2>
           {this.state.badCreditials && <span className="input-error">Incorrect Username or Password</span>}
+          <span className="inputLabel">Email</span>
           <input
             className="formInputLoginSignup"
             onChange={this.onChange}
@@ -72,6 +72,7 @@ class Dashboard extends Component {
             name="emailAddress"
             required
           />
+          <span className="inputLabel">Password</span>
           <input
             className="formInputLoginSignup"
             onChange={this.onChange}
