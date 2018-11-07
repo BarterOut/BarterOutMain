@@ -171,7 +171,7 @@ router.post('/extendBookInfo', (req, res) => {
       res.sendStatus(403);
     } else if (authData.userInfo.permissionType === 1) {
       // req.body.data.books
-      
+
 
 
       // Textbook.update(
