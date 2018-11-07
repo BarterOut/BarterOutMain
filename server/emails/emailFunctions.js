@@ -43,7 +43,7 @@ module.exports = {
       <br />
       We are excited to let you know that we found a buyer for your copy of ${bookTitle}. Please drop the book as soon as you can to one of our teams members.
       <br />
-      <a target="_blank" href="https://google.com">Here</a> is the schedule for dropping off books.
+      <a target="_blank" href="https://docs.google.com/spreadsheets/d/1cz-o7TdGuiopz89CZGdmuYMQrTY3H9I5VPdEdTTQoYI/edit#gid=0">Here</a> is the schedule for dropping off books.
       <br />
       We will check the condition of the book and if it matches the one advertised, we will send you the money via Venmo before delivering the book to the other student. 
       <br />
