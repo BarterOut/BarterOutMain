@@ -251,6 +251,12 @@ button:focus {
   animation: loaderAnim 1.2s linear infinite;
 }
 
+#no-res {
+  width: 100%;
+  text-align: center;
+  font-weight: bold;
+}
+
 #help-content {
   margin: auto 16px;
 }

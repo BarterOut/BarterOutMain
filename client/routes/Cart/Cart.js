@@ -70,12 +70,12 @@ class Cart extends Component {
   }
 
   buyBooks() {
-    console.log(this.state.cart);
     const AUTH = new AuthService();
     FetchService.POST(`/api/books/checkoutCart/${AUTH.getToken()}`, {
       cart: this.state.items,
     })
       .then(() => {
+        window.alert('Your Order Has Been Placed. See email for more details.');
         window.location.reload();
       });
   }

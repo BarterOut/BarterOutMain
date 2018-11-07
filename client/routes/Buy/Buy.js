@@ -126,6 +126,10 @@ class Buy extends Component {
                 this.state.loading &&
                 <div className="loading" />
               }
+              {
+                this.state.posts.length == 0 &&
+                <h4 id="no-res">No Results for Query<br />Please request book below.</h4>
+              }
               {posts.map(post => (
                 <BookPost
                   key={post._id}

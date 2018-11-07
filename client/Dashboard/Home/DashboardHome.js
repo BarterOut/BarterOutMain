@@ -127,7 +127,7 @@ class DashboardHome extends Component {
   confirm(evt) {
     const id = evt.target.id;
     FetchService.POST('/api/dashboard/confirmBook', { id, token: this.AUTH.getToken() })
-      .then(() => this._getOnGoingTransactions());
+      .then(() => window.location.reload());
   }
 
   confirmPayment(evt) {
