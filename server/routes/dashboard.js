@@ -200,15 +200,15 @@ router.post('/extendBookInfo', (req, res) => {
       res.sendStatus(403);
     } else if (authData.userInfo.permissionType === 1) {
       const bookArray = req.body.data.books;
-      let output = [bookArray.length];
-      for(let i = 0; i < bookArray.length; i++){
-        let newBook = bookArray[i];
+      const output = [];
+      for (let i = 0; i < bookArray.length; i++) {
+        const newBook = bookArray[i];
 
         User.findOne({ _id: bookArray[i].owner }, (error, owner) => {
           newBook.owner = owner;
           User.findOne({ _id: bookArray[i].buyer }, (error, buyer) => {
-            newBook.buter = buyer;
-            output[i] = newBook;
+            newBook.buyer = buyer;
+            output.push(newBook);
           });
         });
       }
