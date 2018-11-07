@@ -81,7 +81,7 @@ class Home extends Component {
                   <h2 className="stat-text">{this.state.numberOfBooksBought}</h2>
                 </div>
               </div>
-              <div className="stat-wrap">
+              <div className="stat-wrap marg">
                 <div className="title--page-section-wrapper--stat">
                   <h2 className="title-text--page-section-header">Sold</h2>
                 </div>
