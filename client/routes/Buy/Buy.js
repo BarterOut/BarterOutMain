@@ -135,6 +135,7 @@ class Buy extends Component {
                   edition={post.edition}
                   inCart={post.inCart}
                   price={post.price}
+                  status={post.status}
                   condition={post.condition}
                   comments={post.comments}
                 />

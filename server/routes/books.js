@@ -490,10 +490,11 @@ router.get('/getAllBooks/:token', (req, res) => {
               for (let i = 0; i < books.length; i++) {
                 for (let x = 0; x < user.cart.length; x++) {
                   if (books[i]._id == user.cart[x]) {
-                    books[i].status = 3;
+                    books[i].status = 42;
                   }
                 }
               }
+              // console.log(books);
               res.status(200).json(sortBooksReverseCronological(books));
             });
           });

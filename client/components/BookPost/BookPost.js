@@ -24,7 +24,7 @@ class BookPost extends Component {
   }
 
   componentDidMount() {
-    if (this.props.inCart) {
+    if (this.props.status === 42) {
       this._setInCart();
     }
   }
@@ -90,7 +90,7 @@ BookPost.propTypes = {
   id: propTypes.string.isRequired,
   name: propTypes.string.isRequired,
   price: propTypes.number.isRequired,
-  inCart: propTypes.bool,
+  status: propTypes.number,
   subject: propTypes.string.isRequired,
 };
 
