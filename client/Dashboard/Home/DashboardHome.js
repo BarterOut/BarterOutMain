@@ -85,7 +85,7 @@ class DashboardHome extends Component {
   }
 
   _getTransactions() {
-    FetchService.GET(`/api/dashboard/getTransactions/${this.AUTH.getToken()}`)
+    FetchService.GET(`/api/dashboard/getBooksStatus1/${this.AUTH.getToken()}`)
       .then(response => response.json())
       .then((data) => {
         this.setState({ transactions: data });
