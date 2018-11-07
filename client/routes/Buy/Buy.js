@@ -133,7 +133,7 @@ class Buy extends Component {
                   name={post.name}
                   subject={post.course}
                   edition={post.edition}
-                  status={post.status}
+                  inCart={post.inCart}
                   price={post.price}
                   condition={post.condition}
                   comments={post.comments}
