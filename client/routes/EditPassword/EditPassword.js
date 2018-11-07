@@ -102,6 +102,7 @@ class EditPassword extends Component {
                     this.state.updateMessageVisible &&
                     <h3>You succesfully updated your password.</h3>
                   }
+                  <span className="inputLabelHome">Old Password</span>
                   <input
                     className="formInput"
                     placeholder="Old Password"
@@ -110,6 +111,7 @@ class EditPassword extends Component {
                     onChange={this.onChange}
                     required
                   />
+                  <span className="inputLabelHome">New Password</span>
                   <input
                     className="formInput"
                     placeholder="New Password"
@@ -118,6 +120,7 @@ class EditPassword extends Component {
                     onChange={this.onChange}
                     required
                   />
+                  <span className="inputLabelHome">Confirm New Password</span>
                   <input
                     className="formInput"
                     placeholder="Confirm New Password"

@@ -34,7 +34,6 @@ class Buy extends Component {
     this.handleOpenModal = this.handleOpenModal.bind(this);
     this.handleCloseModal = this.handleCloseModal.bind(this);
     this.updateInputValue = this.updateInputValue.bind(this);
-    this.animateSearch = this.animateSearch.bind(this);
     this.auth = new AuthService();
   }
 
@@ -52,10 +51,6 @@ class Buy extends Component {
       });
   }
 
-  _setMatches(data) {
-    this.setState({ matches: data });
-  }
-
   updateInputValue(evt) {
     this.search(evt.target.value);
   }
@@ -66,10 +61,6 @@ class Buy extends Component {
 
   handleCloseModal() {
     this.setState({ showModal: false });
-  }
-
-  animateSearch() {
-    // this.setState({ displaySearch: !this.state.displaySearch });
   }
 
   search(query) {
@@ -97,12 +88,8 @@ class Buy extends Component {
 
   render() {
     let posts = [];
-    let matches = [];
     if (this.state.posts) {
       posts = this.state.posts;
-    }
-    if (this.state.matches) {
-      matches = this.state.matches;
     }
     return (
       <div className="app-wrapper">
@@ -127,9 +114,11 @@ class Buy extends Component {
             </div>
             {this.state.displaySearch && <Search query={this.state.query} />}
             <p className="searchInfo">
-              You can search for books by title, edition, or course code. *Note
-              that the course code must be in the same format as on the book posting,
-              (e.g. MTH 101, WRT 105, etc).
+              You can search for books by <b>title, edition, or course code.</b> <br />
+              <em>
+                *Note that the course code must be in the same format as on the book posting,
+                (e.g. MTH 101, WRT 105, etc).
+              </em>
             </p>
             <div className="title--page-section-wrapper"><h2 className="title-text--page-section-header">New Arrivals</h2></div>
             <div className="page-section-wrapper">
@@ -144,8 +133,9 @@ class Buy extends Component {
                   name={post.name}
                   subject={post.course}
                   edition={post.edition}
-                  status={post.status}
+                  inCart={post.inCart}
                   price={post.price}
+                  status={post.status}
                   condition={post.condition}
                   comments={post.comments}
                 />

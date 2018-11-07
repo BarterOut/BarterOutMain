@@ -90,10 +90,10 @@ class Login extends Component {
         </div>
         <div className="rightLoginContent">
           <h2 id="login-header">
-          Please enter your email
-          and password to log in
+          Log In
           </h2>
           {this.state.badCreditials && <span className="input-error">Incorrect Username or Password</span>}
+          <span className="inputLabel">Email</span>
           <input
             className="formInputLoginSignup"
             onChange={this.onChange}
@@ -103,6 +103,7 @@ class Login extends Component {
             name="emailAddress"
             required
           />
+          <span className="inputLabel">Password</span>
           <input
             className="formInputLoginSignup"
             onChange={this.onChange}

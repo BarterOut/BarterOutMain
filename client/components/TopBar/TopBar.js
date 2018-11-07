@@ -8,7 +8,7 @@ import React, { Component } from 'react';
 import propTypes from 'prop-types';
 import { Redirect, Link } from 'react-router-dom';
 import AuthService from '../../services/AuthService';
-// import MaterialIcon from 'react-google-material-icons';
+import MaterialIcon from 'react-google-material-icons';
 
 import '../../baseStyles.css';
 
@@ -19,12 +19,22 @@ class TopBar extends Component {
     super();
     this.state = {
       redirect: false,
-      visible: false,
+      visible: true,
     };
 
     this.AUTH = new AuthService();
     this.toggleVis = this.toggleVis.bind(this);
     this._logout = this._logout.bind(this);
+  }
+
+  componentDidMount() {
+    if (/Mobi/.test(navigator.userAgent)) {
+      this._setMobile();
+    }
+  }
+
+  _setMobile() {
+    this.setState({ visible: false });
   }
 
   _updateRedirect(value) {
@@ -53,6 +63,9 @@ class TopBar extends Component {
     return (
       <div className="bar-wrapper">
         <div className="left-bar part">
+          <div onClick={this.toggleVis} id="three-bar">
+            <MaterialIcon icon="menu" size={36} />
+          </div>
           <Link to="/cart" href="/cart">
             <button onClick={this.toggleVis} className="button" id="cart">Cart</button>
           </Link>

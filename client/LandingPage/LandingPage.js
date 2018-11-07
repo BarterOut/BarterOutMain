@@ -27,7 +27,7 @@ import picThree from '../images/outdoorsCompressed.jpg';
 
 import vlad from '../images/team-photos/vladCazacu.jpg';
 import annie from '../images/team-photos/annieHamburgen.png';
-import melissa from '../images/team-photos/melissaKagaju.jpg';
+// import melissa from '../images/team-photos/melissaKagaju.jpg';
 import duncan from '../images/team-photos/duncanGrubbs.jpg';
 import daniel from '../images/team-photos/danielMunoz.jpg';
 import zino from '../images/team-photos/zino.jpg';
@@ -286,11 +286,9 @@ class LandingPage extends Component {
                     </td>
                     <td>
                       <div className="profile">
-                        <a href="https://www.linkedin.com/in/melissa-k-7080ba103/" rel="noopener noreferrer" target="_blank">
-                          <img alt="Team Profile" className="team" src={melissa} />
-                        </a>
+                        <img alt="Team Profile" className="staff" src={logo} />
                         <br />
-                        <div className="profileName">Melissa Kagaju</div>
+                        <div className="profileName">Aman Shrestha</div>
                         Android Developer
                       </div>
                     </td>
@@ -334,10 +332,10 @@ class LandingPage extends Component {
                     </td>
                     <td>
                       <div className="profile">
-                        <img alt="Team Profile" className="staff" src={logo} />
+                        <img alt="Team Profile" className="staff" src={zacqueline} />
                         <br />
-                        <div className="profileName">Aman Shrestha</div>
-                        Android Developer
+                        <div className="profileName">Zacqueline Baldwin (ZQ)</div>
+                        Marketing Strategist
                       </div>
                     </td>
                     <td>
@@ -356,14 +354,6 @@ class LandingPage extends Component {
                         <br />
                         <div className="profileName">May Shin Lyan</div>
                         UI/UX Developer
-                      </div>
-                    </td>
-                    <td>
-                      <div className="profile">
-                        <img alt="Team Profile" className="staff" src={zacqueline} />
-                        <br />
-                        <div className="profileName">Zacqueline Baldwin (ZQ)</div>
-                        Marketing Intern
                       </div>
                     </td>
                   </tr>

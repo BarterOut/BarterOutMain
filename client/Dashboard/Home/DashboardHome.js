@@ -108,15 +108,13 @@ class DashboardHome extends Component {
     }
     return (
       <div className="dashboard-wrapper">
-        <h1>Welcome to the Dashboard</h1>
-        <button className="button" onClick={this.logout}>Logout</button>
-
-        <h2>On-Going transactions</h2>
+        <h1 className="dashboard-header">BarterOut Admin Dashboard</h1>
+        <h2 className="dashboard-header">Ongoing Transactions</h2>
         <table className="dash-table">
           <tbody>
             <tr>
-              <th className="has-border">Name</th>
-              <th className="has-border">Course</th>
+              <th className="has-border">Book Name</th>
+              <th className="has-border">Course Code</th>
               <th className="has-border">Owner</th>
               <th className="has-border">Charge Buyer</th>
               <th className="has-border">Pay Seller</th>
@@ -138,14 +136,14 @@ class DashboardHome extends Component {
             ))}
           </tbody>
         </table>
-        <h2>Completed Transactions</h2>
+        <h2 className="dashboard-header">Completed Transactions</h2>
         <table className="dash-table">
           <tbody>
             <tr>
-              <th className="has-border">Name</th>
-              <th className="has-border">Course</th>
+              <th className="has-border">Book Name</th>
+              <th className="has-border">Course Code</th>
               <th className="has-border">Owner</th>
-              <th className="has-border">Price</th>
+              <th className="has-border">List Price</th>
               <th className="has-border">Condition</th>
               <th className="has-border">Buyer</th>
             </tr>
@@ -161,7 +159,7 @@ class DashboardHome extends Component {
             ))}
           </tbody>
         </table>
-        <h2>Statistics</h2>
+        <h2 className="dashboard-header">Statistics</h2>
         <table className="dash-table">
           <tbody>
             <tr>
@@ -180,7 +178,7 @@ class DashboardHome extends Component {
             </tr>
           </tbody>
         </table>
-        <h2>Users</h2>
+        <h2 className="dashboard-header">Users</h2>
         <table className="dash-table">
           <tbody>
             <tr>
