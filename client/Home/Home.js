@@ -111,7 +111,7 @@ class Home extends Component {
                   subject={post.course}
                   edition={post.edition}
                   price={post.price}
-                  status={post.inCart}
+                  status={post.status}
                   condition={post.condition}
                   comments={post.comments}
                 />
