@@ -110,12 +110,12 @@ class SignUp extends Component {
       $emailAddress.className = 'formInputLoginSignup';
     }
 
-    const digits = new RegExp('^d{6}$');
+    // const digits = new RegExp('^d{6}$');
 
-    if (!this.state.CMC.match(digits)) {
-      this.setState({ allFilledOut: false });
-      allGood = false;
-    }
+    // if (!this.state.CMC.match(digits)) {
+    //   this.setState({ allFilledOut: false });
+    //   allGood = false;
+    // }
 
     const inputsArray = document.getElementsByClassName('formInputLoginSignup');
     const badInputsArray = document.getElementsByClassName('badInput');
