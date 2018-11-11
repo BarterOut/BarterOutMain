@@ -250,7 +250,9 @@ router.post('/updateProfile', (req, res) => {
             },
         },
         (error) => {
-          res.status(400).json(error);
+          if (error) {
+            res.status(400).json(error);
+          }
         },
       );
       res.sendStatus(200);
@@ -296,7 +298,9 @@ router.post('/updatePassword', (req, res) => {
               },
           },
           (error) => {
-            res.send(400).json(error);
+            if (error) {
+              res.status(400).json(error);
+            }
           },
         );
         res.sendStatus(200);
