@@ -26,7 +26,7 @@ import picTwo from '../images/groupMeetingCompressed.jpg';
 import picThree from '../images/outdoorsCompressed.jpg';
 
 import vlad from '../images/team-photos/vladCazacu.jpg';
-import annie from '../images/team-photos/annieHamburgen.png';
+import annie from '../images/team-photos/annieHamburgen.jpg';
 // import melissa from '../images/team-photos/melissaKagaju.jpg';
 import duncan from '../images/team-photos/duncanGrubbs.jpg';
 import daniel from '../images/team-photos/danielMunoz.jpg';
