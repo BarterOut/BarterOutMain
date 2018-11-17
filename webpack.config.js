@@ -1,22 +1,31 @@
 const webpack = require('webpack');
 const { resolve } = require('path');
 
+const ImageminPlugin = require('imagemin-webpack-plugin').default;
+const imageminMozjpeg = require('imagemin-mozjpeg');
+
 module.exports = {
   entry: {
+    // Dumps all code from our index.js plus a bunch of webpack
+    // stuff into app.js
+    // Not sure if we need all the webpack stuff
     app: [
       'webpack-hot-middleware/client',
       'webpack/hot/only-dev-server',
       'react-hot-loader/patch',
       './client/core/index.js',
     ],
+    // Dumps main required react stuff into vendor
+    // If you build, you will see app and vendor are massive js files
     vendor: [
       'react',
       'react-dom',
     ],
   },
-
+  mode: 'development',
   output: {
-    path: resolve(__dirname, 'client'),
+    // Dumps the build into /dist
+    path: resolve(__dirname, 'dist/'),
     filename: '[name].js',
     publicPath: '/',
   },
@@ -35,34 +44,36 @@ module.exports = {
         test: /\.css$/,
         use: ['style-loader', 'css-loader'],
       }, {
+        // Webfont transpiling
         test: /\.woff($|\?)|\.woff2($|\?)|\.ttf($|\?)|\.eot($|\?)|\.svg($|\?)/,
         use: 'url-loader',
       }, {
+        // Transpiles jsx
         test: /\.jsx*$/,
         exclude: [/node_modules/, /.+\.config.js/],
         use: 'babel-loader',
       }, {
         test: /\.(jpe?g|gif|png|svg)$/i,
         use: [
-          {
-            loader: 'url-loader',
-            options: {
-              limit: 8192,
-            },
-          },
+          'file-loader',
         ],
       },
     ],
   },
 
   plugins: [
+    // Compresses jpegs
+    // Does some other things...
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.ProvidePlugin({
-      $: 'jquery',
-      jQuery: 'jquery',
-      'window.jQuery': 'jquery',
-      Popper: ['popper.js', 'default'],
+    new webpack.optimize.AggressiveMergingPlugin(),
+    new ImageminPlugin({
+      plugins: [
+        imageminMozjpeg({
+          // We can adjust this to our liking
+          quality: 75,
+          progressive: true,
+        }),
+      ],
     }),
   ],
 };
-// console.log(resolve(__dirname, 'server'));
