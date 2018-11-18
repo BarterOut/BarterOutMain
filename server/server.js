@@ -60,8 +60,6 @@ app.use(session({
   cookie: { secure: false },
 }));
 
-const ENV = 'development';
-
 function forceSsl(req, res, next) {
   if (req.headers['x-forwarded-proto'] !== 'https') {
     return res.redirect(['https://', req.get('Host'), req.url].join(''));
@@ -69,7 +67,7 @@ function forceSsl(req, res, next) {
   return next();
 }
 
-if (ENV === 'production') {
+if (process.env.NODE_ENV === 'production') {
   app.use(forceSsl);
   const airbrake = new AirbrakeClient({
     projectId: 198681,

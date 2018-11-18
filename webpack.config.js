@@ -7,9 +7,7 @@ const CompressionPlugin = require('compression-webpack-plugin');
 
 module.exports = {
   entry: {
-    // Dumps all code from our index.js plus a bunch of webpack
-    // stuff into app.js
-    // Not sure if we need all the webpack stuff
+    // Dumps all code from our index.js.
     app: [
       'webpack-hot-middleware/client',
       'webpack/hot/only-dev-server',
@@ -23,7 +21,7 @@ module.exports = {
       'react-dom',
     ],
   },
-  mode: 'development',
+  mode: process.env.NODE_ENV,
   output: {
     // Dumps the build into /dist
     path: resolve(__dirname, 'dist/'),
