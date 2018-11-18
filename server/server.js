@@ -77,6 +77,13 @@ if (ENV === 'production') {
   });
 }
 
+// Prefer gzipped js files.
+app.get('*.js', (req, res, next) => {
+  req.url = `${req.url}.gz`;
+  res.set('Content-Encoding', 'gzip');
+  next();
+});
+
 app.use('/api/auth', auth);
 app.use('/api/user', user);
 app.use('/api/books', books);

@@ -3,6 +3,7 @@ const { resolve } = require('path');
 
 const ImageminPlugin = require('imagemin-webpack-plugin').default;
 const imageminMozjpeg = require('imagemin-mozjpeg');
+const CompressionPlugin = require('compression-webpack-plugin');
 
 module.exports = {
   entry: {
@@ -44,7 +45,7 @@ module.exports = {
         test: /\.css$/,
         use: ['style-loader', 'css-loader'],
       }, {
-        // Webfont transpiling
+        // Webfont loading
         test: /\.woff($|\?)|\.woff2($|\?)|\.ttf($|\?)|\.eot($|\?)|\.svg($|\?)/,
         use: 'url-loader',
       }, {
@@ -71,6 +72,9 @@ module.exports = {
       jQuery: 'jquery',
       'window.jQuery': 'jquery',
       Popper: ['popper.js', 'default'],
+    }),
+    new CompressionPlugin({
+      test: /\.js(\?.*)?$/i,
     }),
     new ImageminPlugin({
       plugins: [

@@ -70,6 +70,7 @@
     "xoauth2": "^1.2.0"
   },
   "devDependencies": {
+    "compression-webpack-plugin": "^2.0.0",
     "css-loader": "^0.28.7",
     "eslint": "^4.19.1",
     "eslint-config-airbnb": "^16.1.0",
