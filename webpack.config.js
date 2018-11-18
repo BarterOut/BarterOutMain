@@ -66,6 +66,12 @@ module.exports = {
     // Does some other things...
     new webpack.HotModuleReplacementPlugin(),
     new webpack.optimize.AggressiveMergingPlugin(),
+    new webpack.ProvidePlugin({
+      $: 'jquery',
+      jQuery: 'jquery',
+      'window.jQuery': 'jquery',
+      Popper: ['popper.js', 'default'],
+    }),
     new ImageminPlugin({
       plugins: [
         imageminMozjpeg({

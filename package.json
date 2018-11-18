@@ -42,6 +42,7 @@
     "gmail-send": "^1.2.14",
     "heroku-ssl-redirect": "0.0.4",
     "https-proxy-agent": "^2.2.0",
+    "jquery": "^3.2.1",
     "imagemin-mozjpeg": "^8.0.0",
     "imagemin-webpack-plugin": "^2.3.0",
     "jsonwebtoken": "^8.2.2",
