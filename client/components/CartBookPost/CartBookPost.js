@@ -1,7 +1,7 @@
 /**
  * @file React component for a textbook posting on the webapp.
  * @author Duncan Grubbs <duncan.grubbs@gmail.com>
- * @version 0.0.3
+ * @version 0.0.4
  */
 
 import React, { Component } from 'react';
@@ -70,7 +70,7 @@ class CartBookPost extends Component {
 
 // Props validation
 CartBookPost.propTypes = {
-  comments: propTypes.string.isRequired,
+  comments: propTypes.string,
   condition: propTypes.string.isRequired,
   edition: propTypes.number.isRequired,
   id: propTypes.string.isRequired,

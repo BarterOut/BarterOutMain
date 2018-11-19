@@ -2,7 +2,7 @@
  * @file All routes relating to users for Express.js server.
  * @author Daniel Munoz
  * @author Duncan Grubbs <duncan.grubbs@gmail.com>
- * @version 0.0.3
+ * @version 0.0.4
  */
 
 import Textbook from '../models/textbook';
@@ -97,8 +97,10 @@ router.post('/addToCart', (req, res) => {
               $position: 0,
             },
           },
-        }, (error) => {
-          res.status(400).json(error);
+        }, (er) => {
+          if (er) {
+            res.status(400).json(er);
+          }
         },
       );
     }

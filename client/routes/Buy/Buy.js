@@ -2,7 +2,7 @@
  * @file React component for a route on the web platform.
  * @author Duncan Grubbs <duncan.grubbs@gmail.com>
  * @author Daniel Munoz
- * @version 0.0.3
+ * @version 0.0.4
  */
 
 import React, { Component } from 'react';
@@ -10,11 +10,11 @@ import ReactModal from 'react-modal';
 
 import SideNav from '../../components/SideNav/SideNav';
 import TopBar from '../../components/TopBar/TopBar';
+import BookPost from '../../components/BookPost/BookPost';
 
 import FetchService from '../../services/FetchService';
 import AuthService from '../../services/AuthService';
 
-import BookPost from '../../components/BookPost/BookPost';
 import BuyBook from '../../components/BuyBook/BuyBook';
 import Search from '../../components/Search/Search';
 
@@ -26,7 +26,6 @@ class Buy extends Component {
     this.state = {
       posts: [],
       query: '',
-      matches: [],
       loading: false,
       showModal: false,
       displaySearch: false,
@@ -35,19 +34,11 @@ class Buy extends Component {
     this.handleOpenModal = this.handleOpenModal.bind(this);
     this.handleCloseModal = this.handleCloseModal.bind(this);
     this.updateInputValue = this.updateInputValue.bind(this);
-    this.animateSearch = this.animateSearch.bind(this);
     this.auth = new AuthService();
   }
 
   componentWillMount() {
-    const token = this.auth.getToken();
     this.getBooks();
-
-    FetchService.GET(`/api/books/getUserMatches/${token}`)
-      .then(response => response.json())
-      .then((data) => {
-        this._setMatches(data);
-      });
   }
 
   getBooks() {
@@ -60,10 +51,6 @@ class Buy extends Component {
       });
   }
 
-  _setMatches(data) {
-    this.setState({ matches: data });
-  }
-
   updateInputValue(evt) {
     this.search(evt.target.value);
   }
@@ -74,10 +61,6 @@ class Buy extends Component {
 
   handleCloseModal() {
     this.setState({ showModal: false });
-  }
-
-  animateSearch() {
-    // this.setState({ displaySearch: !this.state.displaySearch });
   }
 
   search(query) {
@@ -105,12 +88,8 @@ class Buy extends Component {
 
   render() {
     let posts = [];
-    let matches = [];
     if (this.state.posts) {
       posts = this.state.posts;
-    }
-    if (this.state.matches) {
-      matches = this.state.matches;
     }
     return (
       <div className="app-wrapper">
@@ -135,33 +114,21 @@ class Buy extends Component {
             </div>
             {this.state.displaySearch && <Search query={this.state.query} />}
             <p className="searchInfo">
-              You can search for books by title, edition, or course code. *Note
-              that the course code must be in the same format as on the book posting,
-              (e.g. MTH 101, WRT 105, etc).
+              You can search for books by <b>title, edition, or course code.</b> <br />
+              <em>
+                *Note that the course code must be in the same format as on the book posting,
+                (e.g. MTH 101, WRT 105, etc).
+              </em>
             </p>
-            <div className="title--page-section-wrapper">
-              <h2 className="title-text--page-section-header">Your Matches</h2>
-            </div>
-            <div className="page-section-wrapper">
-              {matches.map(post => (
-                <BookPost
-                  key={post._id}
-                  id={post._id}
-                  name={post.name}
-                  subject={post.course}
-                  edition={post.edition}
-                  price={post.price}
-                  status={post.inCart}
-                  condition={post.condition}
-                  comments={post.comments}
-                />
-              ))}
-            </div>
             <div className="title--page-section-wrapper"><h2 className="title-text--page-section-header">New Arrivals</h2></div>
             <div className="page-section-wrapper">
               {
                 this.state.loading &&
                 <div className="loading" />
+              }
+              {
+                this.state.posts.length == 0 &&
+                <h4 id="no-res">No Results for Query<br />Please request book below.</h4>
               }
               {posts.map(post => (
                 <BookPost
@@ -170,8 +137,9 @@ class Buy extends Component {
                   name={post.name}
                   subject={post.course}
                   edition={post.edition}
-                  status={post.status}
+                  inCart={post.inCart}
                   price={post.price}
+                  status={post.status}
                   condition={post.condition}
                   comments={post.comments}
                 />

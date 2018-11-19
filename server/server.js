@@ -4,7 +4,7 @@
  * @author Daniel Munoz
  * @author Shawn Chan
  * @author Luis Nova
- * @version 0.0.3
+ * @version 0.0.4
  */
 
 import Express from 'express';

@@ -1,7 +1,7 @@
 /**
  * @file Reusable React component for a route on the web platform.
  * @author Duncan Grubbs <duncan.grubbs@gmail.com>
- * @version 0.0.3
+ * @version 0.0.4
  */
 
 import React, { Component } from 'react';
@@ -70,12 +70,12 @@ class Cart extends Component {
   }
 
   buyBooks() {
-    console.log(this.state.cart);
     const AUTH = new AuthService();
     FetchService.POST(`/api/books/checkoutCart/${AUTH.getToken()}`, {
       cart: this.state.items,
     })
       .then(() => {
+        window.alert('Your Order Has Been Placed. See email for more details.');
         window.location.reload();
       });
   }

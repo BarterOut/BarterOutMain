@@ -2,7 +2,7 @@
  * @file All routes relating to the dashboard for Express.js server.
  * @author Daniel Munoz
  * @author Duncan Grubbs <duncan.grubbs@gmail.com>
- * @version 0.0.3
+ * @version 0.0.4
  */
 
 // Import DB models
@@ -51,13 +51,15 @@ router.get('/getPurchasedBooks/:token', (req, res) => {
   });
 });
 
+//We could add this thing where the parameter is the status we would like to search for
+
 /**
  * Gets a list of all in process transactions (books with status 1).
  * @param {Object} req Request body from client.
  * @param {Object} res Body of HTTP response.
  * @returns {Array} List of transactions.
  */
-router.get('/getTransactions/:token', (req, res) => {
+router.get('/getBooksStatus1/:token', (req, res) => {
   jwt.verify(req.params.token, 'secretKey', (err, authData) => {
     if (err) {
       res.sendStatus(403);
@@ -67,6 +69,59 @@ router.get('/getTransactions/:token', (req, res) => {
           res.status(401).send({ error: 'You need to create an account' });
         } else if (authData.userInfo.permissionType === 1) {
           Textbook.find({ status: 1 }, (err, books) => {
+            res.status(200).json(sortReverseCronological(books));
+          });
+        } else {
+          res.sendStatus(401);
+        }
+      });
+    }
+  });
+});
+
+/**
+ * Gets a list of all in process transactions (books with status 1).
+ * @param {Object} req Request body from client.
+ * @param {Object} res Body of HTTP response.
+ * @returns {Array} List of transactions.
+ */
+router.get('/getBooksStatus2/:token', (req, res) => {
+  jwt.verify(req.params.token, 'secretKey', (err, authData) => {
+    if (err) {
+      res.sendStatus(403);
+    } else {
+      User.findOne({ _id: authData.userInfo._id }, (error, user) => {
+        if (!user) {
+          res.status(401).send({ error: 'You need to create an account' });
+        } else if (authData.userInfo.permissionType === 1) {
+          Textbook.find({ status: 2 }, (err, books) => {
+            res.status(200).json(sortReverseCronological(books));
+          });
+        } else {
+          res.sendStatus(401);
+        }
+      });
+    }
+  });
+});
+
+
+/**
+ * Gets a list of all in process transactions (books with status 1).
+ * @param {Object} req Request body from client.
+ * @param {Object} res Body of HTTP response.
+ * @returns {Array} List of transactions.
+ */
+router.get('/getBooksStatus3/:token', (req, res) => {
+  jwt.verify(req.params.token, 'secretKey', (err, authData) => {
+    if (err) {
+      res.sendStatus(403);
+    } else {
+      User.findOne({ _id: authData.userInfo._id }, (error, user) => {
+        if (!user) {
+          res.status(401).send({ error: 'You need to create an account' });
+        } else if (authData.userInfo.permissionType === 1) {
+          Textbook.find({ status: 3 }, (err, books) => {
             res.status(200).json(sortReverseCronological(books));
           });
         } else {
@@ -134,6 +189,40 @@ router.get('/getUsers/:token', (req, res) => {
 
 
 /**
+ * Get the info of the books and make them bigger
+ * @param {Object} req Request body from client.
+ * @param {Object} res Body of HTTP response.
+ * @returns {Number} Status code.
+ */
+router.post('/extendBookInfo', (req, res) => {
+  jwt.verify(req.body.data.token, 'secretKey', (err, authData) => {
+    if (err) {
+      res.sendStatus(403);
+    } else if (authData.userInfo.permissionType === 1) {
+      const bookArray = req.body.data.books;
+      const output = [];
+      User.find({}, (error, users) => {
+        for (let i = 0; i < bookArray.length; i++) {
+          const newBook = bookArray[i];
+          for (let j = 0; j < users.length; j++) {
+            if (String(newBook.owner) === String(users[j]._id)) {
+              newBook.ownerObject = users[j];
+            } else if (String(newBook.buyer) === String(users[j]._id)) {
+              newBook.buyerObject = users[j];
+            }
+          }
+          output.push(newBook);
+        }
+        res.status(200).json(output);
+      });
+    } else {
+      res.sendStatus(401);
+    }
+  });
+});
+
+
+/**
  * Sets the status of a given book to 2, confirming it.
  * @param {Object} req Request body from client.
  * @param {Object} res Body of HTTP response.
@@ -150,6 +239,36 @@ router.post('/confirmBook', (req, res) => {
           $set:
             {
               status: 2,
+            },
+        }, (err) => {
+          if (!err) {
+            res.sendStatus(200);
+          }
+        },
+      );
+    } else {
+      res.sendStatus(401);
+    }
+  });
+});
+
+/**
+ * Sets the status of a given book to 3, confirming it's paid.
+ * @param {Object} req Request body from client.
+ * @param {Object} res Body of HTTP response.
+ * @returns {Number} Status code.
+ */
+router.post('/setBookPaid', (req, res) => {
+  jwt.verify(req.body.data.token, 'secretKey', (err, authData) => {
+    if (err) {
+      res.sendStatus(403);
+    } else if (authData.userInfo.permissionType === 1) {
+      Textbook.update(
+        { _id: req.body.data.id },
+        {
+          $set:
+            {
+              status: 3,
             },
         }, (err) => {
           if (!err) {

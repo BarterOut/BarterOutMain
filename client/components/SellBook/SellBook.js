@@ -1,7 +1,7 @@
 /**
  * @file React component for posting a book you are looking to sell.
  * @author Duncan Grubbs <duncan.grubbs@gmail.com>
- * @version 0.0.3
+ * @version 0.0.4
  */
 
 import React, { Component } from 'react';
@@ -19,7 +19,7 @@ class SellBook extends Component {
       course: String,
       price: Number,
       ISBN: String,
-      condition: 'Poor',
+      condition: 'Good',
       comments: String,
       correctlyFilledOut: true,
     };
@@ -119,6 +119,8 @@ class SellBook extends Component {
             className="formInput"
             placeholder="e.g. 11"
             type="number"
+            min="0"
+            max="900"
             name="edition"
             onChange={this.onChange}
             required
@@ -140,6 +142,8 @@ class SellBook extends Component {
             className="formInput"
             placeholder="$"
             type="number"
+            min="0"
+            max="200"
             name="price"
             onChange={this.onChange}
             required
@@ -155,7 +159,7 @@ class SellBook extends Component {
             name="ISBN"
           />
           <span className="inputLabelHome">Condition *</span>
-          <select onChange={this.selectChange} className="conditionInput">
+          <select defaultValue="Good" onChange={this.selectChange} className="conditionInput">
             <option value="Poor">Poor</option>
             <option value="Fair">Fair</option>
             <option value="Good">Good</option>

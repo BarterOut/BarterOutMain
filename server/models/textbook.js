@@ -2,7 +2,7 @@
  * @file Textbook schema for the DB.
  * @author Duncan Grubbs <duncan.grubbs@gmail.com>
  * @author Daniel Munoz
- * @version 0.0.3
+ * @version 0.0.4
  */
 
 import mongoose from 'mongoose';

@@ -2,7 +2,7 @@
  * @file Authentication routes for Express.js server.
  * @author Daniel Munoz
  * @author Duncan Grubbs <duncan.grubbs@gmail.com>
- * @version 0.0.3
+ * @version 0.0.4
  */
 
 import mongoose from 'mongoose';
@@ -31,7 +31,7 @@ function myHasher(password, tempUserData, insertTempUser, callback) {
 
 // Configurations for the temp user stuff
 nev.configure({
-  verificationURL: 'https://www.barterout.com/api/auth/email-verification/${URL}',
+  verificationURL: 'https://barterout-dev.herokuapp.com/api/auth/email-verification/${URL}',
   persistentUserModel: User,
   tempUserCollection: 'barterOut_tempusers',
   shouldSendConfirmation: false,
@@ -252,10 +252,13 @@ router.post('/updateProfile', (req, res) => {
             },
         },
         (error) => {
-          res.status(400).json(response('/api/auth/updateProfile', { error }));
+          if (error) {
+            res.status(400).json(response('/api/auth/updateProfile', { error }));
+          } else {
+            res.status(200).json(response('/api/auth/updateProfile', null));
+          }
         },
       );
-      res.status(200).json(response('/api/auth/updateProfile', null));
     }
   });
 });
@@ -300,10 +303,11 @@ router.post('/updatePassword', (req, res) => {
           (error) => {
             if (error) {
               res.status(400).json(response('/api/auth/updatePassword', { error }));
+            } else {
+              res.status(200).json(response('/api/auth/updatePassword', null));
             }
           },
         );
-        res.status(200).json(response('/api/auth/updatePassword', null));
       });
     }
   });

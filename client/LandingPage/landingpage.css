@@ -190,6 +190,9 @@
   .howItWorksText, .forUniversitiesText {
     width: 83%;
   }
+  .headerBar {
+    padding: 4px;
+  }
 }
 
 .howItWorksBodyText {
