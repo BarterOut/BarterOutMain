@@ -1,5 +1,5 @@
 /**
- * @file Pricing 'schema'. Currently only holds our fee.
+ * @file File used to generate standard API response .
  * @author Duncan Grubbs <duncan.grubbs@gmail.com>
  * @version 0.0.3
  */
