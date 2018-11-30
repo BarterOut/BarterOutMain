@@ -1,15 +1,12 @@
-
 # BarterOut
 
-Github Repository for the Web Platform of BarterOut.
-
-  
+Github Repository for the Web Platform and API of BarterOut.
 
 ### Prerequisites
 
 While these are not requirements, we strongly recommend that you familiarize yourself with the following:
 
-1. [JetBrains IDE’s](https://www.jetbrains.com/webstorm/?fromMenu)
+1. VS Code, Atom, Sublime Text, Web Storm or another editor.
 
 2. [Bash](https://en.wikipedia.org/wiki/Bash_(Unix_shell))
 
@@ -17,44 +14,39 @@ While these are not requirements, we strongly recommend that you familiarize you
 
 4. [Node](https://nodejs.org/en/)
 
-5. [npm](https://www.npmjs.com/)
+5. [React](https://reactjs.org)
 
-6. [Babel](https://babeljs.io)
+6. [npm](https://www.npmjs.com/)
 
-  
-  
+7. [Babel](https://babeljs.io)
 
+8. [MongoDB](https://www.mongodb.com/)
+
+ 
 ### Development Environment
 
 At BarterOut, we use a variety of softwares to write and manage our code. While your own development environment setup is up to you, we have some recommendations and suggestions that will help you specifically work on our platform.
 
-  
 
 We use npm for all of our package management. While some IDE’s allow you to manage packages through a GUI, we recommend you learn how to manage them through a bash shell so that you have a stronger understand of how npm works.
 
-  
 
 We also use npm to start our local development server. Again, it is possible to start this server through a GUI, but we recommend you learn how to do it through a bash shell before using a GUI.
 
-  
 
 For all our of version control, we use Git. Unlike npm, we do recommend that you find a GUI to manage Git. This is mainly because we are team, and we will be using many branches in the development process. Being able to visualize these is extremely important when making decisions of which branch to merge intro, pull from, etc.
 
-  
 
 ### Team Communication
 
 At BarterOut, we use Slack and Asana as well as email for all of our task management and communication. We will send you invites to both of these platforms but we recommend you turn on notifications for Slack because most of our important communication will be done through there along with messages about tasks.
 
-  
 
 ### Standards
 
 Last but not least, we have some basic standards for our code. As mentioned in our Platform Documentation, all of our code is compliant with ESLint, modern Javascript and Web Standards, and all functions are documented internally with JS Doc. This means that all of your code must comply with these standards before it is merged into the main project and shipped to users. If you have an questions about meeting these standards you can contact duncan.grubbs@gmail.com or message @duncan on Slack.
 
 ## How to Test
-
-
 
 ### Running the Project
 

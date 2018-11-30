@@ -44,7 +44,7 @@ function remakeMatches(userID) {
                   matchedBooks: { addBooks },
                 },
               }, (error) => {
-                console.error(`Error: ${error}`);
+                throw new Error(`Error making matches: ${error}`);
               },
             );
           },

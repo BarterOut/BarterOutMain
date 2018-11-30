@@ -23,9 +23,6 @@ import config from '../webpack.config';
 import serverConfig from './config';
 import kittens from './kittens/kitten';
 
-// PASSPORT
-const passport = require('./passport');
-
 const sslRedirect = require('heroku-ssl-redirect');
 
 // Auth Route
@@ -63,8 +60,6 @@ app.use(session({
   cookie: { secure: false },
 }));
 
-const ENV = 'development';
-
 function forceSsl(req, res, next) {
   if (req.headers['x-forwarded-proto'] !== 'https') {
     return res.redirect(['https://', req.get('Host'), req.url].join(''));
@@ -72,7 +67,7 @@ function forceSsl(req, res, next) {
   return next();
 }
 
-if (ENV === 'production') {
+if (process.env.NODE_ENV === 'production') {
   app.use(forceSsl);
   const airbrake = new AirbrakeClient({
     projectId: 198681,
@@ -80,8 +75,13 @@ if (ENV === 'production') {
   });
 }
 
-app.use(passport.initialize());
-app.use(passport.session()); // calls serializeUser and deserializeUser
+// Prefer gzipped js files.
+app.get('*.js', (req, res, next) => {
+  req.url = `${req.url}.gz`;
+  res.set('Content-Encoding', 'gzip');
+  next();
+});
+
 app.use('/api/auth', auth);
 app.use('/api/user', user);
 app.use('/api/books', books);

@@ -8,6 +8,7 @@
 import mongoose from 'mongoose';
 
 import User from '../models/user';
+import response from '../response';
 import TempUser from '../models/tempUser';
 
 const express = require('express');
@@ -47,8 +48,7 @@ nev.configure({
     // This won't actually be used but it is necessary for the package to work. the
     from: '"Barter Out" <office@barterout.com',
     subject: 'Please confirm account',
-    html: '<p>Please verify your account by clicking <a href="${URL}">this link</a>. If you are unable to do so, copy and ' +
-    'paste the following link into your browser:</p><p>${URL}</p>',
+    html: '<p>Please verify your account by clicking <a href="${URL}">this link</a>.',
     auth: {
       user: 'office@barterout.com',
       refreshToken: '1/9XdHU4k2vwYioRyAP8kaGYfZXKfp_JxqUwUMYVJWlZs',
@@ -62,17 +62,18 @@ nev.configure({
 
 }, (error) => {
   if (error) {
-    console.error(error);
+    throw new Error(`Error: ${error}`);
   }
 });
 
 // Creating the temp user
-nev.generateTempUserModel(User, (err) => {
-  if (err) {
-    console.error(err);
+nev.generateTempUserModel(User, (error) => {
+  if (error) {
+    throw new Error(`Error: ${error}`);
   }
 });
 
+// TODO Remove redirects
 /**
  * Called when a user clicks the confirm link in thier email.
  * @param {Object} req Request body from client.
@@ -103,9 +104,9 @@ router.get('/email-verification/:URL', (req, res) => {
         .then(() => {
           // Verified the user
           sendEmail(emails.signedUpEmail(newUser.emailAddress, newUser.firstName));
-          TempUser.remove({ emailToken: url }, (err) => {
-            if (err) {
-              res.status(400).json(err);
+          TempUser.remove({ emailToken: url }, (error) => {
+            if (error) {
+              res.status(400).json(response('/api/auth/email-verification/:URL', { error }));
             }
           });
           res.redirect('/emailConfirmed');
@@ -120,9 +121,9 @@ router.get('/email-verification/:URL', (req, res) => {
 const jwt = require('jsonwebtoken');
 
 function sendEmail(mailOptions) {
-  transporter.sendMail(mailOptions, (err) => {
-    if (err) {
-      console.error(err);
+  transporter.sendMail(mailOptions, (error) => {
+    if (error) {
+      throw new Error(`Error: ${error}`);
     }
   });
 }
@@ -155,15 +156,15 @@ router.post('/signup', (req, res) => {
 
   User.findOne({ emailAddress }, (error, user) => {
     if (error) {
-      res.status(400).json(error);
+      res.status(400).json(response('/api/auth/signup', { error }));
     } else if (user) {
-      res.sendStatus(409);
+      res.status(409).json(response('/api/auth/signup', { error: 'Existing User' }));
     } else {
       TempUser.findOne({ emailAddress }, (error, existingUser) => {
         if (error) {
-          res.status(400).json(error);
+          res.status(400).json(response('/api/auth/signup', { error }));
         } else if (existingUser) {
-          res.sendStatus(409);
+          res.status(409).json(response('/api/auth/signup', { error: 'Existing Temp User' }));
         } else {
           const emailToken = rand.generate(48);
           const newUser = new TempUser({
@@ -182,7 +183,7 @@ router.post('/signup', (req, res) => {
             .then(() => {
               const URL = newUser.emailToken;
               sendEmail(emails.verifyEmail(emailAddress, firstName, URL));
-              res.sendStatus(201);
+              res.status(201).json(response('/api/auth/signup', null));
             });
         }
       });
@@ -198,29 +199,30 @@ router.post('/signup', (req, res) => {
  */
 router.post('/login', (req, res) => {
   const { emailAddress, password } = req.body;
-  User.findOne({ emailAddress }, (err, user) => {
-    if (err) {
-      res.status(400).json({ error: err });
+  User.findOne({ emailAddress }, (error, user) => {
+    if (error) {
+      res.status(400).json(response('/api/auth/login', { error }));
       return;
     }
     if (!user) {
-      res.sendStatus(401);
+      res.status(401).json(response('/api/auth/login', { error: 'No Account' }));
       return;
     }
     if (!user.checkPassword(password)) {
-      res.sendStatus(401);
+      res.status(401).json(response('/api/auth/login', { error: 'Incorrect Password' }));
       return;
     }
 
     const userInfo = {
       // Can add more stuff into this so that it has more info, for now it only has the id
+      // and the permission type for handling admin dashboard auth on frontend.
       _id: user._id,
       permissionType: user.permissionType,
     };
 
     // Creates the token and sends the JSON back
     jwt.sign({ userInfo }, 'secretKey', { expiresIn: '30 days' }, (error, token) => {
-      res.status(200).json({ token });
+      res.status(200).json(response('/api/auth/login', { token }));
     });
   });
 });
@@ -231,12 +233,12 @@ router.post('/login', (req, res) => {
  * Requires the token to be sent as we ll as the body to cointain the info that will be updated
  * @param {Object} req Request body from client.
  * @param {Object} res Body of HTTP response.
- * @returns {Number} Status code.
+ * @returns {Object} Standard API response.
  */
 router.post('/updateProfile', (req, res) => {
   jwt.verify(req.body.data.token, 'secretKey', (error, authData) => {
     if (error) {
-      res.sendStatus(403);
+      res.status(403).json(response('/api/auth/updateProfile', { error }));
     } else {
       User.update(
         { _id: mongoose.Types.ObjectId(authData.userInfo._id) },
@@ -251,9 +253,9 @@ router.post('/updateProfile', (req, res) => {
         },
         (error) => {
           if (error) {
-            res.status(400).json(error);
+            res.status(400).json(response('/api/auth/updateProfile', { error }));
           } else {
-            res.sendStatus(200);
+            res.status(200).json(response('/api/auth/updateProfile', null));
           }
         },
       );
@@ -267,24 +269,24 @@ router.post('/updateProfile', (req, res) => {
  * text password to be sent, will be hashed inside of the function.
  * @param {Object} req Request body from client.
  * @param {Object} res Body of HTTP response.
- * @returns {Number} Status code.
+ * @returns {Object} Standard Response.
  */
 router.post('/updatePassword', (req, res) => {
   jwt.verify(req.body.data.token, 'secretKey', (error, authData) => {
     if (error) {
-      res.sendStatus(403);
+      res.status(403).json(response('/api/auth/updatePassword', { error }));
     } else {
       User.findOne({ _id: authData.userInfo._id }, (error, user) => {
         if (error) {
-          res.sendStatus(400);
+          res.status(400).json(response('/api/auth/updatePassword', { error }));
           return;
         }
         if (!user) {
-          res.status(401).send({ error: 'You need to create an account.' });
+          res.status(401).json(response('/api/auth/updatePassword', { error: 'You need to create an account.' }));
           return;
         }
         if (!user.checkPassword(req.body.data.password)) {
-          res.status(401).send({ error: 'Incorrect Password' });
+          res.status(401).json(response('/api/auth/updatePassword', { error: 'Incorrect Password' }));
           return;
         }
 
@@ -300,9 +302,9 @@ router.post('/updatePassword', (req, res) => {
           },
           (error) => {
             if (error) {
-              res.status(400).json(error);
+              res.status(400).json(response('/api/auth/updatePassword', { error }));
             } else {
-              res.sendStatus(200);
+              res.status(200).json(response('/api/auth/updatePassword', null));
             }
           },
         );
@@ -312,6 +314,13 @@ router.post('/updatePassword', (req, res) => {
 });
 
 
+/**
+ * Sends email to user with token to reset password,
+ * this token is verified by the another API call.
+ * @param {Object} req Request body from client.
+ * @param {Object} res Body of HTTP response.
+ * @returns {Object} Standard Response.
+ */
 router.post('/passwordResetRequest', (req, res) => {
   const email = req.body.data.emailAddress;
   let token;
@@ -331,23 +340,24 @@ router.post('/passwordResetRequest', (req, res) => {
           },
           (error) => {
             if (error) {
-              res.status(400).json(error);
+              res.status(400).json(response('/api/auth/passwordResetRequest', { error }));
             }
           },
         );
         sendEmail(emails.passwordResetEmail(user.emailAddress, user.firstName, token));
-        res.sendStatus(200);
+        res.status(200).json(response('/api/auth/passwordResetRequest', null));
       });
     } else {
-      res.status(406).send({ error: 'no user found' });
+      res.status(406).json(response('/api/auth/passwordResetRequest', { error: 'No user found.' }));
     }
   });
 });
 
+// TODO: remove redirect
 router.get('/passwordReset/:token', (req, res) => {
   User.findOne({ resetPasswordToken: req.params.token }, (err, user) => {
     if (!user) {
-      res.status(406).send({ error: 'Token expired or is invalid' });
+      res.status(406).json(response('/api/auth/passwordReset/:token', { error: 'Token expired or is invalid' }));
     } else {
       res.redirect(`/resetPassword/${req.params.token}`);
     }
@@ -362,7 +372,7 @@ router.post('/passwordReset/', (req, res) => {
     },
     (err, user) => {
       if (!user) {
-        res.status(406).send({ error: 'token expired or is invalid' });
+        res.status(406).json(response('/api/auth/passwordReset', { error: 'token expired or is invalid' }));
       } else {
         User.update(
           { _id: user._id },
@@ -376,18 +386,18 @@ router.post('/passwordReset/', (req, res) => {
           },
           (error) => {
             if (error) {
-              res.send(400).json(error);
+              res.status(400).json(response('/api/auth/passwordReset', { error }));
             }
           },
         );
-        res.sendStatus(200);
+        res.status(200).json(response('/api/auth/passwordReset', null));
       }
     },
   );
 });
 
 router.get('/', (req, res) => {
-  res.sendStatus(200);
+  res.status(200).json(response('/api/auth/', null));
 });
 
 module.exports = router;
