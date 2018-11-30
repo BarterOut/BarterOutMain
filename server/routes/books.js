@@ -381,7 +381,6 @@ router.get('/search/:query/:token', (req, res) => {
       res.sendStatus(403);
     } else {
       const searchKey = req.params.query;
-      // console.log("search " + searchKey + " " + authData.userInfo._id);
 
       const parsed = Number.parseInt(searchKey, 10);
       if (Number.isNaN(parsed)) {
@@ -409,7 +408,6 @@ router.get('/search/:query/:token', (req, res) => {
                 { name: { $regex: searchKey, $options: 'i' } },
                 { course: { $regex: searchKey, $options: 'i' } },
                 { ISBN: { $eq: parsed } },
-
               ],
             },
           ],
@@ -419,6 +417,48 @@ router.get('/search/:query/:token', (req, res) => {
       }
     }
   });
+});
+
+/**
+ * Finds all books in database with a matching name, course or ISBN.
+ * NO TOKEN
+ * @param {object} req Request body from client.
+ * @param {array} res Body of HTTP response.
+ * @returns {object} Array of books from database.
+ */
+router.get('/searchNoToken/:query', (req, res) => {
+  const searchKey = req.params.query;
+  const parsed = Number.parseInt(searchKey, 10);
+  if (Number.isNaN(parsed)) {
+    Textbook.find({
+      $and: [
+        { status: 0 },
+        {
+          $or: [
+            { name: { $regex: searchKey, $options: 'i' } },
+            { course: { $regex: searchKey, $options: 'i' } },
+          ],
+        },
+      ],
+    }, (err, books) => {
+      res.status(200).json(books);
+    });
+  } else {
+    Textbook.find({
+      $and: [
+        { status: 0 },
+        {
+          $or: [
+            { name: { $regex: searchKey, $options: 'i' } },
+            { course: { $regex: searchKey, $options: 'i' } },
+            { ISBN: { $eq: parsed } },
+          ],
+        },
+      ],
+    }, (err, books) => {
+      res.status(200).json(books);
+    });
+  }
 });
 
 /**

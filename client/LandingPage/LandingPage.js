@@ -85,7 +85,7 @@ class LandingPage extends Component {
       return;
     }
 
-    FetchService.GET(`/api/books/search/${query}/${this.auth.getToken()}`)
+    FetchService.GET(`/api/books/searchNoToken/${query}`)
       .then(response => response.json())
       .then((data) => {
         this.setState({ loading: false });
