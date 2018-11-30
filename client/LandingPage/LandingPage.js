@@ -12,6 +12,7 @@ import {
 } from 'react-router-dom';
 
 import AuthService from '../services/AuthService';
+import FetchService from '../services/FetchService';
 
 import './landingpage.css';
 import '../res/sylesheetOrkneyRegular.css';
@@ -28,17 +29,24 @@ import picThree from '../images/outdoorsCompressed.jpg';
 import linkedInLogo from '../images/linkedIn.png';
 import facebookLogo from '../images/facebook.png';
 
+import BookPost from '../components/BookPost/BookPost';
+import MaterialIcon from 'react-google-material-icons';
+
 class LandingPage extends Component {
   constructor() {
     super();
     this.state = {
       redirect: false,
+      posts: [],
+      loading: false,
     };
     this.Auth = new AuthService();
+    this.updateInputValue = this.updateInputValue.bind(this);
   }
 
   componentDidMount() {
     this.setRedirect();
+    this.getPosts();
   }
 
   setRedirect() {
@@ -47,6 +55,43 @@ class LandingPage extends Component {
     } else {
       this.setState({ redirect: false });
     }
+  }
+
+  getPosts() {
+    FetchService.GET('/api/books/getAllBooksNoToken')
+      .then(response => response.json())
+      .then((data) => {
+        this.setState({ loading: false });
+        this.setState({ posts: data });
+      })
+      .catch(err => console.warn(err));
+  }
+
+  updateInputValue(evt) {
+    this.search(evt.target.value);
+  }
+
+  search(query) {
+    this.setState({ loading: true });
+    this.setState({ posts: [] });
+    if (query === '') {
+      FetchService.GET('/api/books/getAllBooksNoToken')
+        .then(response => response.json())
+        .then((data) => {
+          this.setState({ loading: false });
+          this.setState({ posts: data });
+        })
+        .catch(err => console.warn(err));
+      return;
+    }
+
+    FetchService.GET(`/api/books/search/${query}/${this.auth.getToken()}`)
+      .then(response => response.json())
+      .then((data) => {
+        this.setState({ loading: false });
+        this.setState({ posts: data });
+      })
+      .catch(err => console.error(err));
   }
 
   render() {
@@ -58,6 +103,9 @@ class LandingPage extends Component {
       <div className="app">
         <div className="landingpage">
           <div className="photo-bg">
+            <div id="scroll-down">
+              <MaterialIcon icon="expand_more" size={28} />
+            </div>
             <nav className="headerBar animated slideInDown">
               <div className="logo">
                 <a href="/" className="buttonLink"><img alt="logo" id="logoPic" src={logoPic} /></a>
@@ -72,10 +120,32 @@ class LandingPage extends Component {
             </nav>
             <div className="mainText animated fadeIn" id="mainText">
               <h1>
-                YOUR TEXTBOOKS <br />
+                YOUR TEXTBOOKS, <br />
                 HASSLE-FREE
               </h1>
-              <div id="search-wrapper" />
+              <div id="search-wrapper">
+                <input id="landing-search" placeholder="Find your book..." onChange={this.updateInputValue} />
+                <div id="landing-books">
+                  {
+                    this.state.loading &&
+                    <div className="loading" />
+                  }
+                  {this.state.posts.map(post => (
+                    <BookPost
+                      key={post._id}
+                      id={post._id}
+                      name={post.name}
+                      subject={post.course}
+                      edition={post.edition}
+                      inCart={post.inCart}
+                      price={post.price}
+                      status={post.status}
+                      condition={post.condition}
+                      comments={post.comments}
+                    />
+                  ))}
+                </div>
+              </div>
             </div>
           </div>
           <div className="landing-section" id="product">

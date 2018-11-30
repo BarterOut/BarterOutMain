@@ -1,6 +1,6 @@
 .photo-bg {
   background-image: url("../images/gradientFirstPageCompressed.jpg");
-  height: 100vh;
+  height: 95vh;
   width: 100vw;
   background-position: center;
   background-repeat: no-repeat;
@@ -86,14 +86,41 @@
 
 .mainText{
   font-family: "orkneybold";
-  letter-spacing: 2.5px;
   position: relative;
-  height: 100vh;
+  height: 100%;
   width: 100%;
-  text-shadow: 0px 2px 8px rgba(0,0,0, 0.75);
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
+}
+
+#search-wrapper {
+  width: 60%;
+  max-width: 780px;
+}
+
+#landing-search {
+  border-radius: 6px;
+  width: 100%;
+  border: none;
+  box-shadow: 3px 18px 20px rgba(0, 0, 0, .24);
+  height: 50px;
+  margin: 16px 0;
+  padding: 8px 16px;
+  font-size: 1.4em;
+}
+
+#landing-books {
+  font-family: Arial, Helvetica, sans-serif;
+  width: 100%;
+  margin: 16px 0;
+  box-shadow: 3px 18px 20px rgba(0, 0, 0, .24);
+  background: white;
+  height: 400px;
+  overflow-y: scroll;
+  border-radius: 6px;
+  z-index: 10;
 }
 
 .landing-section {
@@ -137,10 +164,26 @@
 
 .landingpage h1 {
   color: white;
-  font-size: 40pt;
+  /* text-shadow: 0px 2px 8px rgba(0,0,0, 0.75); */
+  font-size: 42pt;
   text-align: center;
+  letter-spacing: 2.5px;
   font-weight: bold;
   margin-top: 0;
+ }
+
+ #scroll-down {
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   width: 46px;
+   height: 46px;
+   border-radius: 50%;
+   box-shadow: 0 3px 6px rgba(0, 0, 0, .16);
+   background: white;
+   z-index: 10;
+   position: absolute;
+   margin: calc(90vh + 23px) calc(50vw - 23px);
  }
 
  .landing-img {
@@ -171,7 +214,6 @@
   display: flex;
   flex-direction: row;
   color: white;
-  text-shadow: 0px 2px 8px rgba(0,0,0, 0.50);
   font-size: 14pt;
   font-style: italic;
   font-weight: bold;

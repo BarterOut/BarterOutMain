@@ -64,7 +64,6 @@ function sendEmail(mailOptions) {
   });
 }
 
-
 /**
  * [RESOURCE] Will return an array of JSON objects in reverse cronological order (Newest at the top)
  * @param {Array} bookJSONArray Arrays of books to sort.
@@ -512,6 +511,19 @@ router.get('/getAllBooks/:token', (req, res) => {
         }
       });
     }
+  });
+});
+
+/**
+ * @param {Object} req Request body from client.
+ * @param {Object} res Body of HTTP response.
+ * @returns {Array} Array of books from database.
+ */
+router.get('/getAllBooksNoToken', (req, res) => {
+  Textbook.find({
+    status: 0,
+  }, (err, books) => {
+    res.status(200).json(sortBooksReverseCronological(books));
   });
 });
 
