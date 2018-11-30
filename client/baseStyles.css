@@ -261,6 +261,58 @@ button:focus {
   margin: auto 16px;
 }
 
+.content-about {
+  display: flex;
+  width: 100vw;
+  flex-direction: column;
+  align-content: center;
+}
+
+.margin {
+  margin: 16px 0 0 12%;
+}
+
+.header-line-margin {
+  margin: 8px 0 0 12%;
+  background: #4E2B84;
+  height: 1px;
+  width: 86px;
+}
+
+.about-content {
+  width: 100vw;
+}
+
+.about-team {
+  width: 100%;
+  padding: 16px 12%;
+}
+
+.team-member {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 200px;
+  margin: 8px 32px;
+}
+
+.team-photo {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, .16);
+}
+
+.subtext {
+  font-size: 1.2em;
+}
+
+#team-photos {
+  display: flex;
+  width: 100vw;
+  padding: 8px 12%;
+}
+
 @keyframes loaderAnim {
   0% {
     transform: rotate(0deg);

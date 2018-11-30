@@ -111,7 +111,6 @@ class LandingPage extends Component {
                 <a href="/" className="buttonLink"><img alt="logo" id="logoPic" src={logoPic} /></a>
               </div>
               <div className="pageLinks">
-                <a className="productLink landingPageLink" href="/">Home</a>
                 <a className="missionLink landingPageLink" href="#product">Our Product</a>
                 <a className="teamLink landingPageLink" href="/team">About</a>
                 <Link className="landingPageLink preRegisterLink" to="/login" href="/login">Login</Link>

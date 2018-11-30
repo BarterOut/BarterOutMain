@@ -16,9 +16,8 @@ import '../../res/sylesheetOrkneyBold.css';
 
 import logoPic from '../../images/barterOutOrangeWhiteLogoHeader.png';
 
-import picOne from '../../images/overtheShoulderCompressed.jpg';
-import picTwo from '../../images/groupMeetingCompressed.jpg';
-import picThree from '../../images/outdoorsCompressed.jpg';
+import stairs from '../../images/stairsCompressed.jpg';
+import barteroutTeam from '../../images/barterout-team.jpg';
 
 import vlad from '../../images/team-photos/vladCazacu.jpg';
 import annie from '../../images/team-photos/annieHamburgen.jpg';
@@ -44,11 +43,62 @@ const Team = () => (
         <a href="/"><img className="logo" src={logoPic} alt="logo" /></a>
       </div>
     </div>
-    <div className="content">
-      <h1 className="text-header">Team</h1>
-      <div className="header-line" />
-      <div className="text-content">
-        something
+    <div className="content-about">
+      <h1 className="text-header margin">About BarterOut</h1>
+      <div className="header-line-margin" />
+      <div className="about-content">
+        <div className="landing-section" id="product">
+          <div className="text-content-landing left">
+            <h2 className="landing-header-title">Our Story</h2>
+            <div className="header-line-landing" />
+            <p className="landing-para">
+              Because we care about you, we have built an easy-to-use system capable
+              of providing you with the textbooks you need as fast as possible.
+              In order to make this dream a reality we take a small share of every
+              transaction to keep our servers running.
+            </p>
+          </div>
+          <div className="img-content right">
+            <img className="landing-img" src={barteroutTeam} alt="Team" />
+          </div>
+        </div>
+        <div className="landing-section">
+          <div className="img-content left">
+            <img className="landing-img" src={stairs} alt="Group Meeting" />
+          </div>
+          <div className="text-content-landing right">
+            <h2 className="landing-header-title">Our Mission</h2>
+            <div className="header-line-landing" />
+            <p className="landing-para">
+              Because we care about you, we have built an easy-to-use system capable
+              of providing you with the textbooks you need as fast as possible.
+              In order to make this dream a reality we take a small share of every
+              transaction to keep our servers running.
+            </p>
+          </div>
+        </div>
+        <h1 className="text-header margin">Meet Our Team</h1>
+        <div className="header-line-margin" />
+        <p className="landing-para about-team">
+          Because we care about you, we have built an easy-to-use system capable
+          of providing you with the textbooks you need as fast as possible.
+          In order to make this dream a reality we take a small share of every
+          transaction to keep our servers running.
+        </p>
+        <div id="team-photos">
+          <div className="team-member">
+            <img className="team-photo" src={vlad} alt="Vlad" />
+            <h4 className="subtext">Co-Founder &amp; CEO</h4>
+          </div>
+          <div className="team-member">
+            <img className="team-photo" src={annie} alt="Annie" />
+            <h4 className="subtext">CMO</h4>
+          </div>
+          <div className="team-member">
+            <img className="team-photo" src={duncan} alt="Duncan" />
+            <h4 className="subtext">Interim CTO</h4>
+          </div>
+        </div>
       </div>
     </div>
     <div className="footer">

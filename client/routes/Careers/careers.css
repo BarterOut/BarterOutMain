@@ -1,6 +1,7 @@
 .content {
   display: flex;
-  width: 55vw;
+  width: 70vw;
+  max-width: 750px;
   margin: 32px auto;
   flex-direction: column;
   align-content: center;

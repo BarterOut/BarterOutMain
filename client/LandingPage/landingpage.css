@@ -127,7 +127,7 @@
   display: flex;
   flex-direction: row;
   padding: 16px 12%;
-  width: 100vw;
+  width: 100%;
   background: white;
   height: 37vh;
 }
@@ -148,6 +148,7 @@
   height: 1px;
   width: 150px;
   margin: 0 8px 8px 8px;
+  align-self: flex-start;
 }
 
 .img-content {
@@ -164,12 +165,11 @@
 
 .landingpage h1 {
   color: white;
-  /* text-shadow: 0px 2px 8px rgba(0,0,0, 0.75); */
-  font-size: 42pt;
+  font-size: 3em;
   text-align: center;
   letter-spacing: 2.5px;
   font-weight: bold;
-  margin-top: 0;
+  margin: 16px 0;
  }
 
  #scroll-down {
@@ -294,4 +294,34 @@
 
 .buttonLink {
   text-decoration: none;
+}
+
+@media only screen and (max-width: 600px) {
+  .landing-section {
+    flex-direction: column;
+    max-height: none;
+    width: 100vw;
+    padding: 16px;
+    height: 550px;
+  }
+  .text-content-landing, .img-content {
+    width: 95%;
+    max-height: none;
+  }
+  .landing-img {
+    width: 90%;
+    height: auto;
+  }
+  .left {
+    align-items: center;
+  }
+  #search-wrapper {
+    width: 95vw;
+  }
+  #landing-books {
+    max-height: 300px;
+  }
+  .landingpage h1 {
+    margin-top: 64px;
+  }
 }
