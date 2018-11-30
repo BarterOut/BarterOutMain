@@ -9,6 +9,9 @@ import React from 'react';
 import './careers.css';
 import logoPic from '../../images/barterOutOrangeWhiteLogoHeader.png';
 
+import linkedInLogo from '../../images/linkedIn.png';
+import facebookLogo from '../../images/facebook.png';
+
 const Careers = () => (
   <div className="infowrapper">
     <div className="bar">
@@ -155,20 +158,38 @@ const Careers = () => (
       </div>
     </div>
 
-    <div className="landingPageBottom">
-      <div id="bottomLinksCol1">
+    <div className="footer">
+      <div className="bottomLinksCol">
         <div className="bottomLinkHeader">Company</div>
+        <a href="/team" className="bottomPageLink">Team</a>
+        <br />
+        <a href="/" className="bottomPageLink">Mission</a>
+        <br />
         <a href="/careers" className="bottomPageLink">Careers</a>
         <br />
         <a href="/contact" className="bottomPageLink">Contact</a>
         <br />
       </div>
-      <div id="bottomLinksCol2">
-        <div className="bottomLinkHeader">Resources</div>
+      <div className="bottomLinksCol">
+        <div className="bottomLinkHeader">Legal</div>
         <a href="/termsOfService" className="bottomPageLink">Terms of Service</a>
         <br />
         <a href="/privacyPolicy" className="bottomPageLink">Privacy Policy</a>
       </div>
+      <div className="bottomLinksCol">
+        <div className="bottomLinkHeader">Developer</div>
+        <a href="/" className="bottomPageLink">API Documentation</a>
+        <br />
+        <a href="/" className="bottomPageLink">GitHub</a>
+      </div>
+    </div>
+    <div id="socialMedia">
+      <a href="https://www.linkedin.com/company/18490388/" rel="noopener noreferrer" target="_blank">
+        <img alt="logo" className="logoImage" src={linkedInLogo} />
+      </a>
+      <a href="https://www.facebook.com/BarterOut/" rel="noopener noreferrer" target="_blank">
+        <img alt="facebook logo" className="logoImage" src={facebookLogo} />
+      </a>
     </div>
     <div id="copyright">
       © 2018 BarterOut. All Rights Reserved.
