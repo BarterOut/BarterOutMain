@@ -12,7 +12,7 @@ import '../../res/sylesheetOrkneyLight.css';
 import '../../res/sylesheetOrkneyMedium.css';
 import '../../res/sylesheetOrkneyBold.css';
 
-import './Team.css';
+import './About.css';
 
 import logoPic from '../../images/barterOutOrangeWhiteLogoHeader.png';
 
@@ -36,7 +36,7 @@ import logo from '../../images/barterOutProfilePhotoWebPage.png';
 import linkedInLogo from '../../images/linkedIn.png';
 import facebookLogo from '../../images/facebook.png';
 
-const Team = () => (
+const About = () => (
   <div className="infowrapper">
     <div className="bar">
       <div className="left">
@@ -189,7 +189,7 @@ const Team = () => (
     <div className="footer">
       <div className="bottomLinksCol">
         <div className="bottomLinkHeader">Company</div>
-        <a href="/team" className="bottomPageLink">Team</a>
+        <a href="/about" className="bottomPageLink">Team</a>
         <br />
         <a href="/" className="bottomPageLink">Mission</a>
         <br />
@@ -225,4 +225,4 @@ const Team = () => (
   </div>
 );
 
-export default Team;
+export default About;

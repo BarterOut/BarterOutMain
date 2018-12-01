@@ -113,7 +113,7 @@ class LandingPage extends Component {
               </div>
               <div className="pageLinks">
                 <a className="missionLink landingPageLink" href="#product">Our Product</a>
-                <a className="teamLink landingPageLink" href="/team">About</a>
+                <a className="teamLink landingPageLink" href="/about">About</a>
                 <Link className="landingPageLink preRegisterLink" to="/login" href="/login">Login</Link>
                 <Link className="landingPageLink preRegisterLink" to="/signup" href="/signup">Sign Up</Link>
               </div>
@@ -198,7 +198,7 @@ class LandingPage extends Component {
           <div className="footer">
             <div className="bottomLinksCol">
               <div className="bottomLinkHeader">Company</div>
-              <a href="/team" className="bottomPageLink">Team</a>
+              <a href="/about" className="bottomPageLink">Team</a>
               <br />
               <a href="/" className="bottomPageLink">Mission</a>
               <br />

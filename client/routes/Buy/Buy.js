@@ -14,6 +14,7 @@ import BookPost from '../../components/BookPost/BookPost';
 
 import FetchService from '../../services/FetchService';
 import AuthService from '../../services/AuthService';
+import ErrorService from '../../services/ErrorService';
 
 import BuyBook from '../../components/BuyBook/BuyBook';
 import Search from '../../components/Search/Search';
@@ -73,7 +74,7 @@ class Buy extends Component {
           this.setState({ loading: false });
           this.setState({ posts: data });
         })
-        .catch(err => console.warn(err));
+        .catch(err => ErrorService.parseError(err));
       return;
     }
 
@@ -83,7 +84,7 @@ class Buy extends Component {
         this.setState({ loading: false });
         this.setState({ posts: data });
       })
-      .catch(err => console.error(err));
+      .catch(err => ErrorService.parseError(err));
   }
 
   render() {

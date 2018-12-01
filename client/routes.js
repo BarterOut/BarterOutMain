@@ -25,7 +25,7 @@ import TermsOfService from './routes/TermsOfService/termsOfService';
 import PrivacyPolicy from './routes/PrivacyPolicy/privacyPolicy';
 import Contact from './routes/Contact/contact';
 import Careers from './routes/Careers/careers';
-import Team from './routes/Team/Team';
+import About from './routes/About/About';
 
 import ForgotPassword from './routes/ForgotPassword/ForgotPassword';
 import ForgotPasswordSuccess from './routes/ForgotPassword/ForgotPasswordSuccess';
@@ -73,7 +73,7 @@ export default (
     <Route exact path="/privacyPolicy" component={PrivacyPolicy} />
     <Route exact path="/contact" component={Contact} />
     <Route exact path="/careers" component={Careers} />
-    <Route exact path="/team" component={Team} />
+    <Route exact path="/About" component={About} />
     <Route path="/resetPassword/:resetToken" component={ResetPassword} />
     <PrivateRoute exact path="/home" component={Home} />
     <Route exact path="/login" component={Login} />

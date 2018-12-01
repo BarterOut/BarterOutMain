@@ -74,7 +74,7 @@ const TermsOfService = () => (
     <div className="footer">
       <div className="bottomLinksCol">
         <div className="bottomLinkHeader">Company</div>
-        <a href="/team" className="bottomPageLink">Team</a>
+        <a href="/about" className="bottomPageLink">Team</a>
         <br />
         <a href="/" className="bottomPageLink">Mission</a>
         <br />

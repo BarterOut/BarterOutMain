@@ -13,9 +13,21 @@
   padding: 8px 16px;
 }
 
+.rightBP {
+  display: flex;
+  align-self: auto;
+  /* flex-grow: 3; */
+  width: 33%;
+  height: 100%;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-end;
+}
+
 .leftBP {
   display: flex;
-  flex-grow: 3;
+  /* flex-grow: 3; */
+  width: 33%;
   height: 100%;
   flex-direction: column;
   justify-content: flex-start;
@@ -30,16 +42,6 @@
 
 span {
   margin: 0 4px;
-}
-
-.rightBP {
-  display: flex;
-  align-self: auto;
-  flex-grow: 3;
-  height: 100%;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-end;
 }
 
 .bookName {
