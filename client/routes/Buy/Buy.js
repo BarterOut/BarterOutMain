@@ -128,7 +128,7 @@ class Buy extends Component {
               }
               {
                 this.state.posts.length == 0 &&
-                <h4 id="no-res">No Results for Query<br />Please request book below.</h4>
+                <h4 id="no-results">No Results for Query<br />Please request book below.</h4>
               }
               {posts.map(post => (
                 <BookPost

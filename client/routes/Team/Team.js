@@ -5,14 +5,14 @@
  * @version 0.0.4
  */
 
-import React, { Component } from 'react';
-
-import { Link } from 'react-router-dom';
+import React from 'react';
 
 import '../../res/sylesheetOrkneyRegular.css';
 import '../../res/sylesheetOrkneyLight.css';
 import '../../res/sylesheetOrkneyMedium.css';
 import '../../res/sylesheetOrkneyBold.css';
+
+import './Team.css';
 
 import logoPic from '../../images/barterOutOrangeWhiteLogoHeader.png';
 
@@ -85,22 +85,107 @@ const Team = () => (
           In order to make this dream a reality we take a small share of every
           transaction to keep our servers running.
         </p>
+        <h3 className="text-header margin">Leadership</h3>
+        <div className="header-line-margin" />
         <div id="team-photos">
           <div className="team-member">
             <img className="team-photo" src={vlad} alt="Vlad" />
-            <h4 className="subtext">Co-Founder &amp; CEO</h4>
+            <h4 className="subtext">Vlad Cazacu</h4>
+            <h4 className="subtext1">Co-Founder &amp; CEO</h4>
+            <h4 className="subtext2">UR &apos;20</h4>
           </div>
+
           <div className="team-member">
             <img className="team-photo" src={annie} alt="Annie" />
-            <h4 className="subtext">CMO</h4>
+            <h4 className="subtext">Annie Hamburgenn</h4>
+            <h4 className="subtext1">CMO</h4>
+            <h4 className="subtext2">UR &apos;20</h4>
           </div>
+
           <div className="team-member">
             <img className="team-photo" src={duncan} alt="Duncan" />
-            <h4 className="subtext">Interim CTO</h4>
+            <h4 className="subtext">Duncan Grubbs</h4>
+            <h4 className="subtext1">Interim CTO</h4>
+            <h4 className="subtext2">UR &apos;21</h4>
+          </div>
+
+          <div className="team-member">
+            <img className="team-photo" src={daniel} alt="Daniel" />
+            <h4 className="subtext">Daniel Munoz</h4>
+            <h4 className="subtext1">Full-Stack Developer</h4>
+            <h4 className="subtext2">UR &apos;21</h4>
+          </div>
+        </div>
+
+        <h3 className="text-header margin">Tech Team</h3>
+        <div className="header-line-margin" />
+        <div id="team-photos">
+          <div className="team-member">
+            <img className="team-photo" src={shagun} alt="Shagun" />
+            <h4 className="subtext">Shagun Bose</h4>
+            <h4 className="subtext1">UI/UX Designer</h4>
+            <h4 className="subtext2">UR &apos;20</h4>
+          </div>
+
+          <div className="team-member">
+            <img className="team-photo" src={zino} alt="Zino" />
+            <h4 className="subtext">Zino Hu</h4>
+            <h4 className="subtext1">Full-Stack Developer</h4>
+            <h4 className="subtext2">UR &apos;19</h4>
+          </div>
+
+          <div className="team-member">
+            <img className="team-photo" src={logo} alt="May" />
+            <h4 className="subtext">May Shin Lyan</h4>
+            <h4 className="subtext1">UI/UX Developer</h4>
+            <h4 className="subtext2">UR &apos;20</h4>
+          </div>
+
+          <div className="team-member">
+            <img className="team-photo" src={logo} alt="Aman" />
+            <h4 className="subtext">Aman Shrestha</h4>
+            <h4 className="subtext1">Android Developer</h4>
+            <h4 className="subtext2">UR &apos;21</h4>
+          </div>
+        </div>
+
+        <h3 className="text-header margin">Marketing Team</h3>
+        <div className="header-line-margin" />
+        <div id="team-photos">
+          <div className="team-member">
+            <img className="team-photo" src={zacqueline} alt="Zacqueline" />
+            <h4 className="subtext">Zacqueline Baldwin</h4>
+            <h4 className="subtext1">Marketing Strategist</h4>
+            <h4 className="subtext2">UR &apos;20</h4>
+          </div>
+
+          <div className="team-member">
+            <img className="team-photo" src={nikolai} alt="Nikolai" />
+            <h4 className="subtext">Nikolai Draganov</h4>
+            <h4 className="subtext1">Product Development</h4>
+            <h4 className="subtext2">UR &apos;21</h4>
+          </div>
+
+          <div className="team-member">
+            <img className="team-photo" src={genessis} alt="Genessis" />
+            <h4 className="subtext">Genessis Galindo</h4>
+            <h4 className="subtext1">Marketing Analyst</h4>
+            <h4 className="subtext2">UR &apos;20</h4>
+          </div>
+        </div>
+
+        <h3 className="text-header margin">Advisors</h3>
+        <div className="header-line-margin" />
+        <div id="team-photos">
+          <div className="team-member">
+            <img className="team-photo" src={adviserOne} alt="Elizabeth" />
+            <h4 className="subtext">Elizabeth Meyer</h4>
+            <h4 className="subtext1">Strategy Advisor</h4>
           </div>
         </div>
       </div>
     </div>
+
     <div className="footer">
       <div className="bottomLinksCol">
         <div className="bottomLinkHeader">Company</div>

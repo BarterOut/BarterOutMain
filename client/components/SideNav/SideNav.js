@@ -8,6 +8,8 @@ import React, { Component } from 'react';
 import propTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
+import MaterialIcon from 'react-google-material-icons';
+
 import FetchService from '../../services/FetchService';
 import AuthService from '../../services/AuthService';
 
@@ -17,7 +19,6 @@ import './SideNav.css';
 
 import profile from '../../images/barterOutProfilePhotoWebPage.png';
 import logo from '../../images/white Logo@2x.png';
-import MaterialIcon from 'react-google-material-icons';
 
 class SideNav extends Component {
   constructor() {

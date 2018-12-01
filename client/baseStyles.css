@@ -11,6 +11,7 @@ body {
   opacity: 1; /* Firefox */
 }
 
+/* SEARCH STYLES */
 .searchInputWrapper {
   display: flex;
   justify-content: center;
@@ -41,6 +42,7 @@ body {
   font-size: 1.1em;
 }
 
+/* GENERAL COMPONENT STYLES */
 .page-content {
   display: flex;
   flex-direction: column;
@@ -85,6 +87,16 @@ body {
   color: white;
 }
 
+#no-results {
+  width: 100%;
+  text-align: center;
+  font-weight: bold;
+}
+
+#help-content {
+  margin: auto 16px;
+}
+
 @media only screen and (max-width: 600px) {
   .page-section-wrapper, .title-text--page-section-header, .title--page-section-wrapper,
   .searchInputWrapper, .searchInfo {
@@ -93,6 +105,7 @@ body {
   }
 }
 
+/* STANDARD BUTTON */
 .button {
   white-space: nowrap;
   display: inline-block;
@@ -121,6 +134,7 @@ body {
   box-shadow: 0 7px 14px rgba(50, 50, 93, 0.1), 0 3px 6px rgba(0, 0, 0, 0.08);
 }
 
+/* STANDARD INPUTS */
 .formInput {
   background: none;
   border: none;
@@ -170,6 +184,7 @@ button:focus {
   overflow-y: scroll;
 }
 
+/* MISC */
 .wrapper-custom {
   display: flex;
   flex-direction: column;
@@ -196,6 +211,7 @@ button:focus {
   border: 1px solid #FF8D00;
 }
 
+/* MODAL STUFF */
 .close-modal-button {
   background: none;
   border: none;
@@ -241,6 +257,7 @@ button:focus {
   background: rgba(0, 0, 0, .3);
 }
 
+/* LOADING ANIM */
 .loading {
   border: 4px solid rgba(0, 0, 0, 0.1);
   border-left-color: #41397c;
@@ -249,68 +266,6 @@ button:focus {
   width: 50px;
   height: 50px;
   animation: loaderAnim 1.2s linear infinite;
-}
-
-#no-res {
-  width: 100%;
-  text-align: center;
-  font-weight: bold;
-}
-
-#help-content {
-  margin: auto 16px;
-}
-
-.content-about {
-  display: flex;
-  width: 100vw;
-  flex-direction: column;
-  align-content: center;
-}
-
-.margin {
-  margin: 16px 0 0 12%;
-}
-
-.header-line-margin {
-  margin: 8px 0 0 12%;
-  background: #4E2B84;
-  height: 1px;
-  width: 86px;
-}
-
-.about-content {
-  width: 100vw;
-}
-
-.about-team {
-  width: 100%;
-  padding: 16px 12%;
-}
-
-.team-member {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  max-width: 200px;
-  margin: 8px 32px;
-}
-
-.team-photo {
-  width: 120px;
-  height: 120px;
-  border-radius: 50%;
-  box-shadow: 0 3px 6px rgba(0, 0, 0, .16);
-}
-
-.subtext {
-  font-size: 1.2em;
-}
-
-#team-photos {
-  display: flex;
-  width: 100vw;
-  padding: 8px 12%;
 }
 
 @keyframes loaderAnim {

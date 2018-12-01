@@ -11,6 +11,8 @@ import {
   Redirect,
 } from 'react-router-dom';
 
+import MaterialIcon from 'react-google-material-icons';
+
 import AuthService from '../services/AuthService';
 import FetchService from '../services/FetchService';
 
@@ -30,7 +32,6 @@ import linkedInLogo from '../images/linkedIn.png';
 import facebookLogo from '../images/facebook.png';
 
 import BookPost from '../components/BookPost/BookPost';
-import MaterialIcon from 'react-google-material-icons';
 
 class LandingPage extends Component {
   constructor() {
@@ -152,10 +153,12 @@ class LandingPage extends Component {
               <h2 className="landing-header-title">Our Product</h2>
               <div className="header-line-landing" />
               <p className="landing-para">
-                Because we care about you, we have built an easy-to-use system capable
-                of providing you with the textbooks you need as fast as possible.
-                In order to make this dream a reality we take a small share of every
-                transaction to keep our servers running.
+              At BarterOut, we know textbooks can get very expensive and
+              finding second-hand ones can be a hassle. That&apos;s why we make
+              it easier for your students to get their books and go to class, all
+              with just a couple clicks on our platform. We empower forward thinking
+              universities, just like yours, to set up textbooks exchanges
+              for their students using our customisable software.
               </p>
             </div>
             <div className="img-content right">
