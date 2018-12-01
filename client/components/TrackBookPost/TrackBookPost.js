@@ -23,7 +23,7 @@ class TrackBookPost extends Component {
           <span className="bookName">{this.props.name}</span>
           <span className="bookEdition">{moment.unix(this.props.date / 1000).format('L')}</span>
         </div>
-        <div id="vertical-line" />
+        <div className="vertical-line" />
         <div className="leftBP">
           <div>
             <span className="condition">{this.props.condition}</span>

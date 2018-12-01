@@ -48,7 +48,7 @@ class CartBookPost extends Component {
           <span className="bookName">{this.props.name}</span>
           <span className="bookEdition">Edition: {this.props.edition}</span>
         </div>
-        <div id="vertical-line" />
+        <div className="vertical-line" />
         <div className="leftBP">
           <div>
             <span className="condition">{this.props.condition}</span>
