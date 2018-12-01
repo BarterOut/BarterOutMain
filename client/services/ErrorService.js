@@ -11,6 +11,6 @@ export default class ErrorService {
    * @param {Object} error Error object from whatever context.
    */
   static parseError(error) {
-    console.error(error);
+    console.error(error); // eslint-disable-line
   }
 }

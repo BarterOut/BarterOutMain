@@ -11,7 +11,7 @@ import AuthService from '../../services/AuthService';
 import logo from '../../images/barterOutOrangeWhiteLogo.png';
 
 import './Login.css';
-import '../../baseStyles.css';
+import '../../barterout.css';
 
 class Login extends Component {
   constructor(props) {

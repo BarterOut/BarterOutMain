@@ -19,7 +19,7 @@ import ErrorService from '../../services/ErrorService';
 import BuyBook from '../../components/BuyBook/BuyBook';
 import Search from '../../components/Search/Search';
 
-import '../../baseStyles.css';
+import '../../barterout.css';
 
 class Buy extends Component {
   constructor() {

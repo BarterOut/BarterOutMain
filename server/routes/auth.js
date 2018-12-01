@@ -141,7 +141,7 @@ const transporter = nodemailer.createTransport({ // secure authentication
  * Creates an temporary (unconfirmed) account for a user.
  * @param {Object} req Request body from client.
  * @param {Object} res Body of HTTP response.
- * @returns {Number} Status code.
+ * @returns {Object} Standard API Repsonse.
  */
 router.post('/signup', (req, res) => {
   const {
@@ -269,7 +269,7 @@ router.post('/updateProfile', (req, res) => {
  * text password to be sent, will be hashed inside of the function.
  * @param {Object} req Request body from client.
  * @param {Object} res Body of HTTP response.
- * @returns {Object} Standard Response.
+ * @returns {Object} Standard API Response.
  */
 router.post('/updatePassword', (req, res) => {
   jwt.verify(req.body.data.token, 'secretKey', (error, authData) => {
@@ -319,7 +319,7 @@ router.post('/updatePassword', (req, res) => {
  * this token is verified by the another API call.
  * @param {Object} req Request body from client.
  * @param {Object} res Body of HTTP response.
- * @returns {Object} Standard Response.
+ * @returns {Object} Standard API Response.
  */
 router.post('/passwordResetRequest', (req, res) => {
   const email = req.body.data.emailAddress;
@@ -354,6 +354,13 @@ router.post('/passwordResetRequest', (req, res) => {
 });
 
 // TODO: remove redirect
+/**
+ * Route from redirect of password reset request.
+ * This is the link they click in the email.
+ * @param {Object} req Request body from client.
+ * @param {Object} res Body of HTTP response.
+ * @returns {Object} Standard API Response.
+ */
 router.get('/passwordReset/:token', (req, res) => {
   User.findOne({ resetPasswordToken: req.params.token }, (err, user) => {
     if (!user) {
@@ -364,6 +371,13 @@ router.get('/passwordReset/:token', (req, res) => {
   });
 });
 
+/**
+ * Request sent from link page use is taken to
+ * after forgetting their password.
+ * @param {Object} req Request body from client.
+ * @param {Object} res Body of HTTP response.
+ * @returns {Object} Standard API Response.
+ */
 router.post('/passwordReset/', (req, res) => {
   User.findOne(
     {

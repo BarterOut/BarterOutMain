@@ -8,7 +8,7 @@ import React, { Component } from 'react';
 import FetchService from '../../services/FetchService';
 import AuthService from '../../services/AuthService';
 
-import '../../baseStyles.css';
+import '../../barterout.css';
 
 class SellBook extends Component {
   constructor() {

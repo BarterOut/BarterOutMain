@@ -13,7 +13,7 @@ import MaterialIcon from 'react-google-material-icons';
 import FetchService from '../../services/FetchService';
 import AuthService from '../../services/AuthService';
 
-import '../../baseStyles.css';
+import '../../barterout.css';
 
 import './SideNav.css';
 

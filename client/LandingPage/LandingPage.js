@@ -15,6 +15,7 @@ import MaterialIcon from 'react-google-material-icons';
 
 import AuthService from '../services/AuthService';
 import FetchService from '../services/FetchService';
+import ErrorService from '../services/ErrorService';
 
 import './landingpage.css';
 import '../res/sylesheetOrkneyRegular.css';
@@ -43,6 +44,7 @@ class LandingPage extends Component {
     };
     this.Auth = new AuthService();
     this.updateInputValue = this.updateInputValue.bind(this);
+    this.scrollAnimation = this.scrollAnimation.bind(this);
   }
 
   componentDidMount() {
@@ -65,7 +67,7 @@ class LandingPage extends Component {
         this.setState({ loading: false });
         this.setState({ posts: data });
       })
-      .catch(err => console.warn(err));
+      .catch(error => ErrorService.parseError(error));
   }
 
   updateInputValue(evt) {
@@ -82,7 +84,7 @@ class LandingPage extends Component {
           this.setState({ loading: false });
           this.setState({ posts: data });
         })
-        .catch(err => console.warn(err));
+        .catch(error => ErrorService.parseError(error));
       return;
     }
 
@@ -92,7 +94,15 @@ class LandingPage extends Component {
         this.setState({ loading: false });
         this.setState({ posts: data });
       })
-      .catch(err => console.error(err));
+      .catch(error => ErrorService.parseError(error));
+  }
+
+  scrollAnimation() {
+    // TODO; maybe adjust this number
+    window.scrollTo({
+      top: 750,
+      behavior: 'smooth',
+    });
   }
 
   render() {
@@ -104,7 +114,7 @@ class LandingPage extends Component {
       <div className="app">
         <div className="landingpage">
           <div className="photo-bg">
-            <div id="scroll-down">
+            <div id="scroll-down" onClick={this.scrollAnimation} onKeyDown={this.scrollAnimation}>
               <MaterialIcon icon="expand_more" size={28} />
             </div>
             <nav className="headerBar animated slideInDown">

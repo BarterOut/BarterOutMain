@@ -11,7 +11,7 @@ import MaterialIcon from 'react-google-material-icons';
 
 import AuthService from '../../services/AuthService';
 
-import '../../baseStyles.css';
+import '../../barterout.css';
 import './TopBar.css';
 
 class TopBar extends Component {
