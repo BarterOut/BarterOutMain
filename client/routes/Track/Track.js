@@ -34,7 +34,6 @@ class Track extends Component {
 
   getRequestedBooks() {
     FetchService.GET(`/api/user/getRequests/${this.auth.getToken()}`)
-      .then(response => response.json())
       .then((data) => {
         this.setState({ booksRequested: data });
       });
@@ -42,7 +41,6 @@ class Track extends Component {
 
   getPurchasedBooks() {
     FetchService.GET(`/api/user/getPurchasedBooks/${this.auth.getToken()}`)
-      .then(response => response.json())
       .then((data) => {
         data.sort((a, b) => {
           if (a.date < b.date) {
@@ -59,7 +57,6 @@ class Track extends Component {
 
   getSoldBooks() {
     FetchService.GET(`/api/user/getSoldBooks/${this.auth.getToken()}`)
-      .then(response => response.json())
       .then((data) => {
         data.sort((a, b) => {
           if (a.date < b.date) {

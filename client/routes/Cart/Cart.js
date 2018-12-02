@@ -35,7 +35,6 @@ class Cart extends Component {
     this.getUserData();
 
     FetchService.GET(`/api/user/getCartItems/${this.AUTH.getToken()}`)
-      .then(response => response.json())
       .then((data) => {
         this._updateItems(data);
       });
@@ -43,7 +42,6 @@ class Cart extends Component {
 
   getUserData() {
     FetchService.GET(`/api/user/getUserData/${this.AUTH.getToken()}`)
-      .then(response => response.json())
       .then((data) => {
         this.setState({ venmo: data.user.venmoUsername });
         this.setState({ CMC: data.user.CMC });

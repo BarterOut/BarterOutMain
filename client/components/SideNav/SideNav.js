@@ -40,7 +40,6 @@ class SideNav extends Component {
     if (!sessionStorage.getItem('name')) {
       const AUTH = new AuthService();
       FetchService.GET(`/api/user/getUserData/${AUTH.getToken()}`)
-        .then(response => response.json())
         .then((data) => {
           sessionStorage.setItem('name', `${data.user.firstName} ${data.user.lastName}`);
           this.setState({ name: `${data.user.firstName} ${data.user.lastName}` });

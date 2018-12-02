@@ -38,7 +38,6 @@ class Home extends Component {
 
   getMatches() {
     FetchService.GET(`/api/books/getUserMatches/${this.Auth.getToken()}`)
-      .then(response => response.json())
       .then((data) => {
         this.setState({ matches: data });
       });
@@ -46,15 +45,14 @@ class Home extends Component {
 
   getNotifications() {
     FetchService.GET(`/api/user/getNotifications/${this.Auth.getToken()}`)
-      .then(response => response.json())
       .then((data) => {
+        console.log(data); // eslint-disable-line
         this.setState({ notifications: data });
       });
   }
 
   getUserStatistics() {
     FetchService.GET(`/api/user/getUserStatistics/${this.Auth.getToken()}`)
-      .then(response => response.json())
       .then((data) => {
         this.setState({ numberOfBooksBought: data.numberOfBooksBought });
         this.setState({ numberOfBooksSold: data.numberOfBooksSold });
