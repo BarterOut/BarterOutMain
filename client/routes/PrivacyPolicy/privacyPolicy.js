@@ -82,9 +82,7 @@ const PrivacyPolicy = () => (
     <div className="footer">
       <div className="bottomLinksCol">
         <div className="bottomLinkHeader">Company</div>
-        <a href="/about" className="bottomPageLink">Team</a>
-        <br />
-        <a href="/" className="bottomPageLink">Mission</a>
+        <a href="/about" className="bottomPageLink">About</a>
         <br />
         <a href="/careers" className="bottomPageLink">Careers</a>
         <br />
