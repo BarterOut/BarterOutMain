@@ -13,6 +13,7 @@ import Transactions from '../models/transaction';
 // JWT and Express
 const jwt = require('jsonwebtoken');
 const express = require('express');
+import response from '../response';
 
 const router = express.Router();
 
@@ -41,7 +42,7 @@ router.get('/getPurchasedBooks/:token', (req, res) => {
           res.status(401).send({ error: 'You need to create an account' });
         } else if (authData.userInfo.permissionType === 1) {
           Textbook.find({ status: 2 }, (err, books) => {
-            res.status(200).json(sortReverseCronological(books));
+            res.status(200).json(response('/getPurchasedBooks/:token', sortReverseCronological(books)));
           });
         } else {
           res.sendStatus(401);
@@ -69,7 +70,7 @@ router.get('/getBooksStatus1/:token', (req, res) => {
           res.status(401).send({ error: 'You need to create an account' });
         } else if (authData.userInfo.permissionType === 1) {
           Textbook.find({ status: 1 }, (err, books) => {
-            res.status(200).json(sortReverseCronological(books));
+            res.status(200).json(response('/getBooksStatus1/:token', sortReverseCronological(books)));
           });
         } else {
           res.sendStatus(401);
@@ -95,7 +96,7 @@ router.get('/getBooksStatus2/:token', (req, res) => {
           res.status(401).send({ error: 'You need to create an account' });
         } else if (authData.userInfo.permissionType === 1) {
           Textbook.find({ status: 2 }, (err, books) => {
-            res.status(200).json(sortReverseCronological(books));
+            res.status(200).json(response('/getBooksStatus2/:token', sortReverseCronological(books)));
           });
         } else {
           res.sendStatus(401);
@@ -122,7 +123,7 @@ router.get('/getBooksStatus3/:token', (req, res) => {
           res.status(401).send({ error: 'You need to create an account' });
         } else if (authData.userInfo.permissionType === 1) {
           Textbook.find({ status: 3 }, (err, books) => {
-            res.status(200).json(sortReverseCronological(books));
+            res.status(200).json(response('/getBooksStatus3/:token', sortReverseCronological(books)));
           });
         } else {
           res.sendStatus(401);
@@ -150,7 +151,7 @@ router.get('/getStatistics/:token/', (req, res) => {
 
         Textbook.count({}, (error, count) => {
           totalBooks = count;
-          res.status(200).json({ totalUsers, totalBooks });
+          res.status(200).json(response('/getStatistics/:token', { totalUsers, totalBooks }));
         });
       });
     } else {
@@ -177,7 +178,7 @@ router.get('/getUsers/:token', (req, res) => {
           User.find({}, {
             password: 0, resetPasswordToken: 0, resetPasswordExpires: 0, notifications: 0, cart: 0,
           }, (err, users) => {
-            res.status(200).json(users);
+            res.status(200).json(response('/getUsers/:token', users));
           });
         } else {
           res.sendStatus(401);
@@ -213,7 +214,7 @@ router.post('/extendBookInfo', (req, res) => {
           }
           output.push(newBook);
         }
-        res.status(200).json(output);
+        res.status(200).json(response('/extendedBookInfo', output));
       });
     } else {
       res.sendStatus(401);
@@ -295,7 +296,7 @@ router.get('/getCompletedBooks/:token', (req, res) => {
           Textbook.find({
             status: 4, // Finds all of the books of status 4 (completed)
           }, (err, books) => {
-            res.status(200).json(sortReverseCronological(books));
+            res.status(200).json(response('/getCompletedBooks/:token', sortReverseCronological(books)));
           });
         } else {
           res.redirect('/home');
@@ -318,10 +319,10 @@ router.get('/getInProcessBooks/:token', (req, res) => {
           Textbook.find({
             status: { $lt: 4 }, // Finds all of the books of status 4 (completed)
           }, (err, books) => {
-            res.status(200).json(sortReverseCronological(books));
+            res.status(200).json(response('/getInProcessBooks/:token', sortReverseCronological(books)));
           });
         } else {
-          res.redirect('/home');
+          res.redirect('/home'); // TODO remove redirect
         }
       });
     }
@@ -383,7 +384,7 @@ router.get('/getPendingTransactions/:token/', (req, res) => {
           Transactions.find({
             status: 0, // Finds all of the transactions of status 0 (pending)
           }, (err, transactionList) => {
-            res.status(200).json(sortReverseCronological(transactionList));
+            res.status(200).json(response('/getPendingTransactions/:token/', sortReverseCronological(transactionList)));
           });
         } else {
           res.sendStatus(403);
@@ -413,10 +414,10 @@ router.get('/getAllTransactions/:token/', (req, res) => {
           // check if permission is 1 where 1 is admin but that will be for later
           Transactions.find({
           }, (err, transactionList) => {
-            res.status(200).json(sortReverseCronological(transactionList));
+            res.status(200).json(response('/getAllTransactions/:token/', sortReverseCronological(transactionList)));
           });
         } else {
-          res.redirect('/home');
+          res.redirect('/home'); // TODO remove redirect
         }
       });
     }
@@ -442,7 +443,7 @@ router.get('/getCompletedTransactions/:token/', (req, res) => {
           Transactions.find({
             status: 1,
           }, (err, transactionList) => {
-            res.status(200).json(sortReverseCronological(transactionList));
+            res.status(200).json(response('/getCompletedTransactions/:token/', sortReverseCronological(transactionList)));
           });
         } else {
           res.sendStatus(403);
@@ -465,10 +466,10 @@ router.get('/getPendingSpecificPendingTransaction/:token/', (req, res) => {
           Transactions.find({
             status: 1,
           }, (err, transactionList) => {
-            res.status(200).json(sortReverseCronological(transactionList));
+            res.status(200).json(response('/getPendingSpecificPendingTransaction/:token/', sortReverseCronological(transactionList)));
           });
         } else {
-          res.redirect('/home');
+          res.redirect('/home'); // Todo remove redirect
         }
       });
     }
@@ -521,7 +522,7 @@ router.get('/getTransactionsByName/:token/:firstName/:LastName', (req, res) => {
               { buyerLastName: req.params.lastName },
             ],
           }, (err, transactions) => {
-            res.json(sortReverseCronological(transactions));
+            res.json(response('/getTransactionsByName/:token/:firstName/:LastName', sortReverseCronological(transactions)));
           });
         } else {
           res.sendStatus(403);
@@ -571,9 +572,9 @@ router.get('/permissionLv/:token', (req, res) => {
         if (!user) {
           res.status(401).send({ error: 'You need to create an account' });
         } else if (authData.userInfo.permissionType === 1) {
-          res.sendStatus(200).json({ permissionType: 1 });
+          res.sendStatus(200).json(response('/permissionLv/:token', { permissionType: 1 }));
         } else {
-          res.json({ permissionType: 0 });
+          res.json(response('/permissionLv/:token', { permissionType: 0 }));
         }
       });
     }

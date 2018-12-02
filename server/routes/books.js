@@ -15,6 +15,7 @@ import Pricing from '../pricing';
 const express = require('express');
 
 const router = express.Router();
+import response from '../response';
 
 const nodemailer = require('nodemailer');
 const emails = require('../emails/emailFunctions');
@@ -133,7 +134,7 @@ router.post('/postBook/:token', (req, res) => {
                   );
                   User.find({ _id: bookMatched.owner }, (errr, userToEmail) => {
                     if (userToEmail[0] == null) {
-                      res.redirect('/home');
+                      res.redirect('/home');//TODO eliminate this redirect
                       return;
                     }
                     const email = userToEmail[0].emailAddress;
@@ -361,7 +362,7 @@ router.get('/getUserMatches/:token', (req, res) => {
               }
               bookObjects = books;
               // console.log(bookObjects);
-              res.status(200).json(bookObjects);
+              res.status(200).json(response('/getUserMatches', bookObjects));
             });
           });
         }
@@ -398,7 +399,7 @@ router.get('/search/:query/:token', (req, res) => {
             },
           ],
         }, (err, books) => {
-          res.status(200).json(books);
+          res.status(200).json(response('/serach/:query/:token', books));
         });
       } else {
         Textbook.find({
@@ -415,7 +416,7 @@ router.get('/search/:query/:token', (req, res) => {
             },
           ],
         }, (err, books) => {
-          res.status(200).json(books);
+          res.status(200).json(response('/serach/:query/:token', books));
         });
       }
     }
@@ -443,7 +444,7 @@ router.get('/getUsersPosts/:token', (req, res) => {
         books.forEach((book) => {
           bookMap.push(book);
         });
-        res.status(200).json(bookMap);
+        res.status(200).json(response('/getUsersPosts/:token', bookMap));
       });
     }
   });
@@ -506,7 +507,7 @@ router.get('/getAllBooks/:token', (req, res) => {
                 }
               }
               // console.log(books);
-              res.status(200).json(sortBooksReverseCronological(books));
+              res.status(200).json(response('/getAllBooks/:token', sortBooksReverseCronological(books)));
             });
           });
         }

@@ -8,6 +8,8 @@
 import Textbook from '../models/textbook';
 import TextbookBuy from '../models/textbookBuy';
 import User from '../models/user';
+import response from '../response';
+
 
 const jwt = require('jsonwebtoken');
 const express = require('express');
@@ -70,7 +72,7 @@ router.get('/getCartItems/:token', (req, res) => {
         const bookIDs = user.cart;
         Textbook.find({ $and: [{ _id: { $in: bookIDs } }, { status: 0 }] }, (error, books) => {
           itemsInCart = books;
-          res.status(200).json(itemsInCart);
+          res.status(200).json(response('/getCartItems', itemsInCart));
         });
       });
     }
@@ -99,7 +101,7 @@ router.post('/addToCart', (req, res) => {
           },
         }, (er) => {
           if (er) {
-            res.status(400).json(er);
+            res.status(400).json((response('/addToCart', { er }))); //TODO change response to be status 400
           }
         },
       );
@@ -134,7 +136,7 @@ router.post('/removeFromCart', (req, res) => {
               },
           }, (err) => {
             if (err) {
-              res.status(400).json(err);
+              res.status(400).json(response('/addToCart', { err }));
             }
             res.sendStatus(200);
           },
@@ -184,7 +186,7 @@ router.get('/getPurchasedBooks/:token', (req, res) => {
       Textbook.find({
         $and: [{ status: { $ne: 0 } }, { buyer: authData.userInfo._id }],
       }, (err, booksFound) => {
-        res.status(200).json(booksFound);
+        res.status(200).json(response('/getPurchasedBooks/', booksFound));
       });
     }
   });
@@ -204,7 +206,7 @@ router.get('/getSoldBooks/:token', (req, res) => {
       Textbook.find({
         $and: [{ status: { $ne: 0 } }, { owner: authData.userInfo._id }],
       }, (err, booksFound) => {
-        res.status(200).json(booksFound);
+        res.status(200).json(response('/getSoldBooks/', booksFound));
       });
     }
   });
@@ -222,7 +224,7 @@ router.get('/getNotifications/:token', (req, res) => {
       res.sendStatus(401);
     } else {
       User.findOne({ _id: authData.userInfo._id }, (err, user) => {
-        res.status(200).json(user.notifications);
+        res.status(200).json(response('/getNotifications/', user.notifications));
       });
     }
   });
@@ -241,11 +243,11 @@ router.get('/getUserStatistics/:token', (req, res) => {
       res.sendStatus(401);
     } else {
       User.findOne({ _id: authData.userInfo._id }, (err, user) => {
-        res.status(200).json({
+        res.status(200).json(response('/getUserStatistics/:token', {
           numberOfBooksBought: user.numberOfBooksBought,
           numberOfBooksSold: user.numberOfBooksSold,
           moneyMade: user.moneyMade,
-        });
+        }));
       });
     }
   });
@@ -270,9 +272,9 @@ router.get('/getUserData/:token', (req, res) => {
             lastName: user.lastName,
             matchedBooks: user.matchedBooks,
           };
-          res.status(200).json({
+          res.status(200).json(response('/getUserData/:token', {
             user: returnUser,
-          });
+          }));
         }
       });
     }
@@ -324,7 +326,7 @@ router.get('/getRequests/:token', (req, res) => {
         if (error) {
           res.sendStatus(400);
         } else {
-          res.status(200).json(books);
+          res.status(200).json(response('/getRequests/:token', books));
         }
       });
     }

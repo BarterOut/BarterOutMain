@@ -16,6 +16,7 @@ function response(method, data) {
       date: Date.now(),
       method,
       responseType: 'JSON',
+      status: 200, // default response can be 200
     },
     data,
   };
