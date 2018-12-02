@@ -45,7 +45,7 @@ export default class FetchService {
         if (!FetchService._checkStatus(res)) {
           return Promise.reject(new Error(`Bad Status Code ${res.status}`));
         }
-        return Promise.resolve(res);
+        return res.json().then(obj => Promise.resolve(obj.data));
       });
   }
 
