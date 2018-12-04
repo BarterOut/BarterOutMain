@@ -1,6 +1,7 @@
 .content {
   display: flex;
-  width: 55vw;
+  width: 70vw;
+  max-width: 750px;
   margin: 32px auto;
   flex-direction: column;
   align-content: center;
@@ -8,8 +9,8 @@
 
 .header-line {
   background: #4E2B84;
-  height: 2px;
-  width: 72px;
+  height: 1px;
+  width: 86px;
   margin: 0 8px 8px 8px;
 }
 

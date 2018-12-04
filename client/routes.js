@@ -12,7 +12,7 @@ import LandingPage from './LandingPage/LandingPage';
 import SignUp from './routes/SignUp/SignUp';
 import Login from './routes/Login/Login';
 
-import Home from './Home/Home';
+import Home from './routes/Home/Home';
 import Buy from './routes/Buy/Buy';
 import Sell from './routes/Sell/Sell';
 import Track from './routes/Track/Track';
@@ -25,7 +25,7 @@ import TermsOfService from './routes/TermsOfService/termsOfService';
 import PrivacyPolicy from './routes/PrivacyPolicy/privacyPolicy';
 import Contact from './routes/Contact/contact';
 import Careers from './routes/Careers/careers';
-
+import About from './routes/About/About';
 
 import ForgotPassword from './routes/ForgotPassword/ForgotPassword';
 import ForgotPasswordSuccess from './routes/ForgotPassword/ForgotPasswordSuccess';
@@ -37,7 +37,6 @@ import DashboardHome from './Dashboard/Home/DashboardHome';
 import Dashboard from './Dashboard/Dashboard';
 
 import page404 from './routes/page404/page404';
-
 
 const PrivateRoute = ({ component: Component, rest }) => {
   const auth = new AuthService();
@@ -52,7 +51,6 @@ const PrivateRoute = ({ component: Component, rest }) => {
     />
   );
 };
-
 
 const DashboardRoute = ({ component: Component, rest }) => {
   const auth = new AuthService();
@@ -75,6 +73,7 @@ export default (
     <Route exact path="/privacyPolicy" component={PrivacyPolicy} />
     <Route exact path="/contact" component={Contact} />
     <Route exact path="/careers" component={Careers} />
+    <Route exact path="/About" component={About} />
     <Route path="/resetPassword/:resetToken" component={ResetPassword} />
     <PrivateRoute exact path="/home" component={Home} />
     <Route exact path="/login" component={Login} />

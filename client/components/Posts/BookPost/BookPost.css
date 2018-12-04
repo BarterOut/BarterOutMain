@@ -13,15 +13,33 @@
   padding: 8px 16px;
 }
 
+.rightBP {
+  display: flex;
+  align-self: auto;
+  width: 33%;
+  height: 100%;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-end;
+}
+
 .leftBP {
   display: flex;
-  flex-grow: 3;
+  width: 33%;
   height: 100%;
   flex-direction: column;
   justify-content: flex-start;
 }
 
-#vertical-line {
+.middleBP {
+  display: flex;
+  width: 33%;
+  height: 100%;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.vertical-line {
   width: 1px;
   height: 85px;
   background: grey;
@@ -30,16 +48,6 @@
 
 span {
   margin: 0 4px;
-}
-
-.rightBP {
-  display: flex;
-  align-self: auto;
-  flex-grow: 3;
-  height: 100%;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-end;
 }
 
 .bookName {
@@ -58,8 +66,9 @@ span {
 }
 
 .condition {
-  color: #FF8D00;
+  color: #41397c;
   font-size: 1.2em;
+  font-weight: bold;
 }
 
 .price {
@@ -99,4 +108,16 @@ span {
 
 .green {
   background: green;
+}
+
+@media only screen and (max-width: 600px) {
+  .middleBP {
+    display: none;
+  }
+  .rightBP, .leftBP {
+    width: 50%;
+  }
+  .comments {
+    display: none;
+  }
 }

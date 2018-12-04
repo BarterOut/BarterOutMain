@@ -10,15 +10,16 @@ import ReactModal from 'react-modal';
 
 import SideNav from '../../components/SideNav/SideNav';
 import TopBar from '../../components/TopBar/TopBar';
-import BookPost from '../../components/BookPost/BookPost';
+import BookPost from '../../components/Posts/BookPost/BookPost';
 
 import FetchService from '../../services/FetchService';
 import AuthService from '../../services/AuthService';
+import ErrorService from '../../services/ErrorService';
 
 import BuyBook from '../../components/BuyBook/BuyBook';
 import Search from '../../components/Search/Search';
 
-import '../../baseStyles.css';
+import '../../barterout.css';
 
 class Buy extends Component {
   constructor() {
@@ -73,7 +74,7 @@ class Buy extends Component {
           this.setState({ loading: false });
           this.setState({ posts: data });
         })
-        .catch(err => console.warn(err));
+        .catch(err => ErrorService.parseError(err));
       return;
     }
 
@@ -83,7 +84,7 @@ class Buy extends Component {
         this.setState({ loading: false });
         this.setState({ posts: data });
       })
-      .catch(err => console.error(err));
+      .catch(err => ErrorService.parseError(err));
   }
 
   render() {
@@ -128,7 +129,7 @@ class Buy extends Component {
               }
               {
                 this.state.posts.length == 0 &&
-                <h4 id="no-res">No Results for Query<br />Please request book below.</h4>
+                <h4 id="no-results">No Results for Query<br />Please request book below.</h4>
               }
               {posts.map(post => (
                 <BookPost

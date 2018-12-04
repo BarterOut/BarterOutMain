@@ -25,16 +25,10 @@ import kittens from './kittens/kitten';
 
 const sslRedirect = require('heroku-ssl-redirect');
 
-// Auth Route
+// API Routes
 const auth = require('./routes/auth');
-
-// User Route
 const user = require('./routes/user');
-
-// Books Route
 const books = require('./routes/books');
-
-// Dashboard Route
 const dashboard = require('./routes/dashboard');
 
 const AirbrakeClient = require('airbrake-js');

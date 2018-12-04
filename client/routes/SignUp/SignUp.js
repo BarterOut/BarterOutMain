@@ -11,7 +11,7 @@ import FetchService from '../../services/FetchService';
 import logo from '../../images/barterOutOrangeWhiteLogo.png';
 
 import './SignUp.css';
-import '../../baseStyles.css';
+import '../../barterout.css';
 
 class SignUp extends Component {
   constructor(props) {

@@ -8,8 +8,8 @@ import React, { Component } from 'react';
 import propTypes from 'prop-types';
 import moment from 'moment';
 
-import FetchService from '../../services/FetchService';
-import AuthService from '../../services/AuthService';
+import FetchService from '../../../services/FetchService';
+import AuthService from '../../../services/AuthService';
 
 class RequestBookPost extends Component {
   constructor(props) {
@@ -49,7 +49,7 @@ class RequestBookPost extends Component {
           <span className="bookName">{this.props.name}</span>
           <span className="bookEdition">{moment.unix(this.props.date / 1000).format('L')}</span>
         </div>
-        <div id="vertical-line" />
+        <div className="vertical-line" />
         <div className="leftBP" />
         <div className="rightBP">
           <button
