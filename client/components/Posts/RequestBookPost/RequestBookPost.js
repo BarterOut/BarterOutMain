@@ -1,16 +1,17 @@
 /**
- * @file React component for a textbook posting on the webapp.
+ * @file React component for a textbook posting of a requested book.
  * @author Duncan Grubbs <duncan.grubbs@gmail.com>
  * @version 0.0.4
  */
 
 import React, { Component } from 'react';
 import propTypes from 'prop-types';
+import moment from 'moment';
 
-import FetchService from '../../services/FetchService';
-import AuthService from '../../services/AuthService';
+import FetchService from '../../../services/FetchService';
+import AuthService from '../../../services/AuthService';
 
-class PersonalBookPost extends Component {
+class RequestBookPost extends Component {
   constructor(props) {
     super(props);
 
@@ -31,7 +32,7 @@ class PersonalBookPost extends Component {
 
   deleteBook() {
     const AUTH = new AuthService();
-    FetchService.POST('/api/books/deleteBook', {
+    FetchService.POST('/api/user/deleteRequest', {
       bookID: this.state.id,
       token: AUTH.getToken(),
     })
@@ -46,21 +47,15 @@ class PersonalBookPost extends Component {
         <div className="leftBP">
           <span className="bookSubject">{this.props.subject}</span>
           <span className="bookName">{this.props.name}</span>
-          <span className="bookEdition">Edition: {this.props.edition}</span>
+          <span className="bookEdition">{moment.unix(this.props.date / 1000).format('L')}</span>
         </div>
         <div className="vertical-line" />
-        <div className="leftBP">
-          <div>
-            <span className="condition">{this.props.condition}</span>
-             for <span className="price">${this.props.price}</span>
-          </div>
-          <span className="comments"><i>{this.props.comments || 'No comments'}</i></span>
-        </div>
+        <div className="leftBP" />
         <div className="rightBP">
           <button
             className="button"
             onClick={this.deleteBook}
-          >Remove
+          >Unrequest
           </button>
         </div>
       </div>
@@ -69,14 +64,11 @@ class PersonalBookPost extends Component {
 }
 
 // Props validation
-PersonalBookPost.propTypes = {
-  comments: propTypes.string,
-  condition: propTypes.string.isRequired,
-  edition: propTypes.number.isRequired,
+RequestBookPost.propTypes = {
+  date: propTypes.number.isRequired,
   id: propTypes.string.isRequired,
   name: propTypes.string.isRequired,
-  price: propTypes.number.isRequired,
   subject: propTypes.string.isRequired,
 };
 
-export default PersonalBookPost;
+export default RequestBookPost;

@@ -32,7 +32,7 @@ import picThree from '../images/outdoorsCompressed.jpg';
 import linkedInLogo from '../images/linkedIn.png';
 import facebookLogo from '../images/facebook.png';
 
-import BookPost from '../components/BookPost/BookPost';
+import LandingBookPost from '../components/Posts/LandingBookPost/LandingBookPost';
 
 class LandingPage extends Component {
   constructor() {
@@ -141,7 +141,7 @@ class LandingPage extends Component {
                     <div className="loading" />
                   }
                   {this.state.posts.map(post => (
-                    <BookPost
+                    <LandingBookPost
                       key={post._id}
                       id={post._id}
                       name={post.name}

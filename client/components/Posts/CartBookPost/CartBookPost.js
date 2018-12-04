@@ -7,40 +7,36 @@
 import React, { Component } from 'react';
 import propTypes from 'prop-types';
 
-import FetchService from '../../services/FetchService';
-import AuthService from '../../services/AuthService';
+import FetchService from '../../../services/FetchService';
+import AuthService from '../../../services/AuthService';
 
-import './BookPost.css';
-
-class BookPost extends Component {
+class CartBookPost extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      inCart: false,
+      id: '',
     };
 
-    this.addToCart = this.addToCart.bind(this);
+    this.removeFromCart = this.removeFromCart.bind(this);
   }
 
   componentDidMount() {
-    if (this.props.status === 42) {
-      this._setInCart();
-    }
+    this._setID();
   }
 
-  _setInCart() {
-    this.setState({ inCart: true });
+  _setID() {
+    this.setState({ id: this.props.id });
   }
 
-  addToCart() {
+  removeFromCart() {
     const AUTH = new AuthService();
-    FetchService.POST('/api/user/addToCart', {
+    FetchService.POST('/api/user/removeFromCart', {
+      bookID: this.state.id,
       token: AUTH.getToken(),
-      bookID: this.props.id,
     })
       .then(() => {
-        this.setState({ inCart: true });
+        window.location.reload();
       });
   }
 
@@ -56,26 +52,16 @@ class BookPost extends Component {
         <div className="leftBP">
           <div>
             <span className="condition">{this.props.condition}</span>
-             for <span className="price">${this.props.price}</span>
+             - <span className="price">${this.props.price}</span>
           </div>
           <span className="comments"><i>{this.props.comments || 'No comments'}</i></span>
         </div>
         <div className="rightBP">
-          {
-            !this.state.inCart &&
-            <button
-              className="button"
-              onClick={this.addToCart}
-            >Add to Cart
-            </button>
-          }
-          {
-            this.state.inCart &&
-            <button
-              className="button green"
-            >Added to Cart
-            </button>
-          }
+          <button
+            className="button"
+            onClick={this.removeFromCart}
+          >Remove
+          </button>
         </div>
       </div>
     );
@@ -83,15 +69,14 @@ class BookPost extends Component {
 }
 
 // Props validation
-BookPost.propTypes = {
+CartBookPost.propTypes = {
   comments: propTypes.string,
   condition: propTypes.string.isRequired,
   edition: propTypes.number.isRequired,
   id: propTypes.string.isRequired,
   name: propTypes.string.isRequired,
   price: propTypes.number.isRequired,
-  status: propTypes.number,
   subject: propTypes.string.isRequired,
 };
 
-export default BookPost;
+export default CartBookPost;

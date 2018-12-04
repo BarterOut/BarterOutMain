@@ -11,7 +11,7 @@ import FetchService from '../../services/FetchService';
 import AuthService from '../../services/AuthService';
 import ErrorService from '../../services/ErrorService';
 
-import BookPost from '../../components/BookPost/BookPost';
+import BookPost from '../../components/Posts/BookPost/BookPost';
 
 import './Search.css';
 import '../../barterout.css';

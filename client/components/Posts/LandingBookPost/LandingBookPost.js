@@ -1,14 +1,15 @@
 /**
- * @file React component for a textbook posting on the webapp.
+ * @file LandingBookPost.js
+ * @description React component for a textbook posting on the landing page.
  * @author Duncan Grubbs <duncan.grubbs@gmail.com>
  * @version 0.0.4
  */
 
 import React, { Component } from 'react';
-import moment from 'moment';
+import { Link } from 'react-router-dom';
 import propTypes from 'prop-types';
 
-class TrackBookPost extends Component {
+class LandingBookPost extends Component {
   constructor(props) {
     super(props);
 
@@ -21,16 +22,20 @@ class TrackBookPost extends Component {
         <div className="leftBP">
           <span className="bookSubject">{this.props.subject}</span>
           <span className="bookName">{this.props.name}</span>
-          <span className="bookEdition">{moment.unix(this.props.date / 1000).format('L')}</span>
+          <span className="bookEdition">Edition: {this.props.edition}</span>
         </div>
         <div className="vertical-line" />
-        <div className="leftBP">
+        <div className="middleBP">
+          <span className="comments"><i>{this.props.comments || 'No comments'}</i></span>
+        </div>
+        <div className="rightBP">
           <div>
             <span className="condition">{this.props.condition}</span>
-             for <span className="price">${this.props.price}</span>
+             - <span className="price">${this.props.price}</span>
           </div>
-          <span className="comments"><i>{this.props.comments || 'No comments'}</i></span>
-          <span className="comments"><i>{this.props.type}</i></span>
+          <Link to="/login" href="/login">
+            <button className="button">Add to Cart</button>
+          </Link>
         </div>
       </div>
     );
@@ -38,14 +43,13 @@ class TrackBookPost extends Component {
 }
 
 // Props validation
-TrackBookPost.propTypes = {
+LandingBookPost.propTypes = {
   comments: propTypes.string,
   condition: propTypes.string.isRequired,
-  date: propTypes.number.isRequired,
+  edition: propTypes.number.isRequired,
   name: propTypes.string.isRequired,
   price: propTypes.number.isRequired,
   subject: propTypes.string.isRequired,
-  type: propTypes.string.isRequired,
 };
 
-export default TrackBookPost;
+export default LandingBookPost;

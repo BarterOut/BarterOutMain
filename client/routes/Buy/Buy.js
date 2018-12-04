@@ -10,7 +10,7 @@ import ReactModal from 'react-modal';
 
 import SideNav from '../../components/SideNav/SideNav';
 import TopBar from '../../components/TopBar/TopBar';
-import BookPost from '../../components/BookPost/BookPost';
+import BookPost from '../../components/Posts/BookPost/BookPost';
 
 import FetchService from '../../services/FetchService';
 import AuthService from '../../services/AuthService';

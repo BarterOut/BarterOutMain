@@ -31,6 +31,14 @@
   justify-content: flex-start;
 }
 
+.middleBP {
+  display: flex;
+  width: 33%;
+  height: 100%;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
 .vertical-line {
   width: 1px;
   height: 85px;
@@ -100,4 +108,16 @@ span {
 
 .green {
   background: green;
+}
+
+@media only screen and (max-width: 600px) {
+  .middleBP {
+    display: none;
+  }
+  .rightBP, .leftBP {
+    width: 50%;
+  }
+  .comments {
+    display: none;
+  }
 }

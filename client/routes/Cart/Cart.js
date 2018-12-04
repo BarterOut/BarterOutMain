@@ -9,7 +9,7 @@ import { Link } from 'react-router-dom';
 
 import SideNav from '../../components/SideNav/SideNav';
 import TopBar from '../../components/TopBar/TopBar';
-import CartBookPost from '../../components/CartBookPost/CartBookPost';
+import CartBookPost from '../../components/Posts/CartBookPost/CartBookPost';
 
 import FetchService from '../../services/FetchService';
 import AuthService from '../../services/AuthService';
