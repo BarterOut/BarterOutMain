@@ -1,11 +1,12 @@
 /**
- * @file React component for landing page.
+ * @file About.js
+ * @description React component for about page.
  * @author Duncan Grubbs <duncan.grubbs@gmail.com>
- * @author Luis Nova
  * @version 0.0.4
  */
 
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import '../../res/sylesheetOrkneyRegular.css';
 import '../../res/sylesheetOrkneyLight.css';
@@ -38,24 +39,27 @@ import facebookLogo from '../../images/facebook.png';
 
 const About = () => (
   <div className="infowrapper">
-    <div className="bar">
-      <div className="left">
-        <a href="/"><img className="logo" src={logoPic} alt="logo" /></a>
+    <nav className="headerBar">
+      <div className="logo">
+        <a href="/" className="buttonLink"><img alt="logo" id="logoPic" src={logoPic} /></a>
       </div>
-    </div>
+      <div className="pageLinks">
+        <Link className="landingPageLink" to="/" href="/">Home</Link>
+        <Link className="landingPageLink" to="/about" href="/about">About</Link>
+        <Link className="landingPageLink" to="/login" href="/login">Login</Link>
+        <Link className="landingPageLink" to="/signup" href="/signup">Sign Up</Link>
+      </div>
+    </nav>
     <div className="content-about">
       <h1 className="text-header margin">About BarterOut</h1>
-      <div className="header-line-margin" />
+      <div className="header-line margin" />
       <div className="about-content">
         <div className="landing-section" id="product">
           <div className="text-content-landing left">
             <h2 className="landing-header-title">Our Story</h2>
             <div className="header-line-landing" />
             <p className="landing-para">
-              Because we care about you, we have built an easy-to-use system capable
-              of providing you with the textbooks you need as fast as possible.
-              In order to make this dream a reality we take a small share of every
-              transaction to keep our servers running.
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
             </p>
           </div>
           <div className="img-content right">
@@ -67,26 +71,18 @@ const About = () => (
             <img className="landing-img" src={stairs} alt="Group Meeting" />
           </div>
           <div className="text-content-landing right">
-            <h2 className="landing-header-title">Our About</h2>
+            <h2 className="landing-header-title">Our Mission</h2>
             <div className="header-line-landing" />
             <p className="landing-para">
-              Because we care about you, we have built an easy-to-use system capable
-              of providing you with the textbooks you need as fast as possible.
-              In order to make this dream a reality we take a small share of every
-              transaction to keep our servers running.
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
             </p>
           </div>
         </div>
         <h1 className="text-header margin">Meet Our Team</h1>
-        <div className="header-line-margin" />
+        <div className="header-line margin" />
         <p className="landing-para about-team">
-          Because we care about you, we have built an easy-to-use system capable
-          of providing you with the textbooks you need as fast as possible.
-          In order to make this dream a reality we take a small share of every
-          transaction to keep our servers running.
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
         </p>
-        <h3 className="text-header margin">Leadership</h3>
-        <div className="header-line-margin" />
         <div id="team-photos">
           <div className="team-member">
             <img className="team-photo" src={vlad} alt="Vlad" />
@@ -116,9 +112,6 @@ const About = () => (
             <h4 className="subtext2">UR &apos;21</h4>
           </div>
         </div>
-
-        <h3 className="text-header margin">Tech Team</h3>
-        <div className="header-line-margin" />
         <div id="team-photos">
           <div className="team-member">
             <img className="team-photo" src={shagun} alt="Shagun" />
@@ -148,9 +141,6 @@ const About = () => (
             <h4 className="subtext2">UR &apos;21</h4>
           </div>
         </div>
-
-        <h3 className="text-header margin">Marketing Team</h3>
-        <div className="header-line-margin" />
         <div id="team-photos">
           <div className="team-member">
             <img className="team-photo" src={zacqueline} alt="Zacqueline" />
@@ -173,9 +163,6 @@ const About = () => (
             <h4 className="subtext2">UR &apos;20</h4>
           </div>
         </div>
-
-        <h3 className="text-header margin">Advisors</h3>
-        <div className="header-line-margin" />
         <div id="team-photos">
           <div className="team-member">
             <img className="team-photo" src={adviserOne} alt="Elizabeth" />
@@ -189,8 +176,6 @@ const About = () => (
     <div className="footer">
       <div className="bottomLinksCol">
         <div className="bottomLinkHeader">Company</div>
-        
-        <br />
         <a href="/about" className="bottomPageLink">About</a>
         <br />
         <a href="/careers" className="bottomPageLink">Careers</a>

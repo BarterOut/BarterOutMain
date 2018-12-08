@@ -5,6 +5,7 @@
  */
 
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import '../../res/sylesheetOrkneyRegular.css';
 
@@ -15,11 +16,17 @@ import facebookLogo from '../../images/facebook.png';
 
 const TermsOfService = () => (
   <div className="infowrapper">
-    <div className="bar">
-      <div className="left">
-        <a href="/"><img className="logo" src={logoPic} alt="logo" /></a>
+    <nav className="headerBar">
+      <div className="logo">
+        <a href="/" className="buttonLink"><img alt="logo" id="logoPic" src={logoPic} /></a>
       </div>
-    </div>
+      <div className="pageLinks">
+        <Link className="landingPageLink" to="/" href="/">Home</Link>
+        <Link className="landingPageLink" to="/about" href="/about">About</Link>
+        <Link className="landingPageLink" to="/login" href="/login">Login</Link>
+        <Link className="landingPageLink" to="/signup" href="/signup">Sign Up</Link>
+      </div>
+    </nav>
     <div className="content">
       <h1 className="text-header">Terms of Service</h1>
       <div className="header-line" />

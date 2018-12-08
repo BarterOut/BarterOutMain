@@ -117,18 +117,18 @@ class LandingPage extends Component {
             <div id="scroll-down" onClick={this.scrollAnimation} onKeyDown={this.scrollAnimation}>
               <MaterialIcon icon="expand_more" size={28} />
             </div>
-            <nav className="headerBar animated slideInDown">
+            <nav className="headerBar">
               <div className="logo">
                 <a href="/" className="buttonLink"><img alt="logo" id="logoPic" src={logoPic} /></a>
               </div>
               <div className="pageLinks">
-                <a className="missionLink landingPageLink" href="#product">Our Product</a>
-                <a className="teamLink landingPageLink" href="/about">About</a>
-                <Link className="landingPageLink preRegisterLink" to="/login" href="/login">Login</Link>
-                <Link className="landingPageLink preRegisterLink" to="/signup" href="/signup">Sign Up</Link>
+                <Link className="landingPageLink" to="/" href="/">Home</Link>
+                <Link className="landingPageLink" to="/about" href="/about">About</Link>
+                <Link className="landingPageLink" to="/login" href="/login">Login</Link>
+                <Link className="landingPageLink" to="/signup" href="/signup">Sign Up</Link>
               </div>
             </nav>
-            <div className="mainText animated fadeIn" id="mainText">
+            <div className="mainText" id="mainText">
               <h1>
                 YOUR TEXTBOOKS, <br />
                 HASSLE-FREE
