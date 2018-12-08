@@ -109,7 +109,7 @@
   margin: 16px 0;
   box-shadow: 3px 18px 20px rgba(0, 0, 0, .24);
   background: white;
-  height: 400px;
+  height: 40vh;
   overflow-y: scroll;
   border-radius: 6px;
   z-index: 10;
