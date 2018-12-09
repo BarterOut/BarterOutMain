@@ -122,7 +122,7 @@
 .landing-section {
   display: flex;
   flex-direction: row;
-  padding: 16px 12%;
+  padding: 8em;
   width: 100%;
   background: white;
   height: 37vh;
@@ -149,7 +149,7 @@
 
 .img-content {
   display: flex;
-  width: 50%;
+  width: 40%;
   flex-direction: column;
   align-items: center;
   justify-content: center;
@@ -165,7 +165,7 @@
   text-align: center;
   letter-spacing: 2.5px;
   font-weight: bold;
-  margin: 16px 0;
+  margin: 100px 0 20px 0px;
  }
 
  #scroll-down {
