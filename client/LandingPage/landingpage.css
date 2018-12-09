@@ -164,6 +164,21 @@
   margin: 100px 0 20px 0px;
  }
 
+ .landing-bullet {
+   font-weight: bold;
+ }
+
+ .landing-bullet--middle {
+  font-weight: bold;
+  margin: 0 7%;
+}
+
+ .landing-bullets {
+   width: 100%;
+   margin: 16px 0;
+   text-align: center;
+ }
+
  #scroll-down {
    display: flex;
    align-items: center;
@@ -203,6 +218,7 @@
  .landing-para {
   font-family: "orkneyregular";
   font-size: 20px;
+  text-align: justify;
   color: #343434;
  }
 
