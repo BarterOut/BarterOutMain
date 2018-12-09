@@ -115,10 +115,15 @@
   z-index: 10;
 }
 
+/*Give landing sections on homepage more space*/
+.landingpage .landing-section {
+  padding: 7em 12em;
+}
+
 .landing-section {
   display: flex;
   flex-direction: row;
-  padding: 7em 12em;
+  padding: 2em 12em;
   width: 100%;
   background: white;
   min-height: 300px;
