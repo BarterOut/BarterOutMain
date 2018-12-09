@@ -8,6 +8,7 @@
 .right-content {
   display: flex;
   flex-direction: column;
+  background: #F8F9FA;
   flex-grow: 11;
 }
 
