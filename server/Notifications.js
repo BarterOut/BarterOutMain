@@ -81,7 +81,7 @@ module.exports = {
   adminBookInspected: function adminNewTransaction(bookName) {
     return {
       date: moment().format('MMM. Do, YYYY'),
-      message: `${bookName} Inspected and awaiting payment.`,
+      message: `${bookName} inspected and awaiting payment.`,
     };
   },
 
