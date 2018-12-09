@@ -8,13 +8,13 @@
 .right-content {
   display: flex;
   flex-direction: column;
+  background: #F8F9FA;
   flex-grow: 11;
 }
 
 .content-wrapper {
   display: flex;
   flex-direction: row;
-  background: #F8F9FA;
   height: 80vh;
   max-width: 1200px;
 }

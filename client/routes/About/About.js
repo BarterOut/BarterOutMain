@@ -176,11 +176,11 @@ const About = () => (
     <div className="footer">
       <div className="bottomLinksCol">
         <div className="bottomLinkHeader">Company</div>
-        <a href="/about" className="bottomPageLink">About</a>
+        <Link to="/about" href="/about" className="bottomPageLink">About</Link>
         <br />
-        <a href="/careers" className="bottomPageLink">Careers</a>
+        <Link to="/careers" href="/careers" className="bottomPageLink">Careers</Link>
         <br />
-        <a href="/contact" className="bottomPageLink">Contact</a>
+        <Link to="/contact" href="/contact" className="bottomPageLink">Contact</Link>
         <br />
       </div>
       <div className="bottomLinksCol">
