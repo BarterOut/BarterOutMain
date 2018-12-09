@@ -14,6 +14,7 @@
 .content-wrapper {
   display: flex;
   flex-direction: row;
+  background: #F8F9FA;
   height: 80vh;
   max-width: 1200px;
 }
