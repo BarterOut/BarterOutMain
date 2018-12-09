@@ -69,10 +69,16 @@ if (process.env.NODE_ENV === 'production') {
   });
 }
 
+// Set cache policy to cache for one month
 // Prefer gzipped js files.
 app.get('*.js', (req, res, next) => {
-  req.url = `${req.url}.gz`;
+  res.set('Cache-Control', 'public, max-age=2629800');
   res.set('Content-Encoding', 'gzip');
+  next();
+});
+
+app.get('*.jpg', (req, res, next) => {
+  res.set('Cache-Control', 'public, max-age=2629800');
   next();
 });
 

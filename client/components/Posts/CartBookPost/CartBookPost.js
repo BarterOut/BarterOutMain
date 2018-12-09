@@ -52,7 +52,7 @@ class CartBookPost extends Component {
         <div className="leftBP">
           <div>
             <span className="condition">{this.props.condition}</span>
-             - <span className="price">${this.props.price}</span>
+             - <span className="price">${this.props.price}*</span>
           </div>
           <span className="comments"><i>{this.props.comments || 'No comments'}</i></span>
         </div>

@@ -1,5 +1,6 @@
 /**
- * @file React component for a textbook posting on the webapp.
+ * @file Notification.js
+ * @description Notification element for homepage of webapp.
  * @author Duncan Grubbs <duncan.grubbs@gmail.com>
  * @version 0.0.4
  */

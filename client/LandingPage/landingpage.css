@@ -1,6 +1,5 @@
 .photo-bg {
   background-image: url("../images/gradientFirstPageCompressed.jpg");
-  height: 95vh;
   width: 100vw;
   background-position: center;
   background-repeat: no-repeat;
@@ -19,25 +18,22 @@
 }
 
 .headerBar {
-  position: fixed;
-  background-color: rgba(0,0,0, 0.80);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
   width: 100%;
+  height: 68px;
+  position: fixed;
+  background: #1F1F1F;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, .16);
   z-index: 11;
-  margin-top: 0%;
-  padding-left: 5%;
-  padding-right: 5%;
-  padding-top: 1%;
-  padding-bottom: 1%;
   color: white;
-  display: block;
 }
 
 .logo {
-  display: block;
-  height: 100%;
-  float: left;
-  font-size: 20pt;
-  font-weight: bold;
+  width: 50%;
+  padding: 0 32px;
+  flex-grow: 4;
 }
 
 #logoPic {
@@ -46,20 +42,19 @@
 }
 
 .pageLinks {
-  padding-right: 5%;
-  display: block;
-  padding-top: 0.5%;
-  height: 100%;
-  float: right;
+  flex-grow: 4;
+  width: 50%;
+  padding: 0 32px;
+  text-align: right;
   font-size: 14pt;
-  font-weight: bold;
-  white-space: nowrap;
 }
 
 .landingPageLink {
   text-align: center;
+  font-family: "orkneybold";
   color: white;
-  padding: 0% 2.5%;
+  padding: 0 12px;
+  font-weight: 400;
   text-decoration: none;
   -webkit-transition: color 0.25s ease-out;
   -moz-transition: color 0.25s ease-out;
@@ -76,7 +71,7 @@
   color: #FFB814;
 }
 
-#missionLink, #teamLink, #preRegisterLink {
+#missionLink, #teamLink {
   color: white;
 }
 
@@ -94,6 +89,7 @@
 #search-wrapper {
   width: 60%;
   max-width: 780px;
+  margin-bottom: 40px;
 }
 
 #landing-search {
@@ -113,19 +109,28 @@
   margin: 16px 0;
   box-shadow: 3px 18px 20px rgba(0, 0, 0, .24);
   background: white;
-  height: 400px;
+  height: 40vh;
   overflow-y: scroll;
   border-radius: 6px;
   z-index: 10;
 }
 
+/*Give landing sections on homepage more space*/
+.landingpage .landing-section {
+  padding: 7em 12em;
+}
+
+/*About page uses 12% for horizontal padding*/
+.content-about .landing-section {
+  padding: 2em 12%;
+}
+
 .landing-section {
   display: flex;
   flex-direction: row;
-  padding: 16px 12%;
   width: 100%;
   background: white;
-  height: 37vh;
+  min-height: 300px;
 }
 
 .purple {
@@ -135,7 +140,7 @@
 .text-content-landing {
   display: flex;
   text-align: left;
-  width: 50%;
+  width: 55%;
   flex-direction: column;
 }
 
@@ -149,7 +154,7 @@
 
 .img-content {
   display: flex;
-  width: 50%;
+  width: 37%;
   flex-direction: column;
   align-items: center;
   justify-content: center;
@@ -165,33 +170,27 @@
   text-align: center;
   letter-spacing: 2.5px;
   font-weight: bold;
-  margin: 16px 0;
+  margin: 100px 0 20px 0px;
  }
 
- #scroll-down {
-   display: flex;
-   align-items: center;
-   justify-content: center;
-   -webkit-touch-callout: none; /* iOS Safari */
-   -webkit-user-select: none; /* Safari */
-   -khtml-user-select: none; /* Konqueror HTML */
-   -moz-user-select: none; /* Firefox */
-   -ms-user-select: none; /* Internet Explorer/Edge */
-   user-select: none;
-   cursor: pointer;
-   width: 46px;
-   height: 46px;
-   border-radius: 50%;
-   box-shadow: 0 3px 6px rgba(0, 0, 0, .16);
-   background: white;
-   z-index: 10;
-   position: absolute;
-   margin: calc(90vh + 23px) calc(50vw - 23px);
+ .landing-bullet {
+   font-weight: bold;
+ }
+
+ .landing-bullet--middle {
+  font-weight: bold;
+  margin: 0 7%;
+}
+
+ .landing-bullets {
+   width: 100%;
+   font-size: 20px;
+   text-align: center;
  }
 
  .landing-img {
-   width: auto;
-   height: 85%;
+   width: 88%;
+   height: auto;
    border-radius: 6px;
    box-shadow: 0 3px 6px rgba(0, 0, 0, .16);
  }
@@ -207,6 +206,7 @@
  .landing-para {
   font-family: "orkneyregular";
   font-size: 20px;
+  text-align: justify;
   color: #343434;
  }
 
@@ -220,7 +220,7 @@
   font-size: 14pt;
   font-style: italic;
   font-weight: bold;
-  padding: 1% 12%;
+  padding: 1.5% 12%;
   background-color: #393939;
 }
 

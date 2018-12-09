@@ -5,6 +5,7 @@
  */
 
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import '../../res/sylesheetOrkneyRegular.css';
 
@@ -15,11 +16,17 @@ import facebookLogo from '../../images/facebook.png';
 
 const TermsOfService = () => (
   <div className="infowrapper">
-    <div className="bar">
-      <div className="left">
-        <a href="/"><img className="logo" src={logoPic} alt="logo" /></a>
+    <nav className="headerBar">
+      <div className="logo">
+        <a href="/" className="buttonLink"><img alt="logo" id="logoPic" src={logoPic} /></a>
       </div>
-    </div>
+      <div className="pageLinks">
+        <Link className="landingPageLink" to="/" href="/">Home</Link>
+        <Link className="landingPageLink" to="/about" href="/about">About</Link>
+        <Link className="landingPageLink" to="/login" href="/login">Login</Link>
+        <Link className="landingPageLink" to="/signup" href="/signup">Sign Up</Link>
+      </div>
+    </nav>
     <div className="content">
       <h1 className="text-header">Terms of Service</h1>
       <div className="header-line" />
@@ -74,11 +81,11 @@ const TermsOfService = () => (
     <div className="footer">
       <div className="bottomLinksCol">
         <div className="bottomLinkHeader">Company</div>
-        <a href="/about" className="bottomPageLink">About</a>
+        <a to="/about" href="/about" className="bottomPageLink">About</a>
         <br />
-        <a href="/careers" className="bottomPageLink">Careers</a>
+        <a to="/careers" href="/careers" className="bottomPageLink">Careers</a>
         <br />
-        <a href="/contact" className="bottomPageLink">Contact</a>
+        <a to="/contact" href="/contact" className="bottomPageLink">Contact</a>
         <br />
       </div>
       <div className="bottomLinksCol">
@@ -89,9 +96,9 @@ const TermsOfService = () => (
       </div>
       <div className="bottomLinksCol">
         <div className="bottomLinkHeader">Developer</div>
-        <a href="/" className="bottomPageLink">API Documentation</a>
+        <a href="https://github.com/BarterOut/api-docs" className="bottomPageLink">API Documentation</a>
         <br />
-        <a href="/" className="bottomPageLink">GitHub</a>
+        <a href="https://github.com/BarterOut/" className="bottomPageLink">GitHub</a>
       </div>
     </div>
     <div id="socialMedia">

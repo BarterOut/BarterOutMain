@@ -60,7 +60,7 @@ class BookPost extends Component {
         <div className="rightBP">
           <div>
             <span className="condition">{this.props.condition}</span>
-             - <span className="price">${this.props.price}</span>
+             - <span className="price">${this.props.price}*</span>
           </div>
           {
             !this.state.inCart &&

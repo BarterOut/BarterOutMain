@@ -66,13 +66,11 @@ span {
 }
 
 .condition {
-  color: #41397c;
   font-size: 1.2em;
-  font-weight: bold;
 }
 
 .price {
-  color: green;
+  font-weight: bold;
   font-size: 1.3em;
 }
 

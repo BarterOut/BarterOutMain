@@ -72,7 +72,11 @@ module.exports = {
       Popper: ['popper.js', 'default'],
     }),
     new CompressionPlugin({
-      test: /\.js(\?.*)?$/i,
+      filename: '[path]',
+      algorithm: 'gzip',
+      test: /\.js$|\.css$|\.html$/,
+      threshold: 10240,
+      minRatio: 0.8,
     }),
     new ImageminPlugin({
       plugins: [

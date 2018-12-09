@@ -1,11 +1,12 @@
 /**
- * @file React component for landing page.
+ * @file About.js
+ * @description React component for about page.
  * @author Duncan Grubbs <duncan.grubbs@gmail.com>
- * @author Luis Nova
  * @version 0.0.4
  */
 
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import '../../res/sylesheetOrkneyRegular.css';
 import '../../res/sylesheetOrkneyLight.css';
@@ -38,24 +39,29 @@ import facebookLogo from '../../images/facebook.png';
 
 const About = () => (
   <div className="infowrapper">
-    <div className="bar">
-      <div className="left">
-        <a href="/"><img className="logo" src={logoPic} alt="logo" /></a>
+    <nav className="headerBar">
+      <div className="logo">
+        <a href="/" className="buttonLink"><img alt="logo" id="logoPic" src={logoPic} /></a>
       </div>
-    </div>
+      <div className="pageLinks">
+        <Link className="landingPageLink" to="/" href="/">Home</Link>
+        <Link className="landingPageLink" to="/about" href="/about">About</Link>
+        <Link className="landingPageLink" to="/login" href="/login">Login</Link>
+        <Link className="landingPageLink" to="/signup" href="/signup">Sign Up</Link>
+      </div>
+    </nav>
     <div className="content-about">
       <h1 className="text-header margin">About BarterOut</h1>
-      <div className="header-line-margin" />
+      <div className="header-line margin" />
       <div className="about-content">
         <div className="landing-section" id="product">
           <div className="text-content-landing left">
             <h2 className="landing-header-title">Our Story</h2>
             <div className="header-line-landing" />
             <p className="landing-para">
-              Because we care about you, we have built an easy-to-use system capable
-              of providing you with the textbooks you need as fast as possible.
-              In order to make this dream a reality we take a small share of every
-              transaction to keep our servers running.
+              Started in June 2017 by our two founders Vlad and Pavel as a reaction to the rising textbook prices and the inefficiencies in the second-hand markets currently used by college students.
+              In January 2018 we enlarged our team with the addition of 10 new members and launched our Beta later that year in March.
+              Pavel left the team in July, but our company is still growing nicely, continuously launching updates and new products to complement our offering.
             </p>
           </div>
           <div className="img-content right">
@@ -67,26 +73,22 @@ const About = () => (
             <img className="landing-img" src={stairs} alt="Group Meeting" />
           </div>
           <div className="text-content-landing right">
-            <h2 className="landing-header-title">Our About</h2>
+            <h2 className="landing-header-title">Our Mission</h2>
             <div className="header-line-landing" />
             <p className="landing-para">
-              Because we care about you, we have built an easy-to-use system capable
-              of providing you with the textbooks you need as fast as possible.
-              In order to make this dream a reality we take a small share of every
-              transaction to keep our servers running.
+              Our goal is to improve the college experience for everyone.
+              We are a company for students, by students.
+              We believe access to educational materials is key for the proper development of students and we are placing a bet on technology to help us solve this.
+              Our products enable universities to stay relevant in today&apos;s changing world and empower students to leverage technology to make their lives easier.
             </p>
           </div>
         </div>
         <h1 className="text-header margin">Meet Our Team</h1>
-        <div className="header-line-margin" />
+        <div className="header-line margin" />
         <p className="landing-para about-team">
-          Because we care about you, we have built an easy-to-use system capable
-          of providing you with the textbooks you need as fast as possible.
-          In order to make this dream a reality we take a small share of every
-          transaction to keep our servers running.
+          Currently we are a group of 11 creative students at the University of Rochester dedicated to improve the college experience for everyone using tech.
+          If our mission resonates with you, be sure to check out our updated <Link to="/careers" href="/careers">careers page</Link>.
         </p>
-        <h3 className="text-header margin">Leadership</h3>
-        <div className="header-line-margin" />
         <div id="team-photos">
           <div className="team-member">
             <img className="team-photo" src={vlad} alt="Vlad" />
@@ -99,7 +101,7 @@ const About = () => (
             <img className="team-photo" src={annie} alt="Annie" />
             <h4 className="subtext">Annie Hamburgenn</h4>
             <h4 className="subtext1">CMO</h4>
-            <h4 className="subtext2">UR &apos;20</h4>
+            <h4 className="subtext2">UR &apos;19</h4>
           </div>
 
           <div className="team-member">
@@ -116,9 +118,6 @@ const About = () => (
             <h4 className="subtext2">UR &apos;21</h4>
           </div>
         </div>
-
-        <h3 className="text-header margin">Tech Team</h3>
-        <div className="header-line-margin" />
         <div id="team-photos">
           <div className="team-member">
             <img className="team-photo" src={shagun} alt="Shagun" />
@@ -148,9 +147,6 @@ const About = () => (
             <h4 className="subtext2">UR &apos;21</h4>
           </div>
         </div>
-
-        <h3 className="text-header margin">Marketing Team</h3>
-        <div className="header-line-margin" />
         <div id="team-photos">
           <div className="team-member">
             <img className="team-photo" src={zacqueline} alt="Zacqueline" />
@@ -173,9 +169,6 @@ const About = () => (
             <h4 className="subtext2">UR &apos;20</h4>
           </div>
         </div>
-
-        <h3 className="text-header margin">Advisors</h3>
-        <div className="header-line-margin" />
         <div id="team-photos">
           <div className="team-member">
             <img className="team-photo" src={adviserOne} alt="Elizabeth" />
@@ -189,13 +182,11 @@ const About = () => (
     <div className="footer">
       <div className="bottomLinksCol">
         <div className="bottomLinkHeader">Company</div>
-        
+        <a to="/about" href="/about" className="bottomPageLink">About</a>
         <br />
-        <a href="/about" className="bottomPageLink">About</a>
+        <a to="/careers" href="/careers" className="bottomPageLink">Careers</a>
         <br />
-        <a href="/careers" className="bottomPageLink">Careers</a>
-        <br />
-        <a href="/contact" className="bottomPageLink">Contact</a>
+        <a to="/contact" href="/contact" className="bottomPageLink">Contact</a>
         <br />
       </div>
       <div className="bottomLinksCol">
@@ -206,9 +197,9 @@ const About = () => (
       </div>
       <div className="bottomLinksCol">
         <div className="bottomLinkHeader">Developer</div>
-        <a href="/" className="bottomPageLink">API Documentation</a>
+        <a href="https://github.com/BarterOut/api-docs" className="bottomPageLink">API Documentation</a>
         <br />
-        <a href="/" className="bottomPageLink">GitHub</a>
+        <a href="https://github.com/BarterOut/" className="bottomPageLink">GitHub</a>
       </div>
     </div>
     <div id="socialMedia">

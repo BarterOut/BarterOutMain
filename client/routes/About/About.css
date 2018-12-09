@@ -1,7 +1,7 @@
 .content-about {
   display: flex;
   width: 100vw;
-  padding: 16px 0;
+  padding: 75px 0;
   flex-direction: column;
   align-content: center;
 }
@@ -22,8 +22,7 @@
 }
 
 .about-team {
-  width: 100%;
-  padding: 16px 12%;
+  padding: 8px 12%;
 }
 
 .team-member {
@@ -63,4 +62,14 @@
   width: 100vw;
   padding: 8px 12%;
   margin: 16px 0;
+  justify-content: center;
+}
+
+@media only screen and (max-width: 600px) {
+  .about-team {
+    padding: 8px;
+  }
+  .margin {
+    margin: 8px;
+  }
 }
