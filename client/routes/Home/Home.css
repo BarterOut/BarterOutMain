@@ -48,6 +48,9 @@
   border-bottom-left-radius: 6px;
   background: #E1DEEC;
 }
+.page-section-wrapper--stat::-webkit-scrollbar {
+  display: none;
+}
 
 .title--page-section-wrapper--stat {
   display: flex;

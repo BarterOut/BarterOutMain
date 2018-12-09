@@ -30,7 +30,7 @@ class TrackBookPost extends Component {
         <div className="rightPB">
           <div>
             <span className="condition">{this.props.condition}</span>
-             - <span className="price">${this.props.price}</span>
+             - <span className="price">${this.props.price}*</span>
           </div>
           <span className="comments"><i>{this.props.type}</i></span>
         </div>
