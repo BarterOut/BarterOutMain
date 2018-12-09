@@ -44,7 +44,6 @@ class LandingPage extends Component {
     };
     this.Auth = new AuthService();
     this.updateInputValue = this.updateInputValue.bind(this);
-    this.scrollAnimation = this.scrollAnimation.bind(this);
   }
 
   componentDidMount() {
@@ -97,14 +96,6 @@ class LandingPage extends Component {
       .catch(error => ErrorService.parseError(error));
   }
 
-  scrollAnimation() {
-    // TODO; maybe adjust this number
-    window.scrollTo({
-      top: 750,
-      behavior: 'smooth',
-    });
-  }
-
   render() {
     if (this.state.redirect) {
       return (<Redirect to="/home" />);
@@ -114,9 +105,6 @@ class LandingPage extends Component {
       <div className="app">
         <div className="landingpage">
           <div className="photo-bg">
-            <div id="scroll-down" onClick={this.scrollAnimation} onKeyDown={this.scrollAnimation}>
-              <MaterialIcon icon="expand_more" size={28} />
-            </div>
             <nav className="headerBar">
               <div className="logo">
                 <a href="/" className="buttonLink"><img alt="logo" id="logoPic" src={logoPic} /></a>
