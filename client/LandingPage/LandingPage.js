@@ -186,12 +186,12 @@ class LandingPage extends Component {
                 We handle delivery and payments so you don&apos;t have to worry about it.
                 In order to make this dream a reality we take a very small share of every
                 transaction to keep our operations up and running. <br />
-                <div className="landing-bullets">
-                  <span className="landing-bullet">Simple</span>
-                  <span className="landing-bullet--middle">Affordable</span>
-                  <span className="landing-bullet">Local</span>
-                </div>
               </p>
+              <div className="landing-bullets">
+                <span className="landing-bullet">Simple</span>
+                <span className="landing-bullet--middle">Affordable</span>
+                <span className="landing-bullet">Local</span>
+              </div>
             </div>
           </div>
           <div className="landing-section">
@@ -202,12 +202,12 @@ class LandingPage extends Component {
                 At BarterOut, we know textbooks can get very expensive and finding second-hand ones can be a hassle.
                 That&apos;s why we make it easier for your students to get their books and go to class, all with just a couple clicks on our platform.
                 We empower forward thinking universities, just like yours, to set up textbooks exchanges for their students using our customisable software. <br/>
-                <div className="landing-bullets">
-                  <span className="landing-bullet">Safe</span>
-                  <span className="landing-bullet--middle">Sustainable</span>
-                  <span className="landing-bullet">Efficient</span>
-                </div>
               </p>
+              <div className="landing-bullets">
+                <span className="landing-bullet">Safe</span>
+                <span className="landing-bullet--middle">Sustainable</span>
+                <span className="landing-bullet">Efficient</span>
+              </div>
             </div>
             <div className="img-content right">
               <img className="landing-img" src={picOne} alt="Group Meeting" />
