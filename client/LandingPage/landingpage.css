@@ -120,10 +120,14 @@
   padding: 7em 12em;
 }
 
+/*About page uses 12% for horizontal padding*/
+.content-about .landing-section {
+  padding: 2em 12%;
+}
+
 .landing-section {
   display: flex;
   flex-direction: row;
-  padding: 2em 12em;
   width: 100%;
   background: white;
   min-height: 300px;
