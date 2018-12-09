@@ -1,5 +1,5 @@
 /**
- * @file React component for a textbook posting on the webapp.
+ * @file TrackBookPost.js
  * @author Duncan Grubbs <duncan.grubbs@gmail.com>
  * @version 0.0.4
  */
@@ -25,11 +25,13 @@ class TrackBookPost extends Component {
         </div>
         <div className="vertical-line" />
         <div className="leftBP">
+          <span className="comments"><i>{this.props.comments || 'No comments'}</i></span>
+        </div>
+        <div className="rightPB">
           <div>
             <span className="condition">{this.props.condition}</span>
              - <span className="price">${this.props.price}</span>
           </div>
-          <span className="comments"><i>{this.props.comments || 'No comments'}</i></span>
           <span className="comments"><i>{this.props.type}</i></span>
         </div>
       </div>

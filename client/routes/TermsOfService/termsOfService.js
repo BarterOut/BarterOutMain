@@ -96,9 +96,9 @@ const TermsOfService = () => (
       </div>
       <div className="bottomLinksCol">
         <div className="bottomLinkHeader">Developer</div>
-        <a href="/" className="bottomPageLink">API Documentation</a>
+        <a href="https://github.com/BarterOut/api-docs" className="bottomPageLink">API Documentation</a>
         <br />
-        <a href="/" className="bottomPageLink">GitHub</a>
+        <a href="https://github.com/BarterOut/" className="bottomPageLink">GitHub</a>
       </div>
     </div>
     <div id="socialMedia">
