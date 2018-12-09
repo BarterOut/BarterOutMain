@@ -204,11 +204,11 @@ class LandingPage extends Component {
           <div className="footer">
             <div className="bottomLinksCol">
               <div className="bottomLinkHeader">Company</div>
-              <Link to="/about" href="/about" className="bottomPageLink">About</Link>
+              <a to="/about" href="/about" className="bottomPageLink">About</a>
               <br />
-              <Link to="/careers" href="/careers" className="bottomPageLink">Careers</Link>
+              <a to="/careers" href="/careers" className="bottomPageLink">Careers</a>
               <br />
-              <Link to="/contact" href="/contact" className="bottomPageLink">Contact</Link>
+              <a to="/contact" href="/contact" className="bottomPageLink">Contact</a>
               <br />
             </div>
             <div className="bottomLinksCol">
