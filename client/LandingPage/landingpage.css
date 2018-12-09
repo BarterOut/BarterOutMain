@@ -1,6 +1,5 @@
 .photo-bg {
   background-image: url("../images/gradientFirstPageCompressed.jpg");
-  height: 95vh;
   width: 100vw;
   background-position: center;
   background-repeat: no-repeat;
@@ -90,6 +89,7 @@
 #search-wrapper {
   width: 60%;
   max-width: 780px;
+  margin-bottom: 40px;
 }
 
 #landing-search {
@@ -118,7 +118,7 @@
 .landing-section {
   display: flex;
   flex-direction: row;
-  padding: 16px 12%;
+  padding: 7em 12em;
   width: 100%;
   background: white;
   min-height: 300px;
@@ -145,7 +145,7 @@
 
 .img-content {
   display: flex;
-  width: 45%;
+  width: 37%;
   flex-direction: column;
   align-items: center;
   justify-content: center;
@@ -161,7 +161,7 @@
   text-align: center;
   letter-spacing: 2.5px;
   font-weight: bold;
-  margin: 16px 0;
+  margin: 100px 0 20px 0px;
  }
 
  #scroll-down {
@@ -182,7 +182,7 @@
    background: white;
    z-index: 10;
    position: absolute;
-   margin: calc(90vh + 23px) calc(50vw - 23px);
+   margin: 94vh calc(50vw - 23px);
  }
 
  .landing-img {
