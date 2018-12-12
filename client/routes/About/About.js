@@ -59,9 +59,13 @@ const About = () => (
             <h2 className="landing-header-title">Our Story</h2>
             <div className="header-line-landing" />
             <p className="landing-para">
-              Started in June 2017 by our two founders Vlad and Pavel as a reaction to the rising textbook prices and the inefficiencies in the second-hand markets currently used by college students.
-              In January 2018 we enlarged our team with the addition of 10 new members and launched our Beta later that year in March.
-              Pavel left the team in July, but our company is still growing nicely, continuously launching updates and new products to complement our offering.
+              BarterOut was started in June 2017 by our two founders, Vlad and Pavel,
+              as a reaction to the rising textbook prices and the inefficiencies in the
+              second-hand markets currently used by college students. In January 2018, we
+              enlarged our team with the addition of 10 new members and launched our Beta
+              later that year in March. Pavel left the team in July, but our company is still
+              growing nicely, continuously launching updates and new products to complement
+              our offering.
             </p>
           </div>
           <div className="img-content right">
@@ -78,16 +82,20 @@ const About = () => (
             <p className="landing-para">
               Our goal is to improve the college experience for everyone.
               We are a company for students, by students.
-              We believe access to educational materials is key for the proper development of students and we are placing a bet on technology to help us solve this.
-              Our products enable universities to stay relevant in today&apos;s changing world and empower students to leverage technology to make their lives easier.
+              We believe access to educational materials is key for the proper development
+              of students and we are placing a bet on technology to help us solve this.
+              Our products enable universities to stay relevant in today&apos;s changing world
+              and empower students to leverage technology to make their lives easier.
             </p>
           </div>
         </div>
         <h1 className="text-header margin">Meet Our Team</h1>
         <div className="header-line margin" />
         <p className="landing-para about-team">
-          Currently we are a group of 11 creative students at the University of Rochester dedicated to improve the college experience for everyone using tech.
-          If our mission resonates with you, be sure to check out our updated <Link to="/careers" href="/careers">careers page</Link>.
+          Currently we are a group of 11 creative students at the
+          University of Rochester dedicated to improve the college experience
+          for everyone using tech. If our mission resonates with you, be sure to
+          check out our updated <Link to="/careers" href="/careers">careers page</Link>.
         </p>
         <div id="team-photos">
           <div className="team-member">
