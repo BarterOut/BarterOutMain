@@ -36,9 +36,18 @@ function myHasher(password, tempUserData, insertTempUser, callback) {
   return insertTempUser(hash, tempUserData, callback);
 }
 
+let verificationURL;
+if (process.env.NODE_ENV == 'production') {
+  verificationURL = 'https://www.barterout.com/api/auth/email-verification/${URL}'; // eslint-disable-line
+} else if (process.env.NODE_ENV == 'staging') {
+  verificationURL = 'https://barterout-dev.herokuapp.com/api/auth/email-verification/${URL}'; // eslint-disable-line
+} else {
+  verificationURL = 'localhost:8080/api/auth/email-verification/${URL}'; // eslint-disable-line
+}
+
 // Configurations for the temp users.
 nev.configure({
-  verificationURL: 'https://barterout-dev.herokuapp.com/api/auth/email-verification/${URL}', // eslint-disable-line
+  verificationURL,
   persistentUserModel: User,
   tempUserCollection: 'barterOut_tempusers',
   shouldSendConfirmation: false,
