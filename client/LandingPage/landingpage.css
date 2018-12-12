@@ -117,7 +117,7 @@
 
 /*Give landing sections on homepage more space*/
 .landingpage .landing-section {
-  padding: 7em 12em;
+  padding: 6em 12em;
 }
 
 /*About page uses 12% for horizontal padding*/
@@ -291,11 +291,18 @@
 }
 
 @media only screen and (max-width: 600px) {
-  .landing-section {
+  .landingpage .landing-section {
     flex-direction: column;
     max-height: none;
     width: 100vw;
-    padding: 16px;
+    padding: 2em 2em;
+    min-height: 632px;
+  }
+  .content-about .landing-section {
+    flex-direction: column;
+    max-height: none;
+    width: 100vw;
+    padding: 2em 2em;
     min-height: 632px;
   }
   .text-content-landing, .img-content {
@@ -306,8 +313,23 @@
     width: 90%;
     height: auto;
   }
+  .footer {
+    padding: 1.5% 5%;
+  }
   .left {
     align-items: center;
+  }
+  .headerBar {
+    justify-content: center;
+    width: 100%;
+  }
+  .pageLinks {
+    width: 100%;
+    padding: 0;
+    text-align: center;
+  }
+  .logo {
+    display: none;
   }
   #search-wrapper {
     width: 95vw;
@@ -316,7 +338,7 @@
     max-height: 300px;
   }
   .landingpage h1 {
-    margin-top: 64px;
+    margin-top: 70px;
     font-size: 3em;
   }
 }

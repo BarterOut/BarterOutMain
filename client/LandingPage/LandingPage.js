@@ -146,9 +146,11 @@ class LandingPage extends Component {
               <h2 className="landing-header-title">Our Product</h2>
               <div className="header-line-landing" />
               <p className="landing-para">
-              BarterOut is an ed-tech company that offers a collection of software products for universities empowering them to leverage technology
-              in order to improve the lives of their students. One of thme, our book trading app, enables students to buy and sell previously
-              owned textbooks in an organized and efficient way, delivery and payment included.
+                BarterOut is an ed-tech company that offers a collection of software products for
+                universities empowering them to leverage technology in order to improve the lives
+                of their students. One of them, our book trading app, enables students to buy and
+                sell previously owned textbooks in an organized and efficient way, delivery and
+                payment included.
               </p>
             </div>
             <div className="img-content right">
@@ -182,9 +184,12 @@ class LandingPage extends Component {
               <h2 className="landing-header-title">For Universities</h2>
               <div className="header-line-landing" />
               <p className="landing-para">
-                At BarterOut, we know textbooks can get very expensive and finding second-hand ones can be a hassle.
-                That&apos;s why we make it easier for your students to get their books and go to class, all with just a couple clicks on our platform.
-                We empower forward thinking universities, just like yours, to set up textbooks exchanges for their students using our customisable software. <br/>
+                At BarterOut, we know textbooks can get very expensive and finding second-hand ones
+                can be a hassle. That&apos;s why we make it easier for your students to get their
+                books and go to class, all with just a couple clicks on our platform. We empower
+                forward-thinking universities, just like yours, to set up textbooks exchanges for
+                their students using our customizable software.
+                <br />
               </p>
               <div className="landing-bullets">
                 <span className="landing-bullet">Safe</span>

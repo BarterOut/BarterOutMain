@@ -65,7 +65,7 @@ function remakeMatches(userID) {
 router.get('/getCartItems/:token', (req, res) => {
   jwt.verify(req.params.token, 'secretKey', (error, authData) => {
     if (error) {
-      res.sendStatus(401);
+      res.status(401).json(response(req.url, { error }));
     } else {
       User.findOne({ _id: authData.userInfo._id }, (err, user) => {
         let itemsInCart = [];
@@ -88,7 +88,7 @@ router.get('/getCartItems/:token', (req, res) => {
 router.post('/addToCart', (req, res) => {
   jwt.verify(req.body.data.token, 'secretKey', (error, authData) => {
     if (error) {
-      res.sendStatus(401);
+      res.status(401).json(response(req.url, { error }));
     } else {
       User.update(
         { _id: authData.userInfo._id },
@@ -99,15 +99,15 @@ router.post('/addToCart', (req, res) => {
               $position: 0,
             },
           },
-        }, (er) => {
-          if (er) {
-            res.status(400).json((response('/addToCart', { er }))); //TODO change response to be status 400
+        }, (error) => {
+          if (error) {
+            res.status(400).json((response('/addToCart', { error }))); // TODO change response to be status 400
           }
         },
       );
     }
   });
-  res.sendStatus(202);
+  res.status(202).json(response(req.url, {}));
 });
 
 /**
@@ -119,7 +119,7 @@ router.post('/addToCart', (req, res) => {
 router.post('/removeFromCart', (req, res) => {
   jwt.verify(req.body.data.token, 'secretKey', (error, authData) => {
     if (error) {
-      res.sendStatus(401);
+      res.status(401).json(response(req.url, { error }));
     } else {
       User.findOne({ _id: authData.userInfo._id }, (err, user) => {
         for (let i = 0; i < user.cart.length; i++) {
@@ -138,7 +138,7 @@ router.post('/removeFromCart', (req, res) => {
             if (err) {
               res.status(400).json(response('/addToCart', { err }));
             }
-            res.sendStatus(200);
+            res.status(200).json(response(req.url, {}));
           },
         );
       });
@@ -156,7 +156,7 @@ router.post('/removeFromCart', (req, res) => {
 router.post('/clearCart', (req, res) => {
   jwt.verify(req.body.data.token, 'secretKey', (error, authData) => {
     if (error) {
-      res.sendStatus(401);
+      res.status(401).json(response(req.url, { error }));
     } else {
       User.update(
         { _id: authData.userInfo._id },
@@ -167,7 +167,7 @@ router.post('/clearCart', (req, res) => {
             },
         },
       );
-      res.sendStatus(200);
+      res.status(200).json(response(req.url, {}));
     }
   });
 });
@@ -181,7 +181,7 @@ router.post('/clearCart', (req, res) => {
 router.get('/getPurchasedBooks/:token', (req, res) => {
   jwt.verify(req.params.token, 'secretKey', (error, authData) => {
     if (error) {
-      res.sendStatus(401);
+      res.status(401).json(response(req.url, { error }));
     } else {
       Textbook.find({
         $and: [{ status: { $ne: 0 } }, { buyer: authData.userInfo._id }],
@@ -201,7 +201,7 @@ router.get('/getPurchasedBooks/:token', (req, res) => {
 router.get('/getSoldBooks/:token', (req, res) => {
   jwt.verify(req.params.token, 'secretKey', (error, authData) => {
     if (error) {
-      res.sendStatus(401);
+      res.status(401).json(response(req.url, { error }));
     } else {
       Textbook.find({
         $and: [{ status: { $ne: 0 } }, { owner: authData.userInfo._id }],
@@ -221,7 +221,7 @@ router.get('/getSoldBooks/:token', (req, res) => {
 router.get('/getNotifications/:token', (req, res) => {
   jwt.verify(req.params.token, 'secretKey', (error, authData) => {
     if (error) {
-      res.sendStatus(401);
+      res.status(401).json(response(req.url, { error }));
     } else {
       User.findOne({ _id: authData.userInfo._id }, (err, user) => {
         res.status(200).json(response('/getNotifications/', user.notifications));
@@ -240,7 +240,7 @@ router.get('/getNotifications/:token', (req, res) => {
 router.get('/getUserStatistics/:token', (req, res) => {
   jwt.verify(req.params.token, 'secretKey', (error, authData) => {
     if (error) {
-      res.sendStatus(401);
+      res.status(401).json(response(req.url, { error }));
     } else {
       User.findOne({ _id: authData.userInfo._id }, (err, user) => {
         res.status(200).json(response('/getUserStatistics/:token', {
@@ -256,11 +256,11 @@ router.get('/getUserStatistics/:token', (req, res) => {
 router.get('/getUserData/:token', (req, res) => {
   jwt.verify(req.params.token, 'secretKey', (error, authData) => {
     if (error) {
-      res.sendStatus(400);
+      res.status(400).json(response(req.url, { error }));
     } else {
       User.findOne({ _id: authData.userInfo._id }, (error, user) => {
         if (!user) {
-          res.sendStatus(401);
+          res.status(401).json(response(req.url, {}));
         } else {
           const returnUser = {
             _id: user._id,
@@ -288,9 +288,9 @@ router.get('/getUserData/:token', (req, res) => {
  * @returns {String} Response status.
  */
 router.post('/deleteRequest/', (req, res) => {
-  jwt.verify(req.body.data.token, 'secretKey', (err, authData) => {
-    if (err) {
-      res.sendStatus(403);
+  jwt.verify(req.body.data.token, 'secretKey', (error, authData) => {
+    if (error) {
+      res.status(403).json(response(req.url, { error }));
     } else {
       TextbookBuy.deleteOne({
         $and: [
@@ -300,9 +300,9 @@ router.post('/deleteRequest/', (req, res) => {
       }, (error) => {
         remakeMatches(authData.userInfo._id);
         if (!error) {
-          res.sendStatus(200);
+          res.status(200).json(response(req.url, {}));
         } else {
-          res.sendStatus(400);
+          res.status(400).json(response(req.url, { error }));
         }
       });
     }
@@ -316,15 +316,15 @@ router.post('/deleteRequest/', (req, res) => {
  * @returns {Array} Array of books from database.
  */
 router.get('/getRequests/:token', (req, res) => {
-  jwt.verify(req.params.token, 'secretKey', (err, authData) => {
-    if (err) {
-      res.sendStatus(403);
+  jwt.verify(req.params.token, 'secretKey', (error, authData) => {
+    if (error) {
+      res.status(403).json(response(req.url, { error }));
     } else {
       TextbookBuy.find({
         owner: authData.userInfo._id,
       }, (error, books) => {
         if (error) {
-          res.sendStatus(400);
+          res.status(400).json(response(req.url, { error }));
         } else {
           res.status(200).json(response('/getRequests/:token', books));
         }
