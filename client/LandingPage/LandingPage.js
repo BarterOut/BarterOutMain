@@ -11,8 +11,6 @@ import {
   Redirect,
 } from 'react-router-dom';
 
-import MaterialIcon from 'react-google-material-icons';
-
 import AuthService from '../services/AuthService';
 import FetchService from '../services/FetchService';
 import ErrorService from '../services/ErrorService';
@@ -61,7 +59,6 @@ class LandingPage extends Component {
 
   getPosts() {
     FetchService.GET('/api/books/getAllBooksNoToken')
-      .then(response => response.json())
       .then((data) => {
         this.setState({ loading: false });
         this.setState({ posts: data });
@@ -78,7 +75,6 @@ class LandingPage extends Component {
     this.setState({ posts: [] });
     if (query === '') {
       FetchService.GET('/api/books/getAllBooksNoToken')
-        .then(response => response.json())
         .then((data) => {
           this.setState({ loading: false });
           this.setState({ posts: data });
@@ -88,7 +84,6 @@ class LandingPage extends Component {
     }
 
     FetchService.GET(`/api/books/searchNoToken/${query}`)
-      .then(response => response.json())
       .then((data) => {
         this.setState({ loading: false });
         this.setState({ posts: data });

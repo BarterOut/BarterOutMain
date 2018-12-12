@@ -34,7 +34,6 @@ class Search extends Component {
     this.setState({ searchResults: [] });
     if (this.props.query === '') {
       FetchService.GET(`/api/books/getAllBooks/${this.state.token}`)
-        .then(response => response.json())
         .then((data) => {
           this.setState({ loading: false });
           this.setState({ searchResults: data });
@@ -45,7 +44,6 @@ class Search extends Component {
     const auth = new AuthService();
     const token = auth.getToken();
     FetchService.GET(`/api/books/search/${this.props.query}/${token}`)
-      .then(response => response.json())
       .then((data) => {
         this.setState({ loading: false });
         this.setState({ searchResults: data });

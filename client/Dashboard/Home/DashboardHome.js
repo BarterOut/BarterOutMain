@@ -65,7 +65,6 @@ class DashboardHome extends Component {
 
   _getGeneralStatistics() {
     FetchService.GET(`/api/dashboard/getStatistics/${this.AUTH.getToken()}`)
-      .then(response => response.json())
       .then((data) => {
         this.setState({ generalStatistics: data });
       });
@@ -73,7 +72,6 @@ class DashboardHome extends Component {
 
   _getAllUsers() {
     FetchService.GET(`/api/dashboard/getUsers/${this.AUTH.getToken()}`)
-      .then(response => response.json())
       .then((data) => {
         this.setState({ users: data });
       });
@@ -81,13 +79,11 @@ class DashboardHome extends Component {
 
   _getPurchasedBooks() {
     FetchService.GET(`/api/dashboard/getBooksStatus3/${this.AUTH.getToken()}`)
-      .then(response => response.json())
       .then((data) => {
         FetchService.POST('/api/dashboard/extendBookInfo', {
           token: this.AUTH.getToken(),
           books: data,
         })
-          .then(response => response.json())
           .then((fullData) => {
             this.setState({ purchasedBooks: fullData });
           });
@@ -96,13 +92,11 @@ class DashboardHome extends Component {
 
   _getOnGoingTransactions() {
     FetchService.GET(`/api/dashboard/getBooksStatus1/${this.AUTH.getToken()}`)
-      .then(response => response.json())
       .then((data) => {
         FetchService.POST('/api/dashboard/extendBookInfo', {
           token: this.AUTH.getToken(),
           books: data,
         })
-          .then(response => response.json())
           .then((fullData) => {
             this.setState({ onGoingTransactions: fullData });
           });
@@ -111,13 +105,11 @@ class DashboardHome extends Component {
 
   _getRecievedTransactions() {
     FetchService.GET(`/api/dashboard/getBooksStatus2/${this.AUTH.getToken()}`)
-      .then(response => response.json())
       .then((data) => {
         FetchService.POST('/api/dashboard/extendBookInfo', {
           token: this.AUTH.getToken(),
           books: data,
         })
-          .then(response => response.json())
           .then((fullData) => {
             this.setState({ recievedTransactions: fullData });
           });

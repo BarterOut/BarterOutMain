@@ -6,6 +6,7 @@
  */
 
 import Textbook from '../models/textbook';
+import response from '../response';
 import TextbookBuy from '../models/textbookBuy';
 import User from '../models/user';
 import Transaction from '../models/transaction';
@@ -132,7 +133,7 @@ router.post('/postBook/:token', (req, res) => {
                   );
                   User.find({ _id: bookMatched.owner }, (errr, userToEmail) => {
                     if (userToEmail[0] == null) {
-                      res.redirect('/home');
+                      res.redirect('/home');//TODO eliminate this redirect
                       return;
                     }
                     const email = userToEmail[0].emailAddress;
@@ -364,7 +365,8 @@ router.get('/getUserMatches/:token', (req, res) => {
                 }
               }
               bookObjects = books;
-              res.status(200).json(bookObjects);
+              // console.log(bookObjects);
+              res.status(200).json(response('/getUserMatches', bookObjects));
             });
           });
         }
@@ -400,7 +402,7 @@ router.get('/search/:query/:token', (req, res) => {
             },
           ],
         }, (err, books) => {
-          res.status(200).json(books);
+          res.status(200).json(response('/serach/:query/:token', books));
         });
       } else {
         Textbook.find({
@@ -416,7 +418,7 @@ router.get('/search/:query/:token', (req, res) => {
             },
           ],
         }, (err, books) => {
-          res.status(200).json(books);
+          res.status(200).json(response('/search/:query/:token', books));
         });
       }
     }
@@ -445,7 +447,7 @@ router.get('/searchNoToken/:query', (req, res) => {
         },
       ],
     }, (err, books) => {
-      res.status(200).json(books);
+      res.status(200).json(response('/searchNoToken/:query', books));
     });
   } else {
     Textbook.find({
@@ -460,7 +462,7 @@ router.get('/searchNoToken/:query', (req, res) => {
         },
       ],
     }, (err, books) => {
-      res.status(200).json(books);
+      res.status(200).json(response('/searchNoToken/:query', books));
     });
   }
 });
@@ -486,7 +488,7 @@ router.get('/getUsersPosts/:token', (req, res) => {
         books.forEach((book) => {
           bookMap.push(book);
         });
-        res.status(200).json(bookMap);
+        res.status(200).json(response('/getUsersPosts/:token', bookMap));
       });
     }
   });
@@ -549,7 +551,7 @@ router.get('/getAllBooks/:token', (req, res) => {
                 }
               }
               // console.log(books);
-              res.status(200).json(sortBooksReverseCronological(books));
+              res.status(200).json(response('/getAllBooks/:token', sortBooksReverseCronological(books)));
             });
           });
         }
@@ -567,7 +569,7 @@ router.get('/getAllBooksNoToken', (req, res) => {
   Textbook.find({
     status: 0,
   }, (err, books) => {
-    res.status(200).json(sortBooksReverseCronological(books));
+    res.status(200).json(response('/getAllBooksNoToken/', sortBooksReverseCronological(books)));
   });
 });
 

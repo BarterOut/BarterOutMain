@@ -8,7 +8,6 @@ export default class FetchService {
   /**
    * Sends GET request to API and validates response, returning the data in a promise.
    * @param {String} url URL for the API request.
-   * @param {Object} data Any data you want to pass to the server.
    */
   static GET(url) {
     return fetch(url, {
@@ -17,7 +16,7 @@ export default class FetchService {
       if (!FetchService._checkStatus(res)) {
         return Promise.reject(new Error(`Bad Status Code ${res.status}`));
       }
-      return Promise.resolve(res);
+      return res.json().then(obj => Promise.resolve(obj.data));
     });
   }
 
@@ -46,7 +45,7 @@ export default class FetchService {
         if (!FetchService._checkStatus(res)) {
           return Promise.reject(new Error(`Bad Status Code ${res.status}`));
         }
-        return Promise.resolve(res);
+        return res.json().then(obj => Promise.resolve(obj.data));
       });
   }
 
