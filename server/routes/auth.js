@@ -21,17 +21,24 @@ const emails = require('../emails/emailFunctions');
 const crypto = require('crypto');
 const nev = require('email-verification')(mongoose);
 const rand = require('rand-token');
-// Makes the email configuration settings
 
-// Hashing function
+const notification = require('../Notifications');
+
+/**
+ * Hashes a user's password.
+ * @param {String} password Password to Hash
+ * @param {Object} tempUserData User data from temp user.
+ * @param {Function} insertTempUser Function to insert temp user intoDB.
+ * @param {Function} callback Callback function.
+ */
 function myHasher(password, tempUserData, insertTempUser, callback) {
   const hash = bcrypt.hashSync(password, 10, null);
   return insertTempUser(hash, tempUserData, callback);
 }
 
-// Configurations for the temp user stuff
+// Configurations for the temp users.
 nev.configure({
-  verificationURL: 'https://barterout-dev.herokuapp.com/api/auth/email-verification/${URL}',
+  verificationURL: 'https://barterout-dev.herokuapp.com/api/auth/email-verification/${URL}', // eslint-disable-line
   persistentUserModel: User,
   tempUserCollection: 'barterOut_tempusers',
   shouldSendConfirmation: false,
@@ -48,7 +55,7 @@ nev.configure({
     // This won't actually be used but it is necessary for the package to work. the
     from: '"Barter Out" <office@barterout.com',
     subject: 'Please confirm account',
-    html: '<p>Please verify your account by clicking <a href="${URL}">this link</a>.',
+    html: '<p>Please verify your account by clicking <a href="${URL}">this link</a>.', // eslint-disable-line
     auth: {
       user: 'office@barterout.com',
       refreshToken: '1/9XdHU4k2vwYioRyAP8kaGYfZXKfp_JxqUwUMYVJWlZs',
@@ -59,7 +66,6 @@ nev.configure({
   hashingFunction: myHasher,
   emailFieldName: 'emailAddress',
   passwordFieldName: 'password',
-
 }, (error) => {
   if (error) {
     throw new Error(`Error: ${error}`);
@@ -73,7 +79,7 @@ nev.generateTempUserModel(User, (error) => {
   }
 });
 
-// TODO Remove redirects
+// TODO: Remove redirects
 /**
  * Called when a user clicks the confirm link in thier email.
  * @param {Object} req Request body from client.
@@ -96,7 +102,7 @@ router.get('/email-verification/:URL', (req, res) => {
         lastName: tempUser.lastName,
         matchedBooks: [],
         university: tempUser.university,
-        notifications: [{ date: new Date().toLocaleString(), message: 'Thank you for signing up!' }],
+        notifications: [notification.thanksForSigningUp()],
         resetPasswordToken: '',
         resetPasswordExpires: '',
       });
@@ -117,7 +123,6 @@ router.get('/email-verification/:URL', (req, res) => {
   });
 });
 
-// End of email verification changes
 const jwt = require('jsonwebtoken');
 
 function sendEmail(mailOptions) {
@@ -141,7 +146,7 @@ const transporter = nodemailer.createTransport({ // secure authentication
  * Creates an temporary (unconfirmed) account for a user.
  * @param {Object} req Request body from client.
  * @param {Object} res Body of HTTP response.
- * @returns {Number} Status code.
+ * @returns {Object} Standard API Repsonse.
  */
 router.post('/signup', (req, res) => {
   const {
@@ -269,7 +274,7 @@ router.post('/updateProfile', (req, res) => {
  * text password to be sent, will be hashed inside of the function.
  * @param {Object} req Request body from client.
  * @param {Object} res Body of HTTP response.
- * @returns {Object} Standard Response.
+ * @returns {Object} Standard API Response.
  */
 router.post('/updatePassword', (req, res) => {
   jwt.verify(req.body.data.token, 'secretKey', (error, authData) => {
@@ -319,7 +324,7 @@ router.post('/updatePassword', (req, res) => {
  * this token is verified by the another API call.
  * @param {Object} req Request body from client.
  * @param {Object} res Body of HTTP response.
- * @returns {Object} Standard Response.
+ * @returns {Object} Standard API Response.
  */
 router.post('/passwordResetRequest', (req, res) => {
   const email = req.body.data.emailAddress;
@@ -354,6 +359,13 @@ router.post('/passwordResetRequest', (req, res) => {
 });
 
 // TODO: remove redirect
+/**
+ * Route from redirect of password reset request.
+ * This is the link they click in the email.
+ * @param {Object} req Request body from client.
+ * @param {Object} res Body of HTTP response.
+ * @returns {Object} Standard API Response.
+ */
 router.get('/passwordReset/:token', (req, res) => {
   User.findOne({ resetPasswordToken: req.params.token }, (err, user) => {
     if (!user) {
@@ -364,6 +376,13 @@ router.get('/passwordReset/:token', (req, res) => {
   });
 });
 
+/**
+ * Request sent from link page use is taken to
+ * after forgetting their password.
+ * @param {Object} req Request body from client.
+ * @param {Object} res Body of HTTP response.
+ * @returns {Object} Standard API Response.
+ */
 router.post('/passwordReset/', (req, res) => {
   User.findOne(
     {

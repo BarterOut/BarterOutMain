@@ -15,6 +15,13 @@ module.exports = {
     };
   },
 
+  thanksForSigningUp: function thanksForSigningUp() {
+    return {
+      date: moment().format('MMM. Do, YYYY'),
+      message: 'Thank you for signing up!',
+    };
+  },
+
   boughtYourBook: function boughtYourBook(bookName) {
     return {
       date: moment().format('MMM. Do, YYYY'),
@@ -42,7 +49,6 @@ module.exports = {
       message: `We found a match for ${bookName}! See the Buy page for more details.`,
     };
   },
-
 
   thanksForPurchase: function thaksForPurchase(bookName) {
     return {
@@ -85,5 +91,4 @@ module.exports = {
       message: `Payment received for ${bookName}. The book is ready for delivery!`,
     };
   },
-
 };

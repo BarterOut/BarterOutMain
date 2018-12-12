@@ -8,6 +8,7 @@
 .right-content {
   display: flex;
   flex-direction: column;
+  background: #F8F9FA;
   flex-grow: 11;
 }
 
@@ -47,6 +48,9 @@
   border-bottom-right-radius: 6px;
   border-bottom-left-radius: 6px;
   background: #E1DEEC;
+}
+.page-section-wrapper--stat::-webkit-scrollbar {
+  display: none;
 }
 
 .title--page-section-wrapper--stat {

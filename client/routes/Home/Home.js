@@ -7,13 +7,13 @@
 import React, { Component } from 'react';
 
 import './Home.css';
-import TopBar from '../components/TopBar/TopBar';
-import SideNav from '../components/SideNav/SideNav';
-import Notification from '../components/Notification/Notification';
-import BookPost from '../components/BookPost/BookPost';
+import TopBar from '../../components/TopBar/TopBar';
+import SideNav from '../../components/SideNav/SideNav';
+import Notification from '../../components/Notification/Notification';
+import BookPost from '../../components/Posts/BookPost/BookPost';
 
-import FetchService from '../services/FetchService';
-import AuthService from '../services/AuthService';
+import FetchService from '../../services/FetchService';
+import AuthService from '../../services/AuthService';
 
 class Home extends Component {
   constructor() {
@@ -46,7 +46,6 @@ class Home extends Component {
   getNotifications() {
     FetchService.GET(`/api/user/getNotifications/${this.Auth.getToken()}`)
       .then((data) => {
-        console.log(data); // eslint-disable-line
         this.setState({ notifications: data });
       });
   }

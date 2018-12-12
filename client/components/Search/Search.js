@@ -6,13 +6,15 @@
 
 import React, { Component } from 'react';
 import propTypes from 'prop-types';
+
 import FetchService from '../../services/FetchService';
 import AuthService from '../../services/AuthService';
+import ErrorService from '../../services/ErrorService';
 
-import BookPost from '../../components/BookPost/BookPost';
+import BookPost from '../../components/Posts/BookPost/BookPost';
 
 import './Search.css';
-import '../../baseStyles.css';
+import '../../barterout.css';
 
 class Search extends Component {
   constructor() {
@@ -36,7 +38,7 @@ class Search extends Component {
           this.setState({ loading: false });
           this.setState({ searchResults: data });
         })
-        .catch(err => console.warn(err));
+        .catch(err => ErrorService.parseError(err));
       return;
     }
     const auth = new AuthService();
@@ -46,7 +48,7 @@ class Search extends Component {
         this.setState({ loading: false });
         this.setState({ searchResults: data });
       })
-      .catch(err => console.error(err));
+      .catch(err => ErrorService.parseError(err));
   }
 
   render() {

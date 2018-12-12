@@ -1,6 +1,10 @@
 /**
- * Client entry point
+ * @file index.js.
+ * @description Entry point of client.
+ * @author Duncan Grubbs <duncan.grubbs@gmail.com>
+ * @version 0.0.4
  */
+
 import React from 'react';
 import { render } from 'react-dom';
 import { AppContainer } from 'react-hot-loader';
@@ -9,7 +13,6 @@ import 'bootstrap';
 
 import App from './App';
 
-// Initialize store
 const mountApp = document.getElementById('root');
 
 render(

@@ -11,7 +11,7 @@ import FetchService from '../../services/FetchService';
 import logo from '../../images/barterOutOrangeWhiteLogo.png';
 
 import './SignUp.css';
-import '../../baseStyles.css';
+import '../../barterout.css';
 
 class SignUp extends Component {
   constructor(props) {
@@ -110,13 +110,6 @@ class SignUp extends Component {
       $emailAddress.className = 'formInputLoginSignup';
     }
 
-    // const digits = new RegExp('^d{6}$');
-
-    // if (!this.state.CMC.match(digits)) {
-    //   this.setState({ allFilledOut: false });
-    //   allGood = false;
-    // }
-
     const inputsArray = document.getElementsByClassName('formInputLoginSignup');
     const badInputsArray = document.getElementsByClassName('badInput');
 
@@ -176,7 +169,7 @@ class SignUp extends Component {
             required
           />
 
-          <span className="inputLabel">Email * (must be U of R email)</span>
+          <span className="inputLabel">Email * (must be @u.rochester.edu)</span>
           <input
             className="formInputLoginSignup"
             placeholder=""

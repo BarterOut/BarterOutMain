@@ -7,10 +7,10 @@
 import React, { Component } from 'react';
 import propTypes from 'prop-types';
 
-import FetchService from '../../services/FetchService';
-import AuthService from '../../services/AuthService';
+import FetchService from '../../../services/FetchService';
+import AuthService from '../../../services/AuthService';
 
-class PersonalBookPost extends Component {
+class CartBookPost extends Component {
   constructor(props) {
     super(props);
 
@@ -18,7 +18,7 @@ class PersonalBookPost extends Component {
       id: '',
     };
 
-    this.deleteBook = this.deleteBook.bind(this);
+    this.removeFromCart = this.removeFromCart.bind(this);
   }
 
   componentDidMount() {
@@ -29,9 +29,9 @@ class PersonalBookPost extends Component {
     this.setState({ id: this.props.id });
   }
 
-  deleteBook() {
+  removeFromCart() {
     const AUTH = new AuthService();
-    FetchService.POST('/api/books/deleteBook', {
+    FetchService.POST('/api/user/removeFromCart', {
       bookID: this.state.id,
       token: AUTH.getToken(),
     })
@@ -48,18 +48,18 @@ class PersonalBookPost extends Component {
           <span className="bookName">{this.props.name}</span>
           <span className="bookEdition">Edition: {this.props.edition}</span>
         </div>
-        <div id="vertical-line" />
+        <div className="vertical-line" />
         <div className="leftBP">
           <div>
             <span className="condition">{this.props.condition}</span>
-             for <span className="price">${this.props.price}</span>
+             - <span className="price">${this.props.price}*</span>
           </div>
           <span className="comments"><i>{this.props.comments || 'No comments'}</i></span>
         </div>
         <div className="rightBP">
           <button
             className="button"
-            onClick={this.deleteBook}
+            onClick={this.removeFromCart}
           >Remove
           </button>
         </div>
@@ -69,7 +69,7 @@ class PersonalBookPost extends Component {
 }
 
 // Props validation
-PersonalBookPost.propTypes = {
+CartBookPost.propTypes = {
   comments: propTypes.string,
   condition: propTypes.string.isRequired,
   edition: propTypes.number.isRequired,
@@ -79,4 +79,4 @@ PersonalBookPost.propTypes = {
   subject: propTypes.string.isRequired,
 };
 
-export default PersonalBookPost;
+export default CartBookPost;

@@ -8,8 +8,8 @@ import React, { Component } from 'react';
 
 import SideNav from '../../components/SideNav/SideNav';
 import TopBar from '../../components/TopBar/TopBar';
-import TrackBookPost from '../../components/TrackBookPost/TrackBookPost';
-import RequestBookPost from '../../components/RequestBookPost/RequestBookPost';
+import TrackBookPost from '../../components/Posts/TrackBookPost/TrackBookPost';
+import RequestBookPost from '../../components/Posts/RequestBookPost/RequestBookPost';
 
 import FetchService from '../../services/FetchService';
 import AuthService from '../../services/AuthService';

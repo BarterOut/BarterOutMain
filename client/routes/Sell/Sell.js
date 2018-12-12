@@ -12,7 +12,7 @@ import AuthService from '../../services/AuthService';
 
 import SideNav from '../../components/SideNav/SideNav';
 import TopBar from '../../components/TopBar/TopBar';
-import PersonalBookPost from '../../components/PersonalBookPost/PersonalBookPost';
+import PersonalBookPost from '../../components/Posts/PersonalBookPost/PersonalBookPost';
 import SellBook from '../../components/SellBook/SellBook';
 
 import './Sell.css';

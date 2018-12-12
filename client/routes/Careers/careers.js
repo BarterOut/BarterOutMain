@@ -5,17 +5,27 @@
  */
 
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import './careers.css';
 import logoPic from '../../images/barterOutOrangeWhiteLogoHeader.png';
 
+import linkedInLogo from '../../images/linkedIn.png';
+import facebookLogo from '../../images/facebook.png';
+
 const Careers = () => (
   <div className="infowrapper">
-    <div className="bar">
-      <div className="left">
-        <a href="/"><img className="logo" src={logoPic} alt="logo" /></a>
+    <nav className="headerBar">
+      <div className="logo">
+        <a href="/" className="buttonLink"><img alt="logo" id="logoPic" src={logoPic} /></a>
       </div>
-    </div>
+      <div className="pageLinks">
+        <Link className="landingPageLink" to="/" href="/">Home</Link>
+        <Link className="landingPageLink" to="/about" href="/about">About</Link>
+        <Link className="landingPageLink" to="/login" href="/login">Login</Link>
+        <Link className="landingPageLink" to="/signup" href="/signup">Sign Up</Link>
+      </div>
+    </nav>
     <div className="content">
       <h1 className="text-header">Careers</h1>
       <div className="header-line" />
@@ -155,20 +165,36 @@ const Careers = () => (
       </div>
     </div>
 
-    <div className="landingPageBottom">
-      <div id="bottomLinksCol1">
+    <div className="footer">
+      <div className="bottomLinksCol">
         <div className="bottomLinkHeader">Company</div>
-        <a href="/careers" className="bottomPageLink">Careers</a>
+        <a to="/about" href="/about" className="bottomPageLink">About</a>
         <br />
-        <a href="/contact" className="bottomPageLink">Contact</a>
+        <a to="/careers" href="/careers" className="bottomPageLink">Careers</a>
+        <br />
+        <a to="/contact" href="/contact" className="bottomPageLink">Contact</a>
         <br />
       </div>
-      <div id="bottomLinksCol2">
-        <div className="bottomLinkHeader">Resources</div>
+      <div className="bottomLinksCol">
+        <div className="bottomLinkHeader">Legal</div>
         <a href="/termsOfService" className="bottomPageLink">Terms of Service</a>
         <br />
         <a href="/privacyPolicy" className="bottomPageLink">Privacy Policy</a>
       </div>
+      <div className="bottomLinksCol">
+        <div className="bottomLinkHeader">Developer</div>
+        <a href="https://github.com/BarterOut/api-docs" className="bottomPageLink">API Documentation</a>
+        <br />
+        <a href="https://github.com/BarterOut/" className="bottomPageLink">GitHub</a>
+      </div>
+    </div>
+    <div id="socialMedia">
+      <a href="https://www.linkedin.com/company/18490388/" rel="noopener noreferrer" target="_blank">
+        <img alt="logo" className="logoImage" src={linkedInLogo} />
+      </a>
+      <a href="https://www.facebook.com/BarterOut/" rel="noopener noreferrer" target="_blank">
+        <img alt="facebook logo" className="logoImage" src={facebookLogo} />
+      </a>
     </div>
     <div id="copyright">
       © 2018 BarterOut. All Rights Reserved.

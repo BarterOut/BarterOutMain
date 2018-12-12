@@ -10,9 +10,10 @@ import { Link } from 'react-router-dom';
 
 import AuthService from '../../services/AuthService';
 import FetchService from '../../services/FetchService';
+import ErrorService from '../../services/ErrorService';
 
 import './EditPassword.css';
-import '../../baseStyles.css';
+import '../../barterout.css';
 
 import SideNav from '../../components/SideNav/SideNav';
 import TopBar from '../../components/TopBar/TopBar';
@@ -55,7 +56,7 @@ class EditPassword extends Component {
 
   updatePassword() {
     if (!(this.state.passwordConfirm === this.state.newPassword)) {
-      window.alert('Please make your passwords the same!');
+      window.alert('Please make your passwords the same!'); // eslint-disable-line
       return;
     }
 
@@ -67,9 +68,7 @@ class EditPassword extends Component {
       .then(() => {
         this.setState({ updateMessageVisible: true });
       })
-      .catch((error) => {
-        console.error(`Server error: ${error}`);
-      });
+      .catch(error => ErrorService.parseError(error));
   }
 
   render() {
