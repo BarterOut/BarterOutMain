@@ -1,3 +1,10 @@
+/**
+ * @file webpack.config.js
+ * @description Webpack config file.
+ * @author Duncan Grubbs <duncan.grubbs@gmail.com>
+ * @version 0.0.4
+ */
+
 const webpack = require('webpack');
 const { resolve } = require('path');
 

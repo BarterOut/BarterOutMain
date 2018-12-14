@@ -72,7 +72,7 @@ router.get('/getCartItems/:token', (req, res) => {
         const bookIDs = user.cart;
         Textbook.find({ $and: [{ _id: { $in: bookIDs } }, { status: 0 }] }, (error, books) => {
           itemsInCart = books;
-          res.status(200).json(response('/getCartItems', itemsInCart));
+          res.status(200).json(response(req.url, itemsInCart));
         });
       });
     }
@@ -101,7 +101,7 @@ router.post('/addToCart', (req, res) => {
           },
         }, (error) => {
           if (error) {
-            res.status(400).json((response('/addToCart', { error }))); // TODO change response to be status 400
+            res.status(400).json((response(req.url, { error })));
           }
         },
       );
@@ -136,7 +136,7 @@ router.post('/removeFromCart', (req, res) => {
               },
           }, (err) => {
             if (err) {
-              res.status(400).json(response('/addToCart', { err }));
+              res.status(400).json(response(req.url, { err }));
             }
             res.status(200).json(response(req.url, {}));
           },
@@ -186,7 +186,7 @@ router.get('/getPurchasedBooks/:token', (req, res) => {
       Textbook.find({
         $and: [{ status: { $ne: 0 } }, { buyer: authData.userInfo._id }],
       }, (err, booksFound) => {
-        res.status(200).json(response('/getPurchasedBooks/', booksFound));
+        res.status(200).json(response(req.url, booksFound));
       });
     }
   });
@@ -206,7 +206,7 @@ router.get('/getSoldBooks/:token', (req, res) => {
       Textbook.find({
         $and: [{ status: { $ne: 0 } }, { owner: authData.userInfo._id }],
       }, (err, booksFound) => {
-        res.status(200).json(response('/getSoldBooks/', booksFound));
+        res.status(200).json(response(req.url, booksFound));
       });
     }
   });
@@ -224,7 +224,7 @@ router.get('/getNotifications/:token', (req, res) => {
       res.status(401).json(response(req.url, { error }));
     } else {
       User.findOne({ _id: authData.userInfo._id }, (err, user) => {
-        res.status(200).json(response('/getNotifications/', user.notifications));
+        res.status(200).json(response(req.url, user.notifications));
       });
     }
   });
@@ -243,7 +243,7 @@ router.get('/getUserStatistics/:token', (req, res) => {
       res.status(401).json(response(req.url, { error }));
     } else {
       User.findOne({ _id: authData.userInfo._id }, (err, user) => {
-        res.status(200).json(response('/getUserStatistics/:token', {
+        res.status(200).json(response(req.url, {
           numberOfBooksBought: user.numberOfBooksBought,
           numberOfBooksSold: user.numberOfBooksSold,
           moneyMade: user.moneyMade,
@@ -272,7 +272,7 @@ router.get('/getUserData/:token', (req, res) => {
             lastName: user.lastName,
             matchedBooks: user.matchedBooks,
           };
-          res.status(200).json(response('/getUserData/:token', {
+          res.status(200).json(response(req.url, {
             user: returnUser,
           }));
         }
@@ -326,7 +326,7 @@ router.get('/getRequests/:token', (req, res) => {
         if (error) {
           res.status(400).json(response(req.url, { error }));
         } else {
-          res.status(200).json(response('/getRequests/:token', books));
+          res.status(200).json(response(req.url, books));
         }
       });
     }

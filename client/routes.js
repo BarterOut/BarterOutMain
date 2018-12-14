@@ -1,3 +1,10 @@
+/**
+ * @file routes.js
+ * @description All client-side routes for react-router.
+ * @author Duncan Grubbs <duncan.grubbs@gmail.com>
+ * @version 0.0.4
+ */
+
 import React from 'react';
 import {
   Route,
