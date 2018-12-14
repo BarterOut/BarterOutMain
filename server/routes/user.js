@@ -65,14 +65,14 @@ function remakeMatches(userID) {
 router.get('/getCartItems/:token', (req, res) => {
   jwt.verify(req.params.token, 'secretKey', (error, authData) => {
     if (error) {
-      res.status(401).json(response(req.url, { error }));
+      res.status(401).json(response({ error }));
     } else {
       User.findOne({ _id: authData.userInfo._id }, (err, user) => {
         let itemsInCart = [];
         const bookIDs = user.cart;
         Textbook.find({ $and: [{ _id: { $in: bookIDs } }, { status: 0 }] }, (error, books) => {
           itemsInCart = books;
-          res.status(200).json(response(req.url, itemsInCart));
+          res.status(200).json(response(itemsInCart));
         });
       });
     }
@@ -88,7 +88,7 @@ router.get('/getCartItems/:token', (req, res) => {
 router.post('/addToCart', (req, res) => {
   jwt.verify(req.body.data.token, 'secretKey', (error, authData) => {
     if (error) {
-      res.status(401).json(response(req.url, { error }));
+      res.status(401).json(response({ error }));
     } else {
       User.update(
         { _id: authData.userInfo._id },
@@ -101,13 +101,13 @@ router.post('/addToCart', (req, res) => {
           },
         }, (error) => {
           if (error) {
-            res.status(400).json((response(req.url, { error })));
+            res.status(400).json((response({ error })));
           }
         },
       );
     }
   });
-  res.status(202).json(response(req.url, {}));
+  res.status(202).json(response({}));
 });
 
 /**
@@ -119,7 +119,7 @@ router.post('/addToCart', (req, res) => {
 router.post('/removeFromCart', (req, res) => {
   jwt.verify(req.body.data.token, 'secretKey', (error, authData) => {
     if (error) {
-      res.status(401).json(response(req.url, { error }));
+      res.status(401).json(response({ error }));
     } else {
       User.findOne({ _id: authData.userInfo._id }, (err, user) => {
         for (let i = 0; i < user.cart.length; i++) {
@@ -136,9 +136,9 @@ router.post('/removeFromCart', (req, res) => {
               },
           }, (err) => {
             if (err) {
-              res.status(400).json(response(req.url, { err }));
+              res.status(400).json(response({ err }));
             }
-            res.status(200).json(response(req.url, {}));
+            res.status(200).json(response({}));
           },
         );
       });
@@ -156,7 +156,7 @@ router.post('/removeFromCart', (req, res) => {
 router.post('/clearCart', (req, res) => {
   jwt.verify(req.body.data.token, 'secretKey', (error, authData) => {
     if (error) {
-      res.status(401).json(response(req.url, { error }));
+      res.status(401).json(response({ error }));
     } else {
       User.update(
         { _id: authData.userInfo._id },
@@ -167,7 +167,7 @@ router.post('/clearCart', (req, res) => {
             },
         },
       );
-      res.status(200).json(response(req.url, {}));
+      res.status(200).json(response({}));
     }
   });
 });
@@ -181,12 +181,12 @@ router.post('/clearCart', (req, res) => {
 router.get('/getPurchasedBooks/:token', (req, res) => {
   jwt.verify(req.params.token, 'secretKey', (error, authData) => {
     if (error) {
-      res.status(401).json(response(req.url, { error }));
+      res.status(401).json(response({ error }));
     } else {
       Textbook.find({
         $and: [{ status: { $ne: 0 } }, { buyer: authData.userInfo._id }],
       }, (err, booksFound) => {
-        res.status(200).json(response(req.url, booksFound));
+        res.status(200).json(response(booksFound));
       });
     }
   });
@@ -201,12 +201,12 @@ router.get('/getPurchasedBooks/:token', (req, res) => {
 router.get('/getSoldBooks/:token', (req, res) => {
   jwt.verify(req.params.token, 'secretKey', (error, authData) => {
     if (error) {
-      res.status(401).json(response(req.url, { error }));
+      res.status(401).json(response({ error }));
     } else {
       Textbook.find({
         $and: [{ status: { $ne: 0 } }, { owner: authData.userInfo._id }],
       }, (err, booksFound) => {
-        res.status(200).json(response(req.url, booksFound));
+        res.status(200).json(response(booksFound));
       });
     }
   });
@@ -221,10 +221,10 @@ router.get('/getSoldBooks/:token', (req, res) => {
 router.get('/getNotifications/:token', (req, res) => {
   jwt.verify(req.params.token, 'secretKey', (error, authData) => {
     if (error) {
-      res.status(401).json(response(req.url, { error }));
+      res.status(401).json(response({ error }));
     } else {
       User.findOne({ _id: authData.userInfo._id }, (err, user) => {
-        res.status(200).json(response(req.url, user.notifications));
+        res.status(200).json(response(user.notifications));
       });
     }
   });
@@ -240,10 +240,10 @@ router.get('/getNotifications/:token', (req, res) => {
 router.get('/getUserStatistics/:token', (req, res) => {
   jwt.verify(req.params.token, 'secretKey', (error, authData) => {
     if (error) {
-      res.status(401).json(response(req.url, { error }));
+      res.status(401).json(response({ error }));
     } else {
       User.findOne({ _id: authData.userInfo._id }, (err, user) => {
-        res.status(200).json(response(req.url, {
+        res.status(200).json(response({
           numberOfBooksBought: user.numberOfBooksBought,
           numberOfBooksSold: user.numberOfBooksSold,
           moneyMade: user.moneyMade,
@@ -256,11 +256,11 @@ router.get('/getUserStatistics/:token', (req, res) => {
 router.get('/getUserData/:token', (req, res) => {
   jwt.verify(req.params.token, 'secretKey', (error, authData) => {
     if (error) {
-      res.status(400).json(response(req.url, { error }));
+      res.status(400).json(response({ error }));
     } else {
       User.findOne({ _id: authData.userInfo._id }, (error, user) => {
         if (!user) {
-          res.status(401).json(response(req.url, {}));
+          res.status(401).json(response({}));
         } else {
           const returnUser = {
             _id: user._id,
@@ -272,7 +272,7 @@ router.get('/getUserData/:token', (req, res) => {
             lastName: user.lastName,
             matchedBooks: user.matchedBooks,
           };
-          res.status(200).json(response(req.url, {
+          res.status(200).json(response({
             user: returnUser,
           }));
         }
@@ -290,7 +290,7 @@ router.get('/getUserData/:token', (req, res) => {
 router.post('/deleteRequest/', (req, res) => {
   jwt.verify(req.body.data.token, 'secretKey', (error, authData) => {
     if (error) {
-      res.status(403).json(response(req.url, { error }));
+      res.status(403).json(response({ error }));
     } else {
       TextbookBuy.deleteOne({
         $and: [
@@ -300,9 +300,9 @@ router.post('/deleteRequest/', (req, res) => {
       }, (error) => {
         remakeMatches(authData.userInfo._id);
         if (!error) {
-          res.status(200).json(response(req.url, {}));
+          res.status(200).json(response({}));
         } else {
-          res.status(400).json(response(req.url, { error }));
+          res.status(400).json(response({ error }));
         }
       });
     }
@@ -318,15 +318,15 @@ router.post('/deleteRequest/', (req, res) => {
 router.get('/getRequests/:token', (req, res) => {
   jwt.verify(req.params.token, 'secretKey', (error, authData) => {
     if (error) {
-      res.status(403).json(response(req.url, { error }));
+      res.status(403).json(response({ error }));
     } else {
       TextbookBuy.find({
         owner: authData.userInfo._id,
       }, (error, books) => {
         if (error) {
-          res.status(400).json(response(req.url, { error }));
+          res.status(400).json(response({ error }));
         } else {
-          res.status(200).json(response(req.url, books));
+          res.status(200).json(response(books));
         }
       });
     }

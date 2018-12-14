@@ -83,13 +83,13 @@ function sortBooksReverseCronological(bookJSONArray) {
 router.post('/postBook/:token', (req, res) => {
   jwt.verify(req.params.token, 'secretKey', (error, authData) => {
     if (error) {
-      res.status(403).json(response(req.url, { error }));
+      res.status(403).json(response({ error }));
     } else {
       User.findOne({ _id: authData.userInfo._id }, (error, user) => {
         if (!user) {
-          res.status(401).json(response(req.url, { error: 'You need to create an account' }));
+          res.status(401).json(response({ error: 'You need to create an account' }));
         } else if (error) {
-          res.status(401).json(response(req.url, { error }));
+          res.status(401).json(response({ error }));
         } else {
           const newBook = new Textbook(req.body.data);
           newBook.save()
@@ -121,7 +121,7 @@ router.post('/postBook/:token', (req, res) => {
                 ],
               }, (error, matchedBooks) => {
                 if (error) {
-                  res.status(401).json(response(req.url, { error }));
+                  res.status(401).json(response({ error }));
                   return;
                 }
                 matchedBooks.forEach((bookMatched) => {
@@ -142,10 +142,10 @@ router.post('/postBook/:token', (req, res) => {
                   });
                 });
               });
-              res.status(200).json(response(req.url, {}));
+              res.status(200).json(response({}));
             })
             .catch((e) => {
-              res.status(400).json(response(req.url, { error: e }));
+              res.status(400).json(response({ error: e }));
             });
         }
       });
@@ -164,11 +164,11 @@ router.post('/requestBook', (req, res) => {
   const TOKEN = req.body.data.token;
   jwt.verify(TOKEN, 'secretKey', (error, authData) => {
     if (error) {
-      res.status(403).json(response(req.url, { error }));
+      res.status(403).json(response({ error }));
     } else {
       User.findOne({ _id: authData.userInfo._id }, (er, user) => {
         if (!user) {
-          res.status(401).json(response(req.url, { error: 'You need to create an account' }));
+          res.status(401).json(response({ error: 'You need to create an account' }));
         } else {
           BOOK.date = Date.now();
           const newBook = new TextbookBuy(BOOK);
@@ -222,12 +222,12 @@ router.post('/requestBook', (req, res) => {
               );
             })
             .catch((err) => {
-              res.status(400).json(response(req.url, { error: err }));
+              res.status(400).json(response({ error: err }));
             });
         }
       });
     }
-    res.status(200).json(response(req.url, {}));
+    res.status(200).json(response({}));
   });
 });
 
@@ -240,7 +240,7 @@ router.post('/requestBook', (req, res) => {
 router.post('/checkoutCart/:token', (req, res) => {
   jwt.verify(req.params.token, 'secretKey', (error, authData) => {
     if (error) {
-      res.status(403).json(response(req.url, { error }));
+      res.status(403).json(response({ error }));
     } else {
       let buyer;
       let bookFound;
@@ -248,7 +248,7 @@ router.post('/checkoutCart/:token', (req, res) => {
 
       User.find({ _id: authData.userInfo._id }, (error, foundUser) => {
         if (error) {
-          res.status(401).json(response(req.url, { error }));
+          res.status(401).json(response({ error }));
           return;
         }
 
@@ -330,11 +330,11 @@ router.post('/checkoutCart/:token', (req, res) => {
             },
         }, (error) => {
           if (error) {
-            res.status(400).json(response(req.url, { error }));
+            res.status(400).json(response({ error }));
           }
         },
       );
-      res.status(200).json(response(req.url, {}));
+      res.status(200).json(response({}));
     }
   });
 });
@@ -348,11 +348,11 @@ router.post('/checkoutCart/:token', (req, res) => {
 router.get('/getUserMatches/:token', (req, res) => {
   jwt.verify(req.params.token, 'secretKey', (error, authData) => {
     if (error) {
-      res.status(403).json(response(req.url, { error }));
+      res.status(403).json(response({ error }));
     } else {
       User.findOne({ _id: authData.userInfo._id }, (error, user) => {
         if (!user) {
-          res.status(401).json(response(req.url, { error: 'You need to create an account' }));
+          res.status(401).json(response({ error: 'You need to create an account' }));
         } else {
           User.find({ _id: authData.userInfo._id }, (err, userMatch) => {
             let bookObjects = [];
@@ -366,7 +366,7 @@ router.get('/getUserMatches/:token', (req, res) => {
                 }
               }
               bookObjects = books;
-              res.status(200).json(response(req.url, bookObjects));
+              res.status(200).json(response(bookObjects));
             });
           });
         }
@@ -384,7 +384,7 @@ router.get('/getUserMatches/:token', (req, res) => {
 router.get('/search/:query/:token', (req, res) => {
   jwt.verify(req.params.token, 'secretKey', (error, authData) => {
     if (error) {
-      res.status(403).json(response(req.url, { error }));
+      res.status(403).json(response({ error }));
     } else {
       const searchKey = req.params.query;
       const parsed = Number.parseInt(searchKey, 10);
@@ -402,7 +402,7 @@ router.get('/search/:query/:token', (req, res) => {
             },
           ],
         }, (err, books) => {
-          res.status(200).json(response(req.url, books));
+          res.status(200).json(response(books));
         });
       } else {
         Textbook.find({
@@ -418,7 +418,7 @@ router.get('/search/:query/:token', (req, res) => {
             },
           ],
         }, (err, books) => {
-          res.status(200).json(response(req.url, books));
+          res.status(200).json(response(books));
         });
       }
     }
@@ -447,7 +447,7 @@ router.get('/searchNoToken/:query', (req, res) => {
         },
       ],
     }, (err, books) => {
-      res.status(200).json(response(req.url, books));
+      res.status(200).json(response(books));
     });
   } else {
     Textbook.find({
@@ -462,7 +462,7 @@ router.get('/searchNoToken/:query', (req, res) => {
         },
       ],
     }, (err, books) => {
-      res.status(200).json(response(req.url, books));
+      res.status(200).json(response(books));
     });
   }
 });
@@ -476,7 +476,7 @@ router.get('/searchNoToken/:query', (req, res) => {
 router.get('/getUsersPosts/:token', (req, res) => {
   jwt.verify(req.params.token, 'secretKey', (error, authData) => {
     if (error) {
-      res.status(403).json(response(req.url, { error }));
+      res.status(403).json(response({ error }));
     } else {
       Textbook.find({
         $and: [
@@ -488,7 +488,7 @@ router.get('/getUsersPosts/:token', (req, res) => {
         books.forEach((book) => {
           bookMap.push(book);
         });
-        res.status(200).json(response(req.url, bookMap));
+        res.status(200).json(response(bookMap));
       });
     }
   });
@@ -503,7 +503,7 @@ router.get('/getUsersPosts/:token', (req, res) => {
 router.post('/deleteBook/', (req, res) => {
   jwt.verify(req.body.data.token, 'secretKey', (error, authData) => {
     if (error) {
-      res.status(403).json(response(req.url, { error }));
+      res.status(403).json(response({ error }));
     } else {
       Textbook.deleteOne({
         $and: [
@@ -512,9 +512,9 @@ router.post('/deleteBook/', (req, res) => {
         ],
       }, (error) => {
         if (!error) {
-          res.status(200).json(response(req.url, {}));
+          res.status(200).json(response({}));
         } else {
-          res.status(400).json(response(req.url, { error }));
+          res.status(400).json(response({ error }));
         }
       });
     }
@@ -530,11 +530,11 @@ router.post('/deleteBook/', (req, res) => {
 router.get('/getAllBooks/:token', (req, res) => {
   jwt.verify(req.params.token, 'secretKey', (error, authData) => {
     if (error) {
-      res.status(403).json(response(req.url, { error }));
+      res.status(403).json(response({ error }));
     } else {
       User.findOne({ _id: authData.userInfo._id }, (error, user) => {
         if (!user) {
-          res.status(401).json(response(req.url, { error: 'You need to create and account.' }));
+          res.status(401).json(response({ error: 'You need to create and account.' }));
         } else {
           Textbook.find({
             $and: [
@@ -549,7 +549,7 @@ router.get('/getAllBooks/:token', (req, res) => {
                   }
                 }
               }
-              res.status(200).json(response(req.url, sortBooksReverseCronological(books)));
+              res.status(200).json(response(sortBooksReverseCronological(books)));
             });
           });
         }
@@ -571,12 +571,12 @@ router.get('/getAllBooksNoToken', (req, res) => {
   Textbook.find({
     status: 0,
   }, (err, books) => {
-    res.status(200).json(response(req.url, sortBooksReverseCronological(books)));
+    res.status(200).json(response(sortBooksReverseCronological(books)));
   });
 });
 
 router.get('/', (req, res) => {
-  res.status(200).json(response(req.url, {}));
+  res.status(200).json(response({}));
 });
 
 module.exports = router;

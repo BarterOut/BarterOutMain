@@ -121,7 +121,7 @@ router.get('/email-verification/:URL', (req, res) => {
           sendEmail(emails.signedUpEmail(newUser.emailAddress, newUser.firstName));
           TempUser.remove({ emailToken: url }, (error) => {
             if (error) {
-              res.status(400).json(response(req.url, { error }));
+              res.status(400).json(response({ error }));
             }
           });
           res.redirect('/emailConfirmed');
@@ -170,15 +170,15 @@ router.post('/signup', (req, res) => {
 
   User.findOne({ emailAddress }, (error, user) => {
     if (error) {
-      res.status(400).json(response(req.url, { error }));
+      res.status(400).json(response({ error }));
     } else if (user) {
-      res.status(409).json(response(req.url, { error: 'Existing User' }));
+      res.status(409).json(response({ error: 'Existing User' }));
     } else {
       TempUser.findOne({ emailAddress }, (error, existingUser) => {
         if (error) {
-          res.status(400).json(response(req.url, { error }));
+          res.status(400).json(response({ error }));
         } else if (existingUser) {
-          res.status(409).json(response(req.url, { error: 'Existing Temp User' }));
+          res.status(409).json(response({ error: 'Existing Temp User' }));
         } else {
           const emailToken = rand.generate(48);
           const newUser = new TempUser({
@@ -197,7 +197,7 @@ router.post('/signup', (req, res) => {
             .then(() => {
               const URL = newUser.emailToken;
               sendEmail(emails.verifyEmail(emailAddress, firstName, URL));
-              res.status(201).json(response(req.url, null));
+              res.status(201).json(response(null));
             });
         }
       });
@@ -215,15 +215,15 @@ router.post('/login', (req, res) => {
   const { emailAddress, password } = req.body;
   User.findOne({ emailAddress }, (error, user) => {
     if (error) {
-      res.status(400).json(response(req.url, { error }));
+      res.status(400).json(response({ error }));
       return;
     }
     if (!user) {
-      res.status(401).json(response(req.url, { error: 'No Account' }));
+      res.status(401).json(response({ error: 'No Account' }));
       return;
     }
     if (!user.checkPassword(password)) {
-      res.status(401).json(response(req.url, { error: 'Incorrect Password' }));
+      res.status(401).json(response({ error: 'Incorrect Password' }));
       return;
     }
 
@@ -236,7 +236,7 @@ router.post('/login', (req, res) => {
 
     // Creates the token and sends the JSON back
     jwt.sign({ userInfo }, 'secretKey', { expiresIn: '30 days' }, (error, token) => {
-      res.status(200).json(response(req.url, { token }));
+      res.status(200).json(response({ token }));
     });
   });
 });
@@ -252,7 +252,7 @@ router.post('/login', (req, res) => {
 router.post('/updateProfile', (req, res) => {
   jwt.verify(req.body.data.token, 'secretKey', (error, authData) => {
     if (error) {
-      res.status(403).json(response(req.url, { error }));
+      res.status(403).json(response({ error }));
     } else {
       User.update(
         { _id: mongoose.Types.ObjectId(authData.userInfo._id) },
@@ -267,9 +267,9 @@ router.post('/updateProfile', (req, res) => {
         },
         (error) => {
           if (error) {
-            res.status(400).json(response(req.url, { error }));
+            res.status(400).json(response({ error }));
           } else {
-            res.status(200).json(response(req.url, null));
+            res.status(200).json(response(null));
           }
         },
       );
@@ -288,19 +288,19 @@ router.post('/updateProfile', (req, res) => {
 router.post('/updatePassword', (req, res) => {
   jwt.verify(req.body.data.token, 'secretKey', (error, authData) => {
     if (error) {
-      res.status(403).json(response(req.url, { error }));
+      res.status(403).json(response({ error }));
     } else {
       User.findOne({ _id: authData.userInfo._id }, (error, user) => {
         if (error) {
-          res.status(400).json(response(req.url, { error }));
+          res.status(400).json(response({ error }));
           return;
         }
         if (!user) {
-          res.status(401).json(response(req.url, { error: 'You need to create an account.' }));
+          res.status(401).json(response({ error: 'You need to create an account.' }));
           return;
         }
         if (!user.checkPassword(req.body.data.password)) {
-          res.status(401).json(response(req.url, { error: 'Incorrect Password' }));
+          res.status(401).json(response({ error: 'Incorrect Password' }));
           return;
         }
 
@@ -316,9 +316,9 @@ router.post('/updatePassword', (req, res) => {
           },
           (error) => {
             if (error) {
-              res.status(400).json(response(req.url, { error }));
+              res.status(400).json(response({ error }));
             } else {
-              res.status(200).json(response(req.url, null));
+              res.status(200).json(response(null));
             }
           },
         );
@@ -354,15 +354,15 @@ router.post('/passwordResetRequest', (req, res) => {
           },
           (error) => {
             if (error) {
-              res.status(400).json(response(req.url, { error }));
+              res.status(400).json(response({ error }));
             }
           },
         );
         sendEmail(emails.passwordResetEmail(user.emailAddress, user.firstName, token));
-        res.status(200).json(response(req.url, null));
+        res.status(200).json(response(null));
       });
     } else {
-      res.status(406).json(response(req.url, { error: 'No user found.' }));
+      res.status(406).json(response({ error: 'No user found.' }));
     }
   });
 });
@@ -378,7 +378,7 @@ router.post('/passwordResetRequest', (req, res) => {
 router.get('/passwordReset/:token', (req, res) => {
   User.findOne({ resetPasswordToken: req.params.token }, (err, user) => {
     if (!user) {
-      res.status(406).json(response(req.url, { error: 'Token expired or is invalid' }));
+      res.status(406).json(response({ error: 'Token expired or is invalid' }));
     } else {
       res.redirect(`/resetPassword/${req.params.token}`);
     }
@@ -400,7 +400,7 @@ router.post('/passwordReset/', (req, res) => {
     },
     (err, user) => {
       if (!user) {
-        res.status(406).json(response(req.url, { error: 'token expired or is invalid' }));
+        res.status(406).json(response({ error: 'token expired or is invalid' }));
       } else {
         User.update(
           { _id: user._id },
@@ -414,18 +414,18 @@ router.post('/passwordReset/', (req, res) => {
           },
           (error) => {
             if (error) {
-              res.status(400).json(response(req.url, { error }));
+              res.status(400).json(response({ error }));
             }
           },
         );
-        res.status(200).json(response(req.url, null));
+        res.status(200).json(response(null));
       }
     },
   );
 });
 
 router.get('/', (req, res) => {
-  res.status(200).json(response(req.url, null));
+  res.status(200).json(response(null));
 });
 
 module.exports = router;
