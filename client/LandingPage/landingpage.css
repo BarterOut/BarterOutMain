@@ -210,6 +210,7 @@
   color: #343434;
  }
 
+/* FOOTER STYLES */
 .footer {
   position: relative;
   height: 20vh;
@@ -224,21 +225,27 @@
   background-color: #272727;
 }
 
-.bottomLinksCol {
+.footer__linkColumn {
   flex: 1;
+  max-width: 150px;
   font-style: normal;
   text-align: left;
 }
 
-.bottomLinksCol-right {
+.footer__columnHeader {
+  font-family: "orkneybold";
+  color: #FFF;
+  font-size: 14pt;
+}
+
+.footer__linkColumn--right {
   flex: 2;
-  font-style: normal;
+  max-width: none;
   justify-self: flex-end;
-  width: auto;
   text-align: right;
 }
 
-.bottomPageLink {
+.footer__link {
   font-family: "orkneyregular";
   font-weight: normal;
   color: #EAEAEA;
@@ -246,27 +253,21 @@
   text-decoration: none;
 }
 
-.addressLine {
-  font-family: "orkneyregular";
-  font-weight: normal;
-  color: #EAEAEA;
-  font-size: 12pt;
-  text-decoration: none;
-}
-
-.bottomPageLink:hover {
+.footer__link:hover {
   color: #FFF;
+  text-decoration: none;
+}
+
+.footer__address {
+  font-family: "orkneyregular";
+  font-weight: normal;
+  color: #EAEAEA;
+  font-size: 12pt;
   text-decoration: none;
 }
 
 .buttonLink:hover {
   text-decoration: none;
-}
-
-.bottomLinkHeader {
-  font-family: "orkneybold";
-  color: #FFF;
-  font-size: 14pt;
 }
 
 #copyright {
@@ -282,13 +283,13 @@
   padding: 8px 0;
 }
 
-#socialMedia {
+.socialMediaLinks {
   text-align: center;
   justify-content: center;
   background-color: #272727;
 }
 
-.logoImage {
+.socialMediaLinks__logo {
   margin: 2.5% 0.5%;
   max-width: 50px;
   -webkit-transition: opacity 0.25s ease-out;
@@ -297,7 +298,7 @@
   transition: opacity 0.25s ease-out;
 }
 
-.logoImage:hover {
+.socialMediaLinks__logo:hover {
   opacity: 0.50;
 }
 

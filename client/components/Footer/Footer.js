@@ -15,40 +15,41 @@ import '../../barterout.css';
 const Footer = () => (
   <div>
     <div className="footer">
-      <div className="bottomLinksCol">
-        <div className="bottomLinkHeader">Company</div>
-        <a to="/about" href="/about" className="bottomPageLink">About</a>
+      <div className="footer__linkColumn">
+        <div className="footer__columnHeader">Company</div>
+        <a to="/about" href="/about" className="footer__link">About</a>
         <br />
-        <a to="/careers" href="/careers" className="bottomPageLink">Careers</a>
+        <a to="/careers" href="/careers" className="footer__link">Careers</a>
         <br />
-        <a to="/contact" href="/contact" className="bottomPageLink">Contact</a>
+        <a to="/contact" href="/contact" className="footer__link">Contact</a>
         <br />
       </div>
-      <div className="bottomLinksCol">
-        <div className="bottomLinkHeader">Legal</div>
-        <a href="/termsOfService" className="bottomPageLink">Terms of Service</a>
+      <div className="footer__linkColumn">
+        <div className="footer__columnHeader">Legal</div>
+        <a href="/termsOfService" className="footer__link">Terms of Service</a>
         <br />
-        <a href="/privacyPolicy" className="bottomPageLink">Privacy Policy</a>
+        <a href="/privacyPolicy" className="footer__link">Privacy Policy</a>
       </div>
-      <div className="bottomLinksCol">
-        <div className="bottomLinkHeader">Developer</div>
-        <a href="https://github.com/BarterOut/api-docs" className="bottomPageLink">API Documentation</a>
+      <div className="footer__linkColumn">
+        <div className="footer__columnHeader">Developer</div>
+        <a href="https://github.com/BarterOut/api-docs" className="footer__link">API Documentation</a>
         <br />
-        <a href="https://github.com/BarterOut/" className="bottomPageLink">GitHub</a>
+        <a href="https://github.com/BarterOut/" className="footer__link">GitHub</a>
       </div>
 
-      <div className="bottomLinksCol-right">
-        <div className="addressLine">260 East Main Street</div>
-        <div className="addressLine">Suite 6325</div>
-        <div className="addressLine">Rochester, NY 14604</div>
+      <div className="footer__linkColumn footer__linkColumn--right">
+        <div className="footer__columnHeader">Address</div>
+        <div className="footer__address">260 East Main Street</div>
+        <div className="footer__address">Suite 6325</div>
+        <div className="footer__address">Rochester, NY 14604</div>
       </div>
     </div>
-    <div id="socialMedia">
+    <div className="socialMediaLinks">
       <a href="https://www.linkedin.com/company/18490388/" rel="noopener noreferrer" target="_blank">
-        <img alt="logo" className="logoImage" src={linkedInLogo} />
+        <img alt="LI" className="socialMediaLinks__logo" src={linkedInLogo} />
       </a>
       <a href="https://www.facebook.com/BarterOut/" rel="noopener noreferrer" target="_blank">
-        <img alt="facebook logo" className="logoImage" src={facebookLogo} />
+        <img alt="FB" className="socialMediaLinks__logo" src={facebookLogo} />
       </a>
     </div>
     <div id="copyright">
