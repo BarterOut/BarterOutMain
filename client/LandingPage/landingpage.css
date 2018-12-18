@@ -225,13 +225,28 @@
 }
 
 .bottomLinksCol {
+  flex: 1;
   font-style: normal;
-  margin-right: 18px;
-  float: left;
   text-align: left;
 }
 
+.bottomLinksCol-right {
+  flex: 2;
+  font-style: normal;
+  justify-self: flex-end;
+  width: auto;
+  text-align: right;
+}
+
 .bottomPageLink {
+  font-family: "orkneyregular";
+  font-weight: normal;
+  color: #EAEAEA;
+  font-size: 12pt;
+  text-decoration: none;
+}
+
+.addressLine {
   font-family: "orkneyregular";
   font-weight: normal;
   color: #EAEAEA;

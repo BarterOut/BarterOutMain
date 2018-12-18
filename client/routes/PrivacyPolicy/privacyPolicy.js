@@ -12,8 +12,7 @@ import '../../res/sylesheetOrkneyRegular.css';
 
 import logoPic from '../../images/barterOutOrangeWhiteLogoHeader.png';
 
-import linkedInLogo from '../../images/linkedIn.png';
-import facebookLogo from '../../images/facebook.png';
+import Footer from '../../components/Footer/Footer';
 
 const PrivacyPolicy = () => (
   <div className="infowrapper">
@@ -83,50 +82,16 @@ const PrivacyPolicy = () => (
         <p>If there are any questions regarding this privacy policy, you may contact us using the information below.</p>
         <p>
           https://www.barterout.com
-          <br />260 E. Main Street
-          <br />Rochester, New York 14604
-          <br />United States
+          <br />260 East Main Street
+          <br />Suite 6325
+          <br />Rochester, NY 14604
           <br />office@barterout.com
         </p>
         <p>Last Edited on 2018-12-18</p>
         <a href="../res/Privacy Policy.pdf" download id="backLink">Download Privacy Policy</a>
       </div>
     </div>
-
-    <div className="footer">
-      <div className="bottomLinksCol">
-        <div className="bottomLinkHeader">Company</div>
-        <a to="/about" href="/about" className="bottomPageLink">About</a>
-        <br />
-        <a to="/careers" href="/careers" className="bottomPageLink">Careers</a>
-        <br />
-        <a to="/contact" href="/contact" className="bottomPageLink">Contact</a>
-        <br />
-      </div>
-      <div className="bottomLinksCol">
-        <div className="bottomLinkHeader">Legal</div>
-        <a href="/termsOfService" className="bottomPageLink">Terms of Service</a>
-        <br />
-        <a href="/privacyPolicy" className="bottomPageLink">Privacy Policy</a>
-      </div>
-      <div className="bottomLinksCol">
-        <div className="bottomLinkHeader">Developer</div>
-        <a href="https://github.com/BarterOut/api-docs" className="bottomPageLink">API Documentation</a>
-        <br />
-        <a href="https://github.com/BarterOut/" className="bottomPageLink">GitHub</a>
-      </div>
-    </div>
-    <div id="socialMedia">
-      <a href="https://www.linkedin.com/company/18490388/" rel="noopener noreferrer" target="_blank">
-        <img alt="logo" className="logoImage" src={linkedInLogo} />
-      </a>
-      <a href="https://www.facebook.com/BarterOut/" rel="noopener noreferrer" target="_blank">
-        <img alt="facebook logo" className="logoImage" src={facebookLogo} />
-      </a>
-    </div>
-    <div id="copyright">
-      © 2018 BarterOut. All Rights Reserved.
-    </div>
+    <Footer />
   </div>
 );
 
