@@ -10,11 +10,10 @@
  * @param {Object} data Data to pass back, can be null.
  * @returns {Object} Object to send back to client as JSON.
  */
-function response(method, data) {
+function response(data) {
   return {
     meta: {
       date: Date.now(),
-      method,
       responseType: 'JSON',
     },
     data,
