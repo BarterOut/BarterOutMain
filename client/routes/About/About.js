@@ -95,7 +95,7 @@ const About = () => (
           Currently we are a group of 11 creative students at the
           University of Rochester dedicated to improve the college experience
           for everyone using tech. If our mission resonates with you, be sure to
-          check out our updated <Link to="/careers" href="/careers">careers page</Link>.
+          check out our updated <a to="/careers" href="/careers">careers page</a>.
         </p>
         <div id="team-photos">
           <div className="team-member">
@@ -115,7 +115,7 @@ const About = () => (
           <div className="team-member">
             <img className="team-photo" src={duncan} alt="Duncan" />
             <h4 className="subtext">Duncan Grubbs</h4>
-            <h4 className="subtext1">Interim CTO</h4>
+            <h4 className="subtext1">Lead Developer</h4>
             <h4 className="subtext2">UR &apos;21</h4>
           </div>
 

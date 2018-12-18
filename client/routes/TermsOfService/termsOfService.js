@@ -1,5 +1,6 @@
 /**
- * @file React component for the privacy policy page.
+ * @file termsOfService.js
+ * @description React component for the terms of service route.
  * @author Duncan Grubbs <duncan.grubbs@gmail.com>
  * @version 0.0.4
  */
@@ -73,7 +74,7 @@ const TermsOfService = () => (
         <p className="para-terms">SECTION 18 - CHANGES TO TERMS OF SERVICE <br />You can review the most current version of the Terms of Service at any time at this page. We reserve the right, at our sole discretion, to update, change or replace any part of these Terms of Service by posting updates and changes to our website. It is your responsibility to check our website periodically for changes. Your continued use of or access to our website or the Service following the posting of any changes to these Terms of Service constitutes acceptance of those changes.</p>
 
         <p className="para-terms">SECTION 19 - CONTACT INFORMATION <br />Questions about the Terms of Service should be sent to us at office@barterout.com.</p>
-
+        <p>Last Edited on 2018-12-18</p>
         <a href="../res/Terms of Service.pdf" download id="backLink">Download Terms of Service</a>
       </div>
     </div>

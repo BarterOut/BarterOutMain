@@ -1,5 +1,6 @@
 /**
- * @file React component for the privacy policy page.
+ * @file privacyPolicy.js
+ * @description React component for the privacy policy route.
  * @author Duncan Grubbs <duncan.grubbs@gmail.com>
  * @version 0.0.4
  */
@@ -80,8 +81,14 @@ const PrivacyPolicy = () => (
         <p>If at any time you would like to unsubscribe from receiving future emails, you can email us at &bull; Follow the instructions at the bottom of each email. and we will promptly remove you from ALL correspondence.</p>
         <h4>Contacting Us</h4>
         <p>If there are any questions regarding this privacy policy, you may contact us using the information below.</p>
-        <p>https://www.barterout.com 500 Joseph C Wilson Blvd Rochester, New York 14627 United States office@barterout.com</p>
-        <p>Last Edited on 2018-02-24</p>
+        <p>
+          https://www.barterout.com
+          <br />260 E. Main Street
+          <br />Rochester, New York 14604
+          <br />United States
+          <br />office@barterout.com
+        </p>
+        <p>Last Edited on 2018-12-18</p>
         <a href="../res/Privacy Policy.pdf" download id="backLink">Download Privacy Policy</a>
       </div>
     </div>
