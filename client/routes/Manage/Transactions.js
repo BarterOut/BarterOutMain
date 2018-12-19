@@ -8,8 +8,7 @@ import React, { Component } from 'react';
 
 import NavBar from '../../components/NavBar/NavBar';
 import SideNav from '../../components/SideNav/SideNav';
-import PersonalBookPost from '../../components/Posts/PersonalBookPost/PersonalBookPost';
-import RequestBookPost from '../../components/Posts/RequestBookPost/RequestBookPost';
+import TrackBookPost from '../../components/Posts/TrackBookPost/TrackBookPost';
 
 import FetchService from '../../services/FetchService';
 import AuthService from '../../services/AuthService';
@@ -20,9 +19,7 @@ class Transcations extends Component {
 
     this.state = {
       booksSold: [],
-      booksPosted: [],
       booksPurchased: [],
-      booksRequested: [],
     };
     this.auth = new AuthService();
   }
@@ -30,22 +27,6 @@ class Transcations extends Component {
   componentDidMount() {
     this.getPurchasedBooks();
     this.getSoldBooks();
-    this.getRequestedBooks();
-    this.getPostedBooks();
-  }
-
-  getRequestedBooks() {
-    FetchService.GET(`/api/user/getRequests/${this.auth.getToken()}`)
-      .then((data) => {
-        this.setState({ booksRequested: data });
-      });
-  }
-
-  getPostedBooks() {
-    FetchService.GET(`/api/books/getUsersPosts/${this.auth.getToken()}`)
-      .then((data) => {
-        this.setState({ booksPosted: data });
-      });
   }
 
   getPurchasedBooks() {
@@ -91,7 +72,7 @@ class Transcations extends Component {
             </div>
             <div className="col-sm-6">
               <div>
-                <h2>Your Posts</h2>
+                <h2>Transcations</h2>
                 <input
                   className="form-control"
                   type="text"
@@ -104,12 +85,11 @@ class Transcations extends Component {
                   this.state.loading &&
                   <div className="loading" />
                 }
-                {this.state.booksPosted.map(post => (
-                  <PersonalBookPost
+                {this.state.booksPurchased.map(post => (
+                  <TrackBookPost
                     key={post._id}
                     id={post._id}
                     name={post.name}
-                    date={post.date}
                     subject={post.course}
                     edition={post.edition}
                     inCart={post.inCart}
@@ -119,17 +99,8 @@ class Transcations extends Component {
                     comments={post.comments}
                   />
                 ))}
-              </div>
-              <div>
-                <h2>You&apos;ve Requested</h2>
-              </div>
-              <div>
-                {
-                  this.state.loading &&
-                  <div className="loading" />
-                }
                 {this.state.booksSold.map(post => (
-                  <RequestBookPost
+                  <TrackBookPost
                     key={post._id}
                     id={post._id}
                     name={post.name}

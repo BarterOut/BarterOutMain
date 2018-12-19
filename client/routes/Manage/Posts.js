@@ -5,6 +5,7 @@
  */
 
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 
 import NavBar from '../../components/NavBar/NavBar';
 import SideNav from '../../components/SideNav/SideNav';
@@ -19,9 +20,7 @@ class Posts extends Component {
     super();
 
     this.state = {
-      booksSold: [],
       booksPosted: [],
-      booksPurchased: [],
       booksRequested: [],
     };
     this.auth = new AuthService();
@@ -84,6 +83,26 @@ class Posts extends Component {
     return (
       <div >
         <NavBar />
+        <nav className="navbar navbar-expand-lg navbar-light bg-light">
+          <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span className="navbar-toggler-icon" />
+          </button>
+
+          <div className="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul className="navbar-nav mx-auto">
+              <li className="nav-item px-2">
+                <Link className="nav-link" href="/home" to="/home">
+                  Posts
+                </Link>
+              </li>
+              <li className="nav-item px-2">
+                <Link className="nav-link" href="/manage/posts" to="/manage/posts">
+                  Transactions
+                </Link>
+              </li>
+            </ul>
+          </div>
+        </nav>
         <div className="container">
           <div className="row mx-auto mt-4">
             <div className="col-sm-3">
@@ -128,18 +147,14 @@ class Posts extends Component {
                   this.state.loading &&
                   <div className="loading" />
                 }
-                {this.state.booksSold.map(post => (
+                {this.state.booksRequested.map(post => (
                   <RequestBookPost
                     key={post._id}
                     id={post._id}
                     name={post.name}
+                    date={post.date}
                     subject={post.course}
                     edition={post.edition}
-                    inCart={post.inCart}
-                    price={post.price}
-                    status={post.status}
-                    condition={post.condition}
-                    comments={post.comments}
                   />
                 ))}
               </div>

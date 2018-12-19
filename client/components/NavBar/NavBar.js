@@ -61,7 +61,7 @@ class NavBar extends Component {
           </ul>
           <ul className="navbar-nav mr-0">
             <li className="nav-item px-2">
-              <a className="nav-link" onClick={this.logout} href="#">
+              <a className="nav-link" onClick={this.logout} href="/">
                 Log Out
               </a>
             </li>
