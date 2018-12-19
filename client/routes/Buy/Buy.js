@@ -1,5 +1,6 @@
 /**
- * @file React component for a route on the web platform.
+ * @file Buy.js
+ * @description React component for a route on the web platform.
  * @author Duncan Grubbs <duncan.grubbs@gmail.com>
  * @author Daniel Munoz
  * @version 0.0.4

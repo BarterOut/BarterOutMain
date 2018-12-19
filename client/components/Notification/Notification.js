@@ -20,8 +20,8 @@ class Notification extends Component {
   render() {
     return (
       <div className="notification">
-        <span className="date">{this.props.date}</span>
-        <span className="message">{this.props.message}</span>
+        <span className="notification__date">{this.props.date}</span>
+        <span className="notification__message">{this.props.message}</span>
       </div>
     );
   }

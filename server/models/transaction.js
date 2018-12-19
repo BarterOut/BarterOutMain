@@ -1,3 +1,11 @@
+/**
+ * @file transaction.js
+ * @description Transaction schema for the DB (NOT IN USE).
+ * @author Duncan Grubbs <duncan.grubbs@gmail.com>
+ * @author Daniel Munoz
+ * @version 0.0.4
+ */
+
 import mongoose from 'mongoose';
 
 const Schema = mongoose.Schema;

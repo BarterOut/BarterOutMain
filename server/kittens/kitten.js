@@ -1,5 +1,5 @@
-import Kitten from '../models/kitten';
 import cuid from 'cuid';
+import Kitten from '../models/kitten';
 
 export default function () {
   Kitten.count().exec((err, count) => {

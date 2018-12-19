@@ -63,7 +63,6 @@ if (process.env.NODE_ENV === 'production') {
   app.use(forceSsl);
 }
 
-// Set cache policy to cache for one month
 // Prefer gzipped js files.
 app.get('*.js', (req, res, next) => {
   // res.set('Cache-Control', 'public, max-age=2629800');
@@ -71,7 +70,13 @@ app.get('*.js', (req, res, next) => {
   next();
 });
 
+// Set cache policy to cache for one month on images
 app.get('*.jpg', (req, res, next) => {
+  res.set('Cache-Control', 'public, max-age=2629800');
+  next();
+});
+
+app.get('*.png', (req, res, next) => {
   res.set('Cache-Control', 'public, max-age=2629800');
   next();
 });
