@@ -11,6 +11,7 @@ import moment from 'moment';
 
 import FetchService from '../../../services/FetchService';
 import AuthService from '../../../services/AuthService';
+import Util from '../../../services/util';
 
 
 import './BookPost.css';
@@ -24,7 +25,6 @@ class BookPost extends Component {
     };
 
     this.addToCart = this.addToCart.bind(this);
-    this.ordinalSuffixOf = this.ordinalSuffixOf.bind(this);
   }
 
   componentDidMount() {
@@ -35,21 +35,6 @@ class BookPost extends Component {
 
   _setInCart() {
     this.setState({ inCart: true });
-  }
-
-  ordinalSuffixOf(i) {
-    const j = i % 10;
-    const k = i % 100;
-    if (j == 1 && k != 11) {
-      return `${i}st`;
-    }
-    if (j == 2 && k != 12) {
-      return `${i}nd`;
-    }
-    if (j == 3 && k != 13) {
-      return `${i}rd`;
-    }
-    return `${i}th`;
   }
 
   addToCart() {
@@ -73,7 +58,7 @@ class BookPost extends Component {
           </div>
           <h5 className="card-title">{this.props.name}</h5>
           <h6 className="card-subtitle mb-2 text-muted">
-            {this.ordinalSuffixOf(this.props.edition)} Edition - {this.props.condition}
+            {Util.ordinalSuffixOf(this.props.edition)} Edition - {this.props.condition}
           </h6>
 
           <div>

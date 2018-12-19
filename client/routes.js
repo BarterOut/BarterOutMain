@@ -20,7 +20,8 @@ import SignUp from './routes/SignUp/SignUp';
 import Login from './routes/Login/Login';
 
 import Home from './routes/Home/Home';
-import Manage from './routes/Manage/Manage';
+import Posts from './routes/Manage/Posts';
+import Transactions from './routes/Manage/Transactions';
 import Settings from './routes/Settings/Settings';
 import Help from './routes/Help/Help';
 import Cart from './routes/Cart/Cart';
@@ -82,7 +83,8 @@ export default (
     <Route path="/resetPassword/:resetToken" component={ResetPassword} />
 
     <PrivateRoute exact path="/home" component={Home} />
-    <PrivateRoute exact path="/manage" component={Manage} />
+    <PrivateRoute exact path="/manage/posts" component={Posts} />
+    <PrivateRoute exact path="/manage/transactions" component={Transactions} />
     <PrivateRoute exact path="/settings" component={Settings} />
     <PrivateRoute exact path="/help" component={Help} />
     <PrivateRoute exact path="/cart" component={Cart} />

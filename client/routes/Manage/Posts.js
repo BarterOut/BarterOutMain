@@ -9,16 +9,18 @@ import React, { Component } from 'react';
 import NavBar from '../../components/NavBar/NavBar';
 import SideNav from '../../components/SideNav/SideNav';
 import PersonalBookPost from '../../components/Posts/PersonalBookPost/PersonalBookPost';
+import RequestBookPost from '../../components/Posts/RequestBookPost/RequestBookPost';
 
 import FetchService from '../../services/FetchService';
 import AuthService from '../../services/AuthService';
 
-class Manage extends Component {
+class Posts extends Component {
   constructor() {
     super();
 
     this.state = {
       booksSold: [],
+      booksPosted: [],
       booksPurchased: [],
       booksRequested: [],
     };
@@ -29,12 +31,20 @@ class Manage extends Component {
     this.getPurchasedBooks();
     this.getSoldBooks();
     this.getRequestedBooks();
+    this.getPostedBooks();
   }
 
   getRequestedBooks() {
     FetchService.GET(`/api/user/getRequests/${this.auth.getToken()}`)
       .then((data) => {
         this.setState({ booksRequested: data });
+      });
+  }
+
+  getPostedBooks() {
+    FetchService.GET(`/api/books/getUsersPosts/${this.auth.getToken()}`)
+      .then((data) => {
+        this.setState({ booksPosted: data });
       });
   }
 
@@ -94,11 +104,12 @@ class Manage extends Component {
                   this.state.loading &&
                   <div className="loading" />
                 }
-                {this.state.booksSold.map(post => (
+                {this.state.booksPosted.map(post => (
                   <PersonalBookPost
                     key={post._id}
                     id={post._id}
                     name={post.name}
+                    date={post.date}
                     subject={post.course}
                     edition={post.edition}
                     inCart={post.inCart}
@@ -118,7 +129,7 @@ class Manage extends Component {
                   <div className="loading" />
                 }
                 {this.state.booksSold.map(post => (
-                  <PersonalBookPost
+                  <RequestBookPost
                     key={post._id}
                     id={post._id}
                     name={post.name}
@@ -154,4 +165,4 @@ class Manage extends Component {
   }
 }
 
-export default Manage;
+export default Posts;

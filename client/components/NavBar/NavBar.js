@@ -10,7 +10,7 @@ import { Link } from 'react-router-dom';
 
 import AuthService from '../../services/AuthService';
 
-import logo from '../../images/white\ Logo@2x.png';
+import logo from '../../images/white Logo@2x.png';
 
 class NavBar extends Component {
   constructor() {
@@ -44,7 +44,7 @@ class NavBar extends Component {
               </Link>
             </li>
             <li className="nav-item px-2">
-              <Link className="nav-link" href="/manage" to="/manage">
+              <Link className="nav-link" href="/manage/posts" to="/manage/posts">
                 Manage
               </Link>
             </li>
