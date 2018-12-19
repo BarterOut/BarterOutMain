@@ -11,6 +11,10 @@ import NavBar from '../../components/NavBar/NavBar';
 const Help = () => (
   <div>
     <NavBar />
+    <div className="container my-2">
+      <h2>Help</h2>
+      <h6>Email office@barterout.com</h6>
+    </div>
   </div>
 );
 

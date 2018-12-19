@@ -5,6 +5,7 @@
  */
 
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 
 import NavBar from '../../components/NavBar/NavBar';
 import SideNav from '../../components/SideNav/SideNav';
@@ -13,7 +14,7 @@ import TrackBookPost from '../../components/Posts/TrackBookPost/TrackBookPost';
 import FetchService from '../../services/FetchService';
 import AuthService from '../../services/AuthService';
 
-class Transcations extends Component {
+class Transactions extends Component {
   constructor() {
     super();
 
@@ -65,6 +66,26 @@ class Transcations extends Component {
     return (
       <div >
         <NavBar />
+        <nav className="navbar navbar-expand-lg navbar-light bg-light">
+          <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span className="navbar-toggler-icon" />
+          </button>
+
+          <div className="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul className="navbar-nav mx-auto">
+              <li className="nav-item px-2">
+                <Link className="nav-link" href="/manage/posts" to="/manage/posts">
+                  Posts
+                </Link>
+              </li>
+              <li className="nav-item px-2">
+                <Link className="nav-link" href="/manage/transactions" to="/manage/transactions">
+                  Transactions
+                </Link>
+              </li>
+            </ul>
+          </div>
+        </nav>
         <div className="container">
           <div className="row mx-auto mt-4">
             <div className="col-sm-3">
@@ -72,7 +93,7 @@ class Transcations extends Component {
             </div>
             <div className="col-sm-6">
               <div>
-                <h2>Transcations</h2>
+                <h2>Transactions</h2>
                 <input
                   className="form-control"
                   type="text"
@@ -136,4 +157,4 @@ class Transcations extends Component {
   }
 }
 
-export default Transcations;
+export default Transactions;

@@ -81,16 +81,15 @@ class Cart extends Component {
     return (
       <div>
         <NavBar />
-        <div className="page-content">
-          <div className="title--page-section-wrapper">
-            <h2 className="title-text--page-section-header">Cart</h2>
-          </div>
-          <div className="page-section-wrapper">
+        <div className="container my-4">
+          <div>
+            <h3>Cart Items</h3>
             {this.state.items.map(post => (
               <CartBookPost
                 key={post._id}
                 id={post._id}
                 name={post.name}
+                date={post.date}
                 subject={post.course}
                 edition={post.edition}
                 price={post.price}
@@ -100,7 +99,7 @@ class Cart extends Component {
             ))}
           </div>
 
-          <div id="cart-totals">
+          <div>
             <b>Items:</b><br />
             {this.state.items.map(post => (
               <div className="cart-money-info" key={post._id}>{post.name}: <i>${post.price}</i></div>

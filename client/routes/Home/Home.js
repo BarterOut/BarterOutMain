@@ -87,7 +87,7 @@ class Home extends Component {
             </div>
             <div className="col-sm-6">
               <div>
-                <h2>Recent Posts</h2>
+                <h3>Recent Posts</h3>
                 <input
                   className="form-control"
                   type="text"
@@ -118,7 +118,7 @@ class Home extends Component {
               </div>
             </div>
             <div className="col-sm-3">
-              <h2>Your Stats</h2>
+              <h3>Your Stats</h3>
               <div className="list-group">
                 <a className="list-group-item list-group-item-action" href="/">
                   ${this.state.moneyMade} Made
