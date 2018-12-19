@@ -8,6 +8,8 @@ import React, { Component } from 'react';
 import moment from 'moment';
 import propTypes from 'prop-types';
 
+import Util from '../../../services/util';
+
 class TrackBookPost extends Component {
   constructor(props) {
     super(props);
@@ -17,21 +19,21 @@ class TrackBookPost extends Component {
 
   render() {
     return (
-      <div className="post">
-        <div className="leftBP">
-          <span className="bookSubject">{this.props.subject}</span>
-          <span className="bookName">{this.props.name}</span>
-          <span className="bookEdition">{moment.unix(this.props.date / 1000).format('L')}</span>
-        </div>
-        <div className="vertical-line" />
-        <div className="leftBP">
-          <span className="comments"><i>{this.props.comments || 'No comments'}</i></span>
-        </div>
-        <div className="rightPB">
-          <div>
-            <span className="condition">{this.props.condition}</span>
-             - <span className="price">${this.props.price}*</span>
+      <div className="card my-2">
+        <div className="card-body">
+          <div className="d-flex w-100 justify-content-between">
+            <h6 className="mb-1">{this.props.subject}</h6>
+            <small>{moment.unix(this.props.date / 1000).fromNow()}</small>
           </div>
+          <h5 className="card-title">{this.props.name}</h5>
+          <h6 className="card-subtitle mb-2 text-muted">
+            {Util.ordinalSuffixOf(this.props.edition)} Edition - {this.props.condition}
+          </h6>
+
+          <div>
+            <p className="comments"><i>{this.props.comments || 'No comments'}</i></p>
+          </div>
+          <span className="price">${this.props.price}*</span>
           <span className="comments"><i>{this.props.type}</i></span>
         </div>
       </div>
@@ -44,6 +46,7 @@ TrackBookPost.propTypes = {
   comments: propTypes.string,
   condition: propTypes.string.isRequired,
   date: propTypes.number.isRequired,
+  edition: propTypes.number.isRequired,
   name: propTypes.string.isRequired,
   price: propTypes.number.isRequired,
   subject: propTypes.string.isRequired,

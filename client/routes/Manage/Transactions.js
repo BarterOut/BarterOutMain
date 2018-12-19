@@ -105,6 +105,8 @@ class Transactions extends Component {
                     key={post._id}
                     id={post._id}
                     name={post.name}
+                    date={post.date}
+                    type="PURCHASED"
                     subject={post.course}
                     edition={post.edition}
                     inCart={post.inCart}
@@ -119,6 +121,8 @@ class Transactions extends Component {
                     key={post._id}
                     id={post._id}
                     name={post.name}
+                    date={post.date}
+                    type="SOLD"
                     subject={post.course}
                     edition={post.edition}
                     inCart={post.inCart}

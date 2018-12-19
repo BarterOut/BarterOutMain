@@ -83,7 +83,7 @@ class Cart extends Component {
         <NavBar />
         <div className="container my-4">
           <div className="row">
-            <div className="col-sm-5">
+            <div className="col-sm-7">
               <h3>Cart</h3>
               {this.state.items.map(post => (
                 <CartBookPost
@@ -99,30 +99,25 @@ class Cart extends Component {
                 />
               ))}
             </div>
-            <div className="col-sm-7 cart__listItems">
-              <h4>Summary</h4>
-              <b>Items:</b><br />
-              {this.state.items.map(post => (
-                <div className="cart-money-info" key={post._id}>{post.name}: <i>${post.price}</i></div>
-              ))}
-              <br />
-              <br />
-              <span className="cart-money-info">Subtotal: <b>${this._calculateMoney().subtotal}</b></span><br />
-              <br />
-              <span className="cart-money-info">Our 5% Fee: <i>${this._calculateMoney().fee}</i></span><br />
-              <span className="cart-money-info">Total: <b>${this._calculateMoney().total}</b></span><br />
-              <button className="btn btn-primary" onClick={this.buyBooks}>Checkout</button>
+            <div className="col-sm-5">
+              <h3>Summary</h3>
+              <div className="card px-4 py-4">
+                <span className="cart-money-info">Subtotal: <b>${this._calculateMoney().subtotal}</b></span>
+                <span className="cart-money-info">Our 5% Fee: <i>${this._calculateMoney().fee}</i></span>
+                <br />
+                <span className="cart-money-info">Total: <b>${this._calculateMoney().total}</b></span>
+                <button className="btn btn-primary float-right my-2" onClick={this.buyBooks}>Checkout</button>
+                <p className="my-2">
+                  When you click &quot;Checkout&quot;, we will Venmo request @<b>{this.state.venmo}</b>.
+                  Please change your Venmo username <Link to="/settings" href="settings">here</Link> if it
+                  is not accurate. Until you accept our Venmo request, we will hold the book(s).
+                  Once you pay, the book(s) will be delivered via the campus mail center to
+                  CMC Box <b>{this.state.CMC}</b>. Again if any of this information is not accurate, please
+                  change it <Link to="/settings" href="settings">here</Link>.
+                </p>
+              </div>
             </div>
           </div>
-
-          <p id="cart-message">
-            When you click &quot;Checkout&quot;, we will Venmo request @<b>{this.state.venmo}</b>.
-            Please change your Venmo username <Link to="/settings" href="settings">here</Link> if it
-            is not accurate. Until you accept our Venmo request, we will hold the book(s).
-            Once you pay, the book(s) will be delivered via the campus mail center to
-            CMC Box <b>{this.state.CMC}</b>. Again if any of this information is not accurate, please
-            change it <Link to="/settings" href="settings">here</Link>.
-          </p>
         </div>
       </div>
     );
