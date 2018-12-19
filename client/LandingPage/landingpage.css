@@ -36,7 +36,7 @@
   flex-grow: 4;
 }
 
-#logoPic {
+.logoPic {
   height: 36px;
   width: auto;
 }

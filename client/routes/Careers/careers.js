@@ -16,7 +16,7 @@ const Careers = () => (
   <div className="infowrapper">
     <nav className="headerBar">
       <div className="logo">
-        <a href="/" className="buttonLink"><img alt="logo" id="logoPic" src={logoPic} /></a>
+        <a href="/" className="buttonLink"><img alt="logo" className="logoPic" src={logoPic} /></a>
       </div>
       <div className="pageLinks">
         <Link className="landingPageLink" to="/" href="/">Home</Link>

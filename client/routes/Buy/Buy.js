@@ -64,27 +64,6 @@ class Buy extends Component {
     this.setState({ showModal: false });
   }
 
-  search(query) {
-    this.setState({ loading: true });
-    this.setState({ posts: [] });
-    if (query === '') {
-      FetchService.GET(`/api/books/getAllBooks/${this.auth.getToken()}`)
-        .then((data) => {
-          this.setState({ loading: false });
-          this.setState({ posts: data });
-        })
-        .catch(err => ErrorService.parseError(err));
-      return;
-    }
-
-    FetchService.GET(`/api/books/search/${query}/${this.auth.getToken()}`)
-      .then((data) => {
-        this.setState({ loading: false });
-        this.setState({ posts: data });
-      })
-      .catch(err => ErrorService.parseError(err));
-  }
-
   render() {
     let posts = [];
     if (this.state.posts) {

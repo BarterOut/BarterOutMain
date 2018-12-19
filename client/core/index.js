@@ -9,7 +9,8 @@ import React from 'react';
 import { render } from 'react-dom';
 import { AppContainer } from 'react-hot-loader';
 
-import 'bootstrap';
+// import 'bootstrap/dist/css/bootstrap.css';
+import '../scss/custom.scss';
 
 import App from './App';
 

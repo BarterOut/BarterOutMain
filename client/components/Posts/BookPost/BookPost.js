@@ -22,6 +22,7 @@ class BookPost extends Component {
     };
 
     this.addToCart = this.addToCart.bind(this);
+    this.ordinalSuffixOf = this.ordinalSuffixOf.bind(this);
   }
 
   componentDidMount() {
@@ -32,6 +33,21 @@ class BookPost extends Component {
 
   _setInCart() {
     this.setState({ inCart: true });
+  }
+
+  ordinalSuffixOf(i) {
+    const j = i % 10;
+    const k = i % 100;
+    if (j == 1 && k != 11) {
+      return `${i}st`;
+    }
+    if (j == 2 && k != 12) {
+      return `${i}nd`;
+    }
+    if (j == 3 && k != 13) {
+      return `${i}rd`;
+    }
+    return `${i}th`;
   }
 
   addToCart() {
@@ -47,25 +63,22 @@ class BookPost extends Component {
 
   render() {
     return (
-      <div className="post">
-        <div className="leftBP">
-          <span className="bookSubject">{this.props.subject}</span>
-          <span className="bookName">{this.props.name}</span>
-          <span className="bookEdition">Edition: {this.props.edition}</span>
-        </div>
-        <div className="vertical-line" />
-        <div className="leftBP">
-          <span className="comments"><i>{this.props.comments || 'No comments'}</i></span>
-        </div>
-        <div className="rightBP">
+      <div className="card my-2">
+        <div className="card-body">
+          <span>{this.props.subject}</span>
+          <h5 className="card-title">{this.props.name}</h5>
+          <h6 className="card-subtitle mb-2 text-muted">
+            {this.ordinalSuffixOf(this.props.edition)} Edition - {this.props.condition}
+          </h6>
+
           <div>
-            <span className="condition">{this.props.condition}</span>
-             - <span className="price">${this.props.price}*</span>
+            <p className="comments"><i>{this.props.comments || 'No comments'}</i></p>
           </div>
+          <span className="price">${this.props.price}*</span>
           {
             !this.state.inCart &&
             <button
-              className="button"
+              className="btn btn-primary float-right"
               onClick={this.addToCart}
             >Add to Cart
             </button>
@@ -73,7 +86,7 @@ class BookPost extends Component {
           {
             this.state.inCart &&
             <button
-              className="button green"
+              className="btn btn-default float-right"
             >Added to Cart
             </button>
           }

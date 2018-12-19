@@ -8,98 +8,29 @@ import React, { Component } from 'react';
 import propTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
-import MaterialIcon from 'react-google-material-icons';
-
-import FetchService from '../../services/FetchService';
-import AuthService from '../../services/AuthService';
-
 import '../../barterout.css';
 
 import './SideNav.css';
 
-import profile from '../../images/barterOutProfilePhotoWebPage.png';
-import logo from '../../images/white Logo@2x.png';
-
 class SideNav extends Component {
   constructor() {
     super();
-    this.state = {
-      name: '',
-    };
-  }
-
-  componentDidMount() {
-    if (this.props.selected) {
-      const selectedNavItem = document.getElementsByName(this.props.selected)[0];
-      selectedNavItem.className = 'nav-link selected';
-    }
-
-    this._getProfileInfo();
-  }
-
-  _getProfileInfo() {
-    if (!sessionStorage.getItem('name')) {
-      const AUTH = new AuthService();
-      FetchService.GET(`/api/user/getUserData/${AUTH.getToken()}`)
-        .then((data) => {
-          sessionStorage.setItem('name', `${data.user.firstName} ${data.user.lastName}`);
-          this.setState({ name: `${data.user.firstName} ${data.user.lastName}` });
-        });
-    } else {
-      this.setState({ name: sessionStorage.getItem('name') });
-    }
+    this.state = {};
   }
 
   render() {
     return (
-      <div id="wrapper">
-        <div className="top-of-nav">
-          <Link id="logo-link" to="/home" href="/home">
-            <img id="logo" src={logo} alt="logo" />
-          </Link>
+      <div className="sidenav">
+        <button className="btn btn-primary my-1">Post Your Book</button>
+        <h2>Filter</h2>
+        <div className="list-group">
+          <a className="list-group-item list-group-item-action" href="/">All</a>
+          <a className="list-group-item list-group-item-action" href="/">School of Arts and Sciences</a>
+          <a className="list-group-item list-group-item-action" href="/">School of Engineering</a>
         </div>
-        <div id="profile-wrapper">
-          <Link to="/settings" href="/settings" id="profile-photo-link">
-            <img src={profile} alt="profile" id="profile-pic" />
-          </Link>
-          <div id="name">
-            {this.state.name}
-          </div>
-        </div>
-        <div id="link-wrapper">
-          <Link className="nav-link" name="dash" to="/home" href="/home">
-            <div className="nav-icon"><MaterialIcon icon="home" size={30} /></div>
-            Dash
-          </Link>
-          <Link className="nav-link" name="buy" to="/buy" href="/buy">
-            <div className="nav-icon"><MaterialIcon icon="shopping_cart" size={30} /></div>
-            Buy
-          </Link>
-          <Link className="nav-link" name="sell" to="/sell" href="/sell">
-            <div className="nav-icon"><MaterialIcon icon="store" size={30} /></div>
-            Sell
-          </Link>
-          <Link className="nav-link" name="track" to="/track" href="/track">
-            <div className="nav-icon"><MaterialIcon icon="timeline" size={30} /></div>
-            Track
-          </Link>
-          <Link className="nav-link" name="settings" to="/settings" href="/settings">
-            <div className="nav-icon"><MaterialIcon icon="settings" size={30} /></div>
-            Settings
-          </Link>
-          <Link className="nav-link" name="help" to="/help" href="/help">
-            <div className="nav-icon"><MaterialIcon icon="help" size={30} /></div>
-            Contact Us
-          </Link>
-        </div>
-        <span id="copyright-footer">© 2018 BarterOut.</span>
       </div>
     );
   }
 }
-
-SideNav.propTypes = {
-  selected: propTypes.string,
-};
 
 export default SideNav;

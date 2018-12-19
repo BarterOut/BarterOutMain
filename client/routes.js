@@ -20,9 +20,7 @@ import SignUp from './routes/SignUp/SignUp';
 import Login from './routes/Login/Login';
 
 import Home from './routes/Home/Home';
-import Buy from './routes/Buy/Buy';
-import Sell from './routes/Sell/Sell';
-import Track from './routes/Track/Track';
+import Manage from './routes/Manage/Manage';
 import Settings from './routes/Settings/Settings';
 import Help from './routes/Help/Help';
 import Cart from './routes/Cart/Cart';
@@ -82,15 +80,15 @@ export default (
     <Route exact path="/careers" component={Careers} />
     <Route exact path="/About" component={About} />
     <Route path="/resetPassword/:resetToken" component={ResetPassword} />
+
     <PrivateRoute exact path="/home" component={Home} />
-    <Route exact path="/login" component={Login} />
-    <Route exact path="/signup" component={SignUp} />
-    <PrivateRoute exact path="/buy" component={Buy} />
-    <PrivateRoute exact path="/sell" component={Sell} />
-    <PrivateRoute exact path="/track" component={Track} />
+    <PrivateRoute exact path="/manage" component={Manage} />
     <PrivateRoute exact path="/settings" component={Settings} />
     <PrivateRoute exact path="/help" component={Help} />
     <PrivateRoute exact path="/cart" component={Cart} />
+
+    <Route exact path="/login" component={Login} />
+    <Route exact path="/signup" component={SignUp} />
     <PrivateRoute exact path="/editPassword" component={EditPassword} />
     <Route exact path="/forgotPassword" component={ForgotPassword} />
     <Route exact path="/forgotPasswordSuccess" component={ForgotPasswordSuccess} />
