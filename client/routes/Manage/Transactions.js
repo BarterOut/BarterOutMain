@@ -94,12 +94,6 @@ class Transactions extends Component {
             <div className="col-sm-6">
               <div>
                 <h2>Transactions</h2>
-                <input
-                  className="form-control"
-                  type="text"
-                  placeholder="Query..."
-                  onChange={this.updateInputValue}
-                />
               </div>
               <div>
                 {

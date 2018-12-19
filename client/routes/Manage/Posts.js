@@ -27,8 +27,6 @@ class Posts extends Component {
   }
 
   componentDidMount() {
-    this.getPurchasedBooks();
-    this.getSoldBooks();
     this.getRequestedBooks();
     this.getPostedBooks();
   }
@@ -44,38 +42,6 @@ class Posts extends Component {
     FetchService.GET(`/api/books/getUsersPosts/${this.auth.getToken()}`)
       .then((data) => {
         this.setState({ booksPosted: data });
-      });
-  }
-
-  getPurchasedBooks() {
-    FetchService.GET(`/api/user/getPurchasedBooks/${this.auth.getToken()}`)
-      .then((data) => {
-        data.sort((a, b) => {
-          if (a.date < b.date) {
-            return -1;
-          }
-          if (a.date > b.date) {
-            return 1;
-          }
-          return 0;
-        });
-        this.setState({ booksPurchased: data });
-      });
-  }
-
-  getSoldBooks() {
-    FetchService.GET(`/api/user/getSoldBooks/${this.auth.getToken()}`)
-      .then((data) => {
-        data.sort((a, b) => {
-          if (a.date < b.date) {
-            return -1;
-          }
-          if (a.date > b.date) {
-            return 1;
-          }
-          return 0;
-        });
-        this.setState({ booksSold: data });
       });
   }
 
