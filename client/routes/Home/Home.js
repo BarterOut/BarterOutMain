@@ -6,7 +6,6 @@
 
 import React, { Component } from 'react';
 
-import './Home.css';
 import NavBar from '../../components/NavBar/NavBar';
 import SideNav from '../../components/SideNav/SideNav';
 import BookPost from '../../components/Posts/BookPost/BookPost';
@@ -33,10 +32,10 @@ class Home extends Component {
 
   componentDidMount() {
     this.getUserStatistics();
-    this.getMatches();
+    this.getAllBooks();
   }
 
-  getMatches() {
+  getAllBooks() {
     FetchService.GET(`/api/books/getAllBooks/${this.AUTH.getToken()}`)
       .then((data) => {
         this.setState({ posts: data });
@@ -106,6 +105,7 @@ class Home extends Component {
                     key={post._id}
                     id={post._id}
                     name={post.name}
+                    date={post.date}
                     subject={post.course}
                     edition={post.edition}
                     inCart={post.inCart}

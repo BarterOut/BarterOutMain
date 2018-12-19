@@ -10,9 +10,7 @@ import NavBar from '../../components/NavBar/NavBar';
 
 const Help = () => (
   <div>
-    <NavBar
-      selected="help"
-    />
+    <NavBar />
   </div>
 );
 

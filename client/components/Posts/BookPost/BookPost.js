@@ -7,9 +7,11 @@
 
 import React, { Component } from 'react';
 import propTypes from 'prop-types';
+import moment from 'moment';
 
 import FetchService from '../../../services/FetchService';
 import AuthService from '../../../services/AuthService';
+
 
 import './BookPost.css';
 
@@ -65,7 +67,10 @@ class BookPost extends Component {
     return (
       <div className="card my-2">
         <div className="card-body">
-          <span>{this.props.subject}</span>
+          <div className="d-flex w-100 justify-content-between">
+            <h6 className="mb-1">{this.props.subject}</h6>
+            <small>{moment.unix(this.props.date / 1000).fromNow()}</small>
+          </div>
           <h5 className="card-title">{this.props.name}</h5>
           <h6 className="card-subtitle mb-2 text-muted">
             {this.ordinalSuffixOf(this.props.edition)} Edition - {this.props.condition}
@@ -100,6 +105,7 @@ class BookPost extends Component {
 BookPost.propTypes = {
   comments: propTypes.string,
   condition: propTypes.string.isRequired,
+  date: propTypes.number.isRequired,
   edition: propTypes.number.isRequired,
   id: propTypes.string.isRequired,
   name: propTypes.string.isRequired,
