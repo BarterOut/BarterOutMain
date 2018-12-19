@@ -34,7 +34,7 @@ class TrackBookPost extends Component {
             <p className="comments"><i>{this.props.comments || 'No comments'}</i></p>
           </div>
           <span className="price">${this.props.price}*</span>
-          <span className="comments"><i>{this.props.type}</i></span>
+          <h6 className="float-right">{this.props.type}</h6>
         </div>
       </div>
     );

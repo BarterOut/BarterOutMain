@@ -93,7 +93,7 @@ class Transactions extends Component {
             </div>
             <div className="col-sm-6">
               <div>
-                <h2>Transactions</h2>
+                <h3>Transactions</h3>
               </div>
               <div>
                 {
@@ -135,7 +135,7 @@ class Transactions extends Component {
               </div>
             </div>
             <div className="col-sm-3">
-              <h2>Your Stats</h2>
+              <h3>Your Stats</h3>
               <div className="list-group">
                 <a className="list-group-item list-group-item-action" href="/">
                   ${this.state.moneyMade} Made

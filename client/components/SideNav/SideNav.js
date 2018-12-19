@@ -22,7 +22,7 @@ class SideNav extends Component {
     return (
       <div className="sidenav">
         <button className="btn btn-primary my-1">Post Your Book</button>
-        <h2>Filter</h2>
+        <h3>Filter</h3>
         <div className="list-group">
           <a className="list-group-item list-group-item-action" href="/">All</a>
           <a className="list-group-item list-group-item-action" href="/">School of Arts and Sciences</a>
