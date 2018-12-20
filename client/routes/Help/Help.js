@@ -6,14 +6,23 @@
 
 import React from 'react';
 
+import MaterialIcon from 'react-google-material-icons';
 import NavBar from '../../components/NavBar/NavBar';
 
 const Help = () => (
   <div>
     <NavBar />
-    <div className="container my-2">
-      <h2>Help</h2>
-      <h6>Email office@barterout.com</h6>
+    <div className="container my-2" style={{fontFamily: 'Lora'}}>
+      <h1 className="mt-5 mb-4">Contact</h1>
+      <p className="mb-4">
+        If you have any question or simply wanna say Hi,<br/>
+        please feel free to reach out to us.
+      </p>
+      <p>
+        office@barterout.com |
+        <a rel="noopener noreferrer" target="_blank" href="https://www.facebook.com/BarterOut/"> Facebook</a> |
+        <a rel="noopener noreferrer" target="_blank" href="https://www.linkedin.com/company/18490388/"> LinkedIn</a>
+      </p>
     </div>
   </div>
 );
