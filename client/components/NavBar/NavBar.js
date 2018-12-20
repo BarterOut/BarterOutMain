@@ -50,7 +50,7 @@ class NavBar extends Component {
             </li>
             <li className="nav-item px-2">
               <Link className="nav-link" href="/settings" to="/settings">
-                Settings
+                Setting
               </Link>
             </li>
             <li className="nav-item px-2">

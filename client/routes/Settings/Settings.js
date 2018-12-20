@@ -115,7 +115,7 @@ class Settings extends Component {
             </div>
           }
 
-          <h1 className="mb-4">Settings</h1>
+          <h1 className="mb-4">Setting</h1>
 
           <ul className="nav nav-tabs" id="myTab" role="tablist">
             <li className="nav-item">
