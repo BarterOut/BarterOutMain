@@ -27,8 +27,6 @@ class Posts extends Component {
   }
 
   componentDidMount() {
-    this.getPurchasedBooks();
-    this.getSoldBooks();
     this.getRequestedBooks();
     this.getPostedBooks();
   }
@@ -47,38 +45,6 @@ class Posts extends Component {
       });
   }
 
-  getPurchasedBooks() {
-    FetchService.GET(`/api/user/getPurchasedBooks/${this.auth.getToken()}`)
-      .then((data) => {
-        data.sort((a, b) => {
-          if (a.date < b.date) {
-            return -1;
-          }
-          if (a.date > b.date) {
-            return 1;
-          }
-          return 0;
-        });
-        this.setState({ booksPurchased: data });
-      });
-  }
-
-  getSoldBooks() {
-    FetchService.GET(`/api/user/getSoldBooks/${this.auth.getToken()}`)
-      .then((data) => {
-        data.sort((a, b) => {
-          if (a.date < b.date) {
-            return -1;
-          }
-          if (a.date > b.date) {
-            return 1;
-          }
-          return 0;
-        });
-        this.setState({ booksSold: data });
-      });
-  }
-
   render() {
     return (
       <div >
@@ -91,12 +57,12 @@ class Posts extends Component {
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav mx-auto">
               <li className="nav-item px-2">
-                <Link className="nav-link" href="/home" to="/home">
+                <Link className="nav-link" href="/manage/posts" to="/manage/posts">
                   Posts
                 </Link>
               </li>
               <li className="nav-item px-2">
-                <Link className="nav-link" href="/manage/posts" to="/manage/posts">
+                <Link className="nav-link" href="/manage/transactions" to="/manage/transactions">
                   Transactions
                 </Link>
               </li>
@@ -110,13 +76,7 @@ class Posts extends Component {
             </div>
             <div className="col-sm-6">
               <div>
-                <h2>Your Posts</h2>
-                <input
-                  className="form-control"
-                  type="text"
-                  placeholder="Query..."
-                  onChange={this.updateInputValue}
-                />
+                <h3>Your Posts</h3>
               </div>
               <div>
                 {
@@ -140,7 +100,7 @@ class Posts extends Component {
                 ))}
               </div>
               <div>
-                <h2>You&apos;ve Requested</h2>
+                <h3>You&apos;ve Requested</h3>
               </div>
               <div>
                 {
@@ -160,7 +120,7 @@ class Posts extends Component {
               </div>
             </div>
             <div className="col-sm-3">
-              <h2>Your Stats</h2>
+              <h3>Your Stats</h3>
               <div className="list-group">
                 <a className="list-group-item list-group-item-action" href="/">
                   ${this.state.moneyMade} Made

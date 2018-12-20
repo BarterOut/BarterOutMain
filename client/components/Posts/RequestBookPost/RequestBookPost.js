@@ -43,17 +43,15 @@ class RequestBookPost extends Component {
 
   render() {
     return (
-      <div className="post">
-        <div className="leftBP">
-          <span className="bookSubject">{this.props.subject}</span>
-          <span className="bookName">{this.props.name}</span>
-          <span className="bookEdition">{moment.unix(this.props.date / 1000).format('L')}</span>
-        </div>
-        <div className="vertical-line" />
-        <div className="leftBP" />
-        <div className="rightBP">
+      <div className="card my-2">
+        <div className="card-body">
+          <div className="d-flex w-100 justify-content-between">
+            <h6 className="mb-1">{this.props.subject}</h6>
+            <small>{moment.unix(this.props.date / 1000).fromNow()}</small>
+          </div>
+          <h5 className="card-title">{this.props.name}</h5>
           <button
-            className="button"
+            className="btn btn-primary float-right"
             onClick={this.deleteBook}
           >Unrequest
           </button>
