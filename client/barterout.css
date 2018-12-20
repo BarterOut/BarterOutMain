@@ -268,6 +268,10 @@ button:focus {
   animation: loaderAnim 1.2s linear infinite;
 }
 
+.container {
+  margin-top: 20px;
+}
+
 @keyframes loaderAnim {
   0% {
     transform: rotate(0deg);

@@ -25,7 +25,6 @@ import Transactions from './routes/Manage/Transactions';
 import Settings from './routes/Settings/Settings';
 import Help from './routes/Help/Help';
 import Cart from './routes/Cart/Cart';
-import EditPassword from './routes/EditPassword/EditPassword';
 
 import TermsOfService from './routes/TermsOfService/termsOfService';
 import PrivacyPolicy from './routes/PrivacyPolicy/privacyPolicy';
@@ -49,7 +48,7 @@ const PrivateRoute = ({ component: Component, rest }) => {
   return (
     <Route
       {...rest}
-      render={(props) => 
+      render={(props) =>
         auth.loggedIn()
         ? <Component {...props} />
         : <Redirect to={{pathname: '/login'}}
@@ -63,7 +62,7 @@ const DashboardRoute = ({ component: Component, rest }) => {
   return (
     <Route
       {...rest}
-      render={(props) => 
+      render={(props) =>
         auth.getProfile().userInfo.permissionType === 1
         ? <Component {...props} />
         : <Redirect to={{pathname: '/dashboard'}}
@@ -91,7 +90,6 @@ export default (
 
     <Route exact path="/login" component={Login} />
     <Route exact path="/signup" component={SignUp} />
-    <PrivateRoute exact path="/editPassword" component={EditPassword} />
     <Route exact path="/forgotPassword" component={ForgotPassword} />
     <Route exact path="/forgotPasswordSuccess" component={ForgotPasswordSuccess} />
     <Route exact path="/signUpSuccess" component={SignUpSuccess} />
