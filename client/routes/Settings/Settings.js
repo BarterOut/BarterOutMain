@@ -6,11 +6,9 @@
  */
 
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 
 import NavBar from '../../components/NavBar/NavBar';
-
-import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 
 import AuthService from '../../services/AuthService';
 import FetchService from '../../services/FetchService';
@@ -27,7 +25,7 @@ class Settings extends Component {
       password: '',
       passwordConfirm: '',
       newPassword: '',
-      updateMessageVisible: false
+      updateMessageVisible: false,
     };
 
     this.onChange = this.onChange.bind(this);
@@ -41,6 +39,20 @@ class Settings extends Component {
 
   onChange(evt) {
     this.setState({ [evt.target.name]: evt.target.value });
+  }
+
+  setProfileInfo() {
+    const AUTH = new AuthService();
+    const token = AUTH.getToken();
+    this.setState({ token });
+
+    FetchService.GET(`/api/user/getUserData/${token}`)
+      .then((data) => {
+        this.setState({ firstName: data.user.firstName });
+        this.setState({ lastName: data.user.lastName });
+        this.setState({ CMC: data.user.CMC });
+        this.setState({ venmoUsername: data.user.venmoUsername });
+      });
   }
 
   handleProfileUpdate(evt) {
@@ -59,7 +71,7 @@ class Settings extends Component {
         this.setState({ updateMessageVisible: true });
       })
       .catch((error) => {
-        console.error(`Sign up server error: ${error}`);
+        ErrorService.parseError(error);
       });
   }
 
@@ -78,26 +90,11 @@ class Settings extends Component {
     })
       .then(() => {
         this.setState({ updateMessageVisible: true });
-        setTimeout(function(){
+        setTimeout(() => {
           this.setState({ updateMessageVisible: false });
-          console.log('timeout');
         }, 1000);
       })
       .catch(error => ErrorService.parseError(error));
-  }
-
-  setProfileInfo() {
-    const AUTH = new AuthService();
-    const token = AUTH.getToken();
-    this.setState({ token });
-
-    FetchService.GET(`/api/user/getUserData/${token}`)
-      .then((data) => {
-        this.setState({ firstName: data.user.firstName });
-        this.setState({ lastName: data.user.lastName });
-        this.setState({ CMC: data.user.CMC });
-        this.setState({ venmoUsername: data.user.venmoUsername });
-      });
   }
 
   render() {
@@ -115,7 +112,7 @@ class Settings extends Component {
             </div>
           }
 
-          <h1 className="mb-4">Setting</h1>
+          <h3 className="mb-4">Settings</h3>
 
           <ul className="nav nav-tabs" id="myTab" role="tablist">
             <li className="nav-item">
