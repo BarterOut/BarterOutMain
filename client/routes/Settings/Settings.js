@@ -100,7 +100,7 @@ class Settings extends Component {
   render() {
     return (
       <div>
-        <NavBar />
+        <NavBar page="settings" />
         <div className="container" >
           {
             this.state.updateMessageVisible &&

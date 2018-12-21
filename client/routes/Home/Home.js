@@ -79,7 +79,7 @@ class Home extends Component {
   render() {
     return (
       <div>
-        <NavBar />
+        <NavBar page="home" />
         <div className="container">
           <div className="row mx-auto mt-4">
             <div className="col-sm-3">
@@ -124,10 +124,10 @@ class Home extends Component {
                   ${this.state.moneyMade} Made
                 </span>
                 <span className="list-group-item list-group-item-action">
-                  {this.state.numberOfBooksBought} Books Bought
+                  {this.state.numberOfBooksBought} Book(s) Bought
                 </span>
                 <span className="list-group-item list-group-item-action">
-                  {this.state.numberOfBooksSold} Books Sold
+                  {this.state.numberOfBooksSold} Book(s) Sold
                 </span>
               </div>
             </div>

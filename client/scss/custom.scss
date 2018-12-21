@@ -1,36 +1,12 @@
 // @import "../../node_modules/bootstrap/scss/functions";
 
-$blue:    #007bff !default;
-$indigo:  #6610f2 !default;
-$purple:  #6f42c1 !default;
-$pink:    #e83e8c !default;
-$red:     #dc3545 !default;
-$orange:  #fd7e14 !default;
-$yellow:  #ffc107 !default;
-$green:   #28a745 !default;
-$teal:    #20c997 !default;
-$cyan:    #17a2b8 !default;
-
-$colors: (
-  blue: $blue,
-  indigo: $indigo,
-  purple: $purple,
-  pink: $pink,
-  red: $red,
-  orange: $orange,
-  yellow: $yellow,
-  green: $green,
-  teal: $teal,
-  cyan: $cyan
-) !default;
-
 $theme-colors: (
-  primary: $yellow,
-  secondary: $teal,
-  success: $green,
-  info: $cyan,
-  warning: $yellow,
-  danger: $red
+  primary: #41397C,
+  secondary: #B55200,
+  success: green,
+  info: grey,
+  warning: red,
+  danger: red
 ) !default;
 
 @import "../../node_modules/bootstrap/scss/bootstrap.scss";

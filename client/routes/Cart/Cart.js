@@ -60,7 +60,7 @@ class Cart extends Component {
     const fee = subtotal * 0.05;
 
     return {
-      subtotal,
+      subtotal: subtotal.toFixed(2),
       fee: fee.toFixed(2),
       total: (subtotal + fee).toFixed(2),
     };
@@ -72,7 +72,7 @@ class Cart extends Component {
       cart: this.state.items,
     })
       .then(() => {
-        window.alert('Your Order Has Been Placed. See email for more details.');
+        window.alert('Order placed. See email for more details.'); // eslint-disable-line
         window.location.reload();
       });
   }
@@ -80,7 +80,7 @@ class Cart extends Component {
   render() {
     return (
       <div>
-        <NavBar />
+        <NavBar page="cart" />
         <div className="container my-4">
           <div className="row">
             <div className="col-sm-7">
@@ -106,7 +106,6 @@ class Cart extends Component {
                 <span className="cart-money-info">Our 5% Fee: <i>${this._calculateMoney().fee}</i></span>
                 <br />
                 <span className="cart-money-info">Total: <b>${this._calculateMoney().total}</b></span>
-                <button className="btn btn-primary float-right my-2" onClick={this.buyBooks}>Checkout</button>
                 <p className="my-2">
                   When you click &quot;Checkout&quot;, we will Venmo request @<b>{this.state.venmo}</b>.
                   Please change your Venmo username <Link to="/settings" href="settings">here</Link> if it
@@ -115,6 +114,7 @@ class Cart extends Component {
                   CMC Box <b>{this.state.CMC}</b>. Again if any of this information is not accurate, please
                   change it <Link to="/settings" href="settings">here</Link>.
                 </p>
+                <button className="btn btn-primary float-right my-2" onClick={this.buyBooks}>Checkout</button>
               </div>
             </div>
           </div>

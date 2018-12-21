@@ -48,7 +48,7 @@ class Posts extends Component {
   render() {
     return (
       <div >
-        <NavBar />
+        <NavBar page="manage" />
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
           <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span className="navbar-toggler-icon" />
@@ -122,15 +122,15 @@ class Posts extends Component {
             <div className="col-sm-3">
               <h3>Your Stats</h3>
               <div className="list-group">
-                <a className="list-group-item list-group-item-action" href="/">
+                <div className="list-group-item list-group-item-action">
                   ${this.state.moneyMade} Made
-                </a>
-                <a className="list-group-item list-group-item-action" href="/">
+                </div>
+                <div className="list-group-item list-group-item-action">
                   {this.state.numberOfBooksBought} Books Bought
-                </a>
-                <a className="list-group-item list-group-item-action" href="/">
+                </div>
+                <div className="list-group-item list-group-item-action">
                   {this.state.numberOfBooksSold} Books Sold
-                </a>
+                </div>
               </div>
             </div>
           </div>

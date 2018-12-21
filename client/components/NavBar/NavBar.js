@@ -7,6 +7,7 @@
 
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import propTypes from 'prop-types';
 
 import AuthService from '../../services/AuthService';
 
@@ -21,6 +22,15 @@ class NavBar extends Component {
     this.AUTH = new AuthService();
   }
 
+  componentDidMount() {
+    this.updatedSelected();
+  }
+
+  updatedSelected() {
+    const elem = document.getElementById(this.props.page);
+    elem.classList.add('active');
+  }
+
   logout(e) {
     e.preventDefault();
     this.AUTH.logout();
@@ -28,7 +38,7 @@ class NavBar extends Component {
 
   render() {
     return (
-      <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+      <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
         <a className="navbar-brand" href="/home">
           <img src={logo} alt="logo" className="logoPic" />
         </a>
@@ -39,27 +49,27 @@ class NavBar extends Component {
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav mx-auto">
             <li className="nav-item px-2">
-              <Link className="nav-link" href="/home" to="/home">
+              <Link className="nav-link" id="home" href="/home" to="/home">
                 Home
               </Link>
             </li>
             <li className="nav-item px-2">
-              <Link className="nav-link" href="/manage/posts" to="/manage/posts">
+              <Link className="nav-link" id="manage" href="/manage/posts" to="/manage/posts">
                 Manage
               </Link>
             </li>
             <li className="nav-item px-2">
-              <Link className="nav-link" href="/settings" to="/settings">
+              <Link className="nav-link" id="settings" href="/settings" to="/settings">
                 Settings
               </Link>
             </li>
             <li className="nav-item px-2">
-              <Link className="nav-link" href="/cart" to="/cart">
+              <Link className="nav-link" id="cart" href="/cart" to="/cart">
                 Cart
               </Link>
             </li>
             <li className="nav-item px-2">
-              <Link className="nav-link" href="/help" to="/help">
+              <Link className="nav-link" id="help" href="/help" to="/help">
                 Help
               </Link>
             </li>
@@ -76,5 +86,11 @@ class NavBar extends Component {
     );
   }
 }
+
+
+// Props validation
+NavBar.propTypes = {
+  page: propTypes.string,
+};
 
 export default NavBar;

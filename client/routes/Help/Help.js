@@ -10,7 +10,7 @@ import NavBar from '../../components/NavBar/NavBar';
 
 const Help = () => (
   <div>
-    <NavBar />
+    <NavBar page="help" />
     <div className="container my-2">
       <h3 className="mt-5 mb-4">FAQ:</h3>
       <h5 className="mt-4">How do I sell a book?</h5>

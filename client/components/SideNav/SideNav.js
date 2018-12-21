@@ -17,16 +17,16 @@ class SideNav extends Component {
     return (
       <div className="sidenav">
         <button
-          className="btn btn-primary my-1"
+          className="btn btn-secondary my-1"
           data-toggle="modal"
-          data-target="#exampleModal"
+          data-target="#sellBookModal"
         >Post Your Book
         </button>
-        <div className="modal fade" id="exampleModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div className="modal fade" id="sellBookModal" tabIndex="-1" role="dialog" aria-hidden="true">
           <div className="modal-dialog" role="document">
             <div className="modal-content">
               <div className="modal-header">
-                <h5 className="modal-title" id="exampleModalLabel">Post Book</h5>
+                <h5 className="modal-title" id="exampleModalLabel">Sell Book</h5>
                 <button type="button" className="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
@@ -38,7 +38,7 @@ class SideNav extends Component {
           </div>
         </div>
         <h4 className="my-2">
-        Filter<span className="badge badge-dark mx-2">New</span>
+        Filter<span className="badge badge-info mx-2">Beta</span>
         </h4>
         <div className="list-group">
           <div className="list-group-item list-group-item-action">All</div>

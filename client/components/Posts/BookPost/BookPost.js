@@ -75,7 +75,7 @@ class BookPost extends Component {
           {
             this.state.inCart &&
             <button
-              className="btn btn-default float-right"
+              className="btn btn-success float-right"
             >Added to Cart
             </button>
           }
