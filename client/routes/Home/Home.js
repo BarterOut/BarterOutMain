@@ -120,15 +120,15 @@ class Home extends Component {
             <div className="col-sm-3">
               <h3>Your Stats</h3>
               <div className="list-group">
-                <a className="list-group-item list-group-item-action" href="/">
+                <span className="list-group-item list-group-item-action">
                   ${this.state.moneyMade} Made
-                </a>
-                <a className="list-group-item list-group-item-action" href="/">
+                </span>
+                <span className="list-group-item list-group-item-action">
                   {this.state.numberOfBooksBought} Books Bought
-                </a>
-                <a className="list-group-item list-group-item-action" href="/">
+                </span>
+                <span className="list-group-item list-group-item-action">
                   {this.state.numberOfBooksSold} Books Sold
-                </a>
+                </span>
               </div>
             </div>
           </div>

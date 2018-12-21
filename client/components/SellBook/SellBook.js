@@ -99,77 +99,88 @@ class SellBook extends Component {
 
   render() {
     return (
-      <div className="wrapper-custom">
-        <h2>Tell us about your book</h2>
-        <form className="input-wrapper" onSubmit={this.formSubmit}>
+      <div>
+        <form onSubmit={this.formSubmit}>
           {!this.state.correctlyFilledOut && <h4 className="input-error">Please ensure all the required fields are filled out correctly.</h4>}
-          <span className="inputLabelHome">Title of Book *</span>
+          <label htmlFor="title">Title of Book</label>
           <input
             autoComplete="off"
-            className="formInput"
+            className="form-control mb-2"
+            id="title"
             placeholder="e.g. Calculus and Early Transcendentals"
             type="text"
             name="name"
             onChange={this.onChange}
             required
           />
-          <span className="inputLabelHome">Edition *</span>
+          <label htmlFor="edition">Edition</label>
           <input
             autoComplete="off"
-            className="formInput"
+            className="form-control mb-2"
             placeholder="e.g. 11"
             type="number"
+            id="edition"
             min="0"
             max="900"
             name="edition"
             onChange={this.onChange}
             required
           />
-          <span className="inputLabelHome">Course *</span>
+          <label htmlFor="course">Course</label>
           <input
             autoComplete="off"
-            className="formInput"
+            className="form-control mb-2"
             placeholder="e.g. MTH 101"
             type="text"
+            id="course"
             pattern="^[A-Z]{3} \d{3}$"
             name="course"
             onChange={this.onChange}
             required
           />
-          <span className="inputLabelHome">Price *</span>
+          <label htmlFor="price">Price</label>
+          <div className="input-group mb-3">
+            <div className="input-group-prepend">
+              <span className="input-group-text">$</span>
+            </div>
+            <input
+              autoComplete="off"
+              className="form-control"
+              type="number"
+              min="0"
+              max="200"
+              id="price"
+              name="price"
+              onChange={this.onChange}
+              required
+            />
+          </div>
+          <label htmlFor="isbn">ISBN</label>
           <input
             autoComplete="off"
-            className="formInput"
-            placeholder="$"
-            type="number"
-            min="0"
-            max="200"
-            name="price"
-            onChange={this.onChange}
-            required
-          />
-          <span className="inputLabelHome">ISBN</span>
-          <input
-            autoComplete="off"
-            className="formInput"
+            className="form-control mb-2"
             placeholder="ISBN"
+            id="isbn"
             type="number"
             pattern="^(?=(?:\D*\d){10}(?:(?:\D*\d){3})?$)[\d-]+$"
             onChange={this.onChange}
             name="ISBN"
           />
-          <span className="inputLabelHome">Condition *</span>
-          <select defaultValue="Good" onChange={this.selectChange} className="conditionInput">
-            <option value="Poor">Poor</option>
-            <option value="Fair">Fair</option>
-            <option value="Good">Good</option>
-            <option value="Like new">Like new</option>
-          </select>
-          <span className="inputLabelHome">Comments</span>
+          <div className="form-group">
+            <label htmlFor="condition">Condition</label>
+            <select defaultValue="Good" onChange={this.selectChange} className="form-control" id="condition">
+              <option value="Poor">Poor</option>
+              <option value="Fair">Fair</option>
+              <option value="Good">Good</option>
+              <option value="Like New">Like New</option>
+            </select>
+          </div>
+          <label htmlFor="comments">Comments</label>
           <input
             autoComplete="off"
-            className="formInput"
+            className="form-control mb-2"
             placeholder="Comments"
+            id="comments"
             type="text"
             onChange={this.onChange}
             name="comments"
@@ -177,7 +188,7 @@ class SellBook extends Component {
           <div>
             <button
               type="submit"
-              className="button"
+              className="btn btn-primary float-right"
               onClick={this.postToDatabase}
             >Sell Now
             </button>
