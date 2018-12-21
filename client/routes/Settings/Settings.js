@@ -101,7 +101,7 @@ class Settings extends Component {
     return (
       <div>
         <NavBar page="settings" />
-        <div className="container" >
+        <div className="container">
           {
             this.state.updateMessageVisible &&
             <div className="alert alert-success alert-dismissible fade show" role="alert">
@@ -111,7 +111,6 @@ class Settings extends Component {
               </button>
             </div>
           }
-
           <h3 className="mb-4">Settings</h3>
 
           <ul className="nav nav-tabs" id="myTab" role="tablist">
@@ -221,7 +220,6 @@ class Settings extends Component {
               </form>
             </div>
           </div>
-
         </div>
       </div>
     );
