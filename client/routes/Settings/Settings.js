@@ -115,18 +115,32 @@ class Settings extends Component {
 
           <ul className="nav nav-tabs" id="myTab" role="tablist">
             <li className="nav-item">
-              <a className="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">
-                Personal Information
+              <a
+                className="nav-link active"
+                id="profile-tab"
+                data-toggle="tab"
+                href="#profile"
+                role="tab"
+                aria-controls="profile"
+                aria-selected="true"
+              >Personal Information
               </a>
             </li>
             <li className="nav-item">
-              <a className="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">
-                Account Information
+              <a
+                className="nav-link"
+                id="password-tab"
+                data-toggle="tab"
+                href="#password"
+                role="tab"
+                aria-controls="password"
+                aria-selected="false"
+              >Account Information
               </a>
             </li>
           </ul>
           <div className="tab-content mt-2" id="myTabContent">
-            <div className="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+            <div className="tab-pane fade show active" id="profile" role="tabpanel" aria-labelledby="profile-tab">
               <form onSubmit={this.handleProfileUpdate}>
                 <div className="form-group">
                   <label>First Name</label>
@@ -179,7 +193,7 @@ class Settings extends Component {
               </form>
             </div>
 
-            <div className="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+            <div className="tab-pane fade" id="password" role="tabpanel" aria-labelledby="password-tab">
               <form onSubmit={this.handlePasswordUpdate}>
                 <div className="form-group">
                   <label>Old Password</label>
