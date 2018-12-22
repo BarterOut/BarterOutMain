@@ -87,7 +87,6 @@ class NavBar extends Component {
   }
 }
 
-
 // Props validation
 NavBar.propTypes = {
   page: propTypes.string,

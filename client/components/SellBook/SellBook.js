@@ -8,8 +8,6 @@ import React, { Component } from 'react';
 import FetchService from '../../services/FetchService';
 import AuthService from '../../services/AuthService';
 
-import '../../barterout.css';
-
 class SellBook extends Component {
   constructor() {
     super();
@@ -66,6 +64,7 @@ class SellBook extends Component {
 
     FetchService.POST(`/api/books/postBook/${AUTH.getToken()}`, payload)
       .then(() => {
+        // We would fire off event for redux here to re-fetch books
         window.location.reload();
       });
   }
@@ -101,73 +100,97 @@ class SellBook extends Component {
     return (
       <div>
         <form onSubmit={this.formSubmit}>
-          {!this.state.correctlyFilledOut && <h4 className="input-error">Please ensure all the required fields are filled out correctly.</h4>}
-          <label htmlFor="title">Title of Book</label>
-          <input
-            autoComplete="off"
-            className="form-control mb-2"
-            id="title"
-            placeholder="e.g. Calculus and Early Transcendentals"
-            type="text"
-            name="name"
-            onChange={this.onChange}
-            required
-          />
-          <label htmlFor="edition">Edition</label>
-          <input
-            autoComplete="off"
-            className="form-control mb-2"
-            placeholder="e.g. 11"
-            type="number"
-            id="edition"
-            min="0"
-            max="900"
-            name="edition"
-            onChange={this.onChange}
-            required
-          />
-          <label htmlFor="course">Course</label>
-          <input
-            autoComplete="off"
-            className="form-control mb-2"
-            placeholder="e.g. MTH 101"
-            type="text"
-            id="course"
-            pattern="^[A-Z]{3} \d{3}$"
-            name="course"
-            onChange={this.onChange}
-            required
-          />
-          <label htmlFor="price">Price</label>
-          <div className="input-group mb-3">
-            <div className="input-group-prepend">
-              <span className="input-group-text">$</span>
-            </div>
+          {
+            !this.state.correctlyFilledOut &&
+            <div className="alert alert-warning" role="alert">
+              Please ensure all fields are filled out correctly.
+            </div>}
+          <div className="form-group">
+            <label htmlFor="title">Title of Book*</label>
             <input
               autoComplete="off"
               className="form-control"
-              type="number"
-              min="0"
-              max="200"
-              id="price"
-              name="price"
+              id="title"
+              placeholder="e.g. Calculus and Early Transcendentals"
+              type="text"
+              name="name"
               onChange={this.onChange}
               required
             />
           </div>
-          <label htmlFor="isbn">ISBN</label>
-          <input
-            autoComplete="off"
-            className="form-control mb-2"
-            placeholder="ISBN"
-            id="isbn"
-            type="number"
-            pattern="^(?=(?:\D*\d){10}(?:(?:\D*\d){3})?$)[\d-]+$"
-            onChange={this.onChange}
-            name="ISBN"
-          />
           <div className="form-group">
-            <label htmlFor="condition">Condition</label>
+            <label htmlFor="edition">Edition*</label>
+            <input
+              autoComplete="off"
+              className="form-control"
+              placeholder="e.g. 11"
+              type="number"
+              id="edition"
+              min="0"
+              max="900"
+              name="edition"
+              onChange={this.onChange}
+              required
+            />
+            <small id="passwordHelpBlock" className="form-text text-muted">
+              Must be a number greater than 0.
+            </small>
+          </div>
+          <div className="form-group">
+            <label htmlFor="course">Course Code*</label>
+            <input
+              autoComplete="off"
+              className="form-control"
+              placeholder="e.g. MTH 101"
+              type="text"
+              id="course"
+              pattern="^[A-Z]{3} \d{3}$"
+              name="course"
+              onChange={this.onChange}
+              required
+            />
+            <small id="passwordHelpBlock" className="form-text text-muted">
+              Course code must be three uppercase letters followed by a space,
+              followed by three numbers.
+            </small>
+            <div className="invalid-feedback">
+              Please provide a course code.
+            </div>
+          </div>
+          <div className="form-group">
+            <label htmlFor="price">Price*</label>
+            <div className="input-group">
+              <div className="input-group-prepend">
+                <span className="input-group-text">$</span>
+              </div>
+              <input
+                autoComplete="off"
+                className="form-control"
+                type="number"
+                min="0"
+                max="200"
+                id="price"
+                name="price"
+                onChange={this.onChange}
+                required
+              />
+            </div>
+          </div>
+          <div className="form-group">
+            <label htmlFor="isbn">ISBN</label>
+            <input
+              autoComplete="off"
+              className="form-control"
+              placeholder="ISBN"
+              id="isbn"
+              type="number"
+              pattern="^(?=(?:\D*\d){10}(?:(?:\D*\d){3})?$)[\d-]+$"
+              onChange={this.onChange}
+              name="ISBN"
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="condition">Condition*</label>
             <select defaultValue="Good" onChange={this.selectChange} className="form-control" id="condition">
               <option value="Poor">Poor</option>
               <option value="Fair">Fair</option>
@@ -178,7 +201,7 @@ class SellBook extends Component {
           <label htmlFor="comments">Comments</label>
           <input
             autoComplete="off"
-            className="form-control mb-2"
+            className="form-control"
             placeholder="Comments"
             id="comments"
             type="text"
@@ -188,7 +211,7 @@ class SellBook extends Component {
           <div>
             <button
               type="submit"
-              className="btn btn-primary float-right"
+              className="btn btn-primary my-2 float-right"
               onClick={this.postToDatabase}
             >Sell Now
             </button>

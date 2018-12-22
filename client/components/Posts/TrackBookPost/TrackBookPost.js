@@ -8,7 +8,7 @@ import React, { Component } from 'react';
 import moment from 'moment';
 import propTypes from 'prop-types';
 
-import Util from '../../../services/util';
+import Util from '../../../services/Util';
 
 class TrackBookPost extends Component {
   constructor(props) {

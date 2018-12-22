@@ -1,5 +1,5 @@
 /**
- * @file React component for posting a book you are searching for.
+ * @file React component for requesting a book.
  * @author Duncan Grubbs <duncan.grubbs@gmail.com>
  * @version 0.0.4
  */
@@ -9,9 +9,7 @@ import React, { Component } from 'react';
 import FetchService from '../../services/FetchService';
 import AuthService from '../../services/AuthService';
 
-import '../../barterout.css';
-
-class BuyBook extends Component {
+class RequestBook extends Component {
   constructor() {
     super();
     this.state = {
@@ -37,10 +35,6 @@ class BuyBook extends Component {
   }
 
   postToDatabase() {
-    if (!this._validateInputs()) {
-      return;
-    }
-
     const AUTH = new AuthService();
 
     const payload = {
@@ -56,42 +50,40 @@ class BuyBook extends Component {
       });
   }
 
-  _validateInputs() {
-    if (!/^[A-Z]{3} \d{3}$/.test(this.state.course)) {
-      return false;
-    }
-    return true;
-  }
-
   render() {
     return (
-      <div className="wrapper-custom">
-        <h2>What are you looking for?</h2>
-        <form className="input-wrapper" onSubmit={this.formSubmit}>
-          <span className="inputLabelHome">Title of Book *</span>
-          <input
-            autoComplete="off"
-            className="formInput"
-            placeholder="e.g. Intro to Probability"
-            type="text"
-            name="name"
-            onChange={this.onChange}
-            required
-          />
-          <span className="inputLabelHome">Course Code *</span>
-          <input
-            autoComplete="off"
-            className="formInput"
-            placeholder="e.g. MTH 101"
-            type="text"
-            pattern="^[A-Z]{3} \d{3}$"
-            name="course"
-            onChange={this.onChange}
-            required
-          />
+      <div>
+        <form onSubmit={this.formSubmit}>
+          <div className="form-group">
+            <label htmlFor="title">Title of Book*</label>
+            <input
+              autoComplete="off"
+              className="form-control"
+              id="title"
+              placeholder="e.g. Intro to Probability"
+              type="text"
+              name="name"
+              onChange={this.onChange}
+              required
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="courseCode">Course Code*</label>
+            <input
+              autoComplete="off"
+              id="courseCode"
+              className="form-control"
+              placeholder="e.g. MTH 101"
+              type="text"
+              pattern="^[A-Z]{3} \d{3}$"
+              name="course"
+              onChange={this.onChange}
+              required
+            />
+          </div>
           <div>
             <button
-              className="button"
+              className="btn btn-primary float-right"
               onClick={this.postToDatabase}
             >Request
             </button>
@@ -102,4 +94,4 @@ class BuyBook extends Component {
   }
 }
 
-export default BuyBook;
+export default RequestBook;

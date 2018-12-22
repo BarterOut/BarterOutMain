@@ -212,9 +212,6 @@ button:focus {
 }
 
 @media only screen and (max-width: 600px) {
-  .modal {
-    width: 90%;
-  }
   .input-wrapper {
     width: 100%;
   }
