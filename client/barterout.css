@@ -194,6 +194,11 @@ button:focus {
   width: 100%;
 }
 
+.scroll-posts {
+  max-height: 30vh;
+  overflow-y: scroll;
+}
+
 .inputLabelHome {
   display: flex;
   margin: 8px 0;

@@ -95,7 +95,7 @@ class Home extends Component {
                   onChange={this.updateInputValue}
                 />
               </div>
-              <div>
+              <div className="scroll-posts">
                 {
                   this.state.loading &&
                   <div className="loading" />

@@ -95,7 +95,7 @@ class Transactions extends Component {
               <div>
                 <h3>Transactions</h3>
               </div>
-              <div>
+              <div className="scroll-posts">
                 {
                   this.state.loading &&
                   <div className="loading" />
