@@ -1,5 +1,6 @@
 /**
- * @file Main React component for the app itself.
+ * @file DashboardHome.js
+ * @description Main React component for the admin dashboard.
  * @author Duncan Grubbs <duncan.grubbs@gmail.com>
  * @version 0.0.4
  */
@@ -141,17 +142,15 @@ class DashboardHome extends Component {
     }
     return (
       <div className="dash-wrap">
-        <h2 className="my-2 mx-2">BarterOut Admin Dashboard</h2>
-        <h3 className="mt-4 mx-2">Ongoing Transactions</h3>
+        <h3 className="my-2 mx-2">BarterOut Admin Dashboard</h3>
+        <h3 className="mt-4 mx-2">Transactions - Verify Condition</h3>
         <table className="table table-striped">
           <tbody>
             <tr>
               <th className="has-border">Book Name</th>
               <th className="has-border">Course Code</th>
               <th className="has-border">Condition</th>
-              <th className="has-border">Charge</th>
-              <th className="has-border">Amount</th>
-              <th className="has-border">Pay Seller</th>
+              <th className="has-border">Seller</th>
               <th className="has-border">Amount</th>
               <th className="has-border">Confirm</th>
             </tr>
@@ -160,8 +159,6 @@ class DashboardHome extends Component {
                 <td className="has-border">{book.name}</td>
                 <td className="has-border">{book.course}</td>
                 <td className="has-border">{book.condition}</td>
-                <td className="has-border">@{book.buyerObject.venmoUsername}</td>
-                <td className="has-border">${book.price * 1.05}</td>
                 <td className="has-border">@{book.ownerObject.venmoUsername}</td>
                 <td className="has-border">${book.price}</td>
                 <td className="has-border"><button id={book._id} className="btn btn-primary" onClick={this.confirm}>Confirm</button></td>
@@ -169,7 +166,7 @@ class DashboardHome extends Component {
             ))}
           </tbody>
         </table>
-        <h3 className="mt-4 mx-2">Stage-2 Transactions</h3>
+        <h3 className="mt-4 mx-2">Transactions - Make Payment</h3>
         <table className="table table-striped">
           <tbody>
             <tr>
