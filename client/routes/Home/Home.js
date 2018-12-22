@@ -6,52 +6,44 @@
 
 import React, { Component } from 'react';
 
-import './Home.css';
-import TopBar from '../../components/TopBar/TopBar';
+import NavBar from '../../components/NavBar/NavBar';
 import SideNav from '../../components/SideNav/SideNav';
-import Notification from '../../components/Notification/Notification';
 import BookPost from '../../components/Posts/BookPost/BookPost';
 
 import FetchService from '../../services/FetchService';
 import AuthService from '../../services/AuthService';
+import ErrorService from '../../services/ErrorService';
 
 class Home extends Component {
   constructor() {
     super();
 
     this.state = {
-      notifications: [],
-      matches: [],
+      posts: [],
       numberOfBooksBought: 0,
       numberOfBooksSold: 0,
       moneyMade: 0,
+      loading: false,
     };
 
-    this.Auth = new AuthService();
+    this.AUTH = new AuthService();
+    this.updateInputValue = this.updateInputValue.bind(this);
   }
 
   componentDidMount() {
-    this.getNotifications();
     this.getUserStatistics();
-    this.getMatches();
+    this.getAllBooks();
   }
 
-  getMatches() {
-    FetchService.GET(`/api/books/getUserMatches/${this.Auth.getToken()}`)
+  getAllBooks() {
+    FetchService.GET(`/api/books/getAllBooks/${this.AUTH.getToken()}`)
       .then((data) => {
-        this.setState({ matches: data });
-      });
-  }
-
-  getNotifications() {
-    FetchService.GET(`/api/user/getNotifications/${this.Auth.getToken()}`)
-      .then((data) => {
-        this.setState({ notifications: data });
+        this.setState({ posts: data });
       });
   }
 
   getUserStatistics() {
-    FetchService.GET(`/api/user/getUserStatistics/${this.Auth.getToken()}`)
+    FetchService.GET(`/api/user/getUserStatistics/${this.AUTH.getToken()}`)
       .then((data) => {
         this.setState({ numberOfBooksBought: data.numberOfBooksBought });
         this.setState({ numberOfBooksSold: data.numberOfBooksSold });
@@ -59,74 +51,85 @@ class Home extends Component {
       });
   }
 
+  updateInputValue(evt) {
+    this.search(evt.target.value);
+  }
+
+  search(query) {
+    this.setState({ loading: true });
+    this.setState({ posts: [] });
+    if (query === '') {
+      FetchService.GET(`/api/books/getAllBooks/${this.AUTH.getToken()}`)
+        .then((data) => {
+          this.setState({ loading: false });
+          this.setState({ posts: data });
+        })
+        .catch(err => ErrorService.parseError(err));
+      return;
+    }
+
+    FetchService.GET(`/api/books/search/${query}/${this.AUTH.getToken()}`)
+      .then((data) => {
+        this.setState({ loading: false });
+        this.setState({ posts: data });
+      })
+      .catch(err => ErrorService.parseError(err));
+  }
+
   render() {
     return (
-      <div className="app-wrapper">
-        <SideNav
-          selected="dash"
-        />
-
-        <div className="right-content">
-          <TopBar page="Your Dashboard" />
-          <div className="page-content">
-            <div className="stats-section">
-              <div className="stat-wrap">
-                <div className="title--page-section-wrapper--stat">
-                  <h2 className="title-text--page-section-header">Bought</h2>
-                </div>
-                <div className="page-section-wrapper--stat">
-                  <h2 className="stat-text">{this.state.numberOfBooksBought}</h2>
-                </div>
-              </div>
-              <div className="stat-wrap marg">
-                <div className="title--page-section-wrapper--stat">
-                  <h2 className="title-text--page-section-header">Sold</h2>
-                </div>
-                <div className="page-section-wrapper--stat">
-                  <h2 className="stat-text">{this.state.numberOfBooksSold}</h2>
-                </div>
-              </div>
-              <div className="stat-wrap">
-                <div className="title--page-section-wrapper--stat">
-                  <h2 className="title-text--page-section-header">$$ Made</h2>
-                </div>
-                <div className="page-section-wrapper--stat">
-                  <h2 className="stat-text">${this.state.moneyMade}</h2>
-                </div>
-              </div>
+      <div>
+        <NavBar page="home" />
+        <div className="container">
+          <div className="row mx-auto mt-4">
+            <div className="col-sm-3">
+              <SideNav />
             </div>
-
-            <div className="title--page-section-wrapper">
-              <h2 className="title-text--page-section-header">Your Matches</h2>
-            </div>
-            <div className="page-section-wrapper">
-              {this.state.matches.map(post => (
-                <BookPost
-                  key={post._id}
-                  id={post._id}
-                  name={post.name}
-                  subject={post.course}
-                  edition={post.edition}
-                  price={post.price}
-                  status={post.status}
-                  condition={post.condition}
-                  comments={post.comments}
+            <div className="col-sm-6">
+              <div>
+                <h3>Recent Posts</h3>
+                <input
+                  className="form-control"
+                  type="text"
+                  placeholder="Search..."
+                  onChange={this.updateInputValue}
                 />
-              ))}
+              </div>
+              <div className="scroll-posts">
+                {
+                  this.state.loading &&
+                  <div className="loading" />
+                }
+                {this.state.posts.map(post => (
+                  <BookPost
+                    key={post._id}
+                    id={post._id}
+                    name={post.name}
+                    date={post.date}
+                    subject={post.course}
+                    edition={post.edition}
+                    inCart={post.inCart}
+                    price={post.price}
+                    status={post.status}
+                    condition={post.condition}
+                    comments={post.comments}
+                  />
+                ))}
+              </div>
             </div>
-
-
-            <div className="title--page-section-wrapper">
-              <h2 className="title-text--page-section-header">Notifications</h2>
-            </div>
-            <div className="page-section-wrapper">
-              {this.state.notifications.map(notification => (
-                <Notification
-                  key={notification._id}
-                  date={notification.date}
-                  message={notification.message}
-                />
-              ))}
+            <div className="col-sm-3">
+              <h3>Your Stats</h3>
+              <div className="list-group">
+                <span className="list-group-item list-group-item-action">
+                  ${this.state.moneyMade} Made
+                </span>
+                <span className="list-group-item list-group-item-action">
+                  {this.state.numberOfBooksBought} Book(s) Bought
+                </span>
+                <span className="list-group-item list-group-item-action">
+                  {this.state.numberOfBooksSold} Book(s) Sold
+                </span>
+              </div>
             </div>
           </div>
         </div>

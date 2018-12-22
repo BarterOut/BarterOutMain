@@ -9,11 +9,11 @@
   border-bottom: #B9B9B9 1px solid;
 }
 
-.date {
+.notification__date {
   color: #FF8D00;
   font-size: 1.2em;
 }
 
-.message {
+.notification__message {
   font-size: 1.5em;
 }

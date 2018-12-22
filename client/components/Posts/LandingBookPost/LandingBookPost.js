@@ -9,6 +9,8 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import propTypes from 'prop-types';
 
+import Util from '../../../services/Util';
+
 class LandingBookPost extends Component {
   constructor(props) {
     super(props);
@@ -22,7 +24,7 @@ class LandingBookPost extends Component {
         <div className="leftBP">
           <span className="bookSubject">{this.props.subject}</span>
           <span className="bookName">{this.props.name}</span>
-          <span className="bookEdition">Edition: {this.props.edition}</span>
+          <span className="bookEdition">{Util.ordinalSuffixOf(this.props.edition)} Edition</span>
         </div>
         <div className="vertical-line" />
         <div className="middleBP">

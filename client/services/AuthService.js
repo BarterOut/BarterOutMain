@@ -1,5 +1,6 @@
 /**
- * @file Auth service to standardize and simplify all of our API requests.
+ * @file AuthService.js
+ * @description Auth service to standardize and simplify all of our API requests.
  * relating to authorization.
  * @author Duncan Grubbs <duncan.grubbs@gmail.com>
  * @version 0.0.4
@@ -8,9 +9,7 @@
 import decode from 'jwt-decode';
 
 export default class AuthService {
-  // Initializing important variables
-  constructor(domain) {
-    this.domain = domain || 'http://localhost:8080'; // API server domain
+  constructor() {
     this.fetch = this.fetch.bind(this); // React binding stuff
     this.login = this.login.bind(this);
   }

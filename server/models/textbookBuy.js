@@ -1,3 +1,11 @@
+/**
+ * @file textbookBuy.js
+ * @description (Requested) Textbook schema for the DB.
+ * @author Duncan Grubbs <duncan.grubbs@gmail.com>
+ * @author Daniel Munoz
+ * @version 0.0.4
+ */
+
 import mongoose from 'mongoose';
 
 const Schema = mongoose.Schema;
@@ -13,12 +21,12 @@ const TextbookBuy = new Schema({
 });
 
 // TextbookBuy.index({ '$**': 'text' });
+// can add weights here later!
 TextbookBuy.index({
   name: 'text',
   course: 'text',
   status: 'text',
   owner: 'text',
-}); // can add weights here later!
-
+});
 
 export default mongoose.model('TextbookBuy', TextbookBuy);

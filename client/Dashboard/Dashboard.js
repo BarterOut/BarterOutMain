@@ -1,5 +1,6 @@
 /**
- * @file React component for loging users in.
+ * @file Dashboard.js
+ * @description React component for logging users in to the dashboard.
  * @author Duncan Grubbs <duncan.grubbs@gmail.com>
  * @version 0.0.4
  */

@@ -18,18 +18,24 @@ const router = express.Router();
 
 /**
  * [RESOURCE] Remakes matches based on the books in the request collection. *Needs testing*
- * @param {String} transactionID ID of the transaction schema saved in the DB.
+ * @param {String} userID ID of the transaction schema saved in the DB.
  */
 function remakeMatches(userID) {
   TextbookBuy.find({ owner: userID }, (err, books) => {
     if (books) {
       for (let i = 0; i < books.length; i++) {
         const BOOK = books[i];
+        // looks for a book that matches based on the name matching or the course
         Textbook.find(
-          { // looks for a book that matches based on the name matching or the course
+          {
             $and: [
               { status: 0 },
-              { $or: [{ name: { $regex: BOOK.name, $options: 'i' } }, { course: { $regex: BOOK.course, $options: 'i' } }] },
+              {
+                $or: [
+                  { name: { $regex: BOOK.name, $options: 'i' } },
+                  { course: { $regex: BOOK.course, $options: 'i' } },
+                ],
+              },
               { owner: { $ne: userID } },
             ],
           },

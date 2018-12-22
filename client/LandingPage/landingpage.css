@@ -36,8 +36,8 @@
   flex-grow: 4;
 }
 
-#logoPic {
-  height: 40px;
+.logoPic {
+  height: 36px;
   width: auto;
 }
 
@@ -210,6 +210,7 @@
   color: #343434;
  }
 
+/* FOOTER STYLES */
 .footer {
   position: relative;
   height: 20vh;
@@ -221,17 +222,30 @@
   font-style: italic;
   font-weight: bold;
   padding: 1.5% 12%;
-  background-color: #393939;
+  background-color: #272727;
 }
 
-.bottomLinksCol {
+.footer__linkColumn {
+  flex: 1;
+  max-width: 150px;
   font-style: normal;
-  margin-right: 18px;
-  float: left;
   text-align: left;
 }
 
-.bottomPageLink {
+.footer__columnHeader {
+  font-family: "orkneybold";
+  color: #FFF;
+  font-size: 14pt;
+}
+
+.footer__linkColumn--right {
+  flex: 2;
+  max-width: none;
+  justify-self: flex-end;
+  text-align: right;
+}
+
+.footer__link {
   font-family: "orkneyregular";
   font-weight: normal;
   color: #EAEAEA;
@@ -239,8 +253,16 @@
   text-decoration: none;
 }
 
-.bottomPageLink:hover {
+.footer__link:hover {
   color: #FFF;
+  text-decoration: none;
+}
+
+.footer__address {
+  font-family: "orkneyregular";
+  font-weight: normal;
+  color: #EAEAEA;
+  font-size: 12pt;
   text-decoration: none;
 }
 
@@ -248,18 +270,12 @@
   text-decoration: none;
 }
 
-.bottomLinkHeader {
-  font-family: "orkneybold";
-  color: #FFF;
-  font-size: 14pt;
-}
-
 #copyright {
   font-family: "orkneyregular";
   text-align: center;
   justify-content: center;
   color: white;
-  background-color: #393939;
+  background-color: #272727;
   padding-bottom: 2.5%;
 }
 
@@ -267,13 +283,13 @@
   padding: 8px 0;
 }
 
-#socialMedia {
+.socialMediaLinks {
   text-align: center;
   justify-content: center;
-  background-color: #393939;
+  background-color: #272727;
 }
 
-.logoImage {
+.socialMediaLinks__logo {
   margin: 2.5% 0.5%;
   max-width: 50px;
   -webkit-transition: opacity 0.25s ease-out;
@@ -282,7 +298,7 @@
   transition: opacity 0.25s ease-out;
 }
 
-.logoImage:hover {
+.socialMediaLinks__logo:hover {
   opacity: 0.50;
 }
 

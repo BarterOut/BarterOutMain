@@ -20,13 +20,11 @@ import SignUp from './routes/SignUp/SignUp';
 import Login from './routes/Login/Login';
 
 import Home from './routes/Home/Home';
-import Buy from './routes/Buy/Buy';
-import Sell from './routes/Sell/Sell';
-import Track from './routes/Track/Track';
+import Posts from './routes/Manage/Posts';
+import Transactions from './routes/Manage/Transactions';
 import Settings from './routes/Settings/Settings';
 import Help from './routes/Help/Help';
 import Cart from './routes/Cart/Cart';
-import EditPassword from './routes/EditPassword/EditPassword';
 
 import TermsOfService from './routes/TermsOfService/termsOfService';
 import PrivacyPolicy from './routes/PrivacyPolicy/privacyPolicy';
@@ -50,7 +48,7 @@ const PrivateRoute = ({ component: Component, rest }) => {
   return (
     <Route
       {...rest}
-      render={(props) => 
+      render={(props) =>
         auth.loggedIn()
         ? <Component {...props} />
         : <Redirect to={{pathname: '/login'}}
@@ -64,7 +62,7 @@ const DashboardRoute = ({ component: Component, rest }) => {
   return (
     <Route
       {...rest}
-      render={(props) => 
+      render={(props) =>
         auth.getProfile().userInfo.permissionType === 1
         ? <Component {...props} />
         : <Redirect to={{pathname: '/dashboard'}}
@@ -82,16 +80,16 @@ export default (
     <Route exact path="/careers" component={Careers} />
     <Route exact path="/About" component={About} />
     <Route path="/resetPassword/:resetToken" component={ResetPassword} />
+
     <PrivateRoute exact path="/home" component={Home} />
-    <Route exact path="/login" component={Login} />
-    <Route exact path="/signup" component={SignUp} />
-    <PrivateRoute exact path="/buy" component={Buy} />
-    <PrivateRoute exact path="/sell" component={Sell} />
-    <PrivateRoute exact path="/track" component={Track} />
+    <PrivateRoute exact path="/manage/posts" component={Posts} />
+    <PrivateRoute exact path="/manage/transactions" component={Transactions} />
     <PrivateRoute exact path="/settings" component={Settings} />
     <PrivateRoute exact path="/help" component={Help} />
     <PrivateRoute exact path="/cart" component={Cart} />
-    <PrivateRoute exact path="/editPassword" component={EditPassword} />
+
+    <Route exact path="/login" component={Login} />
+    <Route exact path="/signup" component={SignUp} />
     <Route exact path="/forgotPassword" component={ForgotPassword} />
     <Route exact path="/forgotPasswordSuccess" component={ForgotPasswordSuccess} />
     <Route exact path="/signUpSuccess" component={SignUpSuccess} />

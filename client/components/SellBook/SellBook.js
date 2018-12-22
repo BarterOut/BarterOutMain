@@ -8,8 +8,6 @@ import React, { Component } from 'react';
 import FetchService from '../../services/FetchService';
 import AuthService from '../../services/AuthService';
 
-import '../../barterout.css';
-
 class SellBook extends Component {
   constructor() {
     super();
@@ -66,6 +64,7 @@ class SellBook extends Component {
 
     FetchService.POST(`/api/books/postBook/${AUTH.getToken()}`, payload)
       .then(() => {
+        // We would fire off event for redux here to re-fetch books
         window.location.reload();
       });
   }
@@ -99,77 +98,112 @@ class SellBook extends Component {
 
   render() {
     return (
-      <div className="wrapper-custom">
-        <h2>Tell us about your book</h2>
-        <form className="input-wrapper" onSubmit={this.formSubmit}>
-          {!this.state.correctlyFilledOut && <h4 className="input-error">Please ensure all the required fields are filled out correctly.</h4>}
-          <span className="inputLabelHome">Title of Book *</span>
+      <div>
+        <form onSubmit={this.formSubmit}>
+          {
+            !this.state.correctlyFilledOut &&
+            <div className="alert alert-warning" role="alert">
+              Please ensure all fields are filled out correctly.
+            </div>}
+          <div className="form-group">
+            <label htmlFor="title">Title of Book*</label>
+            <input
+              autoComplete="off"
+              className="form-control"
+              id="title"
+              placeholder="e.g. Calculus and Early Transcendentals"
+              type="text"
+              name="name"
+              onChange={this.onChange}
+              required
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="edition">Edition*</label>
+            <input
+              autoComplete="off"
+              className="form-control"
+              placeholder="e.g. 11"
+              type="number"
+              id="edition"
+              min="0"
+              max="900"
+              name="edition"
+              onChange={this.onChange}
+              required
+            />
+            <small id="passwordHelpBlock" className="form-text text-muted">
+              Must be a number greater than 0.
+            </small>
+          </div>
+          <div className="form-group">
+            <label htmlFor="course">Course Code*</label>
+            <input
+              autoComplete="off"
+              className="form-control"
+              placeholder="e.g. MTH 101"
+              type="text"
+              id="course"
+              pattern="^[A-Z]{3} \d{3}$"
+              name="course"
+              onChange={this.onChange}
+              required
+            />
+            <small id="passwordHelpBlock" className="form-text text-muted">
+              Course code must be three uppercase letters followed by a space,
+              followed by three numbers.
+            </small>
+            <div className="invalid-feedback">
+              Please provide a course code.
+            </div>
+          </div>
+          <div className="form-group">
+            <label htmlFor="price">Price*</label>
+            <div className="input-group">
+              <div className="input-group-prepend">
+                <span className="input-group-text">$</span>
+              </div>
+              <input
+                autoComplete="off"
+                className="form-control"
+                type="number"
+                min="0"
+                max="200"
+                id="price"
+                name="price"
+                onChange={this.onChange}
+                required
+              />
+            </div>
+          </div>
+          <div className="form-group">
+            <label htmlFor="isbn">ISBN</label>
+            <input
+              autoComplete="off"
+              className="form-control"
+              placeholder="ISBN"
+              id="isbn"
+              type="number"
+              pattern="^(?=(?:\D*\d){10}(?:(?:\D*\d){3})?$)[\d-]+$"
+              onChange={this.onChange}
+              name="ISBN"
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="condition">Condition*</label>
+            <select defaultValue="Good" onChange={this.selectChange} className="form-control" id="condition">
+              <option value="Poor">Poor</option>
+              <option value="Fair">Fair</option>
+              <option value="Good">Good</option>
+              <option value="Like New">Like New</option>
+            </select>
+          </div>
+          <label htmlFor="comments">Comments</label>
           <input
             autoComplete="off"
-            className="formInput"
-            placeholder="e.g. Calculus and Early Transcendentals"
-            type="text"
-            name="name"
-            onChange={this.onChange}
-            required
-          />
-          <span className="inputLabelHome">Edition *</span>
-          <input
-            autoComplete="off"
-            className="formInput"
-            placeholder="e.g. 11"
-            type="number"
-            min="0"
-            max="900"
-            name="edition"
-            onChange={this.onChange}
-            required
-          />
-          <span className="inputLabelHome">Course *</span>
-          <input
-            autoComplete="off"
-            className="formInput"
-            placeholder="e.g. MTH 101"
-            type="text"
-            pattern="^[A-Z]{3} \d{3}$"
-            name="course"
-            onChange={this.onChange}
-            required
-          />
-          <span className="inputLabelHome">Price *</span>
-          <input
-            autoComplete="off"
-            className="formInput"
-            placeholder="$"
-            type="number"
-            min="0"
-            max="200"
-            name="price"
-            onChange={this.onChange}
-            required
-          />
-          <span className="inputLabelHome">ISBN</span>
-          <input
-            autoComplete="off"
-            className="formInput"
-            placeholder="ISBN"
-            type="number"
-            pattern="^(?=(?:\D*\d){10}(?:(?:\D*\d){3})?$)[\d-]+$"
-            onChange={this.onChange}
-            name="ISBN"
-          />
-          <span className="inputLabelHome">Condition *</span>
-          <select defaultValue="Good" onChange={this.selectChange} className="conditionInput">
-            <option value="Poor">Poor</option>
-            <option value="Fair">Fair</option>
-            <option value="Good">Good</option>
-            <option value="Like new">Like new</option>
-          </select>
-          <span className="inputLabelHome">Comments</span>
-          <input
-            autoComplete="off"
-            className="formInput"
+            className="form-control"
             placeholder="Comments"
+            id="comments"
             type="text"
             onChange={this.onChange}
             name="comments"
@@ -177,7 +211,7 @@ class SellBook extends Component {
           <div>
             <button
               type="submit"
-              className="button"
+              className="btn btn-primary my-2 float-right"
               onClick={this.postToDatabase}
             >Sell Now
             </button>

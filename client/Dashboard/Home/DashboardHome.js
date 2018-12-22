@@ -1,5 +1,6 @@
 /**
- * @file Main React component for the app itself.
+ * @file DashboardHome.js
+ * @description Main React component for the admin dashboard.
  * @author Duncan Grubbs <duncan.grubbs@gmail.com>
  * @version 0.0.4
  */
@@ -140,18 +141,16 @@ class DashboardHome extends Component {
       return (<Redirect to="/home" />);
     }
     return (
-      <div className="dashboard-wrapper">
-        <h1 className="dashboard-header">BarterOut Admin Dashboard</h1>
-        <h2 className="dashboard-header">Ongoing Transactions</h2>
-        <table className="dash-table">
+      <div className="dash-wrap">
+        <h3 className="my-2 mx-2">BarterOut Admin Dashboard</h3>
+        <h3 className="mt-4 mx-2">Transactions - Verify Condition</h3>
+        <table className="table table-striped">
           <tbody>
             <tr>
               <th className="has-border">Book Name</th>
               <th className="has-border">Course Code</th>
               <th className="has-border">Condition</th>
-              <th className="has-border">Charge</th>
-              <th className="has-border">Amount</th>
-              <th className="has-border">Pay Seller</th>
+              <th className="has-border">Seller</th>
               <th className="has-border">Amount</th>
               <th className="has-border">Confirm</th>
             </tr>
@@ -160,17 +159,15 @@ class DashboardHome extends Component {
                 <td className="has-border">{book.name}</td>
                 <td className="has-border">{book.course}</td>
                 <td className="has-border">{book.condition}</td>
-                <td className="has-border">@{book.buyerObject.venmoUsername}</td>
-                <td className="has-border">${book.price * 1.05}</td>
                 <td className="has-border">@{book.ownerObject.venmoUsername}</td>
                 <td className="has-border">${book.price}</td>
-                <td className="has-border"><button id={book._id} className="button" onClick={this.confirm}>Confirm</button></td>
+                <td className="has-border"><button id={book._id} className="btn btn-primary" onClick={this.confirm}>Confirm</button></td>
               </tr>
             ))}
           </tbody>
         </table>
-        <h2 className="dashboard-header">Stage-2 Transactions</h2>
-        <table className="dash-table">
+        <h3 className="mt-4 mx-2">Transactions - Make Payment</h3>
+        <table className="table table-striped">
           <tbody>
             <tr>
               <th className="has-border">Book Name</th>
@@ -191,14 +188,14 @@ class DashboardHome extends Component {
                 <td className="has-border">${book.price * 1.05}</td>
                 <td className="has-border">@{book.ownerObject.venmoUsername}</td>
                 <td className="has-border">${book.price}</td>
-                <td className="has-border"><button id={book._id} className="button" onClick={this.confirmPayment}>Confirm Payment</button></td>
+                <td className="has-border"><button id={book._id} className="btn btn-primary" onClick={this.confirmPayment}>Confirm Payment</button></td>
               </tr>
             ))}
           </tbody>
         </table>
 
-        <h2 className="dashboard-header">Completed Transactions</h2>
-        <table className="dash-table">
+        <h3 className="mt-4 mx-2">Completed Transactions</h3>
+        <table className="table table-striped">
           <tbody>
             <tr>
               <th className="has-border">Book Name</th>
@@ -220,8 +217,8 @@ class DashboardHome extends Component {
             ))}
           </tbody>
         </table>
-        <h2 className="dashboard-header">Statistics</h2>
-        <table className="dash-table">
+        <h3 className="mt-4 mx-2">Statistics</h3>
+        <table className="table table-striped">
           <tbody>
             <tr>
               <th className="has-border"># Books</th>
@@ -239,8 +236,8 @@ class DashboardHome extends Component {
             </tr>
           </tbody>
         </table>
-        <h2 className="dashboard-header">Users</h2>
-        <table className="dash-table">
+        <h3 className="mt-4 mx-2">Users</h3>
+        <table className="table table-striped">
           <tbody>
             <tr>
               <th className="has-border">ID</th>

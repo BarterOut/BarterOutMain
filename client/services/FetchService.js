@@ -1,5 +1,6 @@
 /**
- * @file Fetch service to standardize and simplify all of our API requests.
+ * @file FetchService.js
+ * @description Fetch service to standardize and simplify all of our API requests.
  * @author Duncan Grubbs <duncan.grubbs@gmail.com>
  * @version 0.0.4
  */
@@ -16,7 +17,7 @@ export default class FetchService {
       if (!FetchService._checkStatus(res)) {
         return Promise.reject(new Error(`Bad Status Code ${res.status}`));
       }
-      return res.json().then(obj => Promise.resolve(obj.data));
+      return res.json().then(blob => Promise.resolve(blob.data));
     });
   }
 

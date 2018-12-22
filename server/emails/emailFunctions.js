@@ -1,3 +1,11 @@
+/**
+ * @file emailFunctions.js
+ * @description Pre-written emails.
+ * @author Daniel Munoz
+ * @author Duncan Grubbs <duncan.grubbs@gmail.com>
+ * @version 0.0.4
+ */
+
 module.exports = {
   // Email sent when user gets matched with a seller
   matchFoundEmail: function matchFoundEmail(emailTo, firstName, bookTitle) {

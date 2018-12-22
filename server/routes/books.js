@@ -1,16 +1,17 @@
 /**
- * @file All routes relating to books for Express.js server.
+ * @file books.js
+ * @description All routes relating to books for Express.js server.
  * @author Daniel Munoz
  * @author Duncan Grubbs <duncan.grubbs@gmail.com>
  * @version 0.0.4
  */
 
 import Textbook from '../models/textbook';
-import response from '../response';
 import TextbookBuy from '../models/textbookBuy';
 import User from '../models/user';
 import Transaction from '../models/transaction';
 
+import response from '../response';
 import Pricing from '../pricing';
 
 const express = require('express');
@@ -78,7 +79,7 @@ function sortBooksReverseCronological(bookJSONArray) {
  * User posts a book they want to sell.
  * @param {Object} req Request body from client.
  * @param {Object} res Body of HTTP response.
- * @returns {Number} Status Code.
+ * @returns {Object} Standard response.
  */
 router.post('/postBook/:token', (req, res) => {
   jwt.verify(req.params.token, 'secretKey', (error, authData) => {
@@ -157,7 +158,7 @@ router.post('/postBook/:token', (req, res) => {
  * User requests a book they want.
  * @param {Object} req Request body from client.
  * @param {Object} res Body of HTTP response.
- * @returns {Number} Status code.
+ * @returns {Object} Standard response.
  */
 router.post('/requestBook', (req, res) => {
   const BOOK = req.body.data.payload;
@@ -235,7 +236,7 @@ router.post('/requestBook', (req, res) => {
  * User checks out of cart.
  * @param {Object} req Request body from client, includes array of book ID's from cart.
  * @param {Object} res Body of HTTP response.
- * @returns {Number} Response status.
+ * @returns {Object} Standard response.
  */
 router.post('/checkoutCart/:token', (req, res) => {
   jwt.verify(req.params.token, 'secretKey', (error, authData) => {
@@ -254,7 +255,6 @@ router.post('/checkoutCart/:token', (req, res) => {
 
         buyer = foundUser[0];
 
-
         for (let i = 0; i < req.body.data.cart.length; i++) {
           // Updates the user
           User.update(
@@ -264,7 +264,6 @@ router.post('/checkoutCart/:token', (req, res) => {
             },
           );
 
-          // This part works
           Textbook.update(
             { _id: req.body.data.cart[i]._id },
             { $set: { status: 1, buyer: authData.userInfo._id } }, (error) => {
@@ -272,52 +271,55 @@ router.post('/checkoutCart/:token', (req, res) => {
             },
           );
 
-          // updates the books being sought by the user that match the query
-          Textbook.find({ _id: req.body.data.cart[i]._id }, (errors, foundBook) => {
-            bookFound = foundBook[0];
-            totalCharged += bookFound.price;
+          // Updates the books being sought by the user that match the query
+          Textbook.find(
+            { _id: req.body.data.cart[i]._id },
+              (errors, foundBook) => {
+              bookFound = foundBook[0];
+              totalCharged += bookFound.price;
 
-            // Set status of requested book if they exist
-            TextbookBuy.update({
-              $and: [
-                { status: 0 },
-                {
-                  $or: [
-                    { name: bookFound.name },
-                    { course: bookFound.course },
-                  ],
-                },
-                { owner: authData.userInfo._id },
-              ],
-            }, { $set: { status: 1 } }, (error) => {
-              console.warn(`Error in finding book being bought: ${error}`); // eslint-disable-line
-            });
-
-            // FOR SELLER USER STATISTICS
-            User.update(
-              { _id: bookFound.owner },
-              { $inc: { numberOfBooksSold: 1, moneyMade: bookFound.price } }, (error) => {
-                console.error(`Error update seller: ${error}`); // eslint-disable-line
-              },
-            );
-
-            // For this specific book, find seller
-            if (i === req.body.data.cart.length - 1) {
-              const newTransaction = new Transaction({
-                buyerID: buyer._id,
-                buyerFirstName: buyer.firstName,
-                buyerLastName: buyer.lastName,
-                buyerVenmo: buyer.venmoUsername,
-                buyerEmail: buyer.emailAddress,
-                totalCharged: totalCharged + (totalCharged * Pricing.FEE),
-                booksPurchased: req.body.data.cart,
+              // Set status of requested book if they exist
+              TextbookBuy.update({
+                $and: [
+                  { status: 0 },
+                  {
+                    $or: [
+                      { name: bookFound.name },
+                      { course: bookFound.course },
+                    ],
+                  },
+                  { owner: authData.userInfo._id },
+                ],
+              }, { $set: { status: 1 } }, (error) => {
+                console.warn(`Error in finding book being bought: ${error}`); // eslint-disable-line
               });
-              newTransaction.save()
-                .then(() => {
-                  transactionEmail(newTransaction._id);
+
+              // FOR SELLER USER STATISTICS
+              User.update(
+                { _id: bookFound.owner },
+                { $inc: { numberOfBooksSold: 1, moneyMade: bookFound.price } }, (error) => {
+                  console.error(`Error update seller: ${error}`); // eslint-disable-line
+                },
+              );
+
+              // For this specific book, find seller
+              if (i === req.body.data.cart.length - 1) {
+                const newTransaction = new Transaction({
+                  buyerID: buyer._id,
+                  buyerFirstName: buyer.firstName,
+                  buyerLastName: buyer.lastName,
+                  buyerVenmo: buyer.venmoUsername,
+                  buyerEmail: buyer.emailAddress,
+                  totalCharged: totalCharged + (totalCharged * Pricing.FEE),
+                  booksPurchased: req.body.data.cart,
                 });
-            }
-          });
+                newTransaction.save()
+                  .then(() => {
+                    transactionEmail(newTransaction._id);
+                  });
+              }
+            },
+          );
         }
       });
       // Clear the user's cart

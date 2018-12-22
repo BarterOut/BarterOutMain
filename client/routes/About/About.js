@@ -34,14 +34,13 @@ import adviserOne from '../../images/team-photos/meyerElizabeth.jpg';
 
 import logo from '../../images/barterOutProfilePhotoWebPage.png';
 
-import linkedInLogo from '../../images/linkedIn.png';
-import facebookLogo from '../../images/facebook.png';
+import Footer from '../../components/Footer/Footer';
 
 const About = () => (
   <div className="infowrapper">
     <nav className="headerBar">
       <div className="logo">
-        <a href="/" className="buttonLink"><img alt="logo" id="logoPic" src={logoPic} /></a>
+        <a href="/" className="buttonLink"><img alt="logo" className="logoPic" src={logoPic} /></a>
       </div>
       <div className="pageLinks">
         <Link className="landingPageLink" to="/" href="/">Home</Link>
@@ -95,7 +94,7 @@ const About = () => (
           Currently we are a group of 11 creative students at the
           University of Rochester dedicated to improve the college experience
           for everyone using tech. If our mission resonates with you, be sure to
-          check out our updated <Link to="/careers" href="/careers">careers page</Link>.
+          check out our updated <a to="/careers" href="/careers">careers page</a>.
         </p>
         <div id="team-photos">
           <div className="team-member">
@@ -115,7 +114,7 @@ const About = () => (
           <div className="team-member">
             <img className="team-photo" src={duncan} alt="Duncan" />
             <h4 className="subtext">Duncan Grubbs</h4>
-            <h4 className="subtext1">Interim CTO</h4>
+            <h4 className="subtext1">Lead Developer</h4>
             <h4 className="subtext2">UR &apos;21</h4>
           </div>
 
@@ -187,40 +186,7 @@ const About = () => (
       </div>
     </div>
 
-    <div className="footer">
-      <div className="bottomLinksCol">
-        <div className="bottomLinkHeader">Company</div>
-        <a to="/about" href="/about" className="bottomPageLink">About</a>
-        <br />
-        <a to="/careers" href="/careers" className="bottomPageLink">Careers</a>
-        <br />
-        <a to="/contact" href="/contact" className="bottomPageLink">Contact</a>
-        <br />
-      </div>
-      <div className="bottomLinksCol">
-        <div className="bottomLinkHeader">Legal</div>
-        <a href="/termsOfService" className="bottomPageLink">Terms of Service</a>
-        <br />
-        <a href="/privacyPolicy" className="bottomPageLink">Privacy Policy</a>
-      </div>
-      <div className="bottomLinksCol">
-        <div className="bottomLinkHeader">Developer</div>
-        <a href="https://github.com/BarterOut/api-docs" className="bottomPageLink">API Documentation</a>
-        <br />
-        <a href="https://github.com/BarterOut/" className="bottomPageLink">GitHub</a>
-      </div>
-    </div>
-    <div id="socialMedia">
-      <a href="https://www.linkedin.com/company/18490388/" rel="noopener noreferrer" target="_blank">
-        <img alt="logo" className="logoImage" src={linkedInLogo} />
-      </a>
-      <a href="https://www.facebook.com/BarterOut/" rel="noopener noreferrer" target="_blank">
-        <img alt="facebook logo" className="logoImage" src={facebookLogo} />
-      </a>
-    </div>
-    <div id="copyright">
-      © 2018 BarterOut. All Rights Reserved.
-    </div>
+    <Footer />
   </div>
 );
 

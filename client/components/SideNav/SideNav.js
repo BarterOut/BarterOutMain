@@ -5,101 +5,72 @@
  */
 
 import React, { Component } from 'react';
-import propTypes from 'prop-types';
-import { Link } from 'react-router-dom';
-
-import MaterialIcon from 'react-google-material-icons';
-
-import FetchService from '../../services/FetchService';
-import AuthService from '../../services/AuthService';
-
-import '../../barterout.css';
-
-import './SideNav.css';
-
-import profile from '../../images/barterOutProfilePhotoWebPage.png';
-import logo from '../../images/white Logo@2x.png';
+import SellBook from '../SellBook/SellBook';
+import RequestBook from '../RequestBook/RequestBook';
 
 class SideNav extends Component {
   constructor() {
     super();
-    this.state = {
-      name: '',
-    };
-  }
-
-  componentDidMount() {
-    if (this.props.selected) {
-      const selectedNavItem = document.getElementsByName(this.props.selected)[0];
-      selectedNavItem.className = 'nav-link selected';
-    }
-
-    this._getProfileInfo();
-  }
-
-  _getProfileInfo() {
-    if (!sessionStorage.getItem('name')) {
-      const AUTH = new AuthService();
-      FetchService.GET(`/api/user/getUserData/${AUTH.getToken()}`)
-        .then((data) => {
-          sessionStorage.setItem('name', `${data.user.firstName} ${data.user.lastName}`);
-          this.setState({ name: `${data.user.firstName} ${data.user.lastName}` });
-        });
-    } else {
-      this.setState({ name: sessionStorage.getItem('name') });
-    }
+    this.state = {};
   }
 
   render() {
     return (
-      <div id="wrapper">
-        <div className="top-of-nav">
-          <Link id="logo-link" to="/home" href="/home">
-            <img id="logo" src={logo} alt="logo" />
-          </Link>
-        </div>
-        <div id="profile-wrapper">
-          <Link to="/settings" href="/settings" id="profile-photo-link">
-            <img src={profile} alt="profile" id="profile-pic" />
-          </Link>
-          <div id="name">
-            {this.state.name}
+      <div className="sidenav">
+        <button
+          className="btn btn-secondary my-1"
+          data-toggle="modal"
+          data-target="#sellBookModal"
+        >Post Your Book
+        </button>
+        <div className="modal fade" id="sellBookModal" tabIndex="-1" role="dialog" aria-hidden="true">
+          <div className="modal-dialog modal-lg" role="document">
+            <div className="modal-content">
+              <div className="modal-header">
+                <h5 className="modal-title" id="exampleModalLabel">Sell Book</h5>
+                <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div className="modal-body">
+                <SellBook />
+              </div>
+            </div>
           </div>
         </div>
-        <div id="link-wrapper">
-          <Link className="nav-link" name="dash" to="/home" href="/home">
-            <div className="nav-icon"><MaterialIcon icon="home" size={30} /></div>
-            Dash
-          </Link>
-          <Link className="nav-link" name="buy" to="/buy" href="/buy">
-            <div className="nav-icon"><MaterialIcon icon="shopping_cart" size={30} /></div>
-            Buy
-          </Link>
-          <Link className="nav-link" name="sell" to="/sell" href="/sell">
-            <div className="nav-icon"><MaterialIcon icon="store" size={30} /></div>
-            Sell
-          </Link>
-          <Link className="nav-link" name="track" to="/track" href="/track">
-            <div className="nav-icon"><MaterialIcon icon="timeline" size={30} /></div>
-            Track
-          </Link>
-          <Link className="nav-link" name="settings" to="/settings" href="/settings">
-            <div className="nav-icon"><MaterialIcon icon="settings" size={30} /></div>
-            Settings
-          </Link>
-          <Link className="nav-link" name="help" to="/help" href="/help">
-            <div className="nav-icon"><MaterialIcon icon="help" size={30} /></div>
-            Contact Us
-          </Link>
+        {/* <h4 className="my-2">
+        Filter<span className="badge badge-info mx-2">Beta</span>
+        </h4>
+        <div className="list-group">
+          <div className="list-group-item list-group-item-action">All</div>
+          <div className="list-group-item list-group-item-action">School of Arts and Sciences</div>
+          <div className="list-group-item list-group-item-action">School of Engineering</div>
+        </div> */}
+        <h5 className="my-2">Not finding the book you need?</h5>
+        <button
+          className="btn btn-secondary my-1"
+          data-toggle="modal"
+          data-target="#requestBookModal"
+        >Request a Book
+        </button>
+        <div className="modal fade" id="requestBookModal" tabIndex="-1" role="dialog" aria-hidden="true">
+          <div className="modal-dialog" role="document">
+            <div className="modal-content">
+              <div className="modal-header">
+                <h5 className="modal-title" id="exampleModalLabel">Request Book</h5>
+                <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div className="modal-body">
+                <RequestBook />
+              </div>
+            </div>
+          </div>
         </div>
-        <span id="copyright-footer">© 2018 BarterOut.</span>
       </div>
     );
   }
 }
-
-SideNav.propTypes = {
-  selected: propTypes.string,
-};
 
 export default SideNav;
