@@ -9,7 +9,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import propTypes from 'prop-types';
 
-import Util from '../../../services/Util';
+import Util from '../../../services/util';
 
 class LandingBookPost extends Component {
   constructor(props) {
