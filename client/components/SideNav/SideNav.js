@@ -41,7 +41,7 @@ class SideNav extends Component {
             </div>
           </div>
         </div>
-        <h5 className="my-2">Not finding the book you need?</h5>
+        <h5 className="my-2">Not finding a book?</h5>
         <button
           className="btn btn-secondary my-1"
           data-toggle="modal"
