@@ -1,10 +1,7 @@
 /**
- * @file server.js
- * @description Entry point of Express.js server.
+ * @file app.js.
+ * @description Mock server for testing that doesn't use webpack.
  * @author Duncan Grubbs <duncan.grubbs@gmail.com>
- * @author Daniel Munoz
- * @author Shawn Chan
- * @author Luis Nova
  * @version 0.0.4
  */
 
@@ -14,13 +11,7 @@ import path from 'path';
 // Mongoose for database models and access.
 import mongoose from 'mongoose';
 
-// Webpack Requirements
-import webpack from 'webpack';
-import webpackDevMiddleware from 'webpack-dev-middleware';
-import webpackHotMiddleware from 'webpack-hot-middleware';
-import config from '../webpack.config';
-
-// Config for database.
+// Configs and kittens for testing database.
 import serverConfig from './config';
 
 const sslRedirect = require('heroku-ssl-redirect');
@@ -85,13 +76,6 @@ app.use('/api/auth', auth);
 app.use('/api/user', user);
 app.use('/api/books', books);
 app.use('/api/dashboard', dashboard);
-
-// Run Webpack dev server in development mode
-if (process.env.NODE_ENV === 'development') {
-  const compiler = webpack(config);
-  app.use(webpackDevMiddleware(compiler, { noInfo: true, publicPath: config.output.publicPath }));
-  app.use(webpackHotMiddleware(compiler));
-}
 
 // Set native promises as mongoose promise
 mongoose.Promise = global.Promise;

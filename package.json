@@ -6,6 +6,8 @@
   "scripts": {
     "start": "BABEL_DISABLE_CACHE=1 nodemon index.js",
     "dev": "concurrently \"npm start\" ",
+    "test": "jest --forceExit",
+    "coverage": "jest --collectCoverageFrom=server/**.js --coverage server --forceExit",
     "build": "webpack"
   },
   "author": "Various Authors",
@@ -74,11 +76,14 @@
     "eslint-plugin-jsx-a11y": "^6.0.3",
     "eslint-plugin-react": "^7.7.0",
     "file-loader": "^1.1.11",
+    "jest": "^23.6.0",
+    "moxios": "^0.4.0",
     "node-sass": "^4.11.0",
     "nyc": "^13.0.1",
     "rimraf": "^2.6.2",
     "sass-loader": "^7.1.0",
     "style-loader": "^0.19.0",
+    "supertest": "^3.3.0",
     "url-loader": "^1.1.2"
   },
   "nyc": {
