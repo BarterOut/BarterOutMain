@@ -5,6 +5,8 @@
  */
 
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+
 import SellBook from '../SellBook/SellBook';
 import RequestBook from '../RequestBook/RequestBook';
 
@@ -17,6 +19,7 @@ class SideNav extends Component {
   render() {
     return (
       <div className="sidenav">
+        <h5 className="my-2">Have a book to sell?</h5>
         <button
           className="btn btn-secondary my-1"
           data-toggle="modal"
@@ -38,14 +41,6 @@ class SideNav extends Component {
             </div>
           </div>
         </div>
-        {/* <h4 className="my-2">
-        Filter<span className="badge badge-info mx-2">Beta</span>
-        </h4>
-        <div className="list-group">
-          <div className="list-group-item list-group-item-action">All</div>
-          <div className="list-group-item list-group-item-action">School of Arts and Sciences</div>
-          <div className="list-group-item list-group-item-action">School of Engineering</div>
-        </div> */}
         <h5 className="my-2">Not finding the book you need?</h5>
         <button
           className="btn btn-secondary my-1"
@@ -53,6 +48,13 @@ class SideNav extends Component {
           data-target="#requestBookModal"
         >Request a Book
         </button>
+        <h4 className="my-2">
+        Manage<span className="badge badge-info mx-2">Beta</span>
+        </h4>
+        <div className="list-group">
+          <Link className="list-group-item list-group-item-action" href="/manage/posts" to="/manage/posts">Posts</Link>
+          <Link className="list-group-item list-group-item-action" href="/manage/transactions" to="/manage/transactions">Transactions</Link>
+        </div>
         <div className="modal fade" id="requestBookModal" tabIndex="-1" role="dialog" aria-hidden="true">
           <div className="modal-dialog" role="document">
             <div className="modal-content">

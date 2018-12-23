@@ -195,7 +195,7 @@ button:focus {
 }
 
 .scroll-posts {
-  max-height: 30vh;
+  height: 70vh;
   overflow-y: scroll;
 }
 

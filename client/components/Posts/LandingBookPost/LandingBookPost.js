@@ -38,6 +38,7 @@ class LandingBookPost extends Component {
           <Link to="/login" href="/login">
             <button className="button">Add to Cart</button>
           </Link>
+          <div><small className="text-muted">* Does not include 5% fee.</small></div>
         </div>
       </div>
     );
