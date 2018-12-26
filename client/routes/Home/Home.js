@@ -99,10 +99,6 @@ class Home extends Component {
                 <h3>Your Matches</h3>
               </div>
               <div className="scroll-posts--sm">
-                {
-                  this.state.loading &&
-                  <div className="loading" />
-                }
                 {this.state.matches.map(post => (
                   <BookPost
                     key={post._id}
