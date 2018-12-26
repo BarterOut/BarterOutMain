@@ -90,9 +90,6 @@ class Settings extends Component {
     })
       .then(() => {
         this.setState({ updateMessageVisible: true });
-        setTimeout(() => {
-          this.setState({ updateMessageVisible: false });
-        }, 1000);
       })
       .catch(error => ErrorService.parseError(error));
   }

@@ -79,6 +79,7 @@ class BookPost extends Component {
             >Added to Cart
             </button>
           }
+          <div><small className="text-muted">* Does not include 5% fee.</small></div>
         </div>
       </div>
     );

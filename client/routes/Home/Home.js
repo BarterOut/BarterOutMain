@@ -20,6 +20,7 @@ class Home extends Component {
 
     this.state = {
       posts: [],
+      matches: [],
       numberOfBooksBought: 0,
       numberOfBooksSold: 0,
       moneyMade: 0,
@@ -33,6 +34,7 @@ class Home extends Component {
   componentDidMount() {
     this.getUserStatistics();
     this.getAllBooks();
+    this.getUserMatches();
   }
 
   getAllBooks() {
@@ -48,6 +50,13 @@ class Home extends Component {
         this.setState({ numberOfBooksBought: data.numberOfBooksBought });
         this.setState({ numberOfBooksSold: data.numberOfBooksSold });
         this.setState({ moneyMade: data.moneyMade });
+      });
+  }
+
+  getUserMatches() {
+    FetchService.GET(`/api/books/getUserMatches/${this.AUTH.getToken()}`)
+      .then((data) => {
+        this.setState({ matches: data });
       });
   }
 
@@ -87,6 +96,30 @@ class Home extends Component {
             </div>
             <div className="col-sm-6">
               <div>
+                <h3>Your Matches</h3>
+              </div>
+              <div className="scroll-posts--sm">
+                {
+                  this.state.loading &&
+                  <div className="loading" />
+                }
+                {this.state.matches.map(post => (
+                  <BookPost
+                    key={post._id}
+                    id={post._id}
+                    name={post.name}
+                    date={post.date}
+                    subject={post.course}
+                    edition={post.edition}
+                    inCart={post.inCart}
+                    price={post.price}
+                    status={post.status}
+                    condition={post.condition}
+                    comments={post.comments}
+                  />
+                ))}
+              </div>
+              <div>
                 <h3>Recent Posts</h3>
                 <input
                   className="form-control"
@@ -95,7 +128,7 @@ class Home extends Component {
                   onChange={this.updateInputValue}
                 />
               </div>
-              <div className="scroll-posts">
+              <div className="scroll-posts--lg">
                 {
                   this.state.loading &&
                   <div className="loading" />
@@ -118,7 +151,9 @@ class Home extends Component {
               </div>
             </div>
             <div className="col-sm-3">
-              <h3>Your Stats</h3>
+              <h3>
+                Your Stats<span className="badge badge-info mx-2">Beta</span>
+              </h3>
               <div className="list-group">
                 <span className="list-group-item list-group-item-action">
                   ${this.state.moneyMade} Made

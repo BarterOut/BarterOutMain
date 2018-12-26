@@ -64,6 +64,7 @@ class PersonalBookPost extends Component {
             onClick={this.deleteBook}
           >Remove
           </button>
+          <div><small className="text-muted">* Does not include 5% fee.</small></div>
         </div>
       </div>
     );
