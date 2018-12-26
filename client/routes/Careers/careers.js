@@ -63,7 +63,7 @@ const Careers = () => (
         </b>
         <div className="careers-text">
           <ol>
-            <li>Write performing Javascript code in a team setting.</li>
+            <li>Write performant Javascript code in a team setting.</li>
             <li>Write and execute unit tests with NYC and Jest.</li>
             <li>Design and implement smart, modular React components.</li>
             <li>Work with web protocols (HTTP, SLL) to utilize our API.</li>
@@ -92,7 +92,7 @@ const Careers = () => (
         </b>
         <div className="careers-text">
           <ol>
-            <li>Write performing Javascript code in a team setting.</li>
+            <li>Write performant Javascript code in a team setting.</li>
             <li>Write and execute unit tests with NYC and Jest.</li>
             <li>Design and implement mongoose schemas.</li>
             <li>Implement new, well documented API functionality.</li>
