@@ -118,7 +118,9 @@ class Home extends Component {
               </div>
             </div>
             <div className="col-sm-3">
-              <h3>Your Stats</h3>
+              <h3>
+                Your Stats<span className="badge badge-info mx-2">Beta</span>
+              </h3>
               <div className="list-group">
                 <span className="list-group-item list-group-item-action">
                   ${this.state.moneyMade} Made

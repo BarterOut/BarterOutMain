@@ -49,7 +49,7 @@ class SideNav extends Component {
         >Request a Book
         </button>
         <h4 className="my-2">
-        Manage<span className="badge badge-info mx-2">Beta</span>
+        Manage
         </h4>
         <div className="list-group">
           <Link className="list-group-item list-group-item-action" href="/manage/posts" to="/manage/posts">Posts</Link>
