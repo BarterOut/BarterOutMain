@@ -16,6 +16,7 @@ const express = require('express');
 
 const router = express.Router();
 
+// TODO: This needs to return a promise.
 /**
  * [RESOURCE] Remakes matches based on the books in the request collection. *Needs testing*
  * @param {String} userID ID of the transaction schema saved in the DB.
@@ -44,7 +45,6 @@ function remakeMatches(userID) {
             matchedBooks.forEach((book) => {
               addBooks.push(book._id);
             });
-
             User.update(
               { _id: BOOK.owner },
               {
@@ -52,7 +52,9 @@ function remakeMatches(userID) {
                   matchedBooks: { addBooks },
                 },
               }, (error) => {
-                throw new Error(`Error making matches: ${error}`);
+                if (error) {
+                  throw new Error(`Error making matches: ${error}`);
+                }
               },
             );
           },
@@ -287,6 +289,8 @@ router.get('/getUserData/:token', (req, res) => {
   });
 });
 
+// TODO: Fix this method.
+
 /**
  * Removes a matching request for a given user.
  * @param {Object} req Request body from client.
@@ -304,11 +308,11 @@ router.post('/deleteRequest/', (req, res) => {
           { owner: authData.userInfo._id },
         ],
       }, (error) => {
-        remakeMatches(authData.userInfo._id);
-        if (!error) {
-          res.status(200).json(response({}));
-        } else {
+        if (error) {
           res.status(400).json(response({ error }));
+        } else {
+          remakeMatches(authData.userInfo._id);
+          res.status(200).json(response({}));
         }
       });
     }
