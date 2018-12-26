@@ -1,0 +1,117 @@
+.post {
+  display: flex;
+  flex-direction: row;
+  background: white;
+  font-size: 1.1em;
+  border-radius: 5px;
+  align-items: center;
+  box-shadow: 0 4px 6px rgba(50,50,93,.11), 0 1px 3px rgba(0,0,0,.08);
+  width: 95%;
+  color: black;
+  background: white;
+  margin: 16px auto;
+  padding: 8px 16px;
+}
+
+.rightBP {
+  display: flex;
+  align-self: auto;
+  width: 33%;
+  height: 100%;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-end;
+}
+
+.leftBP {
+  display: flex;
+  width: 33%;
+  height: 100%;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.middleBP {
+  display: flex;
+  width: 33%;
+  height: 100%;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.vertical-line {
+  width: 1px;
+  height: 85px;
+  background: grey;
+  margin: 0 8px;
+}
+
+.bookName {
+  font-size: 1.3em;
+  color: #222;
+}
+
+.bookEdition {
+  font-size: .9em;
+  color: #555;
+}
+
+.bookSubject {
+  font-size: 1em;
+  font-weight: bold;
+}
+
+.condition {
+  font-size: 1.2em;
+}
+
+.price {
+  font-weight: bold;
+  font-size: 1.3em;
+}
+
+.confirmButton {
+  display: inline-block;
+  visibility: hidden;
+  white-space: nowrap;
+  height: 40px;
+  line-height: 40px;
+  opacity: 0;
+  max-width: 140px;
+  padding: 0 14px;
+  -webkit-box-shadow: 0 4px 6px rgba(50,50,93,.11), 0 1px 3px rgba(0,0,0,.08);
+  box-shadow: 0 4px 6px rgba(50,50,93,.11), 0 1px 3px rgba(0,0,0,.08);
+  background: #fff;
+  border: none;
+  border-radius: 4px;
+  font-size: 15px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: .025em;
+  color: #FFF;
+  background: #4CAF50;
+  text-decoration: none;
+  margin: 4px;
+  transition: opacity .3s ease-out;
+}
+
+.visible {
+  visibility: visible;
+  opacity: 1;
+}
+
+.green {
+  background: green;
+}
+
+@media only screen and (max-width: 600px) {
+  .middleBP {
+    display: none;
+  }
+  .rightBP, .leftBP {
+    width: 50%;
+  }
+  .comments {
+    display: none;
+  }
+}

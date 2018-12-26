@@ -1,5 +1,6 @@
 /**
- * @file React component for a textbook posting on the webapp.
+ * @file Notification.js
+ * @description Notification element for homepage of webapp.
  * @author Duncan Grubbs <duncan.grubbs@gmail.com>
  * @version 0.0.4
  */
@@ -19,8 +20,8 @@ class Notification extends Component {
   render() {
     return (
       <div className="notification">
-        <span className="date">{this.props.date}</span>
-        <span className="message">{this.props.message}</span>
+        <span className="notification__date">{this.props.date}</span>
+        <span className="notification__message">{this.props.message}</span>
       </div>
     );
   }

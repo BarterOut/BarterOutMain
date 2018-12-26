@@ -10,9 +10,12 @@ import Textbook from '../models/textbook';
 import User from '../models/user';
 import Transactions from '../models/transaction';
 
+import response from '../response';
+
 // JWT and Express
 const jwt = require('jsonwebtoken');
 const express = require('express');
+
 
 const router = express.Router();
 
@@ -32,26 +35,26 @@ function sortReverseCronological(JSONArray) {
  * @returns {Array} List of completed transactions.
  */
 router.get('/getPurchasedBooks/:token', (req, res) => {
-  jwt.verify(req.params.token, 'secretKey', (err, authData) => {
-    if (err) {
-      res.sendStatus(403);
+  jwt.verify(req.params.token, 'secretKey', (error, authData) => {
+    if (error) {
+      res.status(403).json(response({ error }));
     } else {
       User.findOne({ _id: authData.userInfo._id }, (error, user) => {
         if (!user) {
-          res.status(401).send({ error: 'You need to create an account' });
+          res.status(401).json(response({ error: 'You need to create an account' }));
         } else if (authData.userInfo.permissionType === 1) {
           Textbook.find({ status: 2 }, (err, books) => {
-            res.status(200).json(sortReverseCronological(books));
+            res.status(200).json(response(sortReverseCronological(books)));
           });
         } else {
-          res.sendStatus(401);
+          res.status(401).json(response({ error: 'Bad Permission.' }));
         }
       });
     }
   });
 });
 
-//We could add this thing where the parameter is the status we would like to search for
+// We could add this thing where the parameter is the status we would like to search for
 
 /**
  * Gets a list of all in process transactions (books with status 1).
@@ -60,19 +63,19 @@ router.get('/getPurchasedBooks/:token', (req, res) => {
  * @returns {Array} List of transactions.
  */
 router.get('/getBooksStatus1/:token', (req, res) => {
-  jwt.verify(req.params.token, 'secretKey', (err, authData) => {
-    if (err) {
-      res.sendStatus(403);
+  jwt.verify(req.params.token, 'secretKey', (error, authData) => {
+    if (error) {
+      res.status(403).json(response({ error }));
     } else {
       User.findOne({ _id: authData.userInfo._id }, (error, user) => {
         if (!user) {
-          res.status(401).send({ error: 'You need to create an account' });
+          res.status(401).json(response({ error: 'You need to create an account' }));
         } else if (authData.userInfo.permissionType === 1) {
           Textbook.find({ status: 1 }, (err, books) => {
-            res.status(200).json(sortReverseCronological(books));
+            res.status(200).json(response(sortReverseCronological(books)));
           });
         } else {
-          res.sendStatus(401);
+          res.status(401).json(response({}));
         }
       });
     }
@@ -86,19 +89,19 @@ router.get('/getBooksStatus1/:token', (req, res) => {
  * @returns {Array} List of transactions.
  */
 router.get('/getBooksStatus2/:token', (req, res) => {
-  jwt.verify(req.params.token, 'secretKey', (err, authData) => {
-    if (err) {
-      res.sendStatus(403);
+  jwt.verify(req.params.token, 'secretKey', (error, authData) => {
+    if (error) {
+      res.status(403).json(response({ error }));
     } else {
       User.findOne({ _id: authData.userInfo._id }, (error, user) => {
         if (!user) {
-          res.status(401).send({ error: 'You need to create an account' });
+          res.status(401).json(response({ error: 'You need to create an account.' }));
         } else if (authData.userInfo.permissionType === 1) {
           Textbook.find({ status: 2 }, (err, books) => {
-            res.status(200).json(sortReverseCronological(books));
+            res.status(200).json(response(sortReverseCronological(books)));
           });
         } else {
-          res.sendStatus(401);
+          res.status(401).json(response({}));
         }
       });
     }
@@ -113,19 +116,19 @@ router.get('/getBooksStatus2/:token', (req, res) => {
  * @returns {Array} List of transactions.
  */
 router.get('/getBooksStatus3/:token', (req, res) => {
-  jwt.verify(req.params.token, 'secretKey', (err, authData) => {
-    if (err) {
-      res.sendStatus(403);
+  jwt.verify(req.params.token, 'secretKey', (error, authData) => {
+    if (error) {
+      res.status(403).json(response({ error }));
     } else {
       User.findOne({ _id: authData.userInfo._id }, (error, user) => {
         if (!user) {
-          res.status(401).send({ error: 'You need to create an account' });
+          res.status(401).json(response({ error: 'You need to create an account' }));
         } else if (authData.userInfo.permissionType === 1) {
           Textbook.find({ status: 3 }, (err, books) => {
-            res.status(200).json(sortReverseCronological(books));
+            res.status(200).json(response(sortReverseCronological(books)));
           });
         } else {
-          res.sendStatus(401);
+          res.status(401).json(response({}));
         }
       });
     }
@@ -139,9 +142,9 @@ router.get('/getBooksStatus3/:token', (req, res) => {
  * @returns {Object} General statistics about BarterOut.
  */
 router.get('/getStatistics/:token/', (req, res) => {
-  jwt.verify(req.params.token, 'secretKey', (err, authData) => {
-    if (err) {
-      res.sendStatus(403);
+  jwt.verify(req.params.token, 'secretKey', (error, authData) => {
+    if (error) {
+      res.status(403).json(response({ error }));
     } else if (authData.userInfo.permissionType === 1) {
       let totalUsers;
       let totalBooks;
@@ -150,11 +153,11 @@ router.get('/getStatistics/:token/', (req, res) => {
 
         Textbook.count({}, (error, count) => {
           totalBooks = count;
-          res.status(200).json({ totalUsers, totalBooks });
+          res.status(200).json(response({ totalUsers, totalBooks }));
         });
       });
     } else {
-      res.sendStatus(403);
+      res.status(403).json(response({}));
     }
   });
 });
@@ -166,21 +169,21 @@ router.get('/getStatistics/:token/', (req, res) => {
  * @returns {Array} List of users from DB.
  */
 router.get('/getUsers/:token', (req, res) => {
-  jwt.verify(req.params.token, 'secretKey', (err, authData) => {
-    if (err) {
-      res.sendStatus(403);
+  jwt.verify(req.params.token, 'secretKey', (error, authData) => {
+    if (error) {
+      res.status(403).json(response({ error }));
     } else {
       User.findOne({ _id: authData.userInfo._id }, (error, user) => {
         if (!user) {
-          res.status(401).send({ error: 'You need to create an account' });
+          res.status(401).json(response({ error: 'You need to create an account' }));
         } else if (authData.userInfo.permissionType === 1) {
           User.find({}, {
             password: 0, resetPasswordToken: 0, resetPasswordExpires: 0, notifications: 0, cart: 0,
           }, (err, users) => {
-            res.status(200).json(users);
+            res.status(200).json(response(users));
           });
         } else {
-          res.sendStatus(401);
+          res.status(401).json(response({}));
         }
       });
     }
@@ -195,9 +198,9 @@ router.get('/getUsers/:token', (req, res) => {
  * @returns {Number} Status code.
  */
 router.post('/extendBookInfo', (req, res) => {
-  jwt.verify(req.body.data.token, 'secretKey', (err, authData) => {
-    if (err) {
-      res.sendStatus(403);
+  jwt.verify(req.body.data.token, 'secretKey', (error, authData) => {
+    if (error) {
+      res.status(403).json(response({ error }));
     } else if (authData.userInfo.permissionType === 1) {
       const bookArray = req.body.data.books;
       const output = [];
@@ -213,10 +216,10 @@ router.post('/extendBookInfo', (req, res) => {
           }
           output.push(newBook);
         }
-        res.status(200).json(output);
+        res.status(200).json(response(output));
       });
     } else {
-      res.sendStatus(401);
+      res.status(401).json(response({}));
     }
   });
 });
@@ -229,9 +232,9 @@ router.post('/extendBookInfo', (req, res) => {
  * @returns {Number} Status code.
  */
 router.post('/confirmBook', (req, res) => {
-  jwt.verify(req.body.data.token, 'secretKey', (err, authData) => {
-    if (err) {
-      res.sendStatus(403);
+  jwt.verify(req.body.data.token, 'secretKey', (error, authData) => {
+    if (error) {
+      res.status(403).json(response({ error }));
     } else if (authData.userInfo.permissionType === 1) {
       Textbook.update(
         { _id: req.body.data.id },
@@ -242,12 +245,12 @@ router.post('/confirmBook', (req, res) => {
             },
         }, (err) => {
           if (!err) {
-            res.sendStatus(200);
+            res.status(200).json(response({}));
           }
         },
       );
     } else {
-      res.sendStatus(401);
+      res.status(401).json(response({}));
     }
   });
 });
@@ -259,9 +262,9 @@ router.post('/confirmBook', (req, res) => {
  * @returns {Number} Status code.
  */
 router.post('/setBookPaid', (req, res) => {
-  jwt.verify(req.body.data.token, 'secretKey', (err, authData) => {
-    if (err) {
-      res.sendStatus(403);
+  jwt.verify(req.body.data.token, 'secretKey', (error, authData) => {
+    if (error) {
+      res.status(403).json(response({ error }));
     } else if (authData.userInfo.permissionType === 1) {
       Textbook.update(
         { _id: req.body.data.id },
@@ -272,33 +275,33 @@ router.post('/setBookPaid', (req, res) => {
             },
         }, (err) => {
           if (!err) {
-            res.sendStatus(200);
+            res.status(200).json(response({}));
           }
         },
       );
     } else {
-      res.sendStatus(401);
+      res.status(401).json(response({}));
     }
   });
 });
 
 router.get('/getCompletedBooks/:token', (req, res) => {
-  jwt.verify(req.params.token, 'secretKey', (err, authData) => {
-    if (err) {
-      res.sendStatus(403);
+  jwt.verify(req.params.token, 'secretKey', (error, authData) => {
+    if (error) {
+      res.status(403).json(response({ error }));
     } else {
       User.findOne({ _id: authData.userInfo._id }, (error, user) => {
         if (!user) {
-          res.status(401).send({ error: 'You need to create an account' });
+          res.status(401).json(response({ error: 'You need to create an account' }));
         } else if (authData.userInfo.permissionType === 1) {
           // check if permission is 1 where 1 is admin but that will be for later
           Textbook.find({
             status: 4, // Finds all of the books of status 4 (completed)
           }, (err, books) => {
-            res.status(200).json(sortReverseCronological(books));
+            res.status(200).json(response(sortReverseCronological(books)));
           });
         } else {
-          res.redirect('/home');
+          res.status(200).json(response({}));
         }
       });
     }
@@ -306,22 +309,22 @@ router.get('/getCompletedBooks/:token', (req, res) => {
 });
 
 router.get('/getInProcessBooks/:token', (req, res) => {
-  jwt.verify(req.params.token, 'secretKey', (err, authData) => {
-    if (err) {
-      res.sendStatus(403);
+  jwt.verify(req.params.token, 'secretKey', (error, authData) => {
+    if (error) {
+      res.status(403).json(response({ error }));
     } else {
       User.findOne({ _id: authData.userInfo._id }, (error, user) => {
         if (!user) {
-          res.status(401).send({ error: 'You need to create an account' });
+          res.status(401).json(response({ error: 'You need to create an account' }));
         } else if (authData.userInfo.permissionType === 1) {
           // check if permission is 1 where 1 is admin but that will be for later
           Textbook.find({
             status: { $lt: 4 }, // Finds all of the books of status 4 (completed)
           }, (err, books) => {
-            res.status(200).json(sortReverseCronological(books));
+            res.status(200).json(response(sortReverseCronological(books)));
           });
         } else {
-          res.redirect('/home');
+          res.status(200).json(response({}));
         }
       });
     }
@@ -336,13 +339,13 @@ router.get('/getInProcessBooks/:token', (req, res) => {
  * @returns {Number} Status code.
  */
 router.post('/setBookStatus/:token', (req, res) => {
-  jwt.verify(req.params.token, 'secretKey', (err, authData) => {
-    if (err) {
-      res.sendStatus(403);
+  jwt.verify(req.params.token, 'secretKey', (error, authData) => {
+    if (error) {
+      res.status(403).json(response({ error }));
     } else {
       User.findOne({ _id: authData.userInfo._id }, (error, user) => {
         if (!user) {
-          res.status(401).send({ error: 'You need to create an account' });
+          res.status(402).json(response({ error: 'You need to create an account' }));
         } else if (authData.userInfo.permissionType === 1) {
           // check if permission is 1 where 1 is admin but that
           // will be for later when we have admin accounts
@@ -355,9 +358,9 @@ router.post('/setBookStatus/:token', (req, res) => {
                 },
             },
           );
-          res.sendStatus(200);
+          res.status(200).json(response({}));
         } else {
-          res.sendStatus(403);
+          res.status(403).json(response({}));
         }
       });
     }
@@ -371,22 +374,22 @@ router.post('/setBookStatus/:token', (req, res) => {
  * @returns {Array} Array of books from database.
  */
 router.get('/getPendingTransactions/:token/', (req, res) => {
-  jwt.verify(req.params.token, 'secretKey', (err, authData) => {
-    if (err) {
-      res.sendStatus(403);
+  jwt.verify(req.params.token, 'secretKey', (error, authData) => {
+    if (error) {
+      res.status(403).json(response({ error }));
     } else {
       User.findOne({ _id: authData.userInfo._id }, (error, user) => {
         if (!user) {
-          res.status(401).send({ error: 'You need to create an account' });
+          res.status(401).json(response({ error: 'You need to create an account' }));
         } else if (authData.userInfo.permissionType === 1) {
           // check if permission is 1 where 1 is admin but that will be for later
           Transactions.find({
             status: 0, // Finds all of the transactions of status 0 (pending)
           }, (err, transactionList) => {
-            res.status(200).json(sortReverseCronological(transactionList));
+            res.status(200).json(response(sortReverseCronological(transactionList)));
           });
         } else {
-          res.sendStatus(403);
+          res.status(403).json(response({}));
         }
       });
     }
@@ -402,21 +405,21 @@ router.get('/getPendingTransactions/:token/', (req, res) => {
  * @returns {Number} Status code.
  */
 router.get('/getAllTransactions/:token/', (req, res) => {
-  jwt.verify(req.params.token, 'secretKey', (err, authData) => {
-    if (err) {
-      res.sendStatus(403);
+  jwt.verify(req.params.token, 'secretKey', (error, authData) => {
+    if (error) {
+      res.status(403).json(response({ error }));
     } else {
       User.findOne({ _id: authData.userInfo._id }, (error, user) => {
         if (!user) {
-          res.status(401).send({ error: 'You need to create an account' });
+          res.status(401).json(response({ error: 'You need to create an account' }));
         } else if (authData.userInfo.permissionType === 1) {
           // check if permission is 1 where 1 is admin but that will be for later
           Transactions.find({
           }, (err, transactionList) => {
-            res.status(200).json(sortReverseCronological(transactionList));
+            res.status(200).json(response(sortReverseCronological(transactionList)));
           });
         } else {
-          res.redirect('/home');
+          res.status(200).json(response({}));
         }
       });
     }
@@ -430,22 +433,22 @@ router.get('/getAllTransactions/:token/', (req, res) => {
  * @returns {Array} Array of books from database.
  */
 router.get('/getCompletedTransactions/:token/', (req, res) => {
-  jwt.verify(req.params.token, 'secretKey', (err, authData) => {
-    if (err) {
-      res.sendStatus(403);
+  jwt.verify(req.params.token, 'secretKey', (error, authData) => {
+    if (error) {
+      res.status(403).json(response({ error }));
     } else {
       User.findOne({ _id: authData.userInfo._id }, (error, user) => {
         if (!user) {
-          res.status(401).send({ error: 'You need to create an account' });
+          res.status(401).json(response({ error: 'You need to create an account' }));
         } else if (authData.userInfo.permissionType === 1) {
           // check if permission is 1 where 1 is admin but that will be for later
           Transactions.find({
             status: 1,
           }, (err, transactionList) => {
-            res.status(200).json(sortReverseCronological(transactionList));
+            res.status(200).json(response(sortReverseCronological(transactionList)));
           });
         } else {
-          res.sendStatus(403);
+          res.status(403).json(response({}));
         }
       });
     }
@@ -453,37 +456,36 @@ router.get('/getCompletedTransactions/:token/', (req, res) => {
 });
 
 router.get('/getPendingSpecificPendingTransaction/:token/', (req, res) => {
-  jwt.verify(req.params.token, 'secretKey', (err, authData) => {
-    if (err) {
-      res.sendStatus(403);
+  jwt.verify(req.params.token, 'secretKey', (error, authData) => {
+    if (error) {
+      res.status(403).json(response({ error }));
     } else {
       User.findOne({ _id: authData.userInfo._id }, (error, user) => {
         if (!user) {
-          res.status(401).send({ error: 'You need to create an account' });
+          res.status(401).json(response({ error: 'You need to create an account' }));
         } else if (authData.userInfo.permissionType === 1) {
           // check if permission is 1 where 1 is admin but that will be for later
           Transactions.find({
             status: 1,
           }, (err, transactionList) => {
-            res.status(200).json(sortReverseCronological(transactionList));
+            res.status(200).json(response(sortReverseCronological(transactionList)));
           });
         } else {
-          res.redirect('/home');
+          res.status(200).json(response({}));
         }
       });
     }
   });
 });
 
-
 router.post('/confirmTransaction', (req, res) => {
-  jwt.verify(req.body.data.token, 'secretKey', (err, authData) => {
-    if (err) {
-      res.sendStatus(403);
+  jwt.verify(req.body.data.token, 'secretKey', (error, authData) => {
+    if (error) {
+      res.status(403).json(response({ error }));
     } else {
       User.findOne({ _id: authData.userInfo._id }, (error, user) => {
         if (!user) {
-          res.status(401).send({ error: 'You need to create an account' });
+          res.status(401).json(response({ error: 'You need to create an account' }));
         } else if (authData.permissionType === 1) {
           Transactions.update(
             { _id: req.body.data.id },
@@ -494,12 +496,12 @@ router.post('/confirmTransaction', (req, res) => {
                 },
             }, (err) => {
               if (!err) {
-                res.sendStatus(200);
+                res.status(200).json(response({}));
               }
             },
           );
         } else {
-          res.sendStatus(403);
+          res.status(403).json(response({}));
         }
       });
     }
@@ -507,13 +509,13 @@ router.post('/confirmTransaction', (req, res) => {
 });
 
 router.get('/getTransactionsByName/:token/:firstName/:LastName', (req, res) => {
-  jwt.verify(req.params.token, 'secretKey', (err, authData) => {
-    if (err) {
-      res.sendStatus(403);
+  jwt.verify(req.params.token, 'secretKey', (error, authData) => {
+    if (error) {
+      res.status(403).json(response({ error }));
     } else {
       User.findOne({ _id: authData.userInfo._id }, (error, user) => {
         if (!user) {
-          res.status(401).send({ error: 'You need to create an account' });
+          res.status(401).json(response({ error: 'You need to create an account' }));
         } else if (authData.permissionType === 1) {
           Transactions.find({
             $and: [
@@ -521,10 +523,10 @@ router.get('/getTransactionsByName/:token/:firstName/:LastName', (req, res) => {
               { buyerLastName: req.params.lastName },
             ],
           }, (err, transactions) => {
-            res.json(sortReverseCronological(transactions));
+            res.json(response(sortReverseCronological(transactions)));
           });
         } else {
-          res.sendStatus(403);
+          res.status(403).json(response({}));
         }
       });
     }
@@ -539,17 +541,17 @@ router.get('/getTransactionsByName/:token/:firstName/:LastName', (req, res) => {
  * @returns {Number} Status code.
  */
 router.get('/isAdmin/:token', (req, res) => {
-  jwt.verify(req.params.token, 'secretKey', (err, authData) => {
-    if (err) {
-      res.sendStatus(403);
+  jwt.verify(req.params.token, 'secretKey', (error, authData) => {
+    if (error) {
+      res.status(403).json(response({ error }));
     } else {
       User.findOne({ _id: authData.userInfo._id }, (error, user) => {
         if (!user) {
-          res.status(401).send({ error: 'You need to create an account' });
+          res.status(401).json(response({ error: 'You need to create an account' }));
         } else if (authData.userInfo.permissionType === 1) {
-          res.sendStatus(200);
+          res.status(200).json(response({}));
         } else {
-          res.sendStatus(401);
+          res.status(401).json(response({}));
         }
       });
     }
@@ -563,17 +565,17 @@ router.get('/isAdmin/:token', (req, res) => {
  * @returns {Object} Contains permission level under permissionLevel.
  */
 router.get('/permissionLv/:token', (req, res) => {
-  jwt.verify(req.params.token, 'secretKey', (err, authData) => {
-    if (err) {
-      res.sendStatus(403);
+  jwt.verify(req.params.token, 'secretKey', (error, authData) => {
+    if (error) {
+      res.status(403).json(response({ error }));
     } else {
       User.findOne({ _id: authData.userInfo._id }, (error, user) => {
         if (!user) {
-          res.status(401).send({ error: 'You need to create an account' });
+          res.status(401).json(response({ error: 'You need to create an account' }));
         } else if (authData.userInfo.permissionType === 1) {
-          res.sendStatus(200).json({ permissionType: 1 });
+          res.status(200).json(response({ permissionType: 1 }));
         } else {
-          res.json({ permissionType: 0 });
+          res.status(401).json(response({ permissionType: 0 }));
         }
       });
     }

@@ -5,17 +5,26 @@
  */
 
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import './careers.css';
 import logoPic from '../../images/barterOutOrangeWhiteLogoHeader.png';
 
+import Footer from '../../components/Footer/Footer';
+
 const Careers = () => (
   <div className="infowrapper">
-    <div className="bar">
-      <div className="left">
-        <a href="/"><img className="logo" src={logoPic} alt="logo" /></a>
+    <nav className="headerBar">
+      <div className="logo">
+        <a href="/" className="buttonLink"><img alt="logo" className="logoPic" src={logoPic} /></a>
       </div>
-    </div>
+      <div className="pageLinks">
+        <Link className="landingPageLink" to="/" href="/">Home</Link>
+        <Link className="landingPageLink" to="/about" href="/about">About</Link>
+        <Link className="landingPageLink" to="/login" href="/login">Login</Link>
+        <Link className="landingPageLink" to="/signup" href="/signup">Sign Up</Link>
+      </div>
+    </nav>
     <div className="content">
       <h1 className="text-header">Careers</h1>
       <div className="header-line" />
@@ -32,9 +41,9 @@ const Careers = () => (
           the resources larger companies do.
           <b><p className="careers-text">Note:</p></b>
           <ul>
-            <li>We do not pay employees.</li>
-            <li>You must be very self motivated, there is little managment overhead.</li>
-            <li>Be ready to <b>learn</b> if you are not familiar with our tech stack.</li>
+            <li>We do not pay employees at the moment.</li>
+            <li>You must be very self motivated, there is little management overhead.</li>
+            <li>You have to be ready to <b>learn</b> if you are not familiar with our tech stack.</li>
           </ul>
         </p>
         <h3>Open Positions</h3>
@@ -54,7 +63,7 @@ const Careers = () => (
         </b>
         <div className="careers-text">
           <ol>
-            <li>Write performent Javascript code in a team setting.</li>
+            <li>Write performant Javascript code in a team setting.</li>
             <li>Write and execute unit tests with NYC and Jest.</li>
             <li>Design and implement smart, modular React components.</li>
             <li>Work with web protocols (HTTP, SLL) to utilize our API.</li>
@@ -83,7 +92,7 @@ const Careers = () => (
         </b>
         <div className="careers-text">
           <ol>
-            <li>Write performent Javascript code in a team setting.</li>
+            <li>Write performant Javascript code in a team setting.</li>
             <li>Write and execute unit tests with NYC and Jest.</li>
             <li>Design and implement mongoose schemas.</li>
             <li>Implement new, well documented API functionality.</li>
@@ -155,24 +164,7 @@ const Careers = () => (
       </div>
     </div>
 
-    <div className="landingPageBottom">
-      <div id="bottomLinksCol1">
-        <div className="bottomLinkHeader">Company</div>
-        <a href="/careers" className="bottomPageLink">Careers</a>
-        <br />
-        <a href="/contact" className="bottomPageLink">Contact</a>
-        <br />
-      </div>
-      <div id="bottomLinksCol2">
-        <div className="bottomLinkHeader">Resources</div>
-        <a href="/termsOfService" className="bottomPageLink">Terms of Service</a>
-        <br />
-        <a href="/privacyPolicy" className="bottomPageLink">Privacy Policy</a>
-      </div>
-    </div>
-    <div id="copyright">
-      © 2018 BarterOut. All Rights Reserved.
-    </div>
+    <Footer />
   </div>
 );
 

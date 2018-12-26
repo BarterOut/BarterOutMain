@@ -8,26 +8,35 @@
 import Textbook from '../models/textbook';
 import TextbookBuy from '../models/textbookBuy';
 import User from '../models/user';
+import response from '../response';
+
 
 const jwt = require('jsonwebtoken');
 const express = require('express');
 
 const router = express.Router();
 
+// TODO: This needs to return a promise.
 /**
  * [RESOURCE] Remakes matches based on the books in the request collection. *Needs testing*
- * @param {String} transactionID ID of the transaction schema saved in the DB.
+ * @param {String} userID ID of the transaction schema saved in the DB.
  */
 function remakeMatches(userID) {
   TextbookBuy.find({ owner: userID }, (err, books) => {
     if (books) {
       for (let i = 0; i < books.length; i++) {
         const BOOK = books[i];
+        // looks for a book that matches based on the name matching or the course
         Textbook.find(
-          { // looks for a book that matches based on the name matching or the course
+          {
             $and: [
               { status: 0 },
-              { $or: [{ name: { $regex: BOOK.name, $options: 'i' } }, { course: { $regex: BOOK.course, $options: 'i' } }] },
+              {
+                $or: [
+                  { name: { $regex: BOOK.name, $options: 'i' } },
+                  { course: { $regex: BOOK.course, $options: 'i' } },
+                ],
+              },
               { owner: { $ne: userID } },
             ],
           },
@@ -36,7 +45,6 @@ function remakeMatches(userID) {
             matchedBooks.forEach((book) => {
               addBooks.push(book._id);
             });
-
             User.update(
               { _id: BOOK.owner },
               {
@@ -44,7 +52,9 @@ function remakeMatches(userID) {
                   matchedBooks: { addBooks },
                 },
               }, (error) => {
-                console.error(`Error: ${error}`);
+                if (error) {
+                  throw new Error(`Error making matches: ${error}`);
+                }
               },
             );
           },
@@ -63,14 +73,14 @@ function remakeMatches(userID) {
 router.get('/getCartItems/:token', (req, res) => {
   jwt.verify(req.params.token, 'secretKey', (error, authData) => {
     if (error) {
-      res.sendStatus(401);
+      res.status(401).json(response({ error }));
     } else {
       User.findOne({ _id: authData.userInfo._id }, (err, user) => {
         let itemsInCart = [];
         const bookIDs = user.cart;
         Textbook.find({ $and: [{ _id: { $in: bookIDs } }, { status: 0 }] }, (error, books) => {
           itemsInCart = books;
-          res.status(200).json(itemsInCart);
+          res.status(200).json(response(itemsInCart));
         });
       });
     }
@@ -86,7 +96,7 @@ router.get('/getCartItems/:token', (req, res) => {
 router.post('/addToCart', (req, res) => {
   jwt.verify(req.body.data.token, 'secretKey', (error, authData) => {
     if (error) {
-      res.sendStatus(401);
+      res.status(401).json(response({ error }));
     } else {
       User.update(
         { _id: authData.userInfo._id },
@@ -97,15 +107,15 @@ router.post('/addToCart', (req, res) => {
               $position: 0,
             },
           },
-        }, (er) => {
-          if (er) {
-            res.status(400).json(er);
+        }, (error) => {
+          if (error) {
+            res.status(400).json((response({ error })));
           }
         },
       );
     }
   });
-  res.sendStatus(202);
+  res.status(202).json(response({}));
 });
 
 /**
@@ -117,7 +127,7 @@ router.post('/addToCart', (req, res) => {
 router.post('/removeFromCart', (req, res) => {
   jwt.verify(req.body.data.token, 'secretKey', (error, authData) => {
     if (error) {
-      res.sendStatus(401);
+      res.status(401).json(response({ error }));
     } else {
       User.findOne({ _id: authData.userInfo._id }, (err, user) => {
         for (let i = 0; i < user.cart.length; i++) {
@@ -134,9 +144,9 @@ router.post('/removeFromCart', (req, res) => {
               },
           }, (err) => {
             if (err) {
-              res.status(400).json(err);
+              res.status(400).json(response({ err }));
             }
-            res.sendStatus(200);
+            res.status(200).json(response({}));
           },
         );
       });
@@ -154,7 +164,7 @@ router.post('/removeFromCart', (req, res) => {
 router.post('/clearCart', (req, res) => {
   jwt.verify(req.body.data.token, 'secretKey', (error, authData) => {
     if (error) {
-      res.sendStatus(401);
+      res.status(401).json(response({ error }));
     } else {
       User.update(
         { _id: authData.userInfo._id },
@@ -165,7 +175,7 @@ router.post('/clearCart', (req, res) => {
             },
         },
       );
-      res.sendStatus(200);
+      res.status(200).json(response({}));
     }
   });
 });
@@ -179,12 +189,12 @@ router.post('/clearCart', (req, res) => {
 router.get('/getPurchasedBooks/:token', (req, res) => {
   jwt.verify(req.params.token, 'secretKey', (error, authData) => {
     if (error) {
-      res.sendStatus(401);
+      res.status(401).json(response({ error }));
     } else {
       Textbook.find({
         $and: [{ status: { $ne: 0 } }, { buyer: authData.userInfo._id }],
       }, (err, booksFound) => {
-        res.status(200).json(booksFound);
+        res.status(200).json(response(booksFound));
       });
     }
   });
@@ -199,12 +209,12 @@ router.get('/getPurchasedBooks/:token', (req, res) => {
 router.get('/getSoldBooks/:token', (req, res) => {
   jwt.verify(req.params.token, 'secretKey', (error, authData) => {
     if (error) {
-      res.sendStatus(401);
+      res.status(401).json(response({ error }));
     } else {
       Textbook.find({
         $and: [{ status: { $ne: 0 } }, { owner: authData.userInfo._id }],
       }, (err, booksFound) => {
-        res.status(200).json(booksFound);
+        res.status(200).json(response(booksFound));
       });
     }
   });
@@ -219,10 +229,10 @@ router.get('/getSoldBooks/:token', (req, res) => {
 router.get('/getNotifications/:token', (req, res) => {
   jwt.verify(req.params.token, 'secretKey', (error, authData) => {
     if (error) {
-      res.sendStatus(401);
+      res.status(401).json(response({ error }));
     } else {
       User.findOne({ _id: authData.userInfo._id }, (err, user) => {
-        res.status(200).json(user.notifications);
+        res.status(200).json(response(user.notifications));
       });
     }
   });
@@ -238,14 +248,14 @@ router.get('/getNotifications/:token', (req, res) => {
 router.get('/getUserStatistics/:token', (req, res) => {
   jwt.verify(req.params.token, 'secretKey', (error, authData) => {
     if (error) {
-      res.sendStatus(401);
+      res.status(401).json(response({ error }));
     } else {
       User.findOne({ _id: authData.userInfo._id }, (err, user) => {
-        res.status(200).json({
+        res.status(200).json(response({
           numberOfBooksBought: user.numberOfBooksBought,
           numberOfBooksSold: user.numberOfBooksSold,
           moneyMade: user.moneyMade,
-        });
+        }));
       });
     }
   });
@@ -254,11 +264,11 @@ router.get('/getUserStatistics/:token', (req, res) => {
 router.get('/getUserData/:token', (req, res) => {
   jwt.verify(req.params.token, 'secretKey', (error, authData) => {
     if (error) {
-      res.sendStatus(400);
+      res.status(400).json(response({ error }));
     } else {
       User.findOne({ _id: authData.userInfo._id }, (error, user) => {
         if (!user) {
-          res.sendStatus(401);
+          res.status(401).json(response({}));
         } else {
           const returnUser = {
             _id: user._id,
@@ -270,14 +280,16 @@ router.get('/getUserData/:token', (req, res) => {
             lastName: user.lastName,
             matchedBooks: user.matchedBooks,
           };
-          res.status(200).json({
+          res.status(200).json(response({
             user: returnUser,
-          });
+          }));
         }
       });
     }
   });
 });
+
+// TODO: Fix this method.
 
 /**
  * Removes a matching request for a given user.
@@ -286,9 +298,9 @@ router.get('/getUserData/:token', (req, res) => {
  * @returns {String} Response status.
  */
 router.post('/deleteRequest/', (req, res) => {
-  jwt.verify(req.body.data.token, 'secretKey', (err, authData) => {
-    if (err) {
-      res.sendStatus(403);
+  jwt.verify(req.body.data.token, 'secretKey', (error, authData) => {
+    if (error) {
+      res.status(403).json(response({ error }));
     } else {
       TextbookBuy.deleteOne({
         $and: [
@@ -296,11 +308,11 @@ router.post('/deleteRequest/', (req, res) => {
           { owner: authData.userInfo._id },
         ],
       }, (error) => {
-        remakeMatches(authData.userInfo._id);
-        if (!error) {
-          res.sendStatus(200);
+        if (error) {
+          res.status(400).json(response({ error }));
         } else {
-          res.sendStatus(400);
+          remakeMatches(authData.userInfo._id);
+          res.status(200).json(response({}));
         }
       });
     }
@@ -314,17 +326,17 @@ router.post('/deleteRequest/', (req, res) => {
  * @returns {Array} Array of books from database.
  */
 router.get('/getRequests/:token', (req, res) => {
-  jwt.verify(req.params.token, 'secretKey', (err, authData) => {
-    if (err) {
-      res.sendStatus(403);
+  jwt.verify(req.params.token, 'secretKey', (error, authData) => {
+    if (error) {
+      res.status(403).json(response({ error }));
     } else {
       TextbookBuy.find({
         owner: authData.userInfo._id,
       }, (error, books) => {
         if (error) {
-          res.sendStatus(400);
+          res.status(400).json(response({ error }));
         } else {
-          res.status(200).json(books);
+          res.status(200).json(response(books));
         }
       });
     }

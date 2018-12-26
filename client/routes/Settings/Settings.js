@@ -6,16 +6,13 @@
  */
 
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 
-import SideNav from '../../components/SideNav/SideNav';
-import TopBar from '../../components/TopBar/TopBar';
-
-import './Settings.css';
+import NavBar from '../../components/NavBar/NavBar';
 
 import AuthService from '../../services/AuthService';
 import FetchService from '../../services/FetchService';
-
+import ErrorService from '../../services/ErrorService';
 
 class Settings extends Component {
   constructor(props) {
@@ -25,30 +22,31 @@ class Settings extends Component {
       lastName: '',
       CMC: '',
       venmoUsername: '',
+      password: '',
+      passwordConfirm: '',
+      newPassword: '',
       updateMessageVisible: false,
     };
 
     this.onChange = this.onChange.bind(this);
-    this.updateProfile = this.updateProfile.bind(this);
+    this.handleProfileUpdate = this.handleProfileUpdate.bind(this);
+    this.handlePasswordUpdate = this.handlePasswordUpdate.bind(this);
   }
 
   componentDidMount() {
-    this.getProfileInfo();
+    this.setProfileInfo();
   }
 
   onChange(evt) {
     this.setState({ [evt.target.name]: evt.target.value });
   }
 
-  getProfileInfo() {
+  setProfileInfo() {
     const AUTH = new AuthService();
     const token = AUTH.getToken();
-    this._setToken(token);
+    this.setState({ token });
 
-    document.addEventListener('keydown', this._handleKeyDown.bind(this));
-
-    FetchService.GET(`/api/user/getUserData/${AUTH.getToken()}`)
-      .then(response => response.json())
+    FetchService.GET(`/api/user/getUserData/${token}`)
       .then((data) => {
         this.setState({ firstName: data.user.firstName });
         this.setState({ lastName: data.user.lastName });
@@ -57,17 +55,9 @@ class Settings extends Component {
       });
   }
 
-  _setToken(token) {
-    this.setState({ token });
-  }
+  handleProfileUpdate(evt) {
+    evt.preventDefault();
 
-  _handleKeyDown(e) {
-    if (e.keyCode === 13) {
-      this.updateProfile();
-    }
-  }
-
-  updateProfile() {
     FetchService.POST('/api/auth/updateProfile', {
       venmoUsername: this.state.venmoUsername,
       firstName: this.state.firstName,
@@ -76,92 +66,171 @@ class Settings extends Component {
       token: this.state.token,
     })
       .then(() => {
-        this.getProfileInfo();
+        this.setProfileInfo();
         sessionStorage.setItem('name', `${this.state.firstName} ${this.state.lastName}`);
         this.setState({ updateMessageVisible: true });
       })
       .catch((error) => {
-        console.error(`Sign up server error: ${error}`);
+        ErrorService.parseError(error);
       });
+  }
+
+  handlePasswordUpdate(evt) {
+    evt.preventDefault();
+
+    if (this.state.passwordConfirm !== this.state.newPassword) {
+      window.alert('Please make your passwords the same!'); // eslint-disable-line
+      return;
+    }
+
+    FetchService.POST('/api/auth/updatePassword', {
+      password: this.state.password,
+      newPassword: this.state.newPassword,
+      token: this.state.token,
+    })
+      .then(() => {
+        this.setState({ updateMessageVisible: true });
+      })
+      .catch(error => ErrorService.parseError(error));
   }
 
   render() {
     return (
-      <div className="app-wrapper">
-        <SideNav
-          selected="settings"
-        />
-
-        <div className="right-content">
-          <TopBar page="Profile Settings" />
-          <div className="dividePage">
-            <div className="columns">
-              <Link className="nav-link-settings selected-settings-nav" name="settings" to="/settings" href="/settings">
-                Account
-              </Link>
-              <Link className="nav-link-settings" name="editPassword" to="/editPassword" href="/editPassword">
-                Security
-              </Link>
+      <div>
+        <NavBar page="settings" />
+        <div className="container">
+          {
+            this.state.updateMessageVisible &&
+            <div className="alert alert-success alert-dismissible fade show" role="alert">
+              Updated successfully!
+              <button type="button" className="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
             </div>
-            <div className="page-content">
-              <div className="title--page-section-wrapper-settings">
-                <h2 className="title-text--page-section-header">Account</h2>
-              </div>
-              <div className="page-section-wrapper-settings" >
-                <div className="insideInfo">
-                  {
-                    this.state.updateMessageVisible &&
-                    <h3>You succesfully updated your information.</h3>
-                  }
-                  <span className="inputLabelHome">First Name</span>
+          }
+          <h3 className="mb-4">Settings</h3>
+
+          <ul className="nav nav-tabs" id="myTab" role="tablist">
+            <li className="nav-item">
+              <a
+                className="nav-link active"
+                id="profile-tab"
+                data-toggle="tab"
+                href="#profile"
+                role="tab"
+                aria-controls="profile"
+                aria-selected="true"
+              >Personal Information
+              </a>
+            </li>
+            <li className="nav-item">
+              <a
+                className="nav-link"
+                id="password-tab"
+                data-toggle="tab"
+                href="#password"
+                role="tab"
+                aria-controls="password"
+                aria-selected="false"
+              >Account Information
+              </a>
+            </li>
+          </ul>
+          <div className="tab-content mt-2" id="myTabContent">
+            <div className="tab-pane fade show active" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+              <form onSubmit={this.handleProfileUpdate}>
+                <div className="form-group">
+                  <label>First Name</label>
                   <input
-                    className="formInput"
+                    className="form-control"
                     onChange={this.onChange}
-                    placeholder={this.state.firstName}
+                    value={this.state.firstName}
                     type="text"
                     name="firstName"
                     required
                   />
-                  <span className="inputLabelHome">Last Name</span>
+                </div>
+
+                <div className="form-group">
+                  <label>Last Name</label>
                   <input
-                    className="formInput"
+                    className="form-control"
                     onChange={this.onChange}
-                    placeholder={this.state.lastName}
+                    value={this.state.lastName}
                     type="text"
                     name="lastName"
                     required
                   />
-                  <span className="inputLabelHome">Venmo Username</span>
+                </div>
+
+                <div className="form-group">
+                  <label>Venmo Username</label>
                   <input
-                    className="formInput"
+                    className="form-control"
                     onChange={this.onChange}
-                    placeholder={this.state.venmoUsername}
+                    value={this.state.venmoUsername}
                     type="text"
                     name="venmoUsername"
                     required
                   />
-                  <span className="inputLabelHome">CMC Box Number</span>
+                </div>
+
+                <div className="form-group">
+                  <label>CMC Box Number</label>
                   <input
-                    className="formInput"
+                    className="form-control"
                     onChange={this.onChange}
-                    placeholder={this.state.CMC}
+                    value={this.state.CMC}
                     type="text"
                     name="CMC"
                     required
                   />
                 </div>
-                <div className="insideInfo">
-                  <button
-                    className="button"
-                    type="submit"
-                    onClick={this.updateProfile}
-                  >Update Information
-                  </button>
+                <button className="btn btn-primary" type="submit">Update Personal Information</button>
+              </form>
+            </div>
+
+            <div className="tab-pane fade" id="password" role="tabpanel" aria-labelledby="password-tab">
+              <form onSubmit={this.handlePasswordUpdate}>
+                <div className="form-group">
+                  <label>Old Password</label>
+                  <input
+                    className="form-control"
+                    placeholder="Old Password"
+                    type="password"
+                    name="password"
+                    onChange={this.onChange}
+                    required
+                  />
                 </div>
-              </div>
+
+                <div className="form-group">
+                  <label>New Password</label>
+                  <input
+                    className="form-control"
+                    placeholder="New Password"
+                    type="password"
+                    name="newPassword"
+                    onChange={this.onChange}
+                    required
+                  />
+                </div>
+
+                <div className="form-group">
+                  <label>Confirm New Password</label>
+                  <input
+                    className="form-control"
+                    placeholder="Confirm New Password"
+                    type="password"
+                    name="passwordConfirm"
+                    onChange={this.onChange}
+                    required
+                  />
+                </div>
+                <button type="submit" className="btn btn-primary">Update Account Information</button>
+              </form>
             </div>
           </div>
-
         </div>
       </div>
     );

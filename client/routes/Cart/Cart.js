@@ -7,9 +7,8 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
-import SideNav from '../../components/SideNav/SideNav';
-import TopBar from '../../components/TopBar/TopBar';
-import CartBookPost from '../../components/CartBookPost/CartBookPost';
+import NavBar from '../../components/NavBar/NavBar';
+import CartBookPost from '../../components/Posts/CartBookPost/CartBookPost';
 
 import FetchService from '../../services/FetchService';
 import AuthService from '../../services/AuthService';
@@ -35,7 +34,6 @@ class Cart extends Component {
     this.getUserData();
 
     FetchService.GET(`/api/user/getCartItems/${this.AUTH.getToken()}`)
-      .then(response => response.json())
       .then((data) => {
         this._updateItems(data);
       });
@@ -43,7 +41,6 @@ class Cart extends Component {
 
   getUserData() {
     FetchService.GET(`/api/user/getUserData/${this.AUTH.getToken()}`)
-      .then(response => response.json())
       .then((data) => {
         this.setState({ venmo: data.user.venmoUsername });
         this.setState({ CMC: data.user.CMC });
@@ -63,7 +60,7 @@ class Cart extends Component {
     const fee = subtotal * 0.05;
 
     return {
-      subtotal,
+      subtotal: subtotal.toFixed(2),
       fee: fee.toFixed(2),
       total: (subtotal + fee).toFixed(2),
     };
@@ -75,28 +72,25 @@ class Cart extends Component {
       cart: this.state.items,
     })
       .then(() => {
-        window.alert('Your Order Has Been Placed. See email for more details.');
+        window.alert('Order placed. See email for more details.'); // eslint-disable-line
         window.location.reload();
       });
   }
 
   render() {
     return (
-      <div className="app-wrapper">
-        <SideNav />
-
-        <div className="right-content">
-          <TopBar page="Cart" />
-          <div className="page-content">
-            <div className="title--page-section-wrapper">
-              <h2 className="title-text--page-section-header">Cart</h2>
-            </div>
-            <div className="page-section-wrapper">
+      <div>
+        <NavBar page="cart" />
+        <div className="container my-4">
+          <div className="row">
+            <div className="col-sm-7">
+              <h3>Cart</h3>
               {this.state.items.map(post => (
                 <CartBookPost
                   key={post._id}
                   id={post._id}
                   name={post.name}
+                  date={post.date}
                   subject={post.course}
                   edition={post.edition}
                   price={post.price}
@@ -105,29 +99,24 @@ class Cart extends Component {
                 />
               ))}
             </div>
-
-            <div id="cart-totals">
-              <b>Items:</b><br />
-              {this.state.items.map(post => (
-                <div className="cart-money-info" key={post._id}>{post.name}: <i>${post.price}</i></div>
-              ))}
-              <br />
-              <br />
-              <span className="cart-money-info">Subtotal: <b>${this._calculateMoney().subtotal}</b></span><br />
-              <br />
-              <span className="cart-money-info">Our 5% Fee: <i>${this._calculateMoney().fee}</i></span><br />
-              <span className="cart-money-info">Total: <b>${this._calculateMoney().total}</b></span><br />
+            <div className="col-sm-5">
+              <h3>Summary</h3>
+              <div className="card px-4 py-4">
+                <span className="cart-money-info">Subtotal: <b>${this._calculateMoney().subtotal}</b></span>
+                <span>Our 5% Fee: <i>${this._calculateMoney().fee}</i></span>
+                <br />
+                <span className="cart-money-info">Total: <b>${this._calculateMoney().total}</b></span>
+                <p className="my-2">
+                  When you click &quot;Checkout&quot;, we will Venmo request @<b>{this.state.venmo}</b>.
+                  Please change your Venmo username <Link to="/settings" href="settings">here</Link> if it
+                  is not accurate. Until you accept our Venmo request, we will hold the book(s).
+                  Once you pay, the book(s) will be delivered via the campus mail center to
+                  CMC Box <b>{this.state.CMC}</b>. Again if any of this information is not accurate, please
+                  change it <Link to="/settings" href="settings">here</Link>.
+                </p>
+                <button className="btn btn-primary float-right my-2" onClick={this.buyBooks}>Checkout</button>
+              </div>
             </div>
-
-            <h3 id="cart-message">
-              When you click &quot;Checkout&quot;, we will Venmo request @<b>{this.state.venmo}</b>.
-              Please change your Venmo username <Link to="/settings" href="settings">here</Link> if it
-              is not accurate. Until you accept our Venmo request, we will hold the book(s).
-              Once you pay, the book(s) will be delivered via the campus mail center to
-              CMC Box <b>{this.state.CMC}</b>. Again if any of this information is not accurate, please
-              change it <Link to="/settings" href="settings">here</Link>.
-            </h3>
-            <button className="button" onClick={this.buyBooks}>Checkout</button>
           </div>
         </div>
       </div>

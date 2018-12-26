@@ -1,5 +1,6 @@
 /**
- * @file User Schema for the MongoDB database.
+ * @file user.js
+ * @description User Schema for the MongoDB database.
  * @author Daniel Munoz
  * @author Duncan Grubbs <duncan.grubbs@gmail.com>
  * @version 0.0.4

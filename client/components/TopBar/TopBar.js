@@ -7,11 +7,11 @@
 import React, { Component } from 'react';
 import propTypes from 'prop-types';
 import { Redirect, Link } from 'react-router-dom';
-import AuthService from '../../services/AuthService';
 import MaterialIcon from 'react-google-material-icons';
 
-import '../../baseStyles.css';
+import AuthService from '../../services/AuthService';
 
+import '../../barterout.css';
 import './TopBar.css';
 
 class TopBar extends Component {

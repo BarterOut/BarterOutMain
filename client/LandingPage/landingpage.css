@@ -1,6 +1,5 @@
 .photo-bg {
   background-image: url("../images/gradientFirstPageCompressed.jpg");
-  height: 100vh;
   width: 100vw;
   background-position: center;
   background-repeat: no-repeat;
@@ -19,49 +18,43 @@
 }
 
 .headerBar {
-  position: fixed;
-  background-color: rgba(0,0,0, 0.80);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
   width: 100%;
-  z-index: 1;
-  margin-top: 0%;
-  padding-left: 5%;
-  padding-right: 5%;
-  padding-top: 1%;
-  padding-bottom: 1%;
+  height: 68px;
+  position: fixed;
+  background: #1F1F1F;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, .16);
+  z-index: 11;
   color: white;
-  display: block;
-  vertical-align: middle;
 }
 
 .logo {
-  display: block;
-  vertical-align: middle;
-  height: 100%;
-  float: left;
-  font-size: 20pt;
-  font-weight: bold;
+  width: 50%;
+  padding: 0 32px;
+  flex-grow: 4;
 }
 
-#logoPic {
-  height: 40px;
+.logoPic {
+  height: 36px;
   width: auto;
 }
 
 .pageLinks {
-  padding-right: 5%;
-  display: block;
-  padding-top: 0.5%;
-  height: 100%;
-  float: right;
+  flex-grow: 4;
+  width: 50%;
+  padding: 0 32px;
+  text-align: right;
   font-size: 14pt;
-  font-weight: bold;
-  white-space: nowrap;
 }
 
 .landingPageLink {
   text-align: center;
+  font-family: "orkneybold";
   color: white;
-  padding: 0% 2.5%;
+  padding: 0 12px;
+  font-weight: 400;
   text-decoration: none;
   -webkit-transition: color 0.25s ease-out;
   -moz-transition: color 0.25s ease-out;
@@ -78,429 +71,198 @@
   color: #FFB814;
 }
 
-.productLink {
-  color: white;
-}
-
-#missionLink {
-  color: white;
-}
-
-#teamLink {
-  color: white;
-}
-
-#preRegisterLink {
+#missionLink, #teamLink {
   color: white;
 }
 
 .mainText{
   font-family: "orkneybold";
-  letter-spacing: 2.5px;
   position: relative;
-  height: 100vh;
+  height: 100%;
   width: 100%;
-  text-shadow: 0px 2px 8px rgba(0,0,0, 0.75);
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
+}
+
+#search-wrapper {
+  width: 60%;
+  max-width: 780px;
+  margin-bottom: 40px;
+}
+
+#landing-search {
+  border-radius: 6px;
+  width: 100%;
+  border: none;
+  box-shadow: 3px 18px 20px rgba(0, 0, 0, .24);
+  height: 50px;
+  margin: 16px 0;
+  padding: 8px 16px;
+  font-size: 1.4em;
+}
+
+#landing-books {
+  font-family: Arial, Helvetica, sans-serif;
+  width: 100%;
+  margin: 16px 0;
+  box-shadow: 3px 18px 20px rgba(0, 0, 0, .24);
+  background: white;
+  height: 40vh;
+  overflow-y: scroll;
+  border-radius: 6px;
+  z-index: 10;
+}
+
+/*Give landing sections on homepage more space*/
+.landingpage .landing-section {
+  padding: 6em 12em;
+}
+
+/*About page uses 12% for horizontal padding*/
+.content-about .landing-section {
+  padding: 2em 12%;
+}
+
+.landing-section {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  background: white;
+  min-height: 300px;
+}
+
+.purple {
+  background: rgba(78, 43, 132, .06);
+}
+
+.text-content-landing {
+  display: flex;
+  text-align: left;
+  width: 55%;
+  flex-direction: column;
+}
+
+.header-line-landing {
+  background: #707070;
+  height: 1px;
+  width: 150px;
+  margin: 0 8px 8px 8px;
+  align-self: flex-start;
+}
+
+.img-content {
+  display: flex;
+  width: 37%;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.left {
+  align-items: flex-start;
 }
 
 .landingpage h1 {
-    color: white;
-    font-size: 40pt;
-    text-align: center;
-    font-weight: bold;
-    margin-top: 0;
+  color: white;
+  font-size: 4em;
+  text-align: center;
+  letter-spacing: 2.5px;
+  font-weight: bold;
+  margin: 100px 0 20px 0px;
  }
 
-.landingpage h2 {
-  color: white;
-  font-family: "orkneybold";
-  width: 100%;
-  padding-top: 1.25%;
-  padding-bottom: 1.25%;
-  font-size: 25pt;
-  text-align: center;
-  background-color: rgba(129,104,208, 0.80)
+ .landing-bullet {
+   font-weight: bold;
+ }
+
+ .landing-bullet--middle {
+  font-weight: bold;
+  margin: 0 7%;
 }
 
-.madeSimple {
-  position: relative;
-  width: 100%;
-  text-align: center;
-  color: white;
-  text-shadow: 0px 2px 8px rgba(0,0,0, 0.50);
-  font-size: 14pt;
-  background-color: #FFB814;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding-top: 5%;
-  padding-bottom: 5%;
-}
+ .landing-bullets {
+   width: 100%;
+   font-size: 20px;
+   text-align: center;
+ }
 
-.madeSimpleText {
-    font-family: "orkneyregular";
-    padding-left: 15%;
-    padding-right: 15%;
-}
+ .landing-img {
+   width: 88%;
+   height: auto;
+   border-radius: 6px;
+   box-shadow: 0 3px 6px rgba(0, 0, 0, .16);
+ }
 
-.howItWorks {
-  position: relative;
-  width: 100%;
-  text-align: center;
-  color: white;
-  text-shadow: 0px 2px 8px rgba(0,0,0, 0.50);
-  font-size: 14pt;
-  background-color: dimgray;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  background-image: url("../images/stairsCompressed.jpg");
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-}
+ .landing-header-title {
+   width: 100%;
+   text-align: left;
+   font-family: "orkneymedium";
+   font-size: 34px;
+   color: #343434;
+ }
 
-.howItWorksText {
+ .landing-para {
   font-family: "orkneyregular";
-  padding-top: 1.7%;
-  width: 40%;
-  height: 100%;
-  margin: 16px 32px;
-  background-color: rgba(0,0,0, 0.6);
-  padding-bottom: 2.5%;
-}
+  font-size: 20px;
+  text-align: justify;
+  color: #343434;
+ }
 
-.forUniversitiesText {
-  font-family: "orkneyregular";
-  padding-top: 1.7%;
-  width: 40%;
-  height: 100%;
-  margin: 10% 32px 16px 32px;
-  background-color: rgba(0,0,0, 0.6);
-  padding-bottom: 2.5%;
-}
-
-@media only screen and (max-width: 600px) {
-  .howItWorks {
-    flex-direction: column;
-  }
-  .howItWorksText, .forUniversitiesText {
-    width: 83%;
-  }
-  .headerBar {
-    padding: 4px;
-  }
-}
-
-.howItWorksBodyText {
-  padding-left: 15%;
-  padding-right: 15%;
-}
-
-#whatWereAboutHeader {
-  font-style: normal;
-}
-
-.whatWereAbout {
-  position: relative;
-  width: 100%;
-  text-align: center;
-  color: white;
-  text-shadow: 0px 2px 8px rgba(0,0,0, 0.50);
-  font-size: 14pt;
-  background-color: #25221F;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding-top: 5%;
-  padding-bottom: 5%;
-}
-
-.smartPeopleBlockHeader {
-  font-style: italic;
-}
-
-.helpingOthersBlockHeader {
-  font-style: italic;
-}
-
-.fastCheapEasyBlockHeader {
-  font-style: italic;
-}
-
-.whatWereAboutText {
-  font-family: "orkneyregular";
-  padding-left: 15%;
-  padding-right: 15%;
-}
-
-.blurbBlock {
-  width: 100%;
-  position: relative;
-  overflow: hidden;
-}
-
-.slideInPhotoRight {
-  display: inline-block;
-  position: relative;
-  float: right;
-  width: 45%;
-}
-.slideInPhotoLeft {
-  display: inline-block;
-  position: relative;
-  float: left;
-  width: 45%;
-}
-
-.smartPeopleBlock {
-  position: relative;
-  padding-top: 5%;
-  display: inline-block;
-  float: left;
-  width: 55%;
-  height:100%;
-  padding-bottom: 10%;
-}
-
-.helpingOthersBlock {
-  position: relative;
-  display: inline-block;
-  padding-top: 2.5%;
-  float: right;
-  width: 55%;
-  height: 100%;
-  padding-bottom: 10%;
-}
-
-.fastCheapEasyBlock {
-  position: relative;
-  display: inline-block;
-  padding-top: 2.5%;
-  float: left;
-  width: 55%;
-  height: 100%;
-  padding-bottom: 10%;
-}
-
-.teamPage {
-  position: relative;
-  width: 100%;
-  text-align: center;
-  color: white;
-  text-shadow: 0px 2px 8px rgba(0,0,0, 0.50);
-  font-size: 14pt;
-  background-color: #FFB814;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding-top: 5%;
-  padding-bottom: 5%;
-}
-
-.teamPageText {
-  font-family: "orkneyregular";
-  padding-left: 15%;
-  padding-right: 15%;
-}
-
-.landingPageBottom {
+/* FOOTER STYLES */
+.footer {
   position: relative;
   height: 20vh;
   width: 100%;
-  text-align: center;
+  display: flex;
+  flex-direction: row;
   color: white;
-  text-shadow: 0px 2px 8px rgba(0,0,0, 0.50);
   font-size: 14pt;
   font-style: italic;
   font-weight: bold;
-  background-color: #25221F;
+  padding: 1.5% 12%;
+  background-color: #272727;
 }
 
-.barterOutButton {
-  font-family: "orkneybold";
-  display: block;
-  margin: 0 auto;
-  background-color: #FF851F;
-  color: white;
-  border-radius: 25vh;
-  border:0 none;
-  width: 175px;
-  height: 50px;
-  font-size: 10pt;
-  -webkit-transition: background-color 0.25s ease-out;
-  -moz-transition: background-color 0.25s ease-out;
-  -o-transition: background-color 0.25s ease-out;
-  transition: background-color 0.25s ease-out;
-  -webkit-transition: color 0.25s ease-out;
-  -moz-transition: color 0.25s ease-out;
-  -o-transition: color 0.25s ease-out;
-  transition: color 0.25s ease-out;
-}
-
-.barterOutButton:hover {
-  background-color: #ff8d2d;
-  color: black;
-}
-
-.barterOutButton:focus {
-  outline: 0;
-}
-
-.preRegisterForm {
-  margin-top: 5%;
-}
-
-.textInput {
-  font-family: orkneylight, Arial, Helvetica, sans-serif;
-  font-size: 10pt;
-  margin-bottom: 5%;
-  width: 85%;
-  border: 0 none;
-  padding: 2.5% 5%;
-  color: black;
-}
-
-.emailInput {
-  font-family: orkneylight, Arial, Helvetica, sans-serif;
-  font-size: 10pt;
-  margin-bottom: 5%;
-  width: 85%;
-  border: 0 none;
-  padding: 2.5% 5%;
-  color: black;
-}
-
-.firstName {
-  margin-bottom: 2.5%;
-}
-
-.lastName {
-  margin-bottom: 2.5%;
-}
-
-.email {
-  margin-bottom: 2.5%;
-}
-
-#agreement {
-  padding-left: 7.5%;
-  padding-right: 7.5%;
-}
-
-#registerButton {
-  position: relative;
-  display: block;
-  left: 0;
-  right: 0;
-  margin: auto;
-  bottom: 0;
-  margin-top: 5%;
-  margin-bottom: 10%;
-  width: 50%;
-}
-
-#registerButton:focus {
-  outline: 0;
-}
-
-#applyButtonOne {
-  margin-top: 2.5%;
-}
-
-#applyButtonTwo {
-  margin-top: 2.5%;
-}
-
-.staffPhotos {
-  margin: auto;
-}
-
-.adviserPhotos {
-  margin: auto;
-}
-
-.staff {
-    -webkit-transform: rotate(0);
-    -moz-transform: rotate(0);
-    transform: rotate(0);
-    border-radius: 50%;
-    margin: 2.5% 2.5%;
-    max-width: 200px;
-    width: 17.5vw;
-    -webkit-transition: opacity 0.5s ease-out;
-    -moz-transition: opacity 0.5s ease-out;
-    -o-transition: opacity 0.5s ease-out;
-    transition: opacity 0.5s ease-out;
-}
-
-.team {
-  -webkit-transform: rotate(0);
-  -moz-transform: rotate(0);
-  transform: rotate(0);
-  border-radius: 50%;
-  margin: 2.5% 2.5%;
-  max-width: 200px;
-  width: 17.5vw;
-  -webkit-transition: opacity 0.5s ease-out;
-  -moz-transition: opacity 0.5s ease-out;
-  -o-transition: opacity 0.5s ease-out;
-  transition: opacity 0.5s ease-out;
-}
-
-
-.team:hover {
-  -webkit-transform: rotate(0);
-  -moz-transform: rotate(0);
-  transform: rotate(0);
-  opacity: 0.50;
-}
-
-.profile {
-  font-size: 10pt;
-  font-style: italic;
-  padding-top: 5px;
-  padding-bottom: 5px;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-#applyLink {
-    font-family: "orkneyregular";
-    text-shadow: 0px 0px 0px;
-}
-
-#bottomLinksCol1 {
-    font-family: "orkneylight";
-    font-style: normal;
-    float: left;
-    padding-left: 5%;
-    padding-top: 1%;
-    font-size: 12pt;
-    text-align: left;
-}
-
-#bottomLinksCol2 {
-  font-family: "orkneylight";
+.footer__linkColumn {
+  flex: 1;
+  max-width: 150px;
   font-style: normal;
-  float: left;
-  padding-left: 5%;
-  padding-top: 1%;
-  font-size: 12pt;
   text-align: left;
 }
 
-.bottomPageLink {
-  color: white;
+.footer__columnHeader {
+  font-family: "orkneybold";
+  color: #FFF;
+  font-size: 14pt;
+}
+
+.footer__linkColumn--right {
+  flex: 2;
+  max-width: none;
+  justify-self: flex-end;
+  text-align: right;
+}
+
+.footer__link {
+  font-family: "orkneyregular";
   font-weight: normal;
+  color: #EAEAEA;
+  font-size: 12pt;
   text-decoration: none;
 }
 
-.bottomPageLink:hover {
-  color: #AAA;
+.footer__link:hover {
+  color: #FFF;
+  text-decoration: none;
+}
+
+.footer__address {
+  font-family: "orkneyregular";
+  font-weight: normal;
+  color: #EAEAEA;
+  font-size: 12pt;
   text-decoration: none;
 }
 
@@ -508,41 +270,26 @@
   text-decoration: none;
 }
 
-.profileName {
-  font-style: normal;
-  font-weight: bold;
-}
-
-.bottomLinkHeader {
-  font-family: "orkneybold";
-  font-size: 14pt;
-}
-
 #copyright {
   font-family: "orkneyregular";
   text-align: center;
   justify-content: center;
   color: white;
-  background-color: #25221F;
+  background-color: #272727;
   padding-bottom: 2.5%;
-}
-
-.landing-students-img {
-  max-width: 490px;
-  width: 45vw;
 }
 
 .landing-para {
   padding: 8px 0;
 }
 
-#socialMedia {
+.socialMediaLinks {
   text-align: center;
   justify-content: center;
-  background-color: #25221F;
+  background-color: #272727;
 }
 
-.logoImage {
+.socialMediaLinks__logo {
   margin: 2.5% 0.5%;
   max-width: 50px;
   -webkit-transition: opacity 0.25s ease-out;
@@ -551,10 +298,63 @@
   transition: opacity 0.25s ease-out;
 }
 
-.logoImage:hover {
-    opacity: 0.50;
+.socialMediaLinks__logo:hover {
+  opacity: 0.50;
 }
 
 .buttonLink {
-    text-decoration: none;
+  text-decoration: none;
+}
+
+@media only screen and (max-width: 600px) {
+  .landingpage .landing-section {
+    flex-direction: column;
+    max-height: none;
+    width: 100vw;
+    padding: 2em 2em;
+    min-height: 632px;
+  }
+  .content-about .landing-section {
+    flex-direction: column;
+    max-height: none;
+    width: 100vw;
+    padding: 2em 2em;
+    min-height: 632px;
+  }
+  .text-content-landing, .img-content {
+    width: 95%;
+    max-height: none;
+  }
+  .landing-img {
+    width: 90%;
+    height: auto;
+  }
+  .footer {
+    padding: 1.5% 5%;
+  }
+  .left {
+    align-items: center;
+  }
+  .headerBar {
+    justify-content: center;
+    width: 100%;
+  }
+  .pageLinks {
+    width: 100%;
+    padding: 0;
+    text-align: center;
+  }
+  .logo {
+    display: none;
+  }
+  #search-wrapper {
+    width: 95vw;
+  }
+  #landing-books {
+    max-height: 300px;
+  }
+  .landingpage h1 {
+    margin-top: 70px;
+    font-size: 3em;
+  }
 }

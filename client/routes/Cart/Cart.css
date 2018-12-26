@@ -11,6 +11,10 @@
   text-align: right;
 }
 
+.cart__listItems {
+  text-align: right;
+}
+
 .cart-money-info {
   font-size: 1.2em;
 }

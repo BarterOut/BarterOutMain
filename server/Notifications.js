@@ -1,10 +1,12 @@
 /**
- * @file Notification functions for returning various types of notifications.
+ * @file Notifications.js
+ * @description Notification functions for returning various types of notifications.
  * @author Daniel Munoz
  * @author Duncan Grubbs <duncan.grubbs@gmail.com>
  * @version 0.0.4
  */
 
+// For formatting dates
 import moment from 'moment';
 
 module.exports = {
@@ -12,6 +14,13 @@ module.exports = {
     return {
       date: moment().format('MMM. Do, YYYY'),
       message: `Thanks for posting ${bookName} up for sale.`,
+    };
+  },
+
+  thanksForSigningUp: function thanksForSigningUp() {
+    return {
+      date: moment().format('MMM. Do, YYYY'),
+      message: 'Thank you for signing up!',
     };
   },
 
@@ -42,7 +51,6 @@ module.exports = {
       message: `We found a match for ${bookName}! See the Buy page for more details.`,
     };
   },
-
 
   thanksForPurchase: function thaksForPurchase(bookName) {
     return {
@@ -85,5 +93,4 @@ module.exports = {
       message: `Payment received for ${bookName}. The book is ready for delivery!`,
     };
   },
-
 };

@@ -8,6 +8,7 @@
 import mongoose from 'mongoose';
 
 import User from '../models/user';
+import response from '../response';
 import TempUser from '../models/tempUser';
 
 const express = require('express');
@@ -20,17 +21,33 @@ const emails = require('../emails/emailFunctions');
 const crypto = require('crypto');
 const nev = require('email-verification')(mongoose);
 const rand = require('rand-token');
-// Makes the email configuration settings
 
-// Hashing function
+const notification = require('../Notifications');
+
+/**
+ * Hashes a user's password.
+ * @param {String} password Password to Hash
+ * @param {Object} tempUserData User data from temp user.
+ * @param {Function} insertTempUser Function to insert temp user intoDB.
+ * @param {Function} callback Callback function.
+ */
 function myHasher(password, tempUserData, insertTempUser, callback) {
   const hash = bcrypt.hashSync(password, 10, null);
   return insertTempUser(hash, tempUserData, callback);
 }
 
-// Configurations for the temp user stuff
+let verificationURL;
+if (process.env.NODE_ENV == 'production') {
+  verificationURL = 'https://www.barterout.com/api/auth/email-verification/${URL}'; // eslint-disable-line
+} else if (process.env.NODE_ENV == 'staging') {
+  verificationURL = 'https://barterout-dev.herokuapp.com/api/auth/email-verification/${URL}'; // eslint-disable-line
+} else {
+  verificationURL = 'localhost:8080/api/auth/email-verification/${URL}'; // eslint-disable-line
+}
+
+// Configurations for the temp users.
 nev.configure({
-  verificationURL: 'https://www.barterout.com/api/auth/email-verification/${URL}',
+  verificationURL,
   persistentUserModel: User,
   tempUserCollection: 'barterOut_tempusers',
   shouldSendConfirmation: false,
@@ -47,8 +64,7 @@ nev.configure({
     // This won't actually be used but it is necessary for the package to work. the
     from: '"Barter Out" <office@barterout.com',
     subject: 'Please confirm account',
-    html: '<p>Please verify your account by clicking <a href="${URL}">this link</a>. If you are unable to do so, copy and ' +
-    'paste the following link into your browser:</p><p>${URL}</p>',
+    html: '<p>Please verify your account by clicking <a href="${URL}">this link</a>.', // eslint-disable-line
     auth: {
       user: 'office@barterout.com',
       refreshToken: '1/9XdHU4k2vwYioRyAP8kaGYfZXKfp_JxqUwUMYVJWlZs',
@@ -59,20 +75,20 @@ nev.configure({
   hashingFunction: myHasher,
   emailFieldName: 'emailAddress',
   passwordFieldName: 'password',
-
 }, (error) => {
   if (error) {
-    console.error(error);
+    throw new Error(`Error: ${error}`);
   }
 });
 
 // Creating the temp user
-nev.generateTempUserModel(User, (err) => {
-  if (err) {
-    console.error(err);
+nev.generateTempUserModel(User, (error) => {
+  if (error) {
+    throw new Error(`Error: ${error}`);
   }
 });
 
+// TODO: Remove redirects
 /**
  * Called when a user clicks the confirm link in thier email.
  * @param {Object} req Request body from client.
@@ -95,7 +111,7 @@ router.get('/email-verification/:URL', (req, res) => {
         lastName: tempUser.lastName,
         matchedBooks: [],
         university: tempUser.university,
-        notifications: [{ date: new Date().toLocaleString(), message: 'Thank you for signing up!' }],
+        notifications: [notification.thanksForSigningUp()],
         resetPasswordToken: '',
         resetPasswordExpires: '',
       });
@@ -103,9 +119,9 @@ router.get('/email-verification/:URL', (req, res) => {
         .then(() => {
           // Verified the user
           sendEmail(emails.signedUpEmail(newUser.emailAddress, newUser.firstName));
-          TempUser.remove({ emailToken: url }, (err) => {
-            if (err) {
-              res.status(400).json(err);
+          TempUser.remove({ emailToken: url }, (error) => {
+            if (error) {
+              res.status(400).json(response({ error }));
             }
           });
           res.redirect('/emailConfirmed');
@@ -116,13 +132,12 @@ router.get('/email-verification/:URL', (req, res) => {
   });
 });
 
-// End of email verification changes
 const jwt = require('jsonwebtoken');
 
 function sendEmail(mailOptions) {
-  transporter.sendMail(mailOptions, (err) => {
-    if (err) {
-      console.error(err);
+  transporter.sendMail(mailOptions, (error) => {
+    if (error) {
+      throw new Error(`Error: ${error}`);
     }
   });
 }
@@ -140,7 +155,7 @@ const transporter = nodemailer.createTransport({ // secure authentication
  * Creates an temporary (unconfirmed) account for a user.
  * @param {Object} req Request body from client.
  * @param {Object} res Body of HTTP response.
- * @returns {Number} Status code.
+ * @returns {Object} Standard API Repsonse.
  */
 router.post('/signup', (req, res) => {
   const {
@@ -155,15 +170,15 @@ router.post('/signup', (req, res) => {
 
   User.findOne({ emailAddress }, (error, user) => {
     if (error) {
-      res.status(400).json(error);
+      res.status(400).json(response({ error }));
     } else if (user) {
-      res.sendStatus(409);
+      res.status(409).json(response({ error: 'Existing User' }));
     } else {
       TempUser.findOne({ emailAddress }, (error, existingUser) => {
         if (error) {
-          res.status(400).json(error);
+          res.status(400).json(response({ error }));
         } else if (existingUser) {
-          res.sendStatus(409);
+          res.status(409).json(response({ error: 'Existing Temp User' }));
         } else {
           const emailToken = rand.generate(48);
           const newUser = new TempUser({
@@ -182,7 +197,7 @@ router.post('/signup', (req, res) => {
             .then(() => {
               const URL = newUser.emailToken;
               sendEmail(emails.verifyEmail(emailAddress, firstName, URL));
-              res.sendStatus(201);
+              res.status(201).json(response(null));
             });
         }
       });
@@ -198,29 +213,30 @@ router.post('/signup', (req, res) => {
  */
 router.post('/login', (req, res) => {
   const { emailAddress, password } = req.body;
-  User.findOne({ emailAddress }, (err, user) => {
-    if (err) {
-      res.status(400).json({ error: err });
+  User.findOne({ emailAddress }, (error, user) => {
+    if (error) {
+      res.status(400).json(response({ error }));
       return;
     }
     if (!user) {
-      res.sendStatus(401);
+      res.status(401).json(response({ error: 'No Account' }));
       return;
     }
     if (!user.checkPassword(password)) {
-      res.sendStatus(401);
+      res.status(401).json(response({ error: 'Incorrect Password' }));
       return;
     }
 
     const userInfo = {
       // Can add more stuff into this so that it has more info, for now it only has the id
+      // and the permission type for handling admin dashboard auth on frontend.
       _id: user._id,
       permissionType: user.permissionType,
     };
 
     // Creates the token and sends the JSON back
     jwt.sign({ userInfo }, 'secretKey', { expiresIn: '30 days' }, (error, token) => {
-      res.status(200).json({ token });
+      res.status(200).json(response({ token }));
     });
   });
 });
@@ -231,12 +247,12 @@ router.post('/login', (req, res) => {
  * Requires the token to be sent as we ll as the body to cointain the info that will be updated
  * @param {Object} req Request body from client.
  * @param {Object} res Body of HTTP response.
- * @returns {Number} Status code.
+ * @returns {Object} Standard API response.
  */
 router.post('/updateProfile', (req, res) => {
   jwt.verify(req.body.data.token, 'secretKey', (error, authData) => {
     if (error) {
-      res.sendStatus(403);
+      res.status(403).json(response({ error }));
     } else {
       User.update(
         { _id: mongoose.Types.ObjectId(authData.userInfo._id) },
@@ -251,9 +267,9 @@ router.post('/updateProfile', (req, res) => {
         },
         (error) => {
           if (error) {
-            res.status(400).json(error);
+            res.status(400).json(response({ error }));
           } else {
-            res.sendStatus(200);
+            res.status(200).json(response(null));
           }
         },
       );
@@ -267,24 +283,24 @@ router.post('/updateProfile', (req, res) => {
  * text password to be sent, will be hashed inside of the function.
  * @param {Object} req Request body from client.
  * @param {Object} res Body of HTTP response.
- * @returns {Number} Status code.
+ * @returns {Object} Standard API Response.
  */
 router.post('/updatePassword', (req, res) => {
   jwt.verify(req.body.data.token, 'secretKey', (error, authData) => {
     if (error) {
-      res.sendStatus(403);
+      res.status(403).json(response({ error }));
     } else {
       User.findOne({ _id: authData.userInfo._id }, (error, user) => {
         if (error) {
-          res.sendStatus(400);
+          res.status(400).json(response({ error }));
           return;
         }
         if (!user) {
-          res.status(401).send({ error: 'You need to create an account.' });
+          res.status(401).json(response({ error: 'You need to create an account.' }));
           return;
         }
         if (!user.checkPassword(req.body.data.password)) {
-          res.status(401).send({ error: 'Incorrect Password' });
+          res.status(401).json(response({ error: 'Incorrect Password' }));
           return;
         }
 
@@ -300,9 +316,9 @@ router.post('/updatePassword', (req, res) => {
           },
           (error) => {
             if (error) {
-              res.status(400).json(error);
+              res.status(400).json(response({ error }));
             } else {
-              res.sendStatus(200);
+              res.status(200).json(response(null));
             }
           },
         );
@@ -312,6 +328,13 @@ router.post('/updatePassword', (req, res) => {
 });
 
 
+/**
+ * Sends email to user with token to reset password,
+ * this token is verified by the another API call.
+ * @param {Object} req Request body from client.
+ * @param {Object} res Body of HTTP response.
+ * @returns {Object} Standard API Response.
+ */
 router.post('/passwordResetRequest', (req, res) => {
   const email = req.body.data.emailAddress;
   let token;
@@ -331,29 +354,44 @@ router.post('/passwordResetRequest', (req, res) => {
           },
           (error) => {
             if (error) {
-              res.status(400).json(error);
+              res.status(400).json(response({ error }));
             }
           },
         );
         sendEmail(emails.passwordResetEmail(user.emailAddress, user.firstName, token));
-        res.sendStatus(200);
+        res.status(200).json(response(null));
       });
     } else {
-      res.status(406).send({ error: 'no user found' });
+      res.status(406).json(response({ error: 'No user found.' }));
     }
   });
 });
 
+// TODO: remove redirect
+/**
+ * Route from redirect of password reset request.
+ * This is the link they click in the email.
+ * @param {Object} req Request body from client.
+ * @param {Object} res Body of HTTP response.
+ * @returns {Object} Standard API Response.
+ */
 router.get('/passwordReset/:token', (req, res) => {
   User.findOne({ resetPasswordToken: req.params.token }, (err, user) => {
     if (!user) {
-      res.status(406).send({ error: 'Token expired or is invalid' });
+      res.status(406).json(response({ error: 'Token expired or is invalid' }));
     } else {
       res.redirect(`/resetPassword/${req.params.token}`);
     }
   });
 });
 
+/**
+ * Request sent from link page use is taken to
+ * after forgetting their password.
+ * @param {Object} req Request body from client.
+ * @param {Object} res Body of HTTP response.
+ * @returns {Object} Standard API Response.
+ */
 router.post('/passwordReset/', (req, res) => {
   User.findOne(
     {
@@ -362,7 +400,7 @@ router.post('/passwordReset/', (req, res) => {
     },
     (err, user) => {
       if (!user) {
-        res.status(406).send({ error: 'token expired or is invalid' });
+        res.status(406).json(response({ error: 'token expired or is invalid' }));
       } else {
         User.update(
           { _id: user._id },
@@ -376,18 +414,18 @@ router.post('/passwordReset/', (req, res) => {
           },
           (error) => {
             if (error) {
-              res.send(400).json(error);
+              res.status(400).json(response({ error }));
             }
           },
         );
-        res.sendStatus(200);
+        res.status(200).json(response(null));
       }
     },
   );
 });
 
 router.get('/', (req, res) => {
-  res.sendStatus(200);
+  res.status(200).json(response(null));
 });
 
 module.exports = router;

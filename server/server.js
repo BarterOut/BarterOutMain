@@ -23,24 +23,13 @@ import config from '../webpack.config';
 import serverConfig from './config';
 import kittens from './kittens/kitten';
 
-// PASSPORT
-const passport = require('./passport');
-
 const sslRedirect = require('heroku-ssl-redirect');
 
-// Auth Route
+// API Routes
 const auth = require('./routes/auth');
-
-// User Route
 const user = require('./routes/user');
-
-// Books Route
 const books = require('./routes/books');
-
-// Dashboard Route
 const dashboard = require('./routes/dashboard');
-
-const AirbrakeClient = require('airbrake-js');
 
 const PORT = serverConfig.port;
 
@@ -63,8 +52,6 @@ app.use(session({
   cookie: { secure: false },
 }));
 
-const ENV = 'production';
-
 function forceSsl(req, res, next) {
   if (req.headers['x-forwarded-proto'] !== 'https') {
     return res.redirect(['https://', req.get('Host'), req.url].join(''));
@@ -72,16 +59,28 @@ function forceSsl(req, res, next) {
   return next();
 }
 
-if (ENV === 'production') {
+if (process.env.NODE_ENV === 'production') {
   app.use(forceSsl);
-  const airbrake = new AirbrakeClient({
-    projectId: 198681,
-    projectKey: '6da3a08e11432204d9747ffd5e332816',
-  });
 }
 
-app.use(passport.initialize());
-app.use(passport.session()); // calls serializeUser and deserializeUser
+// Prefer gzipped js files.
+app.get('*.js', (req, res, next) => {
+  // res.set('Cache-Control', 'public, max-age=2629800');
+  res.set('Content-Encoding', 'gzip');
+  next();
+});
+
+// Set cache policy to cache for one month on images
+app.get('*.jpg', (req, res, next) => {
+  res.set('Cache-Control', 'public, max-age=2629800');
+  next();
+});
+
+app.get('*.png', (req, res, next) => {
+  res.set('Cache-Control', 'public, max-age=2629800');
+  next();
+});
+
 app.use('/api/auth', auth);
 app.use('/api/user', user);
 app.use('/api/books', books);

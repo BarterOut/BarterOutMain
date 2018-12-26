@@ -8,7 +8,9 @@
 
 import React, { Component } from 'react';
 import { Redirect, Link } from 'react-router-dom';
+import propTypes from 'prop-types';
 import MaterialIcon from 'react-google-material-icons';
+
 import FetchService from '../../services/FetchService';
 import AuthService from '../../services/AuthService';
 
@@ -120,5 +122,9 @@ class ResetPassword extends Component {
     );
   }
 }
+
+ResetPassword.propTypes = {
+  match: propTypes.object, // eslint-disable-line
+};
 
 export default ResetPassword;

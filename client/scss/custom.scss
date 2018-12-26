@@ -1,0 +1,13 @@
+$body-bg: #FDFDFD;
+$body-color: #222;
+
+$theme-colors: (
+  primary: #41397C,
+  secondary: #B55200,
+  success: green,
+  info: grey,
+  warning: red,
+  danger: red
+) !default;
+
+@import "../../node_modules/bootstrap/scss/bootstrap.scss";
