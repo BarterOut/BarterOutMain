@@ -14,7 +14,7 @@ mongoose.Promise = global.Promise;
 // your local database url
 // 27017 is the default mongoDB port
 
-mongoose.connect(config.mongoURL, { useMongoClient: true }).then(
+mongoose.connect(config.mongoURL, { useNewUrlParser: true }).then(
   () => {
     /** ready to use. The `mongoose.connect()` promise resolves to undefined. */
   },

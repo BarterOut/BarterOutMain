@@ -148,10 +148,10 @@ router.get('/getStatistics/:token/', (req, res) => {
     } else if (authData.userInfo.permissionType === 1) {
       let totalUsers;
       let totalBooks;
-      User.count({}, (error, count) => {
+      User.countDocuments({}, (error, count) => {
         totalUsers = count;
 
-        Textbook.count({}, (error, count) => {
+        Textbook.countDocuments({}, (error, count) => {
           totalBooks = count;
           res.status(200).json(response({ totalUsers, totalBooks }));
         });

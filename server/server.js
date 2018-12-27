@@ -23,7 +23,8 @@ import config from '../webpack.config';
 import serverConfig from './config';
 import kittens from './kittens/kitten';
 
-const sslRedirect = require('heroku-ssl-redirect');
+const bodyParser = require('body-parser');
+const session = require('express-session');
 
 // API Routes
 const auth = require('./routes/auth');
@@ -33,13 +34,9 @@ const dashboard = require('./routes/dashboard');
 
 const PORT = serverConfig.port;
 
-const bodyParser = require('body-parser');
-const session = require('express-session');
-
 // Initialize the Express App
 const app = new Express();
 
-app.use(sslRedirect());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -61,25 +58,27 @@ function forceSsl(req, res, next) {
 
 if (process.env.NODE_ENV === 'production') {
   app.use(forceSsl);
+
+  // Prefer gzipped js files.
+  // Set cache policy to cache for one month on js files
+  app.get('*.js', (req, res, next) => {
+    res.set('Content-Encoding', 'gzip');
+    // res.set('Cache-Control', 'public, max-age=2629800');
+    next();
+  });
+
+  // Set cache policy to cache for one month on images
+  app.get('*.jpg', (req, res, next) => {
+    res.set('Cache-Control', 'public, max-age=2629800');
+    next();
+  });
+
+  app.get('*.png', (req, res, next) => {
+    res.set('Cache-Control', 'public, max-age=2629800');
+    next();
+  });
 }
 
-// Prefer gzipped js files.
-app.get('*.js', (req, res, next) => {
-  // res.set('Cache-Control', 'public, max-age=2629800');
-  res.set('Content-Encoding', 'gzip');
-  next();
-});
-
-// Set cache policy to cache for one month on images
-app.get('*.jpg', (req, res, next) => {
-  res.set('Cache-Control', 'public, max-age=2629800');
-  next();
-});
-
-app.get('*.png', (req, res, next) => {
-  res.set('Cache-Control', 'public, max-age=2629800');
-  next();
-});
 
 app.use('/api/auth', auth);
 app.use('/api/user', user);
@@ -96,7 +95,7 @@ if (process.env.NODE_ENV === 'development') {
 // Set native promises as mongoose promise
 mongoose.Promise = global.Promise;
 
-mongoose.connect(serverConfig.mongoURL, { useMongoClient: true }, (error) => {
+mongoose.connect(serverConfig.mongoURL, { useNewUrlParser: true }, (error) => {
   if (error) {
     console.error('Please make sure Mongodb is installed and running!'); // eslint-disable-line no-console
     throw error;
