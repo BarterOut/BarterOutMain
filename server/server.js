@@ -59,14 +59,6 @@ function forceSsl(req, res, next) {
 if (process.env.NODE_ENV === 'production') {
   app.use(forceSsl);
 
-  // Prefer gzipped js files.
-  // Set cache policy to cache for one month on js files
-  app.get('*.js', (req, res, next) => {
-    res.set('Content-Encoding', 'gzip');
-    // res.set('Cache-Control', 'public, max-age=2629800');
-    next();
-  });
-
   // Set cache policy to cache for one month on images
   app.get('*.jpg', (req, res, next) => {
     res.set('Cache-Control', 'public, max-age=2629800');
@@ -78,6 +70,14 @@ if (process.env.NODE_ENV === 'production') {
     next();
   });
 }
+
+// Prefer gzipped js files.
+// Set cache policy to cache for one month on js files
+app.get('*.js', (req, res, next) => {
+  res.set('Content-Encoding', 'gzip');
+  // res.set('Cache-Control', 'public, max-age=2629800');
+  next();
+});
 
 
 app.use('/api/auth', auth);
