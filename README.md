@@ -47,10 +47,10 @@ Last but not least, we have some basic standards for our code. As mentioned in o
 - You can mess around with this webpage, adding textbooks as you please
 	as well as searching for existing textbooks by name.
 
-## How to Test
+### How to Test
 - Run `npm run test` in the directory to run all tests.
 - Run `npm run coverage` to see current test coverage.
 
-## How to Build
+### How to Build
 - Run `npm run build` in the directory to manually build the project.
 - See `webpack.config.js` for build config.
