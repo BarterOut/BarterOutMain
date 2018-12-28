@@ -1,11 +1,13 @@
 import app from '../../server';
-import Textbook from '../../models/textbook';
+// import Textbook from '../../models/textbook';
 
 const mongoose = require('mongoose');
 const request = require('supertest');
 
 process.env.TEST_SUITE = 'book-testing';
-const TOKEN = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySW5mbyI6eyJfaWQiOiI1YzExN2NlODc1MzQ4NDJhMzk4OWQ1MDIiLCJwZXJtaXNzaW9uVHlwZSI6MX0sImlhdCI6MTU0NTU5MjgwMCwiZXhwIjoxNTQ4MTg0ODAwfQ.UWt4qRvip70flduKVirV_4H65ta89JF7E86ZxDhS-cc';
+// const TOKEN = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySW5mbyI6eyJfaWQiOiI1YzExN2NlODc
+// 1MzQ4NDJhMzk4OWQ1MDIiLCJwZXJtaXNzaW9uVHlwZSI6MX0sImlhdCI6MTU0NTU5MjgwMCwiZXhwIjoxNTQ4MTg0ODAw
+// fQ.UWt4qRvip70flduKVirV_4H65ta89JF7E86ZxDhS-cc';
 
 beforeEach((done) => {
   /*

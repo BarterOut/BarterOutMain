@@ -6,6 +6,7 @@
   "scripts": {
     "start": "BABEL_DISABLE_CACHE=1 nodemon index.js",
     "dev": "concurrently \"npm start\" ",
+    "lint": "eslint . --fix",
     "test": "NODE_ENV=test jest --forceExit",
     "coverage": "NODE_ENV=test jest --collectCoverageFrom=server/**.js --coverage server --forceExit",
     "build": "webpack"
@@ -77,7 +78,6 @@
     "eslint-plugin-react": "^7.7.0",
     "file-loader": "^1.1.11",
     "jest": "^23.6.0",
-    "moxios": "^0.4.0",
     "node-sass": "^4.11.0",
     "nyc": "^13.0.1",
     "rimraf": "^2.6.2",
