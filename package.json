@@ -7,7 +7,7 @@
     "start": "BABEL_DISABLE_CACHE=1 nodemon index.js",
     "dev": "concurrently \"npm start\" ",
     "lint": "eslint . --fix",
-    "test": "NODE_ENV=test jest --forceExit",
+    "test": "NODE_ENV=test jest --forceExit --config jest.config.js",
     "coverage": "NODE_ENV=test jest --collectCoverageFrom=server/**.js --coverage server --forceExit",
     "build": "webpack"
   },
@@ -65,6 +65,7 @@
     "react-router-dom": "^4.2.2",
     "sass-loader": "^7.1.0",
     "style-loader": "^0.23.1",
+    "supertest": "^3.3.0",
     "url-loader": "^1.1.2",
     "webpack": "^4.28.2",
     "webpack-dev-middleware": "^3.4.0",
