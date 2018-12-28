@@ -103,7 +103,7 @@ class Cart extends Component {
               <h3>Summary</h3>
               <div className="card px-4 py-4">
                 <span className="cart-money-info">Subtotal: <b>${this._calculateMoney().subtotal}</b></span>
-                <span className="cart-money-info">Our 5% Fee: <i>${this._calculateMoney().fee}</i></span>
+                <span>Our 5% Fee: <i>${this._calculateMoney().fee}</i></span>
                 <br />
                 <span className="cart-money-info">Total: <b>${this._calculateMoney().total}</b></span>
                 <p className="my-2">

@@ -2,7 +2,7 @@ import cuid from 'cuid';
 import Kitten from '../models/kitten';
 
 export default function () {
-  Kitten.count().exec((err, count) => {
+  Kitten.countDocuments().exec((err, count) => {
     if (count > 0) {
       return;
     }

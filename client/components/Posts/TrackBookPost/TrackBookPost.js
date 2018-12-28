@@ -35,6 +35,7 @@ class TrackBookPost extends Component {
           </div>
           <span className="price">${this.props.price}*</span>
           <h6 className="float-right">{this.props.type}</h6>
+          <div><small className="text-muted">* Does not include 5% fee.</small></div>
         </div>
       </div>
     );

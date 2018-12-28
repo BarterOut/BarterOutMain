@@ -41,9 +41,9 @@ const Careers = () => (
           the resources larger companies do.
           <b><p className="careers-text">Note:</p></b>
           <ul>
-            <li>We do not pay employees.</li>
-            <li>You must be very self motivated, there is little managment overhead.</li>
-            <li>Be ready to <b>learn</b> if you are not familiar with our tech stack.</li>
+            <li>We do not pay employees at the moment.</li>
+            <li>You must be very self motivated, there is little management overhead.</li>
+            <li>You have to be ready to <b>learn</b> if you are not familiar with our tech stack.</li>
           </ul>
         </p>
         <h3>Open Positions</h3>
@@ -63,7 +63,7 @@ const Careers = () => (
         </b>
         <div className="careers-text">
           <ol>
-            <li>Write performent Javascript code in a team setting.</li>
+            <li>Write performant Javascript code in a team setting.</li>
             <li>Write and execute unit tests with NYC and Jest.</li>
             <li>Design and implement smart, modular React components.</li>
             <li>Work with web protocols (HTTP, SLL) to utilize our API.</li>
@@ -92,7 +92,7 @@ const Careers = () => (
         </b>
         <div className="careers-text">
           <ol>
-            <li>Write performent Javascript code in a team setting.</li>
+            <li>Write performant Javascript code in a team setting.</li>
             <li>Write and execute unit tests with NYC and Jest.</li>
             <li>Design and implement mongoose schemas.</li>
             <li>Implement new, well documented API functionality.</li>

@@ -24,7 +24,9 @@ const ForgotPasswordSuccess = () => (
       create a new pasword.
       </h3>
       <div>
-        <Link to="/login" href="login"><button className="button">Login</button></Link>
+        <Link to="/login" href="login">
+          <button type="button" className="button">Login</button>
+        </Link>
       </div>
     </div>
   </div>

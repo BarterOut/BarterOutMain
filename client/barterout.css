@@ -194,8 +194,14 @@ button:focus {
   width: 100%;
 }
 
-.scroll-posts {
-  max-height: 30vh;
+.scroll-posts--lg {
+  height: 45vh;
+  overflow-y: scroll;
+}
+
+.scroll-posts--sm {
+  min-height: 50px;
+  max-height: 25vh;
   overflow-y: scroll;
 }
 

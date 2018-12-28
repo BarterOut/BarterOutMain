@@ -356,20 +356,18 @@ router.get('/getUserMatches/:token', (req, res) => {
         if (!user) {
           res.status(401).json(response({ error: 'You need to create an account' }));
         } else {
-          User.find({ _id: authData.userInfo._id }, (err, userMatch) => {
-            let bookObjects = [];
-            const bookIDs = userMatch[0].matchedBooks;
-            Textbook.find({ $and: [{ _id: { $in: bookIDs } }, { status: 0 }] }, (error, books) => {
-              for (let i = 0; i < books.length; i++) {
-                for (let x = 0; x < user.cart.length; x++) {
-                  if (String(books[i]._id) === String(user.cart[x])) {
-                    books[i].status = 42;
-                  }
+          let bookObjects = [];
+          const bookIDs = user.matchedBooks;
+          Textbook.find({ $and: [{ _id: { $in: bookIDs } }, { status: 0 }] }, (error, books) => {
+            for (let i = 0; i < books.length; i++) {
+              for (let x = 0; x < user.cart.length; x++) {
+                if (String(books[i]._id) === String(user.cart[x])) {
+                  books[i].status = 42;
                 }
               }
-              bookObjects = books;
-              res.status(200).json(response(bookObjects));
-            });
+            }
+            bookObjects = books;
+            res.status(200).json(response(bookObjects));
           });
         }
       });
