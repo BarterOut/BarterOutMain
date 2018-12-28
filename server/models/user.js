@@ -42,10 +42,10 @@ const userSchema = new Schema({
 // Define schema methods
 // Yes the linting is mad but if we fix the linting the code breals :(
 userSchema.methods = {
-  checkPassword: function(inputPassword) {
+  checkPassword(inputPassword) {
     return bcrypt.compareSync(inputPassword, this.password);
   },
-  hashPassword: function(plainTextPassword) {
+  hashPassword(plainTextPassword) {
     return bcrypt.hashSync(plainTextPassword, 10);
   },
 };

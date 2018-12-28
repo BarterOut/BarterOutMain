@@ -1,5 +1,6 @@
 /**
- * @file Entry point of Express.js server.
+ * @file server.js
+ * @description Entry point of Express.js server.
  * @author Duncan Grubbs <duncan.grubbs@gmail.com>
  * @author Daniel Munoz
  * @author Shawn Chan
@@ -19,9 +20,8 @@ import webpackDevMiddleware from 'webpack-dev-middleware';
 import webpackHotMiddleware from 'webpack-hot-middleware';
 import config from '../webpack.config';
 
-// Configs and kittens for testing database.
+// Config for database.
 import serverConfig from './config';
-import kittens from './kittens/kitten';
 
 const bodyParser = require('body-parser');
 const session = require('express-session');
@@ -100,8 +100,6 @@ mongoose.connect(serverConfig.mongoURL, { useNewUrlParser: true }, (error) => {
     console.error('Please make sure Mongodb is installed and running!'); // eslint-disable-line no-console
     throw error;
   }
-  // feed some dummy data in DB.
-  kittens();
 });
 
 // Start App
