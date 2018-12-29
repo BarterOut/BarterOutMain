@@ -46,7 +46,7 @@ class Posts extends Component {
 
   render() {
     return (
-      <div >
+      <div>
         <NavBar page="manage" />
         <div className="container">
           <div className="row mx-auto mt-4">
@@ -59,8 +59,8 @@ class Posts extends Component {
               </div>
               <div>
                 {
-                  this.state.loading &&
-                  <div className="loading" />
+                  this.state.loading
+                  && <div className="loading" />
                 }
                 {this.state.booksPosted.map(post => (
                   <PersonalBookPost
@@ -83,8 +83,8 @@ class Posts extends Component {
               </div>
               <div>
                 {
-                  this.state.loading &&
-                  <div className="loading" />
+                  this.state.loading
+                  && <div className="loading" />
                 }
                 {this.state.booksRequested.map(post => (
                   <RequestBookPost

@@ -55,35 +55,40 @@ class RequestBook extends Component {
       <div>
         <form onSubmit={this.formSubmit}>
           <div className="form-group">
-            <label htmlFor="title">Title of Book*</label>
-            <input
-              autoComplete="off"
-              className="form-control"
-              id="title"
-              placeholder="e.g. Intro to Probability"
-              type="text"
-              name="name"
-              onChange={this.onChange}
-              required
-            />
+            <label htmlFor="title">
+              Title of Book*
+              <input
+                autoComplete="off"
+                className="form-control"
+                id="title"
+                placeholder="e.g. Intro to Probability"
+                type="text"
+                name="name"
+                onChange={this.onChange}
+                required
+              />
+            </label>
           </div>
           <div className="form-group">
-            <label htmlFor="courseCode">Course Code*</label>
-            <input
-              autoComplete="off"
-              id="courseCode"
-              className="form-control"
-              placeholder="e.g. MTH 101"
-              type="text"
-              pattern="^[A-Z]{3} \d{3}$"
-              name="course"
-              onChange={this.onChange}
-              required
-            />
+            <label htmlFor="courseCode">
+              Course Code*
+              <input
+                autoComplete="off"
+                id="courseCode"
+                className="form-control"
+                placeholder="e.g. MTH 101"
+                type="text"
+                pattern="^[A-Z]{3} \d{3}$"
+                name="course"
+                onChange={this.onChange}
+                required
+              />
+            </label>
           </div>
           <div>
             <button
               className="btn btn-primary float-right"
+              type="button"
               onClick={this.postToDatabase}
             >Request
             </button>

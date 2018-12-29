@@ -52,6 +52,7 @@ class RequestBookPost extends Component {
           <h5 className="card-title">{this.props.name}</h5>
           <button
             className="btn btn-primary float-right"
+            type="button"
             onClick={this.deleteBook}
           >Unrequest
           </button>

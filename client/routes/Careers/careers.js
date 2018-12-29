@@ -43,7 +43,10 @@ const Careers = () => (
           <ul>
             <li>We do not pay employees at the moment.</li>
             <li>You must be very self motivated, there is little management overhead.</li>
-            <li>You have to be ready to <b>learn</b> if you are not familiar with our tech stack.</li>
+            <li>
+              You have to be ready to <b>learn</b> if you are not familiar with our tech
+              stack.
+            </li>
           </ul>
         </p>
         <h3>Open Positions</h3>

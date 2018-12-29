@@ -11,7 +11,7 @@ import FetchService from '../../services/FetchService';
 import AuthService from '../../services/AuthService';
 import ErrorService from '../../services/ErrorService';
 
-import BookPost from '../../components/Posts/BookPost/BookPost';
+import BookPost from '../Posts/BookPost/BookPost';
 
 import './Search.css';
 import '../../barterout.css';
@@ -56,8 +56,8 @@ class Search extends Component {
       <div className="search-results-wrapper">
         <div className="search-wrapper">
           {
-            this.state.loading &&
-            <div className="loading" />
+            this.state.loading
+            && <div className="loading" />
           }
           {this.state.searchResults.map(post => (
             <BookPost

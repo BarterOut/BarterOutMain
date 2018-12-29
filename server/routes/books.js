@@ -19,9 +19,9 @@ const express = require('express');
 const router = express.Router();
 
 const nodemailer = require('nodemailer');
+const jwt = require('jsonwebtoken');
 const emails = require('../emails/emailFunctions');
 const notification = require('../Notifications');
-const jwt = require('jsonwebtoken');
 
 const transporter = nodemailer.createTransport({ // secure authentication
   host: 'smtp.gmail.com',

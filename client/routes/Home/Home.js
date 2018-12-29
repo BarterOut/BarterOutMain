@@ -126,8 +126,8 @@ class Home extends Component {
               </div>
               <div className="scroll-posts--lg">
                 {
-                  this.state.loading &&
-                  <div className="loading" />
+                  this.state.loading
+                  && <div className="loading" />
                 }
                 {this.state.posts.map(post => (
                   <BookPost

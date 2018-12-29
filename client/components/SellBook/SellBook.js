@@ -85,10 +85,10 @@ class SellBook extends Component {
       return false;
     }
 
-    if (this.state.name === '' ||
-        this.state.edition === '' ||
-        this.state.price === '' ||
-        this.state.course === '') {
+    if (this.state.name === ''
+        || this.state.edition === ''
+        || this.state.price === ''
+        || this.state.course === '') {
       this.setState({ correctlyFilledOut: false });
       return false;
     }
@@ -101,10 +101,12 @@ class SellBook extends Component {
       <div>
         <form onSubmit={this.formSubmit}>
           {
-            !this.state.correctlyFilledOut &&
+            !this.state.correctlyFilledOut
+            && (
             <div className="alert alert-warning" role="alert">
               Please ensure all fields are filled out correctly.
-            </div>}
+            </div>
+            )}
           <div className="form-group">
             <label htmlFor="title">Title of Book*</label>
             <input

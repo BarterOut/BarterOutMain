@@ -119,8 +119,8 @@ class LandingPage extends Component {
                 <input id="landing-search" placeholder="Find your book..." onChange={this.updateInputValue} />
                 <div id="landing-books">
                   {
-                    this.state.loading &&
-                    <div className="loading" />
+                    this.state.loading
+                    && <div className="loading" />
                   }
                   {this.state.posts.map(post => (
                     <LandingBookPost

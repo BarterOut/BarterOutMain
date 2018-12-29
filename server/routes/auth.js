@@ -17,10 +17,12 @@ const router = express.Router();
 
 const nodemailer = require('nodemailer');
 const bcrypt = require('bcryptjs');
-const emails = require('../emails/emailFunctions');
 const crypto = require('crypto');
 const nev = require('email-verification')(mongoose);
 const rand = require('rand-token');
+
+const jwt = require('jsonwebtoken');
+const emails = require('../emails/emailFunctions');
 
 const notification = require('../Notifications');
 
@@ -131,8 +133,6 @@ router.get('/email-verification/:URL', (req, res) => {
     }
   });
 });
-
-const jwt = require('jsonwebtoken');
 
 function sendEmail(mailOptions) {
   transporter.sendMail(mailOptions, (error) => {

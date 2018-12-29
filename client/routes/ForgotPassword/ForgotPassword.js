@@ -89,7 +89,7 @@ class ForgotPassword extends Component {
           </div>
           <div className="part-fgp right-bar">
             <Link to="/login" href="/login">
-              <button className="button">Back to Log In</button>
+              <button type="button" className="button">Back to Log In</button>
             </Link>
           </div>
         </div>
@@ -111,7 +111,7 @@ class ForgotPassword extends Component {
             required
           />
           <div>
-            <button className="button" onClick={this.resetPassword}>Reset Password</button>
+            <button type="button" className="button" onClick={this.resetPassword}>Reset Password</button>
           </div>
           <div>Don&apos;t have an account?</div>
           <div><Link href="/signup" to="/signup">Sign up now</Link>.</div>
