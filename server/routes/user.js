@@ -8,7 +8,7 @@
 import Textbook from '../models/textbook';
 import TextbookBuy from '../models/textbookBuy';
 import User from '../models/user';
-import response from '../response';
+import response from '../resources/response';
 
 
 const jwt = require('jsonwebtoken');

@@ -8,7 +8,7 @@
 import mongoose from 'mongoose';
 
 import User from '../models/user';
-import response from '../response';
+import response from '../resources/response';
 import TempUser from '../models/tempUser';
 
 const express = require('express');
@@ -24,7 +24,7 @@ const rand = require('rand-token');
 const jwt = require('jsonwebtoken');
 const emails = require('../emails/emailFunctions');
 
-const notification = require('../Notifications');
+const notification = require('../resources/Notifications');
 
 /**
  * Hashes a user's password.

@@ -6,6 +6,10 @@ body {
   overflow-x: hidden;
 }
 
+label {
+  width: 100%;
+}
+
 ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
   color: #777;
   opacity: 1; /* Firefox */

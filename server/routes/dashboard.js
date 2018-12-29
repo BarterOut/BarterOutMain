@@ -10,7 +10,7 @@ import Textbook from '../models/textbook';
 import User from '../models/user';
 import Transactions from '../models/transaction';
 
-import response from '../response';
+import response from '../resources/response';
 
 // JWT and Express
 const jwt = require('jsonwebtoken');

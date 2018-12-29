@@ -143,7 +143,7 @@ class DashboardHome extends Component {
     return (
       <div className="dash-wrap">
         <h3 className="my-2 mx-2">BarterOut Admin Dashboard</h3>
-        <h3 className="mt-4 mx-2">Transactions - Verify Condition</h3>
+        <h3 className="mt-4 mx-2">Transactions - Verify Condition &amp; Charge Buyer</h3>
         <table className="table table-striped">
           <tbody>
             <tr>
@@ -151,32 +151,33 @@ class DashboardHome extends Component {
               <th className="has-border">Course Code</th>
               <th className="has-border">Condition</th>
               <th className="has-border">Seller</th>
-              <th className="has-border">Amount</th>
+              <th className="has-border">Buyer</th>
+              <th className="has-border">Charge (Buyer) Amount</th>
               <th className="has-border">Confirm</th>
             </tr>
             {this.state.onGoingTransactions.map(book => (
               <tr key={book._id} id={book._id}>
                 <td className="has-border">{book.name}</td>
                 <td className="has-border">{book.course}</td>
-                <td className="has-border">{book.condition}</td>
+                <td className="has-border"><b>{book.condition}</b></td>
                 <td className="has-border">@{book.ownerObject.venmoUsername}</td>
-                <td className="has-border">${book.price}</td>
+                <td className="has-border">@{book.buyerObject.venmoUsername}</td>
+                <td className="has-border">${book.price * 1.05}</td>
                 <td className="has-border"><button type="button" id={book._id} className="btn btn-primary" onClick={this.confirm}>Confirm Condition</button></td>
               </tr>
             ))}
           </tbody>
         </table>
-        <h3 className="mt-4 mx-2">Transactions - Make Payment</h3>
+        <h3 className="mt-4 mx-2">Transactions - Pay Seller</h3>
         <table className="table table-striped">
           <tbody>
             <tr>
               <th className="has-border">Book Name</th>
               <th className="has-border">Course Code</th>
               <th className="has-border">Condition</th>
-              <th className="has-border">Charge</th>
-              <th className="has-border">Amount</th>
-              <th className="has-border">Pay Seller</th>
-              <th className="has-border">Amount</th>
+              <th className="has-border">Seller</th>
+              <th className="has-border">Buyer</th>
+              <th className="has-border">Pay (Seller) Amount</th>
               <th className="has-border">Confirm</th>
             </tr>
             {this.state.recievedTransactions.map(book => (
@@ -184,9 +185,8 @@ class DashboardHome extends Component {
                 <td className="has-border">{book.name}</td>
                 <td className="has-border">{book.course}</td>
                 <td className="has-border">{book.condition}</td>
-                <td className="has-border">@{book.buyerObject.venmoUsername}</td>
-                <td className="has-border">${book.price * 1.05}</td>
                 <td className="has-border">@{book.ownerObject.venmoUsername}</td>
+                <td className="has-border">@{book.buyerObject.venmoUsername}</td>
                 <td className="has-border">${book.price}</td>
                 <td className="has-border"><button type="button" id={book._id} className="btn btn-primary" onClick={this.confirmPayment}>Confirm Payment</button></td>
               </tr>

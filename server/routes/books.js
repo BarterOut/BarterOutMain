@@ -11,8 +11,8 @@ import TextbookBuy from '../models/textbookBuy';
 import User from '../models/user';
 import Transaction from '../models/transaction';
 
-import response from '../response';
-import Pricing from '../pricing';
+import response from '../resources/response';
+import Pricing from '../resources/pricing';
 
 const express = require('express');
 
@@ -21,7 +21,7 @@ const router = express.Router();
 const nodemailer = require('nodemailer');
 const jwt = require('jsonwebtoken');
 const emails = require('../emails/emailFunctions');
-const notification = require('../Notifications');
+const notification = require('../resources/Notifications');
 
 const transporter = nodemailer.createTransport({ // secure authentication
   host: 'smtp.gmail.com',
