@@ -44,7 +44,7 @@ const Help = () => (
       </p>
       <p>
         office@barterout.com |
-        <a rel="noopener noreferrer" target="_blank" href="https://www.facebook.com/BarterOut/"> Facebook</a>
+        <a rel="noopener noreferrer" target="_blank" href="https://www.facebook.com/BarterOut/"> Facebook </a>
         |
         <a rel="noopener noreferrer" target="_blank" href="https://www.linkedin.com/company/18490388/"> LinkedIn</a>
       </p>

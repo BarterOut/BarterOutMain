@@ -103,11 +103,8 @@ class ForgotPassword extends Component {
           {
             this.state.badCreditials
             && (
-            <div className="alert alert-warning alert-dismissible fade show" role="alert">
-              Please enter valid email.
-              <button type="button" className="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
+            <div className="alert alert-warning" role="alert">
+              <strong>On snap!</strong> Please enter valid email.
             </div>
             )
           }
