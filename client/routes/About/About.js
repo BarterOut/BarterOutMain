@@ -15,7 +15,7 @@ import '../../res/sylesheetOrkneyBold.css';
 
 import './About.css';
 
-import logoPic from '../../images/barterOutOrangeWhiteLogoHeader.png';
+import logo from '../../images/barterOutOrangeWhiteLogoHeader.png';
 
 import stairs from '../../images/stairsCompressed.jpg';
 import barteroutTeam from '../../images/barterout-team.jpg';
@@ -32,7 +32,7 @@ import zacqueline from '../../images/team-photos/zacquelineBaldwin.jpg';
 
 import adviserOne from '../../images/team-photos/meyerElizabeth.jpg';
 
-import logo from '../../images/barterOutProfilePhotoWebPage.png';
+import fallbackProfile from '../../images/barterOutProfilePhotoWebPage.png';
 
 import Footer from '../../components/Footer/Footer';
 
@@ -40,7 +40,7 @@ const About = () => (
   <div className="infowrapper">
     <nav className="headerBar">
       <div className="logo">
-        <a href="/" className="buttonLink"><img alt="logo" className="logoPic" src={logoPic} /></a>
+        <a href="/" className="buttonLink"><img alt="logo" className="logo" src={logo} /></a>
       </div>
       <div className="pageLinks">
         <Link className="landingPageLink" to="/" href="/">Home</Link>
@@ -141,14 +141,14 @@ const About = () => (
           </div>
 
           <div className="team-member">
-            <img className="team-photo" src={logo} alt="May" />
+            <img className="team-photo" src={fallbackProfile} alt="May" />
             <h4 className="subtext">May Shin Lyan</h4>
             <h4 className="subtext1">UI/UX Developer</h4>
             <h4 className="subtext2">UR &apos;20</h4>
           </div>
 
           <div className="team-member">
-            <img className="team-photo" src={logo} alt="Aman" />
+            <img className="team-photo" src={fallbackProfile} alt="Aman" />
             <h4 className="subtext">Aman Shrestha</h4>
             <h4 className="subtext1">Android Developer</h4>
             <h4 className="subtext2">UR &apos;21</h4>

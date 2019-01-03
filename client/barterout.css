@@ -200,12 +200,14 @@ button:focus {
 
 .scroll-posts--lg {
   height: 45vh;
+  margin: 8px 0;
   overflow-y: scroll;
 }
 
 .scroll-posts--sm {
   min-height: 50px;
   max-height: 25vh;
+  margin: 8px 0;
   overflow-y: scroll;
 }
 

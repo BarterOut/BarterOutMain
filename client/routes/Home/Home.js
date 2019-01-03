@@ -1,5 +1,6 @@
 /**
- * @file Main React component for the app itself.
+ * @file Home.js
+ * @description Main React component for the app itself.
  * @author Duncan Grubbs <duncan.grubbs@gmail.com>
  * @version 0.0.4
  */
@@ -38,8 +39,10 @@ class Home extends Component {
   }
 
   getAllBooks() {
+    this.setState({ loading: true });
     FetchService.GET(`/api/books/getAllBooks/${this.AUTH.getToken()}`)
       .then((data) => {
+        this.setState({ loading: false });
         this.setState({ posts: data });
       });
   }

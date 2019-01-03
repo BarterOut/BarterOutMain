@@ -1,5 +1,6 @@
 /**
- * @file React component for users who forgot thier password.
+ * @file ForgotPassword.js
+ * @description React component for users who forgot thier password.
  * @author Duncan Grubbs <duncan.grubbs@gmail.com>
  * @version 0.0.4
  */
@@ -10,7 +11,7 @@ import MaterialIcon from 'react-google-material-icons';
 import FetchService from '../../services/FetchService';
 import AuthService from '../../services/AuthService';
 
-import logo from '../../images/BarterOutDarkLogo.png';
+import logo from '../../images/barterOutOrangeWhiteLogoHeader.png';
 
 import './ForgotPassword.css';
 
@@ -80,29 +81,38 @@ class ForgotPassword extends Component {
       return (<Redirect to="/forgotPasswordSuccess" />);
     }
     return (
-      <div className="wrapper-soft-bg">
-        <div className="top-section">
-          <div className="part-fgp left-bar">
-            <Link id="logo-wrap" to="/" href="/">
-              <img className="logo-nonav" src={logo} alt="logo" />
-            </Link>
+      <div className="forgot-password">
+        <nav className="headerBar">
+          <div className="logo">
+            <a href="/" className="buttonLink"><img alt="logo" className="logo" src={logo} /></a>
           </div>
-          <div className="part-fgp right-bar">
-            <Link to="/login" href="/login">
-              <button type="button" className="button">Back to Log In</button>
-            </Link>
+          <div className="pageLinks">
+            <Link className="landingPageLink" to="/" href="/">Home</Link>
+            <Link className="landingPageLink" to="/about" href="/about">About</Link>
+            <Link className="landingPageLink" to="/login" href="/login">Login</Link>
+            <Link className="landingPageLink" to="/signup" href="/signup">Sign Up</Link>
           </div>
-        </div>
-        <div className="central-content-card">
+        </nav>
+        <div className="forgot-password__content">
           <MaterialIcon size={100} icon="lock" id="lock-icon" />
-          <h2 id="header-custom">Forgot your Password?</h2>
-          <h3 id="forgot-password-message">
+          <h3>Forgot your Password?</h3>
+          <p>
             No worries! Enter your email and
             we will send you a password reset link:
-          </h3>
-          {this.state.badCreditials && <span className="input-error">Please enter an valid email.</span>}
+          </p>
+          {
+            this.state.badCreditials
+            && (
+            <div className="alert alert-warning alert-dismissible fade show" role="alert">
+              Please enter valid email.
+              <button type="button" className="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            )
+          }
           <input
-            className="formInputForgotPassword"
+            className="form-control"
             onChange={this.onChange}
             placeholder="Email"
             type="email"
@@ -111,7 +121,9 @@ class ForgotPassword extends Component {
             required
           />
           <div>
-            <button type="button" className="button" onClick={this.resetPassword}>Reset Password</button>
+            <button type="button" className="btn btn-primary my-2" onClick={this.resetPassword}>
+              Reset Password
+            </button>
           </div>
           <div>Don&apos;t have an account?</div>
           <div><Link href="/signup" to="/signup">Sign up now</Link>.</div>

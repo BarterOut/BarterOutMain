@@ -10,7 +10,7 @@ import { Link } from 'react-router-dom';
 
 import '../../res/sylesheetOrkneyRegular.css';
 
-import logoPic from '../../images/barterOutOrangeWhiteLogoHeader.png';
+import logo from '../../images/barterOutOrangeWhiteLogoHeader.png';
 
 import Footer from '../../components/Footer/Footer';
 
@@ -18,7 +18,7 @@ const TermsOfService = () => (
   <div className="infowrapper">
     <nav className="headerBar">
       <div className="logo">
-        <a href="/" className="buttonLink"><img alt="logo" className="logoPic" src={logoPic} /></a>
+        <a href="/" className="buttonLink"><img alt="logo" className="logo" src={logo} /></a>
       </div>
       <div className="pageLinks">
         <Link className="landingPageLink" to="/" href="/">Home</Link>

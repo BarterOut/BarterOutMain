@@ -1,5 +1,6 @@
 /**
- * @file React component for landing page.
+ * @file LandingPage.js
+ * @description React component for landing page.
  * @author Duncan Grubbs <duncan.grubbs@gmail.com>
  * @author Luis Nova
  * @version 0.0.4
@@ -21,7 +22,7 @@ import '../res/sylesheetOrkneyLight.css';
 import '../res/sylesheetOrkneyMedium.css';
 import '../res/sylesheetOrkneyBold.css';
 
-import logoPic from '../images/barterOutOrangeWhiteLogoHeader.png';
+import logo from '../images/barterOutOrangeWhiteLogoHeader.png';
 
 import picOne from '../images/overtheShoulderCompressed.jpg';
 import picTwo from '../images/groupMeetingCompressed.jpg';
@@ -57,6 +58,7 @@ class LandingPage extends Component {
   }
 
   getPosts() {
+    this.setState({ loading: true });
     FetchService.GET('/api/books/getAllBooksNoToken')
       .then((data) => {
         this.setState({ loading: false });
@@ -101,7 +103,7 @@ class LandingPage extends Component {
           <div className="photo-bg">
             <nav className="headerBar">
               <div className="logo">
-                <a href="/" className="buttonLink"><img alt="logo" className="logoPic" src={logoPic} /></a>
+                <a href="/" className="buttonLink"><img alt="logo" className="logo" src={logo} /></a>
               </div>
               <div className="pageLinks">
                 <Link className="landingPageLink" to="/" href="/">Home</Link>

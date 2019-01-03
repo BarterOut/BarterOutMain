@@ -7,13 +7,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import logoPic from '../../images/barterOutOrangeWhiteLogoHeader.png';
+import logo from '../../images/barterOutOrangeWhiteLogoHeader.png';
 
 const Contact = () => (
   <div className="infowrapper">
     <nav className="headerBar">
       <div className="logo">
-        <a href="/" className="buttonLink"><img alt="logo" className="logoPic" src={logoPic} /></a>
+        <a href="/" className="buttonLink"><img alt="logo" className="logo" src={logo} /></a>
       </div>
       <div className="pageLinks">
         <Link className="landingPageLink" to="/" href="/">Home</Link>
