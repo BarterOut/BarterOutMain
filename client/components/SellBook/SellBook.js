@@ -107,7 +107,7 @@ class SellBook extends Component {
               Please ensure all fields are filled out correctly.
             </div>
             )}
-          <div className="form-group">
+          <div className="my-2">
             <label htmlFor="title">
               Title of Book*
               <input
@@ -122,7 +122,7 @@ class SellBook extends Component {
               />
             </label>
           </div>
-          <div className="form-group">
+          <div className="my-2">
             <label htmlFor="edition">
               Edition*
               <input
@@ -142,7 +142,7 @@ class SellBook extends Component {
               Must be a number greater than 0.
             </small>
           </div>
-          <div className="form-group">
+          <div className="my-2">
             <label htmlFor="course">Course Code*
               <input
                 autoComplete="off"
@@ -164,7 +164,7 @@ class SellBook extends Component {
               Please provide a course code.
             </div>
           </div>
-          <div className="form-group">
+          <div className="my-2">
             <label htmlFor="price">Price*
               <div className="input-group">
                 <div className="input-group-prepend">
@@ -184,7 +184,7 @@ class SellBook extends Component {
               </div>
             </label>
           </div>
-          <div className="form-group">
+          <div className="my-2">
             <label htmlFor="isbn">ISBN
               <input
                 autoComplete="off"
@@ -198,7 +198,7 @@ class SellBook extends Component {
               />
             </label>
           </div>
-          <div className="form-group">
+          <div className="my-2">
             <label htmlFor="condition">Condition*
               <select defaultValue="Good" onChange={this.selectChange} className="form-control" id="condition">
                 <option value="Poor">Poor</option>

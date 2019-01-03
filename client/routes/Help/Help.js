@@ -16,7 +16,7 @@ const Help = () => (
       <h3 className="mt-5 mb-4">FAQ:</h3>
       <h5 className="mt-4">How do I sell a book?</h5>
       On the
-      <Link to="home" href="home">Home</Link>
+      <Link to="home" href="home"> Home </Link>
       Page, click &apos;Post Your Book&apos; on the
       right hand side. After filling out all of the required information, click post.
       When someone purchases your book, you will recieve and email with the dropoff
