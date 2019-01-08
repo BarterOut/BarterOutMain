@@ -11,11 +11,11 @@ import User from '../models/user';
 import Transactions from '../models/transaction';
 
 import response from '../resources/response';
+import config from '../config';
 
 // JWT and Express
 const jwt = require('jsonwebtoken');
 const express = require('express');
-
 
 const router = express.Router();
 
@@ -35,7 +35,7 @@ function sortReverseCronological(JSONArray) {
  * @returns {Array} List of completed transactions.
  */
 router.get('/getPurchasedBooks/:token', (req, res) => {
-  jwt.verify(req.params.token, 'secretKey', (error, authData) => {
+  jwt.verify(req.params.token, config.key, (error, authData) => {
     if (error) {
       res.status(403).json(response({ error }));
     } else {
@@ -63,7 +63,7 @@ router.get('/getPurchasedBooks/:token', (req, res) => {
  * @returns {Array} List of transactions.
  */
 router.get('/getBooksStatus1/:token', (req, res) => {
-  jwt.verify(req.params.token, 'secretKey', (error, authData) => {
+  jwt.verify(req.params.token, config.key, (error, authData) => {
     if (error) {
       res.status(403).json(response({ error }));
     } else {
@@ -89,7 +89,7 @@ router.get('/getBooksStatus1/:token', (req, res) => {
  * @returns {Array} List of transactions.
  */
 router.get('/getBooksStatus2/:token', (req, res) => {
-  jwt.verify(req.params.token, 'secretKey', (error, authData) => {
+  jwt.verify(req.params.token, config.key, (error, authData) => {
     if (error) {
       res.status(403).json(response({ error }));
     } else {
@@ -116,7 +116,7 @@ router.get('/getBooksStatus2/:token', (req, res) => {
  * @returns {Array} List of transactions.
  */
 router.get('/getBooksStatus3/:token', (req, res) => {
-  jwt.verify(req.params.token, 'secretKey', (error, authData) => {
+  jwt.verify(req.params.token, config.key, (error, authData) => {
     if (error) {
       res.status(403).json(response({ error }));
     } else {
@@ -142,7 +142,7 @@ router.get('/getBooksStatus3/:token', (req, res) => {
  * @returns {Object} General statistics about BarterOut.
  */
 router.get('/getStatistics/:token/', (req, res) => {
-  jwt.verify(req.params.token, 'secretKey', (error, authData) => {
+  jwt.verify(req.params.token, config.key, (error, authData) => {
     if (error) {
       res.status(403).json(response({ error }));
     } else if (authData.userInfo.permissionType === 1) {
@@ -169,7 +169,7 @@ router.get('/getStatistics/:token/', (req, res) => {
  * @returns {Array} List of users from DB.
  */
 router.get('/getUsers/:token', (req, res) => {
-  jwt.verify(req.params.token, 'secretKey', (error, authData) => {
+  jwt.verify(req.params.token, config.key, (error, authData) => {
     if (error) {
       res.status(403).json(response({ error }));
     } else {
@@ -198,7 +198,7 @@ router.get('/getUsers/:token', (req, res) => {
  * @returns {Number} Status code.
  */
 router.post('/extendBookInfo', (req, res) => {
-  jwt.verify(req.body.data.token, 'secretKey', (error, authData) => {
+  jwt.verify(req.body.data.token, config.key, (error, authData) => {
     if (error) {
       res.status(403).json(response({ error }));
     } else if (authData.userInfo.permissionType === 1) {
@@ -232,7 +232,7 @@ router.post('/extendBookInfo', (req, res) => {
  * @returns {Number} Status code.
  */
 router.post('/confirmBook', (req, res) => {
-  jwt.verify(req.body.data.token, 'secretKey', (error, authData) => {
+  jwt.verify(req.body.data.token, config.key, (error, authData) => {
     if (error) {
       res.status(403).json(response({ error }));
     } else if (authData.userInfo.permissionType === 1) {
@@ -262,7 +262,7 @@ router.post('/confirmBook', (req, res) => {
  * @returns {Number} Status code.
  */
 router.post('/setBookPaid', (req, res) => {
-  jwt.verify(req.body.data.token, 'secretKey', (error, authData) => {
+  jwt.verify(req.body.data.token, config.key, (error, authData) => {
     if (error) {
       res.status(403).json(response({ error }));
     } else if (authData.userInfo.permissionType === 1) {
@@ -286,7 +286,7 @@ router.post('/setBookPaid', (req, res) => {
 });
 
 router.get('/getCompletedBooks/:token', (req, res) => {
-  jwt.verify(req.params.token, 'secretKey', (error, authData) => {
+  jwt.verify(req.params.token, config.key, (error, authData) => {
     if (error) {
       res.status(403).json(response({ error }));
     } else {
@@ -309,7 +309,7 @@ router.get('/getCompletedBooks/:token', (req, res) => {
 });
 
 router.get('/getInProcessBooks/:token', (req, res) => {
-  jwt.verify(req.params.token, 'secretKey', (error, authData) => {
+  jwt.verify(req.params.token, config.key, (error, authData) => {
     if (error) {
       res.status(403).json(response({ error }));
     } else {
@@ -339,7 +339,7 @@ router.get('/getInProcessBooks/:token', (req, res) => {
  * @returns {Number} Status code.
  */
 router.post('/setBookStatus/:token', (req, res) => {
-  jwt.verify(req.params.token, 'secretKey', (error, authData) => {
+  jwt.verify(req.params.token, config.key, (error, authData) => {
     if (error) {
       res.status(403).json(response({ error }));
     } else {
@@ -374,7 +374,7 @@ router.post('/setBookStatus/:token', (req, res) => {
  * @returns {Array} Array of books from database.
  */
 router.get('/getPendingTransactions/:token/', (req, res) => {
-  jwt.verify(req.params.token, 'secretKey', (error, authData) => {
+  jwt.verify(req.params.token, config.key, (error, authData) => {
     if (error) {
       res.status(403).json(response({ error }));
     } else {
@@ -405,7 +405,7 @@ router.get('/getPendingTransactions/:token/', (req, res) => {
  * @returns {Number} Status code.
  */
 router.get('/getAllTransactions/:token/', (req, res) => {
-  jwt.verify(req.params.token, 'secretKey', (error, authData) => {
+  jwt.verify(req.params.token, config.key, (error, authData) => {
     if (error) {
       res.status(403).json(response({ error }));
     } else {
@@ -433,7 +433,7 @@ router.get('/getAllTransactions/:token/', (req, res) => {
  * @returns {Array} Array of books from database.
  */
 router.get('/getCompletedTransactions/:token/', (req, res) => {
-  jwt.verify(req.params.token, 'secretKey', (error, authData) => {
+  jwt.verify(req.params.token, config.key, (error, authData) => {
     if (error) {
       res.status(403).json(response({ error }));
     } else {
@@ -456,7 +456,7 @@ router.get('/getCompletedTransactions/:token/', (req, res) => {
 });
 
 router.get('/getPendingSpecificPendingTransaction/:token/', (req, res) => {
-  jwt.verify(req.params.token, 'secretKey', (error, authData) => {
+  jwt.verify(req.params.token, config.key, (error, authData) => {
     if (error) {
       res.status(403).json(response({ error }));
     } else {
@@ -479,7 +479,7 @@ router.get('/getPendingSpecificPendingTransaction/:token/', (req, res) => {
 });
 
 router.post('/confirmTransaction', (req, res) => {
-  jwt.verify(req.body.data.token, 'secretKey', (error, authData) => {
+  jwt.verify(req.body.data.token, config.key, (error, authData) => {
     if (error) {
       res.status(403).json(response({ error }));
     } else {
@@ -509,7 +509,7 @@ router.post('/confirmTransaction', (req, res) => {
 });
 
 router.get('/getTransactionsByName/:token/:firstName/:LastName', (req, res) => {
-  jwt.verify(req.params.token, 'secretKey', (error, authData) => {
+  jwt.verify(req.params.token, config.key, (error, authData) => {
     if (error) {
       res.status(403).json(response({ error }));
     } else {
@@ -541,7 +541,7 @@ router.get('/getTransactionsByName/:token/:firstName/:LastName', (req, res) => {
  * @returns {Number} Status code.
  */
 router.get('/isAdmin/:token', (req, res) => {
-  jwt.verify(req.params.token, 'secretKey', (error, authData) => {
+  jwt.verify(req.params.token, config.key, (error, authData) => {
     if (error) {
       res.status(403).json(response({ error }));
     } else {
@@ -565,7 +565,7 @@ router.get('/isAdmin/:token', (req, res) => {
  * @returns {Object} Contains permission level under permissionLevel.
  */
 router.get('/permissionLv/:token', (req, res) => {
-  jwt.verify(req.params.token, 'secretKey', (error, authData) => {
+  jwt.verify(req.params.token, config.key, (error, authData) => {
     if (error) {
       res.status(403).json(response({ error }));
     } else {

@@ -13,6 +13,7 @@ import Transaction from '../models/transaction';
 
 import response from '../resources/response';
 import Pricing from '../resources/pricing';
+import config from '../config';
 
 const express = require('express');
 
@@ -82,7 +83,7 @@ function sortBooksReverseCronological(bookJSONArray) {
  * @returns {Object} Standard response.
  */
 router.post('/postBook/:token', (req, res) => {
-  jwt.verify(req.params.token, 'secretKey', (error, authData) => {
+  jwt.verify(req.params.token, config.key, (error, authData) => {
     if (error) {
       res.status(403).json(response({ error }));
     } else {
@@ -163,7 +164,7 @@ router.post('/postBook/:token', (req, res) => {
 router.post('/requestBook', (req, res) => {
   const BOOK = req.body.data.payload;
   const TOKEN = req.body.data.token;
-  jwt.verify(TOKEN, 'secretKey', (error, authData) => {
+  jwt.verify(TOKEN, config.key, (error, authData) => {
     if (error) {
       res.status(403).json(response({ error }));
     } else {
@@ -239,7 +240,7 @@ router.post('/requestBook', (req, res) => {
  * @returns {Object} Standard response.
  */
 router.post('/checkoutCart/:token', (req, res) => {
-  jwt.verify(req.params.token, 'secretKey', (error, authData) => {
+  jwt.verify(req.params.token, config.key, (error, authData) => {
     if (error) {
       res.status(403).json(response({ error }));
     } else {
@@ -348,7 +349,7 @@ router.post('/checkoutCart/:token', (req, res) => {
  * @returns {Array} Array of book objects.
  */
 router.get('/getUserMatches/:token', (req, res) => {
-  jwt.verify(req.params.token, 'secretKey', (error, authData) => {
+  jwt.verify(req.params.token, config.key, (error, authData) => {
     if (error) {
       res.status(403).json(response({ error }));
     } else {
@@ -382,7 +383,7 @@ router.get('/getUserMatches/:token', (req, res) => {
  * @returns {Array} Array of books from database.
  */
 router.get('/search/:query/:token', (req, res) => {
-  jwt.verify(req.params.token, 'secretKey', (error, authData) => {
+  jwt.verify(req.params.token, config.key, (error, authData) => {
     if (error) {
       res.status(403).json(response({ error }));
     } else {
@@ -474,7 +475,7 @@ router.get('/searchNoToken/:query', (req, res) => {
  * @returns {Array} Array of books from database.
  */
 router.get('/getUsersPosts/:token', (req, res) => {
-  jwt.verify(req.params.token, 'secretKey', (error, authData) => {
+  jwt.verify(req.params.token, config.key, (error, authData) => {
     if (error) {
       res.status(403).json(response({ error }));
     } else {
@@ -501,7 +502,7 @@ router.get('/getUsersPosts/:token', (req, res) => {
  * @returns {Number} Status code.
  */
 router.post('/deleteBook/', (req, res) => {
-  jwt.verify(req.body.data.token, 'secretKey', (error, authData) => {
+  jwt.verify(req.body.data.token, config.key, (error, authData) => {
     if (error) {
       res.status(403).json(response({ error }));
     } else {
@@ -528,7 +529,7 @@ router.post('/deleteBook/', (req, res) => {
  * @returns {Array} Array of books from database.
  */
 router.get('/getAllBooks/:token', (req, res) => {
-  jwt.verify(req.params.token, 'secretKey', (error, authData) => {
+  jwt.verify(req.params.token, config.key, (error, authData) => {
     if (error) {
       res.status(403).json(response({ error }));
     } else {

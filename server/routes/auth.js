@@ -7,9 +7,12 @@
 
 import mongoose from 'mongoose';
 
+// Models
 import User from '../models/user';
-import response from '../resources/response';
 import TempUser from '../models/tempUser';
+
+import response from '../resources/response';
+import config from '../config';
 
 const express = require('express');
 
@@ -235,7 +238,7 @@ router.post('/login', (req, res) => {
     };
 
     // Creates the token and sends the JSON back
-    jwt.sign({ userInfo }, 'secretKey', { expiresIn: '30 days' }, (error, token) => {
+    jwt.sign({ userInfo }, config.key, { expiresIn: '30 days' }, (error, token) => {
       res.status(200).json(response({ token }));
     });
   });
@@ -250,7 +253,7 @@ router.post('/login', (req, res) => {
  * @returns {Object} Standard API response.
  */
 router.post('/updateProfile', (req, res) => {
-  jwt.verify(req.body.data.token, 'secretKey', (error, authData) => {
+  jwt.verify(req.body.data.token, config.key, (error, authData) => {
     if (error) {
       res.status(403).json(response({ error }));
     } else {
@@ -286,7 +289,7 @@ router.post('/updateProfile', (req, res) => {
  * @returns {Object} Standard API Response.
  */
 router.post('/updatePassword', (req, res) => {
-  jwt.verify(req.body.data.token, 'secretKey', (error, authData) => {
+  jwt.verify(req.body.data.token, config.key, (error, authData) => {
     if (error) {
       res.status(403).json(response({ error }));
     } else {
