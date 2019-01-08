@@ -1,5 +1,5 @@
 /**
- * @file config.js.
+ * @file config.js
  * @author Duncan Grubbs <duncan.grubbs@gmail.com>
  * @author Daniel Munoz
  * @author Shawn Chan
