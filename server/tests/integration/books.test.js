@@ -1,6 +1,6 @@
 import app from '../../server';
 import Textbook from '../../models/textbook';
-import user from '../../models/user'
+import User from '../../models/user'
 import TempUser from "../../models/tempUser";
 const mongoose = require('mongoose');
 const request = require('supertest');
@@ -33,7 +33,7 @@ beforeAll((done) => {
     for (let i = 0; i < mongoose.connection.collections.length; i++) {
       mongoose.connection.collections[i].remove(() => {});
     }
-    //  clearDB().then(()=>{
+     // clearDB().then(()=>{
     // clearDB();
     console.log('make the stuff' + Date.now());
       const emailToken = rand.generate(48);
@@ -50,11 +50,11 @@ beforeAll((done) => {
       createdAt: Date.now(),
     });
     newUser.save()
-      .then(async () => {
+      .then( () => {
         k = true;
         // return done();
-        const response = await request(app).get('/email-verification/'+newUser.emailToken);
-        console.log(response);
+        const response =  request(app).get('/email-verification/'+newUser.emailToken);
+        console.log('requested stuff '  +  Date.now());
         return done();
       });
 
@@ -77,10 +77,72 @@ beforeAll((done) => {
           throw err;
         }
         return clearDB();
+        // return new Promise(resolve => {
+        //
+        //
+        //   for (let i = 0; i < mongoose.connection.collections.length; i++) {
+        //     mongoose.connection.collections[i].remove(() => {});
+        //   }
+        //   // clearDB().then(()=>{
+        //   // clearDB();
+        //   console.log('make the stuff' + Date.now());
+        //   const emailToken = rand.generate(48);
+        //   const newUser = new TempUser({
+        //     emailAddress: 'fake@u.rochester.edu',
+        //     password: 'password',
+        //     CMC: '413',
+        //     venmoUsername: 'myFakeVnemo',
+        //     firstName: 'Mr. Fake',
+        //     lastName: 'McFake',
+        //     matchedBooks: [],
+        //     university: 'University of Rochester',
+        //     emailToken,
+        //     createdAt: Date.now(),
+        //   });
+        //   newUser.save()
+        //     .then( () => {
+        //       k = true;
+        //       // return done();
+        //       const response =  request(app).get('/email-verification/'+newUser.emailToken);
+        //       console.log('requested stuff '  +  Date.now());
+        //       resolve();
+        //     });
+        // });
       },
     );
   } else {
     return clearDB();
+    // return new Promise(resolve => {
+    //
+    //
+    //   for (let i = 0; i < mongoose.connection.collections.length; i++) {
+    //     mongoose.connection.collections[i].remove(() => {});
+    //   }
+    //   // clearDB().then(()=>{
+    //   // clearDB();
+    //   console.log('make the stuff' + Date.now());
+    //   const emailToken = rand.generate(48);
+    //   const newUser = new TempUser({
+    //     emailAddress: 'fake@u.rochester.edu',
+    //     password: 'password',
+    //     CMC: '413',
+    //     venmoUsername: 'myFakeVnemo',
+    //     firstName: 'Mr. Fake',
+    //     lastName: 'McFake',
+    //     matchedBooks: [],
+    //     university: 'University of Rochester',
+    //     emailToken,
+    //     createdAt: Date.now(),
+    //   });
+    //   newUser.save()
+    //     .then( () => {
+    //       k = true;
+    //       // return done();
+    //       const response =  request(app).get('/email-verification/'+newUser.emailToken);
+    //       console.log('requested stuff '  +  Date.now());
+    //       resolve();
+    //     });
+    // });
   }
   return done();
 },20000);
@@ -106,29 +168,64 @@ describe('Route Ensure', () => {
   });
 });
 
-describe('Create Book', () => {
-  beforeAll(() => {
-  const emailToken = rand.generate(48);
-  const newUser = new TempUser({
+describe('setup', ()=>{
+  const data = {
     emailAddress: 'fake@u.rochester.edu',
-    password: 'password',
+    password:  'password',
     CMC: '413',
-    venmoUsername: 'myFakeVnemo',
+    venmoUsername: 'myFakeVenmo',
     firstName: 'Mr. Fake',
     lastName: 'McFake',
-    matchedBooks: [],
     university: 'University of Rochester',
-    emailToken,
-    createdAt: Date.now(),
+  };
+  it('Should save temp user', function(){//well it passes the test
+
+    request(app)
+      .post('/auth/signup')
+      .send(data) // x-www-form-urlencoded upload
+      .set('Accept', 'application/json')
+      .expect(201)
+      .end(function (err, res) {
+        if (err) {throw err}
+        else console.log(res);
+      })
+    // console.log(response);
+      // expect(response.status).toBe(201);
   });
-  newUser.save()
-    .then(async () => {
-      k = true;
-      // return done();
-      const response = await request(app).get('/email-verification/'+newUser.emailToken);
-      console.log(response);
-    });
+
+  it('should also save temp user', async() => {
+    const response = await request(app).post('/auth/signup')
+      .send(data) // x-www-form-urlencoded upload
+      .set('Accept', 'application/json');
+    expect(response.status).toBe(201);
   });
+
+});
+
+describe('Create Book', () => {
+  // beforeAll(() => {
+  //   console.log('before ' + Date.now() );
+  // const emailToken = rand.generate(48);
+  // const newUser = new TempUser({
+  //   emailAddress: 'fake@u.rochester.edu',
+  //   password: 'password',
+  //   CMC: '413',
+  //   venmoUsername: 'myFakeVnemo',
+  //   firstName: 'Mr. Fake',
+  //   lastName: 'McFake',
+  //   matchedBooks: [],
+  //   university: 'University of Rochester',
+  //   emailToken,
+  //   createdAt: Date.now(),
+  // });
+  // newUser.save()
+  //   .then(async () => {
+  //     k = true;
+  //     // return done();
+  //     const response = await request(app).get('/email-verification/'+newUser.emailToken);
+  //     console.log(response);
+  //   });
+  // },120000);
 
   it('create a book',  () => {
     if (k === true){
@@ -151,4 +248,16 @@ describe('Create Book', () => {
     expect(2).toEqual(2);
 
   });
+  // it('should find a user', async () => {
+  //
+  //   const userRes = await User.findOne({ });
+  //   console.log(userRes);
+  //   expect(userRes.firstName).toEqual('Mr. Fake');
+  //   // expect(2).toEqual(2);
+  //
+  // },120000);
+
+
 });
+
+
