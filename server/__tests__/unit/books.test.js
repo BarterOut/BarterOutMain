@@ -1,5 +1,4 @@
 import Textbook from '../../models/textbook';
-import user from '../../models/user';
 
 const mongoose = require('mongoose');
 
@@ -14,7 +13,7 @@ describe('Book Model Test', () => {
   });
 
   afterEach(async () => {
-    await user.remove({});
+    await Textbook.remove({});
   });
 
   afterAll(async () => {

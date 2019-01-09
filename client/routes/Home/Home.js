@@ -80,7 +80,7 @@ class Home extends Component {
       return;
     }
 
-    FetchService.GET(`/api/books/search/${query}/${this.AUTH.getToken()}`)
+    FetchService.GET(`/api/books/search/${query}`)
       .then((data) => {
         this.setState({ loading: false });
         this.setState({ posts: data });

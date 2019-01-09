@@ -38,6 +38,7 @@ class LandingPage extends Component {
     this.state = {
       redirect: false,
       posts: [],
+      page: 1,
       loading: false,
     };
     this.Auth = new AuthService();
@@ -47,6 +48,8 @@ class LandingPage extends Component {
   componentDidMount() {
     this.setRedirect();
     this.getPosts();
+    const booksSection = document.getElementById('landing-books');
+    booksSection.addEventListener('scroll', this.updatePagePosition.bind(this));
   }
 
   setRedirect() {
@@ -59,12 +62,24 @@ class LandingPage extends Component {
 
   getPosts() {
     this.setState({ loading: true });
-    FetchService.GET('/api/books/getAllBooksNoToken')
+    console.log(this.state.page); // eslint-disable-line
+    FetchService.GET(`/api/books/getBooksNoToken/${this.state.page}`)
       .then((data) => {
         this.setState({ loading: false });
         this.setState({ posts: data });
       })
       .catch(error => ErrorService.parseError(error));
+  }
+
+  updatePagePosition(evt) {
+    const percent = ((evt.target.scrollTop + 124) / evt.target.scrollHeight) * 100;
+    console.log(percent); // eslint-disable-line
+    if (percent > 45 && percent < 80) {
+      this.setState(prevState => ({
+        page: prevState.page + 1,
+      }));
+      this.getPosts();
+    }
   }
 
   updateInputValue(evt) {
@@ -75,7 +90,7 @@ class LandingPage extends Component {
     this.setState({ loading: true });
     this.setState({ posts: [] });
     if (query === '') {
-      FetchService.GET('/api/books/getAllBooksNoToken')
+      FetchService.GET('/api/books/getBooksNoToken/3')
         .then((data) => {
           this.setState({ loading: false });
           this.setState({ posts: data });
@@ -84,7 +99,7 @@ class LandingPage extends Component {
       return;
     }
 
-    FetchService.GET(`/api/books/searchNoToken/${query}`)
+    FetchService.GET(`/api/books/search/${query}`)
       .then((data) => {
         this.setState({ loading: false });
         this.setState({ posts: data });

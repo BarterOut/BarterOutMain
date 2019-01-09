@@ -33,6 +33,8 @@ const transporter = nodemailer.createTransport({ // secure authentication
   },
 });
 
+const BOOK_LIMIT = 4;
+
 /**
  * [RESOURCE] Sends out all needs emails when a transaction occurs.
  * @param {String} transactionID ID of the transaction schema saved in the DB.
@@ -377,63 +379,12 @@ router.get('/getUserMatches/:token', (req, res) => {
 });
 
 /**
- * Gets all books in database with a matching name, course or ISBN.
- * @param {Object} req Request body from client.
- * @param {Object} res Body of HTTP response.
- * @returns {Array} Array of books from database.
- */
-router.get('/search/:query/:token', (req, res) => {
-  jwt.verify(req.params.token, config.key, (error, authData) => {
-    if (error) {
-      res.status(403).json(response({ error }));
-    } else {
-      const searchKey = req.params.query;
-      const parsed = Number.parseInt(searchKey, 10);
-
-      if (Number.isNaN(parsed)) {
-        Textbook.find({
-          $and: [
-            { status: 0 },
-            { owner: { $ne: authData.userInfo._id } },
-            {
-              $or: [
-                { name: { $regex: searchKey, $options: 'i' } },
-                { course: { $regex: searchKey, $options: 'i' } },
-              ],
-            },
-          ],
-        }, (err, books) => {
-          res.status(200).json(response(books));
-        });
-      } else {
-        Textbook.find({
-          $and: [
-            { status: 0 },
-            { owner: { $ne: authData.userInfo._id } },
-            {
-              $or: [
-                { name: { $regex: searchKey, $options: 'i' } },
-                { course: { $regex: searchKey, $options: 'i' } },
-                { ISBN: { $eq: parsed } },
-              ],
-            },
-          ],
-        }, (err, books) => {
-          res.status(200).json(response(books));
-        });
-      }
-    }
-  });
-});
-
-/**
  * Finds all books in database with a matching name, course or ISBN.
- * NO TOKEN
  * @param {Object} req Request body from client.
  * @param {Object} res Body of HTTP response.
  * @returns {Array} Array of books from database.
  */
-router.get('/searchNoToken/:query', (req, res) => {
+router.get('/search/:query', (req, res) => {
   const searchKey = req.params.query;
   const parsed = Number.parseInt(searchKey, 10);
   if (Number.isNaN(parsed)) {
@@ -560,7 +511,7 @@ router.get('/getAllBooks/:token', (req, res) => {
 });
 
 /**
- * Returns all books in the database, without
+ * Returns given limit books in the database, without
  * requiring a token.
  * NOTE: This will display posts to a user that they
  * posted.
@@ -568,12 +519,15 @@ router.get('/getAllBooks/:token', (req, res) => {
  * @param {Object} res Body of HTTP response.
  * @returns {Array} Array of books from database.
  */
-router.get('/getAllBooksNoToken', (req, res) => {
-  Textbook.find({
-    status: 0,
-  }, (err, books) => {
-    res.status(200).json(response(sortBooksReverseCronological(books)));
-  });
+router.get('/getBooksNoToken/:page', (req, res) => {
+  const page = parseInt(req.params.page, 10);
+  console.log(page); // eslint-disable-line
+  Textbook.find({ status: 0 })
+    .limit(BOOK_LIMIT * page)
+    .sort({ date: -1 })
+    .exec((err, books) => {
+      res.status(200).json(response(books));
+    });
 });
 
 router.get('/', (req, res) => {
