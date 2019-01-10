@@ -14,7 +14,7 @@ import {
 
 import AuthService from './services/AuthService';
 
-import LandingPage from './LandingPage/LandingPage';
+import LandingPage from './routes/LandingPage/LandingPage';
 
 import SignUp from './routes/SignUp/SignUp';
 import Login from './routes/Login/Login';

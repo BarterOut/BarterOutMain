@@ -7,7 +7,7 @@
 }
 
 .margin {
-  margin: 8px 0 0 12%;
+  margin-left: 12%;
 }
 
 .header-line-margin {
@@ -70,6 +70,6 @@
     padding: 8px;
   }
   .margin {
-    margin: 8px;
+    margin-left: 8px;
   }
 }

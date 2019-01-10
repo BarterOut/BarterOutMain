@@ -57,7 +57,7 @@ class Posts extends Component {
               <div>
                 <h3>Your Posts</h3>
               </div>
-              <div>
+              <div className="scroll-posts--lg">
                 {
                   this.state.loading
                   && <div className="loading" />
@@ -81,7 +81,7 @@ class Posts extends Component {
               <div>
                 <h3 className="mt-3">You&apos;ve Requested</h3>
               </div>
-              <div>
+              <div className="scroll-posts-sm">
                 {
                   this.state.loading
                   && <div className="loading" />

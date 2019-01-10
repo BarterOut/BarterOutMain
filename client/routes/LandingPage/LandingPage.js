@@ -12,25 +12,25 @@ import {
   Redirect,
 } from 'react-router-dom';
 
-import AuthService from '../services/AuthService';
-import FetchService from '../services/FetchService';
-import ErrorService from '../services/ErrorService';
+import AuthService from '../../services/AuthService';
+import FetchService from '../../services/FetchService';
+import ErrorService from '../../services/ErrorService';
 
 import './landingpage.css';
-import '../res/sylesheetOrkneyRegular.css';
-import '../res/sylesheetOrkneyLight.css';
-import '../res/sylesheetOrkneyMedium.css';
-import '../res/sylesheetOrkneyBold.css';
+import '../../res/sylesheetOrkneyRegular.css';
+import '../../res/sylesheetOrkneyLight.css';
+import '../../res/sylesheetOrkneyMedium.css';
+import '../../res/sylesheetOrkneyBold.css';
 
-import logo from '../images/barterOutOrangeWhiteLogoHeader.png';
+import logo from '../../images/barterOutOrangeWhiteLogoHeader.png';
 
-import picOne from '../images/overtheShoulderCompressed.jpg';
-import picTwo from '../images/groupMeetingCompressed.jpg';
-import picThree from '../images/outdoorsCompressed.jpg';
+import picOne from '../../images/overtheShoulderCompressed.jpg';
+import picTwo from '../../images/groupMeetingCompressed.jpg';
+import picThree from '../../images/outdoorsCompressed.jpg';
 
-import Footer from '../components/Footer/Footer';
+import Footer from '../../components/Footer/Footer';
 
-import LandingBookPost from '../components/Posts/LandingBookPost/LandingBookPost';
+import LandingBookPost from '../../components/Posts/LandingBookPost/LandingBookPost';
 
 class LandingPage extends Component {
   constructor() {
@@ -62,7 +62,6 @@ class LandingPage extends Component {
 
   getPosts() {
     this.setState({ loading: true });
-    console.log(this.state.page); // eslint-disable-line
     FetchService.GET(`/api/books/getBooksNoToken/${this.state.page}`)
       .then((data) => {
         this.setState({ loading: false });
@@ -73,12 +72,11 @@ class LandingPage extends Component {
 
   updatePagePosition(evt) {
     const percent = ((evt.target.scrollTop + 124) / evt.target.scrollHeight) * 100;
-    console.log(percent); // eslint-disable-line
     if (percent > 45 && percent < 80) {
       this.setState(prevState => ({
         page: prevState.page + 1,
       }));
-      this.getPosts();
+      // this.getPosts();
     }
   }
 
