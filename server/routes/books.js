@@ -33,7 +33,7 @@ const transporter = nodemailer.createTransport({ // secure authentication
   },
 });
 
-const BOOK_LIMIT = 4;
+const BOOK_LIMIT = 30;
 
 /**
  * [RESOURCE] Sends out all needs emails when a transaction occurs.
@@ -520,10 +520,9 @@ router.get('/getAllBooks/:token', (req, res) => {
  * @returns {Array} Array of books from database.
  */
 router.get('/getBooksNoToken/:page', (req, res) => {
-  const page = parseInt(req.params.page, 10);
-  console.log(page); // eslint-disable-line
+  // const page = parseInt(req.params.page, 10);
   Textbook.find({ status: 0 })
-    .limit(BOOK_LIMIT * page)
+    .limit(BOOK_LIMIT)
     .sort({ date: -1 })
     .exec((err, books) => {
       res.status(200).json(response(books));
