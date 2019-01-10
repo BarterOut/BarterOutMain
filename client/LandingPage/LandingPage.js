@@ -1,6 +1,6 @@
 /**
  * @file LandingPage.js
- * @description React component for landing page.
+ * @description React component for the landing page.
  * @author Duncan Grubbs <duncan.grubbs@gmail.com>
  * @author Luis Nova
  * @version 0.0.4

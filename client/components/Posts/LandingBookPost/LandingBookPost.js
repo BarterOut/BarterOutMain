@@ -32,7 +32,7 @@ class LandingBookPost extends Component {
         </div>
         <div className="rightBP">
           <div>
-            <span className="condition">{this.props.condition}</span>
+            <span className="condition">{this.props.condition} </span>
              - <span className="price">${this.props.price}*</span>
           </div>
           <Link to="/login" href="/login">
