@@ -1,7 +1,8 @@
 import app from '../../server';
 import Textbook from '../../models/textbook';
-import User from '../../models/user'
-import TempUser from "../../models/tempUser";
+import User from '../../models/user';
+import TempUser from '../../models/tempUser';
+
 const mongoose = require('mongoose');
 const request = require('supertest');
 const rand = require('rand-token');
@@ -23,20 +24,20 @@ beforeAll((done) => {
     for (let i = 0; i < mongoose.connection.collections.length; i++) {
       mongoose.connection.collections[i].remove(() => {});
     }
-    console.log('hmmmm' + Date.now());
+    console.log(`hmmmm${Date.now()}`);
 
     return done();
   }
-  function setupDB()  { //tried to setup a user before the book tests run so that we have a user to work with
 
-
+  function setupDB() {
+    // tried to setup a user before the book tests run so that we have a user to work with
     for (let i = 0; i < mongoose.connection.collections.length; i++) {
       mongoose.connection.collections[i].remove(() => {});
     }
-     // clearDB().then(()=>{
+    // clearDB().then(()=>{
     // clearDB();
-    console.log('make the stuff' + Date.now());
-      const emailToken = rand.generate(48);
+    console.log(`make the stuff${Date.now()}`);
+    const emailToken = rand.generate(48);
     const newUser = new TempUser({
       emailAddress: 'fake@u.rochester.edu',
       password: 'password',
@@ -50,18 +51,15 @@ beforeAll((done) => {
       createdAt: Date.now(),
     });
     newUser.save()
-      .then( () => {
+      .then(() => {
         k = true;
         // return done();
-        const response =  request(app).get('/email-verification/'+newUser.emailToken);
-        console.log('requested stuff '  +  Date.now());
+        const response = request(app).get(`/email-verification/${newUser.emailToken}`);
+        console.log(`requested stuff ${Date.now()}`);
         return done();
       });
-
-
     // });
   }
-
 
 
   /*
@@ -145,7 +143,7 @@ beforeAll((done) => {
     // });
   }
   return done();
-},20000);
+}, 20000);
 
 afterEach((done) => {
   mongoose.disconnect();
@@ -161,45 +159,41 @@ describe('Route Ensure', () => {
   });
 
 
-
   it('returns 200', async () => {
     const response = await request(app).get('/books');
     expect(response.status).toBe(200);
   });
 });
 
-describe('setup', ()=>{
+describe('setup', () => {
   const data = {
     emailAddress: 'fake@u.rochester.edu',
-    password:  'password',
+    password: 'password',
     CMC: '413',
     venmoUsername: 'myFakeVenmo',
     firstName: 'Mr. Fake',
     lastName: 'McFake',
     university: 'University of Rochester',
   };
-  it('Should save temp user', function(){//well it passes the test
-
+  it('Should save temp user', () => { // well it passes the test
     request(app)
       .post('/auth/signup')
       .send(data) // x-www-form-urlencoded upload
       .set('Accept', 'application/json')
       .expect(201)
-      .end(function (err, res) {
-        if (err) {throw err}
-        else console.log(res);
-      })
+      .end((err, res) => {
+        if (err) { throw err; } else console.log(res);
+      });
     // console.log(response);
-      // expect(response.status).toBe(201);
+    // expect(response.status).toBe(201);
   });
 
-  it('should also save temp user', async() => {
+  it('should also save temp user', async () => {
     const response = await request(app).post('/auth/signup')
       .send(data) // x-www-form-urlencoded upload
       .set('Accept', 'application/json');
     expect(response.status).toBe(201);
   });
-
 });
 
 describe('Create Book', () => {
@@ -227,13 +221,13 @@ describe('Create Book', () => {
   //   });
   // },120000);
 
-  it('create a book',  () => {
-    if (k === true){
+  it('create a book', () => {
+    if (k === true) {
       console.log('yeeet');
     } else if (k === false) {
       console.log('rip');
     }
-     new Textbook({
+    new Textbook({
       name: 'Book Name',
       edition: 2,
       course: 'MTH 101',
@@ -246,7 +240,6 @@ describe('Create Book', () => {
     // const book = await Textbook.findOne({ name: 'Name' });
     // expect(book.name).toEqual('Book Name');
     expect(2).toEqual(2);
-
   });
   // it('should find a user', async () => {
   //
@@ -256,6 +249,4 @@ describe('Create Book', () => {
   //   // expect(2).toEqual(2);
   //
   // },120000);
-
-
 });
