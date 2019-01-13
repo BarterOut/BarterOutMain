@@ -223,9 +223,9 @@ describe('Create Book', () => {
 
   it('create a book', () => {
     if (k === true) {
-      console.log('yeeet');
+      console.log('yeeet'); // eslint-disable-line
     } else if (k === false) {
-      console.log('rip');
+      console.log('rip'); // eslint-disable-line
     }
     new Textbook({
       name: 'Book Name',
