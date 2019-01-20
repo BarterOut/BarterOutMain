@@ -163,7 +163,7 @@ class DashboardHome extends Component {
                 <td className="has-border">@{book.ownerObject.venmoUsername}</td>
                 <td className="has-border">@{book.buyerObject.venmoUsername}</td>
                 <td className="has-border">${book.price * 1.05}</td>
-                <td className="has-border"><button type="button" id={book._id} className="btn btn-primary" onClick={this.confirm}>Confirm Condition</button></td>
+                <td className="has-border"><button type="button" id={book._id} className="btn btn-primary" onClick={this.confirm}>Confirm</button></td>
               </tr>
             ))}
           </tbody>
@@ -188,7 +188,7 @@ class DashboardHome extends Component {
                 <td className="has-border">@{book.ownerObject.venmoUsername}</td>
                 <td className="has-border">@{book.buyerObject.venmoUsername}</td>
                 <td className="has-border">${book.price}</td>
-                <td className="has-border"><button type="button" id={book._id} className="btn btn-primary" onClick={this.confirmPayment}>Confirm Payment</button></td>
+                <td className="has-border"><button type="button" id={book._id} className="btn btn-primary" onClick={this.confirmPayment}>Confirm</button></td>
               </tr>
             ))}
           </tbody>
