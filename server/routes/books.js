@@ -274,7 +274,7 @@ router.post('/checkoutCart/:token', (req, res) => {
           // Updates the books being sought by the user that match the query
           Textbook.find(
             { _id: req.body.data.cart[i]._id },
-              (errors, foundBook) => {
+            (errors, foundBook) => {
               bookFound = foundBook[0];
               totalCharged += bookFound.price;
 

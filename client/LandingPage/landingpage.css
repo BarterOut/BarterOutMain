@@ -147,8 +147,8 @@
 .header-line-landing {
   background: #707070;
   height: 1px;
-  width: 150px;
-  margin: 0 8px 8px 8px;
+  width: 75px;
+  margin: 8px 0x;
   align-self: flex-start;
 }
 
@@ -198,8 +198,9 @@
  .landing-header-title {
    width: 100%;
    text-align: left;
+   margin: 8px 0;
    font-family: "orkneymedium";
-   font-size: 34px;
+   font-size: 1.5rem;
    color: #343434;
  }
 
@@ -213,7 +214,6 @@
 /* FOOTER STYLES */
 .footer {
   position: relative;
-  height: 20vh;
   width: 100%;
   display: flex;
   flex-direction: row;
@@ -311,14 +311,14 @@
     flex-direction: column;
     max-height: none;
     width: 100vw;
-    padding: 2em 2em;
+    padding: 1em 1em;
     min-height: 632px;
   }
   .content-about .landing-section {
     flex-direction: column;
     max-height: none;
     width: 100vw;
-    padding: 2em 2em;
+    padding: 1em 1em;
     min-height: 632px;
   }
   .text-content-landing, .img-content {
@@ -327,10 +327,11 @@
   }
   .landing-img {
     width: 90%;
+    margin: 8px;
     height: auto;
   }
   .footer {
-    padding: 1.5% 5%;
+    padding: 1.5% 4%;
   }
   .left {
     align-items: center;

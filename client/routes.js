@@ -48,11 +48,10 @@ const PrivateRoute = ({ component: Component, rest }) => {
   return (
     <Route
       {...rest}
-      render={(props) =>
-        auth.loggedIn()
+      render={props =>
+        (auth.loggedIn()
         ? <Component {...props} />
-        : <Redirect to={{pathname: '/login'}}
-      />}
+        : <Redirect to={{ pathname: '/login' }} />)}
     />
   );
 };
@@ -62,11 +61,10 @@ const DashboardRoute = ({ component: Component, rest }) => {
   return (
     <Route
       {...rest}
-      render={(props) =>
-        auth.getProfile().userInfo.permissionType === 1
+      render={props =>
+        (auth.getProfile().userInfo.permissionType === 1
         ? <Component {...props} />
-        : <Redirect to={{pathname: '/dashboard'}}
-      />}
+        : <Redirect to={{ pathname: '/dashboard' }} />)}
     />
   );
 };

@@ -2,7 +2,7 @@
   display: flex;
   width: 70vw;
   max-width: 750px;
-  padding: 75px 0;
+  padding: 85px 0;
   margin: 0 auto;
   flex-direction: column;
   align-content: center;
@@ -17,6 +17,8 @@
 
 .text-header {
   color: #4E2B84;
+  font-size: 2.1rem;
+  margin: 8px 8px 0 8px;
   font-family: 'Orkney', Arial, Helvetica, sans-serif;
 }
 

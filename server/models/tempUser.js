@@ -31,13 +31,11 @@ const tempUserSchema = new Schema({
 
 // Define schema methods
 tempUserSchema.methods = {
-  checkPassword: function (inputPassword) {
+  checkPassword(inputPassword) {
     return bcrypt.compareSync(inputPassword, this.password);
   },
-  hashPassword: plainTextPassword => {
-    return bcrypt.hashSync(plainTextPassword, 10);
-  },
-}
+  hashPassword: plainTextPassword => bcrypt.hashSync(plainTextPassword, 10),
+};
 
 // Define hooks for pre-saving disabled in order to avoid double hashing of passwords
 tempUserSchema.pre('save', function (next) {
