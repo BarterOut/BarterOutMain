@@ -24,6 +24,8 @@ const jwt = require('jsonwebtoken');
 const emails = require('../emails/emailFunctions');
 const notification = require('../resources/Notifications');
 
+const BOOK_LIMIT = 40;
+
 const transporter = nodemailer.createTransport({ // secure authentication
   host: 'smtp.gmail.com',
   auth: {
@@ -32,8 +34,6 @@ const transporter = nodemailer.createTransport({ // secure authentication
     clientSecret: '5OTf_iLhmt0tjJCKIdnuC5XM',
   },
 });
-
-const BOOK_LIMIT = 30;
 
 /**
  * [RESOURCE] Sends out all needs emails when a transaction occurs.
@@ -67,15 +67,6 @@ function sendEmail(mailOptions) {
       console.info(info); // eslint-disable-line
     }
   });
-}
-
-/**
- * [RESOURCE] Will return an array of JSON objects in reverse cronological order (Newest at the top)
- * @param {Array} bookJSONArray Arrays of books to sort.
- */
-function sortBooksReverseCronological(bookJSONArray) {
-  bookJSONArray.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
-  return bookJSONArray;
 }
 
 /**
@@ -148,8 +139,8 @@ router.post('/postBook/:token', (req, res) => {
               });
               res.status(200).json(response({}));
             })
-            .catch((e) => {
-              res.status(400).json(response({ error: e }));
+            .catch((error) => {
+              res.status(400).json(response({ error }));
             });
         }
       });
@@ -380,6 +371,60 @@ router.get('/getUserMatches/:token', (req, res) => {
 
 /**
  * Finds all books in database with a matching name, course or ISBN.
+ * Excluding the books posted by the user searching.
+ * @param {Object} req Request body from client.
+ * @param {Object} res Body of HTTP response.
+ * @returns {Array} Array of books from database.
+ */
+router.get('/search/:query/:token', (req, res) => {
+  const searchKey = req.params.query;
+  const parsed = Number.parseInt(searchKey, 10);
+  jwt.verify(req.params.token, config.key, (error, authData) => {
+    if (error) {
+      res.status(403).json(response({ error }));
+    } else if (Number.isNaN(parsed)) {
+      Textbook.find({
+        $and: [
+          { status: 0 },
+          { owner: { $ne: authData.userInfo._id } },
+          {
+            $or: [
+              { name: { $regex: searchKey, $options: 'i' } },
+              { course: { $regex: searchKey, $options: 'i' } },
+            ],
+          },
+        ],
+      }, (err, books) => {
+        res.status(200).json(response(books));
+      });
+    } else {
+      Textbook
+        .find({
+          $and: [
+            { status: 0 },
+            { owner: { $ne: authData.userInfo._id } },
+            {
+              $or: [
+                { name: { $regex: searchKey, $options: 'i' } },
+                { course: { $regex: searchKey, $options: 'i' } },
+                { ISBN: { $eq: parsed } },
+              ],
+            },
+          ],
+        })
+        .sort({ date: -1 })
+        .exec((error, books) => {
+          if (!error) {
+            res.status(200).json(response(books));
+          } else { res.status(400).json(response({ error })); }
+        });
+    }
+  });
+});
+
+/**
+ * Finds all books in database with a matching name, course or ISBN.
+ * NO TOKEN
  * @param {Object} req Request body from client.
  * @param {Object} res Body of HTTP response.
  * @returns {Array} Array of books from database.
@@ -402,20 +447,23 @@ router.get('/search/:query', (req, res) => {
       res.status(200).json(response(books));
     });
   } else {
-    Textbook.find({
-      $and: [
-        { status: 0 },
-        {
-          $or: [
-            { name: { $regex: searchKey, $options: 'i' } },
-            { course: { $regex: searchKey, $options: 'i' } },
-            { ISBN: { $eq: parsed } },
-          ],
-        },
-      ],
-    }, (err, books) => {
-      res.status(200).json(response(books));
-    });
+    Textbook
+      .find({
+        $and: [
+          { status: 0 },
+          {
+            $or: [
+              { name: { $regex: searchKey, $options: 'i' } },
+              { course: { $regex: searchKey, $options: 'i' } },
+              { ISBN: { $eq: parsed } },
+            ],
+          },
+        ],
+      })
+      .sort({ date: -1 })
+      .exec((err, books) => {
+        res.status(200).json(response(books));
+      });
   }
 });
 
@@ -488,22 +536,26 @@ router.get('/getAllBooks/:token', (req, res) => {
         if (!user) {
           res.status(401).json(response({ error: 'You need to create and account.' }));
         } else {
-          Textbook.find({
-            $and: [
-              { status: 0 },
-              { owner: { $ne: authData.userInfo._id } }],
-          }, (err, books) => {
-            User.findById(authData.userInfo._id, (err, user) => {
-              for (let i = 0; i < books.length; i++) {
-                for (let x = 0; x < user.cart.length; x++) {
-                  if (books[i]._id == user.cart[x]) {
-                    books[i].status = 42;
+          Textbook
+            .find({
+              $and: [
+                { status: 0 },
+                { owner: { $ne: authData.userInfo._id } }],
+            })
+            .limit(BOOK_LIMIT)
+            .sort({ date: -1 })
+            .exec((err, books) => {
+              User.findById(authData.userInfo._id, (err, user) => {
+                for (let i = 0; i < books.length; i++) {
+                  for (let x = 0; x < user.cart.length; x++) {
+                    if (books[i]._id == user.cart[x]) {
+                      books[i].status = 42;
+                    }
                   }
                 }
-              }
-              res.status(200).json(response(sortBooksReverseCronological(books)));
+                res.status(200).json(response(books));
+              });
             });
-          });
         }
       });
     }
@@ -519,8 +571,7 @@ router.get('/getAllBooks/:token', (req, res) => {
  * @param {Object} res Body of HTTP response.
  * @returns {Array} Array of books from database.
  */
-router.get('/getBooksNoToken/:page', (req, res) => {
-  // const page = parseInt(req.params.page, 10);
+router.get('/getBooksNoToken', (req, res) => {
   Textbook.find({ status: 0 })
     .limit(BOOK_LIMIT)
     .sort({ date: -1 })

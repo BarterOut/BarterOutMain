@@ -62,7 +62,7 @@ class LandingPage extends Component {
 
   getPosts() {
     this.setState({ loading: true });
-    FetchService.GET(`/api/books/getBooksNoToken/${this.state.page}`)
+    FetchService.GET('/api/books/getBooksNoToken')
       .then((data) => {
         this.setState({ loading: false });
         this.setState({ posts: data });
@@ -88,7 +88,7 @@ class LandingPage extends Component {
     this.setState({ loading: true });
     this.setState({ posts: [] });
     if (query === '') {
-      FetchService.GET('/api/books/getBooksNoToken/3')
+      FetchService.GET('/api/books/getBooksNoToken')
         .then((data) => {
           this.setState({ loading: false });
           this.setState({ posts: data });

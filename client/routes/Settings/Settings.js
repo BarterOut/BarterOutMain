@@ -2,6 +2,7 @@
  * @file React component for a route on the web platform.
  * @author Duncan Grubbs <duncan.grubbs@gmail.com>
  * @author Daniel Munoz
+ * @author Zino Hu
  * @version 0.0.4
  */
 
