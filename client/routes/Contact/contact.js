@@ -29,7 +29,7 @@ const Contact = () => (
         <h3>You can reach us by:</h3>
 
         <ul>
-          <li>Email: office@barterout.com</li>
+          <li>Email: development@barterout.com</li>
           <li><a rel="noopener noreferrer" target="_blank" href="https://www.facebook.com/BarterOut/">Facebook</a></li>
           <li><a rel="noopener noreferrer" target="_blank" href="https://www.linkedin.com/company/18490388/">LinkedIn</a></li>
         </ul>

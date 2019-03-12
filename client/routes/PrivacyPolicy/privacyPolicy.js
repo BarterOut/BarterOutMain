@@ -252,7 +252,7 @@ const PrivacyPolicy = () => (
           <br />260 East Main Street
           <br />Suite 6325
           <br />Rochester, NY 14604
-          <br />office@barterout.com
+          <br />development@barterout.com
         </p>
         <p>Last Edited on 2018-12-18</p>
         <a href="../res/Privacy Policy.pdf" download id="backLink">Download Privacy Policy</a>

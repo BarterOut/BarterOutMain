@@ -67,11 +67,11 @@ nev.configure({
   },
   verifyMailOptions: {
     // This won't actually be used but it is necessary for the package to work. the
-    from: '"Barter Out" <office@barterout.com',
+    from: '"Barter Out" <development@barterout.com',
     subject: 'Please confirm account',
     html: '<p>Please verify your account by clicking <a href="${URL}">this link</a>.', // eslint-disable-line
     auth: {
-      user: 'office@barterout.com',
+      user: 'development@barterout.com',
       refreshToken: '1/9XdHU4k2vwYioRyAP8kaGYfZXKfp_JxqUwUMYVJWlZs',
       accessToken: 'ya29.GluwBeUQiUspdFo1yPRfzFMWADsKsyQhB-jgX3ivPBi5zcIldvyPYZtRME6xqZf7UNzkXzZLu1fh0NpeO11h6mwS2qdsL_JREzpKw_3ebOWLNgxTyFg5NmSdStnR',
     },

@@ -29,7 +29,7 @@ const Help = () => (
       canceled. In order to sell the book again, you will have to make a new post on BarterOut.
 
       <h5 className="mt-4">I bought a book but it was never delivered, what do I do?</h5>
-      Just email office@barterout.com with your name and vemno and we
+      Just email development@barterout.com with your name and vemno and we
       will resolve the issue.
 
       <h5 className="mt-4">I don’t have Venmo. Can I still use BarterOut?</h5>
@@ -43,7 +43,7 @@ const Help = () => (
         please feel free to reach out to us.
       </p>
       <p>
-        office@barterout.com |
+        development@barterout.com |
         <a rel="noopener noreferrer" target="_blank" href="https://www.facebook.com/BarterOut/"> Facebook </a>
         |
         <a rel="noopener noreferrer" target="_blank" href="https://www.linkedin.com/company/18490388/"> LinkedIn</a>

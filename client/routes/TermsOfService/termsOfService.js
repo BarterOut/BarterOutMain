@@ -292,7 +292,7 @@ const TermsOfService = () => (
         <p className="para-terms">
           SECTION 19 - CONTACT INFORMATION
           <br />
-          Questions about the Terms of Service should be sent to us at office@barterout.com.
+          Questions about the Terms of Service should be sent to us at development@barterout.com.
         </p>
         <p>Last Edited on 2018-12-18</p>
         <a href="../res/Terms of Service.pdf" download id="backLink">Download Terms of Service</a>
