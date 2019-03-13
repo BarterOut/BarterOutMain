@@ -7,9 +7,12 @@
 
 import mongoose from 'mongoose';
 
+// Models
 import User from '../models/user';
-import response from '../response';
 import TempUser from '../models/tempUser';
+
+import response from '../resources/response';
+import config from '../config';
 
 const express = require('express');
 
@@ -17,12 +20,14 @@ const router = express.Router();
 
 const nodemailer = require('nodemailer');
 const bcrypt = require('bcryptjs');
-const emails = require('../emails/emailFunctions');
 const crypto = require('crypto');
 const nev = require('email-verification')(mongoose);
 const rand = require('rand-token');
 
-const notification = require('../Notifications');
+const jwt = require('jsonwebtoken');
+const emails = require('../emails/emailFunctions');
+
+const notification = require('../resources/Notifications');
 
 /**
  * Hashes a user's password.
@@ -62,11 +67,11 @@ nev.configure({
   },
   verifyMailOptions: {
     // This won't actually be used but it is necessary for the package to work. the
-    from: '"Barter Out" <office@barterout.com',
+    from: '"Barter Out" <development@barterout.com',
     subject: 'Please confirm account',
     html: '<p>Please verify your account by clicking <a href="${URL}">this link</a>.', // eslint-disable-line
     auth: {
-      user: 'office@barterout.com',
+      user: 'development@barterout.com',
       refreshToken: '1/9XdHU4k2vwYioRyAP8kaGYfZXKfp_JxqUwUMYVJWlZs',
       accessToken: 'ya29.GluwBeUQiUspdFo1yPRfzFMWADsKsyQhB-jgX3ivPBi5zcIldvyPYZtRME6xqZf7UNzkXzZLu1fh0NpeO11h6mwS2qdsL_JREzpKw_3ebOWLNgxTyFg5NmSdStnR',
     },
@@ -131,8 +136,6 @@ router.get('/email-verification/:URL', (req, res) => {
     }
   });
 });
-
-const jwt = require('jsonwebtoken');
 
 function sendEmail(mailOptions) {
   transporter.sendMail(mailOptions, (error) => {
@@ -235,7 +238,7 @@ router.post('/login', (req, res) => {
     };
 
     // Creates the token and sends the JSON back
-    jwt.sign({ userInfo }, 'secretKey', { expiresIn: '30 days' }, (error, token) => {
+    jwt.sign({ userInfo }, config.key, { expiresIn: '30 days' }, (error, token) => {
       res.status(200).json(response({ token }));
     });
   });
@@ -250,7 +253,7 @@ router.post('/login', (req, res) => {
  * @returns {Object} Standard API response.
  */
 router.post('/updateProfile', (req, res) => {
-  jwt.verify(req.body.data.token, 'secretKey', (error, authData) => {
+  jwt.verify(req.body.data.token, config.key, (error, authData) => {
     if (error) {
       res.status(403).json(response({ error }));
     } else {
@@ -286,7 +289,7 @@ router.post('/updateProfile', (req, res) => {
  * @returns {Object} Standard API Response.
  */
 router.post('/updatePassword', (req, res) => {
-  jwt.verify(req.body.data.token, 'secretKey', (error, authData) => {
+  jwt.verify(req.body.data.token, config.key, (error, authData) => {
     if (error) {
       res.status(403).json(response({ error }));
     } else {

@@ -6,6 +6,10 @@ body {
   overflow-x: hidden;
 }
 
+label {
+  width: 100%;
+}
+
 ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
   color: #777;
   opacity: 1; /* Firefox */
@@ -115,6 +119,7 @@ body {
   border: none;
   border-radius: 4px;
   font-size: 15px;
+  cursor: pointer;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: .025em;
@@ -196,12 +201,14 @@ button:focus {
 
 .scroll-posts--lg {
   height: 45vh;
+  margin: 8px 0;
   overflow-y: scroll;
 }
 
 .scroll-posts--sm {
   min-height: 50px;
   max-height: 25vh;
+  margin: 8px 0;
   overflow-y: scroll;
 }
 

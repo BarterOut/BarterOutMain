@@ -86,9 +86,9 @@ class Dashboard extends Component {
             <div>Back to <Link href="/" to="/">Home</Link>.</div>
           </div>
           <div>
-            <button className="inputButtonFilled" onClick={this.login}>Log In</button>
+            <button className="inputButtonFilled" onClick={this.login} type="submit">Log In</button>
             <Link href="/signup" to="/signup">
-              <button className="inputButton">Sign Up</button>
+              <button className="inputButton" type="button">Sign Up</button>
             </Link>
           </div>
           <div className="legal-links-login">

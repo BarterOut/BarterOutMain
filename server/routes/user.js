@@ -5,11 +5,13 @@
  * @version 0.0.4
  */
 
+// Models
 import Textbook from '../models/textbook';
 import TextbookBuy from '../models/textbookBuy';
 import User from '../models/user';
-import response from '../response';
 
+import config from '../config';
+import response from '../resources/response';
 
 const jwt = require('jsonwebtoken');
 const express = require('express');
@@ -71,7 +73,7 @@ function remakeMatches(userID) {
  * @returns {Array} Array of book objects.
  */
 router.get('/getCartItems/:token', (req, res) => {
-  jwt.verify(req.params.token, 'secretKey', (error, authData) => {
+  jwt.verify(req.params.token, config.key, (error, authData) => {
     if (error) {
       res.status(401).json(response({ error }));
     } else {
@@ -94,7 +96,7 @@ router.get('/getCartItems/:token', (req, res) => {
  * @returns {String} Success Status.
  */
 router.post('/addToCart', (req, res) => {
-  jwt.verify(req.body.data.token, 'secretKey', (error, authData) => {
+  jwt.verify(req.body.data.token, config.key, (error, authData) => {
     if (error) {
       res.status(401).json(response({ error }));
     } else {
@@ -125,7 +127,7 @@ router.post('/addToCart', (req, res) => {
  * @returns {String} Success Status.
  */
 router.post('/removeFromCart', (req, res) => {
-  jwt.verify(req.body.data.token, 'secretKey', (error, authData) => {
+  jwt.verify(req.body.data.token, config.key, (error, authData) => {
     if (error) {
       res.status(401).json(response({ error }));
     } else {
@@ -162,7 +164,7 @@ router.post('/removeFromCart', (req, res) => {
  * @returns {String} Success Status.
  */
 router.post('/clearCart', (req, res) => {
-  jwt.verify(req.body.data.token, 'secretKey', (error, authData) => {
+  jwt.verify(req.body.data.token, config.key, (error, authData) => {
     if (error) {
       res.status(401).json(response({ error }));
     } else {
@@ -187,7 +189,7 @@ router.post('/clearCart', (req, res) => {
  * @returns {Array} Array of books purchased by the user.
  */
 router.get('/getPurchasedBooks/:token', (req, res) => {
-  jwt.verify(req.params.token, 'secretKey', (error, authData) => {
+  jwt.verify(req.params.token, config.key, (error, authData) => {
     if (error) {
       res.status(401).json(response({ error }));
     } else {
@@ -207,7 +209,7 @@ router.get('/getPurchasedBooks/:token', (req, res) => {
  * @returns {Array} Array of books sold by the user.
  */
 router.get('/getSoldBooks/:token', (req, res) => {
-  jwt.verify(req.params.token, 'secretKey', (error, authData) => {
+  jwt.verify(req.params.token, config.key, (error, authData) => {
     if (error) {
       res.status(401).json(response({ error }));
     } else {
@@ -227,7 +229,7 @@ router.get('/getSoldBooks/:token', (req, res) => {
  * @returns {Array} Array of notifications for the user.
  */
 router.get('/getNotifications/:token', (req, res) => {
-  jwt.verify(req.params.token, 'secretKey', (error, authData) => {
+  jwt.verify(req.params.token, config.key, (error, authData) => {
     if (error) {
       res.status(401).json(response({ error }));
     } else {
@@ -246,7 +248,7 @@ router.get('/getNotifications/:token', (req, res) => {
  * @returns {Object} Stats for the user.
  */
 router.get('/getUserStatistics/:token', (req, res) => {
-  jwt.verify(req.params.token, 'secretKey', (error, authData) => {
+  jwt.verify(req.params.token, config.key, (error, authData) => {
     if (error) {
       res.status(401).json(response({ error }));
     } else {
@@ -262,7 +264,7 @@ router.get('/getUserStatistics/:token', (req, res) => {
 });
 
 router.get('/getUserData/:token', (req, res) => {
-  jwt.verify(req.params.token, 'secretKey', (error, authData) => {
+  jwt.verify(req.params.token, config.key, (error, authData) => {
     if (error) {
       res.status(400).json(response({ error }));
     } else {
@@ -298,7 +300,7 @@ router.get('/getUserData/:token', (req, res) => {
  * @returns {String} Response status.
  */
 router.post('/deleteRequest/', (req, res) => {
-  jwt.verify(req.body.data.token, 'secretKey', (error, authData) => {
+  jwt.verify(req.body.data.token, config.key, (error, authData) => {
     if (error) {
       res.status(403).json(response({ error }));
     } else {
@@ -326,7 +328,7 @@ router.post('/deleteRequest/', (req, res) => {
  * @returns {Array} Array of books from database.
  */
 router.get('/getRequests/:token', (req, res) => {
-  jwt.verify(req.params.token, 'secretKey', (error, authData) => {
+  jwt.verify(req.params.token, config.key, (error, authData) => {
     if (error) {
       res.status(403).json(response({ error }));
     } else {
@@ -353,4 +355,3 @@ router.get('/', (req, res) => {
 });
 
 module.exports = router;
-

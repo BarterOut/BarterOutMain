@@ -14,7 +14,7 @@ import {
 
 import AuthService from './services/AuthService';
 
-import LandingPage from './LandingPage/LandingPage';
+import LandingPage from './routes/LandingPage/LandingPage';
 
 import SignUp from './routes/SignUp/SignUp';
 import Login from './routes/Login/Login';
@@ -48,8 +48,7 @@ const PrivateRoute = ({ component: Component, rest }) => {
   return (
     <Route
       {...rest}
-      render={props =>
-        (auth.loggedIn()
+      render={props => (auth.loggedIn()
         ? <Component {...props} />
         : <Redirect to={{ pathname: '/login' }} />)}
     />
@@ -61,8 +60,7 @@ const DashboardRoute = ({ component: Component, rest }) => {
   return (
     <Route
       {...rest}
-      render={props =>
-        (auth.getProfile().userInfo.permissionType === 1
+      render={props => (auth.getProfile().userInfo.permissionType === 1
         ? <Component {...props} />
         : <Redirect to={{ pathname: '/dashboard' }} />)}
     />

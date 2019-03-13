@@ -22,7 +22,7 @@ const EmailConfirmed = () => (
         Your email has been confirmed, you can now login.
       </h3>
       <div>
-        <Link to="/login" href="login"><button className="button">Login</button></Link>
+        <Link to="/login" href="login"><button type="button" className="button">Login</button></Link>
       </div>
     </div>
   </div>

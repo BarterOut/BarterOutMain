@@ -23,6 +23,7 @@ class SideNav extends Component {
         <button
           className="btn btn-secondary my-1"
           data-toggle="modal"
+          type="button"
           data-target="#sellBookModal"
         >Post Your Book
         </button>
@@ -45,6 +46,7 @@ class SideNav extends Component {
         <button
           className="btn btn-secondary my-1"
           data-toggle="modal"
+          type="button"
           data-target="#requestBookModal"
         >Request a Book
         </button>

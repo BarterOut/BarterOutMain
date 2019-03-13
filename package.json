@@ -7,7 +7,7 @@
     "start": "BABEL_DISABLE_CACHE=1 nodemon index.js",
     "dev": "concurrently \"npm start\" ",
     "lint": "eslint . --fix",
-    "test": "NODE_ENV=test jest --forceExit --config jest.config.js",
+    "test": "NODE_ENV=test jest --detectOpenHandles --config jest.config.js",
     "coverage": "NODE_ENV=test jest --collectCoverageFrom=server/**.js --coverage server --forceExit",
     "build": "webpack"
   },
@@ -15,7 +15,7 @@
   "license": "ISC",
   "repository": {
     "type": "git",
-    "url": ""
+    "url": "https://github.com/BarterOut/api-docs"
   },
   "dependencies": {
     "babel-cli": "^6.26.0",
@@ -38,7 +38,6 @@
     "bootstrap": "^4.2.1",
     "compression-webpack-plugin": "^2.0.0",
     "css-loader": "^2.1.0",
-    "cuid": "^2.1.4",
     "email-verification": "^0.4.6",
     "express": "^4.16.3",
     "express-session": "^1.15.6",

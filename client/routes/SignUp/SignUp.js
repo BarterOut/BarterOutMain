@@ -75,9 +75,7 @@ class SignUp extends Component {
 
   _validateInputs() {
     let allGood = true;
-
-    this.setState({ emailAddress: this.state.emailAddress.toLowerCase() });
-
+    this.setState(state => ({ emailAddress: state.emailAddress.toLowerCase() }));
     // Making sure passwords are the same.
     if (!(this.state.passwordConfirm === this.state.password)) {
       this.setState({ passwordsMatch: false });

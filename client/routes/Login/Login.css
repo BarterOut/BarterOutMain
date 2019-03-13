@@ -11,6 +11,7 @@
   max-width: 160px;
   padding: 4px 16px;
   border: none;
+  cursor: pointer;
   border-radius: 4px;
   font-size: 1.2em;
   font-weight: 600;
@@ -32,6 +33,7 @@
   display: inline-block;
   line-height: 40px;
   max-width: 160px;
+  cursor: pointer;
   padding: 4px 16px;
   border: 2px solid #41397c;
   border-radius: 4px;

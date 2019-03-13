@@ -32,11 +32,11 @@ class LandingBookPost extends Component {
         </div>
         <div className="rightBP">
           <div>
-            <span className="condition">{this.props.condition}</span>
+            <span className="condition">{this.props.condition} </span>
              - <span className="price">${this.props.price}*</span>
           </div>
           <Link to="/login" href="/login">
-            <button className="button">Add to Cart</button>
+            <button className="button" type="button">Add to Cart</button>
           </Link>
           <div><small className="text-muted">* Does not include 5% fee.</small></div>
         </div>

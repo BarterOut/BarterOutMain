@@ -61,6 +61,7 @@ class PersonalBookPost extends Component {
           <span className="price">${this.props.price}*</span>
           <button
             className="btn btn-primary float-right"
+            type="button"
             onClick={this.deleteBook}
           >Remove
           </button>

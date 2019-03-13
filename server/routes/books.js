@@ -11,17 +11,20 @@ import TextbookBuy from '../models/textbookBuy';
 import User from '../models/user';
 import Transaction from '../models/transaction';
 
-import response from '../response';
-import Pricing from '../pricing';
+import response from '../resources/response';
+import Pricing from '../resources/pricing';
+import config from '../config';
 
 const express = require('express');
 
 const router = express.Router();
 
 const nodemailer = require('nodemailer');
-const emails = require('../emails/emailFunctions');
-const notification = require('../Notifications');
 const jwt = require('jsonwebtoken');
+const emails = require('../emails/emailFunctions');
+const notification = require('../resources/Notifications');
+
+const BOOK_LIMIT = 40;
 
 const transporter = nodemailer.createTransport({ // secure authentication
   host: 'smtp.gmail.com',
@@ -67,22 +70,13 @@ function sendEmail(mailOptions) {
 }
 
 /**
- * [RESOURCE] Will return an array of JSON objects in reverse cronological order (Newest at the top)
- * @param {Array} bookJSONArray Arrays of books to sort.
- */
-function sortBooksReverseCronological(bookJSONArray) {
-  bookJSONArray.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
-  return bookJSONArray;
-}
-
-/**
  * User posts a book they want to sell.
  * @param {Object} req Request body from client.
  * @param {Object} res Body of HTTP response.
  * @returns {Object} Standard response.
  */
 router.post('/postBook/:token', (req, res) => {
-  jwt.verify(req.params.token, 'secretKey', (error, authData) => {
+  jwt.verify(req.params.token, config.key, (error, authData) => {
     if (error) {
       res.status(403).json(response({ error }));
     } else {
@@ -145,8 +139,8 @@ router.post('/postBook/:token', (req, res) => {
               });
               res.status(200).json(response({}));
             })
-            .catch((e) => {
-              res.status(400).json(response({ error: e }));
+            .catch((error) => {
+              res.status(400).json(response({ error }));
             });
         }
       });
@@ -163,7 +157,7 @@ router.post('/postBook/:token', (req, res) => {
 router.post('/requestBook', (req, res) => {
   const BOOK = req.body.data.payload;
   const TOKEN = req.body.data.token;
-  jwt.verify(TOKEN, 'secretKey', (error, authData) => {
+  jwt.verify(TOKEN, config.key, (error, authData) => {
     if (error) {
       res.status(403).json(response({ error }));
     } else {
@@ -239,7 +233,7 @@ router.post('/requestBook', (req, res) => {
  * @returns {Object} Standard response.
  */
 router.post('/checkoutCart/:token', (req, res) => {
-  jwt.verify(req.params.token, 'secretKey', (error, authData) => {
+  jwt.verify(req.params.token, config.key, (error, authData) => {
     if (error) {
       res.status(403).json(response({ error }));
     } else {
@@ -348,7 +342,7 @@ router.post('/checkoutCart/:token', (req, res) => {
  * @returns {Array} Array of book objects.
  */
 router.get('/getUserMatches/:token', (req, res) => {
-  jwt.verify(req.params.token, 'secretKey', (error, authData) => {
+  jwt.verify(req.params.token, config.key, (error, authData) => {
     if (error) {
       res.status(403).json(response({ error }));
     } else {
@@ -376,36 +370,36 @@ router.get('/getUserMatches/:token', (req, res) => {
 });
 
 /**
- * Gets all books in database with a matching name, course or ISBN.
+ * Finds all books in database with a matching name, course or ISBN.
+ * Excluding the books posted by the user searching.
  * @param {Object} req Request body from client.
  * @param {Object} res Body of HTTP response.
  * @returns {Array} Array of books from database.
  */
 router.get('/search/:query/:token', (req, res) => {
-  jwt.verify(req.params.token, 'secretKey', (error, authData) => {
+  const searchKey = req.params.query;
+  const parsed = Number.parseInt(searchKey, 10);
+  jwt.verify(req.params.token, config.key, (error, authData) => {
     if (error) {
       res.status(403).json(response({ error }));
+    } else if (Number.isNaN(parsed)) {
+      Textbook.find({
+        $and: [
+          { status: 0 },
+          { owner: { $ne: authData.userInfo._id } },
+          {
+            $or: [
+              { name: { $regex: searchKey, $options: 'i' } },
+              { course: { $regex: searchKey, $options: 'i' } },
+            ],
+          },
+        ],
+      }, (err, books) => {
+        res.status(200).json(response(books));
+      });
     } else {
-      const searchKey = req.params.query;
-      const parsed = Number.parseInt(searchKey, 10);
-
-      if (Number.isNaN(parsed)) {
-        Textbook.find({
-          $and: [
-            { status: 0 },
-            { owner: { $ne: authData.userInfo._id } },
-            {
-              $or: [
-                { name: { $regex: searchKey, $options: 'i' } },
-                { course: { $regex: searchKey, $options: 'i' } },
-              ],
-            },
-          ],
-        }, (err, books) => {
-          res.status(200).json(response(books));
-        });
-      } else {
-        Textbook.find({
+      Textbook
+        .find({
           $and: [
             { status: 0 },
             { owner: { $ne: authData.userInfo._id } },
@@ -417,10 +411,13 @@ router.get('/search/:query/:token', (req, res) => {
               ],
             },
           ],
-        }, (err, books) => {
-          res.status(200).json(response(books));
+        })
+        .sort({ date: -1 })
+        .exec((error, books) => {
+          if (!error) {
+            res.status(200).json(response(books));
+          } else { res.status(400).json(response({ error })); }
         });
-      }
     }
   });
 });
@@ -432,7 +429,7 @@ router.get('/search/:query/:token', (req, res) => {
  * @param {Object} res Body of HTTP response.
  * @returns {Array} Array of books from database.
  */
-router.get('/searchNoToken/:query', (req, res) => {
+router.get('/search/:query', (req, res) => {
   const searchKey = req.params.query;
   const parsed = Number.parseInt(searchKey, 10);
   if (Number.isNaN(parsed)) {
@@ -450,20 +447,23 @@ router.get('/searchNoToken/:query', (req, res) => {
       res.status(200).json(response(books));
     });
   } else {
-    Textbook.find({
-      $and: [
-        { status: 0 },
-        {
-          $or: [
-            { name: { $regex: searchKey, $options: 'i' } },
-            { course: { $regex: searchKey, $options: 'i' } },
-            { ISBN: { $eq: parsed } },
-          ],
-        },
-      ],
-    }, (err, books) => {
-      res.status(200).json(response(books));
-    });
+    Textbook
+      .find({
+        $and: [
+          { status: 0 },
+          {
+            $or: [
+              { name: { $regex: searchKey, $options: 'i' } },
+              { course: { $regex: searchKey, $options: 'i' } },
+              { ISBN: { $eq: parsed } },
+            ],
+          },
+        ],
+      })
+      .sort({ date: -1 })
+      .exec((err, books) => {
+        res.status(200).json(response(books));
+      });
   }
 });
 
@@ -474,7 +474,7 @@ router.get('/searchNoToken/:query', (req, res) => {
  * @returns {Array} Array of books from database.
  */
 router.get('/getUsersPosts/:token', (req, res) => {
-  jwt.verify(req.params.token, 'secretKey', (error, authData) => {
+  jwt.verify(req.params.token, config.key, (error, authData) => {
     if (error) {
       res.status(403).json(response({ error }));
     } else {
@@ -501,7 +501,7 @@ router.get('/getUsersPosts/:token', (req, res) => {
  * @returns {Number} Status code.
  */
 router.post('/deleteBook/', (req, res) => {
-  jwt.verify(req.body.data.token, 'secretKey', (error, authData) => {
+  jwt.verify(req.body.data.token, config.key, (error, authData) => {
     if (error) {
       res.status(403).json(response({ error }));
     } else {
@@ -528,7 +528,7 @@ router.post('/deleteBook/', (req, res) => {
  * @returns {Array} Array of books from database.
  */
 router.get('/getAllBooks/:token', (req, res) => {
-  jwt.verify(req.params.token, 'secretKey', (error, authData) => {
+  jwt.verify(req.params.token, config.key, (error, authData) => {
     if (error) {
       res.status(403).json(response({ error }));
     } else {
@@ -536,22 +536,26 @@ router.get('/getAllBooks/:token', (req, res) => {
         if (!user) {
           res.status(401).json(response({ error: 'You need to create and account.' }));
         } else {
-          Textbook.find({
-            $and: [
-              { status: 0 },
-              { owner: { $ne: authData.userInfo._id } }],
-          }, (err, books) => {
-            User.findById(authData.userInfo._id, (err, user) => {
-              for (let i = 0; i < books.length; i++) {
-                for (let x = 0; x < user.cart.length; x++) {
-                  if (books[i]._id == user.cart[x]) {
-                    books[i].status = 42;
+          Textbook
+            .find({
+              $and: [
+                { status: 0 },
+                { owner: { $ne: authData.userInfo._id } }],
+            })
+            .limit(BOOK_LIMIT)
+            .sort({ date: -1 })
+            .exec((err, books) => {
+              User.findById(authData.userInfo._id, (err, user) => {
+                for (let i = 0; i < books.length; i++) {
+                  for (let x = 0; x < user.cart.length; x++) {
+                    if (books[i]._id == user.cart[x]) {
+                      books[i].status = 42;
+                    }
                   }
                 }
-              }
-              res.status(200).json(response(sortBooksReverseCronological(books)));
+                res.status(200).json(response(books));
+              });
             });
-          });
         }
       });
     }
@@ -559,7 +563,7 @@ router.get('/getAllBooks/:token', (req, res) => {
 });
 
 /**
- * Returns all books in the database, without
+ * Returns given limit books in the database, without
  * requiring a token.
  * NOTE: This will display posts to a user that they
  * posted.
@@ -567,12 +571,13 @@ router.get('/getAllBooks/:token', (req, res) => {
  * @param {Object} res Body of HTTP response.
  * @returns {Array} Array of books from database.
  */
-router.get('/getAllBooksNoToken', (req, res) => {
-  Textbook.find({
-    status: 0,
-  }, (err, books) => {
-    res.status(200).json(response(sortBooksReverseCronological(books)));
-  });
+router.get('/getBooksNoToken', (req, res) => {
+  Textbook.find({ status: 0 })
+    .limit(BOOK_LIMIT)
+    .sort({ date: -1 })
+    .exec((err, books) => {
+      res.status(200).json(response(books));
+    });
 });
 
 router.get('/', (req, res) => {

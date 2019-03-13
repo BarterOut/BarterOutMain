@@ -65,19 +65,25 @@ class BookPost extends Component {
           </div>
           <span className="price">${this.props.price}*</span>
           {
-            !this.state.inCart &&
+            !this.state.inCart
+            && (
             <button
               className="btn btn-primary float-right"
+              type="button"
               onClick={this.addToCart}
             >Add to Cart
             </button>
+            )
           }
           {
-            this.state.inCart &&
+            this.state.inCart
+            && (
             <button
               className="btn btn-success float-right"
+              type="button"
             >Added to Cart
             </button>
+            )
           }
           <div><small className="text-muted">* Does not include 5% fee.</small></div>
         </div>

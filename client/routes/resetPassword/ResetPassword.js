@@ -113,7 +113,7 @@ class ResetPassword extends Component {
             required
           />
           <div>
-            <button className="button" onClick={this.resetPassword}>Reset Password</button>
+            <button type="button" className="button" onClick={this.resetPassword}>Reset Password</button>
           </div>
           <div>Don&apos;t have an account?</div>
           <div><Link href="/signup" to="/signup">Sign up now</Link>.</div>

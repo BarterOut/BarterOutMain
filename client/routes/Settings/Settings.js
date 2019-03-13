@@ -2,6 +2,7 @@
  * @file React component for a route on the web platform.
  * @author Duncan Grubbs <duncan.grubbs@gmail.com>
  * @author Daniel Munoz
+ * @author Zino Hu
  * @version 0.0.4
  */
 
@@ -100,13 +101,15 @@ class Settings extends Component {
         <NavBar page="settings" />
         <div className="container">
           {
-            this.state.updateMessageVisible &&
+            this.state.updateMessageVisible
+            && (
             <div className="alert alert-success alert-dismissible fade show" role="alert">
               Updated successfully!
               <button type="button" className="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
+            )
           }
           <h3 className="mb-4">Settings</h3>
 
@@ -140,51 +143,63 @@ class Settings extends Component {
             <div className="tab-pane fade show active" id="profile" role="tabpanel" aria-labelledby="profile-tab">
               <form onSubmit={this.handleProfileUpdate}>
                 <div className="form-group">
-                  <label>First Name</label>
-                  <input
-                    className="form-control"
-                    onChange={this.onChange}
-                    value={this.state.firstName}
-                    type="text"
-                    name="firstName"
-                    required
-                  />
+                  <label htmlFor="firstName">
+                    First Name
+                    <input
+                      id="firstName"
+                      className="form-control"
+                      onChange={this.onChange}
+                      value={this.state.firstName}
+                      type="text"
+                      name="firstName"
+                      required
+                    />
+                  </label>
                 </div>
 
                 <div className="form-group">
-                  <label>Last Name</label>
-                  <input
-                    className="form-control"
-                    onChange={this.onChange}
-                    value={this.state.lastName}
-                    type="text"
-                    name="lastName"
-                    required
-                  />
+                  <label htmlFor="lastName">
+                    Last Name
+                    <input
+                      id="lastName"
+                      className="form-control"
+                      onChange={this.onChange}
+                      value={this.state.lastName}
+                      type="text"
+                      name="lastName"
+                      required
+                    />
+                  </label>
                 </div>
 
                 <div className="form-group">
-                  <label>Venmo Username</label>
-                  <input
-                    className="form-control"
-                    onChange={this.onChange}
-                    value={this.state.venmoUsername}
-                    type="text"
-                    name="venmoUsername"
-                    required
-                  />
+                  <label htmlFor="venmo">
+                    Venmo Username
+                    <input
+                      id="venmo"
+                      className="form-control"
+                      onChange={this.onChange}
+                      value={this.state.venmoUsername}
+                      type="text"
+                      name="venmoUsername"
+                      required
+                    />
+                  </label>
                 </div>
 
                 <div className="form-group">
-                  <label>CMC Box Number</label>
-                  <input
-                    className="form-control"
-                    onChange={this.onChange}
-                    value={this.state.CMC}
-                    type="text"
-                    name="CMC"
-                    required
-                  />
+                  <label htmlFor="cmc">
+                    CMC Box Number
+                    <input
+                      id="cmc"
+                      className="form-control"
+                      onChange={this.onChange}
+                      value={this.state.CMC}
+                      type="text"
+                      name="CMC"
+                      required
+                    />
+                  </label>
                 </div>
                 <button className="btn btn-primary" type="submit">Update Personal Information</button>
               </form>
@@ -193,39 +208,47 @@ class Settings extends Component {
             <div className="tab-pane fade" id="password" role="tabpanel" aria-labelledby="password-tab">
               <form onSubmit={this.handlePasswordUpdate}>
                 <div className="form-group">
-                  <label>Old Password</label>
-                  <input
-                    className="form-control"
-                    placeholder="Old Password"
-                    type="password"
-                    name="password"
-                    onChange={this.onChange}
-                    required
-                  />
+                  <label htmlFor="oldPassword">Old Password
+                    <input
+                      id="oldPassword"
+                      className="form-control"
+                      placeholder="Old Password"
+                      type="password"
+                      name="password"
+                      onChange={this.onChange}
+                      required
+                    />
+                  </label>
                 </div>
 
                 <div className="form-group">
-                  <label>New Password</label>
-                  <input
-                    className="form-control"
-                    placeholder="New Password"
-                    type="password"
-                    name="newPassword"
-                    onChange={this.onChange}
-                    required
-                  />
+                  <label htmlFor="newPassword">
+                    New Password
+                    <input
+                      id="newPassword"
+                      className="form-control"
+                      placeholder="New Password"
+                      type="password"
+                      name="newPassword"
+                      onChange={this.onChange}
+                      required
+                    />
+                  </label>
                 </div>
 
                 <div className="form-group">
-                  <label>Confirm New Password</label>
-                  <input
-                    className="form-control"
-                    placeholder="Confirm New Password"
-                    type="password"
-                    name="passwordConfirm"
-                    onChange={this.onChange}
-                    required
-                  />
+                  <label htmlFor="confirmPassword">
+                    Confirm New Password
+                    <input
+                      id="confirmPassword"
+                      className="form-control"
+                      placeholder="Confirm New Password"
+                      type="password"
+                      name="passwordConfirm"
+                      onChange={this.onChange}
+                      required
+                    />
+                  </label>
                 </div>
                 <button type="submit" className="btn btn-primary">Update Account Information</button>
               </form>

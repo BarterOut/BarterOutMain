@@ -1,5 +1,6 @@
 /**
- * @file React component for landing page.
+ * @file LandingPage.js
+ * @description React component for the landing page.
  * @author Duncan Grubbs <duncan.grubbs@gmail.com>
  * @author Luis Nova
  * @version 0.0.4
@@ -11,25 +12,25 @@ import {
   Redirect,
 } from 'react-router-dom';
 
-import AuthService from '../services/AuthService';
-import FetchService from '../services/FetchService';
-import ErrorService from '../services/ErrorService';
+import AuthService from '../../services/AuthService';
+import FetchService from '../../services/FetchService';
+import ErrorService from '../../services/ErrorService';
 
 import './landingpage.css';
-import '../res/sylesheetOrkneyRegular.css';
-import '../res/sylesheetOrkneyLight.css';
-import '../res/sylesheetOrkneyMedium.css';
-import '../res/sylesheetOrkneyBold.css';
+import '../../res/sylesheetOrkneyRegular.css';
+import '../../res/sylesheetOrkneyLight.css';
+import '../../res/sylesheetOrkneyMedium.css';
+import '../../res/sylesheetOrkneyBold.css';
 
-import logoPic from '../images/barterOutOrangeWhiteLogoHeader.png';
+import logo from '../../images/barterOutOrangeWhiteLogoHeader.png';
 
-import picOne from '../images/overtheShoulderCompressed.jpg';
-import picTwo from '../images/groupMeetingCompressed.jpg';
-import picThree from '../images/outdoorsCompressed.jpg';
+import picOne from '../../images/overtheShoulderCompressed.jpg';
+import picTwo from '../../images/groupMeetingCompressed.jpg';
+import picThree from '../../images/outdoorsCompressed.jpg';
 
-import Footer from '../components/Footer/Footer';
+import Footer from '../../components/Footer/Footer';
 
-import LandingBookPost from '../components/Posts/LandingBookPost/LandingBookPost';
+import LandingBookPost from '../../components/Posts/LandingBookPost/LandingBookPost';
 
 class LandingPage extends Component {
   constructor() {
@@ -37,6 +38,7 @@ class LandingPage extends Component {
     this.state = {
       redirect: false,
       posts: [],
+      page: 1,
       loading: false,
     };
     this.Auth = new AuthService();
@@ -46,6 +48,8 @@ class LandingPage extends Component {
   componentDidMount() {
     this.setRedirect();
     this.getPosts();
+    const booksSection = document.getElementById('landing-books');
+    booksSection.addEventListener('scroll', this.updatePagePosition.bind(this));
   }
 
   setRedirect() {
@@ -57,12 +61,23 @@ class LandingPage extends Component {
   }
 
   getPosts() {
-    FetchService.GET('/api/books/getAllBooksNoToken')
+    this.setState({ loading: true });
+    FetchService.GET('/api/books/getBooksNoToken')
       .then((data) => {
         this.setState({ loading: false });
         this.setState({ posts: data });
       })
       .catch(error => ErrorService.parseError(error));
+  }
+
+  updatePagePosition(evt) {
+    const percent = ((evt.target.scrollTop + 124) / evt.target.scrollHeight) * 100;
+    if (percent > 45 && percent < 80) {
+      this.setState(prevState => ({
+        page: prevState.page + 1,
+      }));
+      // this.getPosts();
+    }
   }
 
   updateInputValue(evt) {
@@ -73,7 +88,7 @@ class LandingPage extends Component {
     this.setState({ loading: true });
     this.setState({ posts: [] });
     if (query === '') {
-      FetchService.GET('/api/books/getAllBooksNoToken')
+      FetchService.GET('/api/books/getBooksNoToken')
         .then((data) => {
           this.setState({ loading: false });
           this.setState({ posts: data });
@@ -82,7 +97,7 @@ class LandingPage extends Component {
       return;
     }
 
-    FetchService.GET(`/api/books/searchNoToken/${query}`)
+    FetchService.GET(`/api/books/search/${query}`)
       .then((data) => {
         this.setState({ loading: false });
         this.setState({ posts: data });
@@ -101,7 +116,7 @@ class LandingPage extends Component {
           <div className="photo-bg">
             <nav className="headerBar">
               <div className="logo">
-                <a href="/" className="buttonLink"><img alt="logo" className="logoPic" src={logoPic} /></a>
+                <a href="/" className="buttonLink"><img alt="logo" className="logo" src={logo} /></a>
               </div>
               <div className="pageLinks">
                 <Link className="landingPageLink" to="/" href="/">Home</Link>
@@ -119,8 +134,8 @@ class LandingPage extends Component {
                 <input id="landing-search" placeholder="Find your book..." onChange={this.updateInputValue} />
                 <div id="landing-books">
                   {
-                    this.state.loading &&
-                    <div className="loading" />
+                    this.state.loading
+                    && <div className="loading" />
                   }
                   {this.state.posts.map(post => (
                     <LandingBookPost

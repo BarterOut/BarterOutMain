@@ -61,6 +61,7 @@ class CartBookPost extends Component {
           <span className="price">${this.props.price}*</span>
           <button
             className="btn btn-primary float-right"
+            type="button"
             onClick={this.removeFromCart}
           >Remove
           </button>
