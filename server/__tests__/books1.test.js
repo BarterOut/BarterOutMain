@@ -1,4 +1,4 @@
-import Textbook from '../../models/textbook';
+import Textbook from '../models/textbook';
 
 const mongoose = require('mongoose');
 

@@ -1,7 +1,7 @@
-import app from '../../server';
-import Textbook from '../../models/textbook';
-import User from '../../models/user';
-import TempUser from '../../models/tempUser';
+import app from '../server';
+import Textbook from '../models/textbook';
+import User from '../models/user';
+import TempUser from '../models/tempUser';
 
 const mongoose = require('mongoose');
 const request = require('supertest');
@@ -158,7 +158,6 @@ describe('Route Ensure', () => {
     app.close(done);
   });
 
-
   it('returns 200', async () => {
     const response = await request(app).get('/books');
     expect(response.status).toBe(200);
@@ -188,12 +187,12 @@ describe('setup', () => {
     // expect(response.status).toBe(201);
   });
 
-  it('should also save temp user', async () => {
-    const response = await request(app).post('/auth/signup')
-      .send(data) // x-www-form-urlencoded upload
-      .set('Accept', 'application/json');
-    expect(response.status).toBe(201);
-  });
+  // it('should also save temp user', async () => {
+  //   const response = await request(app).post('/auth/signup')
+  //     .send(data) // x-www-form-urlencoded upload
+  //     .set('Accept', 'application/json');
+  //   expect(response.status).toBe(201);
+  // });
 });
 
 describe('Create Book', () => {
