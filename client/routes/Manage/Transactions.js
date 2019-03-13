@@ -63,7 +63,7 @@ class Transactions extends Component {
 
   render() {
     return (
-      <div >
+      <div>
         <NavBar page="manage" />
         <div className="container">
           <div className="row mx-auto mt-4">
@@ -76,8 +76,8 @@ class Transactions extends Component {
               </div>
               <div className="scroll-posts--lg">
                 {
-                  this.state.loading &&
-                  <div className="loading" />
+                  this.state.loading
+                  && <div className="loading" />
                 }
                 {this.state.booksPurchased.map(post => (
                   <TrackBookPost

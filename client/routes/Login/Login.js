@@ -70,8 +70,8 @@ class Login extends Component {
   }
 
   _validateInputs() {
-    if (this.state.emailAddress === '' ||
-      this.state.password === '') {
+    if (this.state.emailAddress === ''
+      || this.state.password === '') {
       this.setState({ badCreditials: true });
       return false;
     }
@@ -117,9 +117,9 @@ class Login extends Component {
             <div>Back to <Link href="/" to="/">Home</Link>.</div>
           </div>
           <div>
-            <button className="inputButtonFilled" onClick={this.login}>Log In</button>
+            <button type="button" className="inputButtonFilled" onClick={this.login}>Log In</button>
             <Link href="/signup" to="/signup">
-              <button className="inputButton">Sign Up</button>
+              <button type="button" className="inputButton">Sign Up</button>
             </Link>
           </div>
           <div className="legal-links-login">

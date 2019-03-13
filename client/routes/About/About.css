@@ -7,7 +7,7 @@
 }
 
 .margin {
-  margin: 8px 0 0 12%;
+  margin-left: 12%;
 }
 
 .header-line-margin {
@@ -34,8 +34,8 @@
 }
 
 .team-photo {
-  width: 180px;
-  height: 180px;
+  width: 170px;
+  height: 170px;
   border-radius: 50%;
   box-shadow: 0 3px 6px rgba(0, 0, 0, .16);
   margin: 4px 0;
@@ -70,6 +70,6 @@
     padding: 8px;
   }
   .margin {
-    margin: 8px;
+    margin-left: 8px;
   }
 }

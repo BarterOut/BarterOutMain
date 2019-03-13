@@ -8,7 +8,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import './careers.css';
-import logoPic from '../../images/barterOutOrangeWhiteLogoHeader.png';
+import logo from '../../images/barterOutOrangeWhiteLogoHeader.png';
 
 import Footer from '../../components/Footer/Footer';
 
@@ -16,7 +16,7 @@ const Careers = () => (
   <div className="infowrapper">
     <nav className="headerBar">
       <div className="logo">
-        <a href="/" className="buttonLink"><img alt="logo" className="logoPic" src={logoPic} /></a>
+        <a href="/" className="buttonLink"><img alt="logo" className="logo" src={logo} /></a>
       </div>
       <div className="pageLinks">
         <Link className="landingPageLink" to="/" href="/">Home</Link>
@@ -43,7 +43,10 @@ const Careers = () => (
           <ul>
             <li>We do not pay employees at the moment.</li>
             <li>You must be very self motivated, there is little management overhead.</li>
-            <li>You have to be ready to <b>learn</b> if you are not familiar with our tech stack.</li>
+            <li>
+              You have to be ready to <b>learn</b> if you are not familiar with our tech
+              stack.
+            </li>
           </ul>
         </p>
         <h3>Open Positions</h3>

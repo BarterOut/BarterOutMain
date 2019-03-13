@@ -7,13 +7,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import logoPic from '../../images/barterOutOrangeWhiteLogoHeader.png';
+import logo from '../../images/barterOutOrangeWhiteLogoHeader.png';
 
 const Contact = () => (
   <div className="infowrapper">
     <nav className="headerBar">
       <div className="logo">
-        <a href="/" className="buttonLink"><img alt="logo" className="logoPic" src={logoPic} /></a>
+        <a href="/" className="buttonLink"><img alt="logo" className="logo" src={logo} /></a>
       </div>
       <div className="pageLinks">
         <Link className="landingPageLink" to="/" href="/">Home</Link>
@@ -29,7 +29,7 @@ const Contact = () => (
         <h3>You can reach us by:</h3>
 
         <ul>
-          <li>Email: office@barterout.com</li>
+          <li>Email: development@barterout.com</li>
           <li><a rel="noopener noreferrer" target="_blank" href="https://www.facebook.com/BarterOut/">Facebook</a></li>
           <li><a rel="noopener noreferrer" target="_blank" href="https://www.linkedin.com/company/18490388/">LinkedIn</a></li>
         </ul>

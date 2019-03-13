@@ -109,13 +109,13 @@ class Cart extends Component {
                 <p className="my-2">
                   When you click &quot;Checkout&quot;, we will Venmo request
                   @<b>{this.state.venmo}</b>. Please change your Venmo username
-                  <Link to="/settings" href="settings">here</Link> if it is not accurate.
+                  <Link to="/settings" href="settings"> here</Link> if it is not accurate.
                   Until you accept our Venmo request, we will hold the book(s).
                   Once you pay, the book(s) will be delivered via the campus mail center to
                   CMC Box <b>{this.state.CMC}</b>. Again if any of this information is not
                   accurate, please change it <Link to="/settings" href="settings">here</Link>.
                 </p>
-                <button className="btn btn-primary float-right my-2" onClick={this.buyBooks}>Checkout</button>
+                <button type="button" className="btn btn-primary float-right my-2" onClick={this.buyBooks}>Checkout</button>
               </div>
             </div>
           </div>
