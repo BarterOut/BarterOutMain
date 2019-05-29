@@ -30,8 +30,8 @@ const transporter = nodemailer.createTransport({ // secure authentication
   host: 'smtp.gmail.com',
   auth: {
     type: 'OAuth2',
-    clientId: '878736426892-d0vbth6ho78opo916rr1bimlmuufq25e.apps.googleusercontent.com',
-    clientSecret: '5OTf_iLhmt0tjJCKIdnuC5XM',
+    clientId: '628457958578-vq80t92rhh61he2kcus710jlrek592t0.apps.googleusercontent.com',
+    clientSecret: 'CPf_oR_nK4jeSoJpq05FfqE8',
   },
 });
 
