@@ -34,8 +34,8 @@ module.exports = {
       Following us on <a href="https://www.instagram.com/barteroutofficial/">Instagram</a>`,
       auth: {
         user: 'development@barterout.com',
-        refreshToken: '1/9XdHU4k2vwYioRyAP8kaGYfZXKfp_JxqUwUMYVJWlZs',
-        accessToken: 'ya29.GluwBeUQiUspdFo1yPRfzFMWADsKsyQhB-jgX3ivPBi5zcIldvyPYZtRME6xqZf7UNzkXzZLu1fh0NpeO11h6mwS2qdsL_JREzpKw_3ebOWLNgxTyFg5NmSdStnR',
+        refreshToken: '1/e3wsV0hJxqfoLemz1SMkyZRxAMMW5WNfDL2Egzee-JY',
+        accessToken: 'ya29.GlsYBxyGg7ncYq8JyfFRXIJrjX6yw3l1NN_rMHEUQ55oEbDtr489zugW9HawV46b44xUkc5OQMJeSEorW-RK7zT6_oBKIjuNnU6B0ATRNt7dmDAWJfMcnM2GchoT',
       // expires: 1484314697598
       },
     };
@@ -70,8 +70,8 @@ module.exports = {
       Following us on <a href="https://www.instagram.com/barteroutofficial/">Instagram</a>`,
       auth: {
         user: 'development@barterout.com',
-        refreshToken: '1/9XdHU4k2vwYioRyAP8kaGYfZXKfp_JxqUwUMYVJWlZs',
-        accessToken: 'ya29.GluwBeUQiUspdFo1yPRfzFMWADsKsyQhB-jgX3ivPBi5zcIldvyPYZtRME6xqZf7UNzkXzZLu1fh0NpeO11h6mwS2qdsL_JREzpKw_3ebOWLNgxTyFg5NmSdStnR',
+        refreshToken: '1/e3wsV0hJxqfoLemz1SMkyZRxAMMW5WNfDL2Egzee-JY',
+        accessToken: 'ya29.GlsYBxyGg7ncYq8JyfFRXIJrjX6yw3l1NN_rMHEUQ55oEbDtr489zugW9HawV46b44xUkc5OQMJeSEorW-RK7zT6_oBKIjuNnU6B0ATRNt7dmDAWJfMcnM2GchoT',
       // expires: 1484314697598
       },
     };
@@ -102,8 +102,8 @@ module.exports = {
       Following us on <a href="https://www.instagram.com/barteroutofficial/">Instagram</a>`,
       auth: {
         user: 'development@barterout.com',
-        refreshToken: '1/9XdHU4k2vwYioRyAP8kaGYfZXKfp_JxqUwUMYVJWlZs',
-        accessToken: 'ya29.GluwBeUQiUspdFo1yPRfzFMWADsKsyQhB-jgX3ivPBi5zcIldvyPYZtRME6xqZf7UNzkXzZLu1fh0NpeO11h6mwS2qdsL_JREzpKw_3ebOWLNgxTyFg5NmSdStnR',
+        refreshToken: '1/e3wsV0hJxqfoLemz1SMkyZRxAMMW5WNfDL2Egzee-JY',
+        accessToken: 'ya29.GlsYBxyGg7ncYq8JyfFRXIJrjX6yw3l1NN_rMHEUQ55oEbDtr489zugW9HawV46b44xUkc5OQMJeSEorW-RK7zT6_oBKIjuNnU6B0ATRNt7dmDAWJfMcnM2GchoT',
       // expires: 1484314697598
       },
     };
@@ -134,8 +134,8 @@ module.exports = {
       `,
       auth: {
         user: 'development@barterout.com',
-        refreshToken: '1/9XdHU4k2vwYioRyAP8kaGYfZXKfp_JxqUwUMYVJWlZs',
-        accessToken: 'ya29.GluwBeUQiUspdFo1yPRfzFMWADsKsyQhB-jgX3ivPBi5zcIldvyPYZtRME6xqZf7UNzkXzZLu1fh0NpeO11h6mwS2qdsL_JREzpKw_3ebOWLNgxTyFg5NmSdStnR',
+        refreshToken: '1/e3wsV0hJxqfoLemz1SMkyZRxAMMW5WNfDL2Egzee-JY',
+        accessToken: 'ya29.GlsYBxyGg7ncYq8JyfFRXIJrjX6yw3l1NN_rMHEUQ55oEbDtr489zugW9HawV46b44xUkc5OQMJeSEorW-RK7zT6_oBKIjuNnU6B0ATRNt7dmDAWJfMcnM2GchoT',
       // expires: 1484314697598
       },
     };
@@ -171,8 +171,8 @@ module.exports = {
       Following us on <a href="https://www.instagram.com/barteroutofficial/">Instagram</a>`,
       auth: {
         user: 'development@barterout.com',
-        refreshToken: '1/9XdHU4k2vwYioRyAP8kaGYfZXKfp_JxqUwUMYVJWlZs',
-        accessToken: 'ya29.GluwBeUQiUspdFo1yPRfzFMWADsKsyQhB-jgX3ivPBi5zcIldvyPYZtRME6xqZf7UNzkXzZLu1fh0NpeO11h6mwS2qdsL_JREzpKw_3ebOWLNgxTyFg5NmSdStnR',
+        refreshToken: '1/e3wsV0hJxqfoLemz1SMkyZRxAMMW5WNfDL2Egzee-JY',
+        accessToken: 'ya29.GlsYBxyGg7ncYq8JyfFRXIJrjX6yw3l1NN_rMHEUQ55oEbDtr489zugW9HawV46b44xUkc5OQMJeSEorW-RK7zT6_oBKIjuNnU6B0ATRNt7dmDAWJfMcnM2GchoT',
         // expires: 1484314697598
       },
     };
@@ -200,8 +200,8 @@ module.exports = {
       Following us on <a href="https://www.instagram.com/barteroutofficial/">Instagram</a>`,
       auth: {
         user: 'development@barterout.com',
-        refreshToken: '1/9XdHU4k2vwYioRyAP8kaGYfZXKfp_JxqUwUMYVJWlZs',
-        accessToken: 'ya29.GluwBeUQiUspdFo1yPRfzFMWADsKsyQhB-jgX3ivPBi5zcIldvyPYZtRME6xqZf7UNzkXzZLu1fh0NpeO11h6mwS2qdsL_JREzpKw_3ebOWLNgxTyFg5NmSdStnR',
+        refreshToken: '1/e3wsV0hJxqfoLemz1SMkyZRxAMMW5WNfDL2Egzee-JY',
+        accessToken: 'ya29.GlsYBxyGg7ncYq8JyfFRXIJrjX6yw3l1NN_rMHEUQ55oEbDtr489zugW9HawV46b44xUkc5OQMJeSEorW-RK7zT6_oBKIjuNnU6B0ATRNt7dmDAWJfMcnM2GchoT',
         // expires: 1484314697598
       },
     };
@@ -229,8 +229,8 @@ module.exports = {
       Like us on <a href="https://www.facebook.com/BarterOut/" target="_blank">Facebook</a> <br> </br> Follow us on <a href="https://www.instagram.com/barteroutofficial/" target="_blank">Instagram</a>`,
       auth: {
         user: 'development@barterout.com',
-        refreshToken: '1/9XdHU4k2vwYioRyAP8kaGYfZXKfp_JxqUwUMYVJWlZs',
-        accessToken: 'ya29.GluwBeUQiUspdFo1yPRfzFMWADsKsyQhB-jgX3ivPBi5zcIldvyPYZtRME6xqZf7UNzkXzZLu1fh0NpeO11h6mwS2qdsL_JREzpKw_3ebOWLNgxTyFg5NmSdStnR',
+        refreshToken: '1/e3wsV0hJxqfoLemz1SMkyZRxAMMW5WNfDL2Egzee-JY',
+        accessToken: 'ya29.GlsYBxyGg7ncYq8JyfFRXIJrjX6yw3l1NN_rMHEUQ55oEbDtr489zugW9HawV46b44xUkc5OQMJeSEorW-RK7zT6_oBKIjuNnU6B0ATRNt7dmDAWJfMcnM2GchoT',
         // expires: 1484314697598
       },
     };

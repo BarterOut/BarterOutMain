@@ -7,7 +7,7 @@
     "start": "BABEL_DISABLE_CACHE=1 nodemon index.js",
     "dev": "concurrently \"npm start\" ",
     "lint": "eslint . --fix",
-    "test": "NODE_ENV=test jest --detectOpenHandles --config jest.config.js",
+    "test": "NODE_ENV=test jest --detectOpenHandles --config jest.config.js --forceExit",
     "coverage": "NODE_ENV=test jest --collectCoverageFrom=server/**.js --coverage server --forceExit",
     "build": "webpack"
   },

@@ -61,8 +61,8 @@ nev.configure({
     host: 'smtp.gmail.com',
     auth: {
       type: 'OAuth2',
-      clientId: '878736426892-d0vbth6ho78opo916rr1bimlmuufq25e.apps.googleusercontent.com',
-      clientSecret: '5OTf_iLhmt0tjJCKIdnuC5XM',
+      clientId: '628457958578-vq80t92rhh61he2kcus710jlrek592t0.apps.googleusercontent.com',
+      clientSecret: 'CPf_oR_nK4jeSoJpq05FfqE8',
     },
   },
   verifyMailOptions: {
@@ -72,8 +72,8 @@ nev.configure({
     html: '<p>Please verify your account by clicking <a href="${URL}">this link</a>.', // eslint-disable-line
     auth: {
       user: 'development@barterout.com',
-      refreshToken: '1/9XdHU4k2vwYioRyAP8kaGYfZXKfp_JxqUwUMYVJWlZs',
-      accessToken: 'ya29.GluwBeUQiUspdFo1yPRfzFMWADsKsyQhB-jgX3ivPBi5zcIldvyPYZtRME6xqZf7UNzkXzZLu1fh0NpeO11h6mwS2qdsL_JREzpKw_3ebOWLNgxTyFg5NmSdStnR',
+      refreshToken: '1/e3wsV0hJxqfoLemz1SMkyZRxAMMW5WNfDL2Egzee-JY',
+      accessToken: 'ya29.GlsYBxyGg7ncYq8JyfFRXIJrjX6yw3l1NN_rMHEUQ55oEbDtr489zugW9HawV46b44xUkc5OQMJeSEorW-RK7zT6_oBKIjuNnU6B0ATRNt7dmDAWJfMcnM2GchoT',
     },
   },
   // This might break the log in for the new users as it might be hashing the hash.
@@ -149,8 +149,8 @@ const transporter = nodemailer.createTransport({ // secure authentication
   host: 'smtp.gmail.com',
   auth: {
     type: 'OAuth2',
-    clientId: '878736426892-d0vbth6ho78opo916rr1bimlmuufq25e.apps.googleusercontent.com',
-    clientSecret: '5OTf_iLhmt0tjJCKIdnuC5XM',
+    clientId: '628457958578-vq80t92rhh61he2kcus710jlrek592t0.apps.googleusercontent.com',
+    clientSecret: 'CPf_oR_nK4jeSoJpq05FfqE8',
   },
 });
 
