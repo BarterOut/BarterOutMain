@@ -3,4 +3,4 @@ node_js:
   - "stable"
 script:
   - npm run test
-services: mongodb
+# services: mongodb
