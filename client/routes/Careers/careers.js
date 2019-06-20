@@ -33,21 +33,10 @@ const Careers = () => (
           <h4 className="position-header">Intro</h4>
         </b>
         <p className="careers-text">
-          At BarterOut, we have a <em>very</em> small team of seven, highly motivated developers,
-          working at a fast pace. We work hard to create an inclusive, yet realistic environment
-          that pushes all of us to become better team members and developers. We make learning a
-          priority, which allows us to open our doors to a much wider range of people. This being
-          said, BarterOut is still a <em>very young</em> company and we do not have many of
-          the resources larger companies do.
-          <b><p className="careers-text">Note:</p></b>
-          <ul>
-            <li>We do not pay employees at the moment.</li>
-            <li>You must be very self motivated, there is little management overhead.</li>
-            <li>
-              You have to be ready to <b>learn</b> if you are not familiar with our tech
-              stack.
-            </li>
-          </ul>
+          At BarterOut, we want to save college students money and make
+          their live&apos;s easier. We have a small team of hard working devs
+          that love to learn new technologies but we are always looking for
+          more help.
         </p>
         <h3>Open Positions</h3>
         <h4 className="position-header">Frontend Web Developer</h4>
@@ -55,7 +44,16 @@ const Careers = () => (
           <p className="careers-text">Role</p>
         </b>
         <p className="careers-text">
-          Are you passionate about frontend web development using modern frameworks and techniques? Willing to work in a fast paced, agile environment? Do you want to work for a startup whose aim is to make students&apos; lives easier? If so, fill out <a rel="noopener noreferrer" target="_blank" href="https://goo.gl/forms/ZfEQ36J24NcsK08Z2">this form.</a>
+          Are you passionate about frontend web development using modern frameworks
+          and techniques? Willing to work in a fast paced, agile environment? Do
+          you want to work for a organization whose aim is to make students&apos;
+          lives easier? If so, fill out
+          <a
+            rel="noopener noreferrer"
+            target="_blank"
+            href="https://goo.gl/forms/ZfEQ36J24NcsK08Z2"
+          >this form.
+          </a>
         </p>
         <b>
           <p className="careers-text">Location</p>
@@ -84,7 +82,7 @@ const Careers = () => (
           <p className="careers-text">Role</p>
         </b>
         <p className="careers-text">
-          Are you passionate about server-side web development using modern frameworks and techniques? Willing to work in a fast paced, agile environment? Do you want to work for a startup whose aim is to make students&apos; lives easier? If so, fill out <a rel="noopener noreferrer" target="_blank" href="https://goo.gl/forms/mZBceWIBIM4q7iSv2">this form.</a>
+          Are you passionate about server-side web development using modern frameworks and techniques? Willing to work in a fast paced, agile environment? Do you want to work for a organization whose aim is to make students&apos; lives easier? If so, fill out <a rel="noopener noreferrer" target="_blank" href="https://goo.gl/forms/mZBceWIBIM4q7iSv2">this form.</a>
         </p>
         <b>
           <p className="careers-text">Location</p>
@@ -112,7 +110,7 @@ const Careers = () => (
           <p className="careers-text">Role</p>
         </b>
         <p className="careers-text">
-          Are you passionate about and have experience with mobile development on iOS? Willing to work in a fast paced, agile environment? Do you want to work for a startup whose aim is to make students&apos; lives easier? If so, fill out <a rel="noopener noreferrer" target="_blank" href="https://goo.gl/forms/xgxmPJFRerqP2kdd2">this form.</a>
+          Are you passionate about and have experience with mobile development on iOS? Willing to work in a fast paced, agile environment? Do you want to work for a organization whose aim is to make students&apos; lives easier? If so, fill out <a rel="noopener noreferrer" target="_blank" href="https://goo.gl/forms/xgxmPJFRerqP2kdd2">this form.</a>
         </p>
         <b>
           <p className="careers-text">Location</p>
@@ -141,7 +139,7 @@ const Careers = () => (
           <p className="careers-text">Role</p>
         </b>
         <p className="careers-text">
-          Are you passionate about and have experience with mobile development on Android? Willing to work in a fast paced, agile environment? Do you want to work for a startup whose aim is to make students&apos; lives easier? If so, fill out <a rel="noopener noreferrer" target="_blank" href="https://goo.gl/forms/Jxyci6YMknB2r9QA3">this form.</a>
+          Are you passionate about and have experience with mobile development on Android? Willing to work in a fast paced, agile environment? Do you want to work for a organization whose aim is to make students&apos; lives easier? If so, fill out <a rel="noopener noreferrer" target="_blank" href="https://goo.gl/forms/Jxyci6YMknB2r9QA3">this form.</a>
         </p>
         <b>
           <p className="careers-text">Location</p>

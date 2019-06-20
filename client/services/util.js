@@ -1,5 +1,5 @@
 /**
- * @file Util.js
+ * @file util.js
  * @description General utilites for the app.
  * @author Duncan Grubbs <duncan.grubbs@gmail.com>
  * @version 0.0.4

@@ -21,18 +21,9 @@ import stairs from '../../images/stairsCompressed.jpg';
 import barteroutTeam from '../../images/barterout-team.jpg';
 
 import vlad from '../../images/team-photos/vladCazacu.jpg';
-// import annie from '../../images/team-photos/annieHamburgen.jpg';
 import duncan from '../../images/team-photos/duncanGrubbs.jpg';
 import daniel from '../../images/team-photos/danielMunoz.jpg';
-// import zino from '../../images/team-photos/zino.jpg';
-// import shagun from '../../images/team-photos/shagun.jpg';
 import nikolai from '../../images/team-photos/Nikolai.jpg';
-// import genessis from '../../images/team-photos/genessisGalindo.jpg';
-// import zacqueline from '../../images/team-photos/zacquelineBaldwin.jpg';
-
-import adviserOne from '../../images/team-photos/meyerElizabeth.jpg';
-
-// import fallbackProfile from '../../images/barterOutProfilePhotoWebPage.png';
 
 import Footer from '../../components/Footer/Footer';
 
@@ -80,7 +71,7 @@ const About = () => (
             <div className="header-line-landing" />
             <p className="landing-para">
               Our goal is to improve the college experience for everyone.
-              We are a company for students, by students.
+              We are a organization for students, by students.
               We believe access to educational materials is key for the proper development
               of students and we are placing a bet on technology to help us solve this.
               Our products enable universities to stay relevant in today&apos;s changing world
@@ -91,8 +82,8 @@ const About = () => (
         <h1 className="text-header margin">Meet Our Team</h1>
         <div className="header-line margin" />
         <p className="landing-para about-team">
-          Currently we are a group of 4 creative students at the
-          University of Rochester dedicated to improve the college experience
+          Currently we are a group of four creative students at the
+          University of Rochester dedicated to improving the college experience
           for everyone using tech. If our mission resonates with you, be sure to
           check out our updated <a to="/careers" href="/careers">careers page</a>.
         </p>
@@ -111,13 +102,6 @@ const About = () => (
             <h4 className="subtext2">UR &apos;21</h4>
           </div>
 
-          {/* <div className="team-member">
-            <img className="team-photo" src={annie} alt="Annie" />
-            <h4 className="subtext">Annie Hamburgenn</h4>
-            <h4 className="subtext1">CMO</h4>
-            <h4 className="subtext2">UR &apos;19</h4>
-          </div> */}
-
           <div className="team-member">
             <img className="team-photo" src={duncan} alt="Duncan" />
             <h4 className="subtext">Duncan Grubbs</h4>
@@ -130,57 +114,6 @@ const About = () => (
             <h4 className="subtext">Daniel Munoz</h4>
             <h4 className="subtext1">Software Development</h4>
             <h4 className="subtext2">UR &apos;21</h4>
-          </div>
-        </div>
-        {/* <div id="team-photos">
-          <div className="team-member">
-            <img className="team-photo" src={shagun} alt="Shagun" />
-            <h4 className="subtext">Shagun Bose</h4>
-            <h4 className="subtext1">UI/UX Designer</h4>
-            <h4 className="subtext2">UR &apos;20</h4>
-          </div>
-
-          <div className="team-member">
-            <img className="team-photo" src={zino} alt="Zino" />
-            <h4 className="subtext">Zino Hu</h4>
-            <h4 className="subtext1">Full-Stack Developer</h4>
-            <h4 className="subtext2">UR &apos;19</h4>
-          </div>
-
-          <div className="team-member">
-            <img className="team-photo" src={fallbackProfile} alt="May" />
-            <h4 className="subtext">May Shin Lyan</h4>
-            <h4 className="subtext1">UI/UX Developer</h4>
-            <h4 className="subtext2">UR &apos;20</h4>
-          </div>
-
-          <div className="team-member">
-            <img className="team-photo" src={fallbackProfile} alt="Aman" />
-            <h4 className="subtext">Aman Shrestha</h4>
-            <h4 className="subtext1">Android Developer</h4>
-            <h4 className="subtext2">UR &apos;21</h4>
-          </div>
-        </div> */}
-        {/* <div id="team-photos">
-          <div className="team-member">
-            <img className="team-photo" src={zacqueline} alt="Zacqueline" />
-            <h4 className="subtext">Zacqueline Baldwin</h4>
-            <h4 className="subtext1">Marketing Strategist</h4>
-            <h4 className="subtext2">UR &apos;20</h4>
-          </div>
-
-          <div className="team-member">
-            <img className="team-photo" src={genessis} alt="Genessis" />
-            <h4 className="subtext">Genessis Galindo</h4>
-            <h4 className="subtext1">Marketing Analyst</h4>
-            <h4 className="subtext2">UR &apos;20</h4>
-          </div>
-        </div> */}
-        <div id="team-photos">
-          <div className="team-member">
-            <img className="team-photo" src={adviserOne} alt="Elizabeth" />
-            <h4 className="subtext">Elizabeth Meyer</h4>
-            <h4 className="subtext1">Strategy Advisor</h4>
           </div>
         </div>
       </div>

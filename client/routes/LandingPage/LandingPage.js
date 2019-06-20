@@ -157,10 +157,10 @@ class LandingPage extends Component {
           </div>
           <div className="landing-section" id="product">
             <div className="text-content-landing left">
-              <h2 className="landing-header-title">Our Product</h2>
+              <h2 className="landing-header-title">Our Products</h2>
               <div className="header-line-landing" />
               <p className="landing-para">
-                BarterOut is an ed-tech company that offers a collection of software products for
+                BarterOut is an ed-tech organization that offers a collection of applications for
                 universities empowering them to leverage technology in order to improve the lives
                 of their students. One of them, our book trading app, enables students to buy and
                 sell previously owned textbooks in an organized and efficient way, delivery and
@@ -179,12 +179,11 @@ class LandingPage extends Component {
               <h2 className="landing-header-title">For Students</h2>
               <div className="header-line-landing" />
               <p className="landing-para">
-                Because we care about you, we have built an easy-to-use system capable
-                of providing you with the right textbooks you need as fast as possible
-                as well as giving you the opportunity to sell the ones you are not using anymore.
-                We handle delivery and payments so you don&apos;t have to worry about it.
-                In order to make this dream a reality we take a very small share of every
-                transaction to keep our operations up and running. <br />
+                As college students ourselves, we understand the difficulties <b>you</b> face.
+                We are building applications to solve problems that we see in our everyday
+                lives. We work everyday to create tools that help you get the best price
+                textbooks, find courses your friends are taking, make comments on courses
+                and professors at your school, and so much more.
               </p>
               <div className="landing-bullets">
                 <span className="landing-bullet">Simple</span>
@@ -199,10 +198,13 @@ class LandingPage extends Component {
               <div className="header-line-landing" />
               <p className="landing-para">
                 At BarterOut, we know textbooks can get very expensive and finding second-hand ones
-                can be a hassle. That&apos;s why we make it easier for your students to get their
-                books and go to class, all with just a couple clicks on our platform. We empower
-                forward-thinking universities, just like yours, to set up textbooks exchanges for
-                their students using our customizable software.
+                can be a hassle. We also know how hard it is to create up-to-date systems for students
+                to find and create their schedules.
+                That&apos;s why we make it easier for your students to get their
+                books and go to class, coordinate with friends to find the best course schedules,
+                and so much more.
+                We empower forward-thinking universities, just like yours, to use our technology to
+                create better experiences for their students.
                 <br />
               </p>
               <div className="landing-bullets">
