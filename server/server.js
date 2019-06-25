@@ -42,7 +42,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // TODO: Make salting string better.
 app.use(session({
-  secret: 'ourOwnSaltingString', // pick a random string to make the hash that is generated secure
+  // pick a random string to make the hash that is generated secure
+  secret: process.env.SALTING_STRING,
   // Following lines are to avoid some deprecation warnings
   resave: false, // required
   saveUninitialized: false, // required

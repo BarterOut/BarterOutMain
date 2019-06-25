@@ -62,7 +62,7 @@ nev.configure({
     auth: {
       type: 'OAuth2',
       clientId: '628457958578-vq80t92rhh61he2kcus710jlrek592t0.apps.googleusercontent.com',
-      clientSecret: 'CPf_oR_nK4jeSoJpq05FfqE8',
+      clientSecret: process.env.NEV_CLIENT_SECRET,
     },
   },
   verifyMailOptions: {
@@ -72,8 +72,8 @@ nev.configure({
     html: '<p>Please verify your account by clicking <a href="${URL}">this link</a>.', // eslint-disable-line
     auth: {
       user: 'development@barterout.com',
-      refreshToken: '1/e3wsV0hJxqfoLemz1SMkyZRxAMMW5WNfDL2Egzee-JY',
-      accessToken: 'ya29.GlsYBxyGg7ncYq8JyfFRXIJrjX6yw3l1NN_rMHEUQ55oEbDtr489zugW9HawV46b44xUkc5OQMJeSEorW-RK7zT6_oBKIjuNnU6B0ATRNt7dmDAWJfMcnM2GchoT',
+      refreshToken: process.env.EVR_TOKEN,
+      accessToken: process.env.EV_TOKEN,
     },
   },
   // This might break the log in for the new users as it might be hashing the hash.
@@ -150,7 +150,7 @@ const transporter = nodemailer.createTransport({ // secure authentication
   auth: {
     type: 'OAuth2',
     clientId: '628457958578-vq80t92rhh61he2kcus710jlrek592t0.apps.googleusercontent.com',
-    clientSecret: 'CPf_oR_nK4jeSoJpq05FfqE8',
+    clientSecret: process.env.NEV_CLIENT_SECRET,
   },
 });
 
