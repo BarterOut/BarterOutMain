@@ -8,7 +8,7 @@
  */
 
 const config = {
-  mongoURL: process.env.MONGO_URL || 'mongodb://localhost/lets-go-db',
+  mongoURL: process.env.MONGO_URL || 'mongodb://localhost/barterout-db',
   port: process.env.PORT || 8080,
   key: process.env.JWT_SECRET,
 };
