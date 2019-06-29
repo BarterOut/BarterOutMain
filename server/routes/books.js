@@ -31,7 +31,7 @@ const transporter = nodemailer.createTransport({ // secure authentication
   auth: {
     type: 'OAuth2',
     clientId: '628457958578-vq80t92rhh61he2kcus710jlrek592t0.apps.googleusercontent.com',
-    clientSecret: 'CPf_oR_nK4jeSoJpq05FfqE8',
+    clientSecret: process.env.NEV_CLIENT_SECRET,
   },
 });
 
