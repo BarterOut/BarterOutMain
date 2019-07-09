@@ -106,6 +106,7 @@ mongoose.connect(serverConfig.mongoURL, { useNewUrlParser: true }, (error) => {
 // Start App
 app.listen(PORT, (error) => {
   if (!error) {
+    console.log(process.env.MONGO_URL); // eslint-disable-line
     console.log(`MERN is running on port: ${serverConfig.port}! Build something amazing!`); // eslint-disable-line
   }
 });

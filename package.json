@@ -38,6 +38,7 @@
     "bootstrap": "^4.2.1",
     "compression-webpack-plugin": "^2.0.0",
     "css-loader": "^2.1.0",
+    "dotenv": "^8.0.0",
     "email-verification": "^0.4.6",
     "express": "^4.16.3",
     "express-session": "^1.15.6",
