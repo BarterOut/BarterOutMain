@@ -238,12 +238,7 @@ router.post('/confirmBook', (req, res) => {
     } else if (authData.userInfo.permissionType === 1) {
       Textbook.update(
         { _id: req.body.data.id },
-        {
-          $set:
-            {
-              status: 2,
-            },
-        }, (err) => {
+        { $set: { status: 2 } }, (err) => {
           if (!err) {
             res.status(200).json(response({}));
           }
@@ -268,12 +263,7 @@ router.post('/setBookPaid', (req, res) => {
     } else if (authData.userInfo.permissionType === 1) {
       Textbook.update(
         { _id: req.body.data.id },
-        {
-          $set:
-            {
-              status: 3,
-            },
-        }, (err) => {
+        { $set: { status: 3 } }, (err) => {
           if (!err) {
             res.status(200).json(response({}));
           }
@@ -351,12 +341,7 @@ router.post('/setBookStatus/:token', (req, res) => {
           // will be for later when we have admin accounts
           Textbook.update(
             { _id: req.body.data.bookID },
-            {
-              $set:
-                {
-                  status: req.body.data.status,
-                },
-            },
+            { $set: { status: req.body.data.status } },
           );
           res.status(200).json(response({}));
         } else {
@@ -489,12 +474,7 @@ router.post('/confirmTransaction', (req, res) => {
         } else if (authData.permissionType === 1) {
           Transactions.update(
             { _id: req.body.data.id },
-            {
-              $set:
-                {
-                  status: 1,
-                },
-            }, (err) => {
+            { $set: { status: 1 } }, (err) => {
               if (!err) {
                 res.status(200).json(response({}));
               }

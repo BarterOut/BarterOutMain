@@ -1,5 +1,5 @@
 /**
- * @file emailFunctions.js
+ * @file emails.js
  * @description Pre-written emails.
  * @author Daniel Munoz
  * @author Duncan Grubbs <duncan.grubbs@gmail.com>

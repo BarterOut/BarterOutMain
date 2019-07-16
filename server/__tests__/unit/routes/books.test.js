@@ -5,21 +5,19 @@ const request = require('supertest');
 process.env.TEST_SUITE = 'book-testing';
 
 let server;
-let agent;
 
 beforeEach((done) => {
   server = app.listen(4000, (err) => {
     if (err) return done(err);
 
-    agent = request.agent(server);
+    const agent = request.agent(server);
+    console.log(agent); // eslint-disable-line
     // since the application is already listening, it should use the allocated port
     return done();
   });
 });
 
-afterEach((done) => {
-  return server && server.close(done);
-});
+afterEach(done => server && server.close(done));
 
 // since these are unit tests, we are just ensuring that
 // routes are up and have good responses

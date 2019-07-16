@@ -7,7 +7,7 @@
  */
 
 import React, { Component } from 'react';
-import 'bootstrap/dist/js/bootstrap.bundle.min.js';
+import 'bootstrap/dist/js/bootstrap.bundle.min.js'; // eslint-disable-line
 
 import NavBar from '../../components/NavBar/NavBar';
 

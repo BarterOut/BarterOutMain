@@ -40,7 +40,6 @@ const app = new Express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// TODO: Make salting string better.
 app.use(session({
   // pick a random string to make the hash that is generated secure
   secret: process.env.SALTING_STRING,
@@ -73,14 +72,14 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 // Prefer gzipped js files.
-// Set cache policy to cache for one month on js files
+// Set cache policy to cache for one month on js files: UPDATE : no more
 app.get('*.js', (req, res, next) => {
   res.set('Content-Encoding', 'gzip');
   // res.set('Cache-Control', 'public, max-age=2629800');
   next();
 });
 
-
+// server-side API endpoints
 app.use('/api/auth', auth);
 app.use('/api/user', user);
 app.use('/api/books', books);

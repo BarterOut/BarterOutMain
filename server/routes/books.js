@@ -21,7 +21,7 @@ const router = express.Router();
 
 const nodemailer = require('nodemailer');
 const jwt = require('jsonwebtoken');
-const emails = require('../emails/emailFunctions');
+const emails = require('../resources/emails');
 const notification = require('../resources/Notifications');
 
 const BOOK_LIMIT = 40;
@@ -353,10 +353,11 @@ router.get('/getUserMatches/:token', (req, res) => {
           let bookObjects = [];
           const bookIDs = user.matchedBooks;
           Textbook.find({ $and: [{ _id: { $in: bookIDs } }, { status: 0 }] }, (error, books) => {
-            for (let i = 0; i < books.length; i++) {
+            bookObjects = books;
+            for (let i = 0; i < bookObjects.length; i++) {
               for (let x = 0; x < user.cart.length; x++) {
-                if (String(books[i]._id) === String(user.cart[x])) {
-                  books[i].status = 42;
+                if (String(bookObjects[i]._id) === String(user.cart[x])) {
+                  bookObjects[i].status = 42;
                 }
               }
             }
@@ -546,14 +547,15 @@ router.get('/getAllBooks/:token', (req, res) => {
             .sort({ date: -1 })
             .exec((err, books) => {
               User.findById(authData.userInfo._id, (err, user) => {
-                for (let i = 0; i < books.length; i++) {
+                const booksList = books;
+                for (let i = 0; i < booksList.length; i++) {
                   for (let x = 0; x < user.cart.length; x++) {
-                    if (books[i]._id == user.cart[x]) {
-                      books[i].status = 42;
+                    if (booksList[i]._id == user.cart[x]) {
+                      booksList[i].status = 42;
                     }
                   }
                 }
-                res.status(200).json(response(books));
+                res.status(200).json(response(booksList));
               });
             });
         }

@@ -25,7 +25,7 @@ const nev = require('email-verification')(mongoose);
 const rand = require('rand-token');
 
 const jwt = require('jsonwebtoken');
-const emails = require('../emails/emailFunctions');
+const emails = require('../resources/emails');
 
 const notification = require('../resources/Notifications');
 
