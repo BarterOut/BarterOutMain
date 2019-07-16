@@ -18,6 +18,7 @@
     "url": "https://github.com/BarterOut/api-docs"
   },
   "dependencies": {
+    "airbrake-js": "^1.6.8",
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.3",
     "babel-eslint": "^10.0.1",

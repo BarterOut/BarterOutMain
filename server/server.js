@@ -26,6 +26,8 @@ import serverConfig from './config';
 const bodyParser = require('body-parser');
 const session = require('express-session');
 
+const AirbrakeClient = require('airbrake-js');
+
 // API Routes
 const auth = require('./routes/auth');
 const user = require('./routes/user');
@@ -56,7 +58,15 @@ function forceSsl(req, res, next) {
   return next();
 }
 
-if (process.env.NODE_ENV === 'production') {
+if (process.env.NODE_ENV === 'production'
+    || process.env.NODE_ENV === 'staging') {
+  const airbrake = new AirbrakeClient({
+    projectId: process.env.AIRBRAKE_ID,
+    projectKey: process.env.AIRBRAKE_KEY,
+  });
+
+  console.log(airbrake); // eslint-disable-line
+
   app.use(forceSsl);
 
   // Set cache policy to cache for one month on images
