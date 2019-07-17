@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 import app from '../../../server';
 
 const request = require('supertest');
@@ -11,7 +13,6 @@ beforeEach((done) => {
     if (err) return done(err);
 
     const agent = request.agent(server);
-    console.log(agent); // eslint-disable-line
     // since the application is already listening, it should use the allocated port
     return done();
   });

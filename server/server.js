@@ -60,12 +60,10 @@ function forceSsl(req, res, next) {
 
 if (process.env.NODE_ENV === 'production'
     || process.env.NODE_ENV === 'staging') {
-  const airbrake = new AirbrakeClient({
+  const airbrake = new AirbrakeClient({ // eslint-disable-line
     projectId: process.env.AIRBRAKE_ID,
     projectKey: process.env.AIRBRAKE_KEY,
   });
-
-  console.log(airbrake); // eslint-disable-line
 
   app.use(forceSsl);
 
