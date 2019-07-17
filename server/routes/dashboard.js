@@ -54,15 +54,18 @@ router.get('/getPurchasedBooks/:token', (req, res) => {
   });
 });
 
-// We could add this thing where the parameter is the status we would like to search for
+// TODO: Verify status with enum
 
 /**
- * Gets a list of all in process transactions (books with status 1).
+ * Gets a list of all in process transactions (books with status, status).
  * @param {Object} req Request body from client.
  * @param {Object} res Body of HTTP response.
  * @returns {Array} List of transactions.
  */
-router.get('/getBooksStatus1/:token', (req, res) => {
+router.get('/getBooksWithStatus/:status/:token', (req, res) => {
+  // we are using base 10
+  const status = parseInt(req.params.status, 10);
+
   jwt.verify(req.params.token, config.key, (error, authData) => {
     if (error) {
       res.status(403).json(response({ error }));
@@ -71,9 +74,12 @@ router.get('/getBooksStatus1/:token', (req, res) => {
         if (!user) {
           res.status(401).json(response({ error: 'You need to create an account' }));
         } else if (authData.userInfo.permissionType === 1) {
-          Textbook.find({ status: 1 }, (err, books) => {
-            res.status(200).json(response(sortReverseCronological(books)));
-          });
+          Textbook
+            .find({ status })
+            .sort({ date: -1 })
+            .exec((err, books) => {
+              res.status(200).json(response(sortReverseCronological(books)));
+            });
         } else {
           res.status(401).json(response({}));
         }
@@ -82,58 +88,6 @@ router.get('/getBooksStatus1/:token', (req, res) => {
   });
 });
 
-/**
- * Gets a list of all in process transactions (books with status 1).
- * @param {Object} req Request body from client.
- * @param {Object} res Body of HTTP response.
- * @returns {Array} List of transactions.
- */
-router.get('/getBooksStatus2/:token', (req, res) => {
-  jwt.verify(req.params.token, config.key, (error, authData) => {
-    if (error) {
-      res.status(403).json(response({ error }));
-    } else {
-      User.findOne({ _id: authData.userInfo._id }, (error, user) => {
-        if (!user) {
-          res.status(401).json(response({ error: 'You need to create an account.' }));
-        } else if (authData.userInfo.permissionType === 1) {
-          Textbook.find({ status: 2 }, (err, books) => {
-            res.status(200).json(response(sortReverseCronological(books)));
-          });
-        } else {
-          res.status(401).json(response({}));
-        }
-      });
-    }
-  });
-});
-
-
-/**
- * Gets a list of all in process transactions (books with status 1).
- * @param {Object} req Request body from client.
- * @param {Object} res Body of HTTP response.
- * @returns {Array} List of transactions.
- */
-router.get('/getBooksStatus3/:token', (req, res) => {
-  jwt.verify(req.params.token, config.key, (error, authData) => {
-    if (error) {
-      res.status(403).json(response({ error }));
-    } else {
-      User.findOne({ _id: authData.userInfo._id }, (error, user) => {
-        if (!user) {
-          res.status(401).json(response({ error: 'You need to create an account' }));
-        } else if (authData.userInfo.permissionType === 1) {
-          Textbook.find({ status: 3 }, (err, books) => {
-            res.status(200).json(response(sortReverseCronological(books)));
-          });
-        } else {
-          res.status(401).json(response({}));
-        }
-      });
-    }
-  });
-});
 
 /**
  * Returns object of general stats form the DB.
