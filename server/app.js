@@ -44,7 +44,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(session({
   // pick a random string to make the hash that is generated secure
-  secret: process.env.SALTING_STRING,
+  secret: process.env.SALTING_STRING || 'secret',
   // Following lines are to avoid some deprecation warnings
   resave: false, // required
   saveUninitialized: false, // required
@@ -110,13 +110,6 @@ mongoose.connect(serverConfig.mongoURL, { useNewUrlParser: true }, (error) => {
   }
 });
 
-// Start App
-app.listen(PORT, (error) => {
-  if (!error) {
-    console.log(`MERN is running on port: ${serverConfig.port}! Build something amazing!`); // eslint-disable-line
-  }
-});
-
 // Catch all function, if route is not in form /api/ then
 // this function return the index page and allows the client to
 // handle the routing.
@@ -124,4 +117,11 @@ app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../client/core/index.html'));
 });
 
-export default app;
+// Start App
+const server = app.listen(PORT, (error) => {
+  if (!error) {
+    console.log(`MERN is running on port: ${serverConfig.port}! Build something amazing!`); // eslint-disable-line
+  }
+});
+
+export default server;

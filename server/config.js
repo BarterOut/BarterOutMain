@@ -11,6 +11,7 @@ const config = {
   mongoURL: process.env.MONGO_URL || 'mongodb://localhost/barterout-db',
   port: process.env.PORT || 8080,
   key: process.env.JWT_SECRET,
+  statuses: [0, 1, 2, 3, 4],
 };
 
 export default config;

@@ -1,24 +1,8 @@
 require('dotenv').config();
 
-import app from '../../../server';
+import app from '../../../app';
 
 const request = require('supertest');
-
-process.env.TEST_SUITE = 'book-testing';
-
-let server;
-
-beforeEach((done) => {
-  server = app.listen(4000, (err) => {
-    if (err) return done(err);
-
-    const agent = request.agent(server);
-    // since the application is already listening, it should use the allocated port
-    return done();
-  });
-});
-
-afterEach(done => server && server.close(done));
 
 // since these are unit tests, we are just ensuring that
 // routes are up and have good responses
