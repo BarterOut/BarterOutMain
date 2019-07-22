@@ -1,10 +1,16 @@
 /**
- * @file emailFunctions.js
+ * @file emails.js
  * @description Pre-written emails.
  * @author Daniel Munoz
  * @author Duncan Grubbs <duncan.grubbs@gmail.com>
  * @version 0.0.4
  */
+
+const authConfig = {
+  user: 'development@barterout.com',
+  refreshToken: process.env.EVR_TOKEN,
+  accessToken: process.env.EV_TOKEN,
+};
 
 module.exports = {
   // Email sent when user gets matched with a seller
@@ -32,12 +38,7 @@ module.exports = {
       Do you like social media as much as we do? Consider:<br />
       Liking us on <a href="https://www.facebook.com/BarterOut/">Facebook</a><br />
       Following us on <a href="https://www.instagram.com/barteroutofficial/">Instagram</a>`,
-      auth: {
-        user: 'development@barterout.com',
-        refreshToken: '1/e3wsV0hJxqfoLemz1SMkyZRxAMMW5WNfDL2Egzee-JY',
-        accessToken: 'ya29.GlsYBxyGg7ncYq8JyfFRXIJrjX6yw3l1NN_rMHEUQ55oEbDtr489zugW9HawV46b44xUkc5OQMJeSEorW-RK7zT6_oBKIjuNnU6B0ATRNt7dmDAWJfMcnM2GchoT',
-      // expires: 1484314697598
-      },
+      auth: { authConfig },
     };
   },
 
@@ -68,12 +69,7 @@ module.exports = {
       Do you like social media as much as we do? Consider:<br />
       Liking us on <a href="https://www.facebook.com/BarterOut/">Facebook</a><br />
       Following us on <a href="https://www.instagram.com/barteroutofficial/">Instagram</a>`,
-      auth: {
-        user: 'development@barterout.com',
-        refreshToken: '1/e3wsV0hJxqfoLemz1SMkyZRxAMMW5WNfDL2Egzee-JY',
-        accessToken: 'ya29.GlsYBxyGg7ncYq8JyfFRXIJrjX6yw3l1NN_rMHEUQ55oEbDtr489zugW9HawV46b44xUkc5OQMJeSEorW-RK7zT6_oBKIjuNnU6B0ATRNt7dmDAWJfMcnM2GchoT',
-      // expires: 1484314697598
-      },
+      auth: { authConfig },
     };
   },
 
@@ -100,12 +96,7 @@ module.exports = {
       Do you like social media as much as we do? Consider:<br />
       Liking us on <a href="https://www.facebook.com/BarterOut/">Facebook</a><br />
       Following us on <a href="https://www.instagram.com/barteroutofficial/">Instagram</a>`,
-      auth: {
-        user: 'development@barterout.com',
-        refreshToken: process.env.EVR_TOKEN,
-        accessToken: process.env.EV_TOKEN,
-      // expires: 1484314697598
-      },
+      auth: { authConfig },
     };
   },
 
@@ -132,12 +123,7 @@ module.exports = {
       Venmo: ${buyerUser.venmoUsername}
       CMC Box Number: ${buyerUser.CMC}
       `,
-      auth: {
-        user: 'development@barterout.com',
-        refreshToken: process.env.EVR_TOKEN,
-        accessToken: process.env.EV_TOKEN,
-      // expires: 1484314697598
-      },
+      auth: { authConfig },
     };
   },
   verifyEmail: function verifyEmail(emailTo, firstName, URL) {
@@ -169,12 +155,7 @@ module.exports = {
       Do you like social media as much as we do? Consider:<br />
       Liking us on <a href="https://www.facebook.com/BarterOut/">Facebook</a><br />
       Following us on <a href="https://www.instagram.com/barteroutofficial/">Instagram</a>`,
-      auth: {
-        user: 'development@barterout.com',
-        refreshToken: process.env.EVR_TOKEN,
-        accessToken: process.env.EV_TOKEN,
-        // expires: 1484314697598
-      },
+      auth: { authConfig },
     };
   },
 
@@ -198,12 +179,7 @@ module.exports = {
       Do you like social media as much as we do? Consider:<br />
       Liking us on <a href="https://www.facebook.com/BarterOut/">Facebook</a><br />
       Following us on <a href="https://www.instagram.com/barteroutofficial/">Instagram</a>`,
-      auth: {
-        user: 'development@barterout.com',
-        refreshToken: process.env.EVR_TOKEN,
-        accessToken: process.env.EV_TOKEN,
-        // expires: 1484314697598
-      },
+      auth: { authConfig },
     };
   },
 
@@ -227,12 +203,7 @@ module.exports = {
       The BarterOut team<br></br> <br></br>
       \n
       Like us on <a href="https://www.facebook.com/BarterOut/" target="_blank">Facebook</a> <br> </br> Follow us on <a href="https://www.instagram.com/barteroutofficial/" target="_blank">Instagram</a>`,
-      auth: {
-        user: 'development@barterout.com',
-        refreshToken: process.env.EVR_TOKEN,
-        accessToken: process.env.EV_TOKEN,
-        // expires: 1484314697598
-      },
+      auth: { authConfig },
     };
   },
 };

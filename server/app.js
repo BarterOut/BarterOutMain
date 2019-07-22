@@ -26,6 +26,8 @@ import serverConfig from './config';
 const bodyParser = require('body-parser');
 const session = require('express-session');
 
+const AirbrakeClient = require('airbrake-js');
+
 // API Routes
 const auth = require('./routes/auth');
 const user = require('./routes/user');
@@ -40,10 +42,9 @@ const app = new Express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// TODO: Make salting string better.
 app.use(session({
   // pick a random string to make the hash that is generated secure
-  secret: process.env.SALTING_STRING,
+  secret: process.env.SALTING_STRING || 'secret',
   // Following lines are to avoid some deprecation warnings
   resave: false, // required
   saveUninitialized: false, // required
@@ -57,7 +58,13 @@ function forceSsl(req, res, next) {
   return next();
 }
 
-if (process.env.NODE_ENV === 'production') {
+if (process.env.NODE_ENV === 'production'
+    || process.env.NODE_ENV === 'staging') {
+  const airbrake = new AirbrakeClient({ // eslint-disable-line
+    projectId: process.env.AIRBRAKE_ID,
+    projectKey: process.env.AIRBRAKE_KEY,
+  });
+
   app.use(forceSsl);
 
   // Set cache policy to cache for one month on images
@@ -73,14 +80,14 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 // Prefer gzipped js files.
-// Set cache policy to cache for one month on js files
+// Set cache policy to cache for one month on js files: UPDATE : no more
 app.get('*.js', (req, res, next) => {
   res.set('Content-Encoding', 'gzip');
   // res.set('Cache-Control', 'public, max-age=2629800');
   next();
 });
 
-
+// server-side API endpoints
 app.use('/api/auth', auth);
 app.use('/api/user', user);
 app.use('/api/books', books);
@@ -103,13 +110,6 @@ mongoose.connect(serverConfig.mongoURL, { useNewUrlParser: true }, (error) => {
   }
 });
 
-// Start App
-app.listen(PORT, (error) => {
-  if (!error) {
-    console.log(`MERN is running on port: ${serverConfig.port}! Build something amazing!`); // eslint-disable-line
-  }
-});
-
 // Catch all function, if route is not in form /api/ then
 // this function return the index page and allows the client to
 // handle the routing.
@@ -117,4 +117,11 @@ app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../client/core/index.html'));
 });
 
-export default app;
+// Start App
+const server = app.listen(PORT, (error) => {
+  if (!error) {
+    console.log(`MERN is running on port: ${serverConfig.port}! Build something amazing!`); // eslint-disable-line
+  }
+});
+
+export default server;

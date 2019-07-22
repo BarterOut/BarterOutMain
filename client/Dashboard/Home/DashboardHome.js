@@ -79,7 +79,7 @@ class DashboardHome extends Component {
   }
 
   _getPurchasedBooks() {
-    FetchService.GET(`/api/dashboard/getBooksStatus3/${this.AUTH.getToken()}`)
+    FetchService.GET(`/api/dashboard/getBooksWithStatus/3/${this.AUTH.getToken()}`)
       .then((data) => {
         FetchService.POST('/api/dashboard/extendBookInfo', {
           token: this.AUTH.getToken(),
@@ -92,7 +92,7 @@ class DashboardHome extends Component {
   }
 
   _getOnGoingTransactions() {
-    FetchService.GET(`/api/dashboard/getBooksStatus1/${this.AUTH.getToken()}`)
+    FetchService.GET(`/api/dashboard/getBooksWithStatus/1/${this.AUTH.getToken()}`)
       .then((data) => {
         FetchService.POST('/api/dashboard/extendBookInfo', {
           token: this.AUTH.getToken(),
@@ -105,7 +105,7 @@ class DashboardHome extends Component {
   }
 
   _getRecievedTransactions() {
-    FetchService.GET(`/api/dashboard/getBooksStatus2/${this.AUTH.getToken()}`)
+    FetchService.GET(`/api/dashboard/getBooksWithStatus/2/${this.AUTH.getToken()}`)
       .then((data) => {
         FetchService.POST('/api/dashboard/extendBookInfo', {
           token: this.AUTH.getToken(),

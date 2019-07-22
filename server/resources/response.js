@@ -6,7 +6,6 @@
 
 /**
  * Returns our standard HTTP response object from our API.
- * @param {String} method API method called by client.
  * @param {Object} data Data to pass back, can be null.
  * @returns {Object} Object to send back to client as JSON.
  */

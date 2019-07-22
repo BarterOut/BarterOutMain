@@ -28,7 +28,7 @@ module.exports = {
       'react-dom',
     ],
   },
-  mode: process.env.NODE_ENV,
+  mode: process.env.WEBPACK_MODE,
   output: {
     // Dumps the build into /dist
     path: resolve(__dirname, 'dist/'),

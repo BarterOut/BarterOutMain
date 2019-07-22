@@ -25,7 +25,7 @@ const nev = require('email-verification')(mongoose);
 const rand = require('rand-token');
 
 const jwt = require('jsonwebtoken');
-const emails = require('../emails/emailFunctions');
+const emails = require('../resources/emails');
 
 const notification = require('../resources/Notifications');
 
@@ -61,7 +61,7 @@ nev.configure({
     host: 'smtp.gmail.com',
     auth: {
       type: 'OAuth2',
-      clientId: '628457958578-vq80t92rhh61he2kcus710jlrek592t0.apps.googleusercontent.com',
+      clientId: process.env.CLIENT_ID,
       clientSecret: process.env.NEV_CLIENT_SECRET,
     },
   },
@@ -149,7 +149,7 @@ const transporter = nodemailer.createTransport({ // secure authentication
   host: 'smtp.gmail.com',
   auth: {
     type: 'OAuth2',
-    clientId: '628457958578-vq80t92rhh61he2kcus710jlrek592t0.apps.googleusercontent.com',
+    clientId: process.env.CLIENT_ID,
     clientSecret: process.env.NEV_CLIENT_SECRET,
   },
 });
