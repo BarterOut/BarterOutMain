@@ -352,18 +352,21 @@ router.get('/getUserMatches/:token', (req, res) => {
         } else {
           let bookObjects = [];
           const bookIDs = user.matchedBooks;
-          Textbook.find({ $and: [{ _id: { $in: bookIDs } }, { status: 0 }] }, (error, books) => {
-            bookObjects = books;
-            for (let i = 0; i < bookObjects.length; i++) {
-              for (let x = 0; x < user.cart.length; x++) {
-                if (String(bookObjects[i]._id) === String(user.cart[x])) {
-                  bookObjects[i].status = 42;
+          Textbook
+            .find({ $and: [{ _id: { $in: bookIDs } }, { status: 0 }] })
+            .sort({ date: -1 })
+            .exec((error, books) => {
+              bookObjects = books;
+              for (let i = 0; i < bookObjects.length; i++) {
+                for (let x = 0; x < user.cart.length; x++) {
+                  if (String(bookObjects[i]._id) === String(user.cart[x])) {
+                    bookObjects[i].status = 42;
+                  }
                 }
               }
-            }
-            bookObjects = books;
-            res.status(200).json(response(bookObjects));
-          });
+              bookObjects = books;
+              res.status(200).json(response(bookObjects));
+            });
         }
       });
     }

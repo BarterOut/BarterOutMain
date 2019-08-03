@@ -40,5 +40,13 @@ select {
   font-size: 1.2em;
   border-bottom: 2px #41397c solid;
   color: #444;
+}
 
+.password-strength {
+  display: block;
+  width: 5%;
+  margin-bottom: 8px;
+  background: rgb(67, 182, 128);
+  height: 3px;
+  border-radius: 2px;
 }
