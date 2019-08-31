@@ -21,6 +21,7 @@ class PersonalBookPost extends Component {
     };
 
     this.deleteBook = this.deleteBook.bind(this);
+    this.reactivateBook = this.reactivateBook.bind(this);
   }
 
   componentDidMount() {
@@ -33,7 +34,7 @@ class PersonalBookPost extends Component {
 
   reactivateBook() {
     const AUTH = new AuthService();
-    FetchService.POST('/api/books/reactivateBooks', {
+    FetchService.POST('/api/books/reactivateBook', {
       bookID: this.state.id,
       token: AUTH.getToken(),
     })

@@ -603,10 +603,9 @@ router.post('/reactivateBook/', (req, res) => {
           { owner: authData.userInfo._id },
         ],
       },
-        {
-          $set: {status:0}
-        }
-      , (error) => {
+      {
+        $set: { status: 0 },
+      }, (error) => {
         if (!error) {
           res.status(200).json(response({}));
         } else {
