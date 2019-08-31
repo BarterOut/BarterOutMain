@@ -585,6 +585,39 @@ router.get('/getBooksNoToken', (req, res) => {
     });
 });
 
+
+/**
+ * Updates the status of an old book
+ * @param {Object} req Request body from client.
+ * @param {Object} res Body of HTTP response.
+ * @returns {Number} status code.
+ */
+router.post('/reactivateBook/', (req, res) => {
+  jwt.verify(req.body.data.token, config.key, (error, authData) => {
+    if (error) {
+      res.status(403).json(response({ error }));
+    } else {
+      Textbook.update({
+        $and: [
+          { _id: req.body.data.bookID },
+          { owner: authData.userInfo._id },
+        ],
+      },
+        {
+          $set: {status:0}
+        }
+      , (error) => {
+        if (!error) {
+          res.status(200).json(response({}));
+        } else {
+          res.status(400).json(response({ error }));
+        }
+      });
+    }
+  });
+});
+
+
 router.get('/', (req, res) => {
   res.status(200).json(response({}));
 });
