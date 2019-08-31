@@ -484,7 +484,7 @@ router.get('/getUsersPosts/:token', (req, res) => {
     } else {
       Textbook.find({
         $and: [
-          { status: 0 },
+          { $or: [{ status: 0 }, { status: 5 }] },
           { owner: authData.userInfo._id },
         ],
       }, (err, books) => {
