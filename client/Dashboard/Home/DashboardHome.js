@@ -123,6 +123,13 @@ class DashboardHome extends Component {
       .then(() => window.location.reload());
   }
 
+  deactivateBooks() {
+    FetchService.POST('/api/dashboard/deactivateBooks', { token: this.AUTH.getToken() })
+      .then(() => {
+        window.alert("Success"); // eslint-disable-line
+      });
+  }
+
   confirmPayment(evt) {
     const id = evt.target.id;
     FetchService.POST('/api/dashboard/setBookPaid', { id, token: this.AUTH.getToken() })
@@ -215,6 +222,19 @@ class DashboardHome extends Component {
                 <td className="has-border">{book.buyerObject.firstName} {book.buyerObject.lastName}</td>
               </tr>
             ))}
+          </tbody>
+        </table>
+        <h3 className="mt-4 mx-2">Admin Tools</h3>
+        <table className="table table-striped">
+          <tbody>
+            <tr>
+              <th className="has-border">Tool</th>
+              <th className="has-border">Run</th>
+            </tr>
+            <tr>
+              <td className="has-border">Deactivate Old Books</td>
+              <td className="has-border"><button type="button" className="btn btn-primary" onClick={this.deactivateBooks}>Run</button></td>
+            </tr>
           </tbody>
         </table>
         <h3 className="mt-4 mx-2">Statistics</h3>

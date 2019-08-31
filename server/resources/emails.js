@@ -206,4 +206,28 @@ module.exports = {
       auth: { authConfig },
     };
   },
+
+  deactivatedBook: function deactivatedBook(emailTo, firstName) {
+    return {
+      from: '"Barter Out" <development@barterout.com',
+      to: emailTo,
+      subject: '[BarterOut] Book Deactivation',
+      html: `Dear ${firstName}, <br></br>
+      \n
+      We are emailing you to notify you that you have books that have been deactivated due to inactivity.
+      <br></br>
+      We periodically unlist books that have been on the platform for a long time. If you want to reactivate
+      or delete any of your books, please visit <a href="https://www.barterout.com" target="_blank">the website</a>
+      and navigate to the manage posts section.
+      <br> </br> \n
+      <br></br>
+      If you have any questions, feel free to send us an email at development@barterout.com!\n
+      <br></br> <br></br>
+      Thank you,<br></br>
+      The BarterOut team<br></br> <br></br>
+      \n
+      Like us on <a href="https://www.facebook.com/BarterOut/" target="_blank">Facebook</a> <br> </br> Follow us on <a href="https://www.instagram.com/barteroutofficial/" target="_blank">Instagram</a>`,
+      auth: { authConfig },
+    };
+  },
 };

@@ -8,15 +8,14 @@
  */
 
 
-/***
+/**
  * Status 0 is: a book that is posted and ready to sell
  * Status 1 is: someone clicked buy on the website
  * Status 2 is: We have verified the condition of the book and charged the buyer
  * Status 3 is: the book has been delivered and we paid the seller
  * Status 4 is: ???
- * Status 5 is: The book has been depreciated and set as inactive
- *
- * */
+ * Status 5 is: The book has been unlisted and set as inactive
+*/
 
 const config = {
   mongoURL: process.env.MONGO_URL || 'mongodb://localhost/barterout-db',
