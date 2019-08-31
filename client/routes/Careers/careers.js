@@ -52,7 +52,7 @@ const Careers = () => (
             rel="noopener noreferrer"
             target="_blank"
             href="https://goo.gl/forms/ZfEQ36J24NcsK08Z2"
-          >this form.
+          > this form.
           </a>
         </p>
         <b>
