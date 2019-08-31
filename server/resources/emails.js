@@ -38,7 +38,7 @@ module.exports = {
       Do you like social media as much as we do? Consider:<br />
       Liking us on <a href="https://www.facebook.com/BarterOut/">Facebook</a><br />
       Following us on <a href="https://www.instagram.com/barteroutofficial/">Instagram</a>`,
-      auth: { authConfig },
+      auth:  authConfig ,
     };
   },
 
@@ -69,7 +69,7 @@ module.exports = {
       Do you like social media as much as we do? Consider:<br />
       Liking us on <a href="https://www.facebook.com/BarterOut/">Facebook</a><br />
       Following us on <a href="https://www.instagram.com/barteroutofficial/">Instagram</a>`,
-      auth: { authConfig },
+      auth:  authConfig ,
     };
   },
 
@@ -96,7 +96,7 @@ module.exports = {
       Do you like social media as much as we do? Consider:<br />
       Liking us on <a href="https://www.facebook.com/BarterOut/">Facebook</a><br />
       Following us on <a href="https://www.instagram.com/barteroutofficial/">Instagram</a>`,
-      auth: { authConfig },
+      auth:  authConfig ,
     };
   },
 
@@ -123,7 +123,7 @@ module.exports = {
       Venmo: ${buyerUser.venmoUsername}
       CMC Box Number: ${buyerUser.CMC}
       `,
-      auth: { authConfig },
+      auth:  authConfig ,
     };
   },
   verifyEmail: function verifyEmail(emailTo, firstName, URL) {
@@ -155,7 +155,7 @@ module.exports = {
       Do you like social media as much as we do? Consider:<br />
       Liking us on <a href="https://www.facebook.com/BarterOut/">Facebook</a><br />
       Following us on <a href="https://www.instagram.com/barteroutofficial/">Instagram</a>`,
-      auth: { authConfig },
+      auth: authConfig ,
     };
   },
 
@@ -179,7 +179,7 @@ module.exports = {
       Do you like social media as much as we do? Consider:<br />
       Liking us on <a href="https://www.facebook.com/BarterOut/">Facebook</a><br />
       Following us on <a href="https://www.instagram.com/barteroutofficial/">Instagram</a>`,
-      auth: { authConfig },
+      auth: authConfig ,
     };
   },
 
@@ -203,7 +203,7 @@ module.exports = {
       The BarterOut team<br></br> <br></br>
       \n
       Like us on <a href="https://www.facebook.com/BarterOut/" target="_blank">Facebook</a> <br> </br> Follow us on <a href="https://www.instagram.com/barteroutofficial/" target="_blank">Instagram</a>`,
-      auth: { authConfig },
+      auth:  authConfig ,
     };
   },
 
@@ -227,7 +227,7 @@ module.exports = {
       The BarterOut team<br></br> <br></br>
       \n
       Like us on <a href="https://www.facebook.com/BarterOut/" target="_blank">Facebook</a> <br> </br> Follow us on <a href="https://www.instagram.com/barteroutofficial/" target="_blank">Instagram</a>`,
-      auth: { authConfig },
+      auth:  authConfig ,
     };
   },
 };

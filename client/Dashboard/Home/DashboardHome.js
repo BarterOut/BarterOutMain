@@ -34,6 +34,8 @@ class DashboardHome extends Component {
     this.getBooksSold = this.getBooksSold.bind(this);
     this.getMoneyMade = this.getMoneyMade.bind(this);
     this.getTotalTransacted = this.getTotalTransacted.bind(this);
+    this.deactivateBooks = this.deactivateBooks.bind(this);
+
   }
 
   componentDidMount() {

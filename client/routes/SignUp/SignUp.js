@@ -85,7 +85,7 @@ class SignUp extends Component {
     let allGood = true;
     this.setState(state => ({ emailAddress: state.emailAddress.toLowerCase() }));
     // Making sure passwords are the same.
-    if (VerifyService.verifyPasswords(this.state.passwordConfirm, this.state.password)) {
+    if (!VerifyService.verifyPasswords(this.state.passwordConfirm, this.state.password)) {
       this.setState({ passwordsMatch: false });
       const $password = document.getElementsByName('password')[0];
       const $passwordConfirm = document.getElementsByName('passwordConfirm')[0];

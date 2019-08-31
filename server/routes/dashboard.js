@@ -3,7 +3,7 @@
  * @author Daniel Munoz
  * @author Duncan Grubbs <duncan.grubbs@gmail.com>
  * @version 0.0.4
- */
+*/
 
 // Import DB models
 import Textbook from '../models/textbook';
@@ -16,8 +16,11 @@ import config from '../config';
 // JWT and Express
 const jwt = require('jsonwebtoken');
 const express = require('express');
+const nodemailer = require('nodemailer');
 
 const router = express.Router();
+const emails = require('../resources/emails');
+
 
 /**
  * Will return an array of JSON objects in reverse cronological order (Newest at the top)
@@ -26,6 +29,24 @@ const router = express.Router();
 function sortReverseCronological(JSONArray) {
   JSONArray.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
   return JSONArray;
+}
+
+const transporter = nodemailer.createTransport({ // secure authentication
+  host: 'smtp.gmail.com',
+  auth: {
+    type: 'OAuth2',
+    clientId: process.env.CLIENT_ID,
+    clientSecret: process.env.NEV_CLIENT_SECRET,
+  },
+});
+
+function sendEmail(mailOptions) {
+  console.log(transporter.options.auth)
+  transporter.sendMail(mailOptions, (error) => {
+    if (error) {
+      throw new Error(`Error: ${error}`);
+    }
+  });
 }
 
 /**
@@ -477,6 +498,59 @@ router.get('/permissionLv/:token', (req, res) => {
     }
   });
 });
+
+
+function addNoDuplicates(arr, val){
+  let bool = false;
+  for (let i = 0; i < arr.length; i++) {
+    if(arr[i]===val){
+      return arr;
+    }
+  }
+  arr.push(val);
+  return arr
+}
+
+router.post('/deactivateBooks', (req, res)=>{
+  jwt.verify(req.body.data.token, config.key, (error, authData) => {
+    // console.log(error)
+    // console.log(authData)
+    if (error!==null) {
+      res.status(403).json(response({ error }));
+    } else {
+      User.findOne({ _id: authData.userInfo._id }, (error, user) => {
+        if (!user) {
+          res.status(401).json(response({ error: 'You need to create an account' }));
+        } else if (authData.userInfo.permissionType === 1) {
+          let arr = [];
+          Textbook.find({},(err, books)=>{
+            for (let i = 0; i < books.length; i++) {
+              let b = books[i];
+              let boodDate = b.date;
+              let days = 62;
+              let t = days * 24*60*60*1000
+              if (boodDate>( Date.now()-t)){
+                //add the books to list of people to email
+                arr = addNoDuplicates(arr, b.owner)
+              }
+            }
+            User.find({ _id: { $in: arr } }, (er, users) => {
+              for (let i = 0; i < users.length; i++) {
+                // console.log("sending to: " + users[i].emailAddress)
+                sendEmail(emails.deactivatedBook(users[i].emailAddress, users[i].firstName))
+              }
+              res.status(200).json(response({}));
+            })
+
+
+          });
+        } else {
+          res.status(403).json(response({}));
+        }
+      });
+    }
+  });
+})
 
 router.get('/', (req, res) => {
   if (req.user) {
