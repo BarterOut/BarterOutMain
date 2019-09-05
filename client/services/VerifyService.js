@@ -13,11 +13,13 @@ export default class VerifyService {
    * @param {String} p2 Second password entered.
    */
   static verifyPasswords(p1, p2) {
+    console.log(p1 + " " + p2)
+    console.log(p1===p2)
     let valid = true;
-    if (p1 != p2) {
+    if (p1 !== p2) {
       valid = false;
     }
-    return { valid, strength: this.getPasswordStrength(p1) };
+    return valid;
   }
 
   /**
@@ -25,11 +27,10 @@ export default class VerifyService {
    * 1-worst 10-best.
    * @param {String} password Password to check.
    */
-  getPasswordStrength(password) {
-    if (password.length > 6) {
-      return 5;
-    }
-    return 1;
+  static getPasswordStrength(password) {
+    const strength = 1 / (1 + (1.2 ** -password.length)) - 0.5;
+
+    return strength * 20;
   }
 
   /**

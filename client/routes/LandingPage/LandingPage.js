@@ -198,8 +198,8 @@ class LandingPage extends Component {
               <div className="header-line-landing" />
               <p className="landing-para">
                 At BarterOut, we know textbooks can get very expensive and finding second-hand ones
-                can be a hassle. We also know how hard it is to create up-to-date systems for students
-                to find and create their schedules.
+                can be a hassle. We also know how hard it is to create up-to-date systems for
+                students to find and create their schedules.
                 That&apos;s why we make it easier for your students to get their
                 books and go to class, coordinate with friends to find the best course schedules,
                 and so much more.

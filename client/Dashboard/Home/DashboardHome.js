@@ -34,6 +34,8 @@ class DashboardHome extends Component {
     this.getBooksSold = this.getBooksSold.bind(this);
     this.getMoneyMade = this.getMoneyMade.bind(this);
     this.getTotalTransacted = this.getTotalTransacted.bind(this);
+    this.deactivateBooks = this.deactivateBooks.bind(this);
+
   }
 
   componentDidMount() {
@@ -79,7 +81,7 @@ class DashboardHome extends Component {
   }
 
   _getPurchasedBooks() {
-    FetchService.GET(`/api/dashboard/getBooksStatus3/${this.AUTH.getToken()}`)
+    FetchService.GET(`/api/dashboard/getBooksWithStatus/3/${this.AUTH.getToken()}`)
       .then((data) => {
         FetchService.POST('/api/dashboard/extendBookInfo', {
           token: this.AUTH.getToken(),
@@ -92,7 +94,7 @@ class DashboardHome extends Component {
   }
 
   _getOnGoingTransactions() {
-    FetchService.GET(`/api/dashboard/getBooksStatus1/${this.AUTH.getToken()}`)
+    FetchService.GET(`/api/dashboard/getBooksWithStatus/1/${this.AUTH.getToken()}`)
       .then((data) => {
         FetchService.POST('/api/dashboard/extendBookInfo', {
           token: this.AUTH.getToken(),
@@ -105,7 +107,7 @@ class DashboardHome extends Component {
   }
 
   _getRecievedTransactions() {
-    FetchService.GET(`/api/dashboard/getBooksStatus2/${this.AUTH.getToken()}`)
+    FetchService.GET(`/api/dashboard/getBooksWithStatus/2/${this.AUTH.getToken()}`)
       .then((data) => {
         FetchService.POST('/api/dashboard/extendBookInfo', {
           token: this.AUTH.getToken(),
@@ -121,6 +123,13 @@ class DashboardHome extends Component {
     const id = evt.target.id;
     FetchService.POST('/api/dashboard/confirmBook', { id, token: this.AUTH.getToken() })
       .then(() => window.location.reload());
+  }
+
+  deactivateBooks() {
+    FetchService.POST('/api/dashboard/deactivateBooks', { token: this.AUTH.getToken() })
+      .then(() => {
+        window.alert("Success"); // eslint-disable-line
+      });
   }
 
   confirmPayment(evt) {
@@ -215,6 +224,19 @@ class DashboardHome extends Component {
                 <td className="has-border">{book.buyerObject.firstName} {book.buyerObject.lastName}</td>
               </tr>
             ))}
+          </tbody>
+        </table>
+        <h3 className="mt-4 mx-2">Admin Tools</h3>
+        <table className="table table-striped">
+          <tbody>
+            <tr>
+              <th className="has-border">Tool</th>
+              <th className="has-border">Run</th>
+            </tr>
+            <tr>
+              <td className="has-border">Deactivate Old Books</td>
+              <td className="has-border"><button type="button" className="btn btn-primary" onClick={this.deactivateBooks}>Run</button></td>
+            </tr>
           </tbody>
         </table>
         <h3 className="mt-4 mx-2">Statistics</h3>
