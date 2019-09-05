@@ -21,6 +21,7 @@ class PersonalBookPost extends Component {
     };
 
     this.deleteBook = this.deleteBook.bind(this);
+    this.reactivateBook = this.reactivateBook.bind(this);
   }
 
   componentDidMount() {
@@ -29,6 +30,17 @@ class PersonalBookPost extends Component {
 
   _setID() {
     this.setState({ id: this.props.id });
+  }
+
+  reactivateBook() {
+    const AUTH = new AuthService();
+    FetchService.POST('/api/books/reactivateBook', {
+      bookID: this.state.id,
+      token: AUTH.getToken(),
+    })
+      .then(() => {
+        window.location.reload();
+      });
   }
 
   deleteBook() {
@@ -59,6 +71,16 @@ class PersonalBookPost extends Component {
             <p className="comments"><i>{this.props.comments || 'No comments'}</i></p>
           </div>
           <span className="price">${this.props.price}*</span>
+          {
+            this.props.status == 5
+            && (
+            <button
+              className="btn mx-1 btn-secondary float-right"
+              type="button"
+              onClick={this.reactivateBook}
+            >Reactivate
+            </button>)
+          }
           <button
             className="btn btn-primary float-right"
             type="button"
@@ -81,6 +103,7 @@ PersonalBookPost.propTypes = {
   id: propTypes.string.isRequired,
   name: propTypes.string.isRequired,
   price: propTypes.number.isRequired,
+  status: propTypes.number.isRequired,
   subject: propTypes.string.isRequired,
 };
 

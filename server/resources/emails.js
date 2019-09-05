@@ -38,7 +38,7 @@ module.exports = {
       Do you like social media as much as we do? Consider:<br />
       Liking us on <a href="https://www.facebook.com/BarterOut/">Facebook</a><br />
       Following us on <a href="https://www.instagram.com/barteroutofficial/">Instagram</a>`,
-      auth: { authConfig },
+      auth:  authConfig ,
     };
   },
 
@@ -69,7 +69,7 @@ module.exports = {
       Do you like social media as much as we do? Consider:<br />
       Liking us on <a href="https://www.facebook.com/BarterOut/">Facebook</a><br />
       Following us on <a href="https://www.instagram.com/barteroutofficial/">Instagram</a>`,
-      auth: { authConfig },
+      auth:  authConfig ,
     };
   },
 
@@ -96,7 +96,7 @@ module.exports = {
       Do you like social media as much as we do? Consider:<br />
       Liking us on <a href="https://www.facebook.com/BarterOut/">Facebook</a><br />
       Following us on <a href="https://www.instagram.com/barteroutofficial/">Instagram</a>`,
-      auth: { authConfig },
+      auth:  authConfig ,
     };
   },
 
@@ -123,7 +123,7 @@ module.exports = {
       Venmo: ${buyerUser.venmoUsername}
       CMC Box Number: ${buyerUser.CMC}
       `,
-      auth: { authConfig },
+      auth:  authConfig ,
     };
   },
   verifyEmail: function verifyEmail(emailTo, firstName, URL) {
@@ -155,7 +155,7 @@ module.exports = {
       Do you like social media as much as we do? Consider:<br />
       Liking us on <a href="https://www.facebook.com/BarterOut/">Facebook</a><br />
       Following us on <a href="https://www.instagram.com/barteroutofficial/">Instagram</a>`,
-      auth: { authConfig },
+      auth: authConfig ,
     };
   },
 
@@ -179,7 +179,7 @@ module.exports = {
       Do you like social media as much as we do? Consider:<br />
       Liking us on <a href="https://www.facebook.com/BarterOut/">Facebook</a><br />
       Following us on <a href="https://www.instagram.com/barteroutofficial/">Instagram</a>`,
-      auth: { authConfig },
+      auth: authConfig ,
     };
   },
 
@@ -203,7 +203,31 @@ module.exports = {
       The BarterOut team<br></br> <br></br>
       \n
       Like us on <a href="https://www.facebook.com/BarterOut/" target="_blank">Facebook</a> <br> </br> Follow us on <a href="https://www.instagram.com/barteroutofficial/" target="_blank">Instagram</a>`,
-      auth: { authConfig },
+      auth:  authConfig ,
+    };
+  },
+
+  deactivatedBook: function deactivatedBook(emailTo, firstName) {
+    return {
+      from: '"Barter Out" <development@barterout.com',
+      to: emailTo,
+      subject: '[BarterOut] Book Deactivation',
+      html: `Dear ${firstName}, <br></br>
+      \n
+      We are emailing you to notify you that you have books that have been deactivated due to inactivity.
+      <br></br>
+      We periodically unlist books that have been on the platform for a long time. If you want to reactivate
+      or delete any of your books, please visit <a href="https://www.barterout.com" target="_blank">the website</a>
+      and navigate to the manage posts section.
+      <br> </br> \n
+      <br></br>
+      If you have any questions, feel free to send us an email at development@barterout.com!\n
+      <br></br> <br></br>
+      Thank you,<br></br>
+      The BarterOut team<br></br> <br></br>
+      \n
+      Like us on <a href="https://www.facebook.com/BarterOut/" target="_blank">Facebook</a> <br> </br> Follow us on <a href="https://www.instagram.com/barteroutofficial/" target="_blank">Instagram</a>`,
+      auth:  authConfig ,
     };
   },
 };

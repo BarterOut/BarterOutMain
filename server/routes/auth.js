@@ -63,6 +63,9 @@ nev.configure({
       type: 'OAuth2',
       clientId: process.env.CLIENT_ID,
       clientSecret: process.env.NEV_CLIENT_SECRET,
+
+
+
     },
   },
   verifyMailOptions: {
@@ -72,8 +75,10 @@ nev.configure({
     html: '<p>Please verify your account by clicking <a href="${URL}">this link</a>.', // eslint-disable-line
     auth: {
       user: 'development@barterout.com',
-      refreshToken: process.env.EVR_TOKEN,
-      accessToken: process.env.EV_TOKEN,
+      clientId: process.env.CLIENT_ID,
+      clientSecret: process.env.NEV_CLIENT_SECRET,
+
+
     },
   },
   // This might break the log in for the new users as it might be hashing the hash.
@@ -139,6 +144,7 @@ router.get('/email-verification/:URL', (req, res) => {
 
 function sendEmail(mailOptions) {
   transporter.sendMail(mailOptions, (error) => {
+
     if (error) {
       throw new Error(`Error: ${error}`);
     }
@@ -151,6 +157,9 @@ const transporter = nodemailer.createTransport({ // secure authentication
     type: 'OAuth2',
     clientId: process.env.CLIENT_ID,
     clientSecret: process.env.NEV_CLIENT_SECRET,
+    refreshToken: process.env.EVR_TOKEN,
+    accessToken: process.env.EV_TOKEN,
+
   },
 });
 

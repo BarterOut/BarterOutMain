@@ -8,6 +8,7 @@ import React, { Component } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 
 import FetchService from '../../services/FetchService';
+import VerifyService from '../../services/VerifyService';
 import logo from '../../images/barterOutOrangeWhiteLogo.png';
 
 import './SignUp.css';
@@ -40,6 +41,13 @@ class SignUp extends Component {
 
   onChange(evt) {
     this.setState({ [evt.target.name]: evt.target.value });
+    if (evt.target.name == 'password') { this.updatePasswordStrength(evt); }
+  }
+
+  updatePasswordStrength(evt) {
+    const strength = VerifyService.getPasswordStrength(evt.target.value);
+    const strengthElement = document.getElementsByClassName('password-strength')[0];
+    strengthElement.style.width = `${strength * 10}%`;
   }
 
   _handleKeyDown(e) {
@@ -77,7 +85,7 @@ class SignUp extends Component {
     let allGood = true;
     this.setState(state => ({ emailAddress: state.emailAddress.toLowerCase() }));
     // Making sure passwords are the same.
-    if (!(this.state.passwordConfirm === this.state.password)) {
+    if (!VerifyService.verifyPasswords(this.state.passwordConfirm, this.state.password)) {
       this.setState({ passwordsMatch: false });
       const $password = document.getElementsByName('password')[0];
       const $passwordConfirm = document.getElementsByName('passwordConfirm')[0];
@@ -222,6 +230,7 @@ class SignUp extends Component {
               required
             />
           </div>
+          <div className="password-strength" />
           <div className="terms">
               By clicking &quot;Sign Up&quot; below, you are agreeing to our <a href="/termsOfService" target="_blank" rel="noopener"> Terms of Service </a>
               and <a href="/privacyPolicy" target="_blank" rel="noopener"> Privacy Policy</a>.

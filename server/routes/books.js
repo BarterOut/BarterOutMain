@@ -352,18 +352,21 @@ router.get('/getUserMatches/:token', (req, res) => {
         } else {
           let bookObjects = [];
           const bookIDs = user.matchedBooks;
-          Textbook.find({ $and: [{ _id: { $in: bookIDs } }, { status: 0 }] }, (error, books) => {
-            bookObjects = books;
-            for (let i = 0; i < bookObjects.length; i++) {
-              for (let x = 0; x < user.cart.length; x++) {
-                if (String(bookObjects[i]._id) === String(user.cart[x])) {
-                  bookObjects[i].status = 42;
+          Textbook
+            .find({ $and: [{ _id: { $in: bookIDs } }, { status: 0 }] })
+            .sort({ date: -1 })
+            .exec((error, books) => {
+              bookObjects = books;
+              for (let i = 0; i < bookObjects.length; i++) {
+                for (let x = 0; x < user.cart.length; x++) {
+                  if (String(bookObjects[i]._id) === String(user.cart[x])) {
+                    bookObjects[i].status = 42;
+                  }
                 }
               }
-            }
-            bookObjects = books;
-            res.status(200).json(response(bookObjects));
-          });
+              bookObjects = books;
+              res.status(200).json(response(bookObjects));
+            });
         }
       });
     }
@@ -481,7 +484,7 @@ router.get('/getUsersPosts/:token', (req, res) => {
     } else {
       Textbook.find({
         $and: [
-          { status: 0 },
+          { $or: [{ status: 0 }, { status: 5 }] },
           { owner: authData.userInfo._id },
         ],
       }, (err, books) => {
@@ -581,6 +584,38 @@ router.get('/getBooksNoToken', (req, res) => {
       res.status(200).json(response(books));
     });
 });
+
+
+/**
+ * Updates the status of an old book
+ * @param {Object} req Request body from client.
+ * @param {Object} res Body of HTTP response.
+ * @returns {Number} status code.
+ */
+router.post('/reactivateBook/', (req, res) => {
+  jwt.verify(req.body.data.token, config.key, (error, authData) => {
+    if (error) {
+      res.status(403).json(response({ error }));
+    } else {
+      Textbook.update({
+        $and: [
+          { _id: req.body.data.bookID },
+          { owner: authData.userInfo._id },
+        ],
+      },
+      {
+        $set: { status: 0 },
+      }, (error) => {
+        if (!error) {
+          res.status(200).json(response({}));
+        } else {
+          res.status(400).json(response({ error }));
+        }
+      });
+    }
+  });
+});
+
 
 router.get('/', (req, res) => {
   res.status(200).json(response({}));
