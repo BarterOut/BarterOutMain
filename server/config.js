@@ -7,7 +7,6 @@
  * @version 0.0.4
  */
 
-
 /**
  * Status 0 is: a book that is posted and ready to sell
  * Status 1 is: someone clicked buy on the website

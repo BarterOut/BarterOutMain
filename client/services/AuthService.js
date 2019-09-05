@@ -10,7 +10,7 @@ import decode from 'jwt-decode';
 
 export default class AuthService {
   constructor() {
-    this.fetch = this.fetch.bind(this); // React binding stuff
+    this.fetch = this.fetch.bind(this); // JS binding stuff
     this.login = this.login.bind(this);
   }
 
