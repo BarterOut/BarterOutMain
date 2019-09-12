@@ -214,10 +214,11 @@ module.exports = {
       subject: '[BarterOut] Book Deactivation',
       html: `Dear ${firstName}, <br></br>
       \n
-      We are emailing you to notify you that you have books that have been deactivated due to inactivity.
+      We are emailing you to notify you that you have book(s) that have been deactivated due to inactivity.
       <br></br>
-      We periodically unlist books that have been on the platform for a long time. If you want to reactivate
-      or delete any of your books, please visit <a href="https://www.barterout.com" target="_blank">the website</a>
+      We periodically unlist books that have been on the platform for a long time. If you still have the book(s)
+      and want to sell them, you can reactivate them. Alternatively, you can delete the posting all together.
+      Please visit <a href="https://www.barterout.com" target="_blank">the website</a>
       and navigate to the manage posts section.
       <br> </br> \n
       <br></br>

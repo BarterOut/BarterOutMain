@@ -41,12 +41,31 @@ const transporter = nodemailer.createTransport({ // secure authentication
 });
 
 function sendEmail(mailOptions) {
-  console.log(transporter.options.auth)
+  console.log(transporter.options.auth); // eslint-disable-line
   transporter.sendMail(mailOptions, (error) => {
     if (error) {
       throw new Error(`Error: ${error}`);
     }
   });
+}
+
+/**
+ * Updates the status of the given array of books to status
+ * @param {Array} books Array books to update
+ * @param {Number} status Valid book status
+ */
+function setBooksStatus(books, status) {
+  Textbook.updateMany({ _id: { $in: books } }, { $set: { status } }, () => {});
+}
+
+/**
+ * Adds a value to an array if not a duplicate
+ * @param {Array} arr Array to add to
+ * @param {Any} val Value to add to array
+ */
+function addNoDuplicates(arr, val) {
+  if (!arr.includes(val)) { arr.push(val); }
+  return arr;
 }
 
 /**
@@ -499,50 +518,36 @@ router.get('/permissionLv/:token', (req, res) => {
   });
 });
 
-
-function addNoDuplicates(arr, val){
-  let bool = false;
-  for (let i = 0; i < arr.length; i++) {
-    if(arr[i]===val){
-      return arr;
-    }
-  }
-  arr.push(val);
-  return arr
-}
-
-router.post('/deactivateBooks', (req, res)=>{
+router.post('/deactivateBooks', (req, res) => {
   jwt.verify(req.body.data.token, config.key, (error, authData) => {
-    // console.log(error)
-    // console.log(authData)
-    if (error!==null) {
+    if (error !== null) {
       res.status(403).json(response({ error }));
     } else {
       User.findOne({ _id: authData.userInfo._id }, (error, user) => {
         if (!user) {
           res.status(401).json(response({ error: 'You need to create an account' }));
         } else if (authData.userInfo.permissionType === 1) {
-          let arr = [];
-          Textbook.find({},(err, books)=>{
+          let usersToEmail = [];
+          let booksToDeactivate = [];
+          Textbook.find({}, (err, books) => {
             for (let i = 0; i < books.length; i++) {
-              let b = books[i];
-              let boodDate = b.date;
-              let days = 62;
-              let t = days * 24*60*60*1000
-              if (boodDate>( Date.now()-t)){
-                //add the books to list of people to email
-                arr = addNoDuplicates(arr, b.owner)
+              const bookDate = books[i].date;
+              const twoMonthsInDays = 10;
+              const twoMonthsInMS = twoMonthsInDays * 24 * 60 * 60 * 1000;
+              if (bookDate < (Date.now() - twoMonthsInMS) && books[i].status == 0) {
+                // add the books to list of people to email
+                booksToDeactivate = addNoDuplicates(booksToDeactivate, `${books[i]._id}`);
+                usersToEmail = addNoDuplicates(usersToEmail, books[i].owner);
               }
             }
-            User.find({ _id: { $in: arr } }, (er, users) => {
+
+            setBooksStatus(booksToDeactivate, 5);
+            User.find({ _id: { $in: usersToEmail } }, (er, users) => {
               for (let i = 0; i < users.length; i++) {
-                // console.log("sending to: " + users[i].emailAddress)
-                sendEmail(emails.deactivatedBook(users[i].emailAddress, users[i].firstName))
+                sendEmail(emails.deactivatedBook(users[i].emailAddress, users[i].firstName));
               }
               res.status(200).json(response({}));
-            })
-
-
+            });
           });
         } else {
           res.status(403).json(response({}));
@@ -550,7 +555,7 @@ router.post('/deactivateBooks', (req, res)=>{
       });
     }
   });
-})
+});
 
 router.get('/', (req, res) => {
   if (req.user) {
