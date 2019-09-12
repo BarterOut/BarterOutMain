@@ -32,25 +32,30 @@ For all our of version control, we use Git. Unlike npm, we **do** recommend that
 
 ### Team Communication
 
-At BarterOut, we use Slack and Asana as well as email for all of our task management and communication. We will send you invites to both of these platforms but we recommend you turn on notifications for Slack because most of our important communication will be done through there along with messages about tasks.
+At BarterOut, we use Slack as well as email for all of our task management and communication. We will send you an invite and we recommend you turn on notifications for Slack because most of our important communication will be done through there along with messages about tasks.
 
 ### Standards
 
-Last but not least, we have some basic standards for our code. As mentioned in our Platform Documentation, all of our code is compliant with ESLint, modern Javascript and Web Standards, and all functions are documented internally with JS Doc. This means that all of your code must comply with these standards before it is merged into the main project and shipped to users. If you have an questions about meeting these standards you can contact duncan.grubbs@gmail.com or message @duncan on Slack.
+Last but not least, we have some basic standards for our code. As mentioned in our Platform Documentation, all of our code is compliant with ESLint, modern Javascript and Web Standards, and all functions are documented internally with JS Doc. This means that all of your code must comply with these standards before it is merged into the main project and shipped to users. If you have an questions about meeting these standards you can contact duncan.grubbs@gmail.com or message @duncan on Slack. _Note that when contributing, you should do all of your work on a seperate branch and then submit a PR to merge your branch into `dev`. Do NOT push directly to `dev`._
 
 ### Running the Project
+_*Note: We use environment variables for this project. If you want to run
+the project succesfully on your local machine, you will need to create
+a file in the root directory of this folder called `.env` in which all
+of your environment variables will be stored. If you need access to specific
+tokens, etc. ask either Duncan or Daniel._
+
+#### Step by Step
+
 - Open the Home Direcory in a Terminal
-- One Mac or Linux this would look like : `cd /pathToDirectory`
+- One Mac or Linux this would look like : `cd pathToDirectory`
 - Once there run `npm install` so that all outstanding packages will be installed.
 - Now, run `npm start`
 - This will start both the REST API as well as a small dev server for testing react.
 - Now navigate to `localhost:8080` in your browser if you aren't already there.
-- You can mess around with this webpage, adding textbooks as you please
-	as well as searching for existing textbooks by name.
 
 ### How to Test
 - Run `npm run test` in the directory to run all tests.
-- Run `npm run coverage` to see current test coverage.
 
 ### How to Build
 - Run `npm run build` in the directory to manually build the project.

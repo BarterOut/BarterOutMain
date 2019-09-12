@@ -105,10 +105,9 @@ class SignUp extends Component {
     }
 
     // This is only temporary since we only allow U of R students currently.
-    const checkerEmail = this.state.emailAddress.split('@')[1];
     const $emailAddress = document.getElementsByName('emailAddress')[0];
 
-    if (checkerEmail !== 'u.rochester.edu' && checkerEmail !== 'rochester.edu') {
+    if (!VerifyService.verifyEmail(this.state.emailAddress)) {
       $emailAddress.className = 'badInput';
       this.setState({ allFilledOut: false });
       allGood = false;
