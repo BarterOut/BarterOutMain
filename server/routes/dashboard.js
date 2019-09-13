@@ -60,12 +60,12 @@ function setBooksStatus(books, status) {
 
 /**
  * Adds a value to an array if not a duplicate
- * @param {Array} arr Array to add to
+ * @param {Array} array Array to add to
  * @param {Any} val Value to add to array
  */
-function addNoDuplicates(arr, val) {
-  if (!arr.includes(val)) { arr.push(val); }
-  return arr;
+function addNoDuplicates(array, val) {
+  if (!array.includes(val)) { array.push(val); }
+  return array;
 }
 
 /**
@@ -532,7 +532,7 @@ router.post('/deactivateBooks', (req, res) => {
           Textbook.find({}, (err, books) => {
             for (let i = 0; i < books.length; i++) {
               const bookDate = books[i].date;
-              const twoMonthsInDays = 10;
+              const twoMonthsInDays = 62;
               const twoMonthsInMS = twoMonthsInDays * 24 * 60 * 60 * 1000;
               if (bookDate < (Date.now() - twoMonthsInMS) && books[i].status == 0) {
                 // add the books to list of people to email
