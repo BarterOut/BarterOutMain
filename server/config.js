@@ -12,7 +12,7 @@
  * Status 1 is: someone clicked buy on the website
  * Status 2 is: We have verified the condition of the book and charged the buyer
  * Status 3 is: the book has been delivered and we paid the seller
- * Status 4 is: ???
+ * Status 4 is:
  * Status 5 is: The book has been unlisted and set as inactive
 */
 
