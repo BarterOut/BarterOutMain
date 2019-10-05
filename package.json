@@ -7,7 +7,7 @@
     "start": "BABEL_DISABLE_CACHE=1 nodemon index.js",
     "dev": "concurrently \"npm start\" ",
     "lint": "eslint . --fix",
-    "test": "NODE_ENV=test jest --projects client server",
+    "test": "NODE_ENV=test jest --projects client server --forceExit",
     "test-client": "NODE_ENV=test jest --projects client",
     "test-server": "NODE_ENV=test jest --projects server --forceExit",
     "coverage": "NODE_ENV=test jest --collectCoverageFrom=server/**.js --coverage server --forceExit",
