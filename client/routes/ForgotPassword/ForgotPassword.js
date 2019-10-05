@@ -78,7 +78,7 @@ class ForgotPassword extends Component {
 
   render() {
     if (this.state.redirect) {
-      return (<Redirect to="/forgotPasswordSuccess" />);
+      return (<Redirect to="/forgot-password-success" />);
     }
     return (
       <div className="forgot-password">

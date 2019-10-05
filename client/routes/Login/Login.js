@@ -113,7 +113,7 @@ class Login extends Component {
             required
           />
           <div className="login-prefs">
-            <Link className="forgot-password" href="/forgotPassword" to="/forgotPassword">Forgot Password?</Link>
+            <Link className="forgot-password" href="/forgot-password" to="/forgot-password">Forgot Password?</Link>
             <div>Back to <Link href="/" to="/">Home</Link>.</div>
           </div>
           <div>
@@ -123,9 +123,9 @@ class Login extends Component {
             </Link>
           </div>
           <div className="legal-links-login">
-            <Link className="fine-print-login" href="/termsOfService" to="/termsOfService">Terms of Service</Link>
+            <Link className="fine-print-login" href="/terms-of-service" to="/terms-of-service">Terms of Service</Link>
             |
-            <Link className="fine-print-login" href="/privacyPolicy" to="/privacyPolicy"> Privacy Policy</Link>
+            <Link className="fine-print-login" href="/privacy-policy" to="/privacy-policy"> Privacy Policy</Link>
           </div>
         </div>
       </div>

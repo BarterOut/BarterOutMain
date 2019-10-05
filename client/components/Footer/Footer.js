@@ -26,9 +26,9 @@ const Footer = () => (
       </div>
       <div className="footer__linkColumn">
         <div className="footer__columnHeader">Legal</div>
-        <a href="/termsOfService" className="footer__link">Terms of Service</a>
+        <a href="/terms-of-service" className="footer__link">Terms of Service</a>
         <br />
-        <a href="/privacyPolicy" className="footer__link">Privacy Policy</a>
+        <a href="/privacy-policy" className="footer__link">Privacy Policy</a>
       </div>
       <div className="footer__linkColumn">
         <div className="footer__columnHeader">Developer</div>

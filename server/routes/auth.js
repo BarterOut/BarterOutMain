@@ -134,7 +134,7 @@ router.get('/email-verification/:URL', (req, res) => {
               res.status(400).json(response({ error }));
             }
           });
-          res.redirect('/emailConfirmed');
+          res.redirect('/email-confirmed');
         });
     } else {
       res.redirect('/signup');
