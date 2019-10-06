@@ -40,7 +40,7 @@ class Home extends Component {
 
   getAllBooks() {
     this.setState({ loading: true });
-    FetchService.GET(`/api/books/getAllBooks/${this.AUTH.getToken()}`)
+    FetchService.GET(`/api/books/getAllBooks/${this.AUTH.getToken()}`, this.AUTH.getToken())
       .then((data) => {
         this.setState({ loading: false });
         this.setState({ posts: data });

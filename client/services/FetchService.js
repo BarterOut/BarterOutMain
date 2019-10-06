@@ -10,9 +10,12 @@ export default class FetchService {
    * Sends GET request to API and validates response, returning the data in a promise.
    * @param {String} url URL for the API request.
    */
-  static GET(url) {
+  static GET(url, token) {
     return fetch(url, {
       method: 'GET',
+      headers: {
+        Authorization: `Token ${token}`,
+      },
     }).then((res) => {
       if (!FetchService._checkStatus(res)) {
         return Promise.reject(new Error(`Bad Status Code ${res.status}`));

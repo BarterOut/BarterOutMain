@@ -15,6 +15,8 @@ import response from '../resources/response';
 import Pricing from '../resources/pricing';
 import config from '../config';
 
+import auth from '../auth';
+
 const express = require('express');
 
 const router = express.Router();
@@ -531,40 +533,29 @@ router.post('/deleteBook/', (req, res) => {
  * @param {Object} res Body of HTTP response.
  * @returns {Array} Array of books from database.
  */
-router.get('/getAllBooks/:token', (req, res) => {
-  jwt.verify(req.params.token, config.key, (error, authData) => {
-    if (error) {
-      res.status(403).json(response({ error }));
-    } else {
-      User.findOne({ _id: authData.userInfo._id }, (error, user) => {
-        if (!user) {
-          res.status(401).json(response({ error: 'You need to create and account.' }));
-        } else {
-          Textbook
-            .find({
-              $and: [
-                { status: 0 },
-                { owner: { $ne: authData.userInfo._id } }],
-            })
-            .limit(BOOK_LIMIT)
-            .sort({ date: -1 })
-            .exec((err, books) => {
-              User.findById(authData.userInfo._id, (err, user) => {
-                const booksList = books;
-                for (let i = 0; i < booksList.length; i++) {
-                  for (let x = 0; x < user.cart.length; x++) {
-                    if (booksList[i]._id == user.cart[x]) {
-                      booksList[i].status = 42;
-                    }
-                  }
-                }
-                res.status(200).json(response(booksList));
-              });
-            });
+router.get('/getAllBooks/:token', auth.required, (req, res) => {
+  const authData = req.payload;
+  Textbook
+    .find({
+      $and: [
+        { status: 0 },
+        { owner: { $ne: authData.userInfo._id } }],
+    })
+    .limit(BOOK_LIMIT)
+    .sort({ date: -1 })
+    .exec((err, books) => {
+      User.findById(authData.userInfo._id, (err, user) => {
+        const booksList = books;
+        for (let i = 0; i < booksList.length; i++) {
+          for (let x = 0; x < user.cart.length; x++) {
+            if (booksList[i]._id == user.cart[x]) {
+              booksList[i].status = 42;
+            }
+          }
         }
+        res.status(200).json(response(booksList));
       });
-    }
-  });
+    });
 });
 
 /**
