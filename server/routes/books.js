@@ -114,7 +114,6 @@ router.post('/postBook/:token', (req, res) => {
                   { $or: [{ name: { $regex: req.body.data.name, $options: 'i' } }, { course: { $regex: req.body.data.course, $options: 'i' } }] },
                   { status: 0 },
                   { owner: { $ne: authData.userInfo._id } },
-
                 ],
               }, (error, matchedBooks) => {
                 if (error) {
@@ -533,7 +532,7 @@ router.post('/deleteBook/', (req, res) => {
  * @param {Object} res Body of HTTP response.
  * @returns {Array} Array of books from database.
  */
-router.get('/getAllBooks/:token', auth.required, (req, res) => {
+router.get('/getAllBooks/', auth.required, (req, res) => {
   const authData = req.payload;
   Textbook
     .find({
