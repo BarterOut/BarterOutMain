@@ -9,6 +9,7 @@ import mongoose from 'mongoose';
 
 // Models
 import User from '../models/user';
+
 import TempUser from '../models/tempUser';
 
 import response from '../resources/response';
@@ -92,11 +93,11 @@ nev.configure({
 });
 
 // Creating the temp user
-nev.generateTempUserModel(User, (error) => {
-  if (error) {
-    throw new Error(`Error: ${error}`);
-  }
-});
+// nev.generateTempUserModel(User, (error) => {
+//   if (error) {
+//     throw new Error(`Error: ${error}`);
+//   }
+// });
 
 // TODO: Remove redirects
 /**

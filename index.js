@@ -1,4 +1,4 @@
-require('dotenv').config();
+require("./dotenv");
 require('babel-register')({
   plugins: [
     [
