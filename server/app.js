@@ -110,6 +110,17 @@ mongoose.connect(serverConfig.mongoURL, { useNewUrlParser: true }, (error) => {
   }
 });
 
+// error handling
+app.use((err, req, res, next) => {
+  if (err.name === 'UnauthorizedError') {
+    return res.status(401).send({
+      success: false,
+      message: 'No token provided.',
+    });
+  }
+  return next();
+});
+
 // Catch all function, if route is not in form /api/ then
 // this function return the index page and allows the client to
 // handle the routing.

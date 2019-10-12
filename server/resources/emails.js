@@ -155,7 +155,7 @@ module.exports = {
       Do you like social media as much as we do? Consider:<br />
       Liking us on <a href="https://www.facebook.com/BarterOut/">Facebook</a><br />
       Following us on <a href="https://www.instagram.com/barteroutofficial/">Instagram</a>`,
-      auth:  authConfig,
+      auth: authConfig,
     };
   },
 
@@ -179,7 +179,7 @@ module.exports = {
       Do you like social media as much as we do? Consider:<br />
       Liking us on <a href="https://www.facebook.com/BarterOut/">Facebook</a><br />
       Following us on <a href="https://www.instagram.com/barteroutofficial/">Instagram</a>`,
-      auth:  authConfig,
+      auth: authConfig,
     };
   },
 

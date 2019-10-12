@@ -70,8 +70,8 @@ const DashboardRoute = ({ component: Component, rest }) => {
 export default (
   <Switch>
     <Route exact path="/" component={LandingPage} />
-    <Route exact path="/termsOfService" component={TermsOfService} />
-    <Route exact path="/privacyPolicy" component={PrivacyPolicy} />
+    <Route exact path="/terms-of-service" component={TermsOfService} />
+    <Route exact path="/privacy-policy" component={PrivacyPolicy} />
     <Route exact path="/contact" component={Contact} />
     <Route exact path="/careers" component={Careers} />
     <Route exact path="/About" component={About} />
@@ -86,10 +86,10 @@ export default (
 
     <Route exact path="/login" component={Login} />
     <Route exact path="/signup" component={SignUp} />
-    <Route exact path="/forgotPassword" component={ForgotPassword} />
-    <Route exact path="/forgotPasswordSuccess" component={ForgotPasswordSuccess} />
-    <Route exact path="/signUpSuccess" component={SignUpSuccess} />
-    <Route exact path="/emailConfirmed" component={EmailConfirmed} />
+    <Route exact path="/forgot-password" component={ForgotPassword} />
+    <Route exact path="/forgot-password-success" component={ForgotPasswordSuccess} />
+    <Route exact path="/sign-up-success" component={SignUpSuccess} />
+    <Route exact path="/email-confirmed" component={EmailConfirmed} />
     <Route exact path="/dashboard" component={Dashboard} />
     <DashboardRoute exact path="/dashboard/home" component={DashboardHome} />
     <Route path="*" component={page404} />

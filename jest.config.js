@@ -1,4 +1,6 @@
 module.exports = {
+  name: 'server',
+  displayName: 'server',
   testEnvironment: 'node',
-  testRegex: '(src|server)/.*\\.test\\.js$',
+  testRegex: 'server/.*\\.test\\.js$',
 };
