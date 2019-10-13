@@ -22,6 +22,7 @@ import config from '../webpack.config';
 
 // Config for database.
 import serverConfig from './config';
+
 const bodyParser = require('body-parser');
 const session = require('express-session');
 
@@ -101,7 +102,7 @@ if (process.env.NODE_ENV === 'development') {
 
 // Set native promises as mongoose promise
 mongoose.Promise = global.Promise;
-console.log(serverConfig.mongoURL);
+
 mongoose.connect(serverConfig.mongoURL, { useNewUrlParser: true }, (error) => {
   if (error) {
     console.error('Please make sure Mongodb is installed and running!'); // eslint-disable-line no-console
