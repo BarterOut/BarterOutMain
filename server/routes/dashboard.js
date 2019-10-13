@@ -94,8 +94,6 @@ router.get('/getPurchasedBooks/:token', (req, res) => {
   });
 });
 
-// TODO: Verify status with enum
-
 /**
  * Gets a list of all in process transactions (books with status, status).
  * @param {Object} req Request body from client.
@@ -107,7 +105,7 @@ router.get('/getBooksWithStatus/:status/:token', (req, res) => {
   const status = parseInt(req.params.status, 10);
 
   if (!config.statuses.includes(status)) {
-    res.status(400).json(response({ error: 'You need to create an account' }));
+    res.status(400).json(response({ error: `Invalid status: ${status}` }));
   }
 
   jwt.verify(req.params.token, config.key, (error, authData) => {
@@ -116,7 +114,7 @@ router.get('/getBooksWithStatus/:status/:token', (req, res) => {
     } else {
       User.findOne({ _id: authData.userInfo._id }, (error, user) => {
         if (!user) {
-          res.status(401).json(response({ error: 'You need to create an account' }));
+          res.status(401).json(response({ error: 'You need to create an account.' }));
         } else if (authData.userInfo.permissionType === 1) {
           Textbook
             .find({ status })

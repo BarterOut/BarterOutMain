@@ -33,10 +33,12 @@ export default class FetchService {
    * @param {Object} data Any data you want to pass to the server.
    */
   static POST(url, data) {
+    const auth = new AuthService();
     // performs api calls sending the required authentication headers
     const headers = {
       Accept: 'application/json',
       'Content-Type': 'application/json',
+      Authorization: `Token ${auth.getToken()}`,
     };
 
     const options = {
