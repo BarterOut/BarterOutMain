@@ -233,107 +233,102 @@ router.post('/requestBook', (req, res) => {
  * @param {Object} res Body of HTTP response.
  * @returns {Object} Standard response.
  */
-router.post('/checkoutCart/:token', (req, res) => {
-  jwt.verify(req.params.token, config.key, (error, authData) => {
+router.post('/checkoutCart', auth.required, (req, res) => {
+  const { payload: { userInfo: { _id } } } = req;
+  let buyer;
+  let bookFound;
+  let totalCharged = 0;
+
+  User.find({ _id }, (error, foundUser) => {
     if (error) {
-      res.status(403).json(response({ error }));
-    } else {
-      let buyer;
-      let bookFound;
-      let totalCharged = 0;
+      res.status(401).json(response({ error }));
+      return;
+    }
 
-      User.find({ _id: authData.userInfo._id }, (error, foundUser) => {
-        if (error) {
-          res.status(401).json(response({ error }));
-          return;
-        }
+    buyer = foundUser[0];
 
-        buyer = foundUser[0];
-
-        for (let i = 0; i < req.body.data.cart.length; i++) {
-          // Updates the user
-          User.update(
-            { _id: authData.userInfo._id },
-            { $inc: { numberOfBooksBought: 1 } }, (error) => {
-              console.error(`Error: ${error}`); // eslint-disable-line
-            },
-          );
-
-          Textbook.update(
-            { _id: req.body.data.cart[i]._id },
-            { $set: { status: 1, buyer: authData.userInfo._id } }, (error) => {
-              console.error(`Error: ${error}`); // eslint-disable-line
-            },
-          );
-
-          // Updates the books being sought by the user that match the query
-          Textbook.find(
-            { _id: req.body.data.cart[i]._id },
-            (errors, foundBook) => {
-              bookFound = foundBook[0];
-              totalCharged += bookFound.price;
-
-              // Set status of requested book if they exist
-              TextbookBuy.update({
-                $and: [
-                  { status: 0 },
-                  {
-                    $or: [
-                      { name: bookFound.name },
-                      { course: bookFound.course },
-                    ],
-                  },
-                  { owner: authData.userInfo._id },
-                ],
-              }, { $set: { status: 1 } }, (error) => {
-                console.warn(`Error in finding book being bought: ${error}`); // eslint-disable-line
-              });
-
-              // FOR SELLER USER STATISTICS
-              User.update(
-                { _id: bookFound.owner },
-                { $inc: { numberOfBooksSold: 1, moneyMade: bookFound.price } }, (error) => {
-                  console.error(`Error update seller: ${error}`); // eslint-disable-line
-                },
-              );
-
-              // For this specific book, find seller
-              if (i === req.body.data.cart.length - 1) {
-                const newTransaction = new Transaction({
-                  buyerID: buyer._id,
-                  buyerFirstName: buyer.firstName,
-                  buyerLastName: buyer.lastName,
-                  buyerVenmo: buyer.venmoUsername,
-                  buyerEmail: buyer.emailAddress,
-                  totalCharged: totalCharged + (totalCharged * Pricing.FEE),
-                  booksPurchased: req.body.data.cart,
-                });
-                newTransaction.save()
-                  .then(() => {
-                    transactionEmail(newTransaction._id);
-                  });
-              }
-            },
-          );
-        }
-      });
-      // Clear the user's cart
+    for (let i = 0; i < req.body.data.cart.length; i++) {
+      // Updates the user
       User.update(
-        { _id: authData.userInfo._id },
-        {
-          $set:
-            {
-              cart: [],
+        { _id },
+        { $inc: { numberOfBooksBought: 1 } }, (error) => {
+          console.error(`Error: ${error}`); // eslint-disable-line
+        },
+      );
+
+      Textbook.update(
+        { _id: req.body.data.cart[i]._id },
+        { $set: { status: 1, buyer: _id } }, (error) => {
+          console.error(`Error: ${error}`); // eslint-disable-line
+        },
+      );
+
+      // Updates the books being sought by the user that match the query
+      Textbook.find(
+        { _id: req.body.data.cart[i]._id },
+        (errors, foundBook) => {
+          bookFound = foundBook[0];
+          totalCharged += bookFound.price;
+
+          // Set status of requested book if they exist
+          TextbookBuy.update({
+            $and: [
+              { status: 0 },
+              {
+                $or: [
+                  { name: bookFound.name },
+                  { course: bookFound.course },
+                ],
+              },
+              { owner: _id },
+            ],
+          }, { $set: { status: 1 } }, (error) => {
+            console.warn(`Error in finding book being bought: ${error}`); // eslint-disable-line
+          });
+
+          // FOR SELLER USER STATISTICS
+          User.update(
+            { _id: bookFound.owner },
+            { $inc: { numberOfBooksSold: 1, moneyMade: bookFound.price } }, (error) => {
+              console.error(`Error update seller: ${error}`); // eslint-disable-line
             },
-        }, (error) => {
-          if (error) {
-            res.status(400).json(response({ error }));
+          );
+
+          // For this specific book, find seller
+          if (i === req.body.data.cart.length - 1) {
+            const newTransaction = new Transaction({
+              buyerID: buyer._id,
+              buyerFirstName: buyer.firstName,
+              buyerLastName: buyer.lastName,
+              buyerVenmo: buyer.venmoUsername,
+              buyerEmail: buyer.emailAddress,
+              totalCharged: totalCharged + (totalCharged * Pricing.FEE),
+              booksPurchased: req.body.data.cart,
+            });
+            newTransaction.save()
+              .then(() => {
+                transactionEmail(newTransaction._id);
+              });
           }
         },
       );
-      res.status(200).json(response({}));
     }
   });
+  // Clear the user's cart
+  User.update(
+    { _id },
+    {
+      $set:
+        {
+          cart: [],
+        },
+    }, (error) => {
+      if (error) {
+        res.status(400).json(response({ error }));
+      }
+    },
+  );
+  res.status(200).json(response({}));
 });
 
 /**

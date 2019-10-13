@@ -33,14 +33,14 @@ class Cart extends Component {
   componentDidMount() {
     this.getUserData();
 
-    FetchService.GET(`/api/user/getCartItems/${this.AUTH.getToken()}`)
+    FetchService.GET('/api/user/getCartItems')
       .then((data) => {
         this._updateItems(data);
       });
   }
 
   getUserData() {
-    FetchService.GET(`/api/user/getUserData/${this.AUTH.getToken()}`)
+    FetchService.GET('/api/user/getUserData')
       .then((data) => {
         this.setState({ venmo: data.user.venmoUsername });
         this.setState({ CMC: data.user.CMC });
@@ -67,8 +67,7 @@ class Cart extends Component {
   }
 
   buyBooks() {
-    const AUTH = new AuthService();
-    FetchService.POST(`/api/books/checkoutCart/${AUTH.getToken()}`, {
+    FetchService.POST('/api/books/checkoutCart', {
       cart: this.state.items,
     })
       .then(() => {

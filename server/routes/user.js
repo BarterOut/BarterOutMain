@@ -12,6 +12,7 @@ import User from '../models/user';
 
 import config from '../config';
 import response from '../resources/response';
+import auth from '../auth';
 
 const jwt = require('jsonwebtoken');
 const express = require('express');
@@ -72,20 +73,15 @@ function remakeMatches(userID) {
  * @param {Object} res Body of HTTP response.
  * @returns {Array} Array of book objects.
  */
-router.get('/getCartItems/:token', (req, res) => {
-  jwt.verify(req.params.token, config.key, (error, authData) => {
-    if (error) {
-      res.status(401).json(response({ error }));
-    } else {
-      User.findOne({ _id: authData.userInfo._id }, (err, user) => {
-        let itemsInCart = [];
-        const bookIDs = user.cart;
-        Textbook.find({ $and: [{ _id: { $in: bookIDs } }, { status: 0 }] }, (error, books) => {
-          itemsInCart = books;
-          res.status(200).json(response(itemsInCart));
-        });
-      });
-    }
+router.get('/getCartItems/', auth.required, (req, res) => {
+  const { payload: { userInfo: { _id } } } = req;
+  User.findOne({ _id }, (err, user) => {
+    let itemsInCart = [];
+    const bookIDs = user.cart;
+    Textbook.find({ $and: [{ _id: { $in: bookIDs } }, { status: 0 }] }, (error, books) => {
+      itemsInCart = books;
+      res.status(200).json(response(itemsInCart));
+    });
   });
 });
 
@@ -95,28 +91,23 @@ router.get('/getCartItems/:token', (req, res) => {
  * @param {Object} res Body of HTTP response.
  * @returns {String} Success Status.
  */
-router.post('/addToCart', (req, res) => {
-  jwt.verify(req.body.data.token, config.key, (error, authData) => {
-    if (error) {
-      res.status(401).json(response({ error }));
-    } else {
-      User.update(
-        { _id: authData.userInfo._id },
-        {
-          $push: {
-            cart: {
-              $each: [req.body.data.bookID],
-              $position: 0,
-            },
-          },
-        }, (error) => {
-          if (error) {
-            res.status(400).json((response({ error })));
-          }
+router.post('/addToCart', auth.required, (req, res) => {
+  const { payload: { userInfo: { _id } } } = req;
+  User.update(
+    { _id },
+    {
+      $push: {
+        cart: {
+          $each: [req.body.data.bookID],
+          $position: 0,
         },
-      );
-    }
-  });
+      },
+    }, (error) => {
+      if (error) {
+        res.status(400).json((response({ error })));
+      }
+    },
+  );
   res.status(202).json(response({}));
 });
 
@@ -126,33 +117,28 @@ router.post('/addToCart', (req, res) => {
  * @param {Object} res Body of HTTP response.
  * @returns {String} Success Status.
  */
-router.post('/removeFromCart', (req, res) => {
-  jwt.verify(req.body.data.token, config.key, (error, authData) => {
-    if (error) {
-      res.status(401).json(response({ error }));
-    } else {
-      User.findOne({ _id: authData.userInfo._id }, (err, user) => {
-        for (let i = 0; i < user.cart.length; i++) {
-          if (user.cart[i] === req.body.data.bookID) {
-            user.cart.splice(i, 1);
-          }
-        }
-        User.update(
-          { _id: authData.userInfo._id },
-          {
-            $set:
-              {
-                cart: user.cart,
-              },
-          }, (err) => {
-            if (err) {
-              res.status(400).json(response({ err }));
-            }
-            res.status(200).json(response({}));
-          },
-        );
-      });
+router.post('/removeFromCart', auth.required, (req, res) => {
+  const { payload: { userInfo: { _id } } } = req;
+  User.findOne({ _id }, (err, user) => {
+    for (let i = 0; i < user.cart.length; i++) {
+      if (user.cart[i] === req.body.data.bookID) {
+        user.cart.splice(i, 1);
+      }
     }
+    User.update(
+      { _id },
+      {
+        $set:
+          {
+            cart: user.cart,
+          },
+      }, (err) => {
+        if (err) {
+          res.status(400).json(response({ err }));
+        }
+        res.status(200).json(response({}));
+      },
+    );
   });
 });
 
@@ -163,23 +149,18 @@ router.post('/removeFromCart', (req, res) => {
  * @param {Object} res Body of HTTP response.
  * @returns {String} Success Status.
  */
-router.post('/clearCart', (req, res) => {
-  jwt.verify(req.body.data.token, config.key, (error, authData) => {
-    if (error) {
-      res.status(401).json(response({ error }));
-    } else {
-      User.update(
-        { _id: authData.userInfo._id },
+router.post('/clearCart', auth.required, (req, res) => {
+  const { payload: { userInfo: { _id } } } = req;
+  User.update(
+    { _id },
+    {
+      $set:
         {
-          $set:
-            {
-              cart: [],
-            },
+          cart: [],
         },
-      );
-      res.status(200).json(response({}));
-    }
-  });
+    },
+  );
+  res.status(200).json(response({}));
 });
 
 /**
@@ -228,15 +209,10 @@ router.get('/getSoldBooks/:token', (req, res) => {
  * @param {Object} res Body of HTTP response.
  * @returns {Array} Array of notifications for the user.
  */
-router.get('/getNotifications/:token', (req, res) => {
-  jwt.verify(req.params.token, config.key, (error, authData) => {
-    if (error) {
-      res.status(401).json(response({ error }));
-    } else {
-      User.findOne({ _id: authData.userInfo._id }, (err, user) => {
-        res.status(200).json(response(user.notifications));
-      });
-    }
+router.get('/getNotifications/:token', auth.required, (req, res) => {
+  const { payload: { userInfo: { _id } } } = req;
+  User.findOne({ _id }, (err, user) => {
+    res.status(200).json(response(user.notifications));
   });
 });
 
@@ -263,30 +239,25 @@ router.get('/getUserStatistics/:token', (req, res) => {
   });
 });
 
-router.get('/getUserData/:token', (req, res) => {
-  jwt.verify(req.params.token, config.key, (error, authData) => {
-    if (error) {
-      res.status(400).json(response({ error }));
+router.get('/getUserData', auth.required, (req, res) => {
+  const { payload: { userInfo: { _id } } } = req;
+  User.findOne({ _id }, (error, user) => {
+    if (!user) {
+      res.status(401).json(response({}));
     } else {
-      User.findOne({ _id: authData.userInfo._id }, (error, user) => {
-        if (!user) {
-          res.status(401).json(response({}));
-        } else {
-          const returnUser = {
-            _id: user._id,
-            emailAddress: user.emailAddress,
-            venmoUsername: user.venmoUsername,
-            CMC: user.CMC,
-            university: user.university,
-            firstName: user.firstName,
-            lastName: user.lastName,
-            matchedBooks: user.matchedBooks,
-          };
-          res.status(200).json(response({
-            user: returnUser,
-          }));
-        }
-      });
+      const returnUser = {
+        _id: user._id,
+        emailAddress: user.emailAddress,
+        venmoUsername: user.venmoUsername,
+        CMC: user.CMC,
+        university: user.university,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        matchedBooks: user.matchedBooks,
+      };
+      res.status(200).json(response({
+        user: returnUser,
+      }));
     }
   });
 });
