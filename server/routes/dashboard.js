@@ -12,6 +12,7 @@ import Transactions from '../models/transaction';
 
 import response from '../resources/response';
 import config from '../config';
+import auth from '../auth';
 
 // JWT and Express
 const jwt = require('jsonwebtoken');
@@ -20,7 +21,6 @@ const nodemailer = require('nodemailer');
 
 const router = express.Router();
 const emails = require('../resources/emails');
-
 
 /**
  * Will return an array of JSON objects in reverse cronological order (Newest at the top)
@@ -555,6 +555,24 @@ router.post('/deactivateBooks', (req, res) => {
       });
     }
   });
+});
+
+/**
+ * @description Makes the given user an admin
+ * (permission type 1)
+ * @access Restricted
+ */
+router.put('/makeAdmin', auth.required, (req, res) => {
+  const { payload: { userInfo: { permissionType } } } = req;
+  const { body: { userID } } = req;
+  if (permissionType === 1) {
+    User.updateOne({ _id: userID }, { permissionType })
+      .then(() => {
+        res.status(200).json(response({}));
+      });
+  } else {
+    res.status(403).json(response({ error: 'Unauthorized' }));
+  }
 });
 
 router.get('/', (req, res) => {
