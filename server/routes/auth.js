@@ -64,9 +64,6 @@ nev.configure({
       type: 'OAuth2',
       clientId: process.env.CLIENT_ID,
       clientSecret: process.env.NEV_CLIENT_SECRET,
-
-
-
     },
   },
   verifyMailOptions: {
@@ -78,8 +75,6 @@ nev.configure({
       user: 'development@barterout.com',
       clientId: process.env.CLIENT_ID,
       clientSecret: process.env.NEV_CLIENT_SECRET,
-
-
     },
   },
   // This might break the log in for the new users as it might be hashing the hash.
@@ -91,13 +86,6 @@ nev.configure({
     throw new Error(`Error: ${error}`);
   }
 });
-
-// Creating the temp user
-// nev.generateTempUserModel(User, (error) => {
-//   if (error) {
-//     throw new Error(`Error: ${error}`);
-//   }
-// });
 
 // TODO: Remove redirects
 /**
@@ -160,7 +148,6 @@ const transporter = nodemailer.createTransport({ // secure authentication
     clientSecret: process.env.NEV_CLIENT_SECRET,
     refreshToken: process.env.EVR_TOKEN,
     accessToken: process.env.EV_TOKEN,
-
   },
 });
 
