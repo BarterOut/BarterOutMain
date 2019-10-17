@@ -11,17 +11,17 @@
 import Express from 'express';
 import path from 'path';
 
-// Mongoose for database models and access.
-import mongoose from 'mongoose';
-
 // Webpack Requirements
 import webpack from 'webpack';
 import webpackDevMiddleware from 'webpack-dev-middleware';
 import webpackHotMiddleware from 'webpack-hot-middleware';
 import config from '../webpack.config';
 
-// Config for database.
+// Configurations
 import serverConfig from './config';
+
+// DB Connection
+import mongoDB from './database/mongoDB';
 
 const bodyParser = require('body-parser');
 const session = require('express-session');
@@ -100,15 +100,7 @@ if (process.env.NODE_ENV === 'development') {
   app.use(webpackHotMiddleware(compiler));
 }
 
-// Set native promises as mongoose promise
-mongoose.Promise = global.Promise;
-
-mongoose.connect(serverConfig.mongoURL, { useNewUrlParser: true }, (error) => {
-  if (error) {
-    console.error('Please make sure Mongodb is installed and running!'); // eslint-disable-line no-console
-    throw error;
-  }
-});
+mongoDB.connect();
 
 // error handling
 app.use((err, req, res, next) => {

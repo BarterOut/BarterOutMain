@@ -103,8 +103,8 @@ router.get('/getPurchasedBooks/:token', (req, res) => {
 router.get('/getBooksWithStatus/:status/:token', (req, res) => {
   // we are using base 10
   const status = parseInt(req.params.status, 10);
-
-  if (!config.statuses.includes(status)) {
+  const { VALID_STATUSES } = config;
+  if (!Object.values(VALID_STATUSES).includes(status)) {
     res.status(400).json(response({ error: `Invalid status: ${status}` }));
   }
 
