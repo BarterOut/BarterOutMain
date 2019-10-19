@@ -516,41 +516,36 @@ router.get('/permissionLv/:token', (req, res) => {
   });
 });
 
-router.post('/deactivateBooks', (req, res) => {
-  jwt.verify(req.body.data.token, config.key, (error, authData) => {
-    if (error !== null) {
-      res.status(403).json(response({ error }));
-    } else {
-      User.findOne({ _id: authData.userInfo._id }, (error, user) => {
-        if (!user) {
-          res.status(401).json(response({ error: 'You need to create an account' }));
-        } else if (authData.userInfo.permissionType === 1) {
-          let usersToEmail = [];
-          let booksToDeactivate = [];
-          Textbook.find({}, (err, books) => {
-            for (let i = 0; i < books.length; i++) {
-              const bookDate = books[i].date;
-              const twoMonthsInDays = 62;
-              const twoMonthsInMS = twoMonthsInDays * 24 * 60 * 60 * 1000;
-              if (bookDate < (Date.now() - twoMonthsInMS) && books[i].status == 0) {
-                // add the books to list of people to email
-                booksToDeactivate = addNoDuplicates(booksToDeactivate, `${books[i]._id}`);
-                usersToEmail = addNoDuplicates(usersToEmail, books[i].owner);
-              }
-            }
-
-            setBooksStatus(booksToDeactivate, 5);
-            User.find({ _id: { $in: usersToEmail } }, (er, users) => {
-              for (let i = 0; i < users.length; i++) {
-                sendEmail(emails.deactivatedBook(users[i].emailAddress, users[i].firstName));
-              }
-              res.status(200).json(response({}));
-            });
-          });
-        } else {
-          res.status(403).json(response({}));
+router.post('/deactivateBooks', auth.required, (req, res) => {
+  const { payload: { userInfo } } = req;
+  User.findOne({ _id: userInfo._id }, (error, user) => {
+    if (!user) {
+      res.status(401).json(response({ error: 'You need to create an account' }));
+    } else if (userInfo.permissionType === 1) {
+      let usersToEmail = [];
+      let booksToDeactivate = [];
+      Textbook.find({}, (err, books) => {
+        for (let i = 0; i < books.length; i++) {
+          const bookDate = books[i].date;
+          const twoMonthsInDays = 62;
+          const twoMonthsInMS = twoMonthsInDays * 24 * 60 * 60 * 1000;
+          if (bookDate < (Date.now() - twoMonthsInMS) && books[i].status == 0) {
+            // add the books to list of people to email
+            booksToDeactivate = addNoDuplicates(booksToDeactivate, `${books[i]._id}`);
+            usersToEmail = addNoDuplicates(usersToEmail, books[i].owner);
+          }
         }
+
+        setBooksStatus(booksToDeactivate, 5);
+        User.find({ _id: { $in: usersToEmail } }, (er, users) => {
+          for (let i = 0; i < users.length; i++) {
+            sendEmail(emails.deactivatedBook(users[i].emailAddress, users[i].firstName));
+          }
+          res.status(200).json(response({}));
+        });
       });
+    } else {
+      res.status(403).json(response({}));
     }
   });
 });
