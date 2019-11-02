@@ -124,6 +124,8 @@ app.get('*', (req, res) => {
 const server = app.listen(PORT, (error) => {
   if (!error) {
     console.log(`MERN is running on port: ${serverConfig.port}! Build something amazing!`); // eslint-disable-line
+  } else {
+    console.log(error); // eslint-disable-line
   }
 });
 
