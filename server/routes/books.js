@@ -133,7 +133,7 @@ router.post('/postBook/:token', (req, res) => {
                       return;
                     }
                     const email = userToEmail[0].emailAddress;
-                    const firstName = userToEmail[0].firstName;
+                    const { firstName } = userToEmail[0];
                     sendEmail(emails.matchFoundEmail(email, firstName, bookMatched.name));
                   });
                 });
@@ -200,7 +200,7 @@ router.post('/requestBook', (req, res) => {
                   if (addBooks.length !== 0) {
                     User.find({ _id: BOOK.owner }, (error, userToEmail) => {
                       const email = userToEmail[0].emailAddress;
-                      const firstName = userToEmail[0].firstName;
+                      const { firstName } = userToEmail[0];
                       sendEmail(emails.matchFoundEmail(email, firstName, BOOK.name));
                     });
                   }
@@ -245,7 +245,7 @@ router.post('/checkoutCart', auth.required, (req, res) => {
       return;
     }
 
-    buyer = foundUser[0];
+    [buyer] = foundUser;
 
     for (let i = 0; i < req.body.data.cart.length; i++) {
       // Updates the user
@@ -267,7 +267,7 @@ router.post('/checkoutCart', auth.required, (req, res) => {
       Textbook.find(
         { _id: req.body.data.cart[i]._id },
         (errors, foundBook) => {
-          bookFound = foundBook[0];
+          [bookFound] = foundBook;
           totalCharged += bookFound.price;
 
           // Set status of requested book if they exist
@@ -542,7 +542,7 @@ router.get('/getAllBooks/', auth.required, (req, res) => {
         const booksList = books;
         for (let i = 0; i < booksList.length; i++) {
           for (let x = 0; x < user.cart.length; x++) {
-            if (booksList[i]._id == user.cart[x]) {
+            if (booksList[i]._id === user.cart[x]) {
               booksList[i].status = 42;
             }
           }

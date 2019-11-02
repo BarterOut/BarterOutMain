@@ -8,7 +8,7 @@
 
 import mongoose from 'mongoose';
 
-const Schema = mongoose.Schema;
+const { Schema } = mongoose;
 
 const TextbookBuy = new Schema({
   name: { type: 'String', required: true },

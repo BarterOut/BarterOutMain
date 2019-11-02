@@ -529,7 +529,7 @@ router.post('/deactivateBooks', auth.required, (req, res) => {
           const bookDate = books[i].date;
           const twoMonthsInDays = 62;
           const twoMonthsInMS = twoMonthsInDays * 24 * 60 * 60 * 1000;
-          if (bookDate < (Date.now() - twoMonthsInMS) && books[i].status == 0) {
+          if (bookDate < (Date.now() - twoMonthsInMS) && books[i].status === 0) {
             // add the books to list of people to email
             booksToDeactivate = addNoDuplicates(booksToDeactivate, `${books[i]._id}`);
             usersToEmail = addNoDuplicates(usersToEmail, books[i].owner);
