@@ -135,12 +135,13 @@ router.get('/email-verification/:URL', (req, res) => {
 function sendEmail(mailOptions) {
   transporter.sendMail(mailOptions, (error) => {
     if (error) {
-      throw new Error(`Error: ${error}`);
+      throw new Error(error);
     }
   });
 }
 
-const transporter = nodemailer.createTransport({ // secure authentication
+// secure authentication
+const transporter = nodemailer.createTransport({
   host: 'smtp.gmail.com',
   auth: {
     type: 'OAuth2',
@@ -309,11 +310,8 @@ function updatePassword(req, res) {
 /**
  * Sends email to user with token to reset password,
  * this token is verified by the another API call.
- * @param {Object} req Request body from client.
- * @param {Object} res Body of HTTP response.
- * @returns {Object} Standard API Response.
  */
-router.post('/passwordResetRequest', (req, res) => {
+function passwordResetRequest(req, res) {
   const email = req.body.data.emailAddress;
   let token;
   const endDate = Date.now() + 86400000;
@@ -337,13 +335,13 @@ router.post('/passwordResetRequest', (req, res) => {
           },
         );
         sendEmail(emails.passwordResetEmail(user.emailAddress, user.firstName, token));
-        res.status(200).json(response(null));
+        res.status(200).json(response({}));
       });
     } else {
       res.status(406).json(response({ error: 'No user found.' }));
     }
   });
-});
+}
 
 // TODO: remove redirect
 /**
@@ -366,11 +364,8 @@ router.get('/passwordReset/:token', (req, res) => {
 /**
  * Request sent from link page use is taken to
  * after forgetting their password.
- * @param {Object} req Request body from client.
- * @param {Object} res Body of HTTP response.
- * @returns {Object} Standard API Response.
  */
-router.post('/passwordReset/', (req, res) => {
+function passwordReset(req, res) {
   User.findOne(
     {
       resetPasswordToken: req.body.data.token,
@@ -400,15 +395,18 @@ router.post('/passwordReset/', (req, res) => {
       }
     },
   );
-});
+}
 
 function authBase(req, res) {
   res.status(200).json(response(null));
 }
 
 router.get('/', authBase);
+
 router.post('/updatePassword', auth.required, updatePassword);
 router.post('/updateProfile', auth.required, updateProfile);
+router.post('/passwordReset', auth.optional, passwordReset);
+router.post('/passwordResetRequest', passwordResetRequest);
 router.post('/login', login);
 router.post('/signup', signup);
 

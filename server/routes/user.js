@@ -69,11 +69,8 @@ function remakeMatches(userID) {
 
 /**
  * Method for returning all the current items in a user's cart.
- * @param {Object} req Request from client.
- * @param {Object} res Body of HTTP response.
- * @returns {Array} Array of book objects.
  */
-router.get('/getCartItems/', auth.required, (req, res) => {
+function getCartItems(req, res) {
   const { payload: { userInfo: { _id } } } = req;
   User.findOne({ _id }, (err, user) => {
     let itemsInCart = [];
@@ -83,15 +80,12 @@ router.get('/getCartItems/', auth.required, (req, res) => {
       res.status(200).json(response(itemsInCart));
     });
   });
-});
+}
 
 /**
  * Adds a given book ID to the in cart section of the user schema.
- * @param {Object} req Request from client.
- * @param {Object} res Body of HTTP response.
- * @returns {String} Success Status.
  */
-router.post('/addToCart', auth.required, (req, res) => {
+function addToCart(req, res) {
   const { payload: { userInfo: { _id } } } = req;
   User.update(
     { _id },
@@ -109,15 +103,12 @@ router.post('/addToCart', auth.required, (req, res) => {
     },
   );
   res.status(202).json(response({}));
-});
+}
 
 /**
  * Removes given book from cart array in user.
- * @param {Object} req Request from client.
- * @param {Object} res Body of HTTP response.
- * @returns {String} Success Status.
  */
-router.post('/removeFromCart', auth.required, (req, res) => {
+function removeFromCart(req, res) {
   const { payload: { userInfo: { _id } } } = req;
   User.findOne({ _id }, (err, user) => {
     for (let i = 0; i < user.cart.length; i++) {
@@ -140,16 +131,13 @@ router.post('/removeFromCart', auth.required, (req, res) => {
       },
     );
   });
-});
+}
 
 /**
  * Called when a user clicks clear cart on the cart page
  * currently not in use.
- * @param {Object} req Request from client.
- * @param {Object} res Body of HTTP response.
- * @returns {String} Success Status.
  */
-router.post('/clearCart', auth.required, (req, res) => {
+function clearCart(req, res) {
   const { payload: { userInfo: { _id } } } = req;
   User.update(
     { _id },
@@ -161,53 +149,34 @@ router.post('/clearCart', auth.required, (req, res) => {
     },
   );
   res.status(200).json(response({}));
-});
+}
 
 /**
  * Gets all books that have been purchased by a given user.
- * @param {Object} req Request from client.
- * @param {Object} res Body of HTTP response.
- * @returns {Array} Array of books purchased by the user.
  */
-router.get('/getPurchasedBooks/:token', (req, res) => {
-  jwt.verify(req.params.token, config.key, (error, authData) => {
-    if (error) {
-      res.status(401).json(response({ error }));
-    } else {
-      Textbook.find({
-        $and: [{ status: { $ne: 0 } }, { buyer: authData.userInfo._id }],
-      }, (err, booksFound) => {
-        res.status(200).json(response(booksFound));
-      });
-    }
+function getPurchasedBooks(req, res) {
+  const { payload: { userInfo: { _id } } } = req;
+  Textbook.find({
+    $and: [{ status: { $ne: 0 } }, { buyer: _id }],
+  }, (err, booksFound) => {
+    res.status(200).json(response(booksFound));
   });
-});
+}
 
 /**
  * Gets all books that have been sold by a given user.
- * @param {Object} req Request from client.
- * @param {Object} res Body of HTTP response.
- * @returns {Array} Array of books sold by the user.
  */
-router.get('/getSoldBooks/:token', (req, res) => {
-  jwt.verify(req.params.token, config.key, (error, authData) => {
-    if (error) {
-      res.status(401).json(response({ error }));
-    } else {
-      Textbook.find({
-        $and: [{ status: { $ne: 0 } }, { owner: authData.userInfo._id }],
-      }, (err, booksFound) => {
-        res.status(200).json(response(booksFound));
-      });
-    }
+function getSoldBooks(req, res) {
+  const { payload: { userInfo: { _id } } } = req;
+  Textbook.find({
+    $and: [{ status: { $ne: 0 } }, { owner: _id }],
+  }, (err, booksFound) => {
+    res.status(200).json(response(booksFound));
   });
-});
+}
 
 /**
- * Gets all of a given users notifications.
- * @param {Object} req Request from client.
- * @param {Object} res Body of HTTP response.
- * @returns {Array} Array of notifications for the user.
+ * @deprecated
  */
 router.get('/getNotifications/:token', auth.required, (req, res) => {
   const { payload: { userInfo: { _id } } } = req;
@@ -239,7 +208,10 @@ router.get('/getUserStatistics/:token', (req, res) => {
   });
 });
 
-router.get('/getUserData', auth.required, (req, res) => {
+/**
+ * Returns data of the currently logged in user.
+ */
+function getUserData(req, res) {
   const { payload: { userInfo: { _id } } } = req;
   User.findOne({ _id }, (error, user) => {
     if (!user) {
@@ -260,69 +232,63 @@ router.get('/getUserData', auth.required, (req, res) => {
       }));
     }
   });
-});
+}
 
 // TODO: Fix this method.
 
 /**
  * Removes a matching request for a given user.
- * @param {Object} req Request body from client.
- * @param {Object} res Body of HTTP response.
- * @returns {String} Response status.
  */
-router.post('/deleteRequest/', (req, res) => {
-  jwt.verify(req.body.data.token, config.key, (error, authData) => {
+function deleteRequest(req, res) {
+  const { payload: { userInfo: { _id } } } = req;
+  TextbookBuy.deleteOne({
+    $and: [
+      { _id: req.body.data.bookID },
+      { owner: _id },
+    ],
+  }, (error) => {
     if (error) {
-      res.status(403).json(response({ error }));
+      res.status(400).json(response({ error }));
     } else {
-      TextbookBuy.deleteOne({
-        $and: [
-          { _id: req.body.data.bookID },
-          { owner: authData.userInfo._id },
-        ],
-      }, (error) => {
-        if (error) {
-          res.status(400).json(response({ error }));
-        } else {
-          remakeMatches(authData.userInfo._id);
-          res.status(200).json(response({}));
-        }
-      });
+      remakeMatches(_id);
+      res.status(200).json(response({}));
     }
   });
-});
+}
 
 /**
  * Gets all the books a given user has requested a match for.
- * @param {Object} req Request body from client.
- * @param {Object} res Body of HTTP response.
- * @returns {Array} Array of books from database.
  */
-router.get('/getRequests/:token', (req, res) => {
-  jwt.verify(req.params.token, config.key, (error, authData) => {
+function getUserRequests(req, res) {
+  const { payload: { userInfo: { _id } } } = req;
+  TextbookBuy.find({
+    owner: _id,
+  }, (error, books) => {
     if (error) {
-      res.status(403).json(response({ error }));
+      res.status(400).json(response({ error }));
     } else {
-      TextbookBuy.find({
-        owner: authData.userInfo._id,
-      }, (error, books) => {
-        if (error) {
-          res.status(400).json(response({ error }));
-        } else {
-          res.status(200).json(response(books));
-        }
-      });
+      res.status(200).json(response(books));
     }
   });
-});
+}
 
-// Just in case this is needed
-router.get('/', (req, res) => {
+function userBase(req, res) {
   if (req.user) {
     res.json({ user: req.user });
   } else {
     res.json({ user: null });
   }
-});
+}
+
+router.get('/', userBase);
+router.get('/getRequests', auth.required, getUserRequests);
+router.get('/getCartItems/', auth.required, getCartItems);
+router.post('/addToCart', auth.required, addToCart);
+router.post('/removeFromCart', auth.required, removeFromCart);
+router.post('/clearCart', auth.required, clearCart);
+router.get('/getPurchasedBooks', auth.required, getPurchasedBooks);
+router.get('/getUserData', auth.required, getUserData);
+router.get('/getSoldBooks', auth.required, getSoldBooks);
+router.post('/deleteRequest/', auth.required, deleteRequest);
 
 module.exports = router;

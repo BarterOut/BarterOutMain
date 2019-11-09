@@ -30,7 +30,7 @@ class Transactions extends Component {
   }
 
   getPurchasedBooks() {
-    FetchService.GET(`/api/user/getPurchasedBooks/${this.auth.getToken()}`)
+    FetchService.GET('/api/user/getPurchasedBooks')
       .then((data) => {
         data.sort((a, b) => {
           if (a.date < b.date) {
@@ -46,7 +46,7 @@ class Transactions extends Component {
   }
 
   getSoldBooks() {
-    FetchService.GET(`/api/user/getSoldBooks/${this.auth.getToken()}`)
+    FetchService.GET('/api/user/getSoldBooks')
       .then((data) => {
         data.sort((a, b) => {
           if (a.date < b.date) {

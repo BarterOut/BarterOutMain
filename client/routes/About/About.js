@@ -15,7 +15,7 @@ import '../../res/sylesheetOrkneyBold.css';
 
 import './About.css';
 
-import logo from '../../images/barterOutOrangeWhiteLogoHeader.png';
+import logo from '../../images/logo-orange.png';
 
 import stairs from '../../images/stairsCompressed.jpg';
 import barteroutTeam from '../../images/barterout-team.jpg';
