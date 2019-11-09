@@ -39,9 +39,8 @@ const Footer = () => (
 
       <div className="footer__linkColumn footer__linkColumn--right">
         <div className="footer__columnHeader">Address</div>
-        <div className="footer__address">260 East Main Street</div>
-        <div className="footer__address">Suite 6325</div>
-        <div className="footer__address">Rochester, NY 14604</div>
+        <div className="footer__address">500 Joseph C. Wilson Blvd.</div>
+        <div className="footer__address">Rochester, NY 14627</div>
       </div>
     </div>
     <div className="socialMediaLinks">

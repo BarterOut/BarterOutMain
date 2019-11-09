@@ -60,6 +60,7 @@ const Careers = () => (
         <ul>
           <li>Nodemon</li>
           <li>Babel</li>
+          <li>Bootstrap</li>
           <li>Webpack</li>
           <li>JWT</li>
           <li>Heroku</li>
