@@ -9,7 +9,7 @@ import React, { Component } from 'react';
 import { Redirect, Link } from 'react-router-dom';
 import AuthService from '../services/AuthService';
 
-import logo from '../images/barterOutOrangeWhiteLogo.png';
+import logo from '../images/logo-orange.png';
 
 class Dashboard extends Component {
   constructor(props) {

@@ -7,7 +7,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import logo from '../../images/barterOutOrangeWhiteLogoHeader.png';
+import logo from '../../images/logo-orange.png';
 
 const Contact = () => (
   <div className="infowrapper">

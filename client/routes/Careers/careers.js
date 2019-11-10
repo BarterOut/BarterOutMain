@@ -8,7 +8,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import './careers.css';
-import logo from '../../images/barterOutOrangeWhiteLogoHeader.png';
+import logo from '../../images/logo-orange.png';
 
 import Footer from '../../components/Footer/Footer';
 
@@ -36,132 +36,36 @@ const Careers = () => (
           At BarterOut, we want to save college students money and make
           their live&apos;s easier. We have a small team of hard working devs
           that love to learn new technologies but we are always looking for
-          more help.
+          more help. We are currently in the process of making all of our code
+          open-source so it can be maintained by the college CS community at
+          large. If you are interested in joining this team, checkout the list
+          of technologies we use below and shoot us an email if you are interested.
         </p>
-        <h3>Open Positions</h3>
-        <h4 className="position-header">Frontend Web Developer</h4>
-        <b>
-          <p className="careers-text">Role</p>
-        </b>
-        <p className="careers-text">
-          Are you passionate about frontend web development using modern frameworks
-          and techniques? Willing to work in a fast paced, agile environment? Do
-          you want to work for a organization whose aim is to make students&apos;
-          lives easier? If so, fill out
-          <a
-            rel="noopener noreferrer"
-            target="_blank"
-            href="https://goo.gl/forms/ZfEQ36J24NcsK08Z2"
-          > this form.
-          </a>
-        </p>
-        <b>
-          <p className="careers-text">Location</p>
-        </b>
-        <p className="careers-text">Rochester, NY</p>
-        <b>
-          <p className="careers-text">Duties &amp; Responsibilities</p>
-        </b>
-        <div className="careers-text">
-          <ol>
-            <li>Write performant Javascript code in a team setting.</li>
-            <li>Write and execute unit tests with NYC and Jest.</li>
-            <li>Design and implement smart, modular React components.</li>
-            <li>Work with web protocols (HTTP, SLL) to utilize our API.</li>
-          </ol>
-        </div>
-        <b>
-          <p className="careers-text">Required Experience</p>
-        </b>
-        <p className="careers-text">Experience with HTML, CSS, and Javascript.<br />
-          Understanding of SEO preferred.
-          Familiar with Git and Github (Branching, Pull Requests, Code Review).
-        </p>
-        <h4 className="position-header">Backend Web Developer</h4>
-        <b>
-          <p className="careers-text">Role</p>
-        </b>
-        <p className="careers-text">
-          Are you passionate about server-side web development using modern frameworks and techniques? Willing to work in a fast paced, agile environment? Do you want to work for a organization whose aim is to make students&apos; lives easier? If so, fill out <a rel="noopener noreferrer" target="_blank" href="https://goo.gl/forms/mZBceWIBIM4q7iSv2">this form.</a>
-        </p>
-        <b>
-          <p className="careers-text">Location</p>
-        </b>
-        <p className="careers-text">Rochester, NY</p>
-        <b>
-          <p className="careers-text">Duties &amp; Responsibilities</p>
-        </b>
-        <div className="careers-text">
-          <ol>
-            <li>Write performant Javascript code in a team setting.</li>
-            <li>Write and execute unit tests with NYC and Jest.</li>
-            <li>Design and implement mongoose schemas.</li>
-            <li>Implement new, well documented API functionality.</li>
-          </ol>
-        </div>
-        <b>
-          <p className="careers-text">Required Experience</p>
-        </b>
-        <p className="careers-text">Experience with Javascript, Express.js, and JSON.<br />
-           Familiar with Git and Github (Branching, Pull Requests, Code Review).
-        </p>
-        <h4 className="position-header">iOS Developer</h4>
-        <b>
-          <p className="careers-text">Role</p>
-        </b>
-        <p className="careers-text">
-          Are you passionate about and have experience with mobile development on iOS? Willing to work in a fast paced, agile environment? Do you want to work for a organization whose aim is to make students&apos; lives easier? If so, fill out <a rel="noopener noreferrer" target="_blank" href="https://goo.gl/forms/xgxmPJFRerqP2kdd2">this form.</a>
-        </p>
-        <b>
-          <p className="careers-text">Location</p>
-        </b>
-        <p className="careers-text">Rochester, NY</p>
-        <b>
-          <p className="careers-text">Duties &amp; Responsibilities</p>
-        </b>
-        <div className="careers-text">
-          <ol>
-            <li>Use modern techniques to build interactive UIs from design a spec.</li>
-            <li>Manage deploying and updating an iOS app.</li>
-            <li>Work with web protocols (HTTP, SLL) to utilize our API.</li>
-          </ol>
-        </div>
-        <b>
-          <p className="careers-text">Required Experience</p>
-        </b>
-        <p className="careers-text">Experience with Xcode, Swift and Apple’s App Store Review Guidelines.<br />
-          Experience with Apple’s API capabilities (Touch ID, Photos, etc.) preferred.<br />
-          Understanding of modern app design preferred.
-        </p>
+        <h4>Tech Stack (MERN):</h4>
+        <h5>Core Stack:</h5>
+        <ul>
+          <li>Node.js</li>
+          <li>Express.js</li>
+          <li>mongoDB with Mongoose</li>
+          <li>React.js</li>
+        </ul>
 
-        <h4 className="position-header">Android Developer</h4>
-        <b>
-          <p className="careers-text">Role</p>
-        </b>
-        <p className="careers-text">
-          Are you passionate about and have experience with mobile development on Android? Willing to work in a fast paced, agile environment? Do you want to work for a organization whose aim is to make students&apos; lives easier? If so, fill out <a rel="noopener noreferrer" target="_blank" href="https://goo.gl/forms/Jxyci6YMknB2r9QA3">this form.</a>
-        </p>
-        <b>
-          <p className="careers-text">Location</p>
-        </b>
-        <p className="careers-text">Rochester, NY</p>
-        <b>
-          <p className="careers-text">Duties &amp; Responsibilities</p>
-        </b>
-        <div className="careers-text">
-          <ol>
-            <li>Use modern techniques to build interactive UIs from a design spec.</li>
-            <li>Manage deploying and updating an Android app.</li>
-            <li>Work with web protocols (HTTP, SLL) to utilize our API.</li>
-          </ol>
-        </div>
-        <b>
-          <p className="careers-text">Required Experience</p>
-        </b>
-        <p className="careers-text">Experience with Android Studio, Java (or Kotlin) and Googles&apos; Play Store Review Guidelines.<br />
-          Experience with Google&apos; API capabilities preferred.<br />
-          Understanding of modern app design preferred.
-        </p>
+        <h5>Testing Stack:</h5>
+        <ul>
+          <li>Jest</li>
+          <li>Supertest</li>
+          <li>Enzyme</li>
+        </ul>
+        <h5>Misc:</h5>
+        <ul>
+          <li>Nodemon</li>
+          <li>Babel</li>
+          <li>Bootstrap</li>
+          <li>Webpack</li>
+          <li>JWT</li>
+          <li>Heroku</li>
+          <li>mLab (soon to be Atlas)</li>
+        </ul>
       </div>
     </div>
 

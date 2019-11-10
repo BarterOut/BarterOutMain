@@ -1,3 +1,5 @@
+// App entry point
+
 require('dotenv').config();
 require('babel-register')({
   plugins: [

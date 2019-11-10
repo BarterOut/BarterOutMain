@@ -9,7 +9,7 @@ import { Link, Redirect } from 'react-router-dom';
 
 import FetchService from '../../services/FetchService';
 import VerifyService from '../../services/VerifyService';
-import logo from '../../images/barterOutOrangeWhiteLogo.png';
+import logo from '../../images/logo-orange.png';
 
 import './SignUp.css';
 import '../../barterout.css';

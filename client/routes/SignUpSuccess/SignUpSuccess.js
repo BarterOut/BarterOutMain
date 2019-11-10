@@ -8,7 +8,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import MaterialIcon from 'react-google-material-icons';
 
-import logo from '../../images/barterOutOrangeWhiteLogoHeader.png';
+import logo from '../../images/logo-orange.png';
 
 const SignUpSuccess = () => (
   <div className="forgot-password">

@@ -11,7 +11,7 @@ import MaterialIcon from 'react-google-material-icons';
 import FetchService from '../../services/FetchService';
 import AuthService from '../../services/AuthService';
 
-import logo from '../../images/barterOutOrangeWhiteLogoHeader.png';
+import logo from '../../images/logo-orange.png';
 
 import './ForgotPassword.css';
 
@@ -104,7 +104,8 @@ class ForgotPassword extends Component {
             this.state.badCreditials
             && (
             <div className="alert alert-warning" role="alert">
-              <strong>On snap!</strong> Please enter valid email.
+              <strong>On snap!</strong>
+              Please enter valid email.
             </div>
             )
           }
@@ -123,7 +124,9 @@ class ForgotPassword extends Component {
             </button>
           </div>
           <div>Don&apos;t have an account?</div>
-          <div><Link href="/signup" to="/signup">Sign up now</Link>.</div>
+          <div>
+            <Link href="/signup" to="/signup">Sign up now</Link>
+          </div>
         </div>
       </div>
     );

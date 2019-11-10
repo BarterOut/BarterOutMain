@@ -8,7 +8,7 @@
 
 import mongoose from 'mongoose';
 
-const Schema = mongoose.Schema;
+const { Schema } = mongoose;
 
 const TransactionSchema = new Schema({
   date: { type: Date, required: true, default: Date.now() },

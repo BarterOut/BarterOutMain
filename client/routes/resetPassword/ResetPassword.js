@@ -14,9 +14,7 @@ import MaterialIcon from 'react-google-material-icons';
 import FetchService from '../../services/FetchService';
 import AuthService from '../../services/AuthService';
 
-import logo from '../../images/BarterOutDarkLogo.png';
-
-import './ResetPassword.css';
+import logo from '../../images/logo-orange.png';
 
 class ResetPassword extends Component {
   constructor(props) {
@@ -84,20 +82,28 @@ class ResetPassword extends Component {
       return <Redirect to="/login" />;
     }
     return (
-      <div className="wrapper-soft-bg">
-        <div className="top-section">
-          <img className="logo-nonav" src={logo} alt="logo" />
-        </div>
-        <div className="central-content-card">
+      <div className="forgot-password">
+        <nav className="headerBar">
+          <div className="logo">
+            <a href="/" className="buttonLink"><img alt="logo" className="logo" src={logo} /></a>
+          </div>
+          <div className="pageLinks">
+            <Link className="landingPageLink" to="/" href="/">Home</Link>
+            <Link className="landingPageLink" to="/about" href="/about">About</Link>
+            <Link className="landingPageLink" to="/login" href="/login">Login</Link>
+            <Link className="landingPageLink" to="/signup" href="/signup">Sign Up</Link>
+          </div>
+        </nav>
+        <div className="forgot-password__content">
           <MaterialIcon size={100} icon="lock" id="lock-icon" />
-          <h2 id="header-custom">Forgot your Password?</h2>
-          <h3 id="forgot-password-message">
+          <h3>Forgot your Password?</h3>
+          <p>
             No worries! Enter your new password!
-          </h3>
+          </p>
           {this.state.badCreditials && <span className="input-error">Please enter an valid email.</span>}
 
           <input
-            className="formInput"
+            className="form-control my-2"
             placeholder="New Password"
             type="password"
             name="password"
@@ -105,7 +111,7 @@ class ResetPassword extends Component {
             required
           />
           <input
-            className="formInput"
+            className="form-control my-2"
             placeholder="Confirm New Password"
             type="password"
             name="passwordConfirm"
@@ -113,10 +119,12 @@ class ResetPassword extends Component {
             required
           />
           <div>
-            <button type="button" className="button" onClick={this.resetPassword}>Reset Password</button>
+            <button type="button" className="btn btn-primary my-2" onClick={this.resetPassword}>Reset Password</button>
           </div>
           <div>Don&apos;t have an account?</div>
-          <div><Link href="/signup" to="/signup">Sign up now</Link>.</div>
+          <div>
+            <Link href="/signup" to="/signup">Sign up now</Link>
+          </div>
         </div>
       </div>
     );
