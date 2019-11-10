@@ -21,21 +21,11 @@ const express = require('express');
 
 const router = express.Router();
 
-const nodemailer = require('nodemailer');
 const jwt = require('jsonwebtoken');
 const emails = require('../resources/emails');
 const notification = require('../resources/Notifications');
 
 const BOOK_LIMIT = 40;
-
-const transporter = nodemailer.createTransport({ // secure authentication
-  host: 'smtp.gmail.com',
-  auth: {
-    type: 'OAuth2',
-    clientId: process.env.CLIENT_ID,
-    clientSecret: process.env.NEV_CLIENT_SECRET,
-  },
-});
 
 /**
  * [RESOURCE] Sends out all needs emails when a transaction occurs.
@@ -47,27 +37,13 @@ function transactionEmail(transactionID) {
       for (let i = 0; i < transa.booksPurchased.length; i++) {
         Textbook.findOne({ _id: transa.booksPurchased[i] }, (er, book) => {
           User.findOne({ _id: book.owner }, (E, seller) => {
-            sendEmail(emails.emailForUs(buyer, seller, book));
-            sendEmail(emails.emailToSeller(seller.emailAddress, seller.firstName, book.name));
-            sendEmail(emails.venmoRequestEmail(buyer.emailAddress, buyer.firstName, book.name));
+            emails.sendEmail(emails.emailForUs(buyer, seller, book));
+            emails.sendEmail(emails.emailToSeller(seller.emailAddress, seller.firstName, book.name));
+            emails.sendEmail(emails.venmoRequestEmail(buyer.emailAddress, buyer.firstName, book.name));
           });
         });
       }
     });
-  });
-}
-
-/**
- * [RESOURCE] Sends a given email.
- * @param {Object} mailOptions Required options to send email, various address, subject, etc.
- */
-function sendEmail(mailOptions) {
-  transporter.sendMail(mailOptions, (err, info) => {
-    if (err) {
-      console.error(err); // eslint-disable-line
-    } else {
-      console.info(info); // eslint-disable-line
-    }
   });
 }
 
@@ -134,7 +110,7 @@ router.post('/postBook/:token', (req, res) => {
                     }
                     const email = userToEmail[0].emailAddress;
                     const { firstName } = userToEmail[0];
-                    sendEmail(emails.matchFoundEmail(email, firstName, bookMatched.name));
+                    emails.sendEmail(emails.matchFoundEmail(email, firstName, bookMatched.name));
                   });
                 });
               });
@@ -201,7 +177,7 @@ router.post('/requestBook', (req, res) => {
                     User.find({ _id: BOOK.owner }, (error, userToEmail) => {
                       const email = userToEmail[0].emailAddress;
                       const { firstName } = userToEmail[0];
-                      sendEmail(emails.matchFoundEmail(email, firstName, BOOK.name));
+                      emails.sendEmail(emails.matchFoundEmail(email, firstName, BOOK.name));
                     });
                   }
                   User.update(

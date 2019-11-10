@@ -20,7 +20,6 @@ const express = require('express');
 
 const router = express.Router();
 
-const nodemailer = require('nodemailer');
 const bcrypt = require('bcryptjs');
 const crypto = require('crypto');
 const nev = require('email-verification')(mongoose);
@@ -118,7 +117,7 @@ router.get('/email-verification/:URL', (req, res) => {
       newUser.save()
         .then(() => {
           // Verified the user
-          sendEmail(emails.signedUpEmail(newUser.emailAddress, newUser.firstName));
+          emails.sendEmail(emails.signedUpEmail(newUser.emailAddress, newUser.firstName));
           TempUser.remove({ emailToken: url }, (error) => {
             if (error) {
               res.status(400).json(response({ error }));
@@ -130,26 +129,6 @@ router.get('/email-verification/:URL', (req, res) => {
       res.redirect('/signup');
     }
   });
-});
-
-function sendEmail(mailOptions) {
-  transporter.sendMail(mailOptions, (error) => {
-    if (error) {
-      throw new Error(error);
-    }
-  });
-}
-
-// secure authentication
-const transporter = nodemailer.createTransport({
-  host: 'smtp.gmail.com',
-  auth: {
-    type: 'OAuth2',
-    clientId: process.env.CLIENT_ID,
-    clientSecret: process.env.NEV_CLIENT_SECRET,
-    refreshToken: process.env.EVR_TOKEN,
-    accessToken: process.env.EV_TOKEN,
-  },
 });
 
 /**
@@ -194,7 +173,7 @@ function signup(req, res) {
           newUser.save()
             .then(() => {
               const URL = newUser.emailToken;
-              sendEmail(emails.verifyEmail(emailAddress, firstName, URL));
+              emails.sendEmail(emails.verifyEmail(emailAddress, firstName, URL));
               res.status(201).json(response(null));
             });
         }
@@ -334,7 +313,7 @@ function passwordResetRequest(req, res) {
             }
           },
         );
-        sendEmail(emails.passwordResetEmail(user.emailAddress, user.firstName, token));
+        emails.sendEmail(emails.passwordResetEmail(user.emailAddress, user.firstName, token));
         res.status(200).json(response({}));
       });
     } else {

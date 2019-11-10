@@ -6,13 +6,36 @@
  * @version 0.0.4
  */
 
+const nodemailer = require('nodemailer');
+
 const authConfig = {
   user: 'development@barterout.com',
   refreshToken: process.env.EVR_TOKEN,
   accessToken: process.env.EV_TOKEN,
 };
 
+const transporter = nodemailer.createTransport({
+  host: 'smtp.gmail.com',
+  auth: {
+    type: 'OAuth2',
+    clientId: process.env.CLIENT_ID,
+    clientSecret: process.env.NEV_CLIENT_SECRET,
+    refreshToken: process.env.EVR_TOKEN,
+    accessToken: process.env.EV_TOKEN,
+  },
+});
+
 module.exports = {
+  sendEmail: function sendEmail(mailOptions) {
+    transporter.sendMail(mailOptions, (err, info) => {
+      if (err) {
+        console.error(err); // eslint-disable-line
+      } else {
+        console.info(info); // eslint-disable-line
+      }
+    });
+  },
+
   // Email sent when user gets matched with a seller
   matchFoundEmail: function matchFoundEmail(emailTo, firstName, bookTitle) {
     return {
