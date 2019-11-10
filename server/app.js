@@ -58,13 +58,13 @@ function forceSsl(req, res, next) {
   return next();
 }
 
+const airbrake = new AirbrakeClient({ // eslint-disable-line
+  projectId: process.env.AIRBRAKE_ID,
+  projectKey: process.env.AIRBRAKE_KEY,
+});
+
 if (process.env.NODE_ENV === 'production'
     || process.env.NODE_ENV === 'staging') {
-  const airbrake = new AirbrakeClient({ // eslint-disable-line
-    projectId: process.env.AIRBRAKE_ID,
-    projectKey: process.env.AIRBRAKE_KEY,
-  });
-
   app.use(forceSsl);
 
   // Set cache policy to cache for one month on images
