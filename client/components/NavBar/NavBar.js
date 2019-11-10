@@ -11,7 +11,7 @@ import propTypes from 'prop-types';
 
 import AuthService from '../../services/AuthService';
 
-import logo from '../../images/white Logo@2x.png';
+import logo from '../../images/logo-white.png';
 
 class NavBar extends Component {
   constructor() {

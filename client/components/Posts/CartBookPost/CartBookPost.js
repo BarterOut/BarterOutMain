@@ -9,7 +9,6 @@ import propTypes from 'prop-types';
 import moment from 'moment';
 
 import FetchService from '../../../services/FetchService';
-import AuthService from '../../../services/AuthService';
 import Util from '../../../services/util';
 
 class CartBookPost extends Component {
@@ -32,10 +31,8 @@ class CartBookPost extends Component {
   }
 
   removeFromCart() {
-    const AUTH = new AuthService();
     FetchService.POST('/api/user/removeFromCart', {
       bookID: this.state.id,
-      token: AUTH.getToken(),
     })
       .then(() => {
         window.location.reload();

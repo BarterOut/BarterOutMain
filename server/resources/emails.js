@@ -6,13 +6,36 @@
  * @version 0.0.4
  */
 
+const nodemailer = require('nodemailer');
+
 const authConfig = {
   user: 'development@barterout.com',
   refreshToken: process.env.EVR_TOKEN,
   accessToken: process.env.EV_TOKEN,
 };
 
+const transporter = nodemailer.createTransport({
+  host: 'smtp.gmail.com',
+  auth: {
+    type: 'OAuth2',
+    clientId: process.env.CLIENT_ID,
+    clientSecret: process.env.NEV_CLIENT_SECRET,
+    refreshToken: process.env.EVR_TOKEN,
+    accessToken: process.env.EV_TOKEN,
+  },
+});
+
 module.exports = {
+  sendEmail: function sendEmail(mailOptions) {
+    transporter.sendMail(mailOptions, (err, info) => {
+      if (err) {
+        console.error(err); // eslint-disable-line
+      } else {
+        console.info(info); // eslint-disable-line
+      }
+    });
+  },
+
   // Email sent when user gets matched with a seller
   matchFoundEmail: function matchFoundEmail(emailTo, firstName, bookTitle) {
     return {
@@ -52,7 +75,7 @@ module.exports = {
       <br />
       We are excited to let you know that we found a buyer for your copy of ${bookTitle}. Please drop the book as soon as you can to one of our teams members.
       <br />
-      <a target="_blank" href="https://docs.google.com/spreadsheets/d/1cz-o7TdGuiopz89CZGdmuYMQrTY3H9I5VPdEdTTQoYI/edit#gid=0">Here</a> is the schedule for dropping off books.
+      <a target="_blank" href="https://docs.google.com/spreadsheets/d/1ghS4yMi9dBaCSqeauGXtYkxK3d_fNS4U7-wK8Hy5I1M/edit?usp=sharing">Here</a> is the schedule for dropping off books.
       <br />
       We will check the condition of the book and if it matches the one advertised, we will send you the money via Venmo before delivering the book to the other student. 
       <br />
@@ -155,7 +178,7 @@ module.exports = {
       Do you like social media as much as we do? Consider:<br />
       Liking us on <a href="https://www.facebook.com/BarterOut/">Facebook</a><br />
       Following us on <a href="https://www.instagram.com/barteroutofficial/">Instagram</a>`,
-      auth:  authConfig,
+      auth: authConfig,
     };
   },
 
@@ -179,7 +202,7 @@ module.exports = {
       Do you like social media as much as we do? Consider:<br />
       Liking us on <a href="https://www.facebook.com/BarterOut/">Facebook</a><br />
       Following us on <a href="https://www.instagram.com/barteroutofficial/">Instagram</a>`,
-      auth:  authConfig,
+      auth: authConfig,
     };
   },
 

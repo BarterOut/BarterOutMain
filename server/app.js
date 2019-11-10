@@ -11,17 +11,17 @@
 import Express from 'express';
 import path from 'path';
 
-// Mongoose for database models and access.
-import mongoose from 'mongoose';
-
 // Webpack Requirements
 import webpack from 'webpack';
 import webpackDevMiddleware from 'webpack-dev-middleware';
 import webpackHotMiddleware from 'webpack-hot-middleware';
 import config from '../webpack.config';
 
-// Config for database.
+// Configurations
 import serverConfig from './config';
+
+// DB Connection
+import mongoDB from './database/mongoDB';
 
 const bodyParser = require('body-parser');
 const session = require('express-session');
@@ -58,13 +58,13 @@ function forceSsl(req, res, next) {
   return next();
 }
 
+const airbrake = new AirbrakeClient({ // eslint-disable-line
+  projectId: process.env.AIRBRAKE_ID,
+  projectKey: process.env.AIRBRAKE_KEY,
+});
+
 if (process.env.NODE_ENV === 'production'
     || process.env.NODE_ENV === 'staging') {
-  const airbrake = new AirbrakeClient({ // eslint-disable-line
-    projectId: process.env.AIRBRAKE_ID,
-    projectKey: process.env.AIRBRAKE_KEY,
-  });
-
   app.use(forceSsl);
 
   // Set cache policy to cache for one month on images
@@ -100,14 +100,17 @@ if (process.env.NODE_ENV === 'development') {
   app.use(webpackHotMiddleware(compiler));
 }
 
-// Set native promises as mongoose promise
-mongoose.Promise = global.Promise;
+mongoDB.connect();
 
-mongoose.connect(serverConfig.mongoURL, { useNewUrlParser: true }, (error) => {
-  if (error) {
-    console.error('Please make sure Mongodb is installed and running!'); // eslint-disable-line no-console
-    throw error;
+// error handling
+app.use((err, req, res, next) => {
+  if (err.name === 'UnauthorizedError') {
+    return res.status(401).send({
+      success: false,
+      message: 'No token provided.',
+    });
   }
+  return next();
 });
 
 // Catch all function, if route is not in form /api/ then
@@ -121,6 +124,8 @@ app.get('*', (req, res) => {
 const server = app.listen(PORT, (error) => {
   if (!error) {
     console.log(`MERN is running on port: ${serverConfig.port}! Build something amazing!`); // eslint-disable-line
+  } else {
+    console.log(error); // eslint-disable-line
   }
 });
 

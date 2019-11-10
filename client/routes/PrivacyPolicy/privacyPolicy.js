@@ -10,7 +10,7 @@ import { Link } from 'react-router-dom';
 
 import '../../res/sylesheetOrkneyRegular.css';
 
-import logo from '../../images/barterOutOrangeWhiteLogoHeader.png';
+import logo from '../../images/logo-orange.png';
 
 import Footer from '../../components/Footer/Footer';
 

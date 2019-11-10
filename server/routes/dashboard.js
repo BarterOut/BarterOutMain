@@ -12,6 +12,7 @@ import Transactions from '../models/transaction';
 
 import response from '../resources/response';
 import config from '../config';
+import auth from '../auth';
 
 // JWT and Express
 const jwt = require('jsonwebtoken');
@@ -20,7 +21,6 @@ const nodemailer = require('nodemailer');
 
 const router = express.Router();
 const emails = require('../resources/emails');
-
 
 /**
  * Will return an array of JSON objects in reverse cronological order (Newest at the top)
@@ -94,8 +94,6 @@ router.get('/getPurchasedBooks/:token', (req, res) => {
   });
 });
 
-// TODO: Verify status with enum
-
 /**
  * Gets a list of all in process transactions (books with status, status).
  * @param {Object} req Request body from client.
@@ -105,9 +103,9 @@ router.get('/getPurchasedBooks/:token', (req, res) => {
 router.get('/getBooksWithStatus/:status/:token', (req, res) => {
   // we are using base 10
   const status = parseInt(req.params.status, 10);
-
-  if (!config.statuses.includes(status)) {
-    res.status(400).json(response({ error: 'You need to create an account' }));
+  const { VALID_STATUSES } = config;
+  if (!Object.values(VALID_STATUSES).includes(status)) {
+    res.status(400).json(response({ error: `Invalid status: ${status}` }));
   }
 
   jwt.verify(req.params.token, config.key, (error, authData) => {
@@ -116,7 +114,7 @@ router.get('/getBooksWithStatus/:status/:token', (req, res) => {
     } else {
       User.findOne({ _id: authData.userInfo._id }, (error, user) => {
         if (!user) {
-          res.status(401).json(response({ error: 'You need to create an account' }));
+          res.status(401).json(response({ error: 'You need to create an account.' }));
         } else if (authData.userInfo.permissionType === 1) {
           Textbook
             .find({ status })
@@ -518,43 +516,56 @@ router.get('/permissionLv/:token', (req, res) => {
   });
 });
 
-router.post('/deactivateBooks', (req, res) => {
-  jwt.verify(req.body.data.token, config.key, (error, authData) => {
-    if (error !== null) {
-      res.status(403).json(response({ error }));
-    } else {
-      User.findOne({ _id: authData.userInfo._id }, (error, user) => {
-        if (!user) {
-          res.status(401).json(response({ error: 'You need to create an account' }));
-        } else if (authData.userInfo.permissionType === 1) {
-          let usersToEmail = [];
-          let booksToDeactivate = [];
-          Textbook.find({}, (err, books) => {
-            for (let i = 0; i < books.length; i++) {
-              const bookDate = books[i].date;
-              const twoMonthsInDays = 62;
-              const twoMonthsInMS = twoMonthsInDays * 24 * 60 * 60 * 1000;
-              if (bookDate < (Date.now() - twoMonthsInMS) && books[i].status == 0) {
-                // add the books to list of people to email
-                booksToDeactivate = addNoDuplicates(booksToDeactivate, `${books[i]._id}`);
-                usersToEmail = addNoDuplicates(usersToEmail, books[i].owner);
-              }
-            }
-
-            setBooksStatus(booksToDeactivate, 5);
-            User.find({ _id: { $in: usersToEmail } }, (er, users) => {
-              for (let i = 0; i < users.length; i++) {
-                sendEmail(emails.deactivatedBook(users[i].emailAddress, users[i].firstName));
-              }
-              res.status(200).json(response({}));
-            });
-          });
-        } else {
-          res.status(403).json(response({}));
+router.post('/deactivateBooks', auth.required, (req, res) => {
+  const { payload: { userInfo } } = req;
+  User.findOne({ _id: userInfo._id }, (error, user) => {
+    if (!user) {
+      res.status(401).json(response({ error: 'You need to create an account' }));
+    } else if (userInfo.permissionType === 1) {
+      let usersToEmail = [];
+      let booksToDeactivate = [];
+      Textbook.find({}, (err, books) => {
+        for (let i = 0; i < books.length; i++) {
+          const bookDate = books[i].date;
+          const twoMonthsInDays = 62;
+          const twoMonthsInMS = twoMonthsInDays * 24 * 60 * 60 * 1000;
+          if (bookDate < (Date.now() - twoMonthsInMS) && books[i].status === 0) {
+            // add the books to list of people to email
+            booksToDeactivate = addNoDuplicates(booksToDeactivate, `${books[i]._id}`);
+            usersToEmail = addNoDuplicates(usersToEmail, books[i].owner);
+          }
         }
+
+        setBooksStatus(booksToDeactivate, 5);
+        User.find({ _id: { $in: usersToEmail } }, (er, users) => {
+          for (let i = 0; i < users.length; i++) {
+            sendEmail(emails.deactivatedBook(users[i].emailAddress, users[i].firstName));
+          }
+          res.status(200).json(response({}));
+        });
       });
+    } else {
+      res.status(403).json(response({}));
     }
   });
+});
+
+/**
+ * @description Makes the given user an admin
+ * (permission type 1)
+ * @access Restricted
+ */
+router.put('/makeAdmin', auth.required, (req, res) => {
+  const { payload: { userInfo: { permissionType } } } = req;
+  const { body: { userID } } = req;
+  if (permissionType === 1) {
+    User.updateOne({ _id: userID }, { permissionType })
+      .then(() => {
+        res.status(200).json(response({}));
+      });
+  } else {
+    res.status(403).json(response({ error: 'Unauthorized' }));
+  }
 });
 
 router.get('/', (req, res) => {

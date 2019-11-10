@@ -22,7 +22,7 @@ import '../../res/sylesheetOrkneyLight.css';
 import '../../res/sylesheetOrkneyMedium.css';
 import '../../res/sylesheetOrkneyBold.css';
 
-import logo from '../../images/barterOutOrangeWhiteLogoHeader.png';
+import logo from '../../images/logo-orange.png';
 
 import picOne from '../../images/overtheShoulderCompressed.jpg';
 import picTwo from '../../images/groupMeetingCompressed.jpg';

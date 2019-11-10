@@ -37,9 +37,7 @@ class BookPost extends Component {
   }
 
   addToCart() {
-    const AUTH = new AuthService();
     FetchService.POST('/api/user/addToCart', {
-      token: AUTH.getToken(),
       bookID: this.props.id,
     })
       .then(() => {

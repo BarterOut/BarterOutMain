@@ -12,15 +12,21 @@
  * Status 1 is: someone clicked buy on the website
  * Status 2 is: We have verified the condition of the book and charged the buyer
  * Status 3 is: the book has been delivered and we paid the seller
- * Status 4 is: ???
+ * Status 4 is: Not in use
  * Status 5 is: The book has been unlisted and set as inactive
 */
 
 const config = {
   mongoURL: process.env.MONGO_URL || 'mongodb://localhost/barterout-db',
   port: process.env.PORT || 8080,
-  key: process.env.JWT_SECRET,
-  statuses: [0, 1, 2, 3, 4, 5],
+  key: process.env.JWT_SECRET || 'secret',
+  VALID_STATUSES: {
+    LISTED: 0,
+    STAGE_ONE: 1,
+    STAGE_TWO: 2,
+    STAGE_THREE: 3,
+    UNLISTED: 5,
+  },
 };
 
 export default config;

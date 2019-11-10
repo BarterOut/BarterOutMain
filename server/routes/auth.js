@@ -9,16 +9,17 @@ import mongoose from 'mongoose';
 
 // Models
 import User from '../models/user';
+
 import TempUser from '../models/tempUser';
 
 import response from '../resources/response';
 import config from '../config';
+import auth from '../auth';
 
 const express = require('express');
 
 const router = express.Router();
 
-const nodemailer = require('nodemailer');
 const bcrypt = require('bcryptjs');
 const crypto = require('crypto');
 const nev = require('email-verification')(mongoose);
@@ -42,9 +43,9 @@ function myHasher(password, tempUserData, insertTempUser, callback) {
 }
 
 let verificationURL;
-if (process.env.NODE_ENV == 'production') {
+if (process.env.NODE_ENV === 'production') {
   verificationURL = 'https://www.barterout.com/api/auth/email-verification/${URL}'; // eslint-disable-line
-} else if (process.env.NODE_ENV == 'staging') {
+} else if (process.env.NODE_ENV === 'staging') {
   verificationURL = 'https://barterout-dev.herokuapp.com/api/auth/email-verification/${URL}'; // eslint-disable-line
 } else {
   verificationURL = 'localhost:8080/api/auth/email-verification/${URL}'; // eslint-disable-line
@@ -63,9 +64,6 @@ nev.configure({
       type: 'OAuth2',
       clientId: process.env.CLIENT_ID,
       clientSecret: process.env.NEV_CLIENT_SECRET,
-
-
-
     },
   },
   verifyMailOptions: {
@@ -77,8 +75,6 @@ nev.configure({
       user: 'development@barterout.com',
       clientId: process.env.CLIENT_ID,
       clientSecret: process.env.NEV_CLIENT_SECRET,
-
-
     },
   },
   // This might break the log in for the new users as it might be hashing the hash.
@@ -86,13 +82,6 @@ nev.configure({
   emailFieldName: 'emailAddress',
   passwordFieldName: 'password',
 }, (error) => {
-  if (error) {
-    throw new Error(`Error: ${error}`);
-  }
-});
-
-// Creating the temp user
-nev.generateTempUserModel(User, (error) => {
   if (error) {
     throw new Error(`Error: ${error}`);
   }
@@ -128,13 +117,13 @@ router.get('/email-verification/:URL', (req, res) => {
       newUser.save()
         .then(() => {
           // Verified the user
-          sendEmail(emails.signedUpEmail(newUser.emailAddress, newUser.firstName));
+          emails.sendEmail(emails.signedUpEmail(newUser.emailAddress, newUser.firstName));
           TempUser.remove({ emailToken: url }, (error) => {
             if (error) {
               res.status(400).json(response({ error }));
             }
           });
-          res.redirect('/emailConfirmed');
+          res.redirect('/email-confirmed');
         });
     } else {
       res.redirect('/signup');
@@ -142,34 +131,10 @@ router.get('/email-verification/:URL', (req, res) => {
   });
 });
 
-function sendEmail(mailOptions) {
-  transporter.sendMail(mailOptions, (error) => {
-
-    if (error) {
-      throw new Error(`Error: ${error}`);
-    }
-  });
-}
-
-const transporter = nodemailer.createTransport({ // secure authentication
-  host: 'smtp.gmail.com',
-  auth: {
-    type: 'OAuth2',
-    clientId: process.env.CLIENT_ID,
-    clientSecret: process.env.NEV_CLIENT_SECRET,
-    refreshToken: process.env.EVR_TOKEN,
-    accessToken: process.env.EV_TOKEN,
-
-  },
-});
-
 /**
  * Creates an temporary (unconfirmed) account for a user.
- * @param {Object} req Request body from client.
- * @param {Object} res Body of HTTP response.
- * @returns {Object} Standard API Repsonse.
  */
-router.post('/signup', (req, res) => {
+function signup(req, res) {
   const {
     emailAddress,
     password,
@@ -208,22 +173,20 @@ router.post('/signup', (req, res) => {
           newUser.save()
             .then(() => {
               const URL = newUser.emailToken;
-              sendEmail(emails.verifyEmail(emailAddress, firstName, URL));
+              emails.sendEmail(emails.verifyEmail(emailAddress, firstName, URL));
               res.status(201).json(response(null));
             });
         }
       });
     }
   });
-});
+}
 
 /**
  * Logs in a user provided a valid email and password.
- * @param {Object} req Request body from client.
- * @param {Object} res Body of HTTP response.
  * @returns {Object} Status code and JWT.
  */
-router.post('/login', (req, res) => {
+function login(req, res) {
   const { emailAddress, password } = req.body;
   User.findOne({ emailAddress }, (error, user) => {
     if (error) {
@@ -251,103 +214,83 @@ router.post('/login', (req, res) => {
       res.status(200).json(response({ token }));
     });
   });
-});
+}
 
 
 /**
  * Will update name, venmo, address
- * Requires the token to be sent as we ll as the body to cointain the info that will be updated
- * @param {Object} req Request body from client.
- * @param {Object} res Body of HTTP response.
- * @returns {Object} Standard API response.
+ * Requires the token to be sent.
  */
-router.post('/updateProfile', (req, res) => {
-  jwt.verify(req.body.data.token, config.key, (error, authData) => {
-    if (error) {
-      res.status(403).json(response({ error }));
-    } else {
-      User.update(
-        { _id: mongoose.Types.ObjectId(authData.userInfo._id) },
+function updateProfile(req, res) {
+  const { payload: { userInfo: { _id } } } = req;
+  User.update(
+    { _id },
+    {
+      $set:
         {
-          $set:
-            {
-              firstName: req.body.data.firstName,
-              lastName: req.body.data.lastName,
-              venmoUsername: req.body.data.venmoUsername,
-              CMC: req.body.data.CMC,
-            },
+          firstName: req.body.data.firstName,
+          lastName: req.body.data.lastName,
+          venmoUsername: req.body.data.venmoUsername,
+          CMC: req.body.data.CMC,
         },
-        (error) => {
-          if (error) {
-            res.status(400).json(response({ error }));
-          } else {
-            res.status(200).json(response(null));
-          }
-        },
-      );
-    }
-  });
-});
+    },
+    (error) => {
+      if (error) {
+        res.status(400).json(response({ error }));
+      } else {
+        res.status(200).json(response(null));
+      }
+    },
+  );
+}
 
 /**
  * Will update the password
  * Requires the token to be sent as well as the plain
  * text password to be sent, will be hashed inside of the function.
- * @param {Object} req Request body from client.
- * @param {Object} res Body of HTTP response.
- * @returns {Object} Standard API Response.
  */
-router.post('/updatePassword', (req, res) => {
-  jwt.verify(req.body.data.token, config.key, (error, authData) => {
+function updatePassword(req, res) {
+  const { payload: { userInfo: { _id } } } = req;
+  User.findOne({ _id }, (error, user) => {
     if (error) {
-      res.status(403).json(response({ error }));
-    } else {
-      User.findOne({ _id: authData.userInfo._id }, (error, user) => {
+      res.status(400).json(response({ error }));
+      return;
+    }
+    if (!user) {
+      res.status(401).json(response({ error: 'You need to create an account.' }));
+      return;
+    }
+    if (!user.checkPassword(req.body.data.password)) {
+      res.status(401).json(response({ error: 'Incorrect Password' }));
+      return;
+    }
+
+    // if it passes all the check before there is a user and the
+    // password is correct so it can be updated for the new one
+    User.update(
+      { _id },
+      {
+        $set:
+          {
+            password: user.hashPassword(req.body.data.newPassword),
+          },
+      },
+      (error) => {
         if (error) {
           res.status(400).json(response({ error }));
-          return;
+        } else {
+          res.status(200).json(response(null));
         }
-        if (!user) {
-          res.status(401).json(response({ error: 'You need to create an account.' }));
-          return;
-        }
-        if (!user.checkPassword(req.body.data.password)) {
-          res.status(401).json(response({ error: 'Incorrect Password' }));
-          return;
-        }
-
-        // if it passes all the check before there is a user and the
-        // password is correct so it can be updated for the new one
-        User.update(
-          { _id: authData.userInfo._id },
-          {
-            $set:
-              {
-                password: user.hashPassword(req.body.data.newPassword),
-              },
-          },
-          (error) => {
-            if (error) {
-              res.status(400).json(response({ error }));
-            } else {
-              res.status(200).json(response(null));
-            }
-          },
-        );
-      });
-    }
+      },
+    );
   });
-});
-
+}
 
 /**
  * Sends email to user with token to reset password,
  * this token is verified by the another API call.
- * @param {Object} req Request body from client.
- * @param {Object} res Body of HTTP response.
- * @returns {Object} Standard API Response.
  */
-router.post('/passwordResetRequest', (req, res) => {
+function passwordResetRequest(req, res) {
   const email = req.body.data.emailAddress;
   let token;
   const endDate = Date.now() + 86400000;
@@ -370,14 +313,14 @@ router.post('/passwordResetRequest', (req, res) => {
             }
           },
         );
-        sendEmail(emails.passwordResetEmail(user.emailAddress, user.firstName, token));
-        res.status(200).json(response(null));
+        emails.sendEmail(emails.passwordResetEmail(user.emailAddress, user.firstName, token));
+        res.status(200).json(response({}));
       });
     } else {
       res.status(406).json(response({ error: 'No user found.' }));
     }
   });
-});
+}
 
 // TODO: remove redirect
 /**
@@ -400,11 +343,8 @@ router.get('/passwordReset/:token', (req, res) => {
 /**
  * Request sent from link page use is taken to
  * after forgetting their password.
- * @param {Object} req Request body from client.
- * @param {Object} res Body of HTTP response.
- * @returns {Object} Standard API Response.
  */
-router.post('/passwordReset/', (req, res) => {
+function passwordReset(req, res) {
   User.findOne(
     {
       resetPasswordToken: req.body.data.token,
@@ -434,10 +374,19 @@ router.post('/passwordReset/', (req, res) => {
       }
     },
   );
-});
+}
 
-router.get('/', (req, res) => {
+function authBase(req, res) {
   res.status(200).json(response(null));
-});
+}
+
+router.get('/', authBase);
+
+router.post('/updatePassword', auth.required, updatePassword);
+router.post('/updateProfile', auth.required, updateProfile);
+router.post('/passwordReset', auth.optional, passwordReset);
+router.post('/passwordResetRequest', passwordResetRequest);
+router.post('/login', login);
+router.post('/signup', signup);
 
 module.exports = router;

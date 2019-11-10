@@ -9,7 +9,7 @@ import { Link, Redirect } from 'react-router-dom';
 
 import FetchService from '../../services/FetchService';
 import VerifyService from '../../services/VerifyService';
-import logo from '../../images/barterOutOrangeWhiteLogo.png';
+import logo from '../../images/logo-orange.png';
 
 import './SignUp.css';
 import '../../barterout.css';
@@ -141,7 +141,7 @@ class SignUp extends Component {
 
   render() {
     if (this.state.redirectToSuccess) {
-      return <Redirect to="/signUpSuccess" />;
+      return <Redirect to="/sign-up-success" />;
     }
     return (
       <div className="login-wrapper">
@@ -231,8 +231,8 @@ class SignUp extends Component {
           </div>
           <div className="password-strength" />
           <div className="terms">
-              By clicking &quot;Sign Up&quot; below, you are agreeing to our <a href="/termsOfService" target="_blank" rel="noopener"> Terms of Service </a>
-              and <a href="/privacyPolicy" target="_blank" rel="noopener"> Privacy Policy</a>.
+              By clicking &quot;Sign Up&quot; below, you are agreeing to our <a href="/terms-of-service" target="_blank" rel="noopener"> Terms of Service </a>
+              and <a href="/privacy-policy" target="_blank" rel="noopener"> Privacy Policy</a>.
           </div>
           <button
             className="inputButtonFilled"

@@ -31,7 +31,7 @@ class Posts extends Component {
   }
 
   getRequestedBooks() {
-    FetchService.GET(`/api/user/getRequests/${this.auth.getToken()}`)
+    FetchService.GET('/api/user/getRequests')
       .then((data) => {
         this.setState({ booksRequested: data });
       });

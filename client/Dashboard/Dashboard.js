@@ -9,7 +9,7 @@ import React, { Component } from 'react';
 import { Redirect, Link } from 'react-router-dom';
 import AuthService from '../services/AuthService';
 
-import logo from '../images/barterOutOrangeWhiteLogo.png';
+import logo from '../images/logo-orange.png';
 
 class Dashboard extends Component {
   constructor(props) {
@@ -92,9 +92,9 @@ class Dashboard extends Component {
             </Link>
           </div>
           <div className="legal-links-login">
-            <Link className="fine-print-login" href="/termsOfService" to="/termsOfService">Terms of Service</Link>
+            <Link className="fine-print-login" href="/terms-of-service" to="/terms-of-service">Terms of Service</Link>
             |
-            <Link className="fine-print-login" href="/privacyPolicy" to="/privacyPolicy"> Privacy Policy</Link>
+            <Link className="fine-print-login" href="/privacy-policy" to="/privacy-policy"> Privacy Policy</Link>
           </div>
         </div>
       </div>

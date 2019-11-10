@@ -4,10 +4,12 @@
   "description": "Smart shopping for smart students.",
   "main": "index.js",
   "scripts": {
-    "start": "BABEL_DISABLE_CACHE=1 nodemon index.js",
+    "start": "nodemon index.js",
     "dev": "concurrently \"npm start\" ",
-    "lint": "eslint . --fix",
-    "test": "NODE_ENV=test jest --config jest.config.js --forceExit",
+    "lint": "eslint .",
+    "test": "NODE_ENV=test jest --projects client server --forceExit",
+    "test-client": "NODE_ENV=test jest --projects client",
+    "test-server": "NODE_ENV=test jest --projects server --forceExit",
     "coverage": "NODE_ENV=test jest --collectCoverageFrom=server/**.js --coverage server --forceExit",
     "build": "webpack"
   },
@@ -36,19 +38,23 @@
     "babel-register": "^6.26.0",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.2",
-    "bootstrap": "^4.2.1",
+    "bootstrap": "^4.3.1",
     "compression-webpack-plugin": "^2.0.0",
+    "cross-env": "^6.0.3",
     "cross-fetch": "^3.0.4",
     "css-loader": "^2.1.0",
     "dotenv": "^8.0.0",
     "email-verification": "^0.4.6",
+    "enzyme": "^3.10.0",
+    "enzyme-adapter-react-16": "^1.14.0",
     "express": "^4.16.3",
+    "express-jwt": "^5.3.1",
     "express-session": "^1.15.6",
     "file-loader": "^3.0.1",
     "imagemin-mozjpeg": "^8.0.0",
-    "imagemin-webpack-plugin": "^2.3.0",
+    "imagemin-webpack-plugin": "^2.4.2",
     "jest": "^23.6.0",
-    "jquery": "^3.2.1",
+    "jquery": "^3.4.1",
     "jsonwebtoken": "^8.4.0",
     "jwt-decode": "^2.2.0",
     "moment": "^2.23.0",
@@ -84,5 +90,11 @@
     "eslint-plugin-react": "^7.7.0",
     "rimraf": "^2.6.2",
     "webpack-cli": "^3.1.2"
+  },
+  "jest": {
+    "projects": [
+      "/client/jest.config.js",
+      "/server/jest.config.js"
+    ]
   }
 }

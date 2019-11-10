@@ -53,7 +53,7 @@ export default class AuthService {
     if (token == null) {
       return false;
     }
-    if (this.getProfile().userInfo.permissionType == 1) {
+    if (this.getProfile().userInfo.permissionType === 1) {
       return true;
     }
     return false;
@@ -84,7 +84,7 @@ export default class AuthService {
     // Saves user token to localStorage
     if (!sessionStorage.getItem('token')) {
       sessionStorage.setItem('token', idToken);
-    } else if (sessionStorage.getItem('token') != idToken) {
+    } else if (sessionStorage.getItem('token') !== idToken) {
       sessionStorage.setItem('token', idToken);
     }
   }

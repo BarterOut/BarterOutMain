@@ -5,14 +5,20 @@
  * @version 0.0.4
  */
 
+import AuthService from './AuthService';
+
 export default class FetchService {
   /**
    * Sends GET request to API and validates response, returning the data in a promise.
    * @param {String} url URL for the API request.
    */
   static GET(url) {
+    const auth = new AuthService();
     return fetch(url, {
       method: 'GET',
+      headers: {
+        Authorization: `Token ${auth.getToken()}`,
+      },
     }).then((res) => {
       if (!FetchService._checkStatus(res)) {
         return Promise.reject(new Error(`Bad Status Code ${res.status}`));
@@ -27,10 +33,12 @@ export default class FetchService {
    * @param {Object} data Any data you want to pass to the server.
    */
   static POST(url, data) {
+    const auth = new AuthService();
     // performs api calls sending the required authentication headers
     const headers = {
       Accept: 'application/json',
       'Content-Type': 'application/json',
+      Authorization: `Token ${auth.getToken()}`,
     };
 
     const options = {

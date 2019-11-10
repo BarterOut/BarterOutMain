@@ -26,9 +26,9 @@ const Footer = () => (
       </div>
       <div className="footer__linkColumn">
         <div className="footer__columnHeader">Legal</div>
-        <a href="/termsOfService" className="footer__link">Terms of Service</a>
+        <a href="/terms-of-service" className="footer__link">Terms of Service</a>
         <br />
-        <a href="/privacyPolicy" className="footer__link">Privacy Policy</a>
+        <a href="/privacy-policy" className="footer__link">Privacy Policy</a>
       </div>
       <div className="footer__linkColumn">
         <div className="footer__columnHeader">Developer</div>
@@ -39,9 +39,8 @@ const Footer = () => (
 
       <div className="footer__linkColumn footer__linkColumn--right">
         <div className="footer__columnHeader">Address</div>
-        <div className="footer__address">260 East Main Street</div>
-        <div className="footer__address">Suite 6325</div>
-        <div className="footer__address">Rochester, NY 14604</div>
+        <div className="footer__address">500 Joseph C. Wilson Blvd.</div>
+        <div className="footer__address">Rochester, NY 14627</div>
       </div>
     </div>
     <div className="socialMediaLinks">

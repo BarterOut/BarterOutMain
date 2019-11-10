@@ -47,7 +47,7 @@ class Settings extends Component {
     const token = AUTH.getToken();
     this.setState({ token });
 
-    FetchService.GET(`/api/user/getUserData/${token}`)
+    FetchService.GET(`/api/user/getUserData`)
       .then((data) => {
         this.setState({ firstName: data.user.firstName });
         this.setState({ lastName: data.user.lastName });
@@ -72,6 +72,7 @@ class Settings extends Component {
         this.setState({ updateMessageVisible: true });
       })
       .catch((error) => {
+        console.log(error); // eslint-disable-line
         ErrorService.parseError(error);
       });
   }

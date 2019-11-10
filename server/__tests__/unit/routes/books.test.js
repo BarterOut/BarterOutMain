@@ -32,6 +32,6 @@ describe('GET /books ', () => {
 describe('POST /books ', () => {
   test('/requestBook', async () => {
     const response = await request(app).post('/api/books/requestBook');
-    expect(response.statusCode).toBe(500);
+    expect(response.statusCode).toBe(404);
   });
 });
