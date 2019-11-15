@@ -18,6 +18,9 @@ const getTokenFromHeaders = (req) => {
   return null;
 };
 
+const isAdmin = permissionType => permissionType > 0;
+const isOwner = permissionType => permissionType === 2;
+
 const auth = {
   SECRET_KEY,
   required: jwt({
@@ -31,6 +34,8 @@ const auth = {
     getToken: getTokenFromHeaders,
     credentialsRequired: false,
   }),
+  isAdmin,
+  isOwner,
 };
 
 module.exports = auth;
