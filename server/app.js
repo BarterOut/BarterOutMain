@@ -58,10 +58,13 @@ function forceSsl(req, res, next) {
   return next();
 }
 
-const airbrake = new AirbrakeClient({ // eslint-disable-line
-  projectId: process.env.AIRBRAKE_ID,
-  projectKey: process.env.AIRBRAKE_KEY,
-});
+if (process.env.NODE_ENV !== 'test') {
+  const airbrake = new AirbrakeClient({ // eslint-disable-line
+    projectId: process.env.AIRBRAKE_ID,
+    projectKey: process.env.AIRBRAKE_KEY,
+  });
+}
+
 
 if (process.env.NODE_ENV === 'production'
     || process.env.NODE_ENV === 'staging') {
@@ -82,6 +85,7 @@ if (process.env.NODE_ENV === 'production'
 // Prefer gzipped js files.
 // Set cache policy to cache for one month on js files: UPDATE : no more
 app.get('*.js', (req, res, next) => {
+  // for zipping our main JS bundles
   res.set('Content-Encoding', 'gzip');
   // res.set('Cache-Control', 'public, max-age=2629800');
   next();

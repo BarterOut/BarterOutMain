@@ -1,6 +1,6 @@
 /**
  * @file emails.js
- * @description Pre-written emails.
+ * @description Pre-written emails and transporter authorization.
  * @author Daniel Munoz
  * @author Duncan Grubbs <duncan.grubbs@gmail.com>
  * @version 0.0.4
