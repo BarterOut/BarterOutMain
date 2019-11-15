@@ -14,8 +14,6 @@ import response from '../resources/response';
 import config from '../config';
 import auth from '../auth';
 
-// JWT and Express
-const jwt = require('jsonwebtoken');
 const express = require('express');
 
 const router = express.Router();
@@ -136,37 +134,32 @@ function getUsers(req, res) {
 
 
 /**
- * Get the info of the books and make them bigger
- * @param {Object} req Request body from client.
- * @param {Object} res Body of HTTP response.
- * @returns {Number} Status code.
+ * @description Get the info of the books and make them bigger.
+ * @access Restricted
  */
-router.post('/extendBookInfo', (req, res) => {
-  jwt.verify(req.body.data.token, config.key, (error, authData) => {
-    if (error) {
-      res.status(403).json(response({ error }));
-    } else if (authData.userInfo.permissionType > 0) {
-      const bookArray = req.body.data.books;
-      const output = [];
-      User.find({}, (error, users) => {
-        for (let i = 0; i < bookArray.length; i++) {
-          const newBook = bookArray[i];
-          for (let j = 0; j < users.length; j++) {
-            if (String(newBook.owner) === String(users[j]._id)) {
-              newBook.ownerObject = users[j];
-            } else if (String(newBook.buyer) === String(users[j]._id)) {
-              newBook.buyerObject = users[j];
-            }
+function extendBookInfo(req, res) {
+  const { payload: { userInfo: { permissionType } } } = req;
+  if (auth.isAdmin(permissionType)) {
+    const bookArray = req.body.data.books;
+    const output = [];
+    User.find({}, (error, users) => {
+      for (let i = 0; i < bookArray.length; i++) {
+        const newBook = bookArray[i];
+        for (let j = 0; j < users.length; j++) {
+          if (String(newBook.owner) === String(users[j]._id)) {
+            newBook.ownerObject = users[j];
+          } else if (String(newBook.buyer) === String(users[j]._id)) {
+            newBook.buyerObject = users[j];
           }
-          output.push(newBook);
         }
-        res.status(200).json(response(output));
-      });
-    } else {
-      res.status(401).json(response({}));
-    }
-  });
-});
+        output.push(newBook);
+      }
+      res.status(200).json(response(output));
+    });
+  } else {
+    res.status(403).json(response({ error: 'Unauthorized' }));
+  }
+}
 
 
 /**
@@ -307,7 +300,7 @@ function confirmTransaction(req, res) {
       },
     );
   } else {
-    res.status(403).json(response({}));
+    res.status(403).json(response({ error: 'Unauthorized' }));
   }
 }
 
@@ -331,7 +324,7 @@ function getTranscationsByName(req, res) {
         res.json(response(transactions));
       });
   } else {
-    res.status(403).json(response({}));
+    res.status(403).json(response({ error: 'Unauthorized' }));
   }
 }
 
@@ -395,7 +388,7 @@ function deactivateBooks(req, res) {
       });
     });
   } else {
-    res.status(403).json(response({}));
+    res.status(403).json(response({ error: 'Unauthorized' }));
   }
 }
 
@@ -439,6 +432,7 @@ router.post('/deactivateBooks', auth.required, deactivateBooks);
 router.post('/confirmTransaction', auth.required, confirmTransaction);
 router.post('/setBookPaid', auth.required, setBookPaid);
 router.post('/confirmBook', auth.required, confirmBook);
-router.post('/setBookStatus', setBookStatus);
+router.post('/setBookStatus', auth.required, setBookStatus);
+router.post('/extendBookInfo', auth.required, extendBookInfo);
 
 module.exports = router;

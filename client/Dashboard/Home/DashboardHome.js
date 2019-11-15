@@ -83,7 +83,6 @@ class DashboardHome extends Component {
     FetchService.GET('/api/dashboard/getBooksWithStatus/3')
       .then((data) => {
         FetchService.POST('/api/dashboard/extendBookInfo', {
-          token: this.AUTH.getToken(),
           books: data,
         })
           .then((fullData) => {
@@ -96,7 +95,6 @@ class DashboardHome extends Component {
     FetchService.GET('/api/dashboard/getBooksWithStatus/1')
       .then((data) => {
         FetchService.POST('/api/dashboard/extendBookInfo', {
-          token: this.AUTH.getToken(),
           books: data,
         })
           .then((fullData) => {
@@ -109,7 +107,6 @@ class DashboardHome extends Component {
     FetchService.GET('/api/dashboard/getBooksWithStatus/2')
       .then((data) => {
         FetchService.POST('/api/dashboard/extendBookInfo', {
-          token: this.AUTH.getToken(),
           books: data,
         })
           .then((fullData) => {
@@ -127,7 +124,7 @@ class DashboardHome extends Component {
   deactivateBooks() {
     FetchService.POST('/api/dashboard/deactivateBooks', {})
       .then(() => {
-        window.alert("Success"); // eslint-disable-line
+        window.alert('Success'); // eslint-disable-line
       });
   }
 
@@ -141,7 +138,7 @@ class DashboardHome extends Component {
 
   confirmPayment(evt) {
     const { target: { id } } = evt;
-    FetchService.POST('/api/dashboard/setBookPaid', { id, token: this.AUTH.getToken() })
+    FetchService.POST('/api/dashboard/setBookPaid', { id })
       .then(() => {
         this._getPurchasedBooks();
         this._getRecievedTransactions();
