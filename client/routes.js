@@ -60,7 +60,7 @@ const DashboardRoute = ({ component: Component, rest }) => {
   return (
     <Route
       {...rest}
-      render={props => (auth.getProfile().userInfo.permissionType === 1
+      render={props => (auth.isAdmin()
         ? <Component {...props} />
         : <Redirect to={{ pathname: '/dashboard' }} />)}
     />

@@ -82,7 +82,7 @@ router.get('/getPurchasedBooks/:token', (req, res) => {
       User.findOne({ _id: authData.userInfo._id }, (error, user) => {
         if (!user) {
           res.status(401).json(response({ error: 'You need to create an account' }));
-        } else if (authData.userInfo.permissionType === 1) {
+        } else if (authData.userInfo.permissionType > 0) {
           Textbook.find({ status: 2 }, (err, books) => {
             res.status(200).json(response(sortReverseCronological(books)));
           });
@@ -115,7 +115,7 @@ router.get('/getBooksWithStatus/:status/:token', (req, res) => {
       User.findOne({ _id: authData.userInfo._id }, (error, user) => {
         if (!user) {
           res.status(401).json(response({ error: 'You need to create an account.' }));
-        } else if (authData.userInfo.permissionType === 1) {
+        } else if (authData.userInfo.permissionType > 0) {
           Textbook
             .find({ status })
             .sort({ date: -1 })
@@ -141,7 +141,7 @@ router.get('/getStatistics/:token/', (req, res) => {
   jwt.verify(req.params.token, config.key, (error, authData) => {
     if (error) {
       res.status(403).json(response({ error }));
-    } else if (authData.userInfo.permissionType === 1) {
+    } else if (authData.userInfo.permissionType > 0) {
       let totalUsers;
       let totalBooks;
       User.countDocuments({}, (error, count) => {
@@ -159,36 +159,31 @@ router.get('/getStatistics/:token/', (req, res) => {
 });
 
 /**
- * Gets a list of all currently users.
- * @param {Object} req Request body from client.
- * @param {Object} res Body of HTTP response.
- * @returns {Array} List of users from DB.
+ * @description Gets a list of all currently users.
+ * @access Restricted
  */
-router.get('/getUsers/:token', (req, res) => {
-  jwt.verify(req.params.token, config.key, (error, authData) => {
-    if (error) {
-      res.status(403).json(response({ error }));
-    } else {
-      User.findOne({ _id: authData.userInfo._id }, (error, user) => {
-        if (!user) {
-          res.status(401).json(response({ error: 'You need to create an account' }));
-        } else if (authData.userInfo.permissionType === 1) {
-          User.find({}, {
-            password: 0,
-            resetPasswordToken: 0,
-            resetPasswordExpires: 0,
-            notifications: 0,
-            cart: 0,
-          }, (err, users) => {
-            res.status(200).json(response(users));
-          });
-        } else {
-          res.status(401).json(response({}));
-        }
+function getUsers(req, res) {
+  const { payload: { userInfo: { _id } } } = req;
+  const { payload: { userInfo: { permissionType } } } = req;
+  User.findOne({ _id }, (error, user) => {
+    if (!user) {
+      res.status(401).json(response({ error: 'You need to create an account' }));
+    } else if (permissionType > 0) {
+      // clean out private data for response
+      User.find({}, {
+        password: 0,
+        resetPasswordToken: 0,
+        resetPasswordExpires: 0,
+        notifications: 0,
+        cart: 0,
+      }, (err, users) => {
+        res.status(200).json(response(users));
       });
+    } else {
+      res.status(401).json(response({}));
     }
   });
-});
+}
 
 
 /**
@@ -201,7 +196,7 @@ router.post('/extendBookInfo', (req, res) => {
   jwt.verify(req.body.data.token, config.key, (error, authData) => {
     if (error) {
       res.status(403).json(response({ error }));
-    } else if (authData.userInfo.permissionType === 1) {
+    } else if (authData.userInfo.permissionType > 0) {
       const bookArray = req.body.data.books;
       const output = [];
       User.find({}, (error, users) => {
@@ -235,7 +230,7 @@ router.post('/confirmBook', (req, res) => {
   jwt.verify(req.body.data.token, config.key, (error, authData) => {
     if (error) {
       res.status(403).json(response({ error }));
-    } else if (authData.userInfo.permissionType === 1) {
+    } else if (authData.userInfo.permissionType > 0) {
       Textbook.update(
         { _id: req.body.data.id },
         { $set: { status: 2 } }, (err) => {
@@ -260,7 +255,7 @@ router.post('/setBookPaid', (req, res) => {
   jwt.verify(req.body.data.token, config.key, (error, authData) => {
     if (error) {
       res.status(403).json(response({ error }));
-    } else if (authData.userInfo.permissionType === 1) {
+    } else if (authData.userInfo.permissionType > 0) {
       Textbook.update(
         { _id: req.body.data.id },
         { $set: { status: 3 } }, (err) => {
@@ -290,7 +285,7 @@ router.post('/setBookStatus/:token', (req, res) => {
       User.findOne({ _id: authData.userInfo._id }, (error, user) => {
         if (!user) {
           res.status(402).json(response({ error: 'You need to create an account' }));
-        } else if (authData.userInfo.permissionType === 1) {
+        } else if (authData.userInfo.permissionType > 0) {
           // check if permission is 1 where 1 is admin but that
           // will be for later when we have admin accounts
           Textbook.update(
@@ -320,7 +315,7 @@ router.get('/getPendingTransactions/:token/', (req, res) => {
       User.findOne({ _id: authData.userInfo._id }, (error, user) => {
         if (!user) {
           res.status(401).json(response({ error: 'You need to create an account' }));
-        } else if (authData.userInfo.permissionType === 1) {
+        } else if (authData.userInfo.permissionType > 0) {
           // check if permission is 1 where 1 is admin but that will be for later
           Transactions.find({
             status: 0, // Finds all of the transactions of status 0 (pending)
@@ -351,7 +346,7 @@ router.get('/getAllTransactions/:token/', (req, res) => {
       User.findOne({ _id: authData.userInfo._id }, (error, user) => {
         if (!user) {
           res.status(401).json(response({ error: 'You need to create an account' }));
-        } else if (authData.userInfo.permissionType === 1) {
+        } else if (authData.userInfo.permissionType > 0) {
           // check if permission is 1 where 1 is admin but that will be for later
           Transactions.find({
           }, (err, transactionList) => {
@@ -379,7 +374,7 @@ router.get('/getCompletedTransactions/:token/', (req, res) => {
       User.findOne({ _id: authData.userInfo._id }, (error, user) => {
         if (!user) {
           res.status(401).json(response({ error: 'You need to create an account' }));
-        } else if (authData.userInfo.permissionType === 1) {
+        } else if (authData.userInfo.permissionType > 0) {
           // check if permission is 1 where 1 is admin but that will be for later
           Transactions.find({
             status: 1,
@@ -402,7 +397,7 @@ router.get('/getPendingSpecificPendingTransaction/:token/', (req, res) => {
       User.findOne({ _id: authData.userInfo._id }, (error, user) => {
         if (!user) {
           res.status(401).json(response({ error: 'You need to create an account' }));
-        } else if (authData.userInfo.permissionType === 1) {
+        } else if (authData.userInfo.permissionType > 0) {
           // check if permission is 1 where 1 is admin but that will be for later
           Transactions.find({
             status: 1,
@@ -425,7 +420,7 @@ router.post('/confirmTransaction', (req, res) => {
       User.findOne({ _id: authData.userInfo._id }, (error, user) => {
         if (!user) {
           res.status(401).json(response({ error: 'You need to create an account' }));
-        } else if (authData.permissionType === 1) {
+        } else if (authData.permissionType > 0) {
           Transactions.update(
             { _id: req.body.data.id },
             { $set: { status: 1 } }, (err) => {
@@ -450,7 +445,7 @@ router.get('/getTransactionsByName/:token/:firstName/:LastName', (req, res) => {
       User.findOne({ _id: authData.userInfo._id }, (error, user) => {
         if (!user) {
           res.status(401).json(response({ error: 'You need to create an account' }));
-        } else if (authData.permissionType === 1) {
+        } else if (authData.permissionType > 0) {
           Transactions.find({
             $and: [
               { buyerFirstName: req.params.firstName },
@@ -468,112 +463,96 @@ router.get('/getTransactionsByName/:token/:firstName/:LastName', (req, res) => {
 });
 
 /**
- * Returns a status code providing information on the permission
- * level of a given user.
- * @param {Object} req Request body from client.
- * @param {Object} res Body of HTTP response.
- * @returns {Number} Status code.
- */
-router.get('/isAdmin/:token', (req, res) => {
-  jwt.verify(req.params.token, config.key, (error, authData) => {
-    if (error) {
-      res.status(403).json(response({ error }));
-    } else {
-      User.findOne({ _id: authData.userInfo._id }, (error, user) => {
-        if (!user) {
-          res.status(401).json(response({ error: 'You need to create an account' }));
-        } else if (authData.userInfo.permissionType === 1) {
-          res.status(200).json(response({}));
-        } else {
-          res.status(401).json(response({}));
-        }
-      });
-    }
-  });
-});
-
-/**
- * Gets the permission level of a given user.
- * @param {Object} req Request body from client.
- * @param {Object} res Body of HTTP response.
- * @returns {Object} Contains permission level under permissionLevel.
- */
-router.get('/permissionLv/:token', (req, res) => {
-  jwt.verify(req.params.token, config.key, (error, authData) => {
-    if (error) {
-      res.status(403).json(response({ error }));
-    } else {
-      User.findOne({ _id: authData.userInfo._id }, (error, user) => {
-        if (!user) {
-          res.status(401).json(response({ error: 'You need to create an account' }));
-        } else if (authData.userInfo.permissionType === 1) {
-          res.status(200).json(response({ permissionType: 1 }));
-        } else {
-          res.status(401).json(response({ permissionType: 0 }));
-        }
-      });
-    }
-  });
-});
-
-router.post('/deactivateBooks', auth.required, (req, res) => {
-  const { payload: { userInfo } } = req;
-  User.findOne({ _id: userInfo._id }, (error, user) => {
-    if (!user) {
-      res.status(401).json(response({ error: 'You need to create an account' }));
-    } else if (userInfo.permissionType === 1) {
-      let usersToEmail = [];
-      let booksToDeactivate = [];
-      Textbook.find({}, (err, books) => {
-        for (let i = 0; i < books.length; i++) {
-          const bookDate = books[i].date;
-          const twoMonthsInDays = 62;
-          const twoMonthsInMS = twoMonthsInDays * 24 * 60 * 60 * 1000;
-          if (bookDate < (Date.now() - twoMonthsInMS) && books[i].status === 0) {
-            // add the books to list of people to email
-            booksToDeactivate = addNoDuplicates(booksToDeactivate, `${books[i]._id}`);
-            usersToEmail = addNoDuplicates(usersToEmail, books[i].owner);
-          }
-        }
-
-        setBooksStatus(booksToDeactivate, 5);
-        User.find({ _id: { $in: usersToEmail } }, (er, users) => {
-          for (let i = 0; i < users.length; i++) {
-            sendEmail(emails.deactivatedBook(users[i].emailAddress, users[i].firstName));
-          }
-          res.status(200).json(response({}));
-        });
-      });
-    } else {
-      res.status(403).json(response({}));
-    }
-  });
-});
-
-/**
- * @description Makes the given user an admin
- * (permission type 1)
+ * @description Returns a status code providing
+ * information on the permission level of a given user.
  * @access Restricted
  */
-router.put('/makeAdmin', auth.required, (req, res) => {
+function isAdmin(req, res) {
+  const { payload: { userInfo: { _id } } } = req;
+  const { payload: { userInfo } } = req;
+  User.findOne({ _id }, (error, user) => {
+    if (!user) {
+      res.status(401).json(response({ error: 'You need to create an account' }));
+    } else if (userInfo.permissionType > 0) {
+      res.status(200).json(response({}));
+    } else {
+      res.status(401).json(response({}));
+    }
+  });
+}
+
+/**
+ * @description Gets the permission level
+ * of a given user.
+ * @access Restricted
+ */
+function permissionLevel(req, res) {
   const { payload: { userInfo: { permissionType } } } = req;
-  const { body: { userID } } = req;
-  if (permissionType === 1) {
-    User.updateOne({ _id: userID }, { permissionType })
-      .then(() => {
+  res.status(200).json(response({ permissionType }));
+}
+
+/**
+ * @description Unlists old books and emails users,
+ * prompting them to re-list or delete the book.
+ * @access Restricted
+ */
+function deactivateBooks(req, res) {
+  const { payload: { userInfo } } = req;
+  if (userInfo.permissionType > 0) {
+    let usersToEmail = [];
+    let booksToDeactivate = [];
+    Textbook.find({}, (err, books) => {
+      for (let i = 0; i < books.length; i++) {
+        const bookDate = books[i].date;
+        const twoMonthsInDays = 62;
+        const twoMonthsInMS = twoMonthsInDays * 24 * 60 * 60 * 1000;
+        if (bookDate < (Date.now() - twoMonthsInMS) && books[i].status === 0) {
+          // add the books to list of people to email
+          booksToDeactivate = addNoDuplicates(booksToDeactivate, `${books[i]._id}`);
+          usersToEmail = addNoDuplicates(usersToEmail, books[i].owner);
+        }
+      }
+
+      setBooksStatus(booksToDeactivate, 5);
+      User.find({ _id: { $in: usersToEmail } }, (er, users) => {
+        for (let i = 0; i < users.length; i++) {
+          sendEmail(emails.deactivatedBook(users[i].emailAddress, users[i].firstName));
+        }
         res.status(200).json(response({}));
+      });
+    });
+  } else {
+    res.status(403).json(response({}));
+  }
+}
+
+/**
+ * @description Makes the given user an owner (highest permission)
+ * (permission type 2)
+ * @access Restricted
+ */
+function makeAdmin(req, res) {
+  const { payload: { userInfo: { permissionType } } } = req;
+  const { body: { data: { userID } } } = req;
+  if (permissionType === 2) {
+    User.updateOne({ _id: userID }, { permissionType: 1 })
+      .then(() => {
+        res.status(200).json(response(userID));
       });
   } else {
     res.status(403).json(response({ error: 'Unauthorized' }));
   }
-});
+}
 
-router.get('/', (req, res) => {
-  if (req.user) {
-    res.json({ user: req.user });
-  } else {
-    res.json({ user: null });
-  }
-});
+function dashboardBase(req, res) {
+  res.status(200).json(response({}));
+}
+
+router.get('/', dashboardBase);
+router.put('/makeAdmin', auth.required, makeAdmin);
+router.post('/deactivateBooks', auth.required, deactivateBooks);
+router.get('/permissionLv/:token', auth.required, permissionLevel);
+router.get('/isAdmin/:token', auth.required, isAdmin);
+router.get('/getUsers/:token', auth.required, getUsers);
 
 module.exports = router;

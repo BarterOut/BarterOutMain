@@ -131,6 +131,14 @@ class DashboardHome extends Component {
       });
   }
 
+  makeAdmin(evt) {
+    const userID = evt.target.id;
+    FetchService.PUT('/api/dashboard/makeAdmin', { userID })
+      .then(() => {
+        window.alert('Success'); // eslint-disable-line
+      });
+  }
+
   confirmPayment(evt) {
     const id = evt.target.id;
     FetchService.POST('/api/dashboard/setBookPaid', { id, token: this.AUTH.getToken() })
@@ -170,7 +178,7 @@ class DashboardHome extends Component {
                 <td className="has-border"><b>{book.condition}</b></td>
                 <td className="has-border">@{book.ownerObject.venmoUsername}</td>
                 <td className="has-border">@{book.buyerObject.venmoUsername}</td>
-                <td className="has-border">${book.price * 1.05}</td>
+                <td className="has-border">${(book.price * 1.05).toFixed(2)}</td>
                 <td className="has-border"><button type="button" id={book._id} className="btn btn-primary" onClick={this.confirm}>Confirm</button></td>
               </tr>
             ))}
@@ -261,25 +269,40 @@ class DashboardHome extends Component {
         <table className="table table-striped">
           <tbody>
             <tr>
-              <th className="has-border">ID</th>
+              {/* <th className="has-border">ID</th> */}
               <th className="has-border">First Name</th>
               <th className="has-border">Last Name</th>
               <th className="has-border">Email</th>
-              <th className="has-border">Venmo</th>
-              <th className="has-border">CMC</th>
+              {/* <th className="has-border">Venmo</th> */}
+              {/* <th className="has-border">CMC</th> */}
               <th className="has-border"># Sold</th>
               <th className="has-border"># Bought</th>
+              <th className="has-border">Admin</th>
             </tr>
             {this.state.users.map(user => (
               <tr key={user._id} id={user._id}>
-                <td className="has-border">{user._id}</td>
+                {/* <td className="has-border">{user._id}</td> */}
                 <td className="has-border">{user.firstName}</td>
                 <td className="has-border">{user.lastName}</td>
                 <td className="has-border">{user.emailAddress}</td>
-                <td className="has-border">{user.venmoUsername}</td>
-                <td className="has-border">{user.CMC}</td>
+                {/* <td className="has-border">{user.venmoUsername}</td> */}
+                {/* <td className="has-border">{user.CMC}</td> */}
                 <td className="has-border">{user.numberOfBooksSold}</td>
                 <td className="has-border">{user.numberOfBooksBought}</td>
+                {
+                  (user.permissionType > 0) && (
+                    <td className="has-border">
+                      <h3 className="badge badge-danger">Admin</h3>
+                    </td>
+                  )}
+                {
+                  !(user.permissionType > 0) && (
+                    <td className="has-border">
+                      <button type="button" id={user._id} className="btn btn-primary" onClick={this.makeAdmin}>
+                      Make Admin
+                      </button>
+                    </td>
+                  )}
               </tr>
             ))}
           </tbody>
