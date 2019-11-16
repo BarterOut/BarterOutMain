@@ -25,11 +25,11 @@ const userSchema = new Schema({
   permissionType: { type: Number, required: true, default: 0 },
 
   // These are fields that will be updated later
-  numberOfBooksSold:    { type: Number, default: 0 },
-  numberOfBooksBought:  { type: Number, default: 0 },
-  moneyMade:            { type: Number, default: 0 },
-  matchedBooks:         [{ type: String }],
-  cart:                 [{ type: String }],
+  numberOfBooksSold:   { type: Number, default: 0 },
+  numberOfBooksBought: { type: Number, default: 0 },
+  moneyMade:           { type: Number, default: 0 },
+  matchedBooks:        [{ type: String }],
+  cart:                [{ type: String }],
   notifications: [{
     date: String,
     message: String,

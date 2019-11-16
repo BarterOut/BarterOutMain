@@ -364,7 +364,7 @@ function permissionLevel(req, res) {
  */
 function deactivateBooks(req, res) {
   const { payload: { userInfo: { permissionType } } } = req;
-  if (auth.isAdmin(permissionType)) {
+  if (auth.isOwner(permissionType)) {
     let usersToEmail = [];
     let booksToDeactivate = [];
     Textbook.find({}, (error, books) => {
