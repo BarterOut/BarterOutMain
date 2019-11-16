@@ -18,14 +18,14 @@
 
 const config = {
   mongoURL: process.env.MONGO_URL || 'mongodb://localhost/barterout-db',
-  port: process.env.PORT || 8080,
-  key: process.env.JWT_SECRET || 'secret',
+  port:     process.env.PORT || 8080,
+  key:      process.env.JWT_SECRET || 'secret',
   VALID_STATUSES: {
-    LISTED: 0,
-    STAGE_ONE: 1,
-    STAGE_TWO: 2,
+    LISTED:      0,
+    STAGE_ONE:   1,
+    STAGE_TWO:   2,
     STAGE_THREE: 3,
-    UNLISTED: 5,
+    UNLISTED:    5,
   },
 };
 

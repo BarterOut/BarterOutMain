@@ -46,9 +46,9 @@ app.use(session({
   // pick a random string to make the hash that is generated secure
   secret: process.env.SALTING_STRING || 'secret',
   // Following lines are to avoid some deprecation warnings
-  resave: false, // required
-  saveUninitialized: false, // required
-  cookie: { secure: false },
+  resave:            false,
+  saveUninitialized: false,
+  cookie:            { secure: false },
 }));
 
 function forceSsl(req, res, next) {
@@ -60,7 +60,7 @@ function forceSsl(req, res, next) {
 
 if (process.env.NODE_ENV !== 'test') {
   const airbrake = new AirbrakeClient({ // eslint-disable-line
-    projectId: process.env.AIRBRAKE_ID,
+    projectId:  process.env.AIRBRAKE_ID,
     projectKey: process.env.AIRBRAKE_KEY,
   });
 }
@@ -100,7 +100,10 @@ app.use('/api/dashboard', dashboard);
 // Run Webpack dev server in development mode
 if (process.env.NODE_ENV === 'development') {
   const compiler = webpack(config);
-  app.use(webpackDevMiddleware(compiler, { noInfo: true, publicPath: config.output.publicPath }));
+  app.use(webpackDevMiddleware(compiler, {
+    noInfo:     true,
+    publicPath: config.output.publicPath,
+  }));
   app.use(webpackHotMiddleware(compiler));
 }
 

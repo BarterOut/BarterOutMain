@@ -118,11 +118,11 @@ function getUsers(req, res) {
     } else if (permissionType > 0) {
       // clean out private data for response
       User.find({}, {
-        password: 0,
-        resetPasswordToken: 0,
+        password:             0,
+        resetPasswordToken:   0,
         resetPasswordExpires: 0,
-        notifications: 0,
-        cart: 0,
+        notifications:        0,
+        cart:                 0,
       }, (error, users) => {
         res.status(200).json(response(users));
       });
