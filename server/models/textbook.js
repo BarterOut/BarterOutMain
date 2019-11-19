@@ -11,26 +11,25 @@ import mongoose from 'mongoose';
 const { Schema } = mongoose;
 
 const textbook = new Schema({
-  name: { type: 'String', required: true },
-  edition: { type: 'Number', required: true },
-  course: { type: 'String', required: true },
-  price: { type: 'Number', required: true },
-  status: { type: 'Number', required: true },
-  ISBN: { type: 'Number', required: false },
-  condition: { type: 'String', required: true },
-  owner: { type: 'String', required: true },
-  comments: { type: 'String', required: false },
-  date: { type: 'Number', required: true },
-  buyer: { type: 'String', required: false, default: '' },
+  name:      { type: String, required: true },
+  edition:   { type: Number, required: true },
+  course:    { type: String, required: true },
+  price:     { type: Number, required: true },
+  status:    { type: Number, required: true },
+  ISBN:      { type: Number, required: false },
+  condition: { type: String, required: true },
+  owner:     { type: String, required: true },
+  comments:  { type: String, required: false },
+  date:      { type: Number, required: true },
+  buyer:     { type: String, required: false, default: '' },
 });
 
-// can add weights here later!
 textbook.index({
-  name: 'text',
-  course: 'text',
-  status: 'text',
+  name:    'text',
+  course:  'text',
+  status:  'text',
   edition: 'text',
-  owner: 'text',
+  owner:   'text',
 });
 
 export default mongoose.model('Textbook', textbook);

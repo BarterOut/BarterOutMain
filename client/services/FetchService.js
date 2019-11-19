@@ -59,6 +59,37 @@ export default class FetchService {
   }
 
   /**
+   * Sends PUT request to API and validates response, returning the data in a promise.
+   * @param {String} url URL for the API request.
+   * @param {Object} data Any data you want to pass to the server.
+   */
+  static PUT(url, data) {
+    const auth = new AuthService();
+    // performs api calls sending the required authentication headers
+    const headers = {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+      Authorization: `Token ${auth.getToken()}`,
+    };
+
+    const options = {
+      method: 'PUT',
+      body: JSON.stringify({ data }),
+    };
+
+    return fetch(url, {
+      headers,
+      ...options,
+    })
+      .then((res) => {
+        if (!FetchService._checkStatus(res)) {
+          return Promise.reject(new Error(`Bad Status Code ${res.status}`));
+        }
+        return res.json().then(obj => Promise.resolve(obj.data));
+      });
+  }
+
+  /**
    * Checks the status code of a given response, return true or throwing an error.
    * @param {Object} response Any data you want to pass to the server.
    * @returns {Boolean} If the reponse code is good (>=200, <300)

@@ -1,6 +1,6 @@
 /**
  * @file emails.js
- * @description Pre-written emails.
+ * @description Pre-written emails and transporter authorization.
  * @author Daniel Munoz
  * @author Duncan Grubbs <duncan.grubbs@gmail.com>
  * @version 0.0.4
@@ -9,19 +9,19 @@
 const nodemailer = require('nodemailer');
 
 const authConfig = {
-  user: 'development@barterout.com',
+  user:         'development@barterout.com',
   refreshToken: process.env.EVR_TOKEN,
-  accessToken: process.env.EV_TOKEN,
+  accessToken:  process.env.EV_TOKEN,
 };
 
 const transporter = nodemailer.createTransport({
-  host: 'smtp.gmail.com',
+  host:           'smtp.gmail.com',
   auth: {
-    type: 'OAuth2',
-    clientId: process.env.CLIENT_ID,
+    type:         'OAuth2',
+    clientId:     process.env.CLIENT_ID,
     clientSecret: process.env.NEV_CLIENT_SECRET,
     refreshToken: process.env.EVR_TOKEN,
-    accessToken: process.env.EV_TOKEN,
+    accessToken:  process.env.EV_TOKEN,
   },
 });
 

@@ -54,7 +54,7 @@ class DashboardHome extends Component {
     this.state.purchasedBooks.forEach((book) => {
       sum += book.price;
     });
-    return sum * 0.05;
+    return (sum * 0.05).toFixed(2);
   }
 
   getTotalTransacted() {
@@ -62,28 +62,27 @@ class DashboardHome extends Component {
     this.state.purchasedBooks.forEach((book) => {
       sum += book.price;
     });
-    return sum * 1.05;
+    return (sum * 1.05).toFixed(2);
   }
 
   _getGeneralStatistics() {
-    FetchService.GET(`/api/dashboard/getStatistics/${this.AUTH.getToken()}`)
+    FetchService.GET('/api/dashboard/getStatistics')
       .then((data) => {
         this.setState({ generalStatistics: data });
       });
   }
 
   _getAllUsers() {
-    FetchService.GET(`/api/dashboard/getUsers/${this.AUTH.getToken()}`)
+    FetchService.GET('/api/dashboard/getUsers')
       .then((data) => {
         this.setState({ users: data });
       });
   }
 
   _getPurchasedBooks() {
-    FetchService.GET(`/api/dashboard/getBooksWithStatus/3/${this.AUTH.getToken()}`)
+    FetchService.GET('/api/dashboard/getBooksWithStatus/3')
       .then((data) => {
         FetchService.POST('/api/dashboard/extendBookInfo', {
-          token: this.AUTH.getToken(),
           books: data,
         })
           .then((fullData) => {
@@ -93,10 +92,9 @@ class DashboardHome extends Component {
   }
 
   _getOnGoingTransactions() {
-    FetchService.GET(`/api/dashboard/getBooksWithStatus/1/${this.AUTH.getToken()}`)
+    FetchService.GET('/api/dashboard/getBooksWithStatus/1')
       .then((data) => {
         FetchService.POST('/api/dashboard/extendBookInfo', {
-          token: this.AUTH.getToken(),
           books: data,
         })
           .then((fullData) => {
@@ -106,10 +104,9 @@ class DashboardHome extends Component {
   }
 
   _getRecievedTransactions() {
-    FetchService.GET(`/api/dashboard/getBooksWithStatus/2/${this.AUTH.getToken()}`)
+    FetchService.GET('/api/dashboard/getBooksWithStatus/2')
       .then((data) => {
         FetchService.POST('/api/dashboard/extendBookInfo', {
-          token: this.AUTH.getToken(),
           books: data,
         })
           .then((fullData) => {
@@ -119,21 +116,29 @@ class DashboardHome extends Component {
   }
 
   confirm(evt) {
-    const id = evt.target.id;
-    FetchService.POST('/api/dashboard/confirmBook', { id, token: this.AUTH.getToken() })
+    const { target: { id } } = evt;
+    FetchService.POST('/api/dashboard/confirmBook', { id })
       .then(() => window.location.reload());
   }
 
   deactivateBooks() {
-    FetchService.POST('/api/dashboard/deactivateBooks', { token: this.AUTH.getToken() })
+    FetchService.POST('/api/dashboard/deactivateBooks', {})
       .then(() => {
-        window.alert("Success"); // eslint-disable-line
+        window.alert('Success'); // eslint-disable-line
+      });
+  }
+
+  makeAdmin(evt) {
+    const userID = evt.target.id;
+    FetchService.PUT('/api/dashboard/makeAdmin', { userID })
+      .then(() => {
+        window.alert('Success'); // eslint-disable-line
       });
   }
 
   confirmPayment(evt) {
-    const id = evt.target.id;
-    FetchService.POST('/api/dashboard/setBookPaid', { id, token: this.AUTH.getToken() })
+    const { target: { id } } = evt;
+    FetchService.POST('/api/dashboard/setBookPaid', { id })
       .then(() => {
         this._getPurchasedBooks();
         this._getRecievedTransactions();
@@ -170,7 +175,7 @@ class DashboardHome extends Component {
                 <td className="has-border"><b>{book.condition}</b></td>
                 <td className="has-border">@{book.ownerObject.venmoUsername}</td>
                 <td className="has-border">@{book.buyerObject.venmoUsername}</td>
-                <td className="has-border">${book.price * 1.05}</td>
+                <td className="has-border">${(book.price * 1.05).toFixed(2)}</td>
                 <td className="has-border"><button type="button" id={book._id} className="btn btn-primary" onClick={this.confirm}>Confirm</button></td>
               </tr>
             ))}
@@ -261,25 +266,40 @@ class DashboardHome extends Component {
         <table className="table table-striped">
           <tbody>
             <tr>
-              <th className="has-border">ID</th>
+              {/* <th className="has-border">ID</th> */}
               <th className="has-border">First Name</th>
               <th className="has-border">Last Name</th>
               <th className="has-border">Email</th>
-              <th className="has-border">Venmo</th>
-              <th className="has-border">CMC</th>
+              {/* <th className="has-border">Venmo</th> */}
+              {/* <th className="has-border">CMC</th> */}
               <th className="has-border"># Sold</th>
               <th className="has-border"># Bought</th>
+              <th className="has-border">Admin</th>
             </tr>
             {this.state.users.map(user => (
               <tr key={user._id} id={user._id}>
-                <td className="has-border">{user._id}</td>
+                {/* <td className="has-border">{user._id}</td> */}
                 <td className="has-border">{user.firstName}</td>
                 <td className="has-border">{user.lastName}</td>
                 <td className="has-border">{user.emailAddress}</td>
-                <td className="has-border">{user.venmoUsername}</td>
-                <td className="has-border">{user.CMC}</td>
+                {/* <td className="has-border">{user.venmoUsername}</td> */}
+                {/* <td className="has-border">{user.CMC}</td> */}
                 <td className="has-border">{user.numberOfBooksSold}</td>
                 <td className="has-border">{user.numberOfBooksBought}</td>
+                {
+                  (user.permissionType > 0) && (
+                    <td className="has-border">
+                      <h3 className="badge badge-danger">Admin</h3>
+                    </td>
+                  )}
+                {
+                  !(user.permissionType > 0) && (
+                    <td className="has-border">
+                      <button type="button" id={user._id} className="btn btn-primary" onClick={this.makeAdmin}>
+                      Make Admin
+                      </button>
+                    </td>
+                  )}
               </tr>
             ))}
           </tbody>

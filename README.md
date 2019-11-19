@@ -1,7 +1,7 @@
 # BarterOut
 ![Build Status](https://travis-ci.com/duncangrubbs/BarterOutMain.svg?token=mqsCsACffrViQWtAjQzv&branch=dev)
 
-Github Repository for the Web Platform and API of BarterOut.
+> The Github Repository for the Web Platform and API of BarterOut.
 
 ### Prerequisites
 
