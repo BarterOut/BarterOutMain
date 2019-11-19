@@ -46,27 +46,21 @@ app.use(session({
   // pick a random string to make the hash that is generated secure
   secret: process.env.SALTING_STRING || 'secret',
   // Following lines are to avoid some deprecation warnings
-  resave: false, // required
-  saveUninitialized: false, // required
-  cookie: { secure: false },
+  resave:            false,
+  saveUninitialized: false,
+  cookie:            { secure: false },
 }));
 
-function forceSsl(req, res, next) {
-  if (req.headers['x-forwarded-proto'] !== 'https') {
-    return res.redirect(['https://', req.get('Host'), req.url].join(''));
-  }
-  return next();
+if (process.env.NODE_ENV !== 'test') {
+  const airbrake = new AirbrakeClient({ // eslint-disable-line
+    projectId:  process.env.AIRBRAKE_ID,
+    projectKey: process.env.AIRBRAKE_KEY,
+  });
 }
 
-const airbrake = new AirbrakeClient({ // eslint-disable-line
-  projectId: process.env.AIRBRAKE_ID,
-  projectKey: process.env.AIRBRAKE_KEY,
-});
 
 if (process.env.NODE_ENV === 'production'
     || process.env.NODE_ENV === 'staging') {
-  app.use(forceSsl);
-
   // Set cache policy to cache for one month on images
   app.get('*.jpg', (req, res, next) => {
     res.set('Cache-Control', 'public, max-age=2629800');
@@ -82,6 +76,7 @@ if (process.env.NODE_ENV === 'production'
 // Prefer gzipped js files.
 // Set cache policy to cache for one month on js files: UPDATE : no more
 app.get('*.js', (req, res, next) => {
+  // for zipping our main JS bundles
   res.set('Content-Encoding', 'gzip');
   // res.set('Cache-Control', 'public, max-age=2629800');
   next();
@@ -96,7 +91,10 @@ app.use('/api/dashboard', dashboard);
 // Run Webpack dev server in development mode
 if (process.env.NODE_ENV === 'development') {
   const compiler = webpack(config);
-  app.use(webpackDevMiddleware(compiler, { noInfo: true, publicPath: config.output.publicPath }));
+  app.use(webpackDevMiddleware(compiler, {
+    noInfo:     true,
+    publicPath: config.output.publicPath,
+  }));
   app.use(webpackHotMiddleware(compiler));
 }
 
@@ -117,7 +115,13 @@ app.use((err, req, res, next) => {
 // this function return the index page and allows the client to
 // handle the routing.
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../client/core/index.html'));
+  // console.log(req.url); // eslint-disable-line
+  console.log(req.headers.host); // eslint-disable-line
+  if (req.protocol === 'http' && process.env.NODE_ENV === 'production') {
+    res.redirect(`https://www.barterout.com${req.url}`);
+  } else {
+    res.sendFile(path.join(__dirname, '../client/core/index.html'));
+  }
 });
 
 // Start App

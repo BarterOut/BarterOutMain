@@ -1,5 +1,7 @@
 /**
- * @file TempUser schema for the DB (created when a user clicks sign up on the website).
+ * @file tempUser.js
+ * @description TempUser schema for the DB
+ * (created when a user clicks sign up on the website).
  * @author Daniel Munoz
  * @version 0.0.4
  */
@@ -12,16 +14,17 @@ const bcrypt = require('bcryptjs');
 mongoose.promise = Promise;
 
 const tempUserSchema = new Schema({
-  emailAddress: { type: String, unique: true, required: true },
-  password: { type: String, required: true },
+  emailAddress:  { type: String, unique: true, required: true },
+  password:      { type: String, required: true },
   venmoUsername: { type: String, required: true },
-  CMC: { type: String, required: true },
-  firstName: { type: String, required: true },
-  lastName: { type: String, required: true },
-  matchedBooks: [{ type: String }],
+  CMC:           { type: String, required: true },
+  firstName:     { type: String, required: true },
+  lastName:      { type: String, required: true },
+  matchedBooks:  [{ type: String }],
+
   // array of matched books so you can look at those books might have to add quotes for it
-  university: { type: String, required: true },
-  emailToken: { type: String, required: true },
+  university:    { type: String, required: true },
+  emailToken:    { type: String, required: true },
   createdAt: {
     type: Date, expires: '24h', default: Date.now(), required: true,
   },

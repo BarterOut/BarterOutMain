@@ -10,7 +10,6 @@ import propTypes from 'prop-types';
 import moment from 'moment';
 
 import FetchService from '../../../services/FetchService';
-import AuthService from '../../../services/AuthService';
 import Util from '../../../services/util';
 
 import './BookPost.css';

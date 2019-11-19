@@ -53,7 +53,7 @@ export default class AuthService {
     if (token == null) {
       return false;
     }
-    if (this.getProfile().userInfo.permissionType === 1) {
+    if (this.getProfile().userInfo.permissionType > 0) {
       return true;
     }
     return false;
@@ -66,7 +66,7 @@ export default class AuthService {
   isTokenExpired(token) {
     try {
       const decoded = decode(token);
-      if (decoded.exp < Date.now() / 1000) { // Checking if token is expired. N
+      if (decoded.exp < Date.now() / 1000) { // Checking if token is expired.
         return true;
       } else {
         return false;
@@ -83,8 +83,6 @@ export default class AuthService {
   setToken(idToken) {
     // Saves user token to localStorage
     if (!sessionStorage.getItem('token')) {
-      sessionStorage.setItem('token', idToken);
-    } else if (sessionStorage.getItem('token') !== idToken) {
       sessionStorage.setItem('token', idToken);
     }
   }

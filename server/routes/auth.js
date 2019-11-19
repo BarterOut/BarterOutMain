@@ -102,16 +102,16 @@ router.get('/email-verification/:URL', (req, res) => {
     }
     if (tempUser) {
       const newUser = new User({
-        emailAddress: tempUser.emailAddress,
-        password: tempUser.password,
-        CMC: tempUser.CMC,
-        venmoUsername: tempUser.venmoUsername,
-        firstName: tempUser.firstName,
-        lastName: tempUser.lastName,
-        matchedBooks: [],
-        university: tempUser.university,
-        notifications: [notification.thanksForSigningUp()],
-        resetPasswordToken: '',
+        emailAddress:         tempUser.emailAddress,
+        password:             tempUser.password,
+        CMC:                  tempUser.CMC,
+        venmoUsername:        tempUser.venmoUsername,
+        firstName:            tempUser.firstName,
+        lastName:             tempUser.lastName,
+        matchedBooks:         [],
+        university:           tempUser.university,
+        notifications:        [notification.thanksForSigningUp()],
+        resetPasswordToken:   '',
         resetPasswordExpires: '',
       });
       newUser.save()
@@ -223,15 +223,16 @@ function login(req, res) {
  */
 function updateProfile(req, res) {
   const { payload: { userInfo: { _id } } } = req;
+  const { body: { data } } = req;
   User.update(
     { _id },
     {
       $set:
         {
-          firstName: req.body.data.firstName,
-          lastName: req.body.data.lastName,
-          venmoUsername: req.body.data.venmoUsername,
-          CMC: req.body.data.CMC,
+          firstName:     data.firstName,
+          lastName:      data.lastName,
+          venmoUsername: data.venmoUsername,
+          CMC:           data.CMC,
         },
     },
     (error) => {
@@ -303,7 +304,7 @@ function passwordResetRequest(req, res) {
           {
             $set:
               {
-                resetPasswordToken: token,
+                resetPasswordToken:   token,
                 resetPasswordExpires: endDate,
               },
           },
