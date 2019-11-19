@@ -51,13 +51,6 @@ app.use(session({
   cookie:            { secure: false },
 }));
 
-function forceSsl(req, res, next) {
-  if (req.headers['x-forwarded-proto'] !== 'https') {
-    return res.redirect(['https://', req.get('Host'), req.url].join(''));
-  }
-  return next();
-}
-
 if (process.env.NODE_ENV !== 'test') {
   const airbrake = new AirbrakeClient({ // eslint-disable-line
     projectId:  process.env.AIRBRAKE_ID,
@@ -68,8 +61,6 @@ if (process.env.NODE_ENV !== 'test') {
 
 if (process.env.NODE_ENV === 'production'
     || process.env.NODE_ENV === 'staging') {
-  app.use(forceSsl);
-
   // Set cache policy to cache for one month on images
   app.get('*.jpg', (req, res, next) => {
     res.set('Cache-Control', 'public, max-age=2629800');
@@ -124,7 +115,13 @@ app.use((err, req, res, next) => {
 // this function return the index page and allows the client to
 // handle the routing.
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../client/core/index.html'));
+  // console.log(req.url); // eslint-disable-line
+  console.log(req.headers.host); // eslint-disable-line
+  if (req.protocol === 'http' && process.env.NODE_ENV === 'production') {
+    res.redirect(`https://www.barterout.com/${req.url}`);
+  } else {
+    res.sendFile(path.join(__dirname, '../client/core/index.html'));
+  }
 });
 
 // Start App
