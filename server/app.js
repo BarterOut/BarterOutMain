@@ -118,7 +118,7 @@ app.get('*', (req, res) => {
   // console.log(req.url); // eslint-disable-line
   console.log(req.headers.host); // eslint-disable-line
   if (req.protocol === 'http' && process.env.NODE_ENV === 'production') {
-    res.redirect(`https://www.barterout.com/${req.url}`);
+    res.redirect(`https://www.barterout.com${req.url}`);
   } else {
     res.sendFile(path.join(__dirname, '../client/core/index.html'));
   }
