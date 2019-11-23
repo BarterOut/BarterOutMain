@@ -48,7 +48,7 @@ class Home extends Component {
   }
 
   getUserStatistics() {
-    FetchService.GET(`/api/user/getUserStatistics/${this.AUTH.getToken()}`)
+    FetchService.GET('/api/user/getUserStatistics')
       .then((data) => {
         this.setState({ numberOfBooksBought: data.numberOfBooksBought });
         this.setState({ numberOfBooksSold: data.numberOfBooksSold });

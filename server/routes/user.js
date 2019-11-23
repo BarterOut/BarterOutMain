@@ -178,35 +178,28 @@ function getSoldBooks(req, res) {
 /**
  * @deprecated
  */
-router.get('/getNotifications/:token', auth.required, (req, res) => {
+function getNotifications(req, res) {
   const { payload: { userInfo: { _id } } } = req;
   User.findOne({ _id }, (err, user) => {
     res.status(200).json(response(user.notifications));
   });
-});
+}
 
 /**
- * Gets a given users statistics, (we store money made, books sold
- * and books bought.)
- * @param {Object} req Request from client.
- * @param {Object} res Body of HTTP response.
- * @returns {Object} Stats for the user.
+ * @description Gets a given users statistics,
+ * (we store money made, books sold and books bought.)
+ * @access Restricted
  */
-router.get('/getUserStatistics/:token', (req, res) => {
-  jwt.verify(req.params.token, config.key, (error, authData) => {
-    if (error) {
-      res.status(401).json(response({ error }));
-    } else {
-      User.findOne({ _id: authData.userInfo._id }, (err, user) => {
-        res.status(200).json(response({
-          numberOfBooksBought: user.numberOfBooksBought,
-          numberOfBooksSold: user.numberOfBooksSold,
-          moneyMade: user.moneyMade,
-        }));
-      });
-    }
+function getUserStatistics(req, res) {
+  const { payload: { userInfo: { _id } } } = req;
+  User.findOne({ _id }, (err, user) => {
+    res.status(200).json(response({
+      numberOfBooksBought: user.numberOfBooksBought,
+      numberOfBooksSold: user.numberOfBooksSold,
+      moneyMade: user.moneyMade,
+    }));
   });
-});
+}
 
 /**
  * Returns data of the currently logged in user.
@@ -289,6 +282,8 @@ router.post('/clearCart', auth.required, clearCart);
 router.get('/getPurchasedBooks', auth.required, getPurchasedBooks);
 router.get('/getUserData', auth.required, getUserData);
 router.get('/getSoldBooks', auth.required, getSoldBooks);
-router.post('/deleteRequest/', auth.required, deleteRequest);
+router.post('/deleteRequest', auth.required, deleteRequest);
+router.get('/getUserStatistics', auth.required, getUserStatistics);
+router.get('/getNotifications', auth.required, getNotifications);
 
 module.exports = router;
