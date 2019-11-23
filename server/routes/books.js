@@ -13,7 +13,6 @@ import Transaction from '../models/transaction';
 
 import response from '../resources/response';
 import Pricing from '../resources/pricing';
-import config from '../config';
 
 import auth from '../auth';
 
@@ -21,7 +20,6 @@ const express = require('express');
 
 const router = express.Router();
 
-const jwt = require('jsonwebtoken');
 const emails = require('../resources/emails');
 const notification = require('../resources/Notifications');
 
@@ -51,153 +49,138 @@ function transactionEmail(transactionID) {
  * @description User posts a book they want to sell.
  * @access Restricted
  */
-router.post('/postBook/:token', (req, res) => {
-  jwt.verify(req.params.token, config.key, (error, authData) => {
-    if (error) {
-      res.status(403).json(response({ error }));
-    } else {
-      User.findOne({ _id: authData.userInfo._id }, (error, user) => {
-        if (!user) {
-          res.status(401).json(response({ error: 'You need to create an account' }));
-        } else if (error) {
+function postBook(req, res) {
+  const { payload: { userInfo: { _id } } } = req;
+  const newBook = new Textbook(req.body.data);
+  newBook.save()
+    .then(() => {
+      const theBookID = newBook._id;
+
+      User.update(
+        { _id },
+        {
+          $push: {
+            notifications: {
+              $each: [notification.thanksForPosting(newBook.name)],
+              $position: 0,
+            },
+          },
+        }, (error) => {
+          console.error(`Error: ${error}`); // eslint-disable-line
+        },
+      );
+
+      // update match with an and statment such that
+      // it doesn't match with users that status other than 0
+      TextbookBuy.find({
+        $and: [
+          {
+            $or: [
+              { name: { $regex: req.body.data.name, $options: 'i' } },
+              { course: { $regex: req.body.data.course, $options: 'i' } },
+            ],
+          },
+          { status: 0 },
+          { owner: { $ne: _id } },
+        ],
+      }, (error, matchedBooks) => {
+        if (error) {
           res.status(401).json(response({ error }));
-        } else {
-          const newBook = new Textbook(req.body.data);
-          newBook.save()
-            .then(() => {
-              const theBookID = newBook._id;
-
-              User.update(
-                { _id: authData.userInfo._id },
-                {
-                  $push: {
-                    notifications: {
-                      $each: [notification.thanksForPosting(newBook.name)],
-                      $position: 0,
-                    },
-                  },
-                }, (error) => {
-                  console.error(`Error: ${error}`); // eslint-disable-line
-                },
-              );
-
-              // update match with an and statment such that
-              // it doesn't match with users that status other than 0
-              TextbookBuy.find({
-                $and: [
-                  { $or: [{ name: { $regex: req.body.data.name, $options: 'i' } }, { course: { $regex: req.body.data.course, $options: 'i' } }] },
-                  { status: 0 },
-                  { owner: { $ne: authData.userInfo._id } },
-                ],
-              }, (error, matchedBooks) => {
-                if (error) {
-                  res.status(401).json(response({ error }));
-                  return;
-                }
-                matchedBooks.forEach((bookMatched) => {
-                  User.update(
-                    { _id: bookMatched.owner },
-                    {
-                      $addToSet: { matchedBooks: theBookID },
-                    },
-                  );
-                  User.find({ _id: bookMatched.owner }, (errr, userToEmail) => {
-                    if (userToEmail[0] == null) {
-                      res.redirect('/home'); // TODO: eliminate this redirect
-                      return;
-                    }
-                    const email = userToEmail[0].emailAddress;
-                    const { firstName } = userToEmail[0];
-                    emails.sendEmail(emails.matchFoundEmail(email, firstName, bookMatched.name));
-                  });
-                });
-              });
-              res.status(200).json(response({}));
-            })
-            .catch((error) => {
-              res.status(400).json(response({ error }));
-            });
+          return;
         }
+        matchedBooks.forEach((bookMatched) => {
+          User.update(
+            { _id: bookMatched.owner },
+            {
+              $addToSet: { matchedBooks: theBookID },
+            },
+          );
+          User.find({ _id: bookMatched.owner }, (errr, userToEmail) => {
+            if (userToEmail[0] == null) {
+              res.redirect('/home'); // TODO: eliminate this redirect
+              return;
+            }
+            const email = userToEmail[0].emailAddress;
+            const { firstName } = userToEmail[0];
+            emails.sendEmail(emails.matchFoundEmail(email, firstName, bookMatched.name));
+          });
+        });
       });
-    }
-  });
-});
+      res.status(200).json(response());
+    })
+    .catch((error) => {
+      res.status(400).json(response({ error }));
+    });
+}
 
 /**
  * @description User requests a book they want.
  * @access Restricted
  */
-router.post('/requestBook', (req, res) => {
+function requestBook(req, res) {
+  const { payload: { userInfo: { _id } } } = req;
   const BOOK = req.body.data.payload;
-  const TOKEN = req.body.data.token;
-  jwt.verify(TOKEN, config.key, (error, authData) => {
-    if (error) {
-      res.status(403).json(response({ error }));
-    } else {
-      User.findOne({ _id: authData.userInfo._id }, (er, user) => {
-        if (!user) {
-          res.status(401).json(response({ error: 'You need to create an account' }));
-        } else {
-          BOOK.date = Date.now();
-          const newBook = new TextbookBuy(BOOK);
-          newBook.save()
-            .then(() => {
-              User.update(
-                { _id: authData.userInfo._id },
-                {
-                  $push: {
-                    notifications: {
-                      $each: [notification.postedRequest(newBook.name)],
-                      $position: 0,
-                    },
-                  },
-                }, (error) => {
-                  console.error(`Error: ${error}`); // eslint-disable-line
-                },
-              );
+  BOOK.date = Date.now();
+  const newBook = new TextbookBuy(BOOK);
+  newBook.save()
+    .then(() => {
+      User.update(
+        { _id },
+        {
+          $push: {
+            notifications: {
+              $each: [notification.postedRequest(newBook.name)],
+              $position: 0,
+            },
+          },
+        }, (error) => {
+          console.error(`Error: ${error}`); // eslint-disable-line
+        },
+      );
 
-              Textbook.find(
-                { // looks for a book that matches based on the name matching or the course
-                  $and: [
-                    { status: 0 },
-                    { $or: [{ name: { $regex: BOOK.name, $options: 'i' } }, { course: { $regex: BOOK.course, $options: 'i' } }] },
-                    { owner: { $ne: authData.userInfo._id } },
-                  ],
-                },
-                (err, matchedBooks) => {
-                  const addBooks = [];
-                  matchedBooks.forEach((book) => {
-                    addBooks.push(book._id);
-                  });
-                  if (addBooks.length !== 0) {
-                    User.find({ _id: BOOK.owner }, (error, userToEmail) => {
-                      const email = userToEmail[0].emailAddress;
-                      const { firstName } = userToEmail[0];
-                      emails.sendEmail(emails.matchFoundEmail(email, firstName, BOOK.name));
-                    });
-                  }
-                  User.update(
-                    { _id: BOOK.owner },
-                    {
-                      $addToSet: {
-                        matchedBooks: { $each: addBooks },
-                      },
-                    }, (error) => {
-                      console.error(`Error: ${error}`); // eslint-disable-line
-                    },
-                  );
-                },
-              );
-            })
-            .catch((err) => {
-              res.status(400).json(response({ error: err }));
+      Textbook.find(
+        { // looks for a book that matches based on the name matching or the course
+          $and: [
+            { status: 0 },
+            {
+              $or: [
+                { name: { $regex: BOOK.name, $options: 'i' } },
+                { course: { $regex: BOOK.course, $options: 'i' } },
+              ],
+            },
+            { owner: { $ne: _id } },
+          ],
+        },
+        (err, matchedBooks) => {
+          const addBooks = [];
+          matchedBooks.forEach((book) => {
+            addBooks.push(book._id);
+          });
+          if (addBooks.length !== 0) {
+            User.find({ _id: BOOK.owner }, (error, userToEmail) => {
+              const email = userToEmail[0].emailAddress;
+              const { firstName } = userToEmail[0];
+              emails.sendEmail(emails.matchFoundEmail(email, firstName, BOOK.name));
             });
-        }
-      });
-    }
-    res.status(200).json(response({}));
-  });
-});
+          }
+          User.update(
+            { _id: BOOK.owner },
+            {
+              $addToSet: {
+                matchedBooks: { $each: addBooks },
+              },
+            }, (error) => {
+              console.error(`Error: ${error}`); // eslint-disable-line
+            },
+          );
+        },
+      );
+    })
+    .catch((err) => {
+      res.status(400).json(response({ error: err }));
+    });
+  res.status(200).json(response());
+}
 
 /**
  * @description User checks out of cart.
@@ -458,7 +441,7 @@ function deleteBook(req, res) {
     ],
   }, (error) => {
     if (!error) {
-      res.status(200).json(response({}));
+      res.status(200).json(response());
     } else {
       res.status(400).json(response({ error }));
     }
@@ -539,13 +522,16 @@ function booksBase(req, res) {
 }
 
 router.get('/', booksBase);
-router.post('/reactivateBook', auth.required, reactivateBook);
 router.get('/getBooksNoToken', getBooksNoToken);
 router.get('/getAllBooks', auth.required, getAllBooks);
-router.post('/deleteBook', auth.required, deleteBook);
 router.get('/search/:query', search);
 router.get('/search/:query', auth.required, searchRestricted);
 router.get('/getUsersPosts', auth.required, getUserPosts);
 router.get('/getUserMatches', auth.required, getUserMatches);
+
+router.post('/deleteBook', auth.required, deleteBook);
+router.post('/reactivateBook', auth.required, reactivateBook);
+router.post('/postBook', auth.required, postBook);
+router.post('/requestBook', auth.required, requestBook);
 
 module.exports = router;

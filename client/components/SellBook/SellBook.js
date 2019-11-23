@@ -62,7 +62,7 @@ class SellBook extends Component {
       owner: profile.userInfo._id,
     };
 
-    FetchService.POST(`/api/books/postBook/${AUTH.getToken()}`, payload)
+    FetchService.POST('/api/books/postBook', payload)
       .then(() => {
         // We would fire off event for redux here to re-fetch books
         window.location.reload();

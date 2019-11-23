@@ -78,7 +78,7 @@ function getBooksWithStatus(req, res) {
         res.status(200).json(response(books));
       });
   } else {
-    res.status(401).json(response({}));
+    res.status(401).json(response());
   }
 }
 
@@ -127,7 +127,7 @@ function getUsers(req, res) {
         res.status(200).json(response(users));
       });
     } else {
-      res.status(401).json(response({}));
+      res.status(401).json(response());
     }
   });
 }
@@ -173,7 +173,7 @@ function confirmBook(req, res) {
       { _id: req.body.data.id },
       { $set: { status: 2 } }, (err) => {
         if (!err) {
-          res.status(200).json(response({}));
+          res.status(200).json(response());
         }
       },
     );
@@ -194,7 +194,7 @@ function setBookPaid(req, res) {
       { _id: req.body.data.id },
       { $set: { status: 3 } }, (err) => {
         if (!err) {
-          res.status(200).json(response({}));
+          res.status(200).json(response());
         }
       },
     );
@@ -217,7 +217,7 @@ function setBookStatus(req, res) {
       { _id: req.body.data.bookID },
       { $set: { status: req.body.data.status } },
     );
-    res.status(200).json(response({}));
+    res.status(200).json(response());
   } else {
     res.status(403).json(response({ error: 'Unauthorized' }));
   }
@@ -295,7 +295,7 @@ function confirmTransaction(req, res) {
       { _id: req.body.data.id },
       { $set: { status: 1 } }, (err) => {
         if (!err) {
-          res.status(200).json(response({}));
+          res.status(200).json(response());
         }
       },
     );
@@ -340,7 +340,7 @@ function isAdmin(req, res) {
     if (!user) {
       res.status(401).json(response({ error: 'You need to create an account' }));
     } else if (auth.isAdmin(permissionType)) {
-      res.status(200).json(response({}));
+      res.status(200).json(response());
     } else {
       res.status(403).json(response({ error: 'Unauthorized' }));
     }
@@ -384,7 +384,7 @@ function deactivateBooks(req, res) {
         for (let i = 0; i < users.length; i++) {
           emails.sendEmail(emails.deactivatedBook(users[i].emailAddress, users[i].firstName));
         }
-        res.status(200).json(response({}));
+        res.status(200).json(response());
       });
     });
   } else {
@@ -411,7 +411,7 @@ function makeAdmin(req, res) {
 }
 
 function dashboardBase(req, res) {
-  res.status(200).json(response({}));
+  res.status(200).json(response());
 }
 
 router.get('/', dashboardBase);

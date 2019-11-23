@@ -104,7 +104,7 @@ function addToCart(req, res) {
       }
     },
   );
-  res.status(202).json(response({}));
+  res.status(202).json(response());
 }
 
 /**
@@ -130,7 +130,7 @@ function removeFromCart(req, res) {
         if (err) {
           res.status(400).json(response({ err }));
         }
-        res.status(200).json(response({}));
+        res.status(200).json(response());
       },
     );
   });
@@ -152,7 +152,7 @@ function clearCart(req, res) {
         },
     },
   );
-  res.status(200).json(response({}));
+  res.status(200).json(response());
 }
 
 /**
@@ -218,7 +218,7 @@ function getUserData(req, res) {
   const { payload: { userInfo: { _id } } } = req;
   User.findOne({ _id }, (error, user) => {
     if (!user) {
-      res.status(401).json(response({}));
+      res.status(401).json(response());
     } else {
       const returnUser = {
         _id: user._id,
@@ -256,7 +256,7 @@ function deleteRequest(req, res) {
       res.status(400).json(response({ error }));
     } else {
       remakeMatches(_id);
-      res.status(200).json(response({}));
+      res.status(200).json(response());
     }
   });
 }
