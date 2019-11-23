@@ -10,11 +10,9 @@ import Textbook from '../models/textbook';
 import TextbookBuy from '../models/textbookBuy';
 import User from '../models/user';
 
-import config from '../config';
 import response from '../resources/response';
 import auth from '../auth';
 
-const jwt = require('jsonwebtoken');
 const express = require('express');
 
 const router = express.Router();
@@ -68,7 +66,9 @@ function remakeMatches(userID) {
 }
 
 /**
- * Method for returning all the current items in a user's cart.
+ * @description Method for returning all the
+ * current items in a user's cart.
+ * @access Restricted
  */
 function getCartItems(req, res) {
   const { payload: { userInfo: { _id } } } = req;
@@ -83,7 +83,9 @@ function getCartItems(req, res) {
 }
 
 /**
- * Adds a given book ID to the in cart section of the user schema.
+ * @description Adds a given book ID to the in
+ * cart section of the user schema.
+ * @access Restricted
  */
 function addToCart(req, res) {
   const { payload: { userInfo: { _id } } } = req;
@@ -106,7 +108,8 @@ function addToCart(req, res) {
 }
 
 /**
- * Removes given book from cart array in user.
+ * @description Removes given book from cart array in user.
+ * @access Restricted
  */
 function removeFromCart(req, res) {
   const { payload: { userInfo: { _id } } } = req;
@@ -134,8 +137,9 @@ function removeFromCart(req, res) {
 }
 
 /**
- * Called when a user clicks clear cart on the cart page
- * currently not in use.
+ * @access Called when a user clicks
+ * clear cart on the cart page currently not in use.
+ * @access Restricted
  */
 function clearCart(req, res) {
   const { payload: { userInfo: { _id } } } = req;
@@ -152,7 +156,9 @@ function clearCart(req, res) {
 }
 
 /**
- * Gets all books that have been purchased by a given user.
+ * @description Gets all books that have been
+ * purchased by a given user.
+ * @access Restricted
  */
 function getPurchasedBooks(req, res) {
   const { payload: { userInfo: { _id } } } = req;
@@ -164,7 +170,9 @@ function getPurchasedBooks(req, res) {
 }
 
 /**
- * Gets all books that have been sold by a given user.
+ * @description Gets all books that have
+ * been sold by a given user.
+ * @access Restricted
  */
 function getSoldBooks(req, res) {
   const { payload: { userInfo: { _id } } } = req;
@@ -202,7 +210,9 @@ function getUserStatistics(req, res) {
 }
 
 /**
- * Returns data of the currently logged in user.
+ * @description Returns data of the
+ * currently logged in user.
+ * @access Restricted
  */
 function getUserData(req, res) {
   const { payload: { userInfo: { _id } } } = req;
@@ -230,7 +240,9 @@ function getUserData(req, res) {
 // TODO: Fix this method.
 
 /**
- * Removes a matching request for a given user.
+ * @description Removes a matching request
+ * for a given user.
+ * @access Restricted
  */
 function deleteRequest(req, res) {
   const { payload: { userInfo: { _id } } } = req;
@@ -250,7 +262,9 @@ function deleteRequest(req, res) {
 }
 
 /**
- * Gets all the books a given user has requested a match for.
+ * @description Gets all the books a given
+ * user has requested a match for.
+ * @access Restricted
  */
 function getUserRequests(req, res) {
   const { payload: { userInfo: { _id } } } = req;

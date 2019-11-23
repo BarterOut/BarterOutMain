@@ -48,10 +48,8 @@ function transactionEmail(transactionID) {
 }
 
 /**
- * User posts a book they want to sell.
- * @param {Object} req Request body from client.
- * @param {Object} res Body of HTTP response.
- * @returns {Object} Standard response.
+ * @description User posts a book they want to sell.
+ * @access Restricted
  */
 router.post('/postBook/:token', (req, res) => {
   jwt.verify(req.params.token, config.key, (error, authData) => {
@@ -126,10 +124,8 @@ router.post('/postBook/:token', (req, res) => {
 });
 
 /**
- * User requests a book they want.
- * @param {Object} req Request body from client.
- * @param {Object} res Body of HTTP response.
- * @returns {Object} Standard response.
+ * @description User requests a book they want.
+ * @access Restricted
  */
 router.post('/requestBook', (req, res) => {
   const BOOK = req.body.data.payload;
@@ -204,10 +200,8 @@ router.post('/requestBook', (req, res) => {
 });
 
 /**
- * User checks out of cart.
- * @param {Object} req Request body from client, includes array of book ID's from cart.
- * @param {Object} res Body of HTTP response.
- * @returns {Object} Standard response.
+ * @description User checks out of cart.
+ * @access Restricted
  */
 router.post('/checkoutCart', auth.required, (req, res) => {
   const { payload: { userInfo: { _id } } } = req;
@@ -304,108 +298,95 @@ router.post('/checkoutCart', auth.required, (req, res) => {
       }
     },
   );
-  res.status(200).json(response({}));
+  res.status(200).json(response());
 });
 
 /**
- * Gets all books in given users matched books array.
- * @param {Object} req Request body from client.
- * @param {Object} res Body of HTTP response.
- * @returns {Array} Array of book objects.
+ * @description Gets all books in given users matched books array.
+ * @access Restricted
  */
-router.get('/getUserMatches/:token', (req, res) => {
-  jwt.verify(req.params.token, config.key, (error, authData) => {
-    if (error) {
-      res.status(403).json(response({ error }));
+function getUserMatches(req, res) {
+  const { payload: { userInfo: { _id } } } = req;
+  User.findOne({ _id }, (error, user) => {
+    if (!user) {
+      res.status(401).json(response({ error: 'You need to create an account' }));
     } else {
-      User.findOne({ _id: authData.userInfo._id }, (error, user) => {
-        if (!user) {
-          res.status(401).json(response({ error: 'You need to create an account' }));
-        } else {
-          let bookObjects = [];
-          const bookIDs = user.matchedBooks;
-          Textbook
-            .find({ $and: [{ _id: { $in: bookIDs } }, { status: 0 }] })
-            .sort({ date: -1 })
-            .exec((error, books) => {
-              bookObjects = books;
-              for (let i = 0; i < bookObjects.length; i++) {
-                for (let x = 0; x < user.cart.length; x++) {
-                  if (String(bookObjects[i]._id) === String(user.cart[x])) {
-                    bookObjects[i].status = 42;
-                  }
-                }
-              }
-              bookObjects = books;
-              res.status(200).json(response(bookObjects));
-            });
-        }
-      });
-    }
-  });
-});
-
-/**
- * Finds all books in database with a matching name, course or ISBN.
- * Excluding the books posted by the user searching.
- * @param {Object} req Request body from client.
- * @param {Object} res Body of HTTP response.
- * @returns {Array} Array of books from database.
- */
-router.get('/search/:query/:token', (req, res) => {
-  const searchKey = req.params.query;
-  const parsed = Number.parseInt(searchKey, 10);
-  jwt.verify(req.params.token, config.key, (error, authData) => {
-    if (error) {
-      res.status(403).json(response({ error }));
-    } else if (Number.isNaN(parsed)) {
-      Textbook.find({
-        $and: [
-          { status: 0 },
-          { owner: { $ne: authData.userInfo._id } },
-          {
-            $or: [
-              { name: { $regex: searchKey, $options: 'i' } },
-              { course: { $regex: searchKey, $options: 'i' } },
-            ],
-          },
-        ],
-      }, (err, books) => {
-        res.status(200).json(response(books));
-      });
-    } else {
+      let bookObjects = [];
+      const bookIDs = user.matchedBooks;
       Textbook
-        .find({
-          $and: [
-            { status: 0 },
-            { owner: { $ne: authData.userInfo._id } },
-            {
-              $or: [
-                { name: { $regex: searchKey, $options: 'i' } },
-                { course: { $regex: searchKey, $options: 'i' } },
-                { ISBN: { $eq: parsed } },
-              ],
-            },
-          ],
-        })
+        .find({ $and: [{ _id: { $in: bookIDs } }, { status: 0 }] })
         .sort({ date: -1 })
         .exec((error, books) => {
-          if (!error) {
-            res.status(200).json(response(books));
-          } else { res.status(400).json(response({ error })); }
+          bookObjects = books;
+          for (let i = 0; i < bookObjects.length; i++) {
+            for (let x = 0; x < user.cart.length; x++) {
+              if (String(bookObjects[i]._id) === String(user.cart[x])) {
+                bookObjects[i].status = 42;
+              }
+            }
+          }
+          bookObjects = books;
+          res.status(200).json(response(bookObjects));
         });
     }
   });
-});
+}
 
 /**
- * Finds all books in database with a matching name, course or ISBN.
- * NO TOKEN
- * @param {Object} req Request body from client.
- * @param {Object} res Body of HTTP response.
- * @returns {Array} Array of books from database.
+ * @description Finds all books in database with a matching name, course or ISBN.
+ * Excluding the books posted by the user searching.
+ * @access Restricted
  */
-router.get('/search/:query', (req, res) => {
+function searchRestricted(req, res) {
+  const { payload: { userInfo: { _id } } } = req;
+  const searchKey = req.params.query;
+  const parsed = Number.parseInt(searchKey, 10);
+  if (Number.isNaN(parsed)) {
+    Textbook.find({
+      $and: [
+        { status: 0 },
+        { owner: { $ne: _id } },
+        {
+          $or: [
+            { name:   { $regex: searchKey, $options: 'i' } },
+            { course: { $regex: searchKey, $options: 'i' } },
+          ],
+        },
+      ],
+    }, (err, books) => {
+      res.status(200).json(response(books));
+    });
+  } else {
+    Textbook
+      .find({
+        $and: [
+          { status: 0 },
+          { owner: { $ne: _id } },
+          {
+            $or: [
+              { name:   { $regex: searchKey, $options: 'i' } },
+              { course: { $regex: searchKey, $options: 'i' } },
+              { ISBN:   { $eq: parsed } },
+            ],
+          },
+        ],
+      })
+      .sort({ date: -1 })
+      .exec((error, books) => {
+        if (!error) {
+          res.status(200).json(response(books));
+        } else { res.status(400).json(response({ error })); }
+      });
+  }
+}
+
+/**
+ * @description Finds all books in database with a
+ * matching name, course or ISBN.
+ * NO TOKEN
+ * @access Public
+ */
+function search(req, res) {
   const searchKey = req.params.query;
   const parsed = Number.parseInt(searchKey, 10);
   if (Number.isNaN(parsed)) {
@@ -414,7 +395,7 @@ router.get('/search/:query', (req, res) => {
         { status: 0 },
         {
           $or: [
-            { name: { $regex: searchKey, $options: 'i' } },
+            { name:   { $regex: searchKey, $options: 'i' } },
             { course: { $regex: searchKey, $options: 'i' } },
           ],
         },
@@ -429,9 +410,9 @@ router.get('/search/:query', (req, res) => {
           { status: 0 },
           {
             $or: [
-              { name: { $regex: searchKey, $options: 'i' } },
+              { name:   { $regex: searchKey, $options: 'i' } },
               { course: { $regex: searchKey, $options: 'i' } },
-              { ISBN: { $eq: parsed } },
+              { ISBN:   { $eq: parsed } },
             ],
           },
         ],
@@ -441,80 +422,66 @@ router.get('/search/:query', (req, res) => {
         res.status(200).json(response(books));
       });
   }
-});
+}
 
 /**
- * Returns all of a given users posts.
- * @param {Object} req Request body from client.
- * @param {Object} res Body of HTTP response.
- * @returns {Array} Array of books from database.
+ * @description Returns all of a given users posts.
+ * @access Restricted
  */
-router.get('/getUsersPosts/:token', (req, res) => {
-  jwt.verify(req.params.token, config.key, (error, authData) => {
-    if (error) {
-      res.status(403).json(response({ error }));
+function getUserPosts(req, res) {
+  const { payload: { userInfo: { _id } } } = req;
+  Textbook.find({
+    $and: [
+      { $or: [{ status: 0 }, { status: 5 }] },
+      { owner: _id },
+    ],
+  }, (err, books) => {
+    const bookMap = [];
+    books.forEach((book) => {
+      bookMap.push(book);
+    });
+    res.status(200).json(response(bookMap));
+  });
+}
+
+/**
+ * @description Removes a book up for sale
+ * from the database.
+ * @access Restricted
+ */
+function deleteBook(req, res) {
+  const { payload: { userInfo: { _id } } } = req;
+  Textbook.deleteOne({
+    $and: [
+      { _id: req.body.data.bookID },
+      { owner: _id },
+    ],
+  }, (error) => {
+    if (!error) {
+      res.status(200).json(response({}));
     } else {
-      Textbook.find({
-        $and: [
-          { $or: [{ status: 0 }, { status: 5 }] },
-          { owner: authData.userInfo._id },
-        ],
-      }, (err, books) => {
-        const bookMap = [];
-        books.forEach((book) => {
-          bookMap.push(book);
-        });
-        res.status(200).json(response(bookMap));
-      });
+      res.status(400).json(response({ error }));
     }
   });
-});
+}
 
 /**
- * Removes a book up for sale from the database.
- * @param {Object} req Request body from client.
- * @param {Object} res Body of HTTP response.
- * @returns {Number} Status code.
+ * @description Gets all books being sold from database
+ * and that are not from the user.
+ * @access Restricted
  */
-router.post('/deleteBook/', (req, res) => {
-  jwt.verify(req.body.data.token, config.key, (error, authData) => {
-    if (error) {
-      res.status(403).json(response({ error }));
-    } else {
-      Textbook.deleteOne({
-        $and: [
-          { _id: req.body.data.bookID },
-          { owner: authData.userInfo._id },
-        ],
-      }, (error) => {
-        if (!error) {
-          res.status(200).json(response({}));
-        } else {
-          res.status(400).json(response({ error }));
-        }
-      });
-    }
-  });
-});
-
-/**
- * Gets all books being sold from database and that are not from the user.
- * @param {Object} req Request body from client.
- * @param {Object} res Body of HTTP response.
- * @returns {Array} Array of books from database.
- */
-router.get('/getAllBooks/', auth.required, (req, res) => {
-  const authData = req.payload;
+function getAllBooks(req, res) {
+  const { payload: { userInfo: { _id } } } = req;
   Textbook
     .find({
       $and: [
         { status: 0 },
-        { owner: { $ne: authData.userInfo._id } }],
+        { owner: { $ne: _id } }],
     })
     .limit(BOOK_LIMIT)
     .sort({ date: -1 })
     .exec((err, books) => {
-      User.findById(authData.userInfo._id, (err, user) => {
+      User.findById(_id, (err, user) => {
         const booksList = books;
         for (let i = 0; i < booksList.length; i++) {
           for (let x = 0; x < user.cart.length; x++) {
@@ -526,60 +493,59 @@ router.get('/getAllBooks/', auth.required, (req, res) => {
         res.status(200).json(response(booksList));
       });
     });
-});
+}
 
 /**
- * Returns given limit books in the database, without
- * requiring a token.
+ * @description Returns given limit books in
+ * the database, without requiring a token.
  * NOTE: This will display posts to a user that they
  * posted.
- * @param {Object} req Request body from client.
- * @param {Object} res Body of HTTP response.
- * @returns {Array} Array of books from database.
+ * @access Public
  */
-router.get('/getBooksNoToken', (req, res) => {
+function getBooksNoToken(req, res) {
   Textbook.find({ status: 0 })
     .limit(BOOK_LIMIT)
     .sort({ date: -1 })
     .exec((err, books) => {
       res.status(200).json(response(books));
     });
-});
-
+}
 
 /**
- * Updates the status of an old book
- * @param {Object} req Request body from client.
- * @param {Object} res Body of HTTP response.
- * @returns {Number} status code.
+ * @description Updates the status of an old book
+ * @access Restricted
  */
-router.post('/reactivateBook/', (req, res) => {
-  jwt.verify(req.body.data.token, config.key, (error, authData) => {
-    if (error) {
-      res.status(403).json(response({ error }));
+function reactivateBook(req, res) {
+  const { payload: { userInfo: { _id } } } = req;
+  Textbook.update({
+    $and: [
+      { _id: req.body.data.bookID },
+      { owner: _id },
+    ],
+  },
+  {
+    $set: { status: 0 },
+  }, (error) => {
+    if (!error) {
+      res.status(200).json(response());
     } else {
-      Textbook.update({
-        $and: [
-          { _id: req.body.data.bookID },
-          { owner: authData.userInfo._id },
-        ],
-      },
-      {
-        $set: { status: 0 },
-      }, (error) => {
-        if (!error) {
-          res.status(200).json(response({}));
-        } else {
-          res.status(400).json(response({ error }));
-        }
-      });
+      res.status(400).json(response({ error }));
     }
   });
-});
+}
 
+function booksBase(req, res) {
+  res.status(200).json(response());
+}
 
-router.get('/', (req, res) => {
-  res.status(200).json(response({}));
-});
+router.get('/', booksBase);
+router.post('/reactivateBook', auth.required, reactivateBook);
+router.get('/getBooksNoToken', getBooksNoToken);
+router.get('/getAllBooks', auth.required, getAllBooks);
+router.post('/deleteBook', auth.required, deleteBook);
+router.get('/search/:query', search);
+router.get('/search/:query', auth.required, searchRestricted);
+router.get('/getUsersPosts', auth.required, getUserPosts);
+router.get('/getUserMatches', auth.required, getUserMatches);
 
 module.exports = router;
