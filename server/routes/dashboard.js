@@ -132,6 +132,16 @@ function getUsers(req, res) {
   });
 }
 
+function getSpecificUser(req, res) {
+  const { payload: { userInfo: { permissionType } } } = req;
+  if(auth.isAdmin(permissionType)){
+    User.find({emailAddress: req.query.email}, (error, user) => {
+      res.status(200).json(response(user));
+    });
+  } else{
+    res.status(403).json(response({ error: 'Unauthorized' }));
+  }
+}
 
 /**
  * @description Get the info of the books and make them bigger.
@@ -418,6 +428,7 @@ router.get('/', dashboardBase);
 router.get('/permissionLv', auth.required, permissionLevel);
 router.get('/isAdmin', auth.required, isAdmin);
 router.get('/getUsers', auth.required, getUsers);
+router.get('/getSpecificUser', auth.required, getSpecificUser);
 router.get('/getTransactionsByName/:firstName/:LastName', auth.required, getTranscationsByName);
 router.get('/getPurchasedBooks', auth.required, getPurchasedBooks);
 router.get('/getCompletedTransactions', auth.required, getCompletedTransactions);

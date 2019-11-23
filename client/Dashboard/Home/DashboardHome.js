@@ -79,6 +79,20 @@ class DashboardHome extends Component {
       });
   }
 
+  _getSpecificUser(event){
+    let keyCode = event.keyCode || event.which;
+    if(keyCode === 13){
+      const value = event.target.value;
+      if(value){
+        FetchService.GET("/api/dashboard/getSpecificUser/?email=" + event.target.value)
+          .then((data) => {
+            this.setState({ users: data});
+          });
+      } else{
+        this._getAllUsers();
+      }
+    }
+  }
   _getPurchasedBooks() {
     FetchService.GET('/api/dashboard/getBooksWithStatus/3')
       .then((data) => {
@@ -263,6 +277,11 @@ class DashboardHome extends Component {
           </tbody>
         </table>
         <h3 className="mt-4 mx-2">Users</h3>
+        <input
+            type="text" 
+            defaultValue= "enter an email to search by" 
+            onKeyPress ={this._getSpecificUser.bind(this)}
+         />
         <table className="table table-striped">
           <tbody>
             <tr>
