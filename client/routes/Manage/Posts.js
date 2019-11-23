@@ -38,7 +38,7 @@ class Posts extends Component {
   }
 
   getPostedBooks() {
-    FetchService.GET(`/api/books/getUsersPosts/${this.auth.getToken()}`)
+    FetchService.GET('/api/books/getUsersPosts')
       .then((data) => {
         this.setState({ booksPosted: data });
       });

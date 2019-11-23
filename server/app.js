@@ -115,8 +115,6 @@ app.use((err, req, res, next) => {
 // this function return the index page and allows the client to
 // handle the routing.
 app.get('*', (req, res) => {
-  // console.log(req.url); // eslint-disable-line
-  console.log(req.headers.host); // eslint-disable-line
   if (req.protocol === 'http' && process.env.NODE_ENV === 'production') {
     res.redirect(`https://www.barterout.com${req.url}`);
   } else {

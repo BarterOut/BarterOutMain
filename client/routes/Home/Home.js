@@ -48,7 +48,7 @@ class Home extends Component {
   }
 
   getUserStatistics() {
-    FetchService.GET(`/api/user/getUserStatistics/${this.AUTH.getToken()}`)
+    FetchService.GET('/api/user/getUserStatistics')
       .then((data) => {
         this.setState({ numberOfBooksBought: data.numberOfBooksBought });
         this.setState({ numberOfBooksSold: data.numberOfBooksSold });
@@ -57,7 +57,7 @@ class Home extends Component {
   }
 
   getUserMatches() {
-    FetchService.GET(`/api/books/getUserMatches/${this.AUTH.getToken()}`)
+    FetchService.GET('/api/books/getUserMatches')
       .then((data) => {
         this.setState({ matches: data });
       });
@@ -71,7 +71,7 @@ class Home extends Component {
     this.setState({ loading: true });
     this.setState({ posts: [] });
     if (query === '') {
-      FetchService.GET(`/api/books/getAllBooks/${this.AUTH.getToken()}`)
+      FetchService.GET('/api/books/getAllBooks')
         .then((data) => {
           this.setState({ loading: false });
           this.setState({ posts: data });
@@ -80,7 +80,7 @@ class Home extends Component {
       return;
     }
 
-    FetchService.GET(`/api/books/search/${query}/${this.AUTH.getToken()}`)
+    FetchService.GET(`/api/books/search/${query}`)
       .then((data) => {
         this.setState({ loading: false });
         this.setState({ posts: data });

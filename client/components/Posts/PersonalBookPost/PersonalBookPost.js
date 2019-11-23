@@ -33,10 +33,8 @@ class PersonalBookPost extends Component {
   }
 
   reactivateBook() {
-    const AUTH = new AuthService();
     FetchService.POST('/api/books/reactivateBook', {
       bookID: this.state.id,
-      token: AUTH.getToken(),
     })
       .then(() => {
         window.location.reload();
@@ -44,10 +42,8 @@ class PersonalBookPost extends Component {
   }
 
   deleteBook() {
-    const AUTH = new AuthService();
     FetchService.POST('/api/books/deleteBook', {
       bookID: this.state.id,
-      token: AUTH.getToken(),
     })
       .then(() => {
         window.location.reload();

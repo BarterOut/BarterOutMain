@@ -44,7 +44,7 @@ class RequestBook extends Component {
       owner: AUTH.getProfile().userInfo._id,
     };
 
-    FetchService.POST('/api/books/requestBook', { payload, token: AUTH.getToken() })
+    FetchService.POST('/api/books/requestBook', { payload })
       .then(() => {
         window.location.reload();
       });

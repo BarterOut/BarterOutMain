@@ -315,7 +315,7 @@ function passwordResetRequest(req, res) {
           },
         );
         emails.sendEmail(emails.passwordResetEmail(user.emailAddress, user.firstName, token));
-        res.status(200).json(response({}));
+        res.status(200).json(response());
       });
     } else {
       res.status(406).json(response({ error: 'No user found.' }));
