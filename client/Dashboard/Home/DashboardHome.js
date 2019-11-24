@@ -79,20 +79,21 @@ class DashboardHome extends Component {
       });
   }
 
-  _getSpecificUser(event){
-    let keyCode = event.keyCode || event.which;
-    if(keyCode === 13){
-      const value = event.target.value;
-      if(value){
-        FetchService.GET("/api/dashboard/getSpecificUser/?email=" + event.target.value)
+  _getSpecificUser(event) {
+    const keyCode = event.keyCode || event.which;
+    if (keyCode === 13) {
+      const { target: { value } } = event;
+      if (value) {
+        FetchService.GET(`/api/dashboard/getSpecificUser/?email=${event.target.value}`)
           .then((data) => {
-            this.setState({ users: data});
+            this.setState({ users: data });
           });
-      } else{
+      } else {
         this._getAllUsers();
       }
     }
   }
+
   _getPurchasedBooks() {
     FetchService.GET('/api/dashboard/getBooksWithStatus/3')
       .then((data) => {

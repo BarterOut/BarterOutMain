@@ -134,11 +134,11 @@ function getUsers(req, res) {
 
 function getSpecificUser(req, res) {
   const { payload: { userInfo: { permissionType } } } = req;
-  if(auth.isAdmin(permissionType)){
-    User.find({emailAddress: req.query.email}, (error, user) => {
+  if (auth.isAdmin(permissionType)) {
+    User.find({ emailAddress: req.query.email }, (error, user) => {
       res.status(200).json(response(user));
     });
-  } else{
+  } else {
     res.status(403).json(response({ error: 'Unauthorized' }));
   }
 }
