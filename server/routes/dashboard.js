@@ -1,6 +1,7 @@
 /**
  * @file All routes relating to the dashboard for Express.js server.
  * @author Daniel Munoz
+ * @author John Sosa
  * @author Duncan Grubbs <duncan.grubbs@gmail.com>
  * @version 0.0.4
 */

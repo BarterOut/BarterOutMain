@@ -9,7 +9,6 @@ import mongoose from 'mongoose';
 
 // Models
 import User from '../models/user';
-
 import TempUser from '../models/tempUser';
 
 import response from '../resources/response';
@@ -37,21 +36,23 @@ const notification = require('../resources/Notifications');
  * @param {Function} insertTempUser Function to insert temp user intoDB.
  * @param {Function} callback Callback function.
  */
-function myHasher(password, tempUserData, insertTempUser, callback) {
+function hasher(password, tempUserData, insertTempUser, callback) {
   const hash = bcrypt.hashSync(password, 10, null);
   return insertTempUser(hash, tempUserData, callback);
 }
 
 let verificationURL;
+const endpoint = '/api/auth/email-verification/${URL}'; // eslint-disable-line
 if (process.env.NODE_ENV === 'production') {
-  verificationURL = 'https://www.barterout.com/api/auth/email-verification/${URL}'; // eslint-disable-line
+  verificationURL = `https://www.barterout.com${endpoint}`;
 } else if (process.env.NODE_ENV === 'staging') {
-  verificationURL = 'https://barterout-dev.herokuapp.com/api/auth/email-verification/${URL}'; // eslint-disable-line
+  verificationURL = `https://barterout-dev.herokuapp.com${endpoint}`;
 } else {
-  verificationURL = 'localhost:8080/api/auth/email-verification/${URL}'; // eslint-disable-line
+  verificationURL = `localhost:8080${endpoint}`;
 }
 
 // Configurations for the temp users.
+const htmlMessage = '<p>Please verify your account by clicking <a href="${URL}">this link</a>.'; // eslint-disable-line
 nev.configure({
   verificationURL,
   persistentUserModel: User,
@@ -59,27 +60,25 @@ nev.configure({
   shouldSendConfirmation: false,
 
   transportOptions: {
-    host: 'smtp.gmail.com',
+    host:           'smtp.gmail.com',
     auth: {
-      type: 'OAuth2',
-      clientId: process.env.CLIENT_ID,
+      type:         'OAuth2',
+      clientId:     process.env.CLIENT_ID,
       clientSecret: process.env.NEV_CLIENT_SECRET,
     },
   },
   verifyMailOptions: {
-    // This won't actually be used but it is necessary for the package to work. the
-    from: '"Barter Out" <development@barterout.com',
-    subject: 'Please confirm account',
-    html: '<p>Please verify your account by clicking <a href="${URL}">this link</a>.', // eslint-disable-line
+    from:           '"Barter Out" <development@barterout.com',
+    subject:        'Please confirm account',
+    html:           htmlMessage,
     auth: {
-      user: 'development@barterout.com',
-      clientId: process.env.CLIENT_ID,
+      user:         'development@barterout.com',
+      clientId:     process.env.CLIENT_ID,
       clientSecret: process.env.NEV_CLIENT_SECRET,
     },
   },
-  // This might break the log in for the new users as it might be hashing the hash.
-  hashingFunction: myHasher,
-  emailFieldName: 'emailAddress',
+  hashingFunction:   hasher,
+  emailFieldName:    'emailAddress',
   passwordFieldName: 'password',
 }, (error) => {
   if (error) {
@@ -87,14 +86,12 @@ nev.configure({
   }
 });
 
-// TODO: Remove redirects
 /**
- * Called when a user clicks the confirm link in thier email.
- * @param {Object} req Request body from client.
- * @param {Object} res Body of HTTP response.
- * @returns {NULL} Redirects to new page.
+ * @description Called when a user clicks the confirm
+ * link in thier email.
+ * @access Public
  */
-router.get('/email-verification/:URL', (req, res) => {
+function emailVerification(req, res) {
   const url = req.params.URL;
   TempUser.findOne({ emailToken: url }, (error, tempUser) => {
     if (error) {
@@ -129,10 +126,11 @@ router.get('/email-verification/:URL', (req, res) => {
       res.redirect('/signup');
     }
   });
-});
+}
 
 /**
- * Creates an temporary (unconfirmed) account for a user.
+ * @description Creates an temporary (unconfirmed) account for a user.
+ * @access Public
  */
 function signup(req, res) {
   const {
@@ -174,7 +172,7 @@ function signup(req, res) {
             .then(() => {
               const URL = newUser.emailToken;
               emails.sendEmail(emails.verifyEmail(emailAddress, firstName, URL));
-              res.status(201).json(response(null));
+              res.status(201).json(response());
             });
         }
       });
@@ -183,8 +181,8 @@ function signup(req, res) {
 }
 
 /**
- * Logs in a user provided a valid email and password.
- * @returns {Object} Status code and JWT.
+ * @description Logs in a user provided a valid email and password.
+ * @access Public
  */
 function login(req, res) {
   const { emailAddress, password } = req.body;
@@ -218,8 +216,9 @@ function login(req, res) {
 
 
 /**
- * Will update name, venmo, address
+ * @description Will update name, venmo, address
  * Requires the token to be sent.
+ * @access Restricted
  */
 function updateProfile(req, res) {
   const { payload: { userInfo: { _id } } } = req;
@@ -239,16 +238,17 @@ function updateProfile(req, res) {
       if (error) {
         res.status(400).json(response({ error }));
       } else {
-        res.status(200).json(response(null));
+        res.status(200).json(response());
       }
     },
   );
 }
 
 /**
- * Will update the password
+ * @description Will update the password
  * Requires the token to be sent as well as the plain
  * text password to be sent, will be hashed inside of the function.
+ * @access Restricted
  */
 function updatePassword(req, res) {
   const { payload: { userInfo: { _id } } } = req;
@@ -280,7 +280,7 @@ function updatePassword(req, res) {
         if (error) {
           res.status(400).json(response({ error }));
         } else {
-          res.status(200).json(response(null));
+          res.status(200).json(response());
         }
       },
     );
@@ -288,8 +288,9 @@ function updatePassword(req, res) {
 }
 
 /**
- * Sends email to user with token to reset password,
+ * @description Sends email to user with token to reset password,
  * this token is verified by the another API call.
+ * @access Public
  */
 function passwordResetRequest(req, res) {
   const email = req.body.data.emailAddress;
@@ -323,15 +324,12 @@ function passwordResetRequest(req, res) {
   });
 }
 
-// TODO: remove redirect
 /**
- * Route from redirect of password reset request.
+ * @description Route from redirect of password reset request.
  * This is the link they click in the email.
- * @param {Object} req Request body from client.
- * @param {Object} res Body of HTTP response.
- * @returns {Object} Standard API Response.
+ * @access Public
  */
-router.get('/passwordReset/:token', (req, res) => {
+function passwordResetToken(req, res) {
   User.findOne({ resetPasswordToken: req.params.token }, (err, user) => {
     if (!user) {
       res.status(406).json(response({ error: 'Token expired or is invalid' }));
@@ -339,11 +337,12 @@ router.get('/passwordReset/:token', (req, res) => {
       res.redirect(`/resetPassword/${req.params.token}`);
     }
   });
-});
+}
 
 /**
- * Request sent from link page use is taken to
+ * @description Request sent from link page use is taken to
  * after forgetting their password.
+ * @access Public
  */
 function passwordReset(req, res) {
   User.findOne(
@@ -371,21 +370,23 @@ function passwordReset(req, res) {
             }
           },
         );
-        res.status(200).json(response(null));
+        res.status(200).json(response());
       }
     },
   );
 }
 
 function authBase(req, res) {
-  res.status(200).json(response(null));
+  res.status(200).json(response());
 }
 
 router.get('/', authBase);
+router.get('/passwordReset/:token', passwordResetToken);
+router.get('/email-verification/:URL', emailVerification);
 
 router.post('/updatePassword', auth.required, updatePassword);
 router.post('/updateProfile', auth.required, updateProfile);
-router.post('/passwordReset', auth.optional, passwordReset);
+router.post('/passwordReset', passwordReset);
 router.post('/passwordResetRequest', passwordResetRequest);
 router.post('/login', login);
 router.post('/signup', signup);

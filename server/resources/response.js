@@ -14,6 +14,7 @@ function response(data) {
     meta: {
       date: Date.now(),
       responseType: 'JSON',
+      version: '0.0.4',
     },
     data,
   };
