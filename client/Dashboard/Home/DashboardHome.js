@@ -9,7 +9,6 @@ import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 
 import FetchService from '../../services/FetchService';
-import AuthService from '../../services/AuthService';
 
 import './Dashboard.css';
 
@@ -26,7 +25,6 @@ class DashboardHome extends Component {
       generalStatistics: {},
     };
 
-    this.AUTH = new AuthService();
     this.confirm = this.confirm.bind(this);
     this.confirmPayment = this.confirmPayment.bind(this);
     this.logout = this.logout.bind(this);

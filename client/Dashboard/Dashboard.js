@@ -7,6 +7,7 @@
 
 import React, { Component } from 'react';
 import { Redirect, Link } from 'react-router-dom';
+import FetchService from '../services/FetchService';
 import AuthService from '../services/AuthService';
 
 import logo from '../images/logo-orange.png';
@@ -20,7 +21,6 @@ class Dashboard extends Component {
       redirect: false,
       badCreditials: false,
     };
-    this.AUTH = new AuthService();
 
     this.login = this.login.bind(this);
     this.onChange = this.onChange.bind(this);
@@ -41,8 +41,16 @@ class Dashboard extends Component {
   }
 
   login() {
-    this.AUTH.login(this.state.emailAddress, this.state.password)
-      .then(() => {
+    const { emailAddress } = this.state;
+    const { password } = this.state;
+
+    FetchService.POST(
+      '/api/auth/login',
+      { emailAddress, password },
+      false,
+    )
+      .then((data) => {
+        AuthService.setToken(data.token);
         this.setState({ redirect: true });
       });
   }

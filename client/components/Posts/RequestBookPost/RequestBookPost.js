@@ -31,10 +31,8 @@ class RequestBookPost extends Component {
   }
 
   deleteBook() {
-    const AUTH = new AuthService();
     FetchService.POST('/api/user/deleteRequest', {
       bookID: this.state.id,
-      token: AUTH.getToken(),
     })
       .then(() => {
         window.location.reload();

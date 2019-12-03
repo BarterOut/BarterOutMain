@@ -43,11 +43,10 @@ class Settings extends Component {
   }
 
   setProfileInfo() {
-    const AUTH = new AuthService();
-    const token = AUTH.getToken();
+    const token = AuthService.getToken();
     this.setState({ token });
 
-    FetchService.GET(`/api/user/getUserData`)
+    FetchService.GET('/api/user/getUserData')
       .then((data) => {
         this.setState({ firstName: data.user.firstName });
         this.setState({ lastName: data.user.lastName });
@@ -68,7 +67,7 @@ class Settings extends Component {
     })
       .then(() => {
         this.setProfileInfo();
-        sessionStorage.setItem('name', `${this.state.firstName} ${this.state.lastName}`);
+        localStorage.setItem('name', `${this.state.firstName} ${this.state.lastName}`);
         this.setState({ updateMessageVisible: true });
       })
       .catch((error) => {

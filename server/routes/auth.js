@@ -185,19 +185,16 @@ function signup(req, res) {
  * @access Public
  */
 function login(req, res) {
-  const { emailAddress, password } = req.body;
+  const { body: { data: { emailAddress, password } } } = req;
   User.findOne({ emailAddress }, (error, user) => {
     if (error) {
       res.status(400).json(response({ error }));
-      return;
     }
     if (!user) {
       res.status(401).json(response({ error: 'No Account' }));
-      return;
     }
     if (!user.checkPassword(password)) {
       res.status(401).json(response({ error: 'Incorrect Password' }));
-      return;
     }
 
     const userInfo = {

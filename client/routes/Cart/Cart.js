@@ -11,7 +11,6 @@ import NavBar from '../../components/NavBar/NavBar';
 import CartBookPost from '../../components/Posts/CartBookPost/CartBookPost';
 
 import FetchService from '../../services/FetchService';
-import AuthService from '../../services/AuthService';
 
 import './Cart.css';
 
@@ -25,7 +24,6 @@ class Cart extends Component {
       CMC: '',
     };
 
-    this.AUTH = new AuthService();
     this.buyBooks = this.buyBooks.bind(this);
     this._calculateMoney = this._calculateMoney.bind(this);
   }

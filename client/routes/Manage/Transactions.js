@@ -11,7 +11,6 @@ import SideNav from '../../components/SideNav/SideNav';
 import TrackBookPost from '../../components/Posts/TrackBookPost/TrackBookPost';
 
 import FetchService from '../../services/FetchService';
-import AuthService from '../../services/AuthService';
 
 class Transactions extends Component {
   constructor() {
@@ -21,7 +20,6 @@ class Transactions extends Component {
       booksSold: [],
       booksPurchased: [],
     };
-    this.auth = new AuthService();
   }
 
   componentDidMount() {

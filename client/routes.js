@@ -44,11 +44,10 @@ import Dashboard from './Dashboard/Dashboard';
 import page404 from './routes/page404/page404';
 
 const PrivateRoute = ({ component: Component, rest }) => {
-  const auth = new AuthService();
   return (
     <Route
       {...rest}
-      render={props => (auth.loggedIn()
+      render={props => (AuthService.loggedIn()
         ? <Component {...props} />
         : <Redirect to={{ pathname: '/login' }} />)}
     />
@@ -56,11 +55,10 @@ const PrivateRoute = ({ component: Component, rest }) => {
 };
 
 const DashboardRoute = ({ component: Component, rest }) => {
-  const auth = new AuthService();
   return (
     <Route
       {...rest}
-      render={props => (auth.isAdmin()
+      render={props => (AuthService.isAdmin()
         ? <Component {...props} />
         : <Redirect to={{ pathname: '/dashboard' }} />)}
     />

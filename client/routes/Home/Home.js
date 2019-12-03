@@ -28,7 +28,6 @@ class Home extends Component {
       loading: false,
     };
 
-    this.AUTH = new AuthService();
     this.updateInputValue = this.updateInputValue.bind(this);
   }
 

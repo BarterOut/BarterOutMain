@@ -41,7 +41,6 @@ class LandingPage extends Component {
       page: 1,
       loading: false,
     };
-    this.Auth = new AuthService();
     this.updateInputValue = this.updateInputValue.bind(this);
   }
 
@@ -53,7 +52,7 @@ class LandingPage extends Component {
   }
 
   setRedirect() {
-    if (!this.Auth.isTokenExpired(this.Auth.getToken())) {
+    if (!AuthService.isTokenExpired(AuthService.getToken())) {
       this.setState({ redirect: true });
     } else {
       this.setState({ redirect: false });

@@ -12,7 +12,6 @@ import PersonalBookPost from '../../components/Posts/PersonalBookPost/PersonalBo
 import RequestBookPost from '../../components/Posts/RequestBookPost/RequestBookPost';
 
 import FetchService from '../../services/FetchService';
-import AuthService from '../../services/AuthService';
 
 class Posts extends Component {
   constructor() {
@@ -22,7 +21,6 @@ class Posts extends Component {
       booksPosted: [],
       booksRequested: [],
     };
-    this.auth = new AuthService();
   }
 
   componentDidMount() {

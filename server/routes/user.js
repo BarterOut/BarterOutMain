@@ -126,9 +126,9 @@ function removeFromCart(req, res) {
           {
             cart: user.cart,
           },
-      }, (err) => {
-        if (err) {
-          res.status(400).json(response({ err }));
+      }, (error) => {
+        if (error) {
+          res.status(400).json(response({ error }));
         }
         res.status(200).json(response());
       },

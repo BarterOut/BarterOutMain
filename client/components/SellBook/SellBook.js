@@ -42,8 +42,7 @@ class SellBook extends Component {
   }
 
   postToDatabase() {
-    const AUTH = new AuthService();
-    const profile = AUTH.getProfile();
+    const profile = AuthService.getProfile();
 
     if (!this._validateInputs()) {
       return;
