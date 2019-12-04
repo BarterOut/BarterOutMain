@@ -17,52 +17,60 @@ const express = require('express');
 
 const router = express.Router();
 
-// TODO: This needs to return a promise.
 /**
- * [RESOURCE] Remakes matches based on the books in the request collection. *Needs testing*
- * @param {String} userID ID of the transaction schema saved in the DB.
+ * [RESOURCE] Remakes matches of a certain user.
+ * @param {String} userID ID of the user.
  */
 function remakeMatches(userID) {
-  TextbookBuy.find({ owner: userID }, (err, books) => {
-    if (books) {
-      for (let i = 0; i < books.length; i++) {
-        const BOOK = books[i];
-        // looks for a book that matches based on the name matching or the course
-        Textbook.find(
-          {
-            $and: [
-              { status: 0 },
-              {
-                $or: [
-                  { name: { $regex: BOOK.name, $options: 'i' } },
-                  { course: { $regex: BOOK.course, $options: 'i' } },
-                ],
-              },
-              { owner: { $ne: userID } },
-            ],
-          },
-          (err, matchedBooks) => {
-            const addBooks = [];
-            matchedBooks.forEach((book) => {
-              addBooks.push(book._id);
-            });
-            User.update(
-              { _id: BOOK.owner },
-              {
-                $set: {
-                  matchedBooks: { addBooks },
+  // find all books requested by the user
+  return TextbookBuy.find({ owner: userID })
+    .then((error, books) => {
+      if (books) {
+        // for each requested book
+        books.forEach((book) => {
+          // find any available book that matches the
+          // name or course code, and was not posted by userID
+          Textbook.find(
+            {
+              $and: [
+                { status: 0 },
+                {
+                  $or: [
+                    { name:   { $regex: book.name, $options: 'i' } },
+                    { course: { $regex: book.course, $options: 'i' } },
+                  ],
                 },
-              }, (error) => {
-                if (error) {
-                  throw new Error(`Error making matches: ${error}`);
-                }
-              },
-            );
-          },
-        );
+                { owner: { $ne: userID } },
+              ],
+            },
+          )
+            .then((error, matchedBooks) => {
+              const addBooks = [];
+              matchedBooks.forEach((book) => {
+                addBooks.push(book._id);
+              });
+              User.update(
+                { _id: userID },
+                {
+                  $set: {
+                    matchedBooks: { addBooks },
+                  },
+                },
+              )
+                .then(() => Promise.resolve());
+            });
+        });
       }
-    }
-  });
+      User.update(
+        { _id: userID },
+        {
+          $set: {
+            matchedBooks: [],
+          },
+        },
+      )
+        .then(() => Promise.resolve());
+    });
 }
 
 /**
@@ -237,8 +245,6 @@ function getUserData(req, res) {
   });
 }
 
-// TODO: Fix this method.
-
 /**
  * @description Removes a matching request
  * for a given user.
@@ -246,17 +252,18 @@ function getUserData(req, res) {
  */
 function deleteRequest(req, res) {
   const { payload: { userInfo: { _id } } } = req;
+  const { body: { data: { bookID } } } = req;
   TextbookBuy.deleteOne({
     $and: [
-      { _id: req.body.data.bookID },
+      { _id: bookID },
       { owner: _id },
     ],
   }, (error) => {
     if (error) {
       res.status(400).json(response({ error }));
     } else {
-      remakeMatches(_id);
-      res.status(200).json(response());
+      remakeMatches(_id)
+        .then(() => res.status(200).json(response()));
     }
   });
 }

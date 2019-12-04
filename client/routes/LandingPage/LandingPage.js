@@ -96,7 +96,7 @@ class LandingPage extends Component {
       return;
     }
 
-    FetchService.GET(`/api/books/search/${query}`)
+    FetchService.GET(`/api/books/search/public/${query}`)
       .then((data) => {
         this.setState({ loading: false });
         this.setState({ posts: data });

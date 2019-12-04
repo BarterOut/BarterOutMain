@@ -536,7 +536,7 @@ function booksBase(req, res) {
 router.get('/', booksBase);
 router.get('/getBooksNoToken', getBooksNoToken);
 router.get('/getAllBooks', auth.required, getAllBooks);
-router.get('/search/:query', search);
+router.get('/search/public/:query', search);
 router.get('/search/:query', auth.required, searchRestricted);
 router.get('/getUsersPosts', auth.required, getUserPosts);
 router.get('/getUserMatches', auth.required, getUserMatches);
