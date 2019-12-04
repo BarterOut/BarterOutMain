@@ -26,6 +26,7 @@ import mongoDB from './database/mongoDB';
 const bodyParser = require('body-parser');
 const session = require('express-session');
 
+// Error Handling Service
 const AirbrakeClient = require('airbrake-js');
 
 // API Routes
@@ -45,7 +46,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(session({
   // pick a random string to make the hash that is generated secure
   secret: process.env.SALTING_STRING || 'secret',
-  // Following lines are to avoid some deprecation warnings
   resave:            false,
   saveUninitialized: false,
   cookie:            { secure: false },
@@ -74,10 +74,10 @@ if (process.env.NODE_ENV === 'production'
 }
 
 // Prefer gzipped js files.
-// Set cache policy to cache for one month on js files: UPDATE : no more
 app.get('*.js', (req, res, next) => {
   // for zipping our main JS bundles
   res.set('Content-Encoding', 'gzip');
+  // Set cache policy to cache for one month on js files
   // res.set('Cache-Control', 'public, max-age=2629800');
   next();
 });
@@ -125,7 +125,7 @@ app.get('*', (req, res) => {
 // Start App
 const server = app.listen(PORT, (error) => {
   if (!error) {
-    console.log(`MERN is running on port: ${serverConfig.port}! Build something amazing!`); // eslint-disable-line
+    console.log(`MERN is running on port: ${serverConfig.port}`); // eslint-disable-line
   } else {
     console.log(error); // eslint-disable-line
   }
