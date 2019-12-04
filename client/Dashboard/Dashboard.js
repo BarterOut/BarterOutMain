@@ -91,7 +91,11 @@ class Dashboard extends Component {
             required
           />
           <div className="login-prefs">
-            <div>Back to <Link href="/" to="/">Home</Link>.</div>
+            <div>
+              Back to
+              <Link href="/" to="/">Home</Link>
+              .
+            </div>
           </div>
           <div>
             <button className="inputButtonFilled" onClick={this.login} type="submit">Log In</button>

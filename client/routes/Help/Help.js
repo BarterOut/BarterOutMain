@@ -39,7 +39,8 @@ const Help = () => (
 
       <h4 className="mt-5 mb-4">Still have questions? Contact Us</h4>
       <p className="mb-4">
-        If you have any question or simply wanna say Hi,<br />
+        If you have any question or simply wanna say Hi,
+        <br />
         please feel free to reach out to us.
       </p>
       <p>

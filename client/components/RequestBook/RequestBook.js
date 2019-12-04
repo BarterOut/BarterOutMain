@@ -88,7 +88,8 @@ class RequestBook extends Component {
               className="btn btn-primary float-right"
               type="button"
               onClick={this.postToDatabase}
-            >Request
+            >
+              Request
             </button>
           </div>
         </form>

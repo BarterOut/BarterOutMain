@@ -24,7 +24,10 @@ class LandingBookPost extends Component {
         <div className="leftBP">
           <span className="bookSubject">{this.props.subject}</span>
           <span className="bookName">{this.props.name}</span>
-          <span className="bookEdition">{Util.ordinalSuffixOf(this.props.edition)} Edition</span>
+          <span className="bookEdition">
+            {Util.ordinalSuffixOf(this.props.edition)}
+            &nbsp;Edition
+          </span>
         </div>
         <div className="vertical-line" />
         <div className="middleBP">
@@ -32,8 +35,15 @@ class LandingBookPost extends Component {
         </div>
         <div className="rightBP">
           <div>
-            <span className="condition">{this.props.condition} </span>
-             - <span className="price">${this.props.price}*</span>
+            <span className="condition">
+              {this.props.condition}
+            </span>
+            &nbsp;-&nbsp;
+            <span className="price">
+              $
+              {this.props.price}
+              *
+            </span>
           </div>
           <Link to="/login" href="/login">
             <button className="button" type="button">Add to Cart</button>

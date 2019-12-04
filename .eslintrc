@@ -27,6 +27,7 @@
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
     "react/sort-prop-types": 2,
     "react/jsx-no-bind": 1,
+    "react/destructuring-assignment": 0,
     "react/require-default-props": 0,
     "import/prefer-default-export": 1,
     "jsx-a11y/no-noninteractive-tabindex": 0,

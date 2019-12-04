@@ -25,7 +25,8 @@ class SideNav extends Component {
           data-toggle="modal"
           type="button"
           data-target="#sellBookModal"
-        >Post Your Book
+        >
+          Post Your Book
         </button>
         <div className="modal fade" id="sellBookModal" tabIndex="-1" role="dialog" aria-hidden="true">
           <div className="modal-dialog modal-lg" role="document">
@@ -48,7 +49,8 @@ class SideNav extends Component {
           data-toggle="modal"
           type="button"
           data-target="#requestBookModal"
-        >Request a Book
+        >
+          Request a Book
         </button>
         <h4 className="my-2">
         Manage

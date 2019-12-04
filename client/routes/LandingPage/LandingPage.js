@@ -126,7 +126,8 @@ class LandingPage extends Component {
             </nav>
             <div className="mainText" id="mainText">
               <h1>
-                YOUR TEXTBOOKS, <br />
+                YOUR TEXTBOOKS,
+                <br />
                 HASSLE-FREE
               </h1>
               <div id="search-wrapper">
@@ -178,7 +179,9 @@ class LandingPage extends Component {
               <h2 className="landing-header-title">For Students</h2>
               <div className="header-line-landing" />
               <p className="landing-para">
-                As college students ourselves, we understand the difficulties <b>you</b> face.
+                As college students ourselves, we understand the difficulties&nbsp;
+                <b>you</b>
+                &nbsp;face.
                 We are building applications to solve problems that we see in our everyday
                 lives. We work everyday to create tools that help you get the best price
                 textbooks, find courses your friends are taking, make comments on courses

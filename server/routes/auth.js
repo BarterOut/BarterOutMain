@@ -88,12 +88,12 @@ nev.configure({
 
 /**
  * @description Called when a user clicks the confirm
- * link in thier email.
+ * link in their email.
  * @access Public
  */
 function emailVerification(req, res) {
-  const url = req.params.URL;
-  TempUser.findOne({ emailToken: url }, (error, tempUser) => {
+  const { params: { URL } } = req;
+  TempUser.findOne({ emailToken: URL }, (error, tempUser) => {
     if (error) {
       res.status(400).json(error);
     }
@@ -115,7 +115,7 @@ function emailVerification(req, res) {
         .then(() => {
           // Verified the user
           emails.sendEmail(emails.signedUpEmail(newUser.emailAddress, newUser.firstName));
-          TempUser.remove({ emailToken: url }, (error) => {
+          TempUser.remove({ emailToken: URL }, (error) => {
             if (error) {
               res.status(400).json(response({ error }));
             }

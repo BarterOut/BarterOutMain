@@ -98,17 +98,25 @@ class Posts extends Component {
             </div>
             <div className="col-sm-3">
               <h3>
-                Your Stats<span className="badge badge-info mx-2">Beta</span>
+                Your Stats
+                <span className="badge badge-info mx-2">Beta</span>
               </h3>
               <div className="list-group">
                 <div className="list-group-item list-group-item-action">
-                  ${this.state.moneyMade} Made
+                  $
+                  {this.state.moneyMade}
+                  &nbsp;
+                  Made
                 </div>
                 <div className="list-group-item list-group-item-action">
-                  {this.state.numberOfBooksBought} Books Bought
+                  {this.state.numberOfBooksBought}
+                  &nbsp;
+                  Books Bought
                 </div>
                 <div className="list-group-item list-group-item-action">
-                  {this.state.numberOfBooksSold} Books Sold
+                  {this.state.numberOfBooksSold}
+                  &nbsp;
+                  Books Sold
                 </div>
               </div>
             </div>

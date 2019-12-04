@@ -13,8 +13,7 @@ export default class FetchService {
    * Sends GET request to API, returning any data
    * or erros in a promise.
    * @param {String} url URL for the API request.
-   * @param {Boolean} authFlag If you want to send the Authorization
-   * header to the API, default value = true
+   * @param {Boolean} authFlag Send Authorization header?
    */
   static GET(url, authFlag = true) {
     const options = {
@@ -35,8 +34,7 @@ export default class FetchService {
    * or erros in a promise.
    * @param {String} url URL for the API request.
    * @param {Object} data Any data you want to pass to the API.
-   * @param {Boolean} authFlag If you want to send the Authorization
-   * header to the API, default value = true
+   * @param {Boolean} authFlag Send Authorization header?
    */
   static POST(url, data, authFlag = true) {
     const options = {
@@ -59,8 +57,7 @@ export default class FetchService {
    * or erros in a promise.
    * @param {String} url URL for the API request.
    * @param {Object} data Any data you want to pass to the API.
-   * @param {Boolean} authFlag If you want to send the Authorization
-   * header to the API, default value = true
+   * @param {Boolean} authFlag Send Authorization header?
    */
   static PUT(url, data, authFlag = true) {
     const options = {

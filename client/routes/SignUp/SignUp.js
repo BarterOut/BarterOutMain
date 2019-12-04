@@ -41,7 +41,7 @@ class SignUp extends Component {
 
   onChange(evt) {
     this.setState({ [evt.target.name]: evt.target.value });
-    if (evt.target.name == 'password') { this.updatePasswordStrength(evt); }
+    if (evt.target.name === 'password') { this.updatePasswordStrength(evt); }
   }
 
   updatePasswordStrength(evt) {
@@ -231,17 +231,24 @@ class SignUp extends Component {
           </div>
           <div className="password-strength" />
           <div className="terms">
-              By clicking &quot;Sign Up&quot; below, you are agreeing to our <a href="/terms-of-service" target="_blank" rel="noopener"> Terms of Service </a>
-              and <a href="/privacy-policy" target="_blank" rel="noopener"> Privacy Policy</a>.
+            By clicking &quot;Sign Up&quot; below, you are agreeing to our
+            <a href="/terms-of-service" target="_blank" rel="noopener">&nbsp;Terms of Service&nbsp;</a>
+            and
+            <a href="/privacy-policy" target="_blank" rel="noopener">&nbsp;Privacy Policy</a>
+            .
           </div>
           <button
             className="inputButtonFilled"
             type="submit"
             onClick={this.signUp}
-          >Sign Up
+          >
+          Sign Up
           </button>
 
-          <span>Back to <Link href="/" to="/">Home</Link></span>
+          <span>
+            Back to&nbsp;
+            <Link href="/" to="/">Home</Link>
+          </span>
         </div>
       </div>
     );

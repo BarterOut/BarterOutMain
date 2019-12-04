@@ -99,18 +99,45 @@ class Cart extends Component {
             <div className="col-sm-5">
               <h3>Summary</h3>
               <div className="card px-4 py-4">
-                <span className="cart-money-info">Subtotal: <b>${this._calculateMoney().subtotal}</b></span>
-                <span>Our 5% Fee: <i>${this._calculateMoney().fee}</i></span>
+                <span className="cart-money-info">
+                  Subtotal:&nbsp;
+                  <b>
+                    $
+                    {this._calculateMoney().subtotal}
+                  </b>
+                </span>
+                <span>
+                  Our 5% Fee:&nbsp;
+                  <i>
+                    $
+                    {this._calculateMoney().fee}
+                  </i>
+                </span>
                 <br />
-                <span className="cart-money-info">Total: <b>${this._calculateMoney().total}</b></span>
+                <span className="cart-money-info">
+                  Total:&nbsp;
+                  <b>
+                    $
+                    {this._calculateMoney().total}
+                  </b>
+                </span>
                 <p className="my-2">
                   When you click &quot;Checkout&quot;, we will Venmo request
-                  @<b>{this.state.venmo}</b>. Please change your Venmo username
-                  <Link to="/settings" href="settings"> here</Link> if it is not accurate.
+                  @
+                  <b>
+                    {this.state.venmo}
+                  </b>
+                  .&nbsp;Please change your Venmo username&nbsp;
+                  <Link to="/settings" href="settings">here</Link>
+                  &nbsp;if it is not accurate.
                   Until you accept our Venmo request, we will hold the book(s).
                   Once you pay, the book(s) will be delivered via the campus mail center to
-                  CMC Box <b>{this.state.CMC}</b>. Again if any of this information is not
-                  accurate, please change it <Link to="/settings" href="settings">here</Link>.
+                  CMC Box&nbsp;
+                  <b>{this.state.CMC}</b>
+                  .&nbsp;Again if any of this information is not
+                  accurate, please change it&nbsp;
+                  <Link to="/settings" href="settings">here</Link>
+                  .
                 </p>
                 <button type="button" className="btn btn-primary float-right my-2" onClick={this.buyBooks}>Checkout</button>
               </div>

@@ -34,10 +34,22 @@ function transactionEmail(transactionID) {
     User.findOne({ _id: transa.buyerID }, (E, buyer) => {
       for (let i = 0; i < transa.booksPurchased.length; i++) {
         Textbook.findOne({ _id: transa.booksPurchased[i] }, (er, book) => {
-          User.findOne({ _id: book.owner }, (E, seller) => {
+          User.findOne({ _id: book.owner }, (error, seller) => {
             emails.sendEmail(emails.emailForUs(buyer, seller, book));
-            emails.sendEmail(emails.emailToSeller(seller.emailAddress, seller.firstName, book.name));
-            emails.sendEmail(emails.venmoRequestEmail(buyer.emailAddress, buyer.firstName, book.name));
+            emails.sendEmail(
+              emails.emailToSeller(
+                seller.emailAddress,
+                seller.firstName,
+                book.name,
+              ),
+            );
+            emails.sendEmail(
+              emails.venmoRequestEmail(
+                buyer.emailAddress,
+                buyer.firstName,
+                book.name,
+              ),
+            );
           });
         });
       }

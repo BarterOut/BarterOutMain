@@ -119,7 +119,11 @@ class Login extends Component {
           />
           <div className="login-prefs">
             <Link className="forgot-password" href="/forgot-password" to="/forgot-password">Forgot Password?</Link>
-            <div>Back to <Link href="/" to="/">Home</Link>.</div>
+            <div>
+              Back to&nbsp;
+              <Link href="/" to="/">Home</Link>
+              .
+            </div>
           </div>
           <div>
             <button type="button" className="inputButtonFilled" onClick={this.login}>Log In</button>

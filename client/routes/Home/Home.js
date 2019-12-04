@@ -12,7 +12,6 @@ import SideNav from '../../components/SideNav/SideNav';
 import BookPost from '../../components/Posts/BookPost/BookPost';
 
 import FetchService from '../../services/FetchService';
-import AuthService from '../../services/AuthService';
 import ErrorService from '../../services/ErrorService';
 
 class Home extends Component {
@@ -150,17 +149,22 @@ class Home extends Component {
             </div>
             <div className="col-sm-3">
               <h3>
-                Your Stats<span className="badge badge-info mx-2">Beta</span>
+                Your Stats
+                <span className="badge badge-info mx-2">Beta</span>
               </h3>
               <div className="list-group">
                 <span className="list-group-item list-group-item-action">
-                  ${this.state.moneyMade} Made
+                  $
+                  {this.state.moneyMade}
+                  &nbsp;Made
                 </span>
                 <span className="list-group-item list-group-item-action">
-                  {this.state.numberOfBooksBought} Book(s) Bought
+                  {this.state.numberOfBooksBought}
+                  &nbsp;Book(s) Bought
                 </span>
                 <span className="list-group-item list-group-item-action">
-                  {this.state.numberOfBooksSold} Book(s) Sold
+                  {this.state.numberOfBooksSold}
+                  &nbsp;Book(s) Sold
                 </span>
               </div>
             </div>
