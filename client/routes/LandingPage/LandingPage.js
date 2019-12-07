@@ -38,7 +38,7 @@ class LandingPage extends Component {
     this.state = {
       redirect: false,
       posts: [],
-      page: 1,
+      page: 3,
       loading: false,
     };
     this.updateInputValue = this.updateInputValue.bind(this);
@@ -46,7 +46,7 @@ class LandingPage extends Component {
 
   componentDidMount() {
     this.setRedirect();
-    this.getPosts();
+    this.getPosts(3, 0);
     const booksSection = document.getElementById('landing-books');
     booksSection.addEventListener('scroll', this.updatePagePosition.bind(this));
   }
@@ -59,23 +59,26 @@ class LandingPage extends Component {
     }
   }
 
-  getPosts() {
+  getPosts(limit, offset) {
     this.setState({ loading: true });
-    FetchService.GET('/api/books/getBooksNoToken')
+    console.log(`/api/books/getBooksNoToken/${limit}/${offset}`); // eslint-disable-line
+    FetchService.GET(`/api/books/getBooksNoToken/${limit}/${offset}`)
       .then((data) => {
         this.setState({ loading: false });
-        this.setState({ posts: data });
+        const prev = this.state.posts;
+        this.setState({ posts: [...prev, ...data] });
       })
       .catch(error => ErrorService.parseError(error));
   }
 
   updatePagePosition(evt) {
-    const percent = ((evt.target.scrollTop + 124) / evt.target.scrollHeight) * 100;
-    if (percent > 45 && percent < 80) {
-      this.setState(prevState => ({
-        page: prevState.page + 1,
-      }));
-      // this.getPosts();
+    console.log(evt); // eslint-disable-line
+    this.setState(prevState => ({
+      page: prevState.page + 1,
+    }));
+
+    if (this.state.page < 10) {
+      this.getPosts(1, this.state.page);
     }
   }
 

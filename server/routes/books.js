@@ -15,7 +15,6 @@ import response from '../resources/response';
 import Pricing from '../resources/pricing';
 
 import auth from '../auth';
-import { log } from 'util';
 
 const express = require('express');
 
@@ -513,6 +512,7 @@ function getBooksNoToken(req, res) {
  * @access Public
  */
 function generalGetBooks(data) {
+  console.log(data); // eslint-disable-line
   const skip = data.skip == null ? 0 : data.skip;
   const lim = data.limit == null ? BOOK_LIMIT : data.limit;
   const query = data.usrID == null
@@ -524,13 +524,12 @@ function generalGetBooks(data) {
       ],
     };
 
-  console.log(skip, lim);
 
-  return Textbook.find(query)
+  return Textbook
+    .find(query)
     .sort({ date: -1 })
-    .limit(lim)
-    .skip(skip)
-    .exec((err, books) => Promise.resolve(books));
+    .limit(parseInt(lim, 10))
+    .skip(parseInt(skip, 10));
 }
 
 
@@ -562,7 +561,7 @@ function booksBase(req, res) {
 }
 
 router.get('/', booksBase);
-router.get('/getBooksNoToken', getBooksNoToken);
+router.get('/getBooksNoToken/:limit/:skip', getBooksNoToken);
 router.get('/getAllBooks', auth.required, getAllBooks);
 router.get('/search/public/:query', search);
 router.get('/search/:query', auth.required, searchRestricted);
