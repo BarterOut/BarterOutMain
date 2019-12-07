@@ -15,6 +15,7 @@ import response from '../resources/response';
 import Pricing from '../resources/pricing';
 
 import auth from '../auth';
+import { log } from 'util';
 
 const express = require('express');
 
@@ -498,13 +499,40 @@ function getAllBooks(req, res) {
  * @access Public
  */
 function getBooksNoToken(req, res) {
-  Textbook.find({ status: 0 })
-    .limit(BOOK_LIMIT)
-    .sort({ date: -1 })
-    .exec((err, books) => {
-      res.status(200).json(response(books));
-    });
+  const { params: { limit } } = req;
+  const { params: { skip } } = req;
+  const data = { limit, skip };
+  generalGetBooks(data)
+    .then(books => res.status(200).json(response(books)));
 }
+/**
+ * @description Returns given limit books in
+ * the database, without requiring a token.
+ * NOTE: This will display posts to a user that they
+ * posted.
+ * @access Public
+ */
+function generalGetBooks(data) {
+  const skip = data.skip == null ? 0 : data.skip;
+  const lim = data.limit == null ? BOOK_LIMIT : data.limit;
+  const query = data.usrID == null
+    ? { status: 0 }
+    : {
+      $and: [
+        { status: 0 },
+        { owner: { $ne: data.usrID } },
+      ],
+    };
+
+  console.log(skip, lim);
+
+  return Textbook.find(query)
+    .sort({ date: -1 })
+    .limit(lim)
+    .skip(skip)
+    .exec((err, books) => Promise.resolve(books));
+}
+
 
 /**
  * @description Updates the status of an old book
