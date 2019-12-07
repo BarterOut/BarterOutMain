@@ -11,7 +11,6 @@ import SideNav from '../../components/SideNav/SideNav';
 import TrackBookPost from '../../components/Posts/TrackBookPost/TrackBookPost';
 
 import FetchService from '../../services/FetchService';
-import AuthService from '../../services/AuthService';
 
 class Transactions extends Component {
   constructor() {
@@ -21,7 +20,6 @@ class Transactions extends Component {
       booksSold: [],
       booksPurchased: [],
     };
-    this.auth = new AuthService();
   }
 
   componentDidMount() {
@@ -115,17 +113,22 @@ class Transactions extends Component {
             </div>
             <div className="col-sm-3">
               <h3>
-                Your Stats<span className="badge badge-info mx-2">Beta</span>
+                Your Stats
+                <span className="badge badge-info mx-2">Beta</span>
               </h3>
               <div className="list-group">
                 <div className="list-group-item list-group-item-action">
-                  ${this.state.moneyMade} Made
+                  $
+                  {this.state.moneyMade}
+                  &nbsp;Made
                 </div>
                 <div className="list-group-item list-group-item-action">
-                  {this.state.numberOfBooksBought} Book(s) Bought
+                  {this.state.numberOfBooksBought}
+                  &nbsp;Book(s) Bought
                 </div>
                 <div className="list-group-item list-group-item-action">
-                  {this.state.numberOfBooksSold} Book(s) Sold
+                  {this.state.numberOfBooksSold}
+                  &nbsp;Book(s) Sold
                 </div>
               </div>
             </div>

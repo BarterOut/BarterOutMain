@@ -12,7 +12,6 @@ import propTypes from 'prop-types';
 import MaterialIcon from 'react-google-material-icons';
 
 import FetchService from '../../services/FetchService';
-import AuthService from '../../services/AuthService';
 
 import logo from '../../images/logo-orange.png';
 
@@ -25,7 +24,6 @@ class ResetPassword extends Component {
       passwordConfirm: '',
       password: '',
     };
-    this.Auth = new AuthService();
 
     this.resetPassword = this.resetPassword.bind(this);
     this.onChange = this.onChange.bind(this);

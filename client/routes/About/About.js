@@ -85,7 +85,9 @@ const About = () => (
           Currently we are a group of four creative students at the
           University of Rochester dedicated to improving the college experience
           for everyone using tech. If our mission resonates with you, be sure to
-          check out our updated <a to="/careers" href="/careers">careers page</a>.
+          check out our updated&nbsp;
+          <a to="/careers" href="/careers">careers page</a>
+          .
         </p>
         <div id="team-photos">
           <div className="team-member">

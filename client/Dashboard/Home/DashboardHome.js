@@ -9,7 +9,6 @@ import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 
 import FetchService from '../../services/FetchService';
-import AuthService from '../../services/AuthService';
 
 import './Dashboard.css';
 
@@ -26,7 +25,6 @@ class DashboardHome extends Component {
       generalStatistics: {},
     };
 
-    this.AUTH = new AuthService();
     this.confirm = this.confirm.bind(this);
     this.confirmPayment = this.confirmPayment.bind(this);
     this.logout = this.logout.bind(this);
@@ -77,6 +75,21 @@ class DashboardHome extends Component {
       .then((data) => {
         this.setState({ users: data });
       });
+  }
+
+  _getSpecificUser(event) {
+    const keyCode = event.keyCode || event.which;
+    if (keyCode === 13) {
+      const { target: { value } } = event;
+      if (value) {
+        FetchService.GET(`/api/dashboard/getSpecificUser/?email=${event.target.value}`)
+          .then((data) => {
+            this.setState({ users: data });
+          });
+      } else {
+        this._getAllUsers();
+      }
+    }
   }
 
   _getPurchasedBooks() {
@@ -173,9 +186,18 @@ class DashboardHome extends Component {
                 <td className="has-border">{book.name}</td>
                 <td className="has-border">{book.course}</td>
                 <td className="has-border"><b>{book.condition}</b></td>
-                <td className="has-border">@{book.ownerObject.venmoUsername}</td>
-                <td className="has-border">@{book.buyerObject.venmoUsername}</td>
-                <td className="has-border">${(book.price * 1.05).toFixed(2)}</td>
+                <td className="has-border">
+                  @
+                  {book.ownerObject.venmoUsername}
+                </td>
+                <td className="has-border">
+                  @
+                  {book.buyerObject.venmoUsername}
+                </td>
+                <td className="has-border">
+                  $
+                  {(book.price * 1.05).toFixed(2)}
+                </td>
                 <td className="has-border"><button type="button" id={book._id} className="btn btn-primary" onClick={this.confirm}>Confirm</button></td>
               </tr>
             ))}
@@ -198,9 +220,18 @@ class DashboardHome extends Component {
                 <td className="has-border">{book.name}</td>
                 <td className="has-border">{book.course}</td>
                 <td className="has-border">{book.condition}</td>
-                <td className="has-border">@{book.ownerObject.venmoUsername}</td>
-                <td className="has-border">@{book.buyerObject.venmoUsername}</td>
-                <td className="has-border">${book.price}</td>
+                <td className="has-border">
+                  @
+                  {book.ownerObject.venmoUsername}
+                </td>
+                <td className="has-border">
+                  @
+                  {book.buyerObject.venmoUsername}
+                </td>
+                <td className="has-border">
+                  $
+                  {book.price}
+                </td>
                 <td className="has-border"><button type="button" id={book._id} className="btn btn-primary" onClick={this.confirmPayment}>Confirm</button></td>
               </tr>
             ))}
@@ -222,10 +253,21 @@ class DashboardHome extends Component {
               <tr key={book._id} id={book._id}>
                 <td className="has-border">{book.name}</td>
                 <td className="has-border">{book.course}</td>
-                <td className="has-border">{book.ownerObject.firstName} {book.ownerObject.lastName}</td>
-                <td className="has-border">${book.price}</td>
+                <td className="has-border">
+                  {book.ownerObject.firstName}
+                  &nbsp;
+                  {book.ownerObject.lastName}
+                </td>
+                <td className="has-border">
+                  $
+                  {book.price}
+                </td>
                 <td className="has-border">{book.condition}</td>
-                <td className="has-border">{book.buyerObject.firstName} {book.buyerObject.lastName}</td>
+                <td className="has-border">
+                  {book.buyerObject.firstName}
+                  &nbsp;
+                  {book.buyerObject.lastName}
+                </td>
               </tr>
             ))}
           </tbody>
@@ -257,33 +299,38 @@ class DashboardHome extends Component {
               <td className="has-border">{this.state.generalStatistics.totalBooks}</td>
               <td className="has-border">{this.state.generalStatistics.totalUsers}</td>
               <td className="has-border">{this.getBooksSold()}</td>
-              <td className="has-border">${this.getTotalTransacted()}</td>
-              <td className="has-border">${this.getMoneyMade()}</td>
+              <td className="has-border">
+                $
+                {this.getTotalTransacted()}
+              </td>
+              <td className="has-border">
+                $
+                {this.getMoneyMade()}
+              </td>
             </tr>
           </tbody>
         </table>
         <h3 className="mt-4 mx-2">Users</h3>
+        <input
+          type="text"
+          defaultValue="enter an email to search by"
+          onKeyPress={this._getSpecificUser.bind(this)}
+        />
         <table className="table table-striped">
           <tbody>
             <tr>
-              {/* <th className="has-border">ID</th> */}
               <th className="has-border">First Name</th>
               <th className="has-border">Last Name</th>
               <th className="has-border">Email</th>
-              {/* <th className="has-border">Venmo</th> */}
-              {/* <th className="has-border">CMC</th> */}
               <th className="has-border"># Sold</th>
               <th className="has-border"># Bought</th>
               <th className="has-border">Admin</th>
             </tr>
             {this.state.users.map(user => (
               <tr key={user._id} id={user._id}>
-                {/* <td className="has-border">{user._id}</td> */}
                 <td className="has-border">{user.firstName}</td>
                 <td className="has-border">{user.lastName}</td>
                 <td className="has-border">{user.emailAddress}</td>
-                {/* <td className="has-border">{user.venmoUsername}</td> */}
-                {/* <td className="has-border">{user.CMC}</td> */}
                 <td className="has-border">{user.numberOfBooksSold}</td>
                 <td className="has-border">{user.numberOfBooksBought}</td>
                 {

@@ -49,18 +49,25 @@ class CartBookPost extends Component {
           </div>
           <h5 className="card-title">{this.props.name}</h5>
           <h6 className="card-subtitle mb-2 text-muted">
-            {Util.ordinalSuffixOf(this.props.edition)} Edition - {this.props.condition}
+            {Util.ordinalSuffixOf(this.props.edition)}
+            &nbsp;Edition&nbsp;-&nbsp;
+            {this.props.condition}
           </h6>
 
           <div>
             <p className="comments"><i>{this.props.comments || 'No comments'}</i></p>
           </div>
-          <span className="price">${this.props.price}*</span>
+          <span className="price">
+            $
+            {this.props.price}
+            *
+          </span>
           <button
             className="btn btn-primary float-right"
             type="button"
             onClick={this.removeFromCart}
-          >Remove
+          >
+            Remove
           </button>
           <div><small className="text-muted">* Does not include 5% fee.</small></div>
         </div>

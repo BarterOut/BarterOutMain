@@ -23,7 +23,6 @@ class ForgotPassword extends Component {
       redirect: false,
       badCreditials: false,
     };
-    this.Auth = new AuthService();
 
     this.resetPassword = this.resetPassword.bind(this);
     this.onChange = this.onChange.bind(this);
@@ -39,7 +38,7 @@ class ForgotPassword extends Component {
   }
 
   setRedirect() {
-    if (!this.Auth.isTokenExpired(this.Auth.getToken)) {
+    if (!AuthService.isTokenExpired(AuthService.getToken)) {
       this.setState({ redirect: true });
     } else {
       this.setState({ redirect: false });

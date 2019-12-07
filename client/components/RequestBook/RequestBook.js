@@ -35,16 +35,14 @@ class RequestBook extends Component {
   }
 
   postToDatabase() {
-    const AUTH = new AuthService();
-
     const payload = {
       name: this.state.name,
       course: this.state.course,
       status: 0,
-      owner: AUTH.getProfile().userInfo._id,
+      owner: AuthService.getProfile().userInfo._id,
     };
 
-    FetchService.POST('/api/books/requestBook', { payload, token: AUTH.getToken() })
+    FetchService.POST('/api/books/requestBook', { payload })
       .then(() => {
         window.location.reload();
       });
@@ -90,7 +88,8 @@ class RequestBook extends Component {
               className="btn btn-primary float-right"
               type="button"
               onClick={this.postToDatabase}
-            >Request
+            >
+              Request
             </button>
           </div>
         </form>

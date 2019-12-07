@@ -12,6 +12,7 @@ import logo from '../../images/logo-orange.png';
 
 import './Login.css';
 import '../../barterout.css';
+import FetchService from '../../services/FetchService';
 
 class Login extends Component {
   constructor(props) {
@@ -22,7 +23,6 @@ class Login extends Component {
       redirect: false,
       badCreditials: false,
     };
-    this.Auth = new AuthService();
 
     this.login = this.login.bind(this);
     this.onChange = this.onChange.bind(this);
@@ -38,7 +38,7 @@ class Login extends Component {
   }
 
   setRedirect() {
-    if (!this.Auth.isTokenExpired(this.Auth.getToken)) {
+    if (!AuthService.isTokenExpired(AuthService.getToken())) {
       this.setState({ redirect: true });
     } else {
       this.setState({ redirect: false });
@@ -56,16 +56,21 @@ class Login extends Component {
       return;
     }
 
-    const Auth = new AuthService();
+    const { emailAddress } = this.state;
+    const { password } = this.state;
 
-    Auth.login(this.state.emailAddress, this.state.password)
-      .then(() => {
+    FetchService.POST(
+      '/api/auth/login',
+      { emailAddress, password },
+      false,
+    )
+      .then((data) => {
+        AuthService.setToken(data.token);
         this.setState({ badCreditials: false });
         this.setState({ redirect: true });
-      }).catch((error) => {
-        if (error.status === 401) {
-          this.setState({ badCreditials: true });
-        }
+      })
+      .catch(() => {
+        this.setState({ badCreditials: true });
       });
   }
 
@@ -114,7 +119,11 @@ class Login extends Component {
           />
           <div className="login-prefs">
             <Link className="forgot-password" href="/forgot-password" to="/forgot-password">Forgot Password?</Link>
-            <div>Back to <Link href="/" to="/">Home</Link>.</div>
+            <div>
+              Back to&nbsp;
+              <Link href="/" to="/">Home</Link>
+              .
+            </div>
           </div>
           <div>
             <button type="button" className="inputButtonFilled" onClick={this.login}>Log In</button>

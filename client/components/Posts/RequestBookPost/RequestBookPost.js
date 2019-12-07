@@ -9,7 +9,6 @@ import propTypes from 'prop-types';
 import moment from 'moment';
 
 import FetchService from '../../../services/FetchService';
-import AuthService from '../../../services/AuthService';
 
 class RequestBookPost extends Component {
   constructor(props) {
@@ -31,10 +30,8 @@ class RequestBookPost extends Component {
   }
 
   deleteBook() {
-    const AUTH = new AuthService();
     FetchService.POST('/api/user/deleteRequest', {
       bookID: this.state.id,
-      token: AUTH.getToken(),
     })
       .then(() => {
         window.location.reload();
@@ -54,7 +51,8 @@ class RequestBookPost extends Component {
             className="btn btn-primary float-right"
             type="button"
             onClick={this.deleteBook}
-          >Unrequest
+          >
+            Unrequest
           </button>
         </div>
       </div>

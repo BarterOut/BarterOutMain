@@ -42,8 +42,7 @@ class SellBook extends Component {
   }
 
   postToDatabase() {
-    const AUTH = new AuthService();
-    const profile = AUTH.getProfile();
+    const profile = AuthService.getProfile();
 
     if (!this._validateInputs()) {
       return;
@@ -62,7 +61,7 @@ class SellBook extends Component {
       owner: profile.userInfo._id,
     };
 
-    FetchService.POST(`/api/books/postBook/${AUTH.getToken()}`, payload)
+    FetchService.POST('/api/books/postBook', payload)
       .then(() => {
         // We would fire off event for redux here to re-fetch books
         window.location.reload();
@@ -143,7 +142,8 @@ class SellBook extends Component {
             </small>
           </div>
           <div className="my-2">
-            <label htmlFor="course">Course Code*
+            <label htmlFor="course">
+              Course Code*
               <input
                 autoComplete="off"
                 className="form-control"
@@ -165,7 +165,8 @@ class SellBook extends Component {
             </div>
           </div>
           <div className="my-2">
-            <label htmlFor="price">Price*
+            <label htmlFor="price">
+              Price*
               <div className="input-group">
                 <div className="input-group-prepend">
                   <span className="input-group-text">$</span>
@@ -185,7 +186,8 @@ class SellBook extends Component {
             </label>
           </div>
           <div className="my-2">
-            <label htmlFor="isbn">ISBN
+            <label htmlFor="isbn">
+              ISBN
               <input
                 autoComplete="off"
                 className="form-control"
@@ -199,7 +201,8 @@ class SellBook extends Component {
             </label>
           </div>
           <div className="my-2">
-            <label htmlFor="condition">Condition*
+            <label htmlFor="condition">
+              Condition*
               <select defaultValue="Good" onChange={this.selectChange} className="form-control" id="condition">
                 <option value="Poor">Poor</option>
                 <option value="Fair">Fair</option>
@@ -208,7 +211,8 @@ class SellBook extends Component {
               </select>
             </label>
           </div>
-          <label htmlFor="comments">Comments
+          <label htmlFor="comments">
+            Comments
             <input
               autoComplete="off"
               className="form-control"
@@ -224,7 +228,8 @@ class SellBook extends Component {
               type="submit"
               className="btn btn-primary my-2 float-right"
               onClick={this.postToDatabase}
-            >Sell Now
+            >
+            Sell Now
             </button>
           </div>
         </form>

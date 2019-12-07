@@ -9,7 +9,6 @@ import propTypes from 'prop-types';
 import moment from 'moment';
 
 import FetchService from '../../../services/FetchService';
-import AuthService from '../../../services/AuthService';
 import Util from '../../../services/util';
 
 class PersonalBookPost extends Component {
@@ -33,10 +32,8 @@ class PersonalBookPost extends Component {
   }
 
   reactivateBook() {
-    const AUTH = new AuthService();
     FetchService.POST('/api/books/reactivateBook', {
       bookID: this.state.id,
-      token: AUTH.getToken(),
     })
       .then(() => {
         window.location.reload();
@@ -44,10 +41,8 @@ class PersonalBookPost extends Component {
   }
 
   deleteBook() {
-    const AUTH = new AuthService();
     FetchService.POST('/api/books/deleteBook', {
       bookID: this.state.id,
-      token: AUTH.getToken(),
     })
       .then(() => {
         window.location.reload();
@@ -64,28 +59,38 @@ class PersonalBookPost extends Component {
           </div>
           <h5 className="card-title">{this.props.name}</h5>
           <h6 className="card-subtitle mb-2 text-muted">
-            {Util.ordinalSuffixOf(this.props.edition)} Edition - {this.props.condition}
+            {Util.ordinalSuffixOf(this.props.edition)}
+            &nbsp;
+            Edition -
+            &nbsp;
+            {this.props.condition}
           </h6>
 
           <div>
             <p className="comments"><i>{this.props.comments || 'No comments'}</i></p>
           </div>
-          <span className="price">${this.props.price}*</span>
+          <span className="price">
+            $
+            {this.props.price}
+            *
+          </span>
           {
-            this.props.status == 5
+            this.props.status === 5
             && (
             <button
               className="btn mx-1 btn-secondary float-right"
               type="button"
               onClick={this.reactivateBook}
-            >Reactivate
+            >
+            Reactivate
             </button>)
           }
           <button
             className="btn btn-primary float-right"
             type="button"
             onClick={this.deleteBook}
-          >Remove
+          >
+          Remove
           </button>
           <div><small className="text-muted">* Does not include 5% fee.</small></div>
         </div>

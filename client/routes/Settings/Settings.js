@@ -43,11 +43,10 @@ class Settings extends Component {
   }
 
   setProfileInfo() {
-    const AUTH = new AuthService();
-    const token = AUTH.getToken();
+    const token = AuthService.getToken();
     this.setState({ token });
 
-    FetchService.GET(`/api/user/getUserData`)
+    FetchService.GET('/api/user/getUserData')
       .then((data) => {
         this.setState({ firstName: data.user.firstName });
         this.setState({ lastName: data.user.lastName });
@@ -68,7 +67,7 @@ class Settings extends Component {
     })
       .then(() => {
         this.setProfileInfo();
-        sessionStorage.setItem('name', `${this.state.firstName} ${this.state.lastName}`);
+        localStorage.setItem('name', `${this.state.firstName} ${this.state.lastName}`);
         this.setState({ updateMessageVisible: true });
       })
       .catch((error) => {
@@ -124,7 +123,8 @@ class Settings extends Component {
                 role="tab"
                 aria-controls="profile"
                 aria-selected="true"
-              >Personal Information
+              >
+              Personal Information
               </a>
             </li>
             <li className="nav-item">
@@ -136,7 +136,8 @@ class Settings extends Component {
                 role="tab"
                 aria-controls="password"
                 aria-selected="false"
-              >Account Information
+              >
+              Account Information
               </a>
             </li>
           </ul>
@@ -209,7 +210,8 @@ class Settings extends Component {
             <div className="tab-pane fade" id="password" role="tabpanel" aria-labelledby="password-tab">
               <form onSubmit={this.handlePasswordUpdate}>
                 <div className="form-group">
-                  <label htmlFor="oldPassword">Old Password
+                  <label htmlFor="oldPassword">
+                    Old Password
                     <input
                       id="oldPassword"
                       className="form-control"
