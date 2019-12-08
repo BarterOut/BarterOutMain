@@ -38,15 +38,20 @@ class LandingPage extends Component {
     this.state = {
       redirect: false,
       posts: [],
-      page: 3,
+      offset: 0,
+      // per load limit of posts
+      pageLimit: 3,
       loading: false,
     };
     this.updateInputValue = this.updateInputValue.bind(this);
   }
 
   componentDidMount() {
+    // redirect if user is logged in
     this.setRedirect();
-    this.getPosts(3, 0);
+    // load intial set of posts
+    this.getPosts(this.state.pageLimit, this.state.offset);
+    // scrolling event listener for dynamic post loading
     const booksSection = document.getElementById('landing-books');
     booksSection.addEventListener('scroll', this.updatePagePosition.bind(this));
   }
@@ -61,24 +66,28 @@ class LandingPage extends Component {
 
   getPosts(limit, offset) {
     this.setState({ loading: true });
-    console.log(`/api/books/getBooksNoToken/${limit}/${offset}`); // eslint-disable-line
     FetchService.GET(`/api/books/getBooksNoToken/${limit}/${offset}`)
       .then((data) => {
-        this.setState({ loading: false });
         const prev = this.state.posts;
         this.setState({ posts: [...prev, ...data] });
+        this.setState({ loading: false });
       })
       .catch(error => ErrorService.parseError(error));
   }
 
   updatePagePosition(evt) {
-    console.log(evt); // eslint-disable-line
-    this.setState(prevState => ({
-      page: prevState.page + 1,
-    }));
+    // how far user has scrolled
+    const scrolled = evt.target.scrollTop;
+    // max they can scroll
+    const max = evt.target.scrollHeight - evt.target.clientHeight;
 
-    if (this.state.page < 10) {
-      this.getPosts(1, this.state.page);
+    // once they get to the bottom, add to the offset
+    // and refetch posts with this new offset
+    if (scrolled === max && this.state.offset < 5) {
+      this.setState(prevState => ({
+        offset: prevState.offset + 1,
+      }));
+      this.getPosts(this.state.pageLimit, this.state.offset);
     }
   }
 
@@ -90,12 +99,7 @@ class LandingPage extends Component {
     this.setState({ loading: true });
     this.setState({ posts: [] });
     if (query === '') {
-      FetchService.GET('/api/books/getBooksNoToken')
-        .then((data) => {
-          this.setState({ loading: false });
-          this.setState({ posts: data });
-        })
-        .catch(error => ErrorService.parseError(error));
+      this.getPosts(this.state.pageLimit, 0);
       return;
     }
 

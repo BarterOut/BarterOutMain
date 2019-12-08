@@ -506,30 +506,27 @@ function getBooksNoToken(req, res) {
 }
 /**
  * @description Returns given limit books in
- * the database, without requiring a token.
- * NOTE: This will display posts to a user that they
- * posted.
- * @access Public
+ * the database, optionally requiring a token.
+ * @param data {skip, limit, userID::optional}
+ * @returns Promise
  */
 function generalGetBooks(data) {
-  console.log(data); // eslint-disable-line
-  const skip = data.skip == null ? 0 : data.skip;
-  const lim = data.limit == null ? BOOK_LIMIT : data.limit;
-  const query = data.usrID == null
+  const offset = data.skip == null ? 0 : parseInt(data.skip, 10);
+  const limit = data.limit == null ? BOOK_LIMIT : parseInt(data.limit, 10);
+  const query = (data.userID == null)
     ? { status: 0 }
     : {
       $and: [
         { status: 0 },
-        { owner: { $ne: data.usrID } },
+        { owner: { $ne: data.userID } },
       ],
     };
-
 
   return Textbook
     .find(query)
     .sort({ date: -1 })
-    .limit(parseInt(lim, 10))
-    .skip(parseInt(skip, 10));
+    .limit(limit, 10)
+    .skip(offset * limit);
 }
 
 
