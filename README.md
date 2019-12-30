@@ -1,10 +1,10 @@
-# BarterOut
+# BarterOut 📚
 
-> Web Platform and REST API of BarterOut
+> Web Platform and REST API for BarterOut 
 
-### About
-BarterOut is an student led organization at the University of Rochester.
-Our goal is to improve the college experience for everyone. We believe access to educational materials is key for the proper development of students and we are placing a bet on technology to help us solve this. We want to leverage the power of collaborative, cross-disciplinary work to help fellow students. Our [web platform](https://www.barterout.com) is a web application that helps students buy and sell used textbooks. [Skedge](https://github.com/BarterOut/Skedge) is a class scheduling application that makes finding new courses a smooth, social, and stess free experience. All our of projects are open-source and we love to see new contributions and ideas!
+### About 🙌
+BarterOut is an student led organization at the University of Rochester.🐝
+Our goal is to improve the college experience for everyone. We believe access to educational materials is key for the proper development of students and we are placing a bet on technology to help us solve this. We want to leverage the power of collaborative, cross-disciplinary work to help fellow students. Our [web platform](https://www.barterout.com) is a web application that helps students buy and sell used textbooks. [Skedge](https://github.com/BarterOut/Skedge)📓 is a class scheduling application that makes finding new courses a smooth, social, and stess free experience. All our of projects are open-source and we love to see new contributions and ideas!
 
 ---
 
@@ -23,17 +23,17 @@ Our goal is to improve the college experience for everyone. We believe access to
 10. [Jest](https://jestjs.io/docs/en/getting-started) - Test assertion library
 11. [Supertest](https://github.com/visionmedia/supertest) - Test library
 
-### Team Communication
+### Team Communication 👩‍💻
 
 At BarterOut, we use Slack as well as email for all of our task management and communication. If you are interested in staying up to date with our work, [email us](https://www.barterout.com/contact) and we will send you an invite to the Slack.
 
-### Standards
+### Standards 📐
 
 We have some basic standards for our codebase. We use a linter and any code that gets merged into the project should comply with the linter. We suggest that you set up ESLint with your editor so that you are automatically warned when you are writing code outside of the linter's rules. If you are modifying the API or making significant changes to the frontend, you should also write internal documentation with JSDoc. If you have an questions about meeting these standards you can contact duncan.grubbs@gmail.com or message @duncan on Slack. _Note that when contributing, you should do all of your work on a seperate branch and then submit a PR to merge your branch into `dev`. Do NOT push directly to `dev`._
 
 ---
 
-### Running the Project
+### Running the Project 💻
 _*Note: We use environment variables for this project. If you want to run
 the project succesfully on your local machine, you will need to create
 a file in the root directory of this folder called `.env` in which all
@@ -42,16 +42,16 @@ tokens, etc. ask either Duncan or Daniel._
 
 #### Step by Step
 
-- Open the Home Direcory in a Terminal
+- Open the Home Directory in a Terminal
 - One Mac or Linux this would look like : `cd pathToDirectory`
-- Once there run `npm install` so that all outstanding packages will be installed.
+- Once there run `npm install` so that all outstanding packages are installed
 - Now, run `npm start`
-- This will start both the REST API as well as a small dev server for testing react.
-- Now navigate to `localhost:8080` in your browser if you aren't already there.
+- This will start the API as well as a frontend development server
+- Now navigate to `localhost:8080` in your browser
 
-### How to Test
-- Run `npm run test` in the directory to run all tests.
+### How to Test 🔥
+- Run `npm run test` in the directory to run all tests
 
-### How to Build
-- Run `npm run build` in the directory to manually build the project.
-- See `webpack.config.js` for build config.
+### How to Build 🔨
+- Run `npm run build` in the directory to manually build the project
+- See `webpack.config.js` for build config
