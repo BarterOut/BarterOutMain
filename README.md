@@ -1,42 +1,37 @@
 # BarterOut
-![Build Status](https://travis-ci.com/duncangrubbs/BarterOutMain.svg?token=mqsCsACffrViQWtAjQzv&branch=dev)
 
-> The Github Repository for the Web Platform and API of BarterOut.
+> Web Platform and REST API of BarterOut
 
-### Prerequisites
+### About
+BarterOut is an student led organization at the University of Rochester.
+Our goal is to improve the college experience for everyone. We believe access to educational materials is key for the proper development of students and we are placing a bet on technology to help us solve this. We want to leverage the power of collaborative, cross-disciplinary work to help fellow students. Our [web platform](https://www.barterout.com) is a web application that helps students buy and sell used textbooks. [Skedge](https://github.com/BarterOut/Skedge) is a class scheduling application that makes finding new courses a smooth, social, and stess free experience. All our of projects are open-source and we love to see new contributions and ideas!
 
-While these are not requirements, we strongly recommend that you familiarize yourself with the following:
+---
 
-1. VS Code, Atom, Sublime Text, Web Storm or another editor.
-2. [Bash](https://en.wikipedia.org/wiki/Bash_(Unix_shell))
-3. [ESLint](https://eslint.org/) - Javascript linting
-4. [Node](https://nodejs.org/en/)
-5. [React](https://reactjs.org) - frontend library
-6. [npm](https://www.npmjs.com/) - package manager
-7. [Babel](https://babeljs.io) - for JS transpiling
-8. [Mongoose](http://mongoosejs.com) - for MongoDB
-9. [MongoDB](https://www.mongodb.com/) - JSON database
-10. [Webpack](https://webpack.github.io) - Module bundler
+### Our Tech Stack
+
+1. [VS Code](https://code.visualstudio.com/) - Text Editor
+2. [Bash](https://en.wikipedia.org/wiki/Bash_(Unix_shell)) - Shell
+3. [ESLint](https://eslint.org/) - Linter
+4. [Node](https://nodejs.org/en/) - Javascript parser
+5. [React](https://reactjs.org) - Frontend Javascript framework
+6. [npm](https://www.npmjs.com/) - Node package manager
+7. [Babel](https://babeljs.io) - Javascript transpiling
+8. [Mongoose](http://mongoosejs.com) - MongoDB wrapper
+9. [MongoDB](https://www.mongodb.com/) - Database
+10. [Webpack](https://webpack.github.io) - Frontend module bundler
 10. [Jest](https://jestjs.io/docs/en/getting-started) - Test assertion library
 11. [Supertest](https://github.com/visionmedia/supertest) - Test library
 
-### Development Environment
-
-At BarterOut, we use a variety of softwares to write and manage our code. While your own development environment setup is up to you, we have some recommendations and suggestions that will help you specifically work on our platform.
-
-We use `npm` for all of our package management. While some IDE’s allow you to manage packages through a GUI, we recommend you learn how to manage them through a bash shell so that you have a stronger understand of how `npm` works.
-
-We also use npm to start our local development server. Again, it is possible to start this server through a GUI, but we recommend you learn how to do it through a bash shell before using a GUI.
-
-For all our of version control, we use Git. Unlike npm, we **do** recommend that you find a __GUI__ to manage Git. This is mainly because we are team, and we use many branches in the development process. Being able to visualize these is extremely important when making decisions of which branch to merge into, pull from, etc.
-
 ### Team Communication
 
-At BarterOut, we use Slack as well as email for all of our task management and communication. We will send you an invite and we recommend you turn on notifications for Slack because most of our important communication will be done through there along with messages about tasks.
+At BarterOut, we use Slack as well as email for all of our task management and communication. If you are interested in staying up to date with our work, [email us](https://www.barterout.com/contact) and we will send you an invite to the Slack.
 
 ### Standards
 
-Last but not least, we have some basic standards for our code. As mentioned in our Platform Documentation, all of our code is compliant with ESLint, modern Javascript and Web Standards, and all functions are documented internally with JS Doc. This means that all of your code must comply with these standards before it is merged into the main project and shipped to users. If you have an questions about meeting these standards you can contact duncan.grubbs@gmail.com or message @duncan on Slack. _Note that when contributing, you should do all of your work on a seperate branch and then submit a PR to merge your branch into `dev`. Do NOT push directly to `dev`._
+We have some basic standards for our codebase. We use a linter and any code that gets merged into the project should comply with the linter. We suggest that you set up ESLint with your editor so that you are automatically warned when you are writing code outside of the linter's rules. If you are modifying the API or making significant changes to the frontend, you should also write internal documentation with JSDoc. If you have an questions about meeting these standards you can contact duncan.grubbs@gmail.com or message @duncan on Slack. _Note that when contributing, you should do all of your work on a seperate branch and then submit a PR to merge your branch into `dev`. Do NOT push directly to `dev`._
+
+---
 
 ### Running the Project
 _*Note: We use environment variables for this project. If you want to run

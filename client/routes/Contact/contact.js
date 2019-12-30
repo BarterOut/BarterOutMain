@@ -33,12 +33,6 @@ const Contact = () => (
           <li><a rel="noopener noreferrer" target="_blank" href="https://www.facebook.com/BarterOut/">Facebook</a></li>
           <li><a rel="noopener noreferrer" target="_blank" href="https://www.linkedin.com/company/18490388/">LinkedIn</a></li>
         </ul>
-
-        <h3>
-          or by filling out&nbsp;
-          <a rel="noopener noreferrer" target="_blank" href="https://goo.gl/forms/KMhLK9N7ZFtHTyjF2">this</a>
-          &nbsp;form.
-        </h3>
       </div>
     </div>
   </div>
