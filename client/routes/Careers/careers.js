@@ -30,24 +30,28 @@ const Careers = () => (
       <div className="header-line" />
       <div className="text-content">
         <b>
-          <h4 className="position-header">Intro</h4>
+          <h4 className="position-header">Hey there!</h4>
         </b>
         <p className="careers-text">
           At BarterOut, we want to save college students money and make
-          their live&apos;s easier. We have a small team of hard working devs
+          their lives easier. We have a small team of hard working devs
           that love to learn new technologies but we are always looking for
           more help. We are currently in the process of making all of our code
           open-source so it can be maintained by the college CS community at
           large. If you are interested in joining this team, checkout the list
           of technologies we use below and shoot us an email if you are interested.
         </p>
-        <h4>Tech Stack (MERN):</h4>
+        <h4>
+          Tech Stack&nbsp;
+          <i>(MERN)</i>
+          :
+        </h4>
         <h5>Core Stack:</h5>
         <ul>
-          <li>Node.js</li>
+          <li>MongoDB with Mongoose</li>
           <li>Express.js</li>
-          <li>mongoDB with Mongoose</li>
           <li>React.js</li>
+          <li>Node.js</li>
         </ul>
 
         <h5>Testing Stack:</h5>
@@ -56,7 +60,7 @@ const Careers = () => (
           <li>Supertest</li>
           <li>Enzyme</li>
         </ul>
-        <h5>Misc:</h5>
+        <h5>Other Tech:</h5>
         <ul>
           <li>Nodemon</li>
           <li>Babel</li>
@@ -64,7 +68,7 @@ const Careers = () => (
           <li>Webpack</li>
           <li>JWT</li>
           <li>Heroku</li>
-          <li>mLab (soon to be Atlas)</li>
+          <li>MongoDB Atlas</li>
         </ul>
       </div>
     </div>

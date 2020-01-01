@@ -26,7 +26,7 @@ const Contact = () => (
       <h1 className="text-header">Contact</h1>
       <div className="header-line" />
       <div className="text-content">
-        <h3>You can reach us by:</h3>
+        <h3>You can reach us via:</h3>
 
         <ul>
           <li>Email: development@barterout.com</li>

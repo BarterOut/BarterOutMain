@@ -162,9 +162,9 @@ class LandingPage extends Component {
               <p className="landing-para">
                 BarterOut is an ed-tech organization that offers a collection of applications for
                 universities empowering them to leverage technology in order to improve the lives
-                of their students. One of them, our book trading app, enables students to buy and
-                sell previously owned textbooks in an organized and efficient way, delivery and
-                payment included.
+                of their students. Our flagship book trading app, enables students to buy and
+                sell previously owned textbooks in an organized, cheap, and efficient way,
+                delivery and payment included.
               </p>
             </div>
             <div className="img-content right">
@@ -184,8 +184,8 @@ class LandingPage extends Component {
                 &nbsp;face.
                 We are building applications to solve problems that we see in our everyday
                 lives. We work everyday to create tools that help you get the best price
-                textbooks, find courses your friends are taking, make comments on courses
-                and professors at your school, and so much more.
+                textbooks, find courses your friends are taking, create insightful reviews of
+                professors at your school, and so much more.
               </p>
               <div className="landing-bullets">
                 <span className="landing-bullet">Simple</span>

@@ -53,9 +53,9 @@ const About = () => (
               as a reaction to the rising textbook prices and the inefficiencies in the
               second-hand markets currently used by college students. In January 2018, we
               enlarged our team with the addition of 10 new members and launched our Beta
-              later that year in March. Pavel left the team in July, but our company is still
-              growing nicely, continuously launching updates and new products to complement
-              our offering.
+              later that year in March. Pavel left the team in July 2018, but our organization
+              is still growing, continuously launching updates and new products to
+              help even more students.
             </p>
           </div>
           <div className="img-content right">
@@ -72,9 +72,11 @@ const About = () => (
             <p className="landing-para">
               Our goal is to improve the college experience for everyone.
               We are a organization for students, by students.
-              We believe access to educational materials is key for the proper development
-              of students and we are placing a bet on technology to help us solve this.
-              Our products enable universities to stay relevant in today&apos;s changing world
+              We believe access to educational materials is a key component
+              to a great college experience and we are using technology
+              to improve access for everyone. We want to leverage
+              the power of collaborative, cross-disciplinary work to help fellow students.
+              Our software enables universities to stay relevant in today&apos;s changing world
               and empower students to leverage technology to make their lives easier.
             </p>
           </div>
