@@ -92,7 +92,7 @@ class Dashboard extends Component {
           />
           <div className="login-prefs">
             <div>
-              Back to
+              Back to&nbsp;
               <Link href="/" to="/">Home</Link>
               .
             </div>
@@ -106,7 +106,7 @@ class Dashboard extends Component {
           <div className="legal-links-login">
             <Link className="fine-print-login" href="/terms-of-service" to="/terms-of-service">Terms of Service</Link>
             |
-            <Link className="fine-print-login" href="/privacy-policy" to="/privacy-policy"> Privacy Policy</Link>
+            <Link className="fine-print-login" href="/privacy-policy" to="/privacy-policy">&nbsp;Privacy Policy</Link>
           </div>
         </div>
       </div>
