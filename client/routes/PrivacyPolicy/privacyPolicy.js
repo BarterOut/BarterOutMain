@@ -92,7 +92,9 @@ const PrivacyPolicy = () => (
         </p>
         <h4>Do we use &apos;cookies&apos;?</h4>
         <p>
-          <b>Yes.</b> Cookies are small files that a site or its service provider transfers to your
+          <b>Yes.</b>
+          &nbsp;
+          Cookies are small files that a site or its service provider transfers to your
           computer&apos;s hard drive through your Web browser (if you allow) that enables the
           site&apos;s or service provider&apos;s systems to recognize your browser and capture
           and remember certain information. For instance, we use cookies to help us remember
@@ -153,7 +155,8 @@ const PrivacyPolicy = () => (
         </p>
         <p>We have not enabled Google AdSense on our site but we may do so in the future.</p>
         <h4>California Online Privacy Protection Act</h4>
-        <p>CalOPPA is the first state law in the nation to require commercial websites and
+        <p>
+          CalOPPA is the first state law in the nation to require commercial websites and
           online services to post a privacy policy. The law&apos;s reach stretches well beyond
           California to require any person or company in the United States (and conceivably the
           world) that operates websites collecting Personally Identifiable Information from
@@ -229,7 +232,8 @@ const PrivacyPolicy = () => (
           list or continue to send emails to our clients after the original transaction
           has occurred.
         </p>
-        <p>To be in accordance with CANSPAM, we agree to the following: &bull; Not use
+        <p>
+          To be in accordance with CANSPAM, we agree to the following: &bull; Not use
           false or misleading subjects or email addresses. &bull; Identify the message as
           an advertisement in some reasonable way. &bull; Include the physical address of
           our business or site headquarters. &bull; Monitor third-party email marketing
@@ -249,10 +253,13 @@ const PrivacyPolicy = () => (
         </p>
         <p>
           https://www.barterout.com
-          <br />260 East Main Street
-          <br />Suite 6325
-          <br />Rochester, NY 14604
-          <br />development@barterout.com
+          <br />
+          500 Joseph C. Wilson Blvd.
+          <br />
+          <br />
+          Rochester, NY 14627
+          <br />
+          development@barterout.com
         </p>
         <p>Last Edited on 2018-12-18</p>
         <a href="../res/Privacy Policy.pdf" download id="backLink">Download Privacy Policy</a>

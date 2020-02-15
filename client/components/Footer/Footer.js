@@ -52,7 +52,7 @@ const Footer = () => (
       </a>
     </div>
     <div id="copyright">
-      © 2018 BarterOut. All Rights Reserved.
+      © 2020 BarterOut. All Rights Reserved.
     </div>
   </div>
 );

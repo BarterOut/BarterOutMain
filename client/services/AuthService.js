@@ -1,7 +1,7 @@
 /**
  * @file AuthService.js
- * @description Auth service to standardize and simplify all of our API requests.
- * relating to authorization.
+ * @description Auth service to standardize and simplify all of our
+ * funtionality relating to authorization.
  * @author Duncan Grubbs <duncan.grubbs@gmail.com>
  * @version 0.0.4
  */
@@ -9,38 +9,17 @@
 import decode from 'jwt-decode';
 
 export default class AuthService {
-  constructor() {
-    this.fetch = this.fetch.bind(this); // JS binding stuff
-    this.login = this.login.bind(this);
-  }
-
-  /**
-   * Attempts to login a given user, returning the API response.
-   * @param {String} emailAddress Email address of user logging in.
-   * @param {String} password Password of user logging in.
-   */
-  login(emailAddress, password) {
-    // Get a token from api server using the fetch api
-    return this.fetch('/api/auth/login', {
-      method: 'POST',
-      body: JSON.stringify({ emailAddress, password }),
-    }).then((response) => {
-      this.setToken(response.data.token); // Setting the token in localStorage
-      return Promise.resolve(response);
-    });
-  }
-
   /**
    * Checks if there is a (valid) user logged in on the site.
    * @returns {Boolean} Valid user logged in.
    */
-  loggedIn() {
+  static loggedIn() {
     // Checks if there is a saved token and it's still valid
-    const token = this.getToken(); // Getting token from localstorage
+    const token = AuthService.getToken();
     if (token == null) {
       return false;
     }
-    return !this.isTokenExpired(token); // handwaiving here
+    return !AuthService.isTokenExpired(token);
   }
 
   /**
@@ -48,12 +27,12 @@ export default class AuthService {
    * This is used for the admin dashboard.
    * @returns {Boolean} Admin user logged in.
    */
-  isAdmin() {
-    const token = this.getToken();
+  static isAdmin() {
+    const token = AuthService.getToken();
     if (token == null) {
       return false;
     }
-    if (this.getProfile().userInfo.permissionType > 0) {
+    if (AuthService.getProfile().userInfo.permissionType > 0) {
       return true;
     }
     return false;
@@ -63,10 +42,10 @@ export default class AuthService {
    * Checks if the logged in user's session is expired.
    * @param {String} token Token of logged in user.
    */
-  isTokenExpired(token) {
+  static isTokenExpired(token) {
     try {
       const decoded = decode(token);
-      if (decoded.exp < Date.now() / 1000) { // Checking if token is expired.
+      if (decoded.exp < Date.now() / 1000) {
         return true;
       } else {
         return false;
@@ -77,23 +56,22 @@ export default class AuthService {
   }
 
   /**
-   * Adds or updates user token in session storage.
+   * Adds or updates user token in local storage.
    * @param {String} idToken Token from API response.
    */
-  setToken(idToken) {
+  static setToken(idToken) {
     // Saves user token to localStorage
-    if (!sessionStorage.getItem('token')) {
-      sessionStorage.setItem('token', idToken);
+    if (!localStorage.getItem('token')) {
+      localStorage.setItem('token', idToken);
     }
   }
 
   /**
-   * Gets token from session storage.
+   * Gets token from local storage.
    * @returns {String} Token or null.
    */
-  getToken() {
-    // Retrieves the user token from localStorage
-    let token = sessionStorage.getItem('token');
+  static getToken() {
+    let token = localStorage.getItem('token');
     if (token != null) {
       token = token.replace(/"/g, '');
       return token;
@@ -104,55 +82,18 @@ export default class AuthService {
   /**
    * Logs out a user.
    */
-  logout() {
+  static logout() {
     // Clear user token and profile data from localStorage
-    sessionStorage.removeItem('token');
-    sessionStorage.removeItem('name');
+    localStorage.removeItem('token');
+    localStorage.removeItem('name');
     window.location.reload();
   }
 
   /**
    * Gets the profile information of a logged in user from the token.
-   * @returns {Object} Profile.
+   * @returns {Object} Profile
    */
-  getProfile() {
-    // Using jwt-decode npm package to decode the token
-    return decode(this.getToken());
-  }
-
-  /**
-   * Generic fetch method for our API.
-   * Automatically validates responses, etc.
-   * @param {String} url API URL you are calling.
-   * @param {Object} options HTTP header options.
-   */
-  fetch(url, options) {
-    // performs api calls sending the required authentication headers
-    const headers = {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-    };
-
-    return fetch(url, {
-      headers,
-      ...options,
-    })
-      .then(res => this._checkStatus(res))
-      .then(response => response.json());
-  }
-
-  /**
-   * Checks if a given response status is OK (or some variation).
-   * @param {Object} response Response object from request.
-   */
-  _checkStatus(response) {
-    // raises an error in case response status is not a success
-    if (response.status >= 200 && response.status < 300) { // Success status lies between 200 to 300
-      return response;
-    } else {
-      const error = new Error();
-      error.status = response.status;
-      throw error;
-    }
+  static getProfile() {
+    return decode(AuthService.getToken());
   }
 }

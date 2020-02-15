@@ -19,7 +19,6 @@ class NavBar extends Component {
 
     this.state = {};
     this.logout = this.logout.bind(this);
-    this.AUTH = new AuthService();
   }
 
   componentDidMount() {
@@ -33,7 +32,7 @@ class NavBar extends Component {
 
   logout(e) {
     e.preventDefault();
-    this.AUTH.logout();
+    AuthService.logout();
   }
 
   render() {

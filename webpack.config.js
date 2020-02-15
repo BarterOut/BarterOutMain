@@ -5,6 +5,7 @@
  * @version 0.0.4
  */
 
+require('dotenv').config();
 const webpack = require('webpack');
 const { resolve } = require('path');
 

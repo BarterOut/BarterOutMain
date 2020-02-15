@@ -54,13 +54,21 @@ class BookPost extends Component {
           </div>
           <h5 className="card-title">{this.props.name}</h5>
           <h6 className="card-subtitle mb-2 text-muted">
-            {Util.ordinalSuffixOf(this.props.edition)} Edition - {this.props.condition}
+            {Util.ordinalSuffixOf(this.props.edition)}
+            &nbsp;
+            Edition -
+            &nbsp;
+            {this.props.condition}
           </h6>
 
           <div>
             <p className="comments"><i>{this.props.comments || 'No comments'}</i></p>
           </div>
-          <span className="price">${this.props.price}*</span>
+          <span className="price">
+            $
+            {this.props.price}
+            *
+          </span>
           {
             !this.state.inCart
             && (
@@ -68,7 +76,8 @@ class BookPost extends Component {
               className="btn btn-primary float-right"
               type="button"
               onClick={this.addToCart}
-            >Add to Cart
+            >
+            Add to Cart
             </button>
             )
           }
@@ -78,7 +87,8 @@ class BookPost extends Component {
             <button
               className="btn btn-success float-right"
               type="button"
-            >Added to Cart
+            >
+            Added to Cart
             </button>
             )
           }

@@ -12,7 +12,6 @@ import PersonalBookPost from '../../components/Posts/PersonalBookPost/PersonalBo
 import RequestBookPost from '../../components/Posts/RequestBookPost/RequestBookPost';
 
 import FetchService from '../../services/FetchService';
-import AuthService from '../../services/AuthService';
 
 class Posts extends Component {
   constructor() {
@@ -22,7 +21,6 @@ class Posts extends Component {
       booksPosted: [],
       booksRequested: [],
     };
-    this.auth = new AuthService();
   }
 
   componentDidMount() {
@@ -38,7 +36,7 @@ class Posts extends Component {
   }
 
   getPostedBooks() {
-    FetchService.GET(`/api/books/getUsersPosts/${this.auth.getToken()}`)
+    FetchService.GET('/api/books/getUsersPosts')
       .then((data) => {
         this.setState({ booksPosted: data });
       });
@@ -100,17 +98,25 @@ class Posts extends Component {
             </div>
             <div className="col-sm-3">
               <h3>
-                Your Stats<span className="badge badge-info mx-2">Beta</span>
+                Your Stats
+                <span className="badge badge-info mx-2">Beta</span>
               </h3>
               <div className="list-group">
                 <div className="list-group-item list-group-item-action">
-                  ${this.state.moneyMade} Made
+                  $
+                  {this.state.moneyMade}
+                  &nbsp;
+                  Made
                 </div>
                 <div className="list-group-item list-group-item-action">
-                  {this.state.numberOfBooksBought} Books Bought
+                  {this.state.numberOfBooksBought}
+                  &nbsp;
+                  Books Bought
                 </div>
                 <div className="list-group-item list-group-item-action">
-                  {this.state.numberOfBooksSold} Books Sold
+                  {this.state.numberOfBooksSold}
+                  &nbsp;
+                  Books Sold
                 </div>
               </div>
             </div>

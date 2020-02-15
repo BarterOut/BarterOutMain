@@ -12,7 +12,6 @@ import SideNav from '../../components/SideNav/SideNav';
 import BookPost from '../../components/Posts/BookPost/BookPost';
 
 import FetchService from '../../services/FetchService';
-import AuthService from '../../services/AuthService';
 import ErrorService from '../../services/ErrorService';
 
 class Home extends Component {
@@ -28,7 +27,6 @@ class Home extends Component {
       loading: false,
     };
 
-    this.AUTH = new AuthService();
     this.updateInputValue = this.updateInputValue.bind(this);
   }
 
@@ -48,7 +46,7 @@ class Home extends Component {
   }
 
   getUserStatistics() {
-    FetchService.GET(`/api/user/getUserStatistics/${this.AUTH.getToken()}`)
+    FetchService.GET('/api/user/getUserStatistics')
       .then((data) => {
         this.setState({ numberOfBooksBought: data.numberOfBooksBought });
         this.setState({ numberOfBooksSold: data.numberOfBooksSold });
@@ -57,7 +55,7 @@ class Home extends Component {
   }
 
   getUserMatches() {
-    FetchService.GET(`/api/books/getUserMatches/${this.AUTH.getToken()}`)
+    FetchService.GET('/api/books/getUserMatches')
       .then((data) => {
         this.setState({ matches: data });
       });
@@ -71,7 +69,7 @@ class Home extends Component {
     this.setState({ loading: true });
     this.setState({ posts: [] });
     if (query === '') {
-      FetchService.GET(`/api/books/getAllBooks/${this.AUTH.getToken()}`)
+      FetchService.GET('/api/books/getAllBooks')
         .then((data) => {
           this.setState({ loading: false });
           this.setState({ posts: data });
@@ -80,7 +78,7 @@ class Home extends Component {
       return;
     }
 
-    FetchService.GET(`/api/books/search/${query}/${this.AUTH.getToken()}`)
+    FetchService.GET(`/api/books/search/${query}`)
       .then((data) => {
         this.setState({ loading: false });
         this.setState({ posts: data });
@@ -151,17 +149,22 @@ class Home extends Component {
             </div>
             <div className="col-sm-3">
               <h3>
-                Your Stats<span className="badge badge-info mx-2">Beta</span>
+                Your Stats
+                <span className="badge badge-info mx-2">Beta</span>
               </h3>
               <div className="list-group">
                 <span className="list-group-item list-group-item-action">
-                  ${this.state.moneyMade} Made
+                  $
+                  {this.state.moneyMade}
+                  &nbsp;Made
                 </span>
                 <span className="list-group-item list-group-item-action">
-                  {this.state.numberOfBooksBought} Book(s) Bought
+                  {this.state.numberOfBooksBought}
+                  &nbsp;Book(s) Bought
                 </span>
                 <span className="list-group-item list-group-item-action">
-                  {this.state.numberOfBooksSold} Book(s) Sold
+                  {this.state.numberOfBooksSold}
+                  &nbsp;Book(s) Sold
                 </span>
               </div>
             </div>

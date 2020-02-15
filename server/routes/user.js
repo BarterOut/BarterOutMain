@@ -10,65 +10,73 @@ import Textbook from '../models/textbook';
 import TextbookBuy from '../models/textbookBuy';
 import User from '../models/user';
 
-import config from '../config';
 import response from '../resources/response';
 import auth from '../auth';
 
-const jwt = require('jsonwebtoken');
 const express = require('express');
 
 const router = express.Router();
 
-// TODO: This needs to return a promise.
 /**
- * [RESOURCE] Remakes matches based on the books in the request collection. *Needs testing*
- * @param {String} userID ID of the transaction schema saved in the DB.
+ * [RESOURCE] Remakes matches of a certain user.
+ * @param {String} userID ID of the user.
  */
 function remakeMatches(userID) {
-  TextbookBuy.find({ owner: userID }, (err, books) => {
-    if (books) {
-      for (let i = 0; i < books.length; i++) {
-        const BOOK = books[i];
-        // looks for a book that matches based on the name matching or the course
-        Textbook.find(
-          {
-            $and: [
-              { status: 0 },
-              {
-                $or: [
-                  { name: { $regex: BOOK.name, $options: 'i' } },
-                  { course: { $regex: BOOK.course, $options: 'i' } },
-                ],
-              },
-              { owner: { $ne: userID } },
-            ],
-          },
-          (err, matchedBooks) => {
-            const addBooks = [];
-            matchedBooks.forEach((book) => {
-              addBooks.push(book._id);
-            });
-            User.update(
-              { _id: BOOK.owner },
-              {
-                $set: {
-                  matchedBooks: { addBooks },
+  // find all books requested by the user
+  return TextbookBuy.find({ owner: userID })
+    .then((error, books) => {
+      if (books) {
+        // for each requested book
+        books.forEach((book) => {
+          // find any available book that matches the
+          // name or course code, and was not posted by userID
+          Textbook.find(
+            {
+              $and: [
+                { status: 0 },
+                {
+                  $or: [
+                    { name:   { $regex: book.name, $options: 'i' } },
+                    { course: { $regex: book.course, $options: 'i' } },
+                  ],
                 },
-              }, (error) => {
-                if (error) {
-                  throw new Error(`Error making matches: ${error}`);
-                }
-              },
-            );
-          },
-        );
+                { owner: { $ne: userID } },
+              ],
+            },
+          )
+            .then((error, matchedBooks) => {
+              const addBooks = [];
+              matchedBooks.forEach((book) => {
+                addBooks.push(book._id);
+              });
+              User.update(
+                { _id: userID },
+                {
+                  $set: {
+                    matchedBooks: { addBooks },
+                  },
+                },
+              )
+                .then(() => Promise.resolve());
+            });
+        });
       }
-    }
-  });
+      User.update(
+        { _id: userID },
+        {
+          $set: {
+            matchedBooks: [],
+          },
+        },
+      )
+        .then(() => Promise.resolve());
+    });
 }
 
 /**
- * Method for returning all the current items in a user's cart.
+ * @description Method for returning all the
+ * current items in a user's cart.
+ * @access Restricted
  */
 function getCartItems(req, res) {
   const { payload: { userInfo: { _id } } } = req;
@@ -83,7 +91,9 @@ function getCartItems(req, res) {
 }
 
 /**
- * Adds a given book ID to the in cart section of the user schema.
+ * @description Adds a given book ID to the in
+ * cart section of the user schema.
+ * @access Restricted
  */
 function addToCart(req, res) {
   const { payload: { userInfo: { _id } } } = req;
@@ -102,11 +112,12 @@ function addToCart(req, res) {
       }
     },
   );
-  res.status(202).json(response({}));
+  res.status(202).json(response());
 }
 
 /**
- * Removes given book from cart array in user.
+ * @description Removes given book from cart array in user.
+ * @access Restricted
  */
 function removeFromCart(req, res) {
   const { payload: { userInfo: { _id } } } = req;
@@ -123,19 +134,20 @@ function removeFromCart(req, res) {
           {
             cart: user.cart,
           },
-      }, (err) => {
-        if (err) {
-          res.status(400).json(response({ err }));
+      }, (error) => {
+        if (error) {
+          res.status(400).json(response({ error }));
         }
-        res.status(200).json(response({}));
+        res.status(200).json(response());
       },
     );
   });
 }
 
 /**
- * Called when a user clicks clear cart on the cart page
- * currently not in use.
+ * @access Called when a user clicks
+ * clear cart on the cart page currently not in use.
+ * @access Restricted
  */
 function clearCart(req, res) {
   const { payload: { userInfo: { _id } } } = req;
@@ -148,11 +160,13 @@ function clearCart(req, res) {
         },
     },
   );
-  res.status(200).json(response({}));
+  res.status(200).json(response());
 }
 
 /**
- * Gets all books that have been purchased by a given user.
+ * @description Gets all books that have been
+ * purchased by a given user.
+ * @access Restricted
  */
 function getPurchasedBooks(req, res) {
   const { payload: { userInfo: { _id } } } = req;
@@ -164,7 +178,9 @@ function getPurchasedBooks(req, res) {
 }
 
 /**
- * Gets all books that have been sold by a given user.
+ * @description Gets all books that have
+ * been sold by a given user.
+ * @access Restricted
  */
 function getSoldBooks(req, res) {
   const { payload: { userInfo: { _id } } } = req;
@@ -178,44 +194,39 @@ function getSoldBooks(req, res) {
 /**
  * @deprecated
  */
-router.get('/getNotifications/:token', auth.required, (req, res) => {
+function getNotifications(req, res) {
   const { payload: { userInfo: { _id } } } = req;
   User.findOne({ _id }, (err, user) => {
     res.status(200).json(response(user.notifications));
   });
-});
+}
 
 /**
- * Gets a given users statistics, (we store money made, books sold
- * and books bought.)
- * @param {Object} req Request from client.
- * @param {Object} res Body of HTTP response.
- * @returns {Object} Stats for the user.
+ * @description Gets a given users statistics,
+ * (we store money made, books sold and books bought.)
+ * @access Restricted
  */
-router.get('/getUserStatistics/:token', (req, res) => {
-  jwt.verify(req.params.token, config.key, (error, authData) => {
-    if (error) {
-      res.status(401).json(response({ error }));
-    } else {
-      User.findOne({ _id: authData.userInfo._id }, (err, user) => {
-        res.status(200).json(response({
-          numberOfBooksBought: user.numberOfBooksBought,
-          numberOfBooksSold: user.numberOfBooksSold,
-          moneyMade: user.moneyMade,
-        }));
-      });
-    }
+function getUserStatistics(req, res) {
+  const { payload: { userInfo: { _id } } } = req;
+  User.findOne({ _id }, (err, user) => {
+    res.status(200).json(response({
+      numberOfBooksBought: user.numberOfBooksBought,
+      numberOfBooksSold: user.numberOfBooksSold,
+      moneyMade: user.moneyMade,
+    }));
   });
-});
+}
 
 /**
- * Returns data of the currently logged in user.
+ * @description Returns data of the
+ * currently logged in user.
+ * @access Restricted
  */
 function getUserData(req, res) {
   const { payload: { userInfo: { _id } } } = req;
   User.findOne({ _id }, (error, user) => {
     if (!user) {
-      res.status(401).json(response({}));
+      res.status(401).json(response());
     } else {
       const returnUser = {
         _id: user._id,
@@ -234,30 +245,33 @@ function getUserData(req, res) {
   });
 }
 
-// TODO: Fix this method.
-
 /**
- * Removes a matching request for a given user.
+ * @description Removes a matching request
+ * for a given user.
+ * @access Restricted
  */
 function deleteRequest(req, res) {
   const { payload: { userInfo: { _id } } } = req;
+  const { body: { data: { bookID } } } = req;
   TextbookBuy.deleteOne({
     $and: [
-      { _id: req.body.data.bookID },
+      { _id: bookID },
       { owner: _id },
     ],
   }, (error) => {
     if (error) {
       res.status(400).json(response({ error }));
     } else {
-      remakeMatches(_id);
-      res.status(200).json(response({}));
+      remakeMatches(_id)
+        .then(() => res.status(200).json(response()));
     }
   });
 }
 
 /**
- * Gets all the books a given user has requested a match for.
+ * @description Gets all the books a given
+ * user has requested a match for.
+ * @access Restricted
  */
 function getUserRequests(req, res) {
   const { payload: { userInfo: { _id } } } = req;
@@ -289,6 +303,8 @@ router.post('/clearCart', auth.required, clearCart);
 router.get('/getPurchasedBooks', auth.required, getPurchasedBooks);
 router.get('/getUserData', auth.required, getUserData);
 router.get('/getSoldBooks', auth.required, getSoldBooks);
-router.post('/deleteRequest/', auth.required, deleteRequest);
+router.post('/deleteRequest', auth.required, deleteRequest);
+router.get('/getUserStatistics', auth.required, getUserStatistics);
+router.get('/getNotifications', auth.required, getNotifications);
 
 module.exports = router;
