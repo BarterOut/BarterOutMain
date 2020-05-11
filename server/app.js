@@ -51,7 +51,7 @@ app.use(session({
   cookie:            { secure: false },
 }));
 
-if (process.env.NODE_ENV !== 'test') {
+if (process.env.NODE_ENV !== 'test' && process.env.NODE_ENV !== 'development') {
   const airbrake = new AirbrakeClient({ // eslint-disable-line
     projectId:  process.env.AIRBRAKE_ID,
     projectKey: process.env.AIRBRAKE_KEY,

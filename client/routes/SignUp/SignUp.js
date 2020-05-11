@@ -84,16 +84,9 @@ class SignUp extends Component {
   _validateInputs() {
     let allGood = true;
     this.setState(state => ({ emailAddress: state.emailAddress.toLowerCase() }));
-    // Making sure passwords are the same.
+
     if (!VerifyService.verifyPasswords(this.state.passwordConfirm, this.state.password)) {
       this.setState({ passwordsMatch: false });
-      const $password = document.getElementsByName('password')[0];
-      const $passwordConfirm = document.getElementsByName('passwordConfirm')[0];
-
-      $password.className = 'badInput';
-
-      $passwordConfirm.className = 'badInput';
-
       allGood = false;
     } else {
       this.setState({ passwordsMatch: true });
@@ -104,38 +97,10 @@ class SignUp extends Component {
       allGood = false;
     }
 
-    // This is only temporary since we only allow U of R students currently.
-    const $emailAddress = document.getElementsByName('emailAddress')[0];
-
     if (!VerifyService.verifyEmail(this.state.emailAddress)) {
-      $emailAddress.className = 'badInput';
       this.setState({ allFilledOut: false });
       allGood = false;
-    } else {
-      $emailAddress.className = 'formInputLoginSignup';
     }
-
-    const inputsArray = document.getElementsByClassName('formInputLoginSignup');
-    const badInputsArray = document.getElementsByClassName('badInput');
-
-    for (let i = 0; i < badInputsArray.length; i++) {
-      badInputsArray[i].className = 'formInputLoginSignup';
-    }
-
-    for (let i = 0; i < inputsArray.length; i++) {
-      inputsArray[i].className = 'formInputLoginSignup';
-    }
-
-    for (let i = 0; i < inputsArray.length; i++) {
-      if (inputsArray[i].value === '') {
-        this.setState({ allFilledOut: false });
-        allGood = false;
-        inputsArray[i].className = 'badInput';
-      } else {
-        inputsArray[i].className = 'formInputLoginSignup';
-      }
-    }
-
     return allGood;
   }
 
@@ -152,82 +117,107 @@ class SignUp extends Component {
 
         <div className="rightLoginContent">
           <h3>Create an Account</h3>
-          {!this.state.allFilledOut && <h4 className="input-error">Please ensure all the required fields are filled out.</h4>}
+          {!this.state.allFilledOut && <h4 className="input-error"><em>Please ensure all the required fields are filled out.</em></h4>}
 
-          <span className="inputLabel">First Name *</span>
-          <input
-            className="formInputLoginSignup"
-            placeholder=""
-            type="text"
-            onChange={this.onChange}
-            name="firstName"
-            required
-          />
+          <label htmlFor="firstName" aria-labelledby="firstName">
+            First Name*
+            <input
+              className="form-control"
+              placeholder="John"
+              id="firstName"
+              type="text"
+              onChange={this.onChange}
+              name="firstName"
+              required
+            />
+          </label>
 
-          <span className="inputLabel">Last Name *</span>
-          <input
-            className="formInputLoginSignup"
-            placeholder=""
-            type="text"
-            onChange={this.onChange}
-            name="lastName"
-            required
-          />
+          <label htmlFor="lastName" aria-labelledby="lastName">
+            Last Name*
+            <input
+              className="form-control"
+              placeholder="Smith"
+              type="text"
+              id="lastName"
+              onChange={this.onChange}
+              name="lastName"
+              required
+            />
+          </label>
 
-          <span className="inputLabel">Email * (must be @u.rochester.edu)</span>
-          <input
-            className="formInputLoginSignup"
-            placeholder=""
-            type="email"
-            pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.+-]+\.edu$"
-            onChange={this.onChange}
-            name="emailAddress"
-            required
-          />
+          <label htmlFor="email" aria-labelledby="email">
+            Email Address*
+            <input
+              className="form-control"
+              placeholder="john@u.rochester.edu"
+              type="email"
+              id="email"
+              pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.+-]+\.edu$"
+              onChange={this.onChange}
+              name="emailAddress"
+              required
+            />
+          </label>
 
-          <span className="inputLabel">University *</span>
-          <select onChange={this.selectChange} className="schoolInput">
-            <option value="University of Rochester">University of Rochester</option>
-          </select>
+          <label htmlFor="university" aria-labelledby="university">
+            University*
+            <select onChange={this.selectChange} className="form-control" id="university">
+              <option value="University of Rochester">University of Rochester</option>
+            </select>
+          </label>
 
-          <span className="inputLabel">Venmo Username *</span>
-          <input
-            className="formInputLoginSignup"
-            placeholder=""
-            type="text"
-            onChange={this.onChange}
-            name="venmoUsername"
-            required
-          />
+          <label htmlFor="venmo" aria-labelledby="venmo">
+            Venmo Username (no @)
+            <input
+              className="form-control"
+              placeholder="John-Smith"
+              type="text"
+              id="venmo"
+              onChange={this.onChange}
+              name="venmoUsername"
+              required
+            />
+          </label>
 
-          <span className="inputLabel">CMC Box Number (6 digits) *</span>
-          <input
-            className="formInputLoginSignup"
-            placeholder=""
-            type="number"
-            onChange={this.onChange}
-            name="CMC"
-            required
-          />
+          <label htmlFor="cmc" aria-labelledby="cmc">
+            CMC Box Number (6 digits)
+            <input
+              className="form-control"
+              placeholder="123456"
+              type="number"
+              id="cmc"
+              onChange={this.onChange}
+              name="CMC"
+              required
+            />
+          </label>
 
           {!this.state.passwordsMatch && <h4 className="input-error">Please make sure your passwords are the same!</h4>}
           <div className="line">
-            <input
-              className="formInputSignup"
-              placeholder="Password"
-              type="password"
-              name="password"
-              onChange={this.onChange}
-              required
-            />
-            <input
-              className="formInputSignup"
-              placeholder="Confirm Password"
-              type="password"
-              name="passwordConfirm"
-              onChange={this.onChange}
-              required
-            />
+            <label htmlFor="password" aria-labelledby="password">
+              Password*
+              <input
+                className="form-control"
+                placeholder="Password"
+                type="password"
+                id="password"
+                name="password"
+                onChange={this.onChange}
+                required
+              />
+            </label>
+            <label htmlFor="passwordConfirm" aria-labelledby="passwordConfirm">
+              Confirm Password*
+              <input
+                className="form-control"
+                placeholder="Confirm Password"
+                type="password"
+                id="passwordConfirm"
+                name="passwordConfirm"
+                onChange={this.onChange}
+                required
+              />
+            </label>
           </div>
           <div className="password-strength" />
           <div className="terms">

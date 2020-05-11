@@ -19,7 +19,7 @@ const Footer = () => (
         <div className="footer__columnHeader">Company</div>
         <a to="/about" href="/about" className="footer__link">About</a>
         <br />
-        <a to="/careers" href="/careers" className="footer__link">Careers</a>
+        <a to="/team" href="/team" className="footer__link">Our Team</a>
         <br />
         <a to="/contact" href="/contact" className="footer__link">Contact</a>
         <br />

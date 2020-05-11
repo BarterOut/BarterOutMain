@@ -1,4 +1,4 @@
-# 📚 BarterOut 
+# 📚 BarterOut ![Build Status](https://travis-ci.com/BarterOut/BarterOutMain.svg?branch=dev)
 
 > Web Platform and REST API for BarterOut 
 

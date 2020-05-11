@@ -188,13 +188,11 @@ function login(req, res) {
   const { body: { data: { emailAddress, password } } } = req;
   User.findOne({ emailAddress }, (error, user) => {
     if (error) {
-      res.status(400).json(response({ error }));
-    }
-    if (!user) {
-      res.status(401).json(response({ error: 'No Account' }));
-    }
-    if (!user.checkPassword(password)) {
-      res.status(401).json(response({ error: 'Incorrect Password' }));
+      return res.status(400).json(response({ error }));
+    } else if (user == null) {
+      return res.status(401).json(response({ error: 'No Account' }));
+    } else if (!user.checkPassword(password)) {
+      return res.status(401).json(response({ error: 'Incorrect Password' }));
     }
 
     const userInfo = {
@@ -205,7 +203,7 @@ function login(req, res) {
     };
 
     // Creates the token and sends the JSON back
-    jwt.sign({ userInfo }, config.key, { expiresIn: '30 days' }, (error, token) => {
+    return jwt.sign({ userInfo }, config.key, { expiresIn: '30 days' }, (error, token) => {
       res.status(200).json(response({ token }));
     });
   });

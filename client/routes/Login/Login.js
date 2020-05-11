@@ -93,36 +93,42 @@ class Login extends Component {
           <h1>Welcome to</h1>
           <Link to="/" href="/"><img className="wide-logo" src={logo} alt="logo" /></Link>
         </div>
+
         <div className="rightLoginContent">
           <h2 id="login-header">
           Log In
           </h2>
           {this.state.badCreditials && <span className="input-error">Incorrect Username or Password</span>}
-          <span className="inputLabel">Email</span>
-          <input
-            className="formInputLoginSignup"
-            onChange={this.onChange}
-            placeholder="Email"
-            type="email"
-            pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.+-]+\.edu$"
-            name="emailAddress"
-            required
-          />
-          <span className="inputLabel">Password</span>
-          <input
-            className="formInputLoginSignup"
-            onChange={this.onChange}
-            placeholder="Password"
-            type="password"
-            name="password"
-            required
-          />
+          <label htmlFor="email" aria-labelledby="email">
+            Email
+            <input
+              className="form-control"
+              onChange={this.onChange}
+              placeholder="Email"
+              id="email"
+              type="email"
+              pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.+-]+\.edu$"
+              name="emailAddress"
+              required
+            />
+          </label>
+          <label htmlFor="password" aria-labelledby="password">
+            Password
+            <input
+              className="form-control"
+              onChange={this.onChange}
+              placeholder="Password"
+              id="password"
+              type="password"
+              name="password"
+              required
+            />
+          </label>
           <div className="login-prefs">
             <Link className="forgot-password" href="/forgot-password" to="/forgot-password">Forgot Password?</Link>
             <div>
               Back to&nbsp;
               <Link href="/" to="/">Home</Link>
-              .
             </div>
           </div>
           <div>

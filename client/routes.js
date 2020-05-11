@@ -29,7 +29,7 @@ import Cart from './routes/Cart/Cart';
 import TermsOfService from './routes/TermsOfService/termsOfService';
 import PrivacyPolicy from './routes/PrivacyPolicy/privacyPolicy';
 import Contact from './routes/Contact/contact';
-import Careers from './routes/Careers/careers';
+import Team from './routes/Team/team';
 import About from './routes/About/About';
 
 import ForgotPassword from './routes/ForgotPassword/ForgotPassword';
@@ -67,7 +67,7 @@ export default (
     <Route exact path="/terms-of-service" component={TermsOfService} />
     <Route exact path="/privacy-policy" component={PrivacyPolicy} />
     <Route exact path="/contact" component={Contact} />
-    <Route exact path="/careers" component={Careers} />
+    <Route exact path="/team" component={Team} />
     <Route exact path="/About" component={About} />
     <Route path="/resetPassword/:resetToken" component={ResetPassword} />
 
