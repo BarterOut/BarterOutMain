@@ -30,8 +30,8 @@ describe('GET /books ', () => {
 });
 
 describe('POST /books ', () => {
-  test('/requestBook', async () => {
+  test('/requestBook should fail with no auth', async () => {
     const response = await request(app).post('/api/books/requestBook');
-    expect(response.statusCode).toBe(404);
+    expect(response.statusCode).toBe(401);
   });
 });
