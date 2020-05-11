@@ -20,10 +20,9 @@ import logo from '../../images/logo-orange.png';
 import stairs from '../../images/stairsCompressed.jpg';
 import barteroutTeam from '../../images/barterout-team.jpg';
 
-import vlad from '../../images/team-photos/vladCazacu.jpg';
 import duncan from '../../images/team-photos/duncanGrubbs.jpg';
 import daniel from '../../images/team-photos/danielMunoz.jpg';
-import nikolai from '../../images/team-photos/Nikolai.jpg';
+// import nikolai from '../../images/team-photos/Nikolai.jpg';
 
 import Footer from '../../components/Footer/Footer';
 

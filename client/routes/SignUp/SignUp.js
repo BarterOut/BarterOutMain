@@ -146,7 +146,8 @@ class SignUp extends Component {
           </label>
 
           <label htmlFor="email" aria-labelledby="email">
-            Email Address*
+            Email Address*&nbsp;
+            <em>(must be UR email)</em>
             <input
               className="form-control"
               placeholder="john@u.rochester.edu"
@@ -167,7 +168,8 @@ class SignUp extends Component {
           </label>
 
           <label htmlFor="venmo" aria-labelledby="venmo">
-            Venmo Username (no @)
+            Venmo Username&nbsp;
+            <em>(no @)</em>
             <input
               className="form-control"
               placeholder="John-Smith"
@@ -180,7 +182,8 @@ class SignUp extends Component {
           </label>
 
           <label htmlFor="cmc" aria-labelledby="cmc">
-            CMC Box Number (6 digits)
+            CMC Box Number&nbsp;
+            <em>(6 digits)</em>
             <input
               className="form-control"
               placeholder="123456"
@@ -221,11 +224,11 @@ class SignUp extends Component {
           </div>
           <div className="password-strength" />
           <div className="terms">
-            By clicking &quot;Sign Up&quot; below, you are agreeing to our
-            <a href="/terms-of-service" target="_blank" rel="noopener">&nbsp;Terms of Service&nbsp;</a>
-            and
-            <a href="/privacy-policy" target="_blank" rel="noopener">&nbsp;Privacy Policy</a>
-            .
+            By clicking &quot;Sign Up&quot; below, you are agreeing to our&nbsp;
+            <a href="/terms-of-service" target="_blank" rel="noopener">Terms of Service</a>
+            &nbsp;and&nbsp;
+            <a href="/privacy-policy" target="_blank" rel="noopener">Privacy Policy</a>
+            &nbsp;.
           </div>
           <button
             className="inputButtonFilled"

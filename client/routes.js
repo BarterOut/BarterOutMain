@@ -38,8 +38,8 @@ import ResetPassword from './routes/resetPassword/ResetPassword';
 import SignUpSuccess from './routes/SignUpSuccess/SignUpSuccess';
 import EmailConfirmed from './routes/EmailConfirmed/EmailConfirmed';
 
-import DashboardHome from './Dashboard/Home/DashboardHome';
-import Dashboard from './Dashboard/Dashboard';
+import DashboardHome from './dashboard/Home/DashboardHome';
+import Dashboard from './dashboard/Dashboard';
 
 import page404 from './routes/page404/page404';
 
