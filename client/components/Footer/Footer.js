@@ -32,6 +32,8 @@ const Footer = () => (
       </div>
       <div className="footer__linkColumn">
         <div className="footer__columnHeader">Developer</div>
+        <a to="/dashboard" href="/dashboard" className="footer__link">Admin Dashboard</a>
+        <br />
         <a href="https://github.com/BarterOut/api-docs" className="footer__link">API Documentation</a>
         <br />
         <a href="https://github.com/BarterOut/" className="footer__link">GitHub</a>

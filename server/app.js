@@ -27,7 +27,7 @@ const bodyParser = require('body-parser');
 const session = require('express-session');
 
 // Error Handling Service
-const AirbrakeClient = require('airbrake-js');
+const Airbrake = require('@airbrake/node');
 
 // API Routes
 const auth = require('./routes/auth');
@@ -52,7 +52,7 @@ app.use(session({
 }));
 
 if (process.env.NODE_ENV !== 'test' && process.env.NODE_ENV !== 'development') {
-  const airbrake = new AirbrakeClient({ // eslint-disable-line
+  const airbrake = new Airbrake.Notifier({ // eslint-disable-line
     projectId:  process.env.AIRBRAKE_ID,
     projectKey: process.env.AIRBRAKE_KEY,
   });
