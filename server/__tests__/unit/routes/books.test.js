@@ -15,16 +15,16 @@ const request = require('supertest');
 // so that we can run each on individually
 
 let server;
-  beforeAll(done => {
-    jest.useFakeTimers();
-    server = app.listen(5000, () => {
-      done();
-    });
+beforeAll(done => {
+  jest.useFakeTimers();
+  server = app.listen(5000, () => {
+    done();
   });
+});
 
-  afterAll(done => {
-    server.close(done);
-  });
+afterAll(done => {
+  server.close(done);
+});
 
 describe('GET /books ', () => {
   test('/', (done) => {
