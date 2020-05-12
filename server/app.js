@@ -1,6 +1,6 @@
 /**
- * @file server.js
- * @description Entry point of Express.js server.
+ * @file app.js
+ * @description Define the app to listen on port.
  * @author Duncan Grubbs <duncan.grubbs@gmail.com>
  * @author Daniel Munoz
  * @author Shawn Chan
@@ -17,9 +17,6 @@ import webpackDevMiddleware from 'webpack-dev-middleware';
 import webpackHotMiddleware from 'webpack-hot-middleware';
 import config from '../webpack.config';
 
-// Configurations
-import serverConfig from './config';
-
 // DB Connection
 import mongoDB from './database/mongoDB';
 
@@ -34,8 +31,6 @@ const auth = require('./routes/auth');
 const user = require('./routes/user');
 const books = require('./routes/books');
 const dashboard = require('./routes/dashboard');
-
-const PORT = serverConfig.port;
 
 // Initialize the Express App
 const app = new Express();
@@ -122,13 +117,4 @@ app.get('*', (req, res) => {
   }
 });
 
-// Start App
-const server = app.listen(PORT, (error) => {
-  if (!error) {
-    console.log(`MERN is running on port: ${serverConfig.port}`); // eslint-disable-line
-  } else {
-    console.log(error); // eslint-disable-line
-  }
-});
-
-export default server;
+export default app;
