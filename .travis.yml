@@ -6,3 +6,6 @@ install:
 script:
   - npm run test
   - codecov
+notifications:
+  - email:
+    - development@barterout.com
