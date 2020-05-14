@@ -6,7 +6,7 @@
   "scripts": {
     "start": "nodemon index.js",
     "lint": "eslint .",
-    "test": "NODE_ENV=test jest --projects client server",
+    "test": "NODE_ENV=test jest --projects client server --forceExit",
     "test-client": "NODE_ENV=test jest --projects client",
     "test-server": "NODE_ENV=test jest --projects server",
     "build": "webpack"
