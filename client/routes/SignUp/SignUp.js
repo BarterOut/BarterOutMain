@@ -69,7 +69,7 @@ class SignUp extends Component {
       FetchService.POST('/api/auth/signup', {
         emailAddress: this.state.emailAddress,
         password: this.state.password,
-        venmoUsername: this.state.venmoUsername,
+        venmoUsername: this.state.venmoUsername.replace('@', ''),
         firstName: this.state.firstName,
         university: this.state.university,
         lastName: this.state.lastName,
@@ -168,8 +168,7 @@ class SignUp extends Component {
           </label>
 
           <label htmlFor="venmo" aria-labelledby="venmo">
-            Venmo Username&nbsp;
-            <em>(no @)</em>
+            Venmo Username
             <input
               className="form-control"
               placeholder="John-Smith"

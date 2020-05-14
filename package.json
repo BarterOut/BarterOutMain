@@ -5,7 +5,6 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon index.js",
-    "dev": "concurrently \"npm start\" ",
     "lint": "eslint .",
     "test": "NODE_ENV=test jest --projects client server",
     "test-client": "NODE_ENV=test jest --projects client",
