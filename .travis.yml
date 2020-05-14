@@ -1,11 +1,8 @@
-env:
-  global:
-    - CC_TEST_REPORTER_ID=d781e464b0595dd75f57be95e1e9977a31e8099fd821c1998bfe3d2f42c94506
 language: node_js
 node_js:
   - "stable"
 install:
-  - npm install -g codecov
+  - npm install
 before_script:
   - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
   - chmod +x ./cc-test-reporter
