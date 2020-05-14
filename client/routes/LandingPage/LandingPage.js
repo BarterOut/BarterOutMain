@@ -39,8 +39,7 @@ class LandingPage extends Component {
       redirect: false,
       posts: [],
       offset: 0,
-      // per load limit of posts
-      pageLimit: 3,
+      pageLimit: 20,
       loading: false,
     };
     this.updateInputValue = this.updateInputValue.bind(this);

@@ -27,7 +27,7 @@ const rand = require('rand-token');
 const jwt = require('jsonwebtoken');
 const emails = require('../resources/emails');
 
-const notification = require('../resources/Notifications');
+const notification = require('../resources/notifications');
 
 /**
  * Hashes a user's password.

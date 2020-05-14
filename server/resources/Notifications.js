@@ -1,12 +1,11 @@
 /**
- * @file Notifications.js
+ * @file notifications.js
  * @description Notification functions for returning various types of notifications.
  * @author Daniel Munoz
  * @author Duncan Grubbs <duncan.grubbs@gmail.com>
  * @version 0.0.4
  */
 
-// For formatting dates
 import moment from 'moment';
 
 module.exports = {

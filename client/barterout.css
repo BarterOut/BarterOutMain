@@ -213,6 +213,11 @@ button:focus {
   overflow-y: scroll;
 }
 
+.notifications {
+  max-height: 250px;
+  overflow-y: scroll;
+}
+
 .inputLabelHome {
   display: flex;
   margin: 8px 0;

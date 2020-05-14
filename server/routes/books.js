@@ -21,7 +21,7 @@ const express = require('express');
 const router = express.Router();
 
 const emails = require('../resources/emails');
-const notification = require('../resources/Notifications');
+const notification = require('../resources/notifications');
 
 const BOOK_LIMIT = 40;
 
