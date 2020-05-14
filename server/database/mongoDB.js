@@ -15,6 +15,8 @@ module.exports = {
     mongoose.connect(
       config.mongoURL,
       {
+        useCreateIndex: true,
+        useUnifiedTopology: true,
         useNewUrlParser: true,
         useFindAndModify: false,
       },

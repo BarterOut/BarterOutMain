@@ -1,14 +1,11 @@
 {
   "presets": [
-    "react",
-    "es2015",
-    "es2016",
-    "es2017",
-    "stage-3"
+    "@babel/preset-env",
+    "@babel/preset-react"
   ],
   "plugins": [
-    "transform-runtime",
-    "syntax-async-functions",
-    "transform-regenerator"
+    "@babel/plugin-transform-runtime",
+    "@babel/plugin-syntax-async-generators",
+    "@babel/plugin-transform-regenerator"
   ]
 }

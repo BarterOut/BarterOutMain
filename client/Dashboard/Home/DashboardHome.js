@@ -10,7 +10,7 @@ import { Redirect } from 'react-router-dom';
 
 import FetchService from '../../services/FetchService';
 
-import './Dashboard.css';
+import '../dashboard.css';
 
 class DashboardHome extends Component {
   constructor() {
@@ -78,17 +78,14 @@ class DashboardHome extends Component {
   }
 
   _getSpecificUser(event) {
-    const keyCode = event.keyCode || event.which;
-    if (keyCode === 13) {
-      const { target: { value } } = event;
-      if (value) {
-        FetchService.GET(`/api/dashboard/getSpecificUser/?email=${event.target.value}`)
-          .then((data) => {
-            this.setState({ users: data });
-          });
-      } else {
-        this._getAllUsers();
-      }
+    const { target: { value } } = event;
+    if (value) {
+      FetchService.GET(`/api/dashboard/getSpecificUser/?email=${event.target.value}`)
+        .then((data) => {
+          this.setState({ users: data });
+        });
+    } else {
+      this._getAllUsers();
     }
   }
 
@@ -311,11 +308,16 @@ class DashboardHome extends Component {
           </tbody>
         </table>
         <h3 className="mt-4 mx-2">Users</h3>
-        <input
-          type="text"
-          defaultValue="enter an email to search by"
-          onKeyPress={this._getSpecificUser.bind(this)}
-        />
+        <label htmlFor="emailSearch">
+          Search
+          <input
+            type="text"
+            className="form-control"
+            placeholder="Email Address"
+            onChange={this._getSpecificUser.bind(this)}
+            id="emailSearch"
+          />
+        </label>
         <table className="table table-striped">
           <tbody>
             <tr>

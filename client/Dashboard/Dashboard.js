@@ -71,42 +71,48 @@ class Dashboard extends Component {
           Log In
           </h2>
           {this.state.badCreditials && <span className="input-error">Incorrect Username or Password</span>}
-          <span className="inputLabel">Email</span>
-          <input
-            className="formInputLoginSignup"
-            onChange={this.onChange}
-            placeholder="Email"
-            type="email"
-            pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.+-]+\.edu$"
-            name="emailAddress"
-            required
-          />
-          <span className="inputLabel">Password</span>
-          <input
-            className="formInputLoginSignup"
-            onChange={this.onChange}
-            placeholder="Password"
-            type="password"
-            name="password"
-            required
-          />
+          <label htmlFor="email" aria-labelledby="email">
+            Email
+            <input
+              className="form-control"
+              onChange={this.onChange}
+              placeholder="Email"
+              id="email"
+              type="email"
+              pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.+-]+\.edu$"
+              name="emailAddress"
+              required
+            />
+          </label>
+          <label htmlFor="password" aria-labelledby="password">
+            Password
+            <input
+              className="form-control"
+              onChange={this.onChange}
+              placeholder="Password"
+              id="password"
+              type="password"
+              name="password"
+              required
+            />
+          </label>
           <div className="login-prefs">
+            <Link className="forgot-password" href="/forgot-password" to="/forgot-password">Forgot Password?</Link>
             <div>
               Back to&nbsp;
               <Link href="/" to="/">Home</Link>
-              .
             </div>
           </div>
           <div>
-            <button className="inputButtonFilled" onClick={this.login} type="submit">Log In</button>
+            <button type="button" className="inputButtonFilled" onClick={this.login}>Log In</button>
             <Link href="/signup" to="/signup">
-              <button className="inputButton" type="button">Sign Up</button>
+              <button type="button" className="inputButton">Sign Up</button>
             </Link>
           </div>
           <div className="legal-links-login">
             <Link className="fine-print-login" href="/terms-of-service" to="/terms-of-service">Terms of Service</Link>
             |
-            <Link className="fine-print-login" href="/privacy-policy" to="/privacy-policy">&nbsp;Privacy Policy</Link>
+            <Link className="fine-print-login" href="/privacy-policy" to="/privacy-policy"> Privacy Policy</Link>
           </div>
         </div>
       </div>
