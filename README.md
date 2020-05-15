@@ -1,3 +1,6 @@
+![Build Status](https://travis-ci.com/BarterOut/BarterOutMain.svg?branch=dev)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/a735fc177d007c031d70/test_coverage)](https://codeclimate.com/github/BarterOut/BarterOutMain/test_coverage)
+[![Maintainability](https://api.codeclimate.com/v1/badges/a735fc177d007c031d70/maintainability)](https://codeclimate.com/github/BarterOut/BarterOutMain/maintainability)
 # 📚 BarterOut 
 
 > Web Platform and REST API for BarterOut 
@@ -45,7 +48,7 @@ tokens, etc. email us or ask either @duncan or @Daniel on Slack._
 - Once there run `npm install` so that all outstanding packages are installed
 - Now, run `npm start`
 - This will start the API as well as a frontend development server
-- Now navigate to `localhost:8080` in your browser
+- Now navigate to `localhost:5000` in your browser
 
 ### 🔥 How to Test 
 - Run `npm run test` in the directory to run **all** tests

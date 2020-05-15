@@ -170,7 +170,6 @@ label {
   color: red;
   font-weight: bold;
   font-size: 1.3em;
-  margin: 8px;
 }
 
 input {
@@ -211,6 +210,11 @@ button:focus {
   min-height: 50px;
   max-height: 25vh;
   margin: 8px 0;
+  overflow-y: scroll;
+}
+
+.notifications {
+  max-height: 250px;
   overflow-y: scroll;
 }
 

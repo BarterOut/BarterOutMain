@@ -86,7 +86,7 @@ export default class FetchService {
       ? {
         Accept: 'application/json',
         'Content-Type': 'application/json',
-        Authorization: `Token ${AuthService.getToken()}`,
+        Authorization: `Bearer ${AuthService.getToken()}`,
       }
       : {
         Accept: 'application/json',

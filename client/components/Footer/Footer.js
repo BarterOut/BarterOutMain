@@ -19,7 +19,7 @@ const Footer = () => (
         <div className="footer__columnHeader">Company</div>
         <a to="/about" href="/about" className="footer__link">About</a>
         <br />
-        <a to="/careers" href="/careers" className="footer__link">Careers</a>
+        <a to="/team" href="/team" className="footer__link">Our Team</a>
         <br />
         <a to="/contact" href="/contact" className="footer__link">Contact</a>
         <br />
@@ -32,6 +32,8 @@ const Footer = () => (
       </div>
       <div className="footer__linkColumn">
         <div className="footer__columnHeader">Developer</div>
+        <a to="/dashboard" href="/dashboard" className="footer__link">Admin Dashboard</a>
+        <br />
         <a href="https://github.com/BarterOut/api-docs" className="footer__link">API Documentation</a>
         <br />
         <a href="https://github.com/BarterOut/" className="footer__link">GitHub</a>

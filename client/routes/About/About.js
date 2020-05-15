@@ -20,10 +20,9 @@ import logo from '../../images/logo-orange.png';
 import stairs from '../../images/stairsCompressed.jpg';
 import barteroutTeam from '../../images/barterout-team.jpg';
 
-import vlad from '../../images/team-photos/vladCazacu.jpg';
 import duncan from '../../images/team-photos/duncanGrubbs.jpg';
 import daniel from '../../images/team-photos/danielMunoz.jpg';
-import nikolai from '../../images/team-photos/Nikolai.jpg';
+// import nikolai from '../../images/team-photos/Nikolai.jpg';
 
 import Footer from '../../components/Footer/Footer';
 
@@ -84,39 +83,36 @@ const About = () => (
         <h1 className="text-header margin">Meet Our Team</h1>
         <div className="header-line margin" />
         <p className="landing-para about-team">
-          Currently we are a group of four creative students at the
+          We believe access to educational materials is a key component to a great
+          college experience and we are using technology to improve access for
+          everyone. All our of projects are open-source and we love to see new
+          contributions and ideas!
+          Currently, BarterOut is managed by a small group of students at
           University of Rochester dedicated to improving the college experience
           for everyone using tech. If our mission resonates with you, be sure to
           check out our updated&nbsp;
-          <a to="/careers" href="/careers">careers page</a>
+          <a to="/team" href="/team">team page</a>
           .
         </p>
         <div id="team-photos">
-          <div className="team-member">
-            <img className="team-photo" src={vlad} alt="Vlad" />
-            <h4 className="subtext">Vlad Cazacu</h4>
-            <h4 className="subtext1">Co-Founder &amp; Advisor</h4>
-            <h4 className="subtext2">UR &apos;20</h4>
-          </div>
-
-          <div className="team-member">
+          {/* <div className="team-member">
             <img className="team-photo" src={nikolai} alt="Nikolai" />
             <h4 className="subtext">Nikolai Draganov</h4>
             <h4 className="subtext1">Product Development</h4>
             <h4 className="subtext2">UR &apos;21</h4>
-          </div>
+          </div> */}
 
           <div className="team-member">
             <img className="team-photo" src={duncan} alt="Duncan" />
             <h4 className="subtext">Duncan Grubbs</h4>
-            <h4 className="subtext1">Software Development</h4>
+            <h4 className="subtext1">Software Maintainer</h4>
             <h4 className="subtext2">UR &apos;21</h4>
           </div>
 
           <div className="team-member">
             <img className="team-photo" src={daniel} alt="Daniel" />
             <h4 className="subtext">Daniel Munoz</h4>
-            <h4 className="subtext1">Software Development</h4>
+            <h4 className="subtext1">Software Maintainer</h4>
             <h4 className="subtext2">UR &apos;21</h4>
           </div>
         </div>

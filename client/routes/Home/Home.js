@@ -21,6 +21,7 @@ class Home extends Component {
     this.state = {
       posts: [],
       matches: [],
+      notifications: [],
       numberOfBooksBought: 0,
       numberOfBooksSold: 0,
       moneyMade: 0,
@@ -31,9 +32,11 @@ class Home extends Component {
   }
 
   componentDidMount() {
-    this.getUserStatistics();
+    // Prioritize what we fetch first
     this.getAllBooks();
     this.getUserMatches();
+    this.getUserNotifications();
+    this.getUserStatistics();
   }
 
   getAllBooks() {
@@ -43,6 +46,13 @@ class Home extends Component {
         this.setState({ loading: false });
         this.setState({ posts: data });
       });
+  }
+
+  getUserNotifications() {
+    FetchService.GET('/api/user/getNotifications')
+    .then((data) => {
+      this.setState({ notifications: data })
+    });
   }
 
   getUserStatistics() {
@@ -148,10 +158,9 @@ class Home extends Component {
               </div>
             </div>
             <div className="col-sm-3">
-              <h3>
-                Your Stats
-                <span className="badge badge-info mx-2">Beta</span>
-              </h3>
+              <h4>
+                Stats
+              </h4>
               <div className="list-group">
                 <span className="list-group-item list-group-item-action">
                   $
@@ -166,6 +175,18 @@ class Home extends Component {
                   {this.state.numberOfBooksSold}
                   &nbsp;Book(s) Sold
                 </span>
+              </div>
+              <br />
+              <h4>
+                Notifications
+              </h4>
+              <div class="list-group notifications">
+                {this.state.notifications.map(notif => (
+                  <div class="list-group-item list-group-item-action">
+                    <p class="mb-1">{notif.message}</p>
+                    <small>{notif.date}</small>
+                  </div>
+                ))}
               </div>
             </div>
           </div>

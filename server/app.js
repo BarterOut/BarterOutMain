@@ -1,6 +1,6 @@
 /**
- * @file server.js
- * @description Entry point of Express.js server.
+ * @file app.js
+ * @description Define the app to listen on port.
  * @author Duncan Grubbs <duncan.grubbs@gmail.com>
  * @author Daniel Munoz
  * @author Shawn Chan
@@ -17,9 +17,6 @@ import webpackDevMiddleware from 'webpack-dev-middleware';
 import webpackHotMiddleware from 'webpack-hot-middleware';
 import config from '../webpack.config';
 
-// Configurations
-import serverConfig from './config';
-
 // DB Connection
 import mongoDB from './database/mongoDB';
 
@@ -27,15 +24,13 @@ const bodyParser = require('body-parser');
 const session = require('express-session');
 
 // Error Handling Service
-const AirbrakeClient = require('airbrake-js');
+const Airbrake = require('@airbrake/node');
 
 // API Routes
 const auth = require('./routes/auth');
 const user = require('./routes/user');
 const books = require('./routes/books');
 const dashboard = require('./routes/dashboard');
-
-const PORT = serverConfig.port;
 
 // Initialize the Express App
 const app = new Express();
@@ -51,8 +46,8 @@ app.use(session({
   cookie:            { secure: false },
 }));
 
-if (process.env.NODE_ENV !== 'test') {
-  const airbrake = new AirbrakeClient({ // eslint-disable-line
+if (process.env.NODE_ENV !== 'test' && process.env.NODE_ENV !== 'development') {
+  const airbrake = new Airbrake.Notifier({ // eslint-disable-line
     projectId:  process.env.AIRBRAKE_ID,
     projectKey: process.env.AIRBRAKE_KEY,
   });
@@ -122,13 +117,4 @@ app.get('*', (req, res) => {
   }
 });
 
-// Start App
-const server = app.listen(PORT, (error) => {
-  if (!error) {
-    console.log(`MERN is running on port: ${serverConfig.port}`); // eslint-disable-line
-  } else {
-    console.log(error); // eslint-disable-line
-  }
-});
-
-export default server;
+export default app;

@@ -26,9 +26,17 @@ export default class VerifyService {
    * @param {String} password Password to check.
    */
   static getPasswordStrength(password) {
-    const strength = 1 / (1 + (1.2 ** -password.length)) - 0.5;
+    let length = 0;
+    if (/\d/.test(password)) {
+      length += 15;
+    }
+    if (/[~`!#$%^&*+=\-[\]\\';,/{}|\\":<>?]/g.test(password)) {
+      length += 15;
+    }
+    const tLength = password.length + length;
+    const strength = 1 / (1 + (1.05 ** -tLength)) - 0.5;
 
-    return strength * 20;
+    return strength * 18;
   }
 
   /**

@@ -21,7 +21,7 @@ const express = require('express');
 const router = express.Router();
 
 const emails = require('../resources/emails');
-const notification = require('../resources/Notifications');
+const notification = require('../resources/notifications');
 
 const BOOK_LIMIT = 40;
 
@@ -498,13 +498,37 @@ function getAllBooks(req, res) {
  * @access Public
  */
 function getBooksNoToken(req, res) {
-  Textbook.find({ status: 0 })
-    .limit(BOOK_LIMIT)
-    .sort({ date: -1 })
-    .exec((err, books) => {
-      res.status(200).json(response(books));
-    });
+  const { params: { limit } } = req;
+  const { params: { skip } } = req;
+  const data = { limit, skip };
+  generalGetBooks(data)
+    .then(books => res.status(200).json(response(books)));
 }
+/**
+ * @description Returns given limit books in
+ * the database, optionally requiring a token.
+ * @param data {skip, limit, userID::optional}
+ * @returns Promise
+ */
+function generalGetBooks(data) {
+  const offset = data.skip == null ? 0 : parseInt(data.skip, 10);
+  const limit = data.limit == null ? BOOK_LIMIT : parseInt(data.limit, 10);
+  const query = (data.userID == null)
+    ? { status: 0 }
+    : {
+      $and: [
+        { status: 0 },
+        { owner: { $ne: data.userID } },
+      ],
+    };
+
+  return Textbook
+    .find(query)
+    .sort({ date: -1 })
+    .limit(limit, 10)
+    .skip(offset * limit);
+}
+
 
 /**
  * @description Updates the status of an old book
@@ -534,7 +558,7 @@ function booksBase(req, res) {
 }
 
 router.get('/', booksBase);
-router.get('/getBooksNoToken', getBooksNoToken);
+router.get('/getBooksNoToken/:limit/:skip', getBooksNoToken);
 router.get('/getAllBooks', auth.required, getAllBooks);
 router.get('/search/public/:query', search);
 router.get('/search/:query', auth.required, searchRestricted);

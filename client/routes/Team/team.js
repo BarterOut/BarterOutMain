@@ -7,12 +7,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import './careers.css';
+import './team.css';
 import logo from '../../images/logo-orange.png';
 
 import Footer from '../../components/Footer/Footer';
 
-const Careers = () => (
+const Team = () => (
   <div className="infowrapper">
     <nav className="headerBar">
       <div className="logo">
@@ -26,7 +26,7 @@ const Careers = () => (
       </div>
     </nav>
     <div className="content">
-      <h1 className="text-header">Careers</h1>
+      <h1 className="text-header">Team</h1>
       <div className="header-line" />
       <div className="text-content">
         <b>
@@ -36,10 +36,13 @@ const Careers = () => (
           At BarterOut, we want to save college students money and make
           their lives easier. We have a small team of hard working devs
           that love to learn new technologies but we are always looking for
-          more help. We are currently in the process of making all of our code
-          open-source so it can be maintained by the college CS community at
-          large. If you are interested in joining this team, checkout the list
-          of technologies we use below and shoot us an email if you are interested.
+          more help.
+          If you are interested in joining this team, checkout the list
+          of technologies we use below and shoot us an&nbsp;
+          <a href="mailto:development@barterout.com">email</a>
+          &nbsp;if you are interested. While there are no requirements
+          to contribute, if you are interesting in becoming a core maintainer,
+          we recommend having at least a basic understanding of the following technologies:
         </p>
         <h4>
           Tech Stack&nbsp;
@@ -77,4 +80,4 @@ const Careers = () => (
   </div>
 );
 
-export default Careers;
+export default Team;

@@ -21,7 +21,7 @@ import ResetPassword from '../../routes/resetPassword/ResetPassword';
 import SignUpSuccess from '../../routes/SignUpSuccess/SignUpSuccess';
 import EmailConfirmed from '../../routes/EmailConfirmed/EmailConfirmed';
 
-import Dashboard from '../../Dashboard/Dashboard';
+import Dashboard from '../../dashboard/Dashboard';
 
 describe('UI only routes', () => {
   it('/about should render', () => {

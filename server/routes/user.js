@@ -192,7 +192,9 @@ function getSoldBooks(req, res) {
 }
 
 /**
- * @deprecated
+ * @description Returns a list of notifications
+ * for a given user.
+ * @access Restricted
  */
 function getNotifications(req, res) {
   const { payload: { userInfo: { _id } } } = req;
