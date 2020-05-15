@@ -1,4 +1,6 @@
-![Build Status](https://travis-ci.com/BarterOut/BarterOutMain.svg?branch=dev) [![Maintainability](https://api.codeclimate.com/v1/badges/a735fc177d007c031d70/maintainability)](https://codeclimate.com/github/BarterOut/BarterOutMain/maintainability)
+![Build Status](https://travis-ci.com/BarterOut/BarterOutMain.svg?branch=dev)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/a735fc177d007c031d70/test_coverage)](https://codeclimate.com/github/BarterOut/BarterOutMain/test_coverage)
+[![Maintainability](https://api.codeclimate.com/v1/badges/a735fc177d007c031d70/maintainability)](https://codeclimate.com/github/BarterOut/BarterOutMain/maintainability)
 # 📚 BarterOut 
 
 > Web Platform and REST API for BarterOut 
