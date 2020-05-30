@@ -62,11 +62,11 @@ const PrivacyPolicy = () => (
         </p>
         <p>
           &bull; To personalize your experience and to allow us to deliver the type of
-          content and product offerings in which you are most interested. &bull; To improve our
-          website in order to better serve you. &bull; To allow us to better service you in
-          responding to your customer service requests. &bull; To administer a contest, promotion,
-          survey or other site feature. &bull; To quickly process your transactions. &bull;
-          To ask for ratings and reviews of services or products &bull; To follow up with
+          content and product offerings in which you are most interested. <br />&bull; To improve our
+          website in order to better serve you. <br />&bull; To allow us to better service you in
+          responding to your customer service requests. <br />&bull; To administer a contest, promotion,
+          survey or other site feature. <br />&bull; To quickly process your transactions. <br />&bull;
+          To ask for ratings and reviews of services or products <br />&bull; To follow up with
           them after correspondence (live chat, email or phone inquiries)
         </p>
         <h4>How do we protect your information?</h4>
@@ -106,10 +106,10 @@ const PrivacyPolicy = () => (
         </p>
         <p>
           We use cookies to:
-          &bull; Help remember and process the items in the shopping cart.
-          &bull; Understand and save user&apos;s preferences for future visits.
-          &bull; Keep track of advertisements.
-          &bull; Compile aggregate data about site traffic and site interactions in order
+          <br />&bull; Help remember and process the items in the shopping cart.
+          <br />&bull; Understand and save user&apos;s preferences for future visits.
+          <br />&bull; Keep track of advertisements.
+          <br />&bull; Compile aggregate data about site traffic and site interactions in order
           to offer better site experiences and tools in the future. We may also use trusted
           third-party services that track this information on our behalf.
         </p>
@@ -151,7 +151,7 @@ const PrivacyPolicy = () => (
         <p>
           Google&apos;s advertising requirements can be summed up by Google&apos;s Advertising
           Principles. They are put in place to provide a positive experience for users.
-          https://support.google.com/adwordspolicy/answer/1316548?hl=en
+          <a href="https://support.google.com/adwordspolicy/answer/1316548?hl=en">Link</a>
         </p>
         <p>We have not enabled Google AdSense on our site but we may do so in the future.</p>
         <h4>California Online Privacy Protection Act</h4>
@@ -163,7 +163,7 @@ const PrivacyPolicy = () => (
           California consumers to post a conspicuous privacy policy on its website stating
           exactly the information being collected and those individuals or companies with whom
           it is being shared. - See more at:
-          http://consumercal.org/california-online-privacy-protection-act-caloppa/#sthash.0FdRbT51.dpuf
+          <a href="http://consumercal.org/california-online-privacy-protection-act-caloppa/#sthash.0FdRbT51.dpuf">Link</a>
         </p>
         <p>
           According to CalOPPA, we agree to the following: Users can visit our site anonymously.
@@ -173,8 +173,8 @@ const PrivacyPolicy = () => (
           above.
         </p>
         <p>
-          You will be notified of any Privacy Policy changes: &bull; On our Privacy Policy Page
-          Can change your personal information: &bull; By logging in to your account
+          You will be notified of any Privacy Policy changes: <br />&bull; On our Privacy Policy Page
+          Can change your personal information: <br />&bull; By logging in to your account
         </p>
         <p>
           How does our site handle Do Not Track signals? We honor Do Not Track signals and Do Not
@@ -207,8 +207,8 @@ const PrivacyPolicy = () => (
         </p>
         <p>
           In order to be in line with Fair Information Practices we will take the following
-          responsive action, should a data breach occur: We will notify you via email &bull;
-          Within 7 business days We will notify the users via in-site notification &bull; Within
+          responsive action, should a data breach occur: We will notify you via email <br />&bull;
+          Within 7 business days We will notify the users via in-site notification <br />&bull; Within
           7 business days.
         </p>
         <p>
@@ -225,25 +225,25 @@ const PrivacyPolicy = () => (
           stopped from being sent to them, and spells out tough penalties for violations.
         </p>
         <p>
-          We collect your email address in order to: &bull; Send information, respond to
-          inquiries, and/or other requests or questions &bull; Process orders and to send
-          information and updates pertaining to orders. &bull; Send you additional
-          information related to your product and/or service &bull; Market to our mailing
+          We collect your email address in order to: <br />&bull; Send information, respond to
+          inquiries, and/or other requests or questions <br />&bull; Process orders and to send
+          information and updates pertaining to orders. <br />&bull; Send you additional
+          information related to your product and/or service <br />&bull; Market to our mailing
           list or continue to send emails to our clients after the original transaction
           has occurred.
         </p>
         <p>
-          To be in accordance with CANSPAM, we agree to the following: &bull; Not use
-          false or misleading subjects or email addresses. &bull; Identify the message as
-          an advertisement in some reasonable way. &bull; Include the physical address of
-          our business or site headquarters. &bull; Monitor third-party email marketing
-          services for compliance, if one is used. &bull; Honor opt-out/unsubscribe requests
-          quickly. &bull; Allow users to unsubscribe by using the link at the bottom of each
+          To be in accordance with CANSPAM, we agree to the following: <br />&bull; Not use
+          false or misleading subjects or email addresses. <br />&bull; Identify the message as
+          an advertisement in some reasonable way. <br />&bull; Include the physical address of
+          our business or site headquarters. <br />&bull; Monitor third-party email marketing
+          services for compliance, if one is used. <br />&bull; Honor opt-out/unsubscribe requests
+          quickly. <br />&bull; Allow users to unsubscribe by using the link at the bottom of each
           email.
         </p>
         <p>
           If at any time you would like to unsubscribe from receiving future emails, you
-          can email us at &bull; Follow the instructions at the bottom of each email, and
+          can email us. Follow the instructions at the bottom of each email, and
           we will promptly remove you from ALL correspondence.
         </p>
         <h4>Contacting Us</h4>
@@ -261,7 +261,7 @@ const PrivacyPolicy = () => (
           <br />
           development@barterout.com
         </p>
-        <p>Last Edited on 2018-12-18</p>
+        <p>Last Edited on 2020-05-29</p>
         <a href="../res/Privacy Policy.pdf" download id="backLink">Download Privacy Policy</a>
       </div>
     </div>

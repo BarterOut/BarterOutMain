@@ -66,11 +66,14 @@ const Team = () => (
         <h5>Other Tech:</h5>
         <ul>
           <li>Nodemon</li>
+          <li>Docker</li>
           <li>Babel</li>
           <li>Bootstrap</li>
           <li>Webpack</li>
           <li>JWT</li>
           <li>Heroku</li>
+          <li>TravisCI</li>
+          <li>Code Climate</li>
           <li>MongoDB Atlas</li>
         </ul>
       </div>

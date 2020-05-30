@@ -163,12 +163,12 @@ class LandingPage extends Component {
           </div>
           <div className="landing-section" id="product">
             <div className="text-content-landing left">
-              <h2 className="landing-header-title">Our Products</h2>
+              <h2 className="landing-header-title">Our Software</h2>
               <div className="header-line-landing" />
               <p className="landing-para">
-                BarterOut is an ed-tech organization that offers a collection of applications for
+                BarterOut is an ed-tech organization that maintains a collection of applications for
                 universities empowering them to leverage technology in order to improve the lives
-                of their students. Our flagship book trading app, enables students to buy and
+                of their students. Our textbook trading website enables students to buy and
                 sell previously owned textbooks in an organized, cheap, and efficient way,
                 delivery and payment included.
               </p>

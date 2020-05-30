@@ -4,6 +4,15 @@
   font-family: sans-serif;
 }
 
+*::-moz-selection {
+  color: black;
+  background: yellow;
+}
+*::selection {
+  color: black;
+  background: yellow;
+}
+
 body {
   overflow-x: hidden;
 }

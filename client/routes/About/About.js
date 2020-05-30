@@ -40,8 +40,6 @@ const About = () => (
       </div>
     </nav>
     <div className="content-about">
-      <h1 className="text-header margin">About BarterOut</h1>
-      <div className="header-line margin" />
       <div className="about-content">
         <div className="landing-section" id="product">
           <div className="text-content-landing left">

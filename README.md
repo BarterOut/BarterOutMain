@@ -14,8 +14,8 @@ to improve access for everyone. Our [web platform](https://www.barterout.com) is
 ---
 
 ### Our Tech Stack
-1. [VS Code](https://code.visualstudio.com/) - Text Editor
-2. [Bash](https://en.wikipedia.org/wiki/Bash_(Unix_shell)) - Shell
+1. [VS Code](https://code.visualstudio.com/) - Preferred Code Editor
+2. [Heroku](https://heroku.com) - Server Hosting
 3. [ESLint](https://eslint.org/) - Linter
 4. [Node](https://nodejs.org/en/) - Javascript parser
 5. [React](https://reactjs.org) - Frontend Javascript framework
@@ -25,7 +25,7 @@ to improve access for everyone. Our [web platform](https://www.barterout.com) is
 9. [MongoDB](https://www.mongodb.com/) - Database
 10. [Webpack](https://webpack.github.io) - Frontend module bundler
 10. [Jest](https://jestjs.io/docs/en/getting-started) - Test assertion library
-11. [Supertest](https://github.com/visionmedia/supertest) - Test library
+11. [Supertest](https://github.com/visionmedia/supertest) HTTP Testing
 
 ### 👩‍💻 Team Communication
 At BarterOut, we use Slack, FB Messenger and email for all of our task management and communication. If you are interested in staying up to date with our work, [email us](https://www.barterout.com/contact) and we will send you an invite to the Slack.
