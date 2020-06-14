@@ -5,8 +5,8 @@
  * @version 0.0.4
  */
 
- import app from './app';
- // Configurations
+import app from './app';
+// Configurations
 import serverConfig from './config';
 
  const PORT = serverConfig.port;

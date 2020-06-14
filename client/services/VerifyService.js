@@ -13,11 +13,7 @@ export default class VerifyService {
    * @param {String} p2 Second password entered.
    */
   static verifyPasswords(p1, p2) {
-    let valid = true;
-    if (p1 !== p2) {
-      valid = false;
-    }
-    return valid;
+    return p1 === p2;
   }
 
   /**
