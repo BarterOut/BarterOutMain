@@ -40,11 +40,12 @@ export default class VerifyService {
    * @param {String} email Email address to check.
    */
   static verifyEmail(email) {
-    const checkerEmail = email.split('@')[1];
+    const emailSource = email.split('@')[1];
+    const validEmailSources = ['u.rochester.edu', 'rochester.edu'];
 
-    if (checkerEmail !== 'u.rochester.edu' && checkerEmail !== 'rochester.edu') {
-      return false;
+    if (validEmailSources.includes(emailSource)) {
+      return true;
     }
-    return true;
+    return false;
   }
 }

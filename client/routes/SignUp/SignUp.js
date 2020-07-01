@@ -150,7 +150,7 @@ class SignUp extends Component {
             <em>(must be UR email)</em>
             <input
               className="form-control"
-              placeholder="john@u.rochester.edu"
+              placeholder="john@university.edu"
               type="email"
               id="email"
               pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.+-]+\.edu$"
