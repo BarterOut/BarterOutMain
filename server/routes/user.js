@@ -299,14 +299,15 @@ function userBase(req, res) {
 router.get('/', userBase);
 router.get('/getRequests', auth.required, getUserRequests);
 router.get('/getCartItems/', auth.required, getCartItems);
-router.post('/addToCart', auth.required, addToCart);
-router.post('/removeFromCart', auth.required, removeFromCart);
-router.post('/clearCart', auth.required, clearCart);
 router.get('/getPurchasedBooks', auth.required, getPurchasedBooks);
 router.get('/getUserData', auth.required, getUserData);
 router.get('/getSoldBooks', auth.required, getSoldBooks);
-router.post('/deleteRequest', auth.required, deleteRequest);
 router.get('/getUserStatistics', auth.required, getUserStatistics);
 router.get('/getNotifications', auth.required, getNotifications);
+
+router.post('/deleteRequest', auth.required, deleteRequest);
+router.post('/addToCart', auth.required, addToCart);
+router.post('/removeFromCart', auth.required, removeFromCart);
+router.post('/clearCart', auth.required, clearCart);
 
 module.exports = router;
